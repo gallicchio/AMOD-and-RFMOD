@@ -18,7 +18,7 @@ def _esc(s):
 def box(name, ref, pins_left, pins_right, footprint="", desc="", width=None):
     """pins_left / pins_right: [(number, name, type)] top to bottom; type: input, output, power_in, power_out,
     passive, bidirectional, open_collector, no_connect."""
-    n = max(len(pins_left), len(pins_right))
+    n = max(sum(1 for p in pins_left if len(p) < 4), sum(1 for p in pins_right if len(p) < 4))
     h = (n + 1) * 2.54
     w = width or 12.7
     top = h / 2
@@ -34,13 +34,18 @@ def box(name, ref, pins_left, pins_right, footprint="", desc="", width=None):
     out.append('    )')
     out.append(f'    (symbol "{name}_1_1"')
     for side, pins in (("L", pins_left), ("R", pins_right)):
-        for i, (num, pname, ptype) in enumerate(pins):
-            y = top - 2.54 * (i + 1)
+        i = 0
+        for pin in pins:
+            num, pname, ptype = pin[:3]
+            stacked = len(pin) > 3 and pin[3] == "stack"          # on the previous pin of this side, hidden (one net)
+            if not stacked:
+                i += 1
+            y = top - 2.54 * i
             if side == "L":
                 x, rot = -w / 2 - 2.54, 0
             else:
                 x, rot = w / 2 + 2.54, 180
-            out.append(f'      (pin {ptype} line (at {x:.2f} {y:.2f} {rot}) (length 2.54)')
+            out.append(f'      (pin {ptype} line (at {x:.2f} {y:.2f} {rot}) (length 2.54)' + (' (hide yes)' if stacked else ''))
             out.append(f'        (name "{_esc(pname)}" (effects (font (size 1.27 1.27))))')
             out.append(f'        (number "{num}" (effects (font (size 1.27 1.27)))))')
     out.append('    )')
@@ -109,6 +114,23 @@ SYMBOLS = [
     box("ADL5350", "U", [("1", "RF/IF", "passive"), ("8", "RF/IF", "passive"), ("3", "LOIN", "input")],
         [("6", "VPOS", "power_in"), ("2", "GND", "power_in"), ("5", "GND", "power_in"), ("4", "NC", "passive"), ("7", "NC", "passive"), ("9", "EP", "power_in")],
         "amod:LFCSP-8_2x3mm_P0.5mm_ADL5350", "ADL5350 LF to 4 GHz passive mixer with LO buffer, LFCSP-8", width=10.16),
+    # QPL9547 (Qorvo, DFN-8 2 x 2; datasheet pad table): 1 Vbias, 2 RF In, 6 Shut Down (low = on), 7 RF Out and VDD, 3 4 5 8 NC, 9 paddle
+    box("QPL9547", "U", [("2", "RF_IN", "input"), ("1", "VBIAS", "passive"), ("6", "SD", "input")],
+        [("7", "RF_OUT", "output"), ("3", "NC", "passive"), ("4", "NC", "passive"), ("5", "NC", "passive"), ("8", "NC", "passive"), ("9", "GND", "power_in")],
+        "Package_DFN_QFN:DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm", "QPL9547 0.1-6 GHz LNA, DFN-8 2 x 2", width=10.16),
+    # TRF3722 (TI, VQFN-48 7 x 7; datasheet section 5 "Pin Functions"): baseband, reference, serial port and loop on the left;
+    # the supplies, the outputs and the grounds on the right
+    box("TRF3722", "U", [("27", "BBI_P", "input"), ("29", "BBI_N", "input"), ("10", "BBQ_P", "input"), ("8", "BBQ_N", "input"), ("44", "REFIN", "input"),
+                         ("48", "CLK", "input"), ("47", "DATA", "input"), ("46", "LE", "input"), ("1", "PD", "input"), ("31", "EXT_VCO", "passive"),
+                         ("41", "CP_OUT", "output"), ("34", "VTUNE", "input"), ("2", "RDBK", "output"), ("3", "LD", "output"),
+                         ("18", "RFOUT", "output"), ("39", "LO_OUTP", "output"), ("38", "LO_OUTN", "output")],
+        [("4", "VCC_DIG", "power_in"), ("6", "VCC_LO1", "power_in"), ("14", "VCC_MOD1", "power_in"), ("16", "VCC_MOD2", "power_in"),
+         ("21", "VCC_MOD3", "power_in"), ("23", "VCC_MOD4", "power_in"), ("42", "VCC_PLL", "power_in"), ("33", "VCC_VCO", "power_in"),
+         ("35", "VCC_LO2", "power_in"), ("32", "VCC_TK", "power_in"), ("5", "GND", "power_in")]
+        + [(n, "GND", "power_in", "stack") for n in ("7", "11", "15", "17", "19", "20", "22", "26", "30", "37", "40", "43", "45", "49")]
+        + [("9", "NC", "passive"), ("12", "NC", "passive"), ("13", "NC", "passive"), ("24", "NC", "passive"), ("25", "NC", "passive"),
+           ("28", "NC", "passive")] + [("36", "NC", "passive")],
+        "Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm", "TRF3722 I/Q modulator with PLL and VCO, 400-4200 MHz, VQFN-48", width=17.78),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

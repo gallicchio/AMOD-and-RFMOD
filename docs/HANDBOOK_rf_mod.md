@@ -8,12 +8,11 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 ![front](images/rf_mod-render-top.png)
 
 Ten tiles on sixteen 20 mm cells, four layers, USB-C power on R9.  Every tile's input is its top-left jack and its output its
-bottom-right jack (a third jack, where there is one, sits in the middle of the top edge), so neighbouring jacks are at least
-14 mm apart.  Every 50 ohm line is coplanar waveguide (0.29 mm on 0.21 mm of prepreg over ground, 0.25 mm gaps, a via fence)
-and every jack's centre pin has no plane under it.  The powered tiles have the AMOD-A slide switch (up: on) and P-FET.
-Rev A built what JLCPCB stocked on 2026-10-25: the QPL9547 LNA (no stock), the LTC5510 mixers (35), the RFX2401C front end and
-the TRF3722 gave way to the GALI-84+ (twice) and the ADL5350 (twice).  The printed antennas moved off the board (see the
-end of this handbook).
+bottom-right jack, so neighbouring jacks are at least 14.85 mm apart.  Every 50 ohm line is coplanar waveguide (0.29 mm on
+0.21 mm of prepreg over ground, 0.25 mm gaps, a via fence) and every jack's centre pin has no plane under it.  The powered
+tiles have the AMOD-A slide switch (up: on) and P-FET.  Rev A built what JLCPCB stocked on 2026-10-25: a QPL9547 LNA and a
+GALI-84+ gain block, two ADL5350 mixers, a MAX2871 synthesizer and a TRF3722 quadrature transmitter fed by the ECP5 board's
+two DACs.  The printed antennas moved off the board (see the end of this handbook).
 
 ### Pmod lines
 
@@ -21,36 +20,38 @@ The 2 x 6 plug on R10's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 1
 which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
 
 - Pmod pin 1 (PMOD1): MUXOUT of R10, R10
-- Pmod pin 2 (PMOD2): SDATA to both synthesizers, R10, R11
-- Pmod pin 3 (PMOD3): SCLK to both synthesizers, R10, R11
+- Pmod pin 2 (PMOD2): SDATA to R10 and R13, R10, R13
+- Pmod pin 3 (PMOD3): SCLK to R10 and R13, R10, R13
 - Pmod pin 4 (PMOD4): LE of R10, R10
-- Pmod pin 7 (PMOD5): MUXOUT of R11, R11
-- Pmod pin 8 (PMOD6): LE of R11, R11
+- Pmod pin 7 (PMOD5): readback of R13, R13
+- Pmod pin 8 (PMOD6): LE of R13 (TRF3722), R13
 
 ## The tiles together
 
 The board is one end of a radio link, or both ends on a cable.  One 25 MHz reference drives everything, so every
 frequency on the board is locked to every other and phase means something.
 
-1. **Reference.**  R9's REF OUT into R1's P1; P2 and P3 to R10's and R11's REF IN.  Those inputs are unterminated (100 nF
-   into the chip), so no current flows in the splitter and each sees nearly the buffer's full 3.3 Vpp, as on CostasLink.
-2. **Transmitter.**  R10 at the carrier minus the IF (or plus) into R7's LO; a DAC's IF (1-30 MHz, 0 dBm) into R7's IF
-   jack, the tile's input in this direction; R7's RF jack out through R2 (2.45 GHz) or R4 (915 MHz) to drop the image
-   and the LO's leak, then R5 for 20 dB: about -10 dBm into a cable or an antenna.
-3. **Receiver.**  The cable or antenna into R12 (20 dB), then R4 or R2, then R8's RF; R11 into R8's LO; R8's IF into the
-   ADC.  At 6.25 MHz of IF the converters' 25 MS/s see the signal directly.
-4. **Instruments.**  R10 alone is a signal generator from 23.5 MHz to 6 GHz; R10 into R8's RF with R11 stepped 6.25 MHz
-   away is a scalar network analyzer (put the device between them); R11 swept into R8 with R12 in front is a spectrum
-   analyzer that sees Wi-Fi, Bluetooth and LoRa; two tones through R1 into R5 show its intermodulation.
+1. **Reference.**  R9's REF OUT into R10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it
+   on to R13's TRF3722, so both synthesizers share it.  R1 splits it to a second board.
+2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into R13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); R13's
+   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  Chapter 6's waveforms with
+   no image: the sideband suppression is about 42 dB untrimmed, better after the DACs' gain and phase are trimmed.
+3. **Receiver.**  The antenna or cable into R5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then R4 or R2, then
+   R8's RF; R10 into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's output through R1 it is a
+   second coherent receive channel (direction finding), or a transmit mixer for a real IF.
+4. **Instruments.**  R10 or R13 alone is a signal generator; R13 at f (a DC on I) and R10 at f - IF into R8 is a network
+   analyzer and a stepped-frequency radar on one reference; R10 swept into R8 behind R5 is a spectrum analyzer that sees
+   Wi-Fi, Bluetooth and LoRa; two tones from R13's I and Q into R12 show its intermodulation.
 
-Levels to remember: a synthesizer gives -4 to +5 dBm; an ADL5350 wants +4 dBm of LO and loses 7-9 dB; a GALI-84+ gives
-20 dB and compresses at +20 dBm out, so keep 0 dBm or less at its input; the filters lose 1-2 dB; the splitter 6 dB.
+Levels to remember: a synthesizer gives -4 to +5 dBm; R13 gives about -3 dBm at full scale; an ADL5350 wants +4 dBm of LO
+and loses 7-9 dB; a GALI-84+ gives 20 dB and compresses at +20 dBm out; the QPL9547 takes no more than +22 dBm at its input
+(put 30 dB of attenuation before it on any cable from a transmitter); the filters lose 1-2 dB; the splitter 6 dB.
 
 ## Antennas
 
 The plan's printed inverted-F antennas (TI DN023 at 915 MHz, AN043 at 2.4 GHz) need bare board on every layer for a
 quarter of the board and a pi network tuned on the bench, and TI's dimensions are for their stack, not this one.  Use
-SMA whip antennas on R5's OUT and R12's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make
+SMA whip antennas on R12's OUT and R5's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make
 a monopole from a jack and 31 mm (2.4 GHz) or 78 mm (915 MHz) of wire.
 
 ## The tiles
@@ -71,7 +72,7 @@ Jacks: TL IN (+10 dBm); BR OUT.
 
 **Expect:** 1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out
 
-Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void). Sweep it with the synthesizer R10 or R11 into a power meter, or with a DAC harmonic comb and the ADC.
+Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void). Sweep it with R10 or R13 into a power meter, or with a DAC harmonic comb and the ADC.
 
 Parts: LFB212G45SG8A127 (C341536).
 
@@ -86,16 +87,16 @@ RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 
 
 Parts: B39921B2672P810 (C1518004).
 
-### R5  gain block, GALI-84+
+### R5  LNA, QPL9547
 
-Cell (0,1); +8 V.
-Jacks: TL IN (0 dBm); BR OUT.
+Cell (0,1); +5 V.
+Jacks: TL IN (-20 dBm); BR OUT.
 
-**Expect:** 20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V
+**Expect:** 19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V
 
-Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its 5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide switch and P-FET gate the tile's 7.8 V as on AMOD-A.
+Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare. The 18 nH wire-wound choke (Qorvo's value) feeds 5 V into the output pin; 3.3 k from 5 V to Vbias sets 65 mA. Never cable a transmitter into it without 30 dB of attenuation (22 dBm absolute maximum at the input).
 
-Parts: GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
+Parts: QPL9547TR7 (C5367093).
 
 ### R7  TX mixer, ADL5350
 
@@ -126,24 +127,13 @@ Jacks: TL REF OUT (25 MHz, 1.6 Vpp into 50 ohm).
 
 **Expect:** +5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT
 
-USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.
+USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.
 
 Parts: XRNR4030-22uH/M (C5289362), KT-0805G (C2297), KT-0805Y (C2296), SN74LVC1G17DBVR (C7836), MT3608 (C84817), MF-MSMF200-2 (C210837), SS34 (C8678), TC32H4-25.000-33GNDTNL (C5119013), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
 ### R10  synthesizer, MAX2871
 
 Cells (0,3), (1,3); +5 V.
-Jacks: TL OUT A; TM REF IN (25 MHz, 3.3 V CMOS).
-
-**Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked
-
-MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.
-
-Parts: NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
-
-### R11  synthesizer, MAX2871
-
-Cells (2,3), (3,3); +5 V.
 Jacks: TL OUT A; TM REF IN (25 MHz, 3.3 V CMOS).
 
 **Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked
@@ -162,6 +152,17 @@ Jacks: TL IN (0 dBm); BR OUT.
 Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its 5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide switch and P-FET gate the tile's 7.8 V as on AMOD-A.
 
 Parts: GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
+
+### R13  I/Q transmitter, TRF3722
+
+Cells (2,3), (3,3); +5 V.
+Jacks: TL I IN (+-1 V into 50 ohm); TL1 Q IN (+-1 V into 50 ohm); BR1 RF OUT.
+
+**Expect:** I + jQ from two DACs on 0.4-4.2 GHz, about -3 dBm, image-free (-42 dBc untrimmed)
+
+TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from R10's REF IN.  Each DAC: 56 ohm at the jack, 270 ohm to a node held at 0.25 V (+-0.25 V for +-1 V).  DC on I alone is a CW carrier.
+
+Parts: NCD0805R1 (C84256), TLV75733PDRVR (C2868428), TRF3722IRGZR (C1850395).
 
 ## Ground, loops and probing
 

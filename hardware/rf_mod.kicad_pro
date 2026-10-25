@@ -299,12 +299,6 @@
       "/R5_IN": [
         "RF"
       ],
-      "/R5_IN_A": [
-        "RF"
-      ],
-      "/R5_OUT_A": [
-        "RF"
-      ],
       "/R5_OUT": [
         "RF"
       ],
@@ -335,8 +329,23 @@
       "/R10_OUTA": [
         "RF"
       ],
-      "/R11_OUTA": [
+      "/R13_RFOUT": [
         "RF"
+      ],
+      "/R5_G": [
+        "Fine"
+      ],
+      "/R5_VS": [
+        "Fine"
+      ],
+      "/R5_VB": [
+        "Fine"
+      ],
+      "/R5_IN_A": [
+        "Fine"
+      ],
+      "/R5_OUT_A": [
+        "Fine"
       ],
       "/R7_IF": [
         "Fine"
@@ -392,7 +401,7 @@
       "/R8_LOC": [
         "Fine"
       ],
-      "/R10_REF": [
+      "/REF25": [
         "Fine"
       ],
       "/R10_G": [
@@ -464,55 +473,52 @@
       "/PMOD_VCC": [
         "Fine"
       ],
-      "/R11_REF": [
+      "/R13_BBI": [
         "Fine"
       ],
-      "/R11_G": [
+      "/R13_BBQ": [
         "Fine"
       ],
-      "/R11_VS": [
+      "/R13_G": [
         "Fine"
       ],
-      "/R11_V33": [
+      "/R13_VS": [
         "Fine"
       ],
-      "/R11_CP": [
+      "/R13_LD": [
         "Fine"
       ],
-      "/R11_AP": [
+      "/R13_V33": [
         "Fine"
       ],
-      "/R11_AN": [
+      "/R13_BQN": [
         "Fine"
       ],
-      "/R11_NF": [
+      "/R13_BQP": [
         "Fine"
       ],
-      "/R11_TN": [
+      "/R13_RFO": [
         "Fine"
       ],
-      "/R11_RS": [
+      "/R13_BIP": [
         "Fine"
       ],
-      "/R11_BF": [
+      "/R13_BIN": [
         "Fine"
       ],
-      "/R11_REG": [
+      "/R13_VT": [
         "Fine"
       ],
-      "/R11_LD": [
+      "/R13_CP": [
         "Fine"
       ],
-      "/R11_REFI": [
+      "/R13_REFI": [
         "Fine"
       ],
-      "/R11_N2": [
+      "/R13_N2": [
         "Fine"
       ],
-      "/R11_LEDA": [
-        "Fine"
-      ],
-      "/R11_TRM": [
+      "/R13_LEDA": [
         "Fine"
       ]
     },

@@ -139,6 +139,11 @@ def wson8_2x2():
     return "Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm.wrl", HEAD + box(0, 0, 0.375, 2.0, 2.0, 0.75, BLACK)
 
 
+def dfn8_2x2():
+    """A 2 x 2 x 0.75 mm DFN-8 body (the QPL9547) standing in for KiCad's missing STEP file."""
+    return "DFN-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm.wrl", HEAD + box(0, 0, 0.375, 2.0, 2.0, 0.75, BLACK)
+
+
 def fuse_1812():
     """A 4.5 x 3.2 x 1.0 mm 1812 chip (the PTC) standing in for KiCad's missing STEP file."""
     return "Fuse_1812_4532Metric.wrl", HEAD + box(0, 0, 0.5, 4.5, 3.2, 1.0, (0.85, 0.7, 0.35))
@@ -161,7 +166,7 @@ def l_4x4():
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
-              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3]
+              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

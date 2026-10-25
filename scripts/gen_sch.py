@@ -256,7 +256,7 @@ class SchCtx:
         two-terminal parts in rows below, each pin's net written at its end (ground as a ground symbol, the rails as
         power symbols).  Correct by construction and checked against the declared netlist like every other drawing;
         it is the first drawing of every active tile and some will stay this way."""
-        s, ox, oy, w = self.s, self.ox, self.oy, self.w
+        s, ox, oy, w, h = self.s, self.ox, self.oy, self.w, self.h
         y_sig = oy + 30.48
         jin = [j for j in t.jacks if j["role"] == "in"]
         jout = [j for j in t.jacks if j["role"] != "in"]
@@ -326,9 +326,12 @@ class SchCtx:
         x, y = ox + 15.24, max(oy + row_y, oy + 2.54 * math.ceil((low - oy + 7.62) / 2.54))
         longest = max([len(n.lstrip("/")) for r in twos for n in t.parts[r].pins.values() if n not in ("GND", "+5V", "-5V", "+3V3", "+8V")] or [4])
         pitch = max(30.48, 2.54 * math.ceil((12.7 + 2 * 1.0 * (longest + 1) + 2.54) / 2.54))      # two labels back to back between parts
+        per_row = max(1, int((w - 25.4 - 15.24) // pitch) + 1)
+        rows = -(-len(twos) // per_row)
+        step = 12.7 if rows < 2 or y + (rows - 1) * 12.7 < oy + h - 22.0 else max(7.62, 2.54 * math.floor((oy + h - 22.0 - y) / (rows - 1) / 2.54))
         for r in twos:
             if x > ox + w - 25.4:
-                x, y = ox + 15.24, y + 12.7
+                x, y = ox + 15.24, y + step
             d = parts.info(t.parts[r].key)
             pins = self.part(r, x + 3.81, y, rot=90 if d["symbol"] in vertical else 0)
             lo = min(pins, key=lambda k: pins[k][0]); hi = max(pins, key=lambda k: pins[k][0])
