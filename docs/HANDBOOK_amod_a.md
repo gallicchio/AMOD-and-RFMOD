@@ -87,7 +87,7 @@ Parts: DSHP02TSGET (C40735), LT6230CS6#TRPBF (C580235).
 Cell (0,1); tutorial 7.05; +3.3 V.
 Jacks: TL IN 10K (±1.5 V).
 
-**Expect:** a one-bit stream on Pmod 2 whose density follows IN; the FPGA closes the loop through Pmod 1 (the handbook's gateware)
+**Expect:** a one-bit stream on Pmod IO7 whose density follows IN; the FPGA closes the loop through Pmod IO8 (the handbook's gateware)
 
 First-order delta-sigma: the comparator decides, the FPGA registers the bit and feeds it back through 10 k into the 10 k / 10 nF integrator (1.6 kHz; clock the loop at 1-10 MHz).  IN takes 0 to 3.3 V, or +-1.5 V about the 1.65 V reference if you AC-couple.  Both Pmod lines are 3.3 V logic; the tile runs on the 3.3 V rail.
 
@@ -109,9 +109,9 @@ Parts: CD74HC4046AM96 (C6542).
 Cell (2,1); tutorial 5.02, 7.06; +5 V.
 Jacks: TR TEMP OUT.
 
-**Expect:** 0.83 W into the board when Pmod 3 is high (the FET's drain), 10 mV/K + 500 mV on OUT
+**Expect:** 0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT
 
-Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod 3 is high (10 k keeps it off otherwise). The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a set point with the FPGA's PWM.  (The plan's NTC divider did not fit the cell beside the two 2512s.)
+Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod IO6 is high (10 k keeps it off otherwise). The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a set point with the FPGA's PWM.  (The plan's NTC divider did not fit the cell beside the two 2512s.)
 
 Parts: AO3400A (C20917), 25121WF150JT4E (C20087), TMP235A4DBZR (C2868809).
 
@@ -131,9 +131,9 @@ Parts: MC1496DR2G (C7295).
 Cells (2,2), (3,2); tutorial 4.07; +-5 V.
 Jacks: TL PD OUT; TR DRIVE IN (0-1 V).
 
-**Expect:** 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod 4 is high); PD OUT climbs 10 V per mA of photocurrent
+**Expect:** 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod IO5 is high); PD OUT climbs 10 V per mA of photocurrent
 
-The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod 4 shorts the input: TTL modulation to a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up.
+The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod IO5 shorts the input: TTL modulation to a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up.
 
 Parts: E6C1204URAC1UDA (C375479), 2N7002 (C8545), OPA810IDBVR (C2833513), PD70-01C/TR7 (C131196).
 
@@ -142,9 +142,9 @@ Parts: E6C1204URAC1UDA (C375479), 2N7002 (C8545), OPA810IDBVR (C2833513), PD70-0
 Cells (0,3), (1,3); tutorial 4.06; +-5 V.
 Jacks: TR RX OUT.
 
-**Expect:** a 40 kHz burst from Pmod 5/6 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)
+**Expect:** a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)
 
-Drive IN1/IN2 (Pmod 5, 6) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).
+Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).
 
 Parts: DRV8837DSGR (C39159), OPA810IDBVR (C2833513).
 
@@ -153,9 +153,9 @@ Parts: DRV8837DSGR (C39159), OPA810IDBVR (C2833513).
 Cells (2,3), (3,3); tutorial 1.05, 6.04; +-5 V.
 Jacks: TL AUDIO IN (±1 V); TR MIC OUT.
 
-**Expect:** a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod 7 (10 k / 10 n); MIC OUT is the electret x100
+**Expect:** a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100
 
-PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod 7 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.
+PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.
 
 Parts: OPA810IDBVR (C2833513), PAM8302AASCR (C113367).
 

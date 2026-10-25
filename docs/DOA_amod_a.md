@@ -35,6 +35,13 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
     holes with a short wire each (the plane carries them).  Check the connector's overhang (1.2 mm past the edge)
     in the preview.
 
+12a. **The Pmod plug (J1104).**  Fixed 2026-10-25: the first layout mirrored every line (see PLAN.md section 2).  The
+     plug now sits two columns left with ground on pads 3-4 and 3.3 V on pads 1-2 in JLCPCB's numbering, which is
+     Pmod pins 5/11 and 6/12; `check_pmod` confirms every pad.  Confirm in the placement preview that the plug's body
+     hangs off the bottom edge and pad 1's square is at the left end of the row nearest the edge.  The lines are now
+     IO8/IO7 (A6), IO6 (A8), IO5 (A10), IO4/IO3 (A11), IO2 (A12).
+12b. **No mounting holes.**  Four stick-on rubber feet (8 mm, circled on the back) replace them; buy them with the order.
+
 ## Order gate: the rails
 
 12. The -5 V rail is one polygon on L3 (In2) through the gutters under rows 0 and 2 and down the left margin; its

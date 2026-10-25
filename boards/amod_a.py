@@ -316,8 +316,8 @@ def tile_a5():
 # ------------------------------------------------------------------------------------------------------------ A6 --
 def tile_a6():
     """Delta-sigma: a TLV3501 compares the integrator node (IN through 10 k, the FPGA's bit back through 10 k, 10 nF to
-    ground) with a mid-rail reference (10 k / 10 k / 100 n from VS); its bit goes to Pmod 2 and a loop; the FPGA's
-    bit comes in on Pmod 1.  +3.3 V so the bit is the FPGA's logic level."""
+    ground) with a mid-rail reference (10 k / 10 k / 100 n from VS); its bit goes to Pmod IO7 and a loop; the FPGA's
+    bit comes in on Pmod IO8.  +3.3 V so the bit is the FPGA's logic level."""
     t = Tile("A6", "1-bit ADC", [(0, 1)], supply="+3.3 V", sections=["7.05"])
     idx = t.idx
     t.jack("TL", "IN", "IN", "in", "±1.5 V", silk="IN 10K")
@@ -359,7 +359,7 @@ def tile_a6():
     t.wire("/PMOD7", [(tp, "1"), (18.1, 16.5)], silk=False)
     t.via("/PMOD7", 18.1, 16.5)
     t.legend()
-    t.result = "a one-bit stream on Pmod 2 whose density follows IN; the FPGA closes the loop through Pmod 1 (the handbook's gateware)"
+    t.result = "a one-bit stream on Pmod IO7 whose density follows IN; the FPGA closes the loop through Pmod IO8 (the handbook's gateware)"
     t.notes = ["First-order delta-sigma: the comparator decides, the FPGA registers the bit and feeds it back through 10 k into the",
                "10 k / 10 nF integrator (1.6 kHz; clock the loop at 1-10 MHz).  IN takes 0 to 3.3 V, or +-1.5 V about the 1.65 V reference",
                "if you AC-couple.  Both Pmod lines are 3.3 V logic; the tile runs on the 3.3 V rail."]
@@ -369,7 +369,7 @@ def tile_a6():
 
 # ------------------------------------------------------------------------------------------------------------ A8 --
 def tile_a8():
-    """Heater and thermometers: two 15 ohm 2512 in series across VS (0.83 W at 5 V) switched by an AO3400 from Pmod 3
+    """Heater and thermometers: two 15 ohm 2512 in series across VS (0.83 W at 5 V) switched by an AO3400 from Pmod IO6
     (10 k pull-down); a 10 k NTC in a divider with 10 k to a loop; a TMP235 (10 mV/K + 500 mV) to the OUT jack.  The
     heaters lie in the middle of the cell, the NTC against their left pads."""
     t = Tile("A8", "heat", [(2, 1)], supply="+5 V", sections=["5.02", "7.06"])
@@ -405,8 +405,8 @@ def tile_a8():
     t.text(8.5, 4.4, "5.02", 0.8, 0.15, "center")
     t.text(8.5, 5.75, "7.06", 0.8, 0.15, "center")
     t.text(t.w - 1.1, 18.2, "HEAT 0.8 W", 0.8, 0.15, "right")
-    t.result = "0.83 W into the board when Pmod 3 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
-    t.notes = ["Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod 3 is high (10 k keeps it off otherwise).",
+    t.result = "0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
+    t.notes = ["Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod IO6 is high (10 k keeps it off otherwise).",
                "The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a",
                "set point with the FPGA's PWM.  (The plan's NTC divider did not fit the cell beside the two 2512s.)"]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
@@ -415,7 +415,7 @@ def tile_a8():
 
 # ----------------------------------------------------------------------------------------------------------- A11 --
 def tile_a11():
-    """40 kHz ultrasound, two cells.  Left: the DRV8837 H-bridge (IN1, IN2 from Pmod 5 and 6) drives a transducer in
+    """40 kHz ultrasound, two cells.  Left: the DRV8837 H-bridge (IN1, IN2 from Pmod IO4 and IO3) drives a transducer in
     pins 1 and 5 of a 1 x 5 socket along the top edge; the Pmod plug hangs off the bottom edge below this cell, and
     the board's Pmod lines come down the back of this cell's right third to it.  Right: the second transducer in its
     socket, 10 nF into the A2 geometry at x100 (100 ohm / 10 k, 3.9 k to ground at +IN) and out to RX OUT.
@@ -482,8 +482,8 @@ def tile_a11():
     t.wire("/PMOD5", [(15.85, 26.5), (15.85, 26.74), (9.32, 26.74), (pm, "11")], width=0.2, silk=False)
     t.via("/PMOD2", 44.25, 21.5)                                                                          # board (52.0, 93.75)
     t.wire("/PMOD2", [(44.25, 21.5), (6.78, 21.5), (pm, "10")], width=0.2, silk=False)
-    t.result = "a 40 kHz burst from Pmod 5/6 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
-    t.notes = ["Drive IN1/IN2 (Pmod 5, 6) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX",
+    t.result = "a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
+    t.notes = ["Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX",
                "transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's",
                "own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers",
                "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart)."]
@@ -633,7 +633,7 @@ def tile_a10():
     """Light, two cells, +-5 V.  Left: the PD70 photodiode (reverse-biased from VS) into an OPA810 transimpedance stage
     (10 k, 10 pF: 1.6 MHz) and out through 49.9 ohm to PD OUT (the TL jack).  Right: DRIVE IN (the TR jack) through 1 k
     into an OPA810 voltage-to-current source (22 ohm sense: 45 mA per volt) driving the side-view red LED at the board's
-    right edge; a 2N7002 from Pmod 4 (10 k pull-down) grounds the input for TTL modulation.  The plan's laser terminal
+    right edge; a 2N7002 from Pmod IO5 (10 k pull-down) grounds the input for TTL modulation.  The plan's laser terminal
     and its DIP did not fit beside the jack: solder a module's leads to the LED's pads instead."""
     t = Tile("A10", "light", [(2, 2), (3, 2)], supply="+-5 V", subtitle="LED + PD", sections=["4.07"])
     idx = t.idx
@@ -709,9 +709,9 @@ def tile_a10():
     t.wire("VS", [(37.2, 11.55), (cp2, "1"), (u2, "5")])
     t.gnd_stub(cp2, "2", (36.0, 14.0), sym=(0, 0))
     t.text(t.w - 1.1, 18.2, "LIGHT  LED + PD", 0.8, 0.15, "right")
-    t.result = "45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod 4 is high); PD OUT climbs 10 V per mA of photocurrent"
+    t.result = "45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod IO5 is high); PD OUT climbs 10 V per mA of photocurrent"
     t.notes = ["The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's",
-               "full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod 4 shorts the input: TTL modulation to",
+               "full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod IO5 shorts the input: TTL modulation to",
                "a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED",
                "of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
@@ -722,7 +722,7 @@ def tile_a10():
 def tile_a12():
     """Audio, two cells.  Left: a PAM8302A class-D amplifier (SOIC-8, rot 270: IN-, IN+, BYP, SD along the top; VO+,
     VDD, GND, VO- along the bottom) driving a speaker on the screw terminal in the right cell's top-left; its input
-    is AUDIO IN through 1 u and the one-bit stream from Pmod 7 through 10 k into 10 n.  Right: an electret in the
+    is AUDIO IN through 1 u and the one-bit stream from Pmod IO2 through 10 k into 10 n.  Right: an electret in the
     1 x 2 socket (2.2 k bias from VS), 1 u into the A2 geometry at x100 and out to MIC OUT.  +-5 V (the op amp; the
     class-D runs on the switched +5 V).  No 3.5 mm jack: the one-bit stream is heard on the speaker."""
     t = Tile("A12", "audio", [(2, 3), (3, 3)], supply="+-5 V", sections=["1.05", "6.04"])
@@ -785,8 +785,8 @@ def tile_a12():
                  neg_route=[(31.9, 17.4), (32.9, 17.4), (32.9, 18.2), (40.9, 18.2)])
     t.wire("IN", [(cc, "2"), (u, "3")])
     t.text(20.9, 15.5, "MIC", 0.8, 0.15, "right")
-    t.result = "a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod 7 (10 k / 10 n); MIC OUT is the electret x100"
-    t.notes = ["PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod 7 arrives through 10 k",
+    t.result = "a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
+    t.notes = ["PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
                "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
                "+ side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)

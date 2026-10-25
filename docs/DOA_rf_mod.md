@@ -22,14 +22,19 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
 7. **MT3608 boost (R9).** SOT-23-6: 1 SW, 2 GND, 3 FB, 4 EN, 5 IN, 6 NC.  FB 0.6 V with 12 k / 1 k: 7.8 V.  The SS34's
    cathode bar must face the output capacitor.
 
+8a. **The Pmod plug (J1003, on R10).**  JLCPCB's numbering: pads 1-2 3.3 V, 3-4 ground (Pmod pins 6/12 and 5/11), the
+    lines on pads 5-12; `check_pmod` maps every pad to its standard pin.  IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE
+    of R10, IO5 MUXOUT of R11, IO6 LE of R11.  Confirm the body hangs off the bottom edge in the placement preview.
+8b. **No mounting holes**: four stick-on rubber feet, circled on the back.
+
 ## Order gate: rules and fab
 
-8. **The fine rules.**  The synthesizers' and mixers' nets use 0.127 mm clearance, 0.15 mm tracks and 0.45 / 0.25 mm
+9. **The fine rules.**  The synthesizers' and mixers' nets use 0.127 mm clearance, 0.15 mm tracks and 0.45 / 0.25 mm
    vias (JLCPCB's standard four-layer limits are 0.09 / 0.09 and 0.25 / 0.15, so these cost nothing extra).  The rest
    of the board keeps 0.2 mm.
-9. **The stack.**  The 50 ohm lines assume JLC04161H-7628 (0.21 mm of 7628 prepreg between L1 and L2).  Choose that
+10. **The stack.**  The 50 ohm lines assume JLC04161H-7628 (0.21 mm of 7628 prepreg between L1 and L2).  Choose that
    stack in the order; another one moves the impedance by 10-20 ohm.
-10. **Stock.**  The GALI-84+ had 144 on the day: enough for 72 boards' pairs but thin; alternates (stock not checked) are the GALI-S66+
+11. **Stock.**  The GALI-84+ had 144 on the day: enough for 72 boards' pairs but thin; alternates (stock not checked) are the GALI-S66+
     or a PGA-103+ on the same footprint with a different bias resistor.
 
 ## Bench, first power

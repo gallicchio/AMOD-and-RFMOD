@@ -7675,18 +7675,6 @@
 		)
 	)
 	(rectangle
-		(start 25.4 284.48)
-		(end 401.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "2ace689c-173c-479a-b55d-5a5edcf5735f")
-	)
-	(rectangle
 		(start 25.4 30.48)
 		(end 210.82 152.4)
 		(stroke
@@ -7696,11 +7684,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "32a0d4ac-afcd-4569-b809-a29ab66a6ab7")
+		(uuid "195f8783-757b-467a-9499-636cef881f70")
 	)
 	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
+		(start 25.4 284.48)
+		(end 401.32 406.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -7708,103 +7696,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "364045fc-1276-4a5b-a1e9-c1c1b9df8663")
-	)
-	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "5416e0aa-e2c3-405f-a9e6-31c6b0bebd70")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "7859eb1c-11f2-4b33-83b5-2ce3b2b113a5")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "804c3296-c6f0-486b-bb76-c52c57fe8990")
-	)
-	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "a881c493-dd9a-4ee5-8d0d-0528bd5ade43")
-	)
-	(rectangle
-		(start 406.4 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c2ef6386-0d36-41c7-b9f9-28103f33006e")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c4f4d50a-2acc-4593-a911-7715886403e6")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d3e92b40-bd11-4437-865b-2bdc3eb32a4e")
-	)
-	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d4a10bb5-c7f3-41eb-98c6-f61ab51be7cd")
+		(uuid "2d62139a-513a-4c91-8322-f6bb6287b04a")
 	)
 	(rectangle
 		(start 25.4 411.48)
@@ -7816,7 +7708,115 @@
 		(fill
 			(type none)
 		)
-		(uuid "f4ad9a0b-483a-44f0-b84a-7e87c97c4c56")
+		(uuid "40f5d1eb-d8e3-4399-ae50-70ecc436bec4")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "78c12674-346d-4e1e-b4d9-22f6104b4076")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "7f82e9ea-1988-4220-b58a-8f850059428b")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 591.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "87e9a24a-0fe5-4132-8526-51ae1c9e3f81")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "a386fc97-e89c-4b01-bdc6-5dc66ca4346e")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "ba0f29ff-1b01-4daa-8989-e519d8f3500a")
+	)
+	(rectangle
+		(start 596.9 30.48)
+		(end 782.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "beb91a1c-564c-4665-b428-021ea85b38b8")
+	)
+	(rectangle
+		(start 406.4 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "c1747c70-fbe3-4498-9b11-c861ee29fd03")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "d80e50d4-27b9-48fd-8e86-d572a8453886")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "fbcb6277-5a87-4aef-be5c-e05ad07ac0f8")
 	)
 	(text "OUT"
 		(exclude_from_sim no)
@@ -8050,17 +8050,6 @@
 		)
 		(uuid "301e110c-feb1-529c-a58c-c518eaf67eae")
 	)
-	(text "Drive IN1/IN2 (Pmod 5, 6) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX"
-		(exclude_from_sim no)
-		(at 27.94 522.94 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "30991747-3249-5616-a19a-2939abaa9b58")
-	)
 	(text "The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a"
 		(exclude_from_sim no)
 		(at 408.94 274.22 0)
@@ -8071,6 +8060,17 @@
 			(justify left)
 		)
 		(uuid "312e8750-bb48-5fb5-8b23-d4bb797de246")
+	)
+	(text "Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX"
+		(exclude_from_sim no)
+		(at 27.94 522.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "34ede111-25eb-55db-a562-9e07a5423265")
 	)
 	(text "First-order delta-sigma: the comparator decides, the FPGA registers the bit and feeds it back through 10 k into the"
 		(exclude_from_sim no)
@@ -8251,7 +8251,7 @@
 		)
 		(uuid "4909dc82-ba6a-5b8e-9c78-d4defd71fd2d")
 	)
-	(text "EXPECT: 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod 4 is high); PD OUT climbs 10 V per mA of photocurrent"
+	(text "EXPECT: 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod IO5 is high); PD OUT climbs 10 V per mA of photocurrent"
 		(exclude_from_sim no)
 		(at 408.94 393.3 0)
 		(effects
@@ -8376,7 +8376,7 @@
 		)
 		(uuid "68cb8eca-a148-5291-a657-9ad9f85ce3a0")
 	)
-	(text "PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod 7 arrives through 10 k"
+	(text "PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k"
 		(exclude_from_sim no)
 		(at 408.94 525.58 0)
 		(effects
@@ -8476,7 +8476,7 @@
 		)
 		(uuid "72d2ae0b-f86d-5311-9f8c-91012dbffce1")
 	)
-	(text "EXPECT: 0.83 W into the board when Pmod 3 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
+	(text "EXPECT: 0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
 		(exclude_from_sim no)
 		(at 408.94 268.94 0)
 		(effects
@@ -8591,7 +8591,7 @@
 		)
 		(uuid "82eab839-a691-55f6-a8de-fafb5968bf67")
 	)
-	(text "EXPECT: a 40 kHz burst from Pmod 5/6 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
+	(text "EXPECT: a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
 		(exclude_from_sim no)
 		(at 27.94 520.3 0)
 		(effects
@@ -8625,7 +8625,7 @@
 		)
 		(uuid "84d4c193-6345-5b48-93ed-c48ea5a2e674")
 	)
-	(text "full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod 4 shorts the input: TTL modulation to"
+	(text "full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod IO5 shorts the input: TTL modulation to"
 		(exclude_from_sim no)
 		(at 408.94 398.58 0)
 		(effects
@@ -8702,7 +8702,7 @@
 		)
 		(uuid "9cf6ce92-9b69-5cdc-9d63-5d03197b5664")
 	)
-	(text "EXPECT: a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod 7 (10 k / 10 n); MIC OUT is the electret x100"
+	(text "EXPECT: a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
 		(exclude_from_sim no)
 		(at 408.94 522.94 0)
 		(effects
@@ -8714,7 +8714,7 @@
 		)
 		(uuid "9e1b231b-2548-5459-a0a6-5b97867b4a7e")
 	)
-	(text "EXPECT: a one-bit stream on Pmod 2 whose density follows IN; the FPGA closes the loop through Pmod 1 (the handbook's gateware)"
+	(text "EXPECT: a one-bit stream on Pmod IO7 whose density follows IN; the FPGA closes the loop through Pmod IO8 (the handbook's gateware)"
 		(exclude_from_sim no)
 		(at 27.94 268.94 0)
 		(effects
@@ -8760,7 +8760,7 @@
 		)
 		(uuid "a6d00c4d-365f-5efe-852b-43692f79b363")
 	)
-	(text "Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod 3 is high (10 k keeps it off otherwise)."
+	(text "Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod IO6 is high (10 k keeps it off otherwise)."
 		(exclude_from_sim no)
 		(at 408.94 271.58 0)
 		(effects
