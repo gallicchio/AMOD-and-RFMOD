@@ -66,6 +66,11 @@ SYMBOLS = [
     # OPA810IDBVR (TI, SOT-23-5; the standard single op amp pinout): 1 OUT, 2 V-, 3 +IN, 4 -IN, 5 V+
     box("OPA_SOT23-5", "U", [("3", "+IN", "input"), ("4", "-IN", "input"), ("2", "V-", "power_in")], [("5", "V+", "power_in"), ("1", "OUT", "output")],
         "Package_TO_SOT_SMD:SOT-23-5", "single op amp, SOT-23-5 (OUT 1, V- 2, +IN 3, -IN 4, V+ 5)", width=10.16),
+    # OPA847IDR (TI, SOIC-8): 1 NC, 2 -IN, 3 +IN, 4 -VS, 5 NC, 6 OUT, 7 +VS, 8 DIS (open = enabled); the two NC pins are
+    # drawn as passive pins so a board may run a track through them (A4 carries its feedback node through pin 1)
+    box("OPA847_SOIC8", "U", [("1", "NC", "passive"), ("2", "-IN", "input"), ("3", "+IN", "input"), ("4", "-VS", "power_in")],
+        [("8", "DIS", "input"), ("7", "+VS", "power_in"), ("6", "OUT", "output"), ("5", "NC", "passive")],
+        "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "OPA847 wideband low-noise op amp, SOIC-8", width=10.16),
     # TC32H4 25 MHz TCXO (Taitien, 3.2 x 2.5 mm, 4 pads): 1 EN/NC, 2 GND, 3 OUT, 4 VCC (the 3225 TCXO convention; CostasLink)
     box("TCXO_3225", "X", [("1", "EN", "input"), ("2", "GND", "power_in")], [("4", "VCC", "power_in"), ("3", "OUT", "output")],
         "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", "TCXO, LVCMOS out", width=10.16),

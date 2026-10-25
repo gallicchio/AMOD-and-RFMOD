@@ -205,8 +205,64 @@ def tile_a3():
     return t
 
 
+# ------------------------------------------------------------------------------------------------------------ A4 --
+def tile_a4():
+    """HF LNA: the OPA847 (SOIC-8, rot 90: DIS, V+, OUT, NC along the top, NC, -IN, +IN, V- along the bottom) at x100
+    (1 k / 10 ohm), 50 ohm at the input, 49.9 ohm out.  The output goes over the top to Rf standing left of the chip;
+    the feedback returns along the bottom through pin 1 (NC on the OPA847, so it may carry the node) into -IN; the
+    input comes under Rg to +IN.  VS reaches the top row's DIS pin and the decoupling capacitor on the back.
+    No test loop: the cell is full (the OUT jack is the monitor)."""
+    t = Tile("A4", "LNA", [(2, 0)], supply="+-5 V", subtitle="30 MHz", sections=["4.06", "5.03"])
+    idx = t.idx
+    t.jack("TL", "IN", "IN", "in", "±30 mV", silk="IN 50R"); t.jack("TR", "OUT", "OUT", "out", "")
+    power_header(t)
+    rt = t.add("R", "R0805 49.9R", "49.9", 6.6, 9.3, 0, {"1": "IN", "2": "GND"}, label=None)
+    t.wire("IN", [("J%d01" % idx, "1"), (4.75, 9.3), (rt, "1")])
+    t.gnd_stub(rt, "2", (7.512, 10.5), sym=(0, 0))
+    u = t.add("U", "OPA847", "OPA847", 12.4, 13.0, 90, {"1": "FB", "2": "FB", "3": "IN", "4": "-5V", "6": "OUT_A", "7": "VS", "8": "VS"},
+              hide_value=False, label=None)
+    rf = t.add("R", "R0805 1k", "1k", 8.4, 12.8, 270, {"1": "OUT_A", "2": "FB"}, label=None)              # pad 1 up
+    rg = t.add("R", "R0603 10R", "10R", 7.5, 15.4, 0, {"1": "GND", "2": "FB"}, label=None)
+    cp = t.add("C", "C0805 100nF", "100n", 16.2, 12.1, 270, {"1": "VS", "2": "GND"}, label=None)           # pad 1 up
+    cn = t.add("C", "C0805 100nF", "100n", 16.2, 15.6, 270, {"1": "-5V", "2": "GND"}, label=None)          # pad 1 up
+    ro = t.add("R", "R0805 49.9R", "49.9", 16.9, 9.35, 0, {"1": "OUT_A", "2": "OUT"}, label=None)
+    # the input: under the termination, down the left, under the chip and up into +IN
+    t.wire("IN", [(4.75, 9.3), (4.75, 10.6), (5.85, 10.6), (5.85, 16.3), (9.0, 16.3), (9.0, 16.9), (13.035, 16.9), (u, "3")])
+    # the output over the top: left into Rf's top pad, right into Ro
+    t.wire("OUT_A", [(rf, "1"), (8.4, 9.0), (13.035, 9.0), (u, "6")])
+    t.wire("OUT_A", [(13.035, 9.0), (15.988, 9.0), (ro, "1")])
+    # feedback: Rf's bottom pad down to the bottom row, through pin 1 into -IN; Rg hangs off the corner
+    t.wire("FB", [(rf, "2"), (8.4, 15.4), (u, "1"), (u, "2")])
+    t.wire("FB", [(rg, "2"), (8.4, 15.4)])
+    t.gnd_stub(rg, "1", (6.6, 14.1), sym=(0, 0))
+    # VS: DIS and V+ joined along the top row, a via beside DIS, the back down to the FET's drain; the capacitor's own via
+    t.wire("VS", [(u, "8"), (u, "7")])
+    t.wire("VS", [(u, "8"), (9.6, 10.525)])
+    t.via("VS", 9.6, 18.7)
+    t.wire("VS", [(9.6, 10.525), (9.6, 18.7)], layer="B.Cu")
+    t.wire("VS", [(9.6, 18.7), (17.5, 18.7), (17.5, 11.15)], layer="B.Cu", silk=False)     # under the tile's name
+    t.wire("VS", [(17.5, 11.15), (cp, "1")])
+    t.wire("VS", [(9.6, 18.7), (8.54, 18.7), HDR_VS])
+    t.gnd_stub(cp, "2", (15.3, 13.05), sym=(0, 0))
+    # -5 V: V- to Cn (the router), Cn's pad to a via and the gutter strip on the back
+    t.route("-5V", [(u, "4"), (cn, "1")])
+    t.wire("-5V", [(cn, "1"), (18.4, 14.65)])
+    t.via("-5V", 18.4, 20.5)
+    t.wire("-5V", [(18.4, 14.65), (18.4, 20.5)], layer="B.Cu", silk=False)
+    t.gnd_stub(cn, "2", (16.2, 17.85), sym=(0, 0))
+    # OUT: Ro round the right edge to the jack's pin
+    t.wire("OUT", [("J%d02" % idx, "1"), (19.3, 4.75), (19.3, 9.35), (ro, "2")])
+    t.legend()
+    t.result = "x100 (40 dB) from 50 ohm, flat 1-30 MHz, about 3 dB noise figure from 50 ohm; keep the input under 30 mV peak"
+    t.notes = ["Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its",
+               "input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at",
+               "gains above 12 (it is decompensated): do not change Rg upward.  Pin 1 (no connection) carries the feedback node."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
 def tiles():
-    return [tile_a2(), tile_a3(), tile_a1()]
+    return [tile_a2(), tile_a3(), tile_a4(), tile_a1()]
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 60.0), (97.0, 80.0)]
