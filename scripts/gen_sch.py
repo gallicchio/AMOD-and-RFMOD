@@ -287,11 +287,29 @@ class SchCtx:
                 xc = x + half_w + 10.16
                 pins = self.part(r, xc, oy + chips_y, rot=0, unit=unit, label_off=((0, -(max(ys) + 5.08)), (0, -(min(ys) - 5.08))))
                 done = set()
-                for num, (px, py, rot) in dirs.items():
+                seen = {}                                     # (side, net) -> the end of the first such pin's stub
+                for num, (px, py, rot) in sorted(dirs.items(), key=lambda kv: (kv[1][2], kv[1][1], kv[1][0])):
                     if num not in pins or (round(pins[num][0], 2), round(pins[num][1], 2)) in done:
                         continue                              # stacked pins (a USB-C's four VBUS) get one label
                     done.add((round(pins[num][0], 2), round(pins[num][1], 2)))
+                    net = t.parts[r].pins.get(str(num))
+                    key = (int(rot) % 360, net)
+                    near = False
+                    if net is not None and net != "GND" and key in seen:
+                        ex, ey = seen[key]
+                        dx0, dy0 = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}[int(rot) % 360]
+                        mx, my = pins[num][0] + dx0, pins[num][1] + dy0          # this stub's end
+                        near = (abs(ex - mx) < 0.01 and abs(ey - my) <= 2.55) or (abs(ey - my) < 0.01 and abs(ex - mx) <= 2.55)
+                    if near:
+                        dx, dy = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}[int(rot) % 360]
+                        end = (pins[num][0] + dx, pins[num][1] + dy)
+                        self.wire([pins[num], end]); self.wire([end, seen[key]])    # a neighbour on the same net: one label
+                        seen[key] = end
+                        continue
                     self._pin_label(t, r, num, pins[num], rot)
+                    if net is not None:
+                        dx, dy = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}[int(rot) % 360]
+                        seen[key] = (pins[num][0] + dx, pins[num][1] + dy)
                 x = xc + half_w + 15.24
         # the two-terminal parts in rows, horizontal, pin 1 on the left (symbols drawn vertical turn 90)
         vertical = ("Device:R_US", "Device:C", "Device:L", "Device:FerriteBead", "Device:Thermistor_NTC", "Device:Polyfuse", "Device:C_Polarized")

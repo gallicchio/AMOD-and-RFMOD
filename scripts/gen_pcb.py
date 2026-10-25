@@ -340,6 +340,18 @@ class Board:
                 self.via(pad["x"], pad["y"] + 1.6, "GND")
                 self.stub_dir[(round(pad["x"], 3), round(pad["y"] + 1.6, 3))] = (0, 1)
 
+    def back_wires(self):
+        """The board module's BACK_WIRES: (net, [(x, y), ...]) in board mm on the back, between vias or through-hole pads
+        that already exist (the Pmod's lines from the plug to the tiles' vias).  Silk: none (they cross tiles)."""
+        for (net, pts) in self.meta.get("back_wires", []):
+            if net not in self.netmap:
+                self.problems.append("back wire on %s, which is not in the netlist" % net)
+                continue
+            for a, b in zip(pts, pts[1:]):
+                a, b = (float(a[0]), float(a[1])), (float(b[0]), float(b[1]))
+                self.track(a, b, 0.35, net, pcbnew.B_Cu)
+                self.nosilk.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
+
     def autoroute(self):
         """scripts/router.py over each tile's declared routes, one at a time, each avoiding everything laid so far."""
         import router as R
@@ -796,8 +808,8 @@ class Board:
         self._text(50, 5.2, "%s, rev %s, %s   %s" % (parts.AUTHORS, parts.REV, parts.DATE, parts.URL), 1.0, 0.15, layer=pcbnew.B_SilkS)
         lines = self.meta["back_text"]
         for i, line in enumerate(lines):
-            self._text(50.0, BACK_Y + i * BACK_PITCH, line, 0.8, 0.15, justify="center", layer=pcbnew.B_SilkS)
-        qx, qy = QR_AT
+            self._text(self.meta.get("back_text_x", 50.0), BACK_Y + i * BACK_PITCH, line, 0.8, 0.15, justify="center", layer=pcbnew.B_SilkS)
+        qx, qy = self.meta.get("qr_at") or QR_AT
         n, rects = self.add_qr("https://" + parts.URL, qx, qy, QR_MODULE)
         half = n * QR_MODULE / 2
         for i, line in enumerate(("github.com/gallicchio/", "AMOD-and-RFMOD", "handbook and generator")):
@@ -844,6 +856,7 @@ class Board:
     def build(self):
         self.place()
         self.wires()
+        self.back_wires()
         self.autoroute()
         self.trim_edge_silk()
         self.plane()

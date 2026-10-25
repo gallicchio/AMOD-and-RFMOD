@@ -189,9 +189,14 @@ def power_header(tile, rail="+5V", local="VS"):
     sw = tile.add("SW", "SW_SLIDE", "ON", sx, sy, 270, {"1": "GND", "2": "G", "3": rail}, hide_value=True)
     q = tile.add("Q", "PFET", "AO3401A", qx, qy, 0, {"1": "G", "2": rail, "3": local}, hide_value=True)
     tile.gnd_stub(sw, "1", (sx + 1.95, sy - 0.75), sym=(0, 0))          # between pads 1 and 2, no symbol (the switch's own ground)
-    tile.via(rail, HDR_VIA[0], HDR_VIA[1])
-    tile.wire(rail, [(q, "2"), HDR_VIA])
-    tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA])
+    if rail == "+5V":                                                   # the pour under everything: the via beside the FET
+        tile.via(rail, HDR_VIA[0], HDR_VIA[1])
+        tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA])
+        tile.wire(rail, [(q, "2"), HDR_VIA])
+    else:                                                               # +3.3 V: a strip in the gutter below the tile
+        tile.via(rail, HDR_VIA[0], 20.5)
+        tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA, (HDR_VIA[0], 20.5)])
+        tile.wire(rail, [(q, "2"), HDR_VIA])
     tile.route("G", [(sw, "2"), (q, "1")])
     tile.pwr_flags.append(local)
     return dict(sw=sw, q=q)
@@ -450,6 +455,8 @@ def dump(tiles, mod, path):
     import json
     out = {"tiles": [], "gnd_loops": list(getattr(mod, "GND_LOOPS", [])), "back_text": list(getattr(mod, "BACK_TEXT", [])),
            "slots": list(getattr(mod, "SLOTS", [])), "front_text": list(getattr(mod, "FRONT_TEXT", [])), "rail_pours": list(getattr(mod, "RAIL_POURS", [])),
+           "back_wires": list(getattr(mod, "BACK_WIRES", [])), "back_text_x": getattr(mod, "BACK_TEXT_X", 50.0),
+           "qr_at": getattr(mod, "QR_AT", None),
            "stem": getattr(mod, "STEM", "")}
     for t in tiles:
         out["tiles"].append(dict(
