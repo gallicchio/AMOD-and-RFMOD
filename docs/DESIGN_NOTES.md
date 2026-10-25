@@ -48,7 +48,7 @@ the night's record in `CLAUDE_CODE_CHAT.md`, the general lessons in `~/OpticsPCB
 - **R5 gain block**: 
 - **R7 TX mixer**: 
 - **R8 RX mixer**: 
-- **R9 power**: Power and reference, two cells.  Right cell: AMOD-A's USB-C input (CC pull-downs, 2 A PTC, 5 V TVS, 2 x 10 uF) and an MT3608 boost (22 uH, SS34, 12 k / 1 k: 7.8 V) with 10 uF out, feeding the +8V strip in the gutter below through two vias (its own and the divider's); a yellow LED says 7.8 V is up, a green one that 5 V is in.  Left cell: a TPS7A2033 makes 3.3 V for a TC32H4 25 MHz TCXO whose output a 74LVC1G17 buffers through 51 ohm to the REF OUT jack (top-left); the synthesizers' REF IN jacks are unterminated, so one REF OUT drives both through a tee.
+- **R9 power**: Power and reference, two cells.  Right cell: AMOD-A's USB-C input (CC pull-downs, 2 A PTC, 5 V TVS, 2 x 10 uF) and an MT3608 boost (22 uH, SS34, 12 k / 1 k: 7.8 V) with 10 uF out, feeding the +8V strip in the gutter below through two vias (its own and the divider's); a yellow LED says 7.8 V is up, a green one that 5 V is in.  Left cell: a TPS7A2033 makes 3.3 V for a TC32H4 25 MHz TCXO whose output a 74LVC1G17 buffers through 51 ohm to the REF OUT jack (top-left); the synthesizers' REF IN jacks are unterminated, so one REF OUT drives both through R1's splitter.
 - **R10 synthesizer**: 
 - **R11 synthesizer**: 
 - **R12 gain block**: 

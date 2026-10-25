@@ -7,8 +7,51 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 
 ![front](images/rf_mod-render-top.png)
 
-Cells are 20 mm on a 21.5 mm pitch; a tile's number sits between its jacks, the tutorial sections it serves under
-the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and OUT to the ADC.
+Ten tiles on sixteen 20 mm cells, four layers, USB-C power on R9.  Every tile's input is its top-left jack and its output its
+bottom-right jack (a third jack, where there is one, sits in the middle of the top edge), so neighbouring jacks are at least
+14 mm apart.  Every 50 ohm line is coplanar waveguide (0.29 mm on 0.21 mm of prepreg over ground, 0.25 mm gaps, a via fence)
+and every jack's centre pin has no plane under it.  The powered tiles have the AMOD-A slide switch (up: on) and P-FET.
+Rev A built what JLCPCB stocked on 2026-10-25: the QPL9547 LNA (no stock), the LTC5510 mixers (35), the RFX2401C front end and
+the TRF3722 gave way to the GALI-84+ (twice) and the ADL5350 (twice).  The printed antennas moved off the board (see the
+end of this handbook).
+
+### Pmod lines
+
+The 2 x 6 plug on R10's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
+which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
+
+- Pmod pin 3 (PMOD3): LE of R11, R11
+- Pmod pin 4 (PMOD4): MUXOUT of R11, R11
+- Pmod pin 7 (PMOD5): LE of R10, R10
+- Pmod pin 8 (PMOD6): SCLK to both synthesizers, R10, R11
+- Pmod pin 9 (PMOD7): SDATA to both synthesizers, R10, R11
+- Pmod pin 10 (PMOD8): MUXOUT of R10, R10
+
+## The tiles together
+
+The board is one end of a radio link, or both ends on a cable.  One 25 MHz reference drives everything, so every
+frequency on the board is locked to every other and phase means something.
+
+1. **Reference.**  R9's REF OUT into R1's P1; P2 and P3 to R10's and R11's REF IN.  Those inputs are unterminated (100 nF
+   into the chip), so no current flows in the splitter and each sees nearly the buffer's full 3.3 Vpp, as on CostasLink.
+2. **Transmitter.**  R10 at the carrier minus the IF (or plus) into R7's LO; a DAC's IF (1-30 MHz, 0 dBm) into R7's IF
+   jack, the tile's input in this direction; R7's RF jack out through R2 (2.45 GHz) or R4 (915 MHz) to drop the image
+   and the LO's leak, then R5 for 20 dB: about -10 dBm into a cable or an antenna.
+3. **Receiver.**  The cable or antenna into R12 (20 dB), then R4 or R2, then R8's RF; R11 into R8's LO; R8's IF into the
+   ADC.  At 6.25 MHz of IF the converters' 25 MS/s see the signal directly.
+4. **Instruments.**  R10 alone is a signal generator from 23.5 MHz to 6 GHz; R10 into R8's RF with R11 stepped 6.25 MHz
+   away is a scalar network analyzer (put the device between them); R11 swept into R8 with R12 in front is a spectrum
+   analyzer that sees Wi-Fi, Bluetooth and LoRa; two tones through R1 into R5 show its intermodulation.
+
+Levels to remember: a synthesizer gives -4 to +5 dBm; an ADL5350 wants +4 dBm of LO and loses 7-9 dB; a GALI-84+ gives
+20 dB and compresses at +20 dBm out, so keep 0 dBm or less at its input; the filters lose 1-2 dB; the splitter 6 dB.
+
+## Antennas
+
+The plan's printed inverted-F antennas (TI DN023 at 915 MHz, AN043 at 2.4 GHz) need bare board on every layer for a
+quarter of the board and a pi network tuned on the bench, and TI's dimensions are for their stack, not this one.  Use
+SMA whip antennas on R5's OUT and R12's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make
+a monopole from a jack and 31 mm (2.4 GHz) or 78 mm (915 MHz) of wire.
 
 ## The tiles
 

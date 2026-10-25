@@ -141,7 +141,7 @@ def tile_r9():
     an MT3608 boost (22 uH, SS34, 12 k / 1 k: 7.8 V) with 10 uF out, feeding the +8V strip in the gutter below through
     two vias (its own and the divider's); a yellow LED says 7.8 V is up, a green one that 5 V is in.  Left cell: a
     TPS7A2033 makes 3.3 V for a TC32H4 25 MHz TCXO whose output a 74LVC1G17 buffers through 51 ohm to the REF OUT jack
-    (top-left); the synthesizers' REF IN jacks are unterminated, so one REF OUT drives both through a tee."""
+    (top-left); the synthesizers' REF IN jacks are unterminated, so one REF OUT drives both through R1's splitter."""
     t = Tile("R9", "power", [(2, 1), (3, 1)], subtitle="USB-C 5 V in: +5, +7.8 V; 25 MHz reference", sections=[])
     t.pwr_flags = ["+5V", "+8V"]
     ux = USB_X - t.x0
@@ -251,7 +251,7 @@ def tile_r9():
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
                "(0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their",
                "headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives",
-               "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; a tee feeds both synthesizers).",
+               "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers).",
                "The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
@@ -410,7 +410,7 @@ def synth_tile(id, cells, host):
                "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
                "and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and",
                "100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are",
-               "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."]
+               "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -548,6 +548,42 @@ def tile_r1():
 
 def tiles():
     return [tile_r1(), tile_r2(), tile_r4(), tile_r5(), tile_r12(), tile_r9(), tile_r7(), tile_r8(), tile_r10(), tile_r11()]
+
+
+PMOD_NAMES = {"/PMOD3": "LE of R11", "/PMOD4": "MUXOUT of R11", "/PMOD5": "LE of R10", "/PMOD6": "SCLK to both synthesizers",
+              "/PMOD7": "SDATA to both synthesizers", "/PMOD8": "MUXOUT of R10"}
+HANDBOOK_INTRO = [
+    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on R9.  Every tile's input is its top-left jack and its output its",
+    "bottom-right jack (a third jack, where there is one, sits in the middle of the top edge), so neighbouring jacks are at least",
+    "14 mm apart.  Every 50 ohm line is coplanar waveguide (0.29 mm on 0.21 mm of prepreg over ground, 0.25 mm gaps, a via fence)",
+    "and every jack's centre pin has no plane under it.  The powered tiles have the AMOD-A slide switch (up: on) and P-FET.",
+    "Rev A built what JLCPCB stocked on 2026-10-25: the QPL9547 LNA (no stock), the LTC5510 mixers (35), the RFX2401C front end and",
+    "the TRF3722 gave way to the GALI-84+ (twice) and the ADL5350 (twice).  The printed antennas moved off the board (see the",
+    "end of this handbook)."]
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "The board is one end of a radio link, or both ends on a cable.  One 25 MHz reference drives everything, so every",
+     "frequency on the board is locked to every other and phase means something.",
+     "",
+     "1. **Reference.**  R9's REF OUT into R1's P1; P2 and P3 to R10's and R11's REF IN.  Those inputs are unterminated (100 nF",
+     "   into the chip), so no current flows in the splitter and each sees nearly the buffer's full 3.3 Vpp, as on CostasLink.",
+     "2. **Transmitter.**  R10 at the carrier minus the IF (or plus) into R7's LO; a DAC's IF (1-30 MHz, 0 dBm) into R7's IF",
+     "   jack, the tile's input in this direction; R7's RF jack out through R2 (2.45 GHz) or R4 (915 MHz) to drop the image",
+     "   and the LO's leak, then R5 for 20 dB: about -10 dBm into a cable or an antenna.",
+     "3. **Receiver.**  The cable or antenna into R12 (20 dB), then R4 or R2, then R8's RF; R11 into R8's LO; R8's IF into the",
+     "   ADC.  At 6.25 MHz of IF the converters' 25 MS/s see the signal directly.",
+     "4. **Instruments.**  R10 alone is a signal generator from 23.5 MHz to 6 GHz; R10 into R8's RF with R11 stepped 6.25 MHz",
+     "   away is a scalar network analyzer (put the device between them); R11 swept into R8 with R12 in front is a spectrum",
+     "   analyzer that sees Wi-Fi, Bluetooth and LoRa; two tones through R1 into R5 show its intermodulation.",
+     "",
+     "Levels to remember: a synthesizer gives -4 to +5 dBm; an ADL5350 wants +4 dBm of LO and loses 7-9 dB; a GALI-84+ gives",
+     "20 dB and compresses at +20 dBm out, so keep 0 dBm or less at its input; the filters lose 1-2 dB; the splitter 6 dB."],
+    ["## Antennas", "",
+     "The plan's printed inverted-F antennas (TI DN023 at 915 MHz, AN043 at 2.4 GHz) need bare board on every layer for a",
+     "quarter of the board and a pi network tuned on the bench, and TI's dimensions are for their stack, not this one.  Use",
+     "SMA whip antennas on R5's OUT and R12's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make",
+     "a monopole from a jack and 31 mm (2.4 GHz) or 78 mm (915 MHz) of wire."],
+]
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 50.0), (97.0, 84.0)]
