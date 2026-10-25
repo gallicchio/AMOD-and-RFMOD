@@ -75,6 +75,13 @@ SYMBOLS = [
     box("OPA_SOT23-6", "U", [("3", "+IN", "input"), ("4", "-IN", "input"), ("2", "V-", "power_in")],
         [("5", "V+", "power_in"), ("6", "~{SHDN}", "input"), ("1", "OUT", "output")],
         "Package_TO_SOT_SMD:SOT-23-6", "single op amp with shutdown, SOT-23-6 (OUT 1, V- 2, +IN 3, -IN 4, V+ 5, SHDN 6)", width=10.16),
+    # PJ-320A 3.5 mm jack as JLCPCB numbers its pads: 2 sleeve, 3 ring 2, 4 ring 1, 5 tip
+    box("JACK35", "J", [("2", "S", "passive"), ("3", "R2", "passive")], [("5", "T", "passive"), ("4", "R1", "passive")],
+        "amod:Jack_3.5mm_PJ-320A", "3.5 mm 4-pole jack, PJ-320A", width=7.62),
+    # PAM8302AASCR (Diodes, SOIC-8; datasheet pin descriptions): 1 SD, 2 BYP, 3 IN+, 4 IN-, 5 VO+, 6 VDD, 7 GND, 8 VO-
+    box("PAM8302_SOIC8", "U", [("3", "IN+", "input"), ("4", "IN-", "input"), ("1", "SD", "input"), ("2", "BYP", "passive"), ("7", "GND", "power_in")],
+        [("6", "VDD", "power_in"), ("5", "VO+", "output"), ("8", "VO-", "output")],
+        "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "PAM8302A 2.5 W filterless class-D amplifier, SOIC-8", width=10.16),
     # TC32H4 25 MHz TCXO (Taitien, 3.2 x 2.5 mm, 4 pads): 1 EN/NC, 2 GND, 3 OUT, 4 VCC (the 3225 TCXO convention; CostasLink)
     box("TCXO_3225", "X", [("1", "EN", "input"), ("2", "GND", "power_in")], [("4", "VCC", "power_in"), ("3", "OUT", "output")],
         "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", "TCXO, LVCMOS out", width=10.16),

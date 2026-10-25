@@ -7,7 +7,7 @@ compares KiCad's exported netlist with what the tiles declared.
 
     python3 scripts/gen_sch.py amod_p        writes hardware/amod_p.kicad_sch
 """
-import importlib, os, sys, textwrap
+import importlib, math, os, sys, textwrap
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 import kienv, parts
@@ -138,19 +138,25 @@ class SchCtx:
             self.s.text("tutorial " + ", ".join(t.sections) + ("   (%s)" % t.supply if t.supply else ""), self.ox + 2.54, self.oy + 6.6, size=1.3)
         self.s.text("cell%s %s" % ("s" if len(t.cells) > 1 else "", ", ".join("(%d,%d)" % c for c in t.cells)), self.ox + self.w - 2.54, self.oy + 3.3, size=1.1, justify="right")
 
-    def _wrap(self, lines):
-        width = int((self.w - 5.08) / (1.2 * 0.92))
+    def _wrap(self, lines, size=1.2):
+        width = int((self.w - 5.08) / (size * 0.92))
         out = []
         for line in lines:
             out += textwrap.wrap(line, width) or [""]
         return out
 
-    def result_note(self, t):
-        lines = self._wrap(["EXPECT: " + t.result]) + self._wrap(t.notes)
-        y = self.oy + self.h - 2.54 - 2.6 * (len(lines) - 1)
+    def result_note(self, t, above=None):
+        """The expected result and the notes along the block's bottom; smaller when the drawing above (`above`: its
+        lowest y) leaves no room for 1.2 mm text."""
+        for size in (1.2, 1.0, 0.9, 0.8):
+            lines = self._wrap(["EXPECT: " + t.result], size) + self._wrap(t.notes, size)
+            pitch = size * 2.2
+            y = self.oy + self.h - 2.54 - pitch * (len(lines) - 1)
+            if above is None or y - pitch >= above:
+                break
         for i, line in enumerate(lines):
-            self.s.text(line, self.ox + 2.54, y + 2.6 * i, size=1.2, bold=(i == 0))
-        self.notes_y = y - 2.6
+            self.s.text(line, self.ox + 2.54, y + pitch * i, size=size, bold=(i == 0))
+        self.notes_y = y - pitch
 
     def note(self, t, lines):
         """Extra note lines above the result note."""
@@ -273,8 +279,11 @@ class SchCtx:
                 loops.append(r); continue
             d = parts.info(p.key)
             (twos if d["symbol"] in simple else chips).append(r)
-        # the chips: side by side, each unit its own symbol
+        # the chips: side by side, each unit its own symbol (higher when the tile has no jacks: the signal row is empty)
+        if not t.jacks:
+            chips_y -= 12.7
         x = ox + 25.4
+        low = oy + row_y - 7.62                               # the lowest chip value label: the two-terminal rows start below it
         for r in chips:
             d = parts.info(t.parts[r].key)
             lib = d["symbol"]
@@ -286,6 +295,7 @@ class SchCtx:
                 half_w = max(abs(min(xs)), abs(max(xs)))
                 xc = x + half_w + 10.16
                 pins = self.part(r, xc, oy + chips_y, rot=0, unit=unit, label_off=((0, -(max(ys) + 5.08)), (0, -(min(ys) - 5.08))))
+                low = max(low, oy + chips_y - min(ys) + 5.08)
                 done = set()
                 seen = {}                                     # (side, net) -> the end of the first such pin's stub
                 for num, (px, py, rot) in sorted(dirs.items(), key=lambda kv: (kv[1][2], kv[1][1], kv[1][0])):
@@ -313,7 +323,9 @@ class SchCtx:
                 x = xc + half_w + 15.24
         # the two-terminal parts in rows, horizontal, pin 1 on the left (symbols drawn vertical turn 90)
         vertical = ("Device:R_US", "Device:C", "Device:L", "Device:FerriteBead", "Device:Thermistor_NTC", "Device:Polyfuse", "Device:C_Polarized")
-        x, y = ox + 15.24, oy + row_y
+        x, y = ox + 15.24, max(oy + row_y, oy + 2.54 * math.ceil((low - oy + 7.62) / 2.54))
+        longest = max([len(n.lstrip("/")) for r in twos for n in t.parts[r].pins.values() if n not in ("GND", "+5V", "-5V", "+3V3", "+8V")] or [4])
+        pitch = max(30.48, 2.54 * math.ceil((12.7 + 2 * 1.0 * (longest + 1) + 2.54) / 2.54))      # two labels back to back between parts
         for r in twos:
             if x > ox + w - 25.4:
                 x, y = ox + 15.24, y + 12.7
@@ -322,7 +334,7 @@ class SchCtx:
             lo = min(pins, key=lambda k: pins[k][0]); hi = max(pins, key=lambda k: pins[k][0])
             self._pin_label(t, r, lo, pins[lo], 0)
             self._pin_label(t, r, hi, pins[hi], 180)
-            x += 30.48
+            x += pitch
         # the loops: beside the two-terminal rows' end
         for r in loops:
             if x > ox + w - 25.4:
@@ -332,7 +344,7 @@ class SchCtx:
             self.wire([(x + 2.54, y), (x + 2.54, y + 2.54)])
             self.label(p.pins["1"].lstrip("/"), x + 2.54, y + 2.54)
             x += 30.48
-        self.result_note(t)
+        self.result_note(t, above=y + 10.16)
 
     def _pin_label(self, t, ref, num, pos, rot_into_body):
         """A 2.54 stub out of a pin and the net's name (or a ground / rail symbol) at its end."""
