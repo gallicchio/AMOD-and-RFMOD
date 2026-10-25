@@ -11,7 +11,7 @@ Rev A, 2026-10-25.  Designed by Claude with Jason Gallicchio, not yet ordered.
 | board | what | tiles | layers | parts per board |
 |---|---|---|---|---|
 | [AMOD-P](docs/HANDBOOK_amod_p.md) | passive: pads, RC and LC filters, resonators, a crystal, a clipper, a delay line, LEDs, an AM loopstick | 13 | 2 | $16.97 |
-| [AMOD-A](docs/HANDBOOK_amod_a.md) | active on USB-C: gain blocks, an HF LNA, Johnson noise, a one-pin ADC, a 4046 PLL, heat, a mixer, light, ultrasound, audio | 12 | 4 | $45.97 |
+| [AMOD-A](docs/HANDBOOK_amod_a.md) | active on USB-C: gain blocks, an HF LNA, Johnson noise, a one-pin ADC, a 4046 PLL, heat, a mixer, light, ultrasound, audio | 12 | 4 | $50.90 |
 | [RF-MOD](docs/HANDBOOK_rf_mod.md) | 915 MHz and 2.4 GHz: a splitter, two filters, two gain blocks, two mixers, two synthesizers, power and a 25 MHz reference | 10 | 4 | $55.78 |
 | [Icepi adapter](icepi_adapter/README.md) | the tutorial's 2x12 Icepi Zero adapter with a Pmod socket | | 4 | hand-soldered |
 

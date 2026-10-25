@@ -19,7 +19,8 @@ BOARD = 100.0
 T, GAP, M0 = 20.0, 1.5, 7.75          # cell, gutter, margin to the first cell
 INSET = 4.75                           # jack centre from the cell's edge
 JACK_BODY = 6.5                        # BWSMA-KE-Z001 body, square
-MIN_JACK_SPACING = 10.5                # the TL/TR pair of one cell; across a gutter it is 11.0
+MIN_JACK_SPACING = 14.3                # rev A after Prompt 12: every jack at a cell's top-left or bottom-right corner (the
+                                       # checkerboard: 14.85 within a cell, 15.2 across a gutter); a few by hand at 14.4
 HOLES = [(4.0, 4.0), (BOARD - 4.0, 4.0), (4.0, BOARD - 4.0), (BOARD - 4.0, BOARD - 4.0)]
 CORNER_R = 3.0
 
@@ -43,9 +44,18 @@ def tile_frame(cells):
 def slot(cells, name):
     """Local (x, y) of a jack slot in a tile's frame."""
     x0, y0, w, h = tile_frame(cells)
-    return {"TL": (INSET, INSET), "TR": (w - INSET, INSET), "BL": (INSET, h - INSET),
-            "BR": (w - INSET, h - INSET), "TM": (w / 2, INSET), "BM": (w / 2, h - INSET),
-            "TMr": (w / 2 + 3.75, INSET)}[name]            # a two-cell tile's middle jack moved right, clear of the tile above-left's BR
+    named = {"TL": (INSET, INSET), "TR": (w - INSET, INSET), "BL": (INSET, h - INSET),
+             "BR": (w - INSET, h - INSET), "TM": (w / 2, INSET), "BM": (w / 2, h - INSET),
+             "TMr": (w / 2 + 3.75, INSET),          # a two-cell tile's middle jack moved right, clear of the tile above-left's BR
+             "TLo": (INSET - 0.5, INSET - 0.5),     # the diagonal pair 0.5 mm further out (P8: room for a crystal across it)
+             "BRo": (w - INSET + 0.5, h - INSET + 0.5)}
+    if name in named:
+        return named[name]
+    # the checkerboard slots of a multi-cell tile: TLk / BRk are cell k's top-left and bottom-right corners (k from 0)
+    k = int(name[2:])
+    assert name[:2] in ("TL", "BR") and 0 <= k < len(cells), name
+    x0 = k * (T + GAP)
+    return (x0 + INSET, INSET) if name[:2] == "TL" else (x0 + T - INSET, h - INSET)
 
 
 def check_spacing(jacks, minimum=MIN_JACK_SPACING):

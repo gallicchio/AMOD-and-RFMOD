@@ -51,16 +51,18 @@ reason is given below.
   of jacks on the board at least 11.0 mm apart (a cable's nut and two fingers) whatever the
   neighbours do, with no case analysis: adjacent corners of one cell are 10.5 + 0.5, facing corners
   across a gutter 2 x 4.75 + 1.5 = 11.0.  The jack's 6.5 mm body stays inside its cell.
-- **RF-MOD's tiles take OUT at the bottom-right slot** (Prompt 2: the jacks were too close together to
-  use).  IN top-left and OUT bottom-right put the jacks in a checkerboard whose closest pair is 14.4 mm
-  apart, not 10.5.  AMOD-P and AMOD-A keep IN and OUT along the top: changing them means re-laying 24
-  finished tiles, which is offered as a rev-A option, not done.
-- **Every two-port tile has IN at its top-left slot and OUT at its top-right slot**, the signal
-  flowing left to right along a line under the jacks, shunts hanging down from it, the plot and the
-  legend in the bottom band.  One relation for every tile ("labels in a row stand alike"), all the
-  jacks of a row of tiles in one line, and the whole lower half of each cell free for the circuit.
-  Tiles with three jacks are 40 x 20 mm (slots TL, TM, TR); the delay line (five) uses TL, TM, TR,
-  BL, BR.
+- **Every jack on every board stands in a checkerboard** (Prompt 2 for RF-MOD, Prompt 12 for AMOD-P and AMOD-A:
+  "spread the jacks out away from each other, even away from jacks on other tiles").  Each cell uses only its
+  top-left and bottom-right slots: IN top-left, OUT bottom-right, a two-cell tile's third jack at its right cell's
+  top-left.  Two jacks in one cell are then 14.85 mm apart and two across a gutter 15.2 mm, against 10.5 and 11.0
+  for adjacent slots.  `scripts/geometry.py` asserts 14.3 mm for every pair on each board.  The signal runs on the
+  cell's anti-diagonal: the parts fill the top-right and bottom-left quarters the jacks leave, with the power
+  header in the bottom-left.  Two parts changed so that they fit: A4's OPA847 went from the SOIC-8 to the
+  SOT-23-6, and A7's 4046 from TI's SOIC-16 to Nexperia's TSSOP-16.  P8's crystal and P9's resonator stand at 45
+  degrees between their jacks, and P8's jacks sit 0.5 mm further out (slots TLo, BRo).
+- **Rev A's first layout (until Prompt 12) had IN at the top-left slot and OUT at the top-right slot**, the signal
+  flowing left to right along a line under the jacks.  It kept every row's jacks in one line but put them 10.5 mm
+  apart, too close for two cables and fingers.
 - **The silkscreen is the schematic**, as on the op-amp board: each wire of a tile is laid as
   copper and drawn on the silkscreen, clipped round pads and bodies, so the picture cannot
   disagree with the netlist.  Passive tiles are outlined with a thin line; powered tiles with a
@@ -136,13 +138,17 @@ reason is given below.
       ...
   jack slots in a cell (local mm):  TL (4.75, 4.75)  TR (15.25, 4.75)  BL (4.75, 15.25)  BR (15.25, 15.25)
   in a two-cell tile also:          TM (20.75, 4.75)  BM (20.75, 15.25)
+  in a tile of several cells:       TLk, BRk = cell k's TL and BR (TL1 = (26.25, 4.75), BR1 = (36.75, 15.25))
+  P8 only:                          TLo (4.25, 4.25), BRo (15.75, 15.75): 0.5 mm further out, for the 45-degree crystal
   M3 holes at (4, 4), (96, 4), (4, 96), (96, 96) on AMOD-P; rubber feet at (5, 5), (95, 5), (95, 95),
   (5, 85) on AMOD-A and RF-MOD; identity text in the top margin; Pmod plug pads at x = 4.4 .. 17.1
   in the bottom margin (its body past y = 100); USB-C on the right edge.
 ```
 
-Every jack slot is 11.0 mm or more from every other slot on the board; `scripts/geometry.py`
-asserts it for each board's tile list.
+As built, nearly every jack is at a cell's TL or BR (TLk or BRk in a tile of several cells).  The exceptions: P8's
+TLo and BRo; TM on A9 (LO), R1 (P2), R10 and R11 (REF IN); TR on A5, A10 and A12, whose neighbours already leave
+those jacks 14.3 mm or more from every other.  `scripts/geometry.py` asserts 14.3 mm between every pair of jacks on
+each board; the closest pair on each board is 14.85 mm, the diagonal of one cell.
 
 ## 4. AMOD-P: the passive board
 
@@ -176,11 +182,11 @@ P-FET and green LED; the -5 V rail is not switched (an op amp with V+ open draws
 |---|---|---|---|---|---|---|
 | (0,0) | A2 | gain x10, 14 MHz | +-5 | IN (50 ohm), OUT | | one OPA810 non-inverting, 1.1 k / 10 k, 49.9 ohm out: x10 into a high impedance, x5 into 50 ohm (the plan's two-stage x3.16 did not fit a cell beside the switch) |
 | (1,0) | A3 | gain x100, 1.4 MHz | +-5 | IN (50 ohm), OUT | | the same stage with 100 ohm / 10 k |
-| (2,0) | A4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 at x101 (1 k / 10 ohm), the feedback node carried through the NC pin 1; no loop |
+| (2,0) | A4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 (SOT-23-6, DIS tied to +VS) at x101 (1 k / 10 ohm) in the A2 geometry; no loop |
 | (3,0) | A5 | Johnson noise x100 | +-5 | OUT | | LT6230 (1.1 nV/rtHz, SOT-23-6) at x100 in the A2 geometry; 10 k or 1 k by a 2-way DIP, or your own resistor in a 1 x 2 socket (the OPA1612 two-stage x1000 and a 4-way DIP did not fit) |
 | (0,1) | A6 | delta-sigma ADC | +3.3 | IN (10 k) | IO8, IO7 | TLV3501 against a 1.65 V reference; 10 k / 10 k / 10 nF integrator; the FPGA's bit in on IO8, the comparator's bit out on IO7 and a loop |
-| (1,1) | A7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | CD74HC4046A: 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
-| (2,1) | A8 | heat | +5 | TEMP OUT | IO6 | two 15 ohm 2512 in series (0.83 W) switched by an AO3400 from IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) to the jack (the NTC divider did not fit) |
+| (1,1) | A7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | 74HC4046A (Nexperia, TSSOP-16): 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
+| (2,1) | A8 | heat | +5 | TEMP OUT | IO6 | two 15 ohm 2512 in series (0.83 W) in the top-left, switched by an AO3400 from IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) straight above the jack (the NTC divider did not fit) |
 | (3,1) | A1 | power | | | | USB-C on the right edge, 5.1 k CC pull-downs, 2 A PTC, SMAJ5.0A, 2 x 10 uF, LM2664 for -5 V, TPS7A2033 for +3.3 V, green +5 V and red -5 V LEDs in the margin, a 1 x 5 socket along the top edge (+5, G, -5, G, 3.3) |
 | (0,2)-(1,2) | A9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell on +-5 V: 51 ohm inputs, carrier pair at 2.5 V, 1 mA per side, 1.5 k loads, IF single-ended through 100 n (1.5 k source: a high-impedance input); no null trimmer |
 | (2,2)-(3,2) | A10 | light | +-5 | PD OUT, DRIVE IN | IO5 | OPA810 voltage-to-current source (22 ohm: 45 mA per volt) into a side-view red LED at the board's right edge, a 2N7002 from IO5 blanks it; PD70-01C (5 V reverse) into an OPA810 transimpedance stage, 10 k / 10 pF, 49.9 ohm out (the laser terminal and its DIP did not fit) |
@@ -195,7 +201,7 @@ LM2664) is shared and unswitched.
 ## 6. RF-MOD: 915 MHz, 2.4 GHz, a stretch to 5.8 GHz
 
 As built (rev A, 2026-10-25): ten tiles on sixteen cells, four layers, every tile's IN top-left and OUT bottom-right
-(a third jack at the top middle), CPWG lines (0.29 mm, 0.25 mm gaps over 0.21 mm of 7628) with via fences, a launch
+(a third jack at the top middle on R1, R10 and R11, at the right cell's top-left on the mixers), CPWG lines (0.29 mm, 0.25 mm gaps over 0.21 mm of 7628) with via fences, a launch
 void under every jack's centre pin, a top-side ground pour on every RF tile.  ERC 0, DRC 0, the fab checks pass,
 $55.78 of parts per board.
 
@@ -224,7 +230,8 @@ and need a bench to tune; SMA whips on R5 and R12 instead, see the handbook).
 ## 7. Parts and sourcing
 
 The table below is the plan's list (2026-10-25 01:00).  The boards as built use what `scripts/parts.py` lists; the
-differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, LT6230 for Johnson noise, CD74HC4046AM96 (C6542) for A7, no
+differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, LT6230 for Johnson noise, OPA847IDBVR (C160422, SOT-23-6)
+for A4, 74HC4046APW-Q100J (C546981, TSSOP-16, 234 in stock on 2026-10-25) for A7, no
 NTC or 3.5 mm jack, and on RF-MOD the GALI-84+ twice, the ADL5350 twice and no QPL9547, LTC5510, RFX2401C or TRF3722.
 
 JLCPCB's shelf for everything machine-placed, queried through `scripts/jlc_api.py` on
@@ -336,6 +343,10 @@ SLEWRATE=SLOW, so no series resistors.  Hand-soldered like the original (three t
 5. RF-MOD: done 09:55 (ten tiles, ERC 0, DRC 0, the fab checks, $55.78 of parts): section 6.
 6. The Icepi adapter: done 10:20 (section 9).
 7. The design-review brief (`docs/REVIEW_BRIEF.md`), the DOA lists (`docs/DOA_*.md`); the review rounds are next.
+8. The jacks spread into the checkerboard on every board (Prompt 12): done 12:40.  AMOD-P's thirteen tiles and
+   AMOD-A's A2-A4, A7, A8, A9 and A11 re-laid, RF-MOD's mixers' LO moved to the right cell's top-left; every pair of
+   jacks 14.85 mm or more apart.  A4 now uses the OPA847's SOT-23-6 and A7 Nexperia's TSSOP-16 4046, so AMOD-A's
+   parts are $50.90 a board.  All three boards: ERC 0, DRC 0, every fab check passed.
 
 Open items that are not Jason's to answer are decided in this file as they come up and logged in
 the chat; the ones that are his go in `QUESTIONS.md`.

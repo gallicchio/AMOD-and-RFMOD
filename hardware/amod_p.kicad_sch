@@ -2640,42 +2640,6 @@
 		)
 	)
 	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "1cb54f3a-c67a-45b6-b0ae-bd35ad9befc1")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "3651e912-53d1-4cb2-b207-a21edb71389c")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 210.82 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "41d62ad0-e557-4533-86d7-7f6be706fa09")
-	)
-	(rectangle
 		(start 406.4 30.48)
 		(end 591.82 152.4)
 		(stroke
@@ -2685,7 +2649,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "4cc1820c-5074-4c8d-a884-d399b899f9da")
+		(uuid "10fa9f7d-8b93-4d6b-8d1c-d09867619103")
 	)
 	(rectangle
 		(start 215.9 284.48)
@@ -2697,91 +2661,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "7cf50bb3-91c2-46ca-8f74-193520d4f553")
-	)
-	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "905dccf1-3c3b-46ae-8408-3ffb64448d71")
-	)
-	(rectangle
-		(start 596.9 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "99be7390-4b9b-4a1c-b4a0-e386138fe910")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "9b9869ee-8d72-43b6-b056-40bf0f983d00")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "ab58a249-e778-4e9b-aa98-27c530fd8684")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "ad24eb41-8a30-4f21-bb4e-49959fcc9a7b")
-	)
-	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c0577218-63bd-4a37-9caa-a960d58d05c5")
-	)
-	(rectangle
-		(start 25.4 284.48)
-		(end 210.82 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d7f88a3e-74d4-4e60-a76e-4e1e26528175")
+		(uuid "2f7e37d8-127c-4abd-b841-ad2bb7d0d0cf")
 	)
 	(rectangle
 		(start 215.9 411.48)
@@ -2793,7 +2673,127 @@
 		(fill
 			(type none)
 		)
-		(uuid "ed7124d8-49fc-4ee0-b9ee-50740f5c7c8a")
+		(uuid "5b6e46a9-9185-488a-a1a3-f2a960881a44")
+	)
+	(rectangle
+		(start 25.4 284.48)
+		(end 210.82 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "78346604-320a-471f-b86c-076cc85d022e")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 591.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "84788783-621d-45fd-b4ef-8b4341af47cd")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "b73a3fa0-697e-4d12-b590-362d80158832")
+	)
+	(rectangle
+		(start 596.9 30.48)
+		(end 782.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "c9186d7f-9c00-4550-b88a-fa8499aa159d")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "d619a9e5-b73f-4597-b02f-39e47b3499e7")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "d6bd5925-a42c-4854-ac64-9707d9e51dfa")
+	)
+	(rectangle
+		(start 25.4 411.48)
+		(end 210.82 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "d9c81bc7-ad44-4a8e-b5bc-52479b89eeeb")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "e4f02950-08c6-4483-98a2-492174147afd")
+	)
+	(rectangle
+		(start 596.9 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "f336d120-e3d8-404a-8f90-2d2730bab1b1")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "fd84942a-b8c9-4fec-8ef8-74d0fcfa66ae")
 	)
 	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
 		(exclude_from_sim no)
@@ -2876,7 +2876,7 @@
 		)
 		(uuid "07c6116c-cd28-5d95-9b1d-2d0fb262d1ac")
 	)
-	(text "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No IN loop (the switch took its corner)."
+	(text "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
 		(exclude_from_sim no)
 		(at 599.44 149.86 0)
 		(effects
@@ -4451,6 +4451,12 @@
 		(uuid "4bbfc0e4-601e-51b4-a37e-a9d2c40e464d")
 	)
 	(junction
+		(at 617.22 60.96)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "503dcc71-8e88-542e-b747-439dc2501672")
+	)
+	(junction
 		(at 334.01 335.28)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4653,12 +4659,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "bf9288bf-c9b0-5803-a29d-450180d2e32f")
-	)
-	(junction
-		(at 641.35 60.96)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c156cfc3-69d4-569d-8422-a1978612f5c0")
 	)
 	(junction
 		(at 264.16 187.96)
@@ -12347,7 +12347,8 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 632.46 86.36 90)
+		(at 632.46 86.36 270)
+		(mirror x)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12526,8 +12527,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 274.32 368.3 270)
-		(mirror x)
+		(at 274.32 368.3 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22824,7 +22824,7 @@
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")
-		(at 641.35 60.96 0)
+		(at 617.22 60.96 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -22834,7 +22834,7 @@
 		(dnp no)
 		(uuid "c3157baf-cdbc-587d-8de2-db48dacc7093")
 		(property "Reference" "TP401"
-			(at 641.35 53.34 0)
+			(at 617.22 53.34 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22844,19 +22844,19 @@
 				)
 			)
 		)
-		(property "Value" "OUT"
-			(at 642.15 57.76 0)
+		(property "Value" "IN"
+			(at 616.42 57.76 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "amod:TestPoint_Loop_RH-5019"
-			(at 641.35 60.96 0)
+			(at 617.22 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22867,7 +22867,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 641.35 60.96 0)
+			(at 617.22 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22878,7 +22878,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 641.35 60.96 0)
+			(at 617.22 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22889,7 +22889,7 @@
 			)
 		)
 		(property "LCSC" "C5199800"
-			(at 641.35 60.96 0)
+			(at 617.22 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -22900,7 +22900,7 @@
 			)
 		)
 		(property "MPN" "RH-5019"
-			(at 641.35 60.96 0)
+			(at 617.22 60.96 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24829,8 +24829,7 @@
 	)
 	(symbol
 		(lib_id "Device:R_US")
-		(at 233.68 368.3 270)
-		(mirror x)
+		(at 233.68 368.3 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -25137,7 +25136,8 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 632.46 83.82 90)
+		(at 632.46 83.82 270)
+		(mirror x)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)

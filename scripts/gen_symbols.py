@@ -71,6 +71,10 @@ SYMBOLS = [
     box("OPA847_SOIC8", "U", [("1", "NC", "passive"), ("2", "-IN", "input"), ("3", "+IN", "input"), ("4", "-VS", "power_in")],
         [("8", "DIS", "input"), ("7", "+VS", "power_in"), ("6", "OUT", "output"), ("5", "NC", "passive")],
         "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "OPA847 wideband low-noise op amp, SOIC-8", width=10.16),
+    # OPA847IDBVR (TI, SOT-23-6, the DBV pin configuration): 1 OUT, 2 -VS, 3 +IN, 4 -IN, 5 DIS (high or open: enabled), 6 +VS
+    box("OPA847_SOT23-6", "U", [("3", "+IN", "input"), ("4", "-IN", "input"), ("2", "-VS", "power_in")],
+        [("6", "+VS", "power_in"), ("5", "DIS", "input"), ("1", "OUT", "output")],
+        "Package_TO_SOT_SMD:SOT-23-6", "OPA847 wideband low-noise op amp, SOT-23-6 (OUT 1, -VS 2, +IN 3, -IN 4, DIS 5, +VS 6)", width=10.16),
     # LT6230CS6 (ADI, TSOT-23-6): the SOT-23-5 op amp pinout plus SHDN-bar on pin 6 (tie to V+ to run)
     box("OPA_SOT23-6", "U", [("3", "+IN", "input"), ("4", "-IN", "input"), ("2", "V-", "power_in")],
         [("5", "V+", "power_in"), ("6", "~{SHDN}", "input"), ("1", "OUT", "output")],

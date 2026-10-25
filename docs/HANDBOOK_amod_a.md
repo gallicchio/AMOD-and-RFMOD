@@ -41,7 +41,7 @@ Parts: KT-0805G (C2297), NCD0805R1 (C84256), LM2664M6X/NOPB (C108573), MF-MSMF20
 ### A2  x10, 14 MHz
 
 Cell (0,0); tutorial 4.06, 5.02; +-5 V.
-Jacks: TL IN 50R (±0.4 V); TR OUT.
+Jacks: TL IN 50R (±0.4 V); BR OUT.
 
 **Expect:** x10 (20 dB) into a high impedance, x5 into 50 ohm, -3 dB near 14 MHz; clips at about +-4 V
 
@@ -52,7 +52,7 @@ Parts: OPA810IDBVR (C2833513).
 ### A3  x100, 1.4MHz
 
 Cell (1,0); tutorial 4.06, 5.02; +-5 V.
-Jacks: TL IN 50R (±40 mV); TR OUT.
+Jacks: TL IN 50R (±40 mV); BR OUT.
 
 **Expect:** x100 (40 dB) into a high impedance, -3 dB near 1.4 MHz; keep the input under 40 mV peak
 
@@ -63,13 +63,13 @@ Parts: OPA810IDBVR (C2833513).
 ### A4  LNA, 30 MHz
 
 Cell (2,0); tutorial 4.06, 5.03; +-5 V.
-Jacks: TL IN 50R (±30 mV); TR OUT.
+Jacks: TL IN 50R (±30 mV); BR OUT.
 
 **Expect:** x100 (40 dB) from 50 ohm, flat 1-30 MHz, about 3 dB noise figure from 50 ohm; keep the input under 30 mV peak
 
-Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at gains above 12 (it is decompensated): do not change Rg upward.  Pin 1 (no connection) carries the feedback node.
+Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at gains above 12 (it is decompensated): do not change Rg upward.  SOT-23-6, DIS tied to +VS (enabled).
 
-Parts: OPA847IDR (C2870028).
+Parts: OPA847IDBVR (C160422).
 
 ### A5  noise, x100
 
@@ -96,18 +96,18 @@ Parts: TLV3501AIDBVR (C193413).
 ### A7  PLL 4046
 
 Cell (1,1); tutorial 4.01; +5 V.
-Jacks: TL IN 1K (±1 V); TR VCO OUT.
+Jacks: TL IN 1K (±1 V); BR VCO OUT.
 
 **Expect:** VCO OUT locks to a 50-200 kHz square or sine on IN; pin 9 is the demodulated FM, pin 13 the phase detector
 
-CD74HC4046A: R1 10 k, C1 1 nF put the VCO near 100 kHz (R2 open: it can go down to 0).  PC2 (the edge-triggered tri-state detector) through 10 k / 100 n into VCOin: a lag filter, so expect ringing on lock.  IN self-biases through 100 n / 1 k (any level above 0.4 V peak).  VCO OUT is 5 V CMOS through 470 ohm.  Probe pins 9 and 13.
+74HC4046A: R1 10 k, C1 1 nF put the VCO near 100 kHz (R2 open: it can go down to 0).  PC2 (the edge-triggered tri-state detector) through 10 k / 100 n into VCOin: a lag filter, so expect ringing on lock.  IN self-biases through 100 n / 1 k (any level above 0.4 V peak).  VCO OUT is 5 V CMOS through 470 ohm.  Probe pins 9 and 13.
 
-Parts: CD74HC4046AM96 (C6542).
+Parts: 74HC4046APW-Q100J (C546981).
 
 ### A8  heat
 
 Cell (2,1); tutorial 5.02, 7.06; +5 V.
-Jacks: TR TEMP OUT.
+Jacks: BR TEMP OUT.
 
 **Expect:** 0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT
 
@@ -118,7 +118,7 @@ Parts: AO3400A (C20917), 25121WF150JT4E (C20087), TMP235A4DBZR (C2868809).
 ### A9  mixer, MC1496
 
 Cells (0,2), (1,2); tutorial 1.10, 6.02; +-5 V.
-Jacks: TL RF IN (±0.3 V); TM LO IN (±0.3 V); TR IF OUT.
+Jacks: TL RF IN (±0.3 V); TM LO IN (±0.3 V); BR1 IF OUT.
 
 **Expect:** IF OUT = RF x LO (sum and difference frequencies, about 0.3 V peak per volt of RF at 0.3 V of LO); a balanced mixer, the carrier mostly cancels
 
@@ -140,7 +140,7 @@ Parts: E6C1204URAC1UDA (C375479), 2N7002 (C8545), OPA810IDBVR (C2833513), PD70-0
 ### A11  ultrasound
 
 Cells (0,3), (1,3); tutorial 4.06; +-5 V.
-Jacks: TR RX OUT.
+Jacks: BR1 RX OUT.
 
 **Expect:** a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)
 

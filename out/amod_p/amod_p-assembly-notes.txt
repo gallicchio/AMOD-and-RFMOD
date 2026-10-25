@@ -10,3 +10,6 @@ DIP switches (SW*) -- the sliders should move toward the side the silkscreen mar
 Terminal blocks -- the wire openings face the board's edge.
 Diodes and LEDs -- polarised; the cathode is pad 1, at the end the silkscreen bar marks.
 Test loops (TP*) -- one pad each; the loop lies along the pad's long axis.
+
+Y801 (the 4 MHz crystal) and Y901 (the 455 kHz resonator) stand at 45 degrees on purpose, diagonal
+between their tiles' two jacks: keep the angle the placement file gives.

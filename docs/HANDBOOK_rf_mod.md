@@ -100,7 +100,7 @@ Parts: GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
 ### R7  TX mixer, ADL5350
 
 Cells (0,2), (1,2); +5 V.
-Jacks: TL RF (+10 dBm); TMr LO (0 to +6 dBm); BR IF.
+Jacks: TL RF (+10 dBm); TL1 LO (0 to +6 dBm); BR IF.
 
 **Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
 
@@ -111,7 +111,7 @@ Parts: ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
 ### R8  RX mixer, ADL5350
 
 Cells (2,2), (3,2); +5 V.
-Jacks: TL RF (+10 dBm); TMr LO (0 to +6 dBm); BR IF.
+Jacks: TL RF (+10 dBm); TL1 LO (0 to +6 dBm); BR IF.
 
 **Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
 

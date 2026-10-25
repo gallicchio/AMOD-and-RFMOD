@@ -163,15 +163,19 @@ class Tile:
     def jack_pin(self, slot):
         return G.slot(self.cells, slot)
 
-    def legend(self, at=None):
+    def legend(self, at=None, br=False):
         """The standard texts: the number between the jacks (smaller when it has three characters: the legs leave
         3.2 mm), the sections one under the other below it, the name under the loops.  `at` moves the number and the
         sections' column (a tile with one jack)."""
         w = self.w
-        x = w / 2 if at is None else at
+        x = (w / 2 if not br else 10.6) if at is None else at
         size = 1.5 if len(self.id) <= 2 else 0.9           # three characters at 1.5 would reach the legs' pads
         self.text(x, ID_Y, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
-        if self.supply:                     # a powered tile: the switch and FET own the bottom-left; a short name at the bottom right
+        if br:                              # OUT at the bottom-right: the name and the subtitle in two lines at the bottom-left
+            self.text(1.2, 17.4, self.name.upper(), 0.8, 0.15, "left")
+            if self.subtitle:
+                self.text(1.2, 18.7, self.subtitle, 0.8, 0.15, "left")
+        elif self.supply:                   # a powered tile: the switch and FET own the bottom-left; a short name at the bottom right
             self.text(w - 1.1, 18.2, (self.name + ((" " + self.subtitle) if self.subtitle else "")).upper(), 0.8, 0.15, "right")
         else:
             self.text(1.2, NAME_Y, self.name.upper() + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
@@ -220,7 +224,8 @@ def unit(v):
     return "%.3g" % v
 
 
-def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_out=False, line_y=None, xs=None, labels=None):
+def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_out=False, line_y=None, xs=None, labels=None,
+           out_slot="TR", shunt_up=None, loop_at=None, r_turn=None, entry_y=None, legend=True):
     """A two-port ladder between the IN (TL) and OUT (TR) jacks.
 
     elements: a list, in order from IN to OUT, of
@@ -233,7 +238,13 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
     gets an L-shaped entry round each end.  An end node's single shunt hangs outside the stub (at x_in - 1.9), a
     double shunt's second part inside the row.  Values sit above the line (LABEL_Y), slid off the stubs' columns,
     a middle shunt's beside it, a 1210's below; `labels` = {part index: (dx, dy, justify, size)} overrides them.
-    The test loops lie under the jacks at LOOP_Y, their names between them."""
+    The test loops lie under the jacks at LOOP_Y, their names between them.
+
+    out_slot="BR" (rev A after Prompt 12: the jacks in a checkerboard): OUT is the bottom-right jack, its stub drops from
+    the line's right end; the shunts of the nodes in `shunt_up` (by default the OUT node's) stand up from the line into
+    the top-right quarter the OUT jack left; the IN loop sits under the line left of centre, the OUT loop stands above
+    the line's right end (`loop_at` = {"IN" / "OUT": (x, y, rot)} moves them); the name and the subtitle are two lines at
+    the bottom-left.  A row wider than the jacks turns into the OUT jack at y = r_turn (default LY + 1.0)."""
     import passive as P
     LY = LINE_Y if line_y is None else line_y
     labels = labels or {}
@@ -280,20 +291,26 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
         l_entry = r_entry = False
     assert not (l_entry and shunt_at.get(0)), (tile.id, "no room for IN's shunt beside the row")
     assert not (r_entry and shunt_at.get(n_s)), (tile.id, "no room for OUT's shunt beside the row")
+    br = out_slot == "BR"
+    if shunt_up is None:
+        shunt_up = {n_s} if br else set()
     tile.jack("TL", "IN", "IN", "in", "±4 V")
-    tile.jack("TR", "OUT", "OUT", "out", "")
+    tile.jack(out_slot, "OUT", "OUT", "out", "")
 
     def node_net(k):
         return "IN" if k == 0 else ("OUT" if k == n_s else "N%d" % k)
 
-    ENTRY_Y = LY - 1.4                              # an L-shaped entry runs here: under the legs, above the pads
+    ENTRY_Y = entry_y if entry_y is not None else LY - 1.4     # an L-shaped entry runs here: under the legs, above the pads
     x_left = x_in if not l_entry else xs[0] - PAD[pkgs[0]]           # where the line starts: the stub's foot or pad 1
     x_right = x_out if not r_entry else xs[-1] + PAD[pkgs[-1]]
     if l_entry:
         tile.wire("IN", [("J%d01" % tile.idx, "1"), (x_in, ENTRY_Y), (x_left, ENTRY_Y), (x_left, LY)])
     else:
         tile.wire("IN", [("J%d01" % tile.idx, "1"), (x_in, LY)])
-    if r_entry:
+    if br and r_entry:                              # the row ends past the stub: down its end, then left into the jack
+        rt = r_turn if r_turn is not None else LY + 1.0
+        tile.wire("OUT", [("J%d02" % tile.idx, "1"), (x_out, rt), (x_right, rt), (x_right, LY)])
+    elif r_entry:
         tile.wire("OUT", [("J%d02" % tile.idx, "1"), (x_out, ENTRY_Y), (x_right, ENTRY_Y), (x_right, LY)])
     else:
         tile.wire("OUT", [("J%d02" % tile.idx, "1"), (x_out, LY)])
@@ -350,10 +367,15 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
             arm = []
             for j, ((key, value), xsh) in enumerate(zip(parts_, xss)):
                 pkg, prefix = key[1:], key[0]
-                yc = LY + 0.55 + PAD[pkg]
+                up = k in shunt_up
+                yc = LY - 0.55 - PAD[pkg] if up else LY + 0.55 + PAD[pkg]
                 fullkey = PARTS.passive_key(prefix, pkg, value)
                 vtext = fullkey.split(" ", 1)[1]
-                if k == 0 and xsh < x_in:
+                if up and k == n_s and xsh > x_out:        # the OUT node's shunt standing up at the right edge: its value beside it, turned
+                    lab = (CRT[pkg][1] + 0.5, 0, "center", 0.8, 90)
+                elif up:
+                    lab = (-(CRT[pkg][1] + 0.15), 0, "right", 0.8) if len(parts_) == 2 and j == 0 else (CRT[pkg][1] + 0.15, 0, "left", 0.8)
+                elif k == 0 and xsh < x_in:
                     lab = (x_in - 0.35 - xsh, LABEL_Y - yc, "right", 0.8)
                 elif k == n_s and xsh > x_out:
                     lab = (x_out + 0.35 - xsh, LABEL_Y - yc, "left", 0.8)
@@ -365,10 +387,10 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
                 else:
                     lab = (CRT[pkg][1] + 0.15, 0, "left", 0.8)
                 lab = labels.get(len(refs), lab)
-                ref = tile.add(prefix, fullkey, vtext, xsh, yc, 270, {"1": node_net(k), "2": "GND"}, label=lab, hide_value=False)
+                ref = tile.add(prefix, fullkey, vtext, xsh, yc, 90 if up else 270, {"1": node_net(k), "2": "GND"}, label=lab, hide_value=False)
                 refs.append(ref)
                 tile.wire(node_net(k), [(xsh, LY), (ref, "1")])
-                tile.gnd_stub(ref, "2", (xsh, yc + PAD[pkg] + 0.75))
+                tile.gnd_stub(ref, "2", (xsh, yc - PAD[pkg] - 0.75) if up else (xsh, yc + PAD[pkg] + 0.75))
                 node_items[k].append((xsh, (xsh, LY)))
                 kind = {"R": P.R, "C": P.C, "L": P.L}[prefix]
                 arm.append(kind(value) if prefix != "L" else P.L(value, 0.5))
@@ -377,8 +399,20 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
         items.sort(key=lambda it: it[0])
         if len(items) >= 2:
             tile.wire(node_net(k_), [spec for _, spec in items])
-    # the test loops under the jacks, their names between them
-    if loops:
+    # the test loops under the jacks, their names between them (BR: under the line's left end and above its right end,
+    # unnamed: each hangs on its jack's stub)
+    if loops and br:
+        # (x, y, rot[, path]): path is the wire's points from the node to the loop (default: down from the IN stub, up
+        # from the OUT node at the loop's x)
+        la = {"IN": (6.3, 14.3, 0), "OUT": (15.25, 3.4, 0)}
+        la.update(loop_at or {})
+        spec = la["IN"]
+        ref = tile.loop("IN", spec[0], spec[1], spec[2], "IN", label_at="hide")
+        tile.wire("IN", list(spec[3] if len(spec) > 3 else [(x_left, LY), (x_left, spec[1])]) + [(ref, "1")])
+        spec = la["OUT"]
+        ref = tile.loop("OUT", spec[0], spec[1], spec[2], "OUT", label_at="hide")
+        tile.wire("OUT", list(spec[3] if len(spec) > 3 else [(spec[0], LY)]) + [(ref, "1")])
+    elif loops:
         for net, xj, xl, lab in (("IN", x_in, x_left, (2.4, 0, "left", 0.8)), ("OUT", x_out, x_right, (-2.4, 0, "right", 0.8))):
             ref = tile.loop(net, xj, LOOP_Y, 0, net, label_at=lab)
             tile.wire(net, [(xl, LY), (xl, LOOP_Y), (ref, "1")])
@@ -390,7 +424,8 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
     tile.plot = dict(kind="bode", x=(f - f.min()), y=g, xlabel="f", ylabel="dB")
     tile.elements = elements
     tile.sch_draw = lambda ctx, t: draw_ladder(ctx, t)
-    tile.legend()
+    if legend:
+        tile.legend(br=br)
     return refs
 
 
@@ -408,7 +443,7 @@ def draw_ladder(ctx, t):
     ctx.wire([jin, (xcur, y)])
     ctx.label(t.jacks[0]["net"].lstrip("/"), xcur, y)
     series_refs = [r for r, p in t.parts.items() if r[0] in "RCL" and p.rot == 0]
-    shunt_refs = [r for r, p in t.parts.items() if r[0] in "RCL" and p.rot == 270]
+    shunt_refs = [r for r, p in t.parts.items() if r[0] in "RCL" and p.rot in (90, 270)]     # down (270) or up (90) from the line
     n_series = sum(1 for e in t.elements if e[0] == "series")
     si = shunt_i = k = 0
     for e in t.elements:

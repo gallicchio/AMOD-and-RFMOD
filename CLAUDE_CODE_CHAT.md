@@ -277,3 +277,57 @@ through 2.2 k).  Neither is on the board because JLCPCB stocks neither in a form
 coil, a resistor assortment and cable ties for the tiles' sockets and terminals; rubber feet; a Pmod extension cable
 for the Icepi adapter.  Prices, links and stock as read on 2026-10-25 were gathered by two research agents and added
 to the same file.
+
+## Prompt 11 (about 11:13)
+
+> Status update?
+
+### Response 11
+
+The design work was finished and nothing was running.  A clean rebuild of all three boards had passed every check
+(ERC 0, DRC 0, the fab checks with the new Pmod check), and the Icepi adapter had no DRC errors.  This repository was
+committed; OpticsPCBs had its generator and rule-book changes committed, with `ECP5-2ADC-2DAC.kicad_pro` showing as
+modified by someone else; the tutorial's Appendix D additions were left uncommitted beside Jason's own answers.  Open
+for Jason: the 10.5 mm jack spacing on AMOD-P and AMOD-A (RF-MOD's was 14.4 mm), a design review from
+`docs/REVIEW_BRIEF.md`, and the kit list's search-result prices.
+
+## Prompt 12 (about 11:16)
+
+> Is ECP5-2ADC-2DAC.kicad_pro modified just because someone opened it up, possibly in a different version of kicad?
+> You can commit Appendix D and anything else that's relevant to commit in that repo. It should end with a clean git
+> status. If saved numpy data should be .gitignored, do that. Otherwise commit it. There's no need to match the jack
+> spacing, but I would like you to spread the jacks out away from each other (even away from jacks on other tiles)
+
+### Response 12 (11:16-12:45)
+
+**The `.kicad_pro`:** yes.  KiCad re-saved it on 2026-10-23 at 00:37: it sorted the net classes alphabetically and
+wrote `null` as `{}`.  A JSON comparison finds every value the same.  It is left uncommitted in OpticsPCBs.
+
+**The tutorial repository** is committed (1066aa5: Appendix D with Jason's answers, the boards as built and their
+renders) and clean.  The 121 `.npz`/`.npy` files were already tracked and the build outputs already ignored, so
+nothing new went into `.gitignore`.
+
+**The jacks, on every board, now stand in a checkerboard:** IN at a cell's top-left slot, OUT at its bottom-right,
+a two-cell tile's third jack at its right cell's top-left.  Two jacks in one cell are 14.85 mm apart and two across a
+gutter 15.2 mm; the closest pair on each board is 14.85 mm (it was 10.5 on AMOD-P and AMOD-A, 14.37 on RF-MOD).
+`scripts/geometry.py` now asserts 14.3 mm for every pair.
+
+- **AMOD-P:** all thirteen tiles re-laid with OUT at the bottom-right.  P4's inductor and capacitors, P6's and P7's
+  ladders and P11's delay line were re-placed around the new jack positions; P11's taps are now at its cells'
+  top-left and bottom-right slots.  P8's HC-49S crystal did not fit straight between diagonal jacks, so it stands at
+  45 degrees with its jacks 0.5 mm further out (slots TLo and BRo); P9's resonator is at 45 degrees too.
+- **AMOD-A:** A2, A3 and A4 share a new op-amp layout (`opa_tile_br`) in the top-right quarter.  A4's OPA847 moved
+  from the SOIC-8 to the SOT-23-6 (OPA847IDBVR, C160422, 724 in stock), whose pinout was read from TI's datasheet.
+  A7's 4046 moved from TI's SOIC-16 to Nexperia's 74HC4046APW-Q100J in TSSOP-16 (C546981, 234 in stock; the same pin
+  table), which fits between the jacks with its loop filter above it and C1 and the output resistor beside it.
+  A8's heaters moved to the top-left with the TMP235 straight above the bottom-right jack.  A9's IF OUT and A11's
+  RX OUT moved to their right cells' bottom-right slots; A11's receiver uses the A2 layout.  A5, A6, A10 and A12
+  kept their jacks, which were already 14.3 mm or more from every other.  The QR code on the back moved left of
+  A11's new jack.
+- **RF-MOD:** the two mixers' LO jacks moved from the top middle to the right cell's top-left, the 50 ohm line
+  extended along the same row.
+
+All three boards: ERC 0, DRC 0, every fab check passed.  AMOD-A's parts rose from $45.97 to $50.90 a board, mostly
+the OPA847's SOT-23-6.  PLAN.md (the jack rule, the tables, the status), the DOA list (items 8, 9, 17), the review
+brief, the README, the assembler's notes (the 45-degree parts) and Appendix D (the text, the cost and the three
+renders) were updated, and CLAUDE_PCB.md has the lesson.

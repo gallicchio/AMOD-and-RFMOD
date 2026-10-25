@@ -921,7 +921,7 @@ class Board:
                 if j.get("label_at"):
                     dx, dy, just, size = j["label_at"]
                     self._text(x0 + j["x"] + dx, y0 + j["y"] + dy, name, size, 0.15, justify=just)
-                elif j["slot"] in ("TL", "TR", "TM", "TMr"):
+                elif j["slot"] in ("TL", "TR", "TM", "TMr", "TLo") or j["slot"].startswith("TL"):
                     self._text(x0 + j["x"], y0 - 0.8, name, 1.0, 0.18, justify="center")
                 else:
                     self._text(x0 + j["x"], y0 + h + 0.8, name, 1.0, 0.18, justify="center")

@@ -15,7 +15,7 @@ the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and
 ### P1  pi pad, -20 dB
 
 Cell (0,0); tutorial 6.12, 5.06.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** -20 dB flat, 50 ohm both ways
 
@@ -24,7 +24,7 @@ A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm syst
 ### P2  RC low-pass, 159 kHz
 
 Cell (1,0); tutorial 4.02, 4.08, 7.06.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** -3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance
 
@@ -33,7 +33,7 @@ Jacks: TL IN (±4 V); TR OUT.
 ### P3  RC high-pass, 159 kHz
 
 Cell (2,0); tutorial 4.02.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance
 
@@ -42,18 +42,18 @@ The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gi
 ### P4  series RLC, 100uH 220pF
 
 Cell (3,0); tutorial 4.02, 7.06.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** a peak at 1.07 MHz (switches off), 0.98 with 1, 0.89 with 2, 0.83 with both; Q about 6
 
-Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6 (the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No IN loop (the switch took its corner).
+Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6 (the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner).
 
 Parts: DSHP02TSGET (C40735).
 
 ### P5  LC low-pass, 9 MHz
 
 Cell (0,1); tutorial 1.06, 6.10, 4.02.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** -3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC
 
@@ -62,7 +62,7 @@ Jacks: TL IN (±4 V); TR OUT.
 ### P6  LC low-pass, 100 kHz
 
 Cell (1,1); tutorial 7.05, 4.02.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** -3 dB at 118 kHz: the reconstruction filter after a one-bit DAC
 
@@ -71,7 +71,7 @@ Jacks: TL IN (±4 V); TR OUT.
 ### P7  band-pass, 4.7-7.5 MHz
 
 Cell (2,1); tutorial 6.10, 5.07, 6.12.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz
 
@@ -80,7 +80,7 @@ Jacks: TL IN (±4 V); TR OUT.
 ### P8  quartz crystal, 4 MHz
 
 Cell (3,1); tutorial 4.03, 4.09, 4.10.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TLo IN (±4 V); BRo OUT.
 
 **Expect:** a sharp pass at the series resonance near 4.000 MHz (-3.7 dB) and a notch 6.0 kHz above it, the parallel resonance
 
@@ -91,7 +91,7 @@ Parts: X49SM4MSD2SC (C13774).
 ### P9  ceramic res., 455 kHz
 
 Cell (0,2); tutorial 4.02, 4.03.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz
 
@@ -100,7 +100,7 @@ A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-termi
 ### P10  clipper, 1N4148 ±0.6 V
 
 Cell (3,3); tutorial 4.04.
-Jacks: TL IN (±4 V); TR OUT.
+Jacks: TL IN (±4 V); BR OUT.
 
 **Expect:** a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance
 
@@ -111,7 +111,7 @@ Parts: 1N4148W (C81598).
 ### P11  delay line, 400 ns, a tap every 100
 
 Cells (1,2), (2,2), (3,2); tutorial 4.05, 6.05, 6.10, 7.06.
-Jacks: TL IN (±4 V); TM 100ns; TR 200ns; BR 300ns; BL OUT.
+Jacks: TL IN (±4 V); TL1 100ns; TL2 200ns; BR2 300ns; BR0 OUT.
 
 **Expect:** a pulse arrives at OUT 395 ns late, at the taps every 99 ns; flat to about 10 MHz, then it disperses
 

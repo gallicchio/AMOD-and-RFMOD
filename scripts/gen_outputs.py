@@ -223,10 +223,18 @@ Test loops (TP*) -- one pad each; the loop lies along the pad's long axis.
 """
 
 
+BOARD_NOTES = {
+    "amod_p": "Y801 (the 4 MHz crystal) and Y901 (the 455 kHz resonator) stand at 45 degrees on purpose, diagonal\n"
+              "between their tiles' two jacks: keep the angle the placement file gives.\n",
+}
+
+
 def export_assembly_notes(stem):
     path = os.path.join(OUT, stem, f"{stem}-assembly-notes.txt")
     with open(path, "w") as fh:
         fh.write(ASSEMBLY_NOTES.format(stem=stem, name=parts.BOARDS[stem]["name"]))
+        if stem in BOARD_NOTES:
+            fh.write("\n" + BOARD_NOTES[stem])
     return path
 
 

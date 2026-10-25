@@ -23,10 +23,14 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
 7. **MC1496 (A9, U901).** SOIC-14 as the datasheet's "pin connections": SIG+ 1, GAIN 2 and 3, SIG- 4, BIAS 5,
    OUT+ 6, CAR+ 8, CAR- 10, OUT- 12, VEE 14; pins 7, 9, 11, 13 no connection.  Pin 7 carries the output wire past
    the chip: that is only safe if pin 7 is truly unconnected inside the package (the datasheet says so).
-8. **OPA847 (A4, U401).** Pin 1 carries the feedback node; the datasheet lists pins 1 and 5 as NC.  Confirm the
-   DIS pin's sense (8, pulled to +VS here: enabled).
-9. **CD74HC4046A (A7, U701).** The order code was changed on the day to CD74HC4046AM96 (C6542, 959 in stock); the
-   same die and pinout as the AM part.  Pin 15 is PC3out on the HC part (unused).
+8. **OPA847 (A4, U401).** Now the SOT-23-6 (OPA847IDBVR, C160422; the SOIC-8 did not fit between the checkerboard
+   jacks), taken as TI's DBV pinout: OUT 1, -VS 2, +IN 3, -IN 4, DIS 5, +VS 6, with DIS tied to +VS (enabled; low
+   disables).  Confirm against the DBV package drawing and the pin-1 mark in JLCPCB's preview.
+9. **74HC4046A (A7, U701).** Now Nexperia's 74HC4046APW-Q100J in TSSOP-16 (C546981, 234 in stock on 2026-10-25):
+   TI's SOIC-16 (C6542) was too long for the cell between the checkerboard jacks.  Nexperia's pin table is the same
+   as TI's (pin 15 is PC3out, unused).  Check two things: the stock on the order day (TI's CD74HC4046APWR, C6543,
+   is the same footprint but had only 21), and the VCO range with R1 10 k and C1 1 nF against Nexperia's Fig. 29,
+   since its curves differ a little from TI's.
 10. **The MSK12C02 slide switch** (every powered tile): pad 1 is taken as the contact made with the slider UP
     (toward the jacks), pad 2 the common, pad 3 the other end.  The tile grounds pad 1 (on) and puts the rail on
     pad 3 (off); if the switch is mirrored the labels are wrong but nothing is damaged (the FET is either on or
@@ -58,7 +62,8 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
 15. With every tile off, the green LED lights and the socket shows +5, -5 and 3.3 V.  Then one tile at a time.
 16. A10's current source: with 1 V on DRIVE IN the LED carries 45 mA; above about 1.1 V the op amp runs out of
     headroom.  Never put the DAC's +4 V open-circuit swing on DRIVE IN without a series resistor.
-17. A8's heater is 170 mA when Pmod 3 is high; the 2512 pair runs warm (0.83 W).  Nothing else on the board is near it.
+17. A8's heater is 170 mA when Pmod IO6 is high; the 2512 pair runs warm (0.83 W).  It now sits in A8's top-left,
+    about 2 mm below A4's slide switch and FET across the gutter, which tolerate the rise; no precise part is near it.
 18. A9's IF OUT is a 1.5 k source: read it with a high-impedance scope input or the ADC's high-impedance setting.
 
 ## What was dropped from the plan (not faults: scope)

@@ -7,7 +7,8 @@ questions at the end with evidence (a datasheet page, a rule, a measurement), no
 
 Two 100 x 100 mm boards of analog "tiles" for an FPGA-plus-ADC/DAC teaching module (the ECP5-2ADC-2DAC board,
 tutorial at `~/mudd/133electronics/icepi-zero-dac-adc/tutorial/`, Appendix D is the brief).  Each tile is a 20 mm
-cell between two vertical SMA jacks (IN top-left, OUT top-right), the circuit drawn on the silkscreen as it is
+cell between two vertical SMA jacks (IN top-left, OUT bottom-right, so every jack is 14.85 mm or more from every
+other on the board), the circuit drawn on the silkscreen as it is
 wired.  AMOD-P (two layers) is thirteen passive tiles: attenuators, RC and LC filters, resonators, a delay line, a
 clipper, an AM loopstick.  AMOD-A (four layers) is twelve active tiles on USB-C power with a slide switch and P-FET
 per tile: two gain blocks, an OPA847 LNA, a Johnson-noise amplifier, a delta-sigma comparator, a 4046 PLL, a
@@ -17,7 +18,7 @@ a class-D speaker amplifier with an electret preamplifier; a 2 x 6 Pmod plug car
 RF-MOD (four layers) is ten RF tiles on 50 ohm coplanar waveguide: a resistive splitter, 2.45 GHz LTCC and 915 MHz
 SAW filters, two GALI-84+ gain blocks, power with a 7.8 V boost and a 25 MHz TCXO reference, two ADL5350 mixers and
 two MAX2871 synthesizers on a Pmod (one complete link on one reference; `PLAN.md` section 6).  Its tiles take IN at
-the top-left jack and OUT at the bottom-right.  The fourth board, `icepi_adapter/`, is the tutorial's 2x12 Icepi Zero
+the top-left jack and OUT at the bottom-right too.  The fourth board, `icepi_adapter/`, is the tutorial's 2x12 Icepi Zero
 adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 
 ## Where everything is
@@ -30,7 +31,7 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 - `hardware/*.kicad_sch`, `hardware/*.kicad_pcb`: the KiCad 10 files; `out/<stem>/`: gerbers, BOM, placement
   files, assembly notes, renders; `docs/images/`: the renders; `docs/HANDBOOK_*.md`: what each tile does and what
   to expect; `docs/DOA_amod_a.md`, `docs/DOA_rf_mod.md`: the assumptions to confirm.
-- `~/OpticsPCBs/CLAUDE_PCB.md`: the rule book the boards were designed to (section 17 is this project's lessons).
+- `~/OpticsPCBs/CLAUDE_PCB.md`: the rule book the boards were designed to (sections 17-19 are this project's lessons).
 - `CLAUDE_CODE_CHAT.md`: the night's record, with the reasons for every deviation from the plan.
 
 ## The checks already run (every build)
@@ -52,7 +53,9 @@ stock above 100 for every part on the day.
 6. **RF-MOD's RF:** the CPWG geometry against the JLC04161H-7628 stack, the launch voids, the MAX2871 loop filter
    (`PLAN.md` section 6: 80-120 kHz, 61 degrees, from CostasLink's `sim/budget.py` method), the ADL5350's crossover
    in place of the datasheet's tuned tanks, the GALI-84+ bias (22 ohm from 7.8 V).
-7. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A and RF-MOD, the ECP5 board's and the adapter's
+7. **The two parts placed at 45 degrees on AMOD-P** (P8's HC-49S crystal, P9's ceramic resonator): their placement
+   rotation in `out/amod_p/` against JLCPCB's preview.
+8. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A and RF-MOD, the ECP5 board's and the adapter's
    sockets), by pad position against the body, not by pad number: rev A's first layout got this wrong once.
 
 Answer as a numbered list of findings, each with the file and line (or the tile and part), the evidence, and the

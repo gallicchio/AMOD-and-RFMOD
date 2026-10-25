@@ -43,7 +43,7 @@ def pad2(pkg, x, y, r, pad):
 
 def tile_p1():
     t = Tile("P1", "pi pad", [(0, 0)], subtitle="-20 dB", sections=["6.12", "5.06"])
-    ladder(t, [("shunt", [("R0805", 61.9)]), ("series", "R0805", 249), ("shunt", [("R0805", 61.9)])])
+    ladder(t, [("shunt", [("R0805", 61.9)]), ("series", "R0805", 249), ("shunt", [("R0805", 61.9)])], out_slot="BR")
     t.result = "-20 dB flat, 50 ohm both ways"
     t.notes = ["A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board).",
                "Into a high-impedance load it is only -14 dB: the pad assumes 50 ohm on both sides."]
@@ -52,7 +52,7 @@ def tile_p1():
 
 def tile_p2():
     t = Tile("P2", "RC low-pass", [(1, 0)], subtitle="159 kHz", sections=["4.02", "4.08", "7.06"])
-    ladder(t, [("series", "R0805", 1000), ("shunt", [("C0805", 1e-9)])], hiz_out=True, fspan=(1e3, 1e8))
+    ladder(t, [("series", "R0805", 1000), ("shunt", [("C0805", 1e-9)])], hiz_out=True, fspan=(1e3, 1e8), out_slot="BR")
     t.result = "-3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance"
     t.notes = ["1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm",
                "load would make a 1 k / 50 divider of it.  The lag plant of 4.08 and 7.06; the step response is 1 - exp(-t / 1 us)."]
@@ -61,35 +61,40 @@ def tile_p2():
 
 def tile_p3():
     t = Tile("P3", "RC high-pass", [(2, 0)], subtitle="159 kHz", sections=["4.02"])
-    ladder(t, [("series", "C0805", 1e-9), ("shunt", [("R0805", 1000)])], hiz_out=True, fspan=(1e3, 1e8))
+    ladder(t, [("series", "C0805", 1e-9), ("shunt", [("R0805", 1000)])], hiz_out=True, fspan=(1e3, 1e8), out_slot="BR")
     t.result = "-3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance"
     t.notes = ["The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us."]
     return t
 
 
 def tile_p4():
-    """Series RLC between the jacks: 100 uH and 220 pF, with 47 pF and 100 pF switched in parallel by a 2-way DIP.
-    The switch (half pitch, its rows as columns) sits bottom-left with N1 on its left column; the two capacitors stand
-    in a column right of it, their top ends on OUT; the OUT loop stands at the right edge.  No IN loop (the switch took
-    its corner: IN is the DAC's own signal), and the coil's and capacitor's values are in the name (no room under the
-    1210 once the switch's feed runs there)."""
+    """Series RLC between the jacks: 100 uH and 220 pF, with 47 pF and 100 pF switched in parallel with the capacitor by a
+    2-way DIP.  The line runs 0.65 mm high so the 1210 clears both jacks; the switch lies across the top-right quarter
+    the OUT jack left (its ways as columns), its left column on the L-C node through the gap between the two parts, its
+    right column to the two capacitors standing under it, whose other ends are on the OUT line.  The number, the
+    sections and the IN loop take the bottom-left; no OUT loop (the switch has its corner: OUT is the jack)."""
     t = Tile("P4", "series RLC", [(3, 0)], subtitle="100uH 220pF", sections=["4.02", "7.06"])
-    ladder(t, [("series", "L1210", 100e-6), ("series", "C0805", 220e-12)], fspan=(1e5, 1e7), xs=[7.6, 11.6], loops=False,
-           labels={0: None, 1: None})
-    idx = t.idx
-    # pins 3, 4 (the left column at rot 90) on N1; pin 1 (way 1) to the 47 pF, pin 2 (way 2) to the 100 pF; both to OUT
-    sw = t.add("SW", "DIP2", "DIP2", 7.9, 15.7, 90, {"3": "N1", "4": "N1", "1": "S1", "2": "S2"}, hide_value=True)
-    pads = dip_pads(2, 7.9, 15.7, 90)
-    cu = t.add("C", "C0603 100pF", "100p", 13.8, 13.2, 270, {"1": "OUT", "2": "S2"}, label=(2.1, 0, "center", 0.8, 90))
-    cl = t.add("C", "C0603 47pF", "47p", 13.8, 16.5, 270, {"1": "OUT", "2": "S1"}, label=(2.1, 0, "center", 0.8, 90))
-    x_n1 = 9.9                                                  # between the coil's pad 2 (9.63) and the capacitor's pad 1 (10.15)
-    t.wire("N1", [(x_n1, LINE_Y), (x_n1, 12.8), (pads["3"][0], 12.8), pads["3"], pads["4"]])
-    t.wire("OUT", [(13.8, LINE_Y), (cu, "1")])
-    t.wire("OUT", [(14.7, LINE_Y), (14.7, 15.725), (cl, "1")])
-    t.wire("S2", [pads["2"], (12.9, pads["2"][1]), (12.9, 13.975), (cu, "2")])
-    t.wire("S1", [pads["1"], (12.9, pads["1"][1]), (12.9, 17.275), (cl, "2")])
-    tp = t.loop("OUT", 18.1, 13.6, 90, "OUT", label_at=(0, 3.0, "center", 0.8))
-    t.wire("OUT", [(15.25, LINE_Y), (18.1, LINE_Y), (tp, "1")])
+    LY = 9.95
+    ladder(t, [("series", "L1210", 100e-6), ("series", "C0805", 220e-12)], fspan=(1e5, 1e7), xs=[9.0, 13.2], loops=False,
+           labels={0: None, 1: None}, out_slot="BR", line_y=LY, legend=False)
+    # the switch at rot 90: pads 4 / 3 down its left column (x 10.49), 1 / 2 down its right column (x 18.11)
+    sw = t.add("SW", "DIP2", "DIP2", 14.3, 4.0, 90, {"3": "N1", "4": "N1", "1": "S1", "2": "S2"}, hide_value=True)
+    pads = dip_pads(2, 14.3, 4.0, 90)
+    xn = 11.39                                                  # between the coil's pad 2 (11.025) and the capacitor's pad 1 (11.75)
+    t.wire("N1", [(xn, LY), (xn, pads["4"][1]), pads["4"], pads["3"]], width=0.25)
+    cu = t.add("C", "C0603 100pF", "100p", 16.3, 8.2, 270, {"1": "S2", "2": "OUT"}, label=None)      # pad 1 up
+    cl = t.add("C", "C0603 47pF", "47p", 17.95, 8.2, 270, {"1": "S1", "2": "OUT"}, label=None)
+    t.wire("OUT", [(15.25, LY), (17.95, LY), (cl, "2")])
+    t.wire("OUT", [(16.3, LY), (cu, "2")])
+    t.wire("S2", [pads["2"], (16.3, pads["2"][1]), (cu, "1")], width=0.25)
+    t.wire("S1", [pads["1"], (pads["1"][0], 6.6), (17.95, 6.6), (cl, "1")], width=0.25)
+    tp = t.loop("IN", 6.6, 14.2, 0, "IN", label_at="hide")
+    t.wire("IN", [(4.75, LY), (4.75, 14.2), (tp, "1")])
+    t.text(2.3, 12.0, t.id, 1.5, 0.3, "center")
+    for k, sct in enumerate(t.sections):
+        t.text(2.3, 13.9 + 1.35 * k, sct, 0.8, 0.15, "center")
+    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
     # the responses for the four switch states
     f = P.logspace(1e5, 1e7, 1200)
     res = {}
@@ -102,7 +107,7 @@ def tile_p4():
         res["off"][0] / 1e6, res["1"][0] / 1e6, res["2"][0] / 1e6, res["1+2"][0] / 1e6)
     t.notes = ["Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6",
                "(the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move",
-               "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No IN loop (the switch took its corner)."]
+               "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."]
     t.sch_draw = draw_p4
     return t
 
@@ -117,7 +122,8 @@ def draw_p4(ctx, t):
 def tile_p5():
     t = Tile("P5", "LC low-pass", [(0, 1)], subtitle="9 MHz", sections=["1.06", "6.10", "4.02"])
     ladder(t, [("shunt", [("C0805", 220e-12)]), ("series", "L0805", 1.5e-6), ("shunt", [("C0805", 680e-12)]),
-               ("series", "L0805", 1.5e-6), ("shunt", [("C0805", 220e-12)])], fspan=(1e5, 1e8))
+               ("series", "L0805", 1.5e-6), ("shunt", [("C0805", 220e-12)])], fspan=(1e5, 1e8), out_slot="BR",
+           labels={2: (-1.13, 0, "right", 0.8)})                  # the middle capacitor's value on its left, off the OUT jack
     t.result = "-3 dB at %.1f MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC" % (t.sim["f3"] / 1e6)
     t.notes = ["5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF).",
                "Before the ADC it removes 6.10's ghost; after the DAC it smooths the steps."]
@@ -127,7 +133,8 @@ def tile_p5():
 def tile_p6():
     t = Tile("P6", "LC low-pass", [(1, 1)], subtitle="100 kHz", sections=["7.05", "4.02"])
     ladder(t, [("shunt", [("C0805", 10e-9), ("C0805", 10e-9)]), ("series", "L1210", 150e-6), ("shunt", [("C0805", 10e-9), ("C0805", 10e-9)])],
-           fspan=(1e3, 1e7), labels={1: None, 3: None})          # the inner pair unlabelled: no room beside the 1210's tall pads
+           fspan=(1e3, 1e7), labels={1: None, 2: (0.6, -2.3, "center", 0.8), 3: None}, out_slot="BR", line_y=9.95,   # the inner pair unlabelled
+           loop_at={"IN": (8.9, 14.6, 90, [(7.4, 9.95), (7.4, 13.0), (8.9, 13.0)])})       # the line up 0.65: the 1210 clears both jacks
     # a third 10 nF on each side would make 30 nF (the design value for 3rd-order Butterworth at 106 kHz with 150 uH);
     # two cells of 10 nF (20 nF) give 125 kHz: use the simulated number
     t.result = "-3 dB at %.0f kHz: the reconstruction filter after a one-bit DAC" % (t.sim["f3"] / 1e3)
@@ -142,7 +149,10 @@ def tile_p7():
     t = Tile("P7", "band-pass", [(2, 1)], subtitle="4.7-7.5 MHz", sections=["6.10", "5.07", "6.12"])
     ladder(t, [("series", "L0603", 2.7e-6), ("series", "C0603", 270e-12), ("shunt", [("L0603", 330e-9), ("C0603", 2.2e-9)]),
                ("series", "L0603", 2.7e-6), ("series", "C0603", 270e-12)], fspan=(1e6, 3e7),
-           xs=[2.3, 6.6, 13.4, 17.7], labels={0: (-0.35, 2.7, "left", 0.8), 5: (0.35, 2.7, "right", 0.8)})
+           xs=[2.3, 6.6, 13.4, 17.7], labels={0: (-0.35, 2.2, "left", 0.8), 1: None, 2: None, 3: None,
+                                              4: (0, -1.6, "center", 0.8), 5: (-0.8, -3.0, "right", 0.8)},
+           out_slot="BR", line_y=10.0, entry_y=8.95, r_turn=11.05,
+           loop_at={"IN": (5.9, 14.3, 0), "OUT": (18.3, 6.0, 90, [(18.3, 10.0)])})
     fpk, gpk = t.sim["peak"]
     t.result = "Chapter 6's band: a peak at %.1f MHz, 3 dB from %.1f to %.1f MHz" % (fpk / 1e6, *band(t.sim))
     t.notes = ["3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF",
@@ -160,16 +170,26 @@ def band(sim, down=3.0):
 
 
 def tile_p8():
-    """A 4 MHz crystal in series between the jacks: the sharpest resonance on the board."""
+    """A 4 MHz crystal in series between the jacks: the sharpest resonance on the board.  An HC-49S is 11.5 mm long, more
+    than either quarter of a cell the jacks leave, so it lies at 45 degrees across the cell, from the bottom-left to the
+    top-right, and the two jacks sit 0.5 mm further out along the other diagonal (TLo, BRo) so its courtyard clears
+    theirs.  Each jack's stub runs straight to the crystal's near pad; the loops stand on the stubs, the number in the
+    top-right corner, the name in the bottom-left, the sections in the gutter above."""
     t = Tile("P8", "quartz crystal", [(3, 1)], subtitle="4 MHz", sections=["4.03", "4.09", "4.10"])
-    idx = t.idx
-    t.jack("TL", "IN", "IN", "in", "±4 V"); t.jack("TR", "OUT", "OUT", "out", "")
-    LY = 11.4
-    y1 = t.add("Y", "XTAL4M", "4 MHz", 10.0, LY, 0, {"1": "IN", "2": "OUT"}, label=(0, 3.45, "center", 0.8))
-    t.wire("IN", [("J%d01" % idx, "1"), (4.75, LY)])                   # the stubs land inside the crystal's 5.5 mm pads
-    t.wire("OUT", [("J%d02" % idx, "1"), (15.25, LY)])
-    a = t.loop("IN", 4.75, T.LOOP_Y, 0, "IN", label_at=(2.4, 0, "left", 0.8)); t.wire("IN", [(4.75, LY), (a, "1")])
-    b = t.loop("OUT", 15.25, T.LOOP_Y, 0, "OUT", label_at=(-2.4, 0, "right", 0.8)); t.wire("OUT", [(15.25, LY), (b, "1")])
+    jin = t.jack("TLo", "IN", "IN", "in", "±4 V")
+    jout = t.jack("BRo", "OUT", "OUT", "out", "")
+    y1 = t.add("Y", "XTAL4M", "4 MHz", 10.0, 10.0, 45, {"1": "IN", "2": "OUT"}, label=None)   # pad 1 at (6.78, 13.22), pad 2 at (13.22, 6.78)
+    t.wire("IN", [(jin, "1"), (4.25, 13.22), (y1, "1")])
+    t.wire("OUT", [(y1, "2"), (15.75, 6.78), (jout, "1")])
+    a = t.loop("IN", 2.0, 10.2, 90, "IN", label_at="hide")
+    t.wire("IN", [(4.25, 10.2), (a, "1")])
+    b = t.loop("OUT", 18.0, 9.8, 90, "OUT", label_at="hide")
+    t.wire("OUT", [(15.75, 9.8), (b, "1")])
+    t.text(17.4, 2.0, t.id, 1.5, 0.3, "center")
+    t.text(17.4, 3.75, t.subtitle, 0.8, 0.15, "center")
+    t.text(9.6, -0.8, " ".join(t.sections[:2]), 0.8, 0.15, "center")
+    t.text(1.2, 17.4, "QUARTZ", 0.8, 0.15, "left")
+    t.text(1.2, 18.7, "CRYSTAL", 0.8, 0.15, "left")
     import numpy as np
     fx = np.linspace(3.994e6, 4.006e6, 6001)
     g = P.db(P.response([("series", P.crystal(4.0e6, 15e-15, 50000, 4e-12))], fx))
@@ -182,20 +202,27 @@ def tile_p8():
                "the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p",
                "down toward f_s and leaves f_s alone: the pulling that 4.09 measures.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."]
     t.sch_draw = lambda ctx, tt: ctx.generic_series(tt)
-    t.legend()
     return t
 
 
 def tile_p9():
+    """A 455 kHz ceramic resonator in series between the jacks, at 45 degrees across the cell (bottom-left to top-right)
+    between the IN jack (top-left) and the OUT jack (bottom-right); each stub runs to the resonator's near lead."""
     t = Tile("P9", "ceramic res.", [(0, 2)], subtitle="455 kHz", sections=["4.02", "4.03"])
-    idx = t.idx
-    t.jack("TL", "IN", "IN", "in", "±4 V"); t.jack("TR", "OUT", "OUT", "out", "")
-    LY = 11.0
-    y1 = t.add("Y", "RES455", "455 kHz", 10.0, LY, 0, {"1": "IN", "2": "OUT"}, label=(0, 3.85, "center", 0.8))
-    t.wire("IN", [("J%d01" % idx, "1"), (4.75, LY), (y1, "1")])
-    t.wire("OUT", [("J%d02" % idx, "1"), (15.25, LY), (y1, "2")])
-    a = t.loop("IN", 4.75, T.LOOP_Y, 0, "IN", label_at=(2.4, 0, "left", 0.8)); t.wire("IN", [(4.75, LY), (a, "1")])
-    b = t.loop("OUT", 15.25, T.LOOP_Y, 0, "OUT", label_at=(-2.4, 0, "right", 0.8)); t.wire("OUT", [(15.25, LY), (b, "1")])
+    jin = t.jack("TL", "IN", "IN", "in", "±4 V")
+    jout = t.jack("BR", "OUT", "OUT", "out", "")
+    y1 = t.add("Y", "RES455", "455 kHz", 10.0, 10.0, 45, {"1": "IN", "2": "OUT"}, label=None)   # pad 1 at (8.23, 11.77), pad 2 at (11.77, 8.23)
+    t.wire("IN", [(jin, "1"), (4.75, 11.77), (y1, "1")])
+    t.wire("OUT", [(y1, "2"), (15.25, 8.23), (jout, "1")])
+    a = t.loop("IN", 4.0, 14.6, 0, "IN", label_at="hide")
+    t.wire("IN", [(4.75, 11.77), (4.75, 14.6), (a, "1")])
+    b = t.loop("OUT", 15.25, 4.6, 90, "OUT", label_at="hide")
+    t.wire("OUT", [(15.25, 8.23), (b, "1")])
+    t.text(11.5, 2.2, t.id, 1.5, 0.3, "center")
+    for k, sct in enumerate(t.sections):
+        t.text(11.5, 4.0 + 1.35 * k, sct, 0.8, 0.15, "center")
+    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
     import numpy as np
     fx = np.linspace(4.0e5, 5.2e5, 3001)
     g = P.db(P.response([("series", P.crystal(455e3, 7e-12, 400, 250e-12))], fx))
@@ -206,22 +233,25 @@ def tile_p9():
     t.notes = ["A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF",
                "element, and here a resonance whose Q (hundreds) sits between the LC's and the crystal's.  Model: C_m 7 pF, Q 400, C_0 250 pF."]
     t.sch_draw = lambda ctx, tt: ctx.generic_series(tt)
-    t.legend()
     return t
 
 
 def tile_p10():
-    """A 1 k series resistor and two 1N4148W antiparallel to ground: 4.04's clipper.  The diodes lie side by side under
-    the line, each to its own ground via; the second one's OUT end is fed from the OUT loop's wire."""
+    """A 1 k series resistor and two 1N4148W antiparallel to ground: 4.04's clipper.  The diodes stand up from the OUT line
+    into the top-right quarter, either side of the OUT loop's lead, each to its own ground via above it."""
     t = Tile("P10", "clipper", [(3, 3)], subtitle="1N4148 ±0.6 V", sections=["4.04"])
-    ladder(t, [("series", "R0805", 1000)], hiz_out=True, xs=[9.0])
-    idx = t.idx
-    d1 = t.add("D", "D1N4148", "1N4148W", 9.6, 12.8, 0, {"1": "GND", "2": "OUT"}, label=None)        # rot 0: pad 1 (K) at -x
-    d2 = t.add("D", "D1N4148", "1N4148W", 14.5, 12.8, 180, {"1": "OUT", "2": "GND"}, label=None)     # rot 180: pad 1 (K) at +x
-    t.wire("OUT", [(11.25, LINE_Y), (d1, "2")])
-    t.wire("OUT", [(15.25, 12.8), (d2, "1")])
-    t.gnd_stub(d1, "1", (7.95, 14.1))
-    t.gnd_stub(d2, "2", [(12.1, 12.8), (12.1, 14.1)])
+    ladder(t, [("series", "R0805", 1000)], hiz_out=True, xs=[8.0], out_slot="BR", legend=False)
+    t.text(10.7, 2.1, t.id, 1.2, 0.24, "center")
+    t.text(9.7, T.SECT_Y0, t.sections[0], 0.8, 0.15, "center")             # left of the first diode's ground symbol
+    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
+    LY = LINE_Y
+    d1 = t.add("D", "D1N4148", "1N4148W", 12.0, 8.4, 270, {"1": "GND", "2": "OUT"}, label=None)      # rot 270: pad 1 (K) up, to ground
+    d2 = t.add("D", "D1N4148", "1N4148W", 17.2, 8.4, 90, {"1": "OUT", "2": "GND"}, label=None)       # rot 90: pad 1 (K) down, on OUT
+    t.wire("OUT", [(12.0, LY), (d1, "2")])
+    t.wire("OUT", [(15.25, LY), (17.2, LY), (d2, "1")])
+    t.gnd_stub(d1, "1", (12.0, 5.0), sym=(0, -1))
+    t.gnd_stub(d2, "2", (17.2, 5.4), sym=(1, 0))
     t.result = "a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance"
     t.notes = ["1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the",
                "clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a ±4 V source."]
@@ -230,62 +260,64 @@ def tile_p10():
 
 
 def tile_p11():
-    """20 LC sections of 1 uH and 390 pF (50 ohm, 20 ns each): a 400 ns tapped delay line on three cells.  Each section
-    is an 0603 inductor on the line and an 0402 capacitor hanging from the node after it, 4.0 mm a section (the
-    courtyards nearly touch; with 0603 capacitors a section is 4.5 mm and ten do not fit beside the jacks).  Row A runs
-    right along the line from the IN jack (ten sections), drops at its end, and row B runs back along y = 15.25 into
-    the OUT jack at the bottom-left slot; row B's capacitors stand up, between row A's.  Taps at nodes 5 (100 ns, to
-    the top-middle jack), 10 (200 ns, top-right) and 15 (300 ns, bottom-right), each through 470 ohm; the leads to the
-    jacks' centre pins pass between their legs."""
+    """20 LC sections of 1 uH and 390 pF (50 ohm, 20 ns each): a 400 ns tapped delay line on three cells.  Each section is
+    an 0603 inductor on the line and an 0402 capacitor hanging from the node after it, 4.0 mm a section.  The jacks sit
+    on the checkerboard: IN at the first cell's top-left, OUT at its bottom-right, the 100 and 200 ns taps at the second
+    and third cells' top-left, the 300 ns tap at the third cell's bottom-right.  Row A runs right along the line from IN
+    under the top jacks (twelve sections), drops left of the 300 ns jack, and row B runs back along y = 15.25 (eight)
+    into OUT; row B's capacitors stand up, between row A's.  Each tap leaves its node through 470 ohm: nodes 5 and 10
+    up past row A to a resistor beside their jack, node 15 down under row B and along the bottom edge into its jack
+    from below."""
     t = Tile("P11", "delay line", [(1, 2), (2, 2), (3, 2)], subtitle="400 ns, a tap every 100", sections=["4.05", "6.05", "6.10", "7.06"])
-    idx = t.idx
     jin = t.jack("TL", "IN", "IN", "in", "±4 V")
-    j1 = t.jack("TM", "100ns", "T1J", "out", "")
-    j2 = t.jack("TR", "200ns", "T2J", "out", "")
-    j3 = t.jack("BR", "300ns", "T3J", "out", "", label_at=(0, -4.25, "center", 0.8))
-    jout = t.jack("BL", "OUT", "OUT", "out", "", label_at=(3.85, 1.95, "left", 0.8))
+    j1 = t.jack("TL1", "100ns", "T1J", "out", "")
+    j2 = t.jack("TL2", "200ns", "T2J", "out", "")
+    j3 = t.jack("BR2", "300ns", "T3J", "out", "")
+    jout = t.jack("BR0", "OUT", "OUT", "out", "")
     pitch, cap_dx, yA, yB = 4.0, 2.0, LINE_Y, 15.25
-    xA0 = 11.3                                # L1's centre; L11 sits under C10 so the two rows' parts line up
-    xB0 = xA0 + 9 * pitch + cap_dx
+    xA0 = 6.5                                 # L1's centre
+    nA = 12                                   # sections in row A
+    xB0 = xA0 + (nA - 1) * pitch + cap_dx     # L13 under C12, so the two rows' parts line up
     def net(k):
         return {0: "IN", 20: "OUT", 5: "T1", 10: "T2", 15: "T3"}.get(k, "N%d" % k)
-    nodes = {0: (xA0 - cap_dx, yA)}
-    start_b = (xB0 + cap_dx, yB)             # where the drop lands, right of L11's pad 1
+    nodes = {0: (4.75, yA)}
+    xd = xB0 + 1.5                            # the drop from row A's end to row B's start, left of the 300 ns jack's legs
+    start_b = (xd, yB)
     for k in range(1, 21):
-        if k <= 10:
+        if k <= nA:
             x, y, sgn = xA0 + (k - 1) * pitch, yA, 1
         else:
-            x, y, sgn = xB0 - (k - 11) * pitch, yB, -1
+            x, y, sgn = xB0 - (k - nA - 1) * pitch, yB, -1
         l = t.add("L", "L0603 1uH", "1u", x, y, 0 if sgn > 0 else 180, {"1": net(k - 1), "2": net(k)}, hide_value=True)
         cx = x + cap_dx * sgn
-        c = t.add("C", "C0402 390pF", "390p", cx, y + PAD["0402"] * sgn, 270 if sgn > 0 else 90, {"1": net(k), "2": "GND"}, hide_value=True)
-        t.wire(net(k - 1), [start_b if k == 11 else nodes[k - 1], (l, "1")])
+        csg = -1 if (sgn > 0 and 11.0 < cx < 19.5) else sgn      # row A's capacitors over the OUT jack stand up instead
+        c = t.add("C", "C0402 390pF", "390p", cx, y + PAD["0402"] * csg, 270 if csg > 0 else 90, {"1": net(k), "2": "GND"}, hide_value=True)
+        t.wire(net(k - 1), [start_b if k == nA + 1 else nodes[k - 1], (l, "1")])
         nodes[k] = (cx, y)
         t.wire(net(k), [(l, "2"), (c, "1")])
-        t.gnd_stub(c, "2", (cx, y + (2 * PAD["0402"] + 0.8) * sgn))
-    t.wire("IN", [(jin, "1"), (4.75, yA), nodes[0]])
-    xd = xB0 + 1.7                            # the drop from row A's end to row B's start, round the last capacitor
-    t.wire("T2", [nodes[10], (xd, yA), (xd, yB), start_b])
+        t.gnd_stub(c, "2", (cx, y + (2 * PAD["0402"] + 0.8) * csg))
+    t.wire("IN", [(jin, "1"), (4.75, yA)])
+    t.wire("N%d" % nA, [nodes[nA], (xd, yA), (xd, yB)])
     t.wire("OUT", [nodes[20], (jout, "1")])
-    # taps: 470 ohm standing above the line either side of the text block, a lead into the centre pin between the legs;
-    # node 15's lies under row B
-    r1 = t.add("R", "R0805 470R", "470", 36.2, 6.5, 270, {"1": "T1J", "2": "T1"}, label=None)
-    t.wire("T1", [nodes[5], (nodes[5][0], 9.55), (36.2, 9.55), (r1, "2")])
-    t.wire("T1J", [(r1, "1"), (36.2, 4.75), (j1, "1")])
-    r2 = t.add("R", "R0805 470R", "470", 51.5, 7.0, 270, {"1": "T2J", "2": "T2"}, label=None)
-    t.wire("T2", [nodes[10], (nodes[10][0], 9.55), (51.5, 9.55), (r2, "2")])
-    t.wire("T2J", [(r2, "1"), (51.5, 4.75), (j2, "1")])
-    r3 = t.add("R", "R0805 470R", "470", 44.0, 17.6, 0, {"1": "T3", "2": "T3J"}, label=None)
-    t.wire("T3", [nodes[15], (nodes[15][0], 17.6), (r3, "1")])
-    t.wire("T3J", [(r3, "2"), (54.1, 17.6), (54.1, 15.25), (j3, "1")])
-    tp = t.loop("IN", 14.0, 4.75, 0, "IN", label_at=(2.4, 0, "left", 0.8))
-    t.wire("IN", [(9.3, yA), (9.3, 4.75), (tp, "1")])
-    tx = 43.75
-    t.text(tx, 1.9, t.id, 1.5, 0.3, "center")
-    t.text(tx, 3.9, "DELAY LINE", 0.9, 0.17, "center")
-    for i, s in enumerate(("400 ns, 50 ohm", "20 x 1uH + 390pF", "20 ns a section", "taps via 470 ohm")):
-        t.text(tx, 5.3 + 1.2 * i, s, 0.8, 0.15, "center")
-    t.text(18.0, -0.8, " ".join(t.sections), 0.8, 0.15, "center")
+    # the taps
+    r1 = t.add("R", "R0805 470R", "470", 20.0, 4.75, 0, {"1": "T1", "2": "T1J"}, label=None)
+    t.wire("T1", [nodes[5], (nodes[5][0], 9.0), (18.4, 9.0), (18.4, 4.75), (r1, "1")])
+    t.wire("T1J", [(r1, "2"), (j1, "1")])
+    r2 = t.add("R", "R0805 470R", "470", 41.5, 4.75, 0, {"1": "T2", "2": "T2J"}, label=None)
+    t.wire("T2", [nodes[10], (nodes[10][0], 9.0), (39.9, 9.0), (39.9, 4.75), (r2, "1")])
+    t.wire("T2J", [(r2, "2"), (j2, "1")])
+    r3 = t.add("R", "R0805 470R", "470", 46.0, 17.4, 0, {"1": "T3", "2": "T3J"}, label=None)
+    t.wire("T3", [nodes[15], (nodes[15][0], 17.4), (r3, "1")])
+    t.wire("T3J", [(r3, "2"), (53.5, 17.4), (53.5, 19.3), (58.25, 19.3), (j3, "1")])
+    tp = t.loop("IN", 4.75, 15.5, 90, "IN", label_at=(1.6, 0, "left", 0.8))
+    t.wire("IN", [(4.75, yA), (tp, "1")])
+    tx = 57.0
+    t.text(tx, 2.2, t.id, 1.5, 0.3, "center")
+    t.text(tx, 4.0, "DELAY LINE", 0.9, 0.17, "center")
+    t.text(tx, 5.6, "4.05  6.05", 0.8, 0.15, "center")
+    t.text(tx, 6.95, "6.10  7.06", 0.8, 0.15, "center")
+    t.text(30.5, 17.35, "400 ns, 50 ohm: 20 x 1uH + 390pF", 0.8, 0.15, "center")
+    t.text(30.5, 18.7, "20 ns a section, taps via 470 ohm", 0.8, 0.15, "center")
     import numpy as np
     f = P.logspace(1e5, 1e8, 800)
     sec = []
