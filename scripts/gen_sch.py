@@ -266,7 +266,7 @@ class SchCtx:
             self.wire([p, (p[0] + 5.08, y_sig)])
             self.label(j["net"].lstrip("/"), p[0] + 5.08, y_sig)
         for i, j in enumerate(jout):
-            p = self.jack(j["ref"], ox + w - 12.7 - i * 25.4, y_sig, "out", j["label"], j["limit"])
+            p = self.jack(j["ref"], ox + w - 25.4 - i * 25.4, y_sig, "out", j["label"], j["limit"])
             self.wire([(p[0] - 5.08, y_sig), p])
             self.label(j["net"].lstrip("/"), p[0] - 5.08, y_sig, justify="right")
         simple = ("Device:R_US", "Device:C", "Device:L", "Device:LED", "Diode:1N4148W", "Device:Crystal", "Device:FerriteBead",

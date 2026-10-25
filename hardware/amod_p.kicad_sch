@@ -2640,90 +2640,6 @@
 		)
 	)
 	(rectangle
-		(start 596.9 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "0f1278c4-377d-4b38-ae15-f0514c0cd108")
-	)
-	(rectangle
-		(start 25.4 284.48)
-		(end 210.82 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "3988547c-b425-472b-9a81-656a6ba2bfb4")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "480942ad-c7d5-4f41-88ad-c6b983d93e89")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 210.82 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "4b18c8dc-6d26-4ceb-8b60-1ad07232cd06")
-	)
-	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "60e646aa-b4fb-4188-8112-436e3ad11514")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "652247c1-aff7-408b-b6bc-34e4a75cfdef")
-	)
-	(rectangle
-		(start 215.9 411.48)
-		(end 591.82 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "674f5852-3b7a-46a6-8e49-da01e1bf7f7a")
-	)
-	(rectangle
 		(start 406.4 157.48)
 		(end 591.82 279.4)
 		(stroke
@@ -2733,19 +2649,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "7d1d34cc-6a92-4e20-afdf-f4de900f0190")
-	)
-	(rectangle
-		(start 215.9 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "9545e652-bada-4d60-8abb-3198c710590c")
+		(uuid "12e9a739-f6c2-42f6-898b-b2fbb792ff66")
 	)
 	(rectangle
 		(start 25.4 157.48)
@@ -2757,7 +2661,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "d6594f6f-4acf-4c75-afcb-ebbd1e1bec09")
+		(uuid "1c872864-a29a-41b9-a45c-1393e920ccea")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "5187067f-f091-4c7c-9c71-1ca010613b42")
 	)
 	(rectangle
 		(start 406.4 30.48)
@@ -2769,7 +2685,67 @@
 		(fill
 			(type none)
 		)
-		(uuid "e6450a64-3e32-4fc2-aab0-e74f7c08dd86")
+		(uuid "5b3e7859-9b14-40ea-84c0-5833766b8229")
+	)
+	(rectangle
+		(start 215.9 411.48)
+		(end 591.82 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "6a108aa8-8e48-4d6a-98a0-595bfab07b37")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "854f34a0-a546-4c02-801b-3356e69efd5f")
+	)
+	(rectangle
+		(start 25.4 284.48)
+		(end 210.82 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "8accd0d3-85f3-4031-be07-1d6f14c618d3")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "96705818-f017-46df-89aa-e212a539367f")
+	)
+	(rectangle
+		(start 25.4 411.48)
+		(end 210.82 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "a86d5599-b281-449c-9924-480ca51eabf4")
 	)
 	(rectangle
 		(start 596.9 30.48)
@@ -2781,7 +2757,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "e8b2d807-a842-4201-a71a-d32ebbd22928")
+		(uuid "c91c698a-0b0f-4893-9011-96e520e6be05")
 	)
 	(rectangle
 		(start 215.9 157.48)
@@ -2793,7 +2769,54 @@
 		(fill
 			(type none)
 		)
-		(uuid "e8d9defa-8c6d-490c-ac7b-5d8d3675b8f7")
+		(uuid "da86eb65-6af1-48db-bd64-b940a27ebf7d")
+	)
+	(rectangle
+		(start 215.9 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "e37fc1da-3b39-44ae-b5f2-f322a1b76c22")
+	)
+	(rectangle
+		(start 596.9 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "e881512c-3c44-4b0f-8ac9-3ede65767009")
+	)
+	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
+		(exclude_from_sim no)
+		(at 408.94 268.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "01507cd9-bf8f-54ad-ad68-a0ff7d5123f8")
+	)
+	(text "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the"
+		(exclude_from_sim no)
+		(at 599.44 528.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "01c3e50d-c49c-5ef5-bc5e-ce7cb7add38b")
 	)
 	(text "P1   pi pad, -20 dB"
 		(exclude_from_sim no)
@@ -2806,28 +2829,6 @@
 			(justify left)
 		)
 		(uuid "024744e0-d572-5078-99cd-a585213e8ef8")
-	)
-	(text "(each way from the L-C node to the OUT node through its capacitor)"
-		(exclude_from_sim no)
-		(at 599.44 136.86 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "037c0875-42fd-52b4-aade-bc012ca4e7c2")
-	)
-	(text "50 ohm on OUT and nothing comes back (4.05).  The taps are 6.05's echo and 6.10's radar target; near 16 MHz the"
-		(exclude_from_sim no)
-		(at 218.44 398.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "03ef8cb4-3d39-5451-8c9c-62fdf592627f")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -2850,6 +2851,18 @@
 			(justify right)
 		)
 		(uuid "0570ccbf-9d53-5c6c-a43a-30197ed93472")
+	)
+	(text "EXPECT: with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)"
+		(exclude_from_sim no)
+		(at 218.44 522.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "07bb9c76-e8fe-5806-a3c5-f7c2d6763503")
 	)
 	(text "P3   RC high-pass, 159 kHz"
 		(exclude_from_sim no)
@@ -2874,17 +2887,16 @@
 		)
 		(uuid "089c2dcf-d9bb-51f0-ac65-5367e091612e")
 	)
-	(text "EXPECT: one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e"
+	(text "50 ohm on OUT and nothing comes back (4.05).  The taps are 6.05's echo and 6.10's radar target; near 16 MHz the"
 		(exclude_from_sim no)
-		(at 27.94 520.46 0)
+		(at 218.44 398.58 0)
 		(effects
 			(font
 				(size 1.2 1.2)
-				(bold yes)
 			)
 			(justify left)
 		)
-		(uuid "092028ff-58a5-5e88-bf64-97f7c3960496")
+		(uuid "09269fb0-9e9a-55e2-87d6-f212d6c391cb")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -2896,6 +2908,29 @@
 			(justify right)
 		)
 		(uuid "0b1028a9-5ae0-57e3-bd7e-7a5f7b4b4115")
+	)
+	(text "Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6"
+		(exclude_from_sim no)
+		(at 599.44 144.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "0b9d3dc8-e6e6-5f7a-8ab1-3bdbc896ac62")
+	)
+	(text "EXPECT: -3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance"
+		(exclude_from_sim no)
+		(at 218.44 144.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "0d27d2cb-9405-55e7-a187-4b9c4a367e4d")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -2941,6 +2976,18 @@
 		)
 		(uuid "1184d185-f006-515e-996a-eab9712bb9a0")
 	)
+	(text "EXPECT: -20 dB flat, 50 ohm both ways"
+		(exclude_from_sim no)
+		(at 27.94 144.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "133e9e21-a469-5a5b-bdb2-8ab3c43178c3")
+	)
 	(text "2 tap"
 		(exclude_from_sim no)
 		(at 228.6 441.96 0)
@@ -2952,16 +2999,16 @@
 		)
 		(uuid "13ccdddf-39b3-502b-b3bb-8ecf971dc25f")
 	)
-	(text "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to"
+	(text "100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar"
 		(exclude_from_sim no)
-		(at 218.44 528.26 0)
+		(at 27.94 522.94 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "142fade4-e7f0-55d5-8c54-10ea407698d2")
+		(uuid "14efba88-6d36-5b55-93c2-5a51307e595a")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -2996,6 +3043,18 @@
 		)
 		(uuid "1914f4fa-0206-5bbf-b760-395c380d9f8e")
 	)
+	(text "EXPECT: -3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC"
+		(exclude_from_sim no)
+		(at 27.94 271.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "1bc526d9-3ce0-5f22-ba70-8dde3f4c5fef")
+	)
 	(text "clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a ±4 V source."
 		(exclude_from_sim no)
 		(at 599.44 530.86 0)
@@ -3017,6 +3076,17 @@
 			(justify right)
 		)
 		(uuid "1ef06e69-9f2b-5487-bf3f-178581d936b8")
+	)
+	(text "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  6.10's filtered chips in copper; the transmitter's harmonics and the"
+		(exclude_from_sim no)
+		(at 408.94 274.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "1f2e1c9b-f780-52f9-b1ec-9b0da64b8312")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -3051,6 +3121,17 @@
 		)
 		(uuid "24130e93-45ae-5fad-9eec-0410537dae32")
 	)
+	(text "400 ns is 260 ft of RG-58.  Leave OUT open and a pulse comes back the same way up; short it and it comes back inverted;"
+		(exclude_from_sim no)
+		(at 218.44 395.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "24d97992-150f-5c5a-bf9c-b580f9b5ff67")
+	)
 	(text "cells (1,3), (2,3)"
 		(exclude_from_sim no)
 		(at 589.28 414.78 0)
@@ -3061,17 +3142,6 @@
 			(justify right)
 		)
 		(uuid "2600221a-4146-5a5e-98d6-5208f7eecbcd")
-	)
-	(text "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns"
-		(exclude_from_sim no)
-		(at 218.44 525.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "27a6d328-6a2b-56ac-b496-0548a8a6ff95")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3084,6 +3154,18 @@
 		)
 		(uuid "298e6069-aaeb-522d-9c10-7327033f08b4")
 	)
+	(text "EXPECT: -3 dB at 118 kHz: the reconstruction filter after a one-bit DAC"
+		(exclude_from_sim no)
+		(at 218.44 271.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "2a27b0dd-c7b1-5652-a328-060cb61527dc")
+	)
 	(text "above the line.  The LED loop is after the 100 ohm: the LED's own voltage.  The colours are not on the silk: light them."
 		(exclude_from_sim no)
 		(at 27.94 530.86 0)
@@ -3094,6 +3176,17 @@
 			(justify left)
 		)
 		(uuid "2ab0d51a-a65c-5f05-83ad-95fa51074594")
+	)
+	(text "3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF"
+		(exclude_from_sim no)
+		(at 408.94 271.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "2ab31de1-4d9d-5f60-80a7-e6754fb3f325")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -3195,6 +3288,29 @@
 		)
 		(uuid "3628971d-2e4c-5668-89b5-c09688436222")
 	)
+	(text "EXPECT: a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance"
+		(exclude_from_sim no)
+		(at 599.44 525.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "3a7aa057-c4d5-5b72-9aa6-3a55a3299819")
+	)
+	(text "(the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move"
+		(exclude_from_sim no)
+		(at 599.44 147.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "3ab0cfd1-c663-5a7f-b310-52606e1c7694")
+	)
 	(text "Turns 7.05's one-bit stream into a tone; the slow plant of 7.06 with P2."
 		(exclude_from_sim no)
 		(at 218.44 276.86 0)
@@ -3261,40 +3377,16 @@
 		)
 		(uuid "43c930ef-6af7-5c6d-9069-986d6bc702eb")
 	)
-	(text "phase velocity falls and a chirp spreads (7.06's pure-delay plant below that).  A tap through 470 ohm: x1 into a"
+	(text "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant (4.10)."
 		(exclude_from_sim no)
-		(at 218.44 401.26 0)
+		(at 27.94 525.58 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "47f0fd29-9ec7-54d6-b2b8-72329758b199")
-	)
-	(text "EXPECT: a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance"
-		(exclude_from_sim no)
-		(at 599.44 525.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "4afceb9f-0383-5742-8ebc-8b5a927bfc18")
-	)
-	(text "EXPECT: -3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC"
-		(exclude_from_sim no)
-		(at 27.94 271.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "4b98394c-0e5e-5e05-9a1f-9dc444366e77")
+		(uuid "4a44809c-e6d6-5f0c-bfe7-506b8da14876")
 	)
 	(text "tutorial 1.10"
 		(exclude_from_sim no)
@@ -3330,17 +3422,6 @@
 		)
 		(uuid "53542b8c-6627-57bd-bb2f-a9a052814da5")
 	)
-	(text "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the"
-		(exclude_from_sim no)
-		(at 599.44 528.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "54d0cd53-0e91-5f33-ac19-8bea5ed525a4")
-	)
 	(text "OUT"
 		(exclude_from_sim no)
 		(at 287.02 181.76 0)
@@ -3364,16 +3445,16 @@
 		)
 		(uuid "570bc54d-a3a9-5121-9d4b-86e5997cfb22")
 	)
-	(text "5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF)."
+	(text "the DIP switch and its two capacitors are drawn on the right: way 1 adds 47 pF, way 2 adds 100 pF across C"
 		(exclude_from_sim no)
-		(at 27.94 274.26 0)
+		(at 599.44 134.1 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "5a89c06f-2557-537c-a6c1-b65a650e6168")
+		(uuid "5ce261cc-888e-5054-b3a5-31b9d149d23d")
 	)
 	(text "down toward f_s and leaves f_s alone: the pulling that 4.09 measures.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."
 		(exclude_from_sim no)
@@ -3397,16 +3478,16 @@
 		)
 		(uuid "606ef41e-a92b-5bed-a25a-0d5e527c8773")
 	)
-	(text "The crystal in series between 50 ohm ports: it passes at its series resonance f_s (R_m about 50 ohm: -3.5 dB) and blocks at"
+	(text "Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie"
 		(exclude_from_sim no)
-		(at 599.44 271.66 0)
+		(at 27.94 528.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "60897509-90e4-5c25-94dd-00751a2c5e77")
+		(uuid "619a68c8-be3c-5e8d-9221-2dc984c8781f")
 	)
 	(text "ground loops for the scope's clips, one per channel, in the board's margins"
 		(exclude_from_sim no)
@@ -3418,6 +3499,17 @@
 			(justify left)
 		)
 		(uuid "68cb8eca-a148-5291-a657-9ad9f85ce3a0")
+	)
+	(text "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns"
+		(exclude_from_sim no)
+		(at 218.44 525.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "6a55311b-f38c-5998-9cee-9fc9f5b31ee2")
 	)
 	(text "OUT"
 		(exclude_from_sim no)
@@ -3451,18 +3543,6 @@
 			(justify left)
 		)
 		(uuid "6fffe4ad-560a-5a02-bbf5-d1ef7e824e6d")
-	)
-	(text "EXPECT: a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz"
-		(exclude_from_sim no)
-		(at 27.94 398.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "70b266da-6854-5989-a396-95b120e42c17")
 	)
 	(text "P9   ceramic res., 455 kHz"
 		(exclude_from_sim no)
@@ -3499,6 +3579,18 @@
 		)
 		(uuid "75b85994-559f-5dd4-8540-c57659f7295c")
 	)
+	(text "EXPECT: a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz"
+		(exclude_from_sim no)
+		(at 27.94 398.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "75e51415-6c10-5423-a75e-dc21c17c36c9")
+	)
 	(text "to A4"
 		(exclude_from_sim no)
 		(at 363.22 474.52 0)
@@ -3509,6 +3601,17 @@
 			(justify left)
 		)
 		(uuid "7805995e-925f-51f0-9974-04591c9855b5")
+	)
+	(text "A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF"
+		(exclude_from_sim no)
+		(at 27.94 401.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "792a1cbe-c7f4-5925-ba99-61c81f486a35")
 	)
 	(text "high-impedance scope, /10 into 50 ohm."
 		(exclude_from_sim no)
@@ -3532,16 +3635,17 @@
 		)
 		(uuid "7daa8315-8580-5e3a-9991-47a8c21fb1d0")
 	)
-	(text "the DIP switch and its two capacitors are drawn on the right: way 1 adds 47 pF, way 2 adds 100 pF across C"
+	(text "EXPECT: one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e"
 		(exclude_from_sim no)
-		(at 599.44 134.26 0)
+		(at 27.94 520.3 0)
 		(effects
 			(font
 				(size 1.2 1.2)
+				(bold yes)
 			)
 			(justify left)
 		)
-		(uuid "7ecad98b-1b57-5b14-82dd-14e648116a77")
+		(uuid "7dae162d-5285-520b-bc88-a0d1ff6d0246")
 	)
 	(text "OUT"
 		(exclude_from_sim no)
@@ -3553,6 +3657,18 @@
 			(justify left)
 		)
 		(uuid "7fdd8fd6-1a5e-5970-8774-4166d357a163")
+	)
+	(text "EXPECT: a pulse arrives at OUT 395 ns late, at the taps every 99 ns; flat to about 10 MHz, then it disperses"
+		(exclude_from_sim no)
+		(at 218.44 390.66 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "801e6786-cba2-5e9c-bf78-5d154dac1a83")
 	)
 	(text "P12   LEDs"
 		(exclude_from_sim no)
@@ -3588,39 +3704,27 @@
 		)
 		(uuid "8795911e-85fb-5c06-9aa2-85580435331a")
 	)
-	(text "(the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move"
+	(text "5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF)."
 		(exclude_from_sim no)
-		(at 599.44 147.26 0)
+		(at 27.94 274.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "88b370c2-3790-539c-9e62-5270a80a5fb0")
+		(uuid "8878cf16-7428-5587-a6d5-315b4b39f92e")
 	)
-	(text "EXPECT: -3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance"
+	(text "phase velocity falls and a chirp spreads (7.06's pure-delay plant below that).  A tap through 470 ohm: x1 into a"
 		(exclude_from_sim no)
-		(at 218.44 144.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "8aa52b4d-1834-5d07-9595-43acf5665a56")
-	)
-	(text "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant (4.10)."
-		(exclude_from_sim no)
-		(at 27.94 525.66 0)
+		(at 218.44 401.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "90bedebd-47f7-5366-953e-3e941cb79a18")
+		(uuid "94753b8a-c1fb-5589-bbcd-bd0db8d9e8d5")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3678,6 +3782,17 @@
 		)
 		(uuid "9b34d41d-8f4a-52f9-956e-1099701bf1f7")
 	)
+	(text "3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206)."
+		(exclude_from_sim no)
+		(at 218.44 274.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "9c731e83-c4d4-5083-a222-f54b6619e560")
+	)
 	(text "300ns"
 		(exclude_from_sim no)
 		(at 334.01 362.1 0)
@@ -3688,17 +3803,6 @@
 			(justify left)
 		)
 		(uuid "9c8030f1-998f-583a-a71b-3d951ee5dde4")
-	)
-	(text "3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206)."
-		(exclude_from_sim no)
-		(at 218.44 274.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "a06b7a0d-d69d-55a8-8a69-5cee4dc35e49")
 	)
 	(text "P5   LC low-pass, 9 MHz"
 		(exclude_from_sim no)
@@ -3756,20 +3860,20 @@
 		)
 		(uuid "a97230c2-2744-5189-8346-ea64843cc52b")
 	)
-	(text "400 ns is 260 ft of RG-58.  Leave OUT open and a pulse comes back the same way up; short it and it comes back inverted;"
+	(text "The crystal in series between 50 ohm ports: it passes at its series resonance f_s (R_m about 50 ohm: -3.5 dB) and blocks at"
 		(exclude_from_sim no)
-		(at 218.44 396.06 0)
+		(at 599.44 271.58 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "aaee1ba1-9ced-5d29-8c9f-e965f0a206d4")
+		(uuid "aef64187-a4b4-5e54-a2a5-1d3b6b9a42e9")
 	)
-	(text "EXPECT: -3 dB at 118 kHz: the reconstruction filter after a one-bit DAC"
+	(text "EXPECT: a peak at 1.07 MHz (switches off), 0.98 with 1, 0.89 with 2, 0.83 with both; Q about 6"
 		(exclude_from_sim no)
-		(at 218.44 271.66 0)
+		(at 599.44 141.94 0)
 		(effects
 			(font
 				(size 1.2 1.2)
@@ -3777,7 +3881,7 @@
 			)
 			(justify left)
 		)
-		(uuid "abbc1430-4d69-548d-a971-2cd3995d01e5")
+		(uuid "af63d24f-89c6-5fdc-ac5a-0ea491b3c641")
 	)
 	(text "tutorial 4.05, 6.05, 6.10, 7.06"
 		(exclude_from_sim no)
@@ -3834,6 +3938,17 @@
 		)
 		(uuid "b40fb529-4682-52e6-b337-4dedb9abc9fe")
 	)
+	(text "Twenty sections of 1.0 uH and 390 pF: Z0 = sqrt(L/C) = 51 ohm, 20 ns a section, cut-off 1 / (pi sqrt(LC)) = 16 MHz."
+		(exclude_from_sim no)
+		(at 218.44 393.3 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "b6644ba7-fabb-54ed-b402-2a6f092090ab")
+	)
 	(text "OUT"
 		(exclude_from_sim no)
 		(at 642.62 181.76 0)
@@ -3879,28 +3994,6 @@
 		)
 		(uuid "b70c0ee3-54f3-5039-8556-32dada82ee40")
 	)
-	(text "1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm"
-		(exclude_from_sim no)
-		(at 218.44 147.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "b8ff4447-08ad-54ce-9cfb-3ba568fab0fb")
-	)
-	(text "A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF"
-		(exclude_from_sim no)
-		(at 27.94 401.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "ba87f1e6-694a-578a-bcfe-8c6ff1e9c668")
-	)
 	(text "tutorial 6.10, 5.07, 6.12"
 		(exclude_from_sim no)
 		(at 408.94 164.08 0)
@@ -3923,17 +4016,6 @@
 		)
 		(uuid "c1774700-f595-5008-b11b-d53a5df389ed")
 	)
-	(text "Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie"
-		(exclude_from_sim no)
-		(at 27.94 528.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "c787b355-d8f7-5b4a-8d2a-f7ad2b097ce5")
-	)
 	(text "P11   delay line, 400 ns, a tap every 100"
 		(exclude_from_sim no)
 		(at 218.44 287.78 0)
@@ -3946,39 +4028,16 @@
 		)
 		(uuid "c80f77cf-3112-5b97-9245-69389ea7da5e")
 	)
-	(text "EXPECT: a peak at 1.07 MHz (switches off), 0.98 with 1, 0.89 with 2, 0.83 with both; Q about 6"
+	(text "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board)."
 		(exclude_from_sim no)
-		(at 599.44 142.06 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "cdc748ac-6e73-55bf-baac-08e3cad4a578")
-	)
-	(text "Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6"
-		(exclude_from_sim no)
-		(at 599.44 144.66 0)
+		(at 27.94 147.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "d36e8f6e-1d49-5c82-a205-671cace56d48")
-	)
-	(text "Twenty sections of 1.0 uH and 390 pF: Z0 = sqrt(L/C) = 51 ohm, 20 ns a section, cut-off 1 / (pi sqrt(LC)) = 16 MHz."
-		(exclude_from_sim no)
-		(at 218.44 393.46 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "d3bead57-e608-5633-bd59-c861c94ebbc3")
+		(uuid "d10bed42-6d01-5b5f-839c-5ec2709ddd4b")
 	)
 	(text "cell (3,0)"
 		(exclude_from_sim no)
@@ -4024,18 +4083,6 @@
 		)
 		(uuid "de19a5b8-07a8-54ea-848c-63fe5eea1782")
 	)
-	(text "EXPECT: a pulse arrives at OUT 395 ns late, at the taps every 99 ns; flat to about 10 MHz, then it disperses"
-		(exclude_from_sim no)
-		(at 218.44 390.86 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "dea5aae1-eabe-54b9-81f9-7fe8dc2366ed")
-	)
 	(text "IN"
 		(exclude_from_sim no)
 		(at 223.52 54.76 0)
@@ -4047,16 +4094,16 @@
 		)
 		(uuid "dffc6f2d-830c-5ee3-b048-1f6d0248a74b")
 	)
-	(text "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  6.10's filtered chips in copper; the transmitter's harmonics and the"
+	(text "the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p"
 		(exclude_from_sim no)
-		(at 408.94 274.26 0)
+		(at 599.44 274.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "e3593bad-51e3-5c5e-b71b-f5e4ae59cecd")
+		(uuid "e400f957-7682-5529-b1cc-dfdd0fd89c1b")
 	)
 	(text "cell (1,0)"
 		(exclude_from_sim no)
@@ -4069,29 +4116,6 @@
 		)
 		(uuid "e5049807-7c57-5baa-a5db-4cb98ba9fb64")
 	)
-	(text "3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF"
-		(exclude_from_sim no)
-		(at 408.94 271.66 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "e70c8b1e-a5f6-595a-bb91-1b25a902b9d7")
-	)
-	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
-		(exclude_from_sim no)
-		(at 408.94 269.06 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "eafe2c26-858d-5bed-a52a-345a256a3bd8")
-	)
 	(text "Before the ADC it removes 6.10's ghost; after the DAC it smooths the steps."
 		(exclude_from_sim no)
 		(at 27.94 276.86 0)
@@ -4102,29 +4126,6 @@
 			(justify left)
 		)
 		(uuid "eb21343f-8727-533c-9714-316b62aaa8bb")
-	)
-	(text "EXPECT: -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance"
-		(exclude_from_sim no)
-		(at 408.94 147.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "eb2a9920-3d31-52e1-bee7-3f4e5b400e98")
-	)
-	(text "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board)."
-		(exclude_from_sim no)
-		(at 27.94 147.26 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "ebf84c2d-c215-5a21-bceb-3d46e0bbc125")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -4148,6 +4149,17 @@
 		)
 		(uuid "ec87147b-bf5d-5324-baae-d88bda995029")
 	)
+	(text "1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm"
+		(exclude_from_sim no)
+		(at 218.44 147.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "ecee8171-426b-5794-8af9-05336b9c44f8")
+	)
 	(text "P10   clipper, 1N4148 ±0.6 V"
 		(exclude_from_sim no)
 		(at 599.44 414.78 0)
@@ -4160,18 +4172,6 @@
 		)
 		(uuid "ee1bcd11-5df8-5bb5-a63d-9cca0a418a70")
 	)
-	(text "EXPECT: a sharp pass at the series resonance near 4.000 MHz (-3.7 dB) and a notch 6.0 kHz above it, the parallel resonance"
-		(exclude_from_sim no)
-		(at 599.44 269.06 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "ee8d1323-3c9e-5ef2-95fc-1730cd203082")
-	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 220.98 306.88 0)
@@ -4182,6 +4182,18 @@
 			(justify right)
 		)
 		(uuid "f12437b4-bf56-53b5-878b-5bfe0ab79e98")
+	)
+	(text "EXPECT: a sharp pass at the series resonance near 4.000 MHz (-3.7 dB) and a notch 6.0 kHz above it, the parallel resonance"
+		(exclude_from_sim no)
+		(at 599.44 268.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "f253403f-5efe-52a0-8ca7-cbc0415fcbf9")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -4216,17 +4228,6 @@
 		)
 		(uuid "f4467f19-0f0b-5f7d-8478-20924f4626e0")
 	)
-	(text "100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar"
-		(exclude_from_sim no)
-		(at 27.94 523.06 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "f516aaec-4115-5110-87bc-d7b660593f4e")
-	)
 	(text "Into a high-impedance load it is only -14 dB: the pad assumes 50 ohm on both sides."
 		(exclude_from_sim no)
 		(at 27.94 149.86 0)
@@ -4249,6 +4250,18 @@
 		)
 		(uuid "fa8b0486-330b-54fb-868c-98f36cc73f6d")
 	)
+	(text "EXPECT: -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance"
+		(exclude_from_sim no)
+		(at 408.94 147.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "faadb248-175b-5f76-ac5a-3bbb68fcbe85")
+	)
 	(text "100ns"
 		(exclude_from_sim no)
 		(at 252.73 362.1 0)
@@ -4260,16 +4273,16 @@
 		)
 		(uuid "fb1b46c6-f7d2-5a9c-8c07-87f2ed60609e")
 	)
-	(text "the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p"
+	(text "(each way from the L-C node to the OUT node through its capacitor)"
 		(exclude_from_sim no)
-		(at 599.44 274.26 0)
+		(at 599.44 136.7 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "fc36daad-e955-5bc3-828a-948bf0fc81c0")
+		(uuid "fb71c096-24ff-56c0-aaab-ba19fa7d265e")
 	)
 	(text "tutorial 6.12, 5.06"
 		(exclude_from_sim no)
@@ -4282,29 +4295,16 @@
 		)
 		(uuid "fc90eb4f-35ac-5cf7-a763-3bdb9ad3cf48")
 	)
-	(text "EXPECT: -20 dB flat, 50 ohm both ways"
+	(text "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to"
 		(exclude_from_sim no)
-		(at 27.94 144.66 0)
+		(at 218.44 528.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
-				(bold yes)
 			)
 			(justify left)
 		)
-		(uuid "ff3b07b4-05a5-58c4-b1cd-affaf8ec5e08")
-	)
-	(text "EXPECT: with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)"
-		(exclude_from_sim no)
-		(at 218.44 523.06 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "ff8ace92-9186-5f9e-b62a-245bff86872d")
+		(uuid "fd2cc83e-e68f-522c-9810-4ce271d75cd7")
 	)
 	(junction
 		(at 255.27 60.96)

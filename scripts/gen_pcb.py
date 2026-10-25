@@ -36,13 +36,13 @@ def load_tiles(path):
         t = NS(td)
         t.parts = {pd["ref"]: NS(pd) for pd in td["parts"]}
         t.wires = [(w[0], [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in w[1]], w[2], (w[3] if len(w) > 3 else "F.Cu"),
-                    (w[4] if len(w) > 4 else True))
+                    (w[4] if len(w) > 4 else True), (w[5] if len(w) > 5 else False))
                    for w in td["wires"]]
-        t.vias = [(v[0], float(v[1]), float(v[2])) for v in td.get("vias", [])]
+        t.vias = [(v[0], float(v[1]), float(v[2]), (v[3] if len(v) > 3 else False)) for v in td.get("vias", [])]
         t.routes = [(r[0], [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in r[1]], r[2]) for r in td.get("routes", [])]
         t.hops = [(n, tuple(a), tuple(b)) for (n, a, b) in td["hops"]]
         t.gnd_stubs = [(tuple(g[0]), (tuple(g[1]) if not isinstance(g[1][0], list) else [tuple(q) for q in g[1]]), (tuple(g[2]) if g[2] else None),
-                        (g[3] if len(g) > 3 else None))
+                        (g[3] if len(g) > 3 else None), (g[4] if len(g) > 4 else False))
                        for g in td["gnd_stubs"]]
         t.texts = [tuple(x) for x in td["texts"]]
         tiles.append(t)
@@ -53,11 +53,16 @@ LOCAL_FP = os.path.join(HW, "lib", "amod.pretty")
 SHARE_FP = None
 SILK_W, SILK_CLEAR = 0.3, 0.3
 VIA_DIA, VIA_DRILL = 0.6, 0.3
+FINE_VIA_DIA, FINE_VIA_DRILL = 0.45, 0.25     # beside a 0.5 mm pitch QFN (JLCPCB: 0.35 / 0.2 at least)
 RF_W = 0.29                            # tiles.RF_W: a wire this wide is a 50 ohm line and gets a via fence
 RF_GAP = 0.25                          # the top pour's distance from it (the RF net class says the same)
 FENCE_OFF, FENCE_PITCH = RF_W / 2 + RF_GAP + 0.45, 1.0      # fence vias: 0.845 off the line's centre, every 1.0 mm
 LAUNCH_R_INNER, LAUNCH_R_TOP = 2.2, 1.9                      # no copper under a jack's centre pin on L2-L4, and the top pour this far away
 BOARD_RULES = dict(m_MinClearance=0.20, m_HoleClearance=0.30, m_HoleToHoleMin=0.50, m_CopperEdgeClearance=0.30, m_SilkClearance=0.15)
+# the RF board carries a 0.5 mm pitch QFN: the floor drops to JLCPCB's 0.127 mm there, the net classes keep 0.2 for everything
+# but the synthesizer's own nets (gen_project.py says the same in the project file)
+BOARD_RULES_BY_STEM = {"rf_mod": dict(m_MinClearance=0.127, m_TrackMinWidth=0.127, m_ViasMinSize=0.45, m_ViasMinAnnularWidth=0.10,
+                                      m_MinThroughDrill=0.20, m_HoleClearance=0.25)}
 FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (96.5, 90.0)]
 QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under P12's switch, between its jack's legs and P13's: 14 mm with no hole
 BACK_Y, BACK_PITCH = 94.2, 1.4       # between the two rows of cable-tie slots
@@ -150,8 +155,10 @@ class Board:
         self.board = pcbnew.CreateEmptyBoard()
         self.board.SetCopperLayerCount(self.B["layers"])
         ds = self.board.GetDesignSettings()
-        for name, value in BOARD_RULES.items():
-            setattr(ds, name, mm(value))
+        rules = dict(BOARD_RULES); rules.update(BOARD_RULES_BY_STEM.get(stem, {}))
+        for name, value in rules.items():
+            if hasattr(ds, name):
+                setattr(ds, name, mm(value))
         self.out_path = out_path
         self.netmap = {}
         for name in sorted(self.nets):
@@ -286,7 +293,7 @@ class Board:
         self.board.Add(tr)
         self.segments.append((net, a, b, layer))
 
-    def via(self, x, y, net):
+    def via(self, x, y, net, fine=False):
         key = (round(x, 3), round(y, 3))
         if key in self.via_at:
             assert self.via_at[key] == net, ("two nets want a via at", key)
@@ -295,7 +302,10 @@ class Board:
         v = pcbnew.PCB_VIA(self.board)
         v.SetPosition(pt(x, y))
         v.SetViaType(pcbnew.VIATYPE_THROUGH)
-        v.SetDrill(mm(VIA_DRILL)); v.SetWidth(mm(VIA_DIA))
+        if fine:
+            v.SetDrill(mm(FINE_VIA_DRILL)); v.SetWidth(mm(FINE_VIA_DIA))
+        else:
+            v.SetDrill(mm(VIA_DRILL)); v.SetWidth(mm(VIA_DIA))
         v.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
         v.SetNet(self.netmap[net])
         v.SetFrontTentingMode(pcbnew.TENTING_MODE_TENTED)
@@ -311,7 +321,7 @@ class Board:
                 A, B = t.to_board(a), t.to_board(b)
                 hops[(n, (round(A[0], 3), round(A[1], 3)), (round(B[0], 3), round(B[1], 3)))] = True
                 hops[(n, (round(B[0], 3), round(B[1], 3)), (round(A[0], 3), round(A[1], 3)))] = True
-            for (net, points, width, layer, silk) in t.wires:
+            for (net, points, width, layer, silk, fine) in t.wires:
                 net = self.kname.get(net, net)
                 if net not in self.netmap:
                     self.problems.append("%s: wire names a net that is not in the netlist: %r" % (t.id, net))
@@ -323,7 +333,7 @@ class Board:
                 if layer == "B.Cu":
                     for end, spec in ((pts[0], points[0]), (pts[-1], points[-1])):
                         if not isinstance(spec[0], str) or self.pads[(spec[0], spec[1])]["through"] is False:
-                            self.via(*end, net)
+                            self.via(*end, net, fine=fine)
                     for a, b in zip(pts, pts[1:]):
                         self.track(a, b, width, net, pcbnew.B_Cu)
                         self.back.append((net, a, b))
@@ -339,14 +349,14 @@ class Board:
                         self.hops.append((net, a, b))
                     else:
                         self.track(a, b, width, net)
-            for (net, vx, vy) in t.vias:
+            for (net, vx, vy, fine) in t.vias:
                 net = self.kname.get(net, net)
                 if net not in self.netmap:
                     self.problems.append("%s: via on a net that is not in the netlist: %r" % (t.id, net))
                     continue
                 bx, by = t.to_board((vx, vy))
-                self.via(bx, by, net)
-            for (padref, path, sym, swidth) in t.gnd_stubs:
+                self.via(bx, by, net, fine=fine)
+            for (padref, path, sym, swidth, sfine) in t.gnd_stubs:
                 pad = self.pads.get(padref)
                 if pad is None:
                     raise SystemExit("%s: ground stub from %s: no such pad" % (t.id, padref))
@@ -356,7 +366,7 @@ class Board:
                 for a, b in zip(pts, pts[1:]):
                     self.track(a, b, swidth or (t.wires[0][2] if t.wires else 0.35), "GND")
                 vx, vy = pts[-1]
-                self.via(vx, vy, "GND")
+                self.via(vx, vy, "GND", fine=sfine)
                 dx, dy = vx - pts[-2][0], vy - pts[-2][1]
                 n = math.hypot(dx, dy) or 1.0
                 self.stub_dir[(round(vx, 3), round(vy, 3))] = sym or (dx / n, dy / n)
@@ -377,7 +387,18 @@ class Board:
                 continue
             for a, b in zip(pts, pts[1:]):
                 a, b = (float(a[0]), float(a[1])), (float(b[0]), float(b[1]))
-                self.track(a, b, 0.35, net, pcbnew.B_Cu)
+                self.track(a, b, 0.15 if self.meta.get("stem") == "rf_mod" else 0.35, net, pcbnew.B_Cu)
+                self.nosilk.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
+
+    def front_wires(self):
+        """The board module's FRONT_WIRES: like BACK_WIRES but on the front (a line that must cross the back's), no silk."""
+        for (net, pts) in self.meta.get("front_wires", []):
+            if net not in self.netmap:
+                self.problems.append("front wire on %s, which is not in the netlist" % net)
+                continue
+            for a, b in zip(pts, pts[1:]):
+                a, b = (float(a[0]), float(a[1])), (float(b[0]), float(b[1]))
+                self.track(a, b, 0.15, net, pcbnew.F_Cu)
                 self.nosilk.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
 
     def autoroute(self):
@@ -976,6 +997,7 @@ class Board:
         self.place()
         self.wires()
         self.back_wires()
+        self.front_wires()
         self.autoroute()
         self.rf_fences()
         self.trim_edge_silk()

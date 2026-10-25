@@ -274,6 +274,7 @@ PASSIVES = {
     "L1210 150uH": dict(lcsc="C250237", mpn="NLCV32T-151K-EF", jlc_type="extended", stock=10151, price=0.0482, note="TDK, 6.1 ohm, 100 mA, shielded"),
     # --- RF-MOD (stock 2026-10-25 08:02): 0402 for the synthesizer, C0G in every signal path ---
     "C0402 100pF": dict(lcsc="C1546", mpn="0402CG101J500NT", jlc_type="basic", stock=3331448, price=0.0033, note="C0G: the RF blocks and the loop filter's C3"),
+    "C0603 6.8nF": dict(lcsc="C162241", mpn="GRM1885C1H682JA01D", jlc_type="extended", stock=88521, price=0.0223, note="C0G: the loop filter's C2"),
     "C0402 1uF": dict(lcsc="C14445", mpn="CL05A105KP5NNNC", jlc_type="extended", stock=1049930, price=0.0053, note="X5R 10 V: the MAX2871's filter pins"),
     "L0402 27nH": dict(lcsc="C882469", mpn="LQW15AN27NG80D", jlc_type="extended", stock=18979, price=0.0902, note="Murata LQW15, SRF 3.4 GHz min: the RF chokes"),
     "R0402 12k": dict(lcsc="C25752", mpn="0402WGF1202TCE", jlc_type="basic", stock=887758, price=0.0018),

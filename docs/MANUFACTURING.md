@@ -48,9 +48,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
 - BOM: `out/rf_mod/rf_mod_bom_jlcpcb_upload.csv`; placements: `out/rf_mod/rf_mod_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  29 BOM lines, 17 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  41 BOM lines, 23 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $16.58.  Read `out/rf_mod/rf_mod-assembly-notes.txt` before confirming the order.
+- Parts per board: $39.68.  Read `out/rf_mod/rf_mod-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 

@@ -24,12 +24,16 @@ def net_class(name, track, clearance=CLEARANCE, priority=2147483647, via=VIA_DIA
             "wire_width": 6, "bus_width": 12, "priority": priority}
 
 
-def design_rules():
-    return {"max_error": 0.005, "min_clearance": CLEARANCE, "min_connection": TRACK_MIN, "min_copper_edge_clearance": 0.3,
-            "min_groove_width": 0.0, "min_hole_clearance": 0.3, "min_hole_to_hole": 0.5, "min_microvia_diameter": 0.2,
+FINE = {"rf_mod": dict(clearance=0.127, track=0.127, via=0.45, annular=0.10, drill=0.20, hole_clearance=0.25)}      # the RF board's floor beside its 0.5 mm pitch QFN
+
+
+def design_rules(stem=None):
+    f = FINE.get(stem, {})
+    return {"max_error": 0.005, "min_clearance": f.get("clearance", CLEARANCE), "min_connection": f.get("track", TRACK_MIN), "min_copper_edge_clearance": 0.3,
+            "min_groove_width": 0.0, "min_hole_clearance": f.get("hole_clearance", 0.3), "min_hole_to_hole": 0.5, "min_microvia_diameter": 0.2,
             "min_microvia_drill": 0.1, "min_resolved_spokes": 2, "min_silk_clearance": 0.15, "min_text_height": 0.8,
-            "min_text_thickness": 0.15, "min_through_hole_diameter": 0.3, "min_track_width": TRACK_MIN,
-            "min_via_annular_width": 0.15, "min_via_diameter": VIA_DIA, "solder_mask_clearance": 0.0,
+            "min_text_thickness": 0.15, "min_through_hole_diameter": f.get("drill", 0.3), "min_track_width": f.get("track", TRACK_MIN),
+            "min_via_annular_width": f.get("annular", 0.15), "min_via_diameter": f.get("via", VIA_DIA), "solder_mask_clearance": 0.0,
             "solder_mask_min_width": 0.0, "solder_mask_to_copper_clearance": 0.0, "use_height_for_length_calcs": True}
 
 
@@ -51,12 +55,16 @@ def severities():
     return out
 
 
-def project(stem, layers, power_nets, rf_nets=()):
-    classes = [net_class("Default", 0.25), net_class("Power", 0.4, priority=1)]
+def project(stem, layers, power_nets, rf_nets=(), fine_nets=()):
+    # beside a fine-pitch chip the rails and ground meet its nets at the fine clearance (a Default net still gets 0.2)
+    classes = [net_class("Default", 0.25), net_class("Power", 0.4, priority=1, clearance=(0.127 if fine_nets else CLEARANCE))]
     assignments = {n: ["Power"] for n in power_nets}
     if rf_nets:
         classes.append(net_class("RF", 0.29, clearance=0.25, priority=0))
         assignments.update({n: ["RF"] for n in rf_nets})
+    if fine_nets:
+        classes.append(net_class("Fine", 0.15, clearance=0.127, priority=0, via=0.45, drill=0.25))
+        assignments.update({n: ["Fine"] for n in fine_nets if n not in assignments})
     return {
         "board": {"3dviewports": [], "design_settings": {
             "defaults": {"board_outline_line_width": 0.1, "copper_line_width": 0.2, "copper_text_size_h": 1.5, "copper_text_size_v": 1.5,
@@ -65,7 +73,7 @@ def project(stem, layers, power_nets, rf_nets=()):
                          "other_line_width": 0.15, "other_text_size_h": 1.0, "other_text_size_v": 1.0, "other_text_thickness": 0.15,
                          "silk_line_width": 0.15, "silk_text_size_h": 1.0, "silk_text_size_v": 1.0, "silk_text_thickness": 0.15,
                          "zones": {"min_clearance": 0.3}},
-            "diff_pair_dimensions": [], "drc_exclusions": [], "rule_severities": severities(), "rules": design_rules(),
+            "diff_pair_dimensions": [], "drc_exclusions": [], "rule_severities": severities(), "rules": design_rules(stem),
             "track_widths": [0.0, 0.25, 0.35, 0.6], "via_dimensions": [{"diameter": 0.0, "drill": 0.0}, {"diameter": VIA_DIA, "drill": VIA_DRILL}, {"diameter": 0.8, "drill": 0.4}],
             "zones_allow_external_fillets": False}, "layer_presets": [], "viewports": []},
         "boards": [], "cvpcb": {"equivalence_files": []},
@@ -112,15 +120,20 @@ def main():
     B = parts.BOARDS[stem]
     path = os.path.join(HW, stem + ".kicad_pro")
     # the RF net class: every net a tile draws as a 50 ohm line (tiles.RF_W), once the schematic stage has written the tiles
-    rf_nets = []
+    rf_nets, fine_nets = [], []
     tj = os.path.join(HW, "..", "out", stem + "_tiles.json")
     if os.path.exists(tj):
         for t in json.load(open(tj))["tiles"]:
             for w in t["wires"]:
                 if abs(w[2] - 0.29) < 1e-6 and w[0] not in rf_nets:
                     rf_nets.append(w[0])
+            if t.get("fine"):                      # a fine-pitch tile: every net of its parts but the rails and ground
+                for p in t["parts"]:
+                    for n in p["pins"].values():
+                        if n not in POWER_NETS[stem] and n not in fine_nets:
+                            fine_nets.append(n)
     with open(path, "w") as fh:
-        json.dump(project(stem, B["layers"], POWER_NETS[stem], rf_nets), fh, indent=2)
+        json.dump(project(stem, B["layers"], POWER_NETS[stem], rf_nets, fine_nets), fh, indent=2)
         fh.write("\n")
     for name, body in (("sym-lib-table", SYM_LIB_TABLE), ("fp-lib-table", FP_LIB_TABLE)):
         with open(os.path.join(HW, name), "w") as fh:

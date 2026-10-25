@@ -144,6 +144,11 @@ def fuse_1812():
     return "Fuse_1812_4532Metric.wrl", HEAD + box(0, 0, 0.5, 4.5, 3.2, 1.0, (0.85, 0.7, 0.35))
 
 
+def qfn32_5x5():
+    """A 5 x 5 x 0.9 mm QFN-32 body (the MAX2871) standing in for KiCad's missing STEP file."""
+    return "QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm.wrl", HEAD + box(0, 0, 0.45, 5.0, 5.0, 0.9, BLACK)
+
+
 def l_4x4():
     """A 4 x 4 x 3 mm shielded inductor (the boost's XRNR4030)."""
     return "L_4x4.wrl", HEAD + box(0, 0, 1.5, 4.0, 4.0, 3.0, BLACK)
@@ -152,7 +157,7 @@ def l_4x4():
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
-              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, fuse_1812, l_4x4]
+              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, fuse_1812, l_4x4, qfn32_5x5]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

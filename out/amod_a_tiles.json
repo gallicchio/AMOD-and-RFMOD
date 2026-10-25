@@ -25,6 +25,8 @@
     "Non-inverting OPA810: gain 1 + 10 k / 1.1 k = 10.1, bandwidth 140 MHz / 10 = 14 MHz.  50 ohm at the input, 49.9 ohm",
     "in series with the output (a 50 ohm load halves it: x5).  Keep the input under 0.4 V peak: the output clips at 4 V."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -244,7 +246,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -260,7 +263,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_IN",
@@ -280,7 +284,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_IN",
@@ -296,7 +301,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_IN",
@@ -312,7 +318,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_IN",
@@ -332,7 +339,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_OUT_A",
@@ -356,7 +364,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_OUT_A",
@@ -376,7 +385,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_FB",
@@ -400,7 +410,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_FB",
@@ -416,7 +427,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_VS",
@@ -436,7 +448,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_VS",
@@ -456,7 +469,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_VS",
@@ -476,7 +490,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_VS",
@@ -496,7 +511,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -520,7 +536,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -536,7 +553,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -552,7 +570,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_OUT",
@@ -576,7 +595,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A2_OUT",
@@ -596,19 +616,22 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "-5V",
      9.4,
-     20.5
+     20.5,
+     false
     ]
    ],
    "routes": [
@@ -641,7 +664,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -655,7 +680,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -669,7 +696,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -683,7 +712,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -697,7 +728,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -766,6 +799,8 @@
     "in series with the output.  For 40 dB out to 30 MHz use A4 (the OPA847 LNA); this tile is the FET-input, high-impedance",
     "friendly x100 for everything slower.  (The plan's two stages of x10 did not fit the cell.)"
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -985,7 +1020,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -1001,7 +1037,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_IN",
@@ -1021,7 +1058,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_IN",
@@ -1037,7 +1075,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_IN",
@@ -1053,7 +1092,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_IN",
@@ -1073,7 +1113,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_OUT_A",
@@ -1097,7 +1138,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_OUT_A",
@@ -1117,7 +1159,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_FB",
@@ -1141,7 +1184,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_FB",
@@ -1157,7 +1201,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_VS",
@@ -1177,7 +1222,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_VS",
@@ -1197,7 +1243,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_VS",
@@ -1217,7 +1264,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_VS",
@@ -1237,7 +1285,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -1261,7 +1310,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -1277,7 +1327,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -1293,7 +1344,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_OUT",
@@ -1317,7 +1369,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A3_OUT",
@@ -1337,19 +1390,22 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "-5V",
      9.4,
-     20.5
+     20.5,
+     false
     ]
    ],
    "routes": [
@@ -1382,7 +1438,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -1396,7 +1454,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -1410,7 +1470,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -1424,7 +1486,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -1438,7 +1502,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -1507,6 +1573,8 @@
     "input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at",
     "gains above 12 (it is decompensated): do not change Rg upward.  Pin 1 (no connection) carries the feedback node."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -1715,7 +1783,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -1731,7 +1800,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_IN",
@@ -1751,7 +1821,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_IN",
@@ -1791,7 +1862,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_OUT_A",
@@ -1815,7 +1887,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_OUT_A",
@@ -1835,7 +1908,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_FB",
@@ -1859,7 +1933,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_FB",
@@ -1875,7 +1950,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_VS",
@@ -1891,7 +1967,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_VS",
@@ -1907,7 +1984,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_VS",
@@ -1923,7 +2001,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_VS",
@@ -1943,6 +2022,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -1959,7 +2039,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A4_VS",
@@ -1979,7 +2060,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -1995,7 +2077,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -2011,6 +2094,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -2035,24 +2119,28 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "/A4_VS",
      9.6,
-     18.7
+     18.7,
+     false
     ],
     [
      "-5V",
      18.4,
-     20.5
+     20.5,
+     false
     ]
    ],
    "routes": [
@@ -2099,7 +2187,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2113,7 +2203,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2127,7 +2219,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2141,7 +2235,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2155,7 +2251,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -2224,6 +2322,8 @@
     "with nothing in the socket leaves +IN open: switch one on, or plug a resistor (100 ohm to 10 k) into the socket.",
     "Keep the scope AC-coupled: 600 nA of bias current puts 0.6 V of DC on the output with 10 k."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TR",
@@ -2462,7 +2562,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2478,7 +2579,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_IN",
@@ -2506,7 +2608,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_IN",
@@ -2526,7 +2629,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_R10K",
@@ -2546,7 +2650,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_R1K",
@@ -2570,7 +2675,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_OUT_A",
@@ -2594,7 +2700,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_OUT_A",
@@ -2614,7 +2721,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_FB",
@@ -2638,7 +2746,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_FB",
@@ -2654,7 +2763,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_VS",
@@ -2674,7 +2784,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_VS",
@@ -2694,7 +2805,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_VS",
@@ -2714,7 +2826,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_VS",
@@ -2738,7 +2851,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -2762,7 +2876,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -2778,7 +2893,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -2794,7 +2910,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_OUT",
@@ -2818,7 +2935,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_OUT",
@@ -2838,7 +2956,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A5_IN",
@@ -2854,19 +2973,22 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "-5V",
      9.4,
-     20.5
+     20.5,
+     false
     ]
    ],
    "routes": [
@@ -2899,7 +3021,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2913,7 +3037,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2927,7 +3053,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2941,7 +3069,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2955,7 +3085,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -2969,7 +3101,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -3028,6 +3162,8 @@
     "10 k / 10 nF integrator (1.6 kHz; clock the loop at 1-10 MHz).  IN takes 0 to 3.3 V, or +-1.5 V about the 1.65 V reference",
     "if you AC-couple.  Both Pmod lines are 3.3 V logic; the tile runs on the 3.3 V rail."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -3245,7 +3381,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -3261,7 +3398,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_IN",
@@ -3281,7 +3419,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_NODE",
@@ -3305,7 +3444,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_NODE",
@@ -3321,7 +3461,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_NODE",
@@ -3337,7 +3478,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD1",
@@ -3353,7 +3495,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VS",
@@ -3373,7 +3516,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VS",
@@ -3393,6 +3537,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -3417,6 +3562,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -3433,7 +3579,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VS",
@@ -3457,7 +3604,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VS",
@@ -3473,7 +3621,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VREF",
@@ -3489,7 +3638,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VREF",
@@ -3509,7 +3659,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A6_VREF",
@@ -3537,7 +3688,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD2",
@@ -3565,7 +3717,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD2",
@@ -3581,6 +3734,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ]
    ],
@@ -3588,17 +3742,20 @@
     [
      "+3V3",
      5.7,
-     20.5
+     20.5,
+     false
     ],
     [
      "/PMOD1",
      6.5,
-     10.5
+     10.5,
+     false
     ],
     [
      "/PMOD2",
      18.1,
-     16.5
+     16.5,
+     false
     ]
    ],
    "routes": [
@@ -3631,7 +3788,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3645,7 +3804,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3659,7 +3820,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3673,7 +3836,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3687,7 +3852,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3701,7 +3868,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -3715,7 +3884,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -3774,6 +3945,8 @@
     "tri-state detector) through 10 k / 100 n into VCOin: a lag filter, so expect ringing on lock.  IN self-biases",
     "through 100 n / 1 k (any level above 0.4 V peak).  VCO OUT is 5 V CMOS through 470 ohm.  Probe pins 9 and 13."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -4014,7 +4187,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -4030,7 +4204,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_IN",
@@ -4054,7 +4229,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_INA",
@@ -4070,7 +4246,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_SIG",
@@ -4090,7 +4267,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_PC2",
@@ -4114,7 +4292,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_NODE",
@@ -4130,7 +4309,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_NODE",
@@ -4150,7 +4330,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_C1B",
@@ -4170,7 +4351,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_C1A",
@@ -4190,7 +4372,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_R1",
@@ -4206,7 +4389,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_VCO_A",
@@ -4234,7 +4418,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_VCO_A",
@@ -4250,7 +4435,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_OUT",
@@ -4278,7 +4464,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_VS",
@@ -4298,7 +4485,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A7_VS",
@@ -4318,6 +4506,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -4338,14 +4527,16 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ]
    ],
    "routes": [
@@ -4378,7 +4569,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4392,7 +4585,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4406,7 +4601,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4420,7 +4617,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4434,7 +4633,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4448,7 +4649,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -4508,6 +4711,8 @@
     "The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a",
     "set point with the FPGA's PWM.  (The plan's NTC divider did not fit the cell beside the two 2512s.)"
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TR",
@@ -4673,7 +4878,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -4689,7 +4895,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_HTR",
@@ -4705,7 +4912,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_DRN",
@@ -4721,7 +4929,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD3",
@@ -4737,7 +4946,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD3",
@@ -4761,7 +4971,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_VS",
@@ -4781,7 +4992,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_VS",
@@ -4801,6 +5013,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -4825,6 +5038,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -4845,7 +5059,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_VS",
@@ -4861,7 +5076,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_VS",
@@ -4881,7 +5097,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A8_OUT",
@@ -4909,29 +5126,34 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "/PMOD3",
      16.262,
-     11.6
+     11.6,
+     false
     ],
     [
      "/A8_VS",
      15.5,
-     9.0
+     9.0,
+     false
     ],
     [
      "/A8_VS",
      3.462,
-     2.2
+     2.2,
+     false
     ]
    ],
    "routes": [
@@ -4964,7 +5186,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4978,7 +5202,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -4992,7 +5218,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -5006,7 +5234,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -5020,7 +5250,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -5094,6 +5326,8 @@
     "which is fine for a product detector).  IF OUT is single-ended from pin 6 through 100 n: a 1.5 k source, so read it",
     "with a high-impedance input, not 50 ohm.  No carrier-null trimmer: expect -40 dB of LO feedthrough."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -5458,7 +5692,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -5474,7 +5709,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_RF",
@@ -5502,7 +5738,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_SIGA",
@@ -5530,7 +5767,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_SIGA",
@@ -5546,7 +5784,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_GAIN2",
@@ -5562,7 +5801,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_GAIN3",
@@ -5582,7 +5822,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_SIGB",
@@ -5598,7 +5839,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_BIAS",
@@ -5614,7 +5856,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_LO",
@@ -5634,7 +5877,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CARA",
@@ -5654,7 +5898,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CARA",
@@ -5674,7 +5919,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CARB",
@@ -5698,7 +5944,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CB",
@@ -5718,7 +5965,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CB",
@@ -5738,7 +5986,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_CB",
@@ -5754,7 +6003,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_OUTA",
@@ -5770,7 +6020,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_OUTA",
@@ -5798,7 +6049,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_IF",
@@ -5822,7 +6074,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_OUTB",
@@ -5846,7 +6099,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -5862,7 +6116,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -5878,6 +6133,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -5894,7 +6150,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -5910,6 +6167,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -5930,6 +6188,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -5946,7 +6205,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_VS",
@@ -5962,7 +6222,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_VS",
@@ -5982,7 +6243,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_VS",
@@ -5998,6 +6260,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6014,7 +6277,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A9_VS",
@@ -6030,6 +6294,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6046,24 +6311,28 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "-5V",
      12.9,
-     20.5
+     20.5,
+     false
     ],
     [
      "-5V",
      22.5,
-     20.5
+     20.5,
+     false
     ]
    ],
    "routes": [
@@ -6096,7 +6365,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -6110,7 +6381,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -6124,7 +6397,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -6138,7 +6413,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -6152,7 +6429,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -6166,7 +6445,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -6239,6 +6520,8 @@
     "a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED",
     "of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -6561,7 +6844,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -6577,7 +6861,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_OUTA",
@@ -6597,7 +6882,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_OUTA",
@@ -6617,7 +6903,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_FB",
@@ -6641,7 +6928,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_FB",
@@ -6657,7 +6945,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_FB",
@@ -6677,7 +6966,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_PD",
@@ -6701,7 +6991,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -6729,7 +7020,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -6745,7 +7037,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -6761,6 +7054,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6781,6 +7075,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -6797,6 +7092,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6813,6 +7109,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6833,6 +7130,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -6849,7 +7147,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_VS",
@@ -6869,7 +7168,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_VS",
@@ -6885,7 +7185,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_DRV",
@@ -6909,7 +7210,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_INP",
@@ -6937,7 +7239,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_INP",
@@ -6953,7 +7256,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD4",
@@ -6973,7 +7277,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD4",
@@ -6989,7 +7294,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "GND",
@@ -7009,7 +7315,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_DRV_O",
@@ -7033,7 +7340,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_SENSE",
@@ -7061,7 +7369,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_SENSE",
@@ -7085,7 +7394,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -7105,7 +7415,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -7121,6 +7432,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -7137,6 +7449,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -7153,7 +7466,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A10_VS",
@@ -7169,6 +7483,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -7189,74 +7504,88 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "-5V",
      8.6,
-     20.5
+     20.5,
+     false
     ],
     [
      "/A10_VS",
      12.4,
-     18.95
+     18.95,
+     false
     ],
     [
      "/A10_VS",
      12.4,
-     16.0
+     16.0,
+     false
     ],
     [
      "/A10_VS",
      12.4,
-     12.5
+     12.5,
+     false
     ],
     [
      "/A10_VS",
      10.4,
-     3.0
+     3.0,
+     false
     ],
     [
      "/PMOD4",
      23.3,
-     9.2
+     9.2,
+     false
     ],
     [
      "GND",
      22.3,
-     12.1
+     12.1,
+     false
     ],
     [
      "-5V",
      29.7,
-     10.2
+     10.2,
+     false
     ],
     [
      "-5V",
      29.7,
-     16.5
+     16.5,
+     false
     ],
     [
      "-5V",
      29.7,
-     20.5
+     20.5,
+     false
     ],
     [
      "/A10_VS",
      37.2,
-     18.95
+     18.95,
+     false
     ],
     [
      "/A10_VS",
      37.2,
-     11.55
+     11.55,
+     false
     ]
    ],
    "routes": [
@@ -7289,7 +7618,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7303,7 +7634,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7317,7 +7650,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7331,7 +7666,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7345,7 +7682,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7359,7 +7698,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7373,7 +7714,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -7387,7 +7730,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -7442,6 +7787,8 @@
     "own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers",
     "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart)."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TR",
@@ -7749,7 +8096,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -7765,7 +8113,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_OUT1",
@@ -7793,7 +8142,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_OUT2",
@@ -7829,7 +8179,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7853,7 +8204,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7873,7 +8225,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7893,7 +8246,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7917,7 +8271,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7937,7 +8292,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -7953,6 +8309,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -7969,7 +8326,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD6",
@@ -7993,7 +8351,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD5",
@@ -8009,7 +8368,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_RXA",
@@ -8029,7 +8389,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_IN",
@@ -8049,7 +8410,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_IN",
@@ -8069,7 +8431,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -8089,6 +8452,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8113,7 +8477,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_OUT_A",
@@ -8133,7 +8498,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_FB",
@@ -8157,7 +8523,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_FB",
@@ -8173,7 +8540,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -8193,7 +8561,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -8213,7 +8582,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_VS",
@@ -8233,7 +8603,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -8257,7 +8628,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -8273,7 +8645,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -8289,7 +8662,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_OUT",
@@ -8313,7 +8687,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_OUT",
@@ -8333,7 +8708,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A11_IN",
@@ -8349,7 +8725,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD_VCC",
@@ -8365,6 +8742,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8389,6 +8767,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -8417,6 +8796,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -8441,6 +8821,7 @@
      ],
      0.2,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8465,6 +8846,7 @@
      ],
      0.2,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8489,6 +8871,7 @@
      ],
      0.2,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8513,6 +8896,7 @@
      ],
      0.2,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -8533,6 +8917,7 @@
      ],
      0.2,
      "F.Cu",
+     false,
      false
     ]
    ],
@@ -8540,57 +8925,68 @@
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "/A11_VS",
      9.9,
-     6.3
+     6.3,
+     false
     ],
     [
      "/A11_VS",
      9.9,
-     17.3
+     17.3,
+     false
     ],
     [
      "/PMOD6",
      10.6,
-     8.3
+     8.3,
+     false
     ],
     [
      "/PMOD5",
      11.6,
-     9.25
+     9.25,
+     false
     ],
     [
      "-5V",
      30.1,
-     -0.75
+     -0.75,
+     false
     ],
     [
      "/PMOD1",
      14.05,
-     20.2
+     20.2,
+     false
     ],
     [
      "/PMOD2",
      14.75,
-     20.85
+     20.85,
+     false
     ],
     [
      "/PMOD3",
      16.55,
-     25.75
+     25.75,
+     false
     ],
     [
      "/PMOD4",
      15.85,
-     26.5
+     26.5,
+     false
     ],
     [
      "/PMOD7",
      44.25,
-     21.5
+     21.5,
+     false
     ]
    ],
    "routes": [
@@ -8623,7 +9019,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8637,7 +9035,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8651,7 +9051,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8665,7 +9067,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8679,7 +9083,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8693,7 +9099,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8707,7 +9115,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8721,7 +9131,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -8735,7 +9147,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -8799,6 +9213,8 @@
     "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
     "+ side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -9178,7 +9594,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -9194,7 +9611,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_AIN",
@@ -9218,7 +9636,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_NODE",
@@ -9238,7 +9657,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_NODE",
@@ -9262,7 +9682,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD7",
@@ -9278,7 +9699,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/PMOD7",
@@ -9310,6 +9732,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -9330,7 +9753,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_BYP",
@@ -9354,7 +9778,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9370,7 +9795,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9390,6 +9816,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -9406,7 +9833,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9422,7 +9850,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9438,7 +9867,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9454,7 +9884,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VOP",
@@ -9470,7 +9901,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VOP",
@@ -9498,6 +9930,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -9526,7 +9959,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_MICP",
@@ -9550,7 +9984,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_MICP",
@@ -9566,7 +10001,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9582,7 +10018,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9598,6 +10035,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -9622,6 +10060,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -9638,6 +10077,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -9662,7 +10102,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_OUT_A",
@@ -9682,7 +10123,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_FB",
@@ -9706,7 +10148,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_FB",
@@ -9722,7 +10165,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9742,7 +10186,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9762,7 +10207,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_VS",
@@ -9782,7 +10228,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -9806,7 +10253,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -9834,6 +10282,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -9850,6 +10299,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -9874,7 +10324,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_OUT",
@@ -9894,7 +10345,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A12_IN",
@@ -9910,54 +10362,64 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      5.7,
-     19.05
+     19.05,
+     false
     ],
     [
      "/PMOD7",
      18.775,
-     3.9
+     3.9,
+     false
     ],
     [
      "/PMOD7",
      1.25,
-     21.5
+     21.5,
+     false
     ],
     [
      "/A12_VS",
      12.205,
-     9.6
+     9.6,
+     false
     ],
     [
      "/A12_VS",
      13.95,
-     16.6
+     16.6,
+     false
     ],
     [
      "/A12_VOP",
      8.395,
-     16.7
+     16.7,
+     false
     ],
     [
      "/A12_VS",
      23.77,
-     9.6
+     9.6,
+     false
     ],
     [
      "/A12_VS",
      23.77,
-     18.4
+     18.4,
+     false
     ],
     [
      "-5V",
      40.9,
-     -0.75
+     -0.75,
+     false
     ]
    ],
    "routes": [
@@ -9990,7 +10452,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10004,7 +10468,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10018,7 +10484,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10032,7 +10500,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10046,7 +10516,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10060,7 +10532,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10074,7 +10548,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10088,7 +10564,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10102,7 +10580,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -10116,7 +10596,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -10185,6 +10667,8 @@
     "amp with its +5 V removed draws nothing.  The TPS7A2033 makes 3.3 V for the comparator and the lines that meet the FPGA.",
     "The socket along the top carries +5, ground, -5, ground, +3.3: the bench's rails for a breadboard experiment."
    ],
+   "top_pour": false,
+   "fine": false,
    "jacks": [],
    "parts": [
     {
@@ -10473,7 +10957,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "GND",
@@ -10489,7 +10974,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_CC1",
@@ -10513,7 +10999,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_CC2",
@@ -10537,7 +11024,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_VBUS",
@@ -10553,7 +11041,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_VBUS",
@@ -10569,7 +11058,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_VBUS",
@@ -10585,7 +11075,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/A1_VBUS",
@@ -10605,7 +11096,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -10621,7 +11113,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -10637,7 +11130,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -10653,7 +11147,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -10669,7 +11164,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -10685,7 +11181,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -10701,7 +11198,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -10717,7 +11215,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -10733,7 +11232,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -10757,7 +11257,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "-5V",
@@ -10773,6 +11274,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -10789,6 +11291,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -10805,7 +11308,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -10821,6 +11325,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -10837,44 +11342,52 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      9.1,
-     6.2
+     6.2,
+     false
     ],
     [
      "-5V",
      1.1,
-     -0.75
+     -0.75,
+     false
     ],
     [
      "+5V",
      10.4,
-     12.6
+     12.6,
+     false
     ],
     [
      "+3V3",
      19.0,
-     20.5
+     20.5,
+     false
     ],
     [
      "-5V",
      7.48,
-     -0.75
+     -0.75,
+     false
     ],
     [
      "-5V",
      20.6,
-     -0.75
+     -0.75,
+     false
     ],
     [
      "+5V",
      24.6,
-     0.6
+     0.6,
+     false
     ]
    ],
    "routes": [
@@ -10991,7 +11504,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11005,7 +11520,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11019,7 +11536,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11033,7 +11552,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11047,7 +11568,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11058,7 +11581,9 @@
       2.2,
       17.0
      ],
-     null
+     null,
+     null,
+     false
     ],
     [
      [
@@ -11072,7 +11597,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11086,7 +11613,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11100,7 +11629,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11114,7 +11645,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11128,7 +11661,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ],
     [
      [
@@ -11142,7 +11677,9 @@
      [
       0,
       0
-     ]
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
@@ -11402,6 +11939,7 @@
    ]
   ]
  ],
+ "front_wires": [],
  "back_text_x": 71.0,
  "qr_at": [
   39.5,

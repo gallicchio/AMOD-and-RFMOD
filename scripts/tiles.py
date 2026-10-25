@@ -80,6 +80,7 @@ class Tile:
         self.sim = {}              # numbers the documents quote
         self.sch_draw = None       # f(ctx, tile)
         self.top_pour = False      # an RF tile: ground poured on L1 round everything, launch voids under its jacks, fences along its lines
+        self.fine = False          # a tile with a fine-pitch chip: its nets get the "Fine" net class (0.127 mm clearance, 0.15 tracks)
         self._counts = {}
         self.x0, self.y0, self.w, self.h = G.tile_frame(self.cells)
 
@@ -114,19 +115,19 @@ class Tile:
         (dx, dy, justify, size) from the loop's centre (default: under it; "hide": no silk name)."""
         return self.add("TP", "TP", label if label is not None else net, x, y, rot, {"1": net}, label=label_at, hide_value=False)
 
-    def wire(self, net, pts, width=W_SIG, layer="F.Cu", silk=True):
+    def wire(self, net, pts, width=W_SIG, layer="F.Cu", silk=True, fine=False):
         """Copper along pts (and silk, when on the front, unless silk=False).  On "B.Cu" the wire runs on the back with
         a via at each end that is a coordinate (a pad end needs none when the pad is through-hole; an SMD pad end gets
-        one beside it)."""
-        self.wires.append((self.net(net), list(pts), width, layer, silk))
+        one beside it); `fine` makes those vias the small ones (0.45 / 0.25)."""
+        self.wires.append((self.net(net), list(pts), width, layer, silk, fine))
 
     def rf(self, net, pts):
         """A 50 ohm line between pads or points: RF_W wide, the top pour 0.25 away each side, ground vias along it (gen_pcb)."""
         self.wire(net, pts, width=RF_W)
 
-    def via(self, net, x, y):
-        """A via on `net` at (x, y): a tile's connection to a rail pour on the inner layer."""
-        self.vias.append((self.net(net), x, y))
+    def via(self, net, x, y, fine=False):
+        """A via on `net` at (x, y): a tile's connection to a rail pour on the inner layer (`fine`: 0.45 / 0.25 mm)."""
+        self.vias.append((self.net(net), x, y, fine))
 
     def route(self, net, specs, width=W_SIG):
         """Let the board generator find the path between these pads / points (scripts/router.py), on the front where
@@ -136,10 +137,11 @@ class Tile:
     def hop(self, net, a, b):
         self.hops.append((self.net(net), a, b))
 
-    def gnd_stub(self, ref, pad, pt, sym=None, width=None):
+    def gnd_stub(self, ref, pad, pt, sym=None, width=None, fine=False):
         """Copper from the pad to a ground via at `pt` (or along a path); the ground symbol is drawn on from the via
-        in the stub's direction unless `sym` (a unit vector) says otherwise.  `width` overrides the tile's first wire's."""
-        self.gnd_stubs.append(((ref, str(pad)), pt, sym, width))
+        in the stub's direction unless `sym` (a unit vector) says otherwise.  `width` overrides the tile's first wire's;
+        `fine` makes the via the small one."""
+        self.gnd_stubs.append(((ref, str(pad)), pt, sym, width, fine))
 
     def text(self, x, y, s, size=0.8, thick=0.15, justify="left", angle=0):
         self.texts.append((x, y, s, size, thick, justify, angle))
@@ -184,25 +186,26 @@ HDR_VIA = (5.7, 19.05)       # the rail via between the switch's pads and the FE
 HDR_VS = (8.54, 18.1)        # where the tile's own rail starts: the drain
 
 
-def power_header(tile, rail="+5V", local="VS"):
+def power_header(tile, rail="+5V", local="VS", dx=0.0):
     """A powered tile's switch at the standard places (HDR_*): the MSK12C02 standing along the left edge below the IN
     stub, its common (pad 2) to the P-FET's gate, pad 1 (slider up: ON) to ground and pad 3 to the rail, so the gate
     is either grounded (on) or at the source (off); the AO3401A at the switch's foot with its source on the rail
     through the via beside it and its drain the tile's own `local` rail, which the tile routes on from HDR_VS.
-    Returns dict(sw, q)."""
-    sx, sy = HDR_SW
-    qx, qy = HDR_Q
+    `dx` moves the whole header right (a two-cell tile whose left cell is busy).  Returns dict(sw, q)."""
+    sx, sy = HDR_SW[0] + dx, HDR_SW[1]
+    qx, qy = HDR_Q[0] + dx, HDR_Q[1]
+    via = (HDR_VIA[0] + dx, HDR_VIA[1])
     sw = tile.add("SW", "SW_SLIDE", "ON", sx, sy, 270, {"1": "GND", "2": "G", "3": rail}, hide_value=True)
     q = tile.add("Q", "PFET", "AO3401A", qx, qy, 0, {"1": "G", "2": rail, "3": local}, hide_value=True)
     tile.gnd_stub(sw, "1", (sx + 1.95, sy - 0.75), sym=(0, 0))          # between pads 1 and 2, no symbol (the switch's own ground)
     if rail == "+5V":                                                   # the pour under everything: the via beside the FET
-        tile.via(rail, HDR_VIA[0], HDR_VIA[1])
-        tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA])
-        tile.wire(rail, [(q, "2"), HDR_VIA])
+        tile.via(rail, via[0], via[1])
+        tile.wire(rail, [(sw, "3"), (via[0], sy + 2.25), via])
+        tile.wire(rail, [(q, "2"), via])
     else:                                                               # +3.3 V: a strip in the gutter below the tile
-        tile.via(rail, HDR_VIA[0], 20.5)
-        tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA, (HDR_VIA[0], 20.5)])
-        tile.wire(rail, [(q, "2"), HDR_VIA])
+        tile.via(rail, via[0], 20.5)
+        tile.wire(rail, [(sw, "3"), (via[0], sy + 2.25), via, (via[0], 20.5)])
+        tile.wire(rail, [(q, "2"), via])
     tile.route("G", [(sw, "2"), (q, "1")])
     tile.pwr_flags.append(local)
     return dict(sw=sw, q=q)
@@ -461,21 +464,21 @@ def dump(tiles, mod, path):
     import json
     out = {"tiles": [], "gnd_loops": list(getattr(mod, "GND_LOOPS", [])), "back_text": list(getattr(mod, "BACK_TEXT", [])),
            "slots": list(getattr(mod, "SLOTS", [])), "front_text": list(getattr(mod, "FRONT_TEXT", [])), "rail_pours": list(getattr(mod, "RAIL_POURS", [])),
-           "back_wires": list(getattr(mod, "BACK_WIRES", [])), "back_text_x": getattr(mod, "BACK_TEXT_X", 50.0),
+           "back_wires": list(getattr(mod, "BACK_WIRES", [])), "front_wires": list(getattr(mod, "FRONT_WIRES", [])), "back_text_x": getattr(mod, "BACK_TEXT_X", 50.0),
            "qr_at": getattr(mod, "QR_AT", None),
            "stem": getattr(mod, "STEM", "")}
     for t in tiles:
         out["tiles"].append(dict(
             id=t.id, idx=t.idx, name=t.name, subtitle=t.subtitle, sections=t.sections, cells=t.cells, supply=t.supply,
-            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result, notes=list(getattr(t, "notes", []) or []), top_pour=bool(getattr(t, "top_pour", False)),
+            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result, notes=list(getattr(t, "notes", []) or []), top_pour=bool(getattr(t, "top_pour", False)), fine=bool(getattr(t, "fine", False)),
             jacks=[dict(j) for j in t.jacks],
             parts=[dict(ref=p.ref, key=p.key, value=p.value, x=p.x, y=p.y, rot=p.rot, pins=p.pins, label=p.label,
                         hide_value=p.hide_value) for p in t.parts.values()],
-            wires=[(n, [list(q) for q in pts], w, layer, silk) for (n, pts, w, layer, silk) in t.wires],
-            vias=[(n, x, y) for (n, x, y) in t.vias],
+            wires=[(n, [list(q) for q in pts], w, layer, silk, fine) for (n, pts, w, layer, silk, fine) in t.wires],
+            vias=[(n, x, y, fine) for (n, x, y, fine) in t.vias],
             routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
-            gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w) for (pr, pt, sym, w) in t.gnd_stubs],
+            gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w, fine) for (pr, pt, sym, w, fine) in t.gnd_stubs],
             texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])]))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)

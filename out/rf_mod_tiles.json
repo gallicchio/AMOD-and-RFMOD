@@ -24,6 +24,7 @@
     "Sweep it with the synthesizer R10 or R11 into a power meter, or with a DAC harmonic comb and the ADC."
    ],
    "top_pour": true,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -115,7 +116,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R2_OUT",
@@ -135,7 +137,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [],
@@ -155,7 +158,8 @@
       0,
       -1
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -170,7 +174,8 @@
       0,
       1
      ],
-     null
+     null,
+     false
     ]
    ],
    "texts": [
@@ -254,6 +259,7 @@
     "its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2."
    ],
    "top_pour": true,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -346,7 +352,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R4_IN",
@@ -362,7 +369,8 @@
      ],
      0.2,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R4_OUT",
@@ -378,7 +386,8 @@
      ],
      0.2,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R4_OUT",
@@ -406,7 +415,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [],
@@ -426,7 +436,8 @@
       0,
       -1
      ],
-     0.2
+     0.2,
+     false
     ],
     [
      [
@@ -441,7 +452,8 @@
       0,
       1
      ],
-     0.2
+     0.2,
+     false
     ]
    ],
    "texts": [
@@ -527,6 +539,7 @@
     "switch and P-FET gate the tile's 7.8 V as on AMOD-A."
    ],
    "top_pour": true,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -735,7 +748,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+8V",
@@ -751,7 +765,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_IN",
@@ -771,7 +786,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_IN_A",
@@ -787,7 +803,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_OUT_A",
@@ -803,7 +820,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_OUT",
@@ -823,7 +841,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_OUT_A",
@@ -839,7 +858,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_VD",
@@ -859,7 +879,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_VD",
@@ -883,7 +904,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_VS",
@@ -907,7 +929,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R5_VS",
@@ -927,6 +950,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -943,24 +967,28 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+8V",
      5.7,
-     20.5
+     20.5,
+     false
     ],
     [
      "/R5_VS",
      10.7,
-     17.0
+     17.0,
+     false
     ],
     [
      "/R5_VS",
      11.54,
-     1.3
+     1.3,
+     false
     ]
    ],
    "routes": [
@@ -994,7 +1022,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1009,7 +1038,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1034,7 +1064,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1049,7 +1080,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1070,7 +1102,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ]
    ],
    "texts": [
@@ -1129,6 +1162,7 @@
     "switch and P-FET gate the tile's 7.8 V as on AMOD-A."
    ],
    "top_pour": true,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -1337,7 +1371,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+8V",
@@ -1353,7 +1388,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_IN",
@@ -1373,7 +1409,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_IN_A",
@@ -1389,7 +1426,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_OUT_A",
@@ -1405,7 +1443,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_OUT",
@@ -1425,7 +1464,8 @@
      ],
      0.29,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_OUT_A",
@@ -1441,7 +1481,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_VD",
@@ -1461,7 +1502,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_VD",
@@ -1485,7 +1527,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_VS",
@@ -1509,7 +1552,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R12_VS",
@@ -1529,6 +1573,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -1545,24 +1590,28 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+8V",
      5.7,
-     20.5
+     20.5,
+     false
     ],
     [
      "/R12_VS",
      10.7,
-     17.0
+     17.0,
+     false
     ],
     [
      "/R12_VS",
      11.54,
-     1.3
+     1.3,
+     false
     ]
    ],
    "routes": [
@@ -1596,7 +1645,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1611,7 +1661,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1636,7 +1687,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1651,7 +1703,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -1672,7 +1725,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ]
    ],
    "texts": [
@@ -1727,15 +1781,16 @@
    "y0": 29.25,
    "w": 41.5,
    "h": 20.0,
-   "result": "+5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), 25 MHz square wave on REF OUT and the REF25 bus",
+   "result": "+5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT",
    "notes": [
     "USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
     "(0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their",
     "headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives",
-    "REF OUT (51 ohm: 1.6 Vpp into 50 ohm) and the REF25 line on the back to the synthesizers' jumpers (3.3 Vpp open).",
+    "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; a tee feeds both synthesizers).",
     "The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled."
    ],
    "top_pour": false,
+   "fine": false,
    "jacks": [
     {
      "slot": "TL",
@@ -2162,7 +2217,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "GND",
@@ -2178,7 +2234,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_CC1",
@@ -2202,7 +2259,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_CC2",
@@ -2226,7 +2284,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_VBUS",
@@ -2242,7 +2301,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_VBUS",
@@ -2258,7 +2318,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_VBUS",
@@ -2274,7 +2335,8 @@
      ],
      0.35,
      "B.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_VBUS",
@@ -2294,7 +2356,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2310,7 +2373,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2326,7 +2390,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2342,7 +2407,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2362,7 +2428,8 @@
      ],
      0.5,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_SW",
@@ -2390,7 +2457,8 @@
      ],
      0.5,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_SW",
@@ -2410,7 +2478,8 @@
      ],
      0.5,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2426,7 +2495,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2442,7 +2512,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+8V",
@@ -2458,7 +2529,8 @@
      ],
      0.5,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+8V",
@@ -2474,6 +2546,7 @@
      ],
      0.5,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -2494,7 +2567,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_FB",
@@ -2510,7 +2584,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+8V",
@@ -2526,6 +2601,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -2542,7 +2618,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_LEDY",
@@ -2558,7 +2635,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2574,7 +2652,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -2598,7 +2677,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -2618,7 +2698,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_OSC",
@@ -2638,7 +2719,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -2658,7 +2740,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -2674,6 +2757,7 @@
      ],
      0.35,
      "B.Cu",
+     false,
      false
     ],
     [
@@ -2694,7 +2778,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+3V3",
@@ -2710,7 +2795,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_BUF",
@@ -2726,7 +2812,8 @@
      ],
      0.25,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "/R9_REF",
@@ -2746,7 +2833,8 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ],
     [
      "+5V",
@@ -2762,6 +2850,7 @@
      ],
      0.35,
      "F.Cu",
+     false,
      false
     ],
     [
@@ -2778,54 +2867,64 @@
      ],
      0.35,
      "F.Cu",
-     true
+     true,
+     false
     ]
    ],
    "vias": [
     [
      "+5V",
      30.6,
-     6.2
+     6.2,
+     false
     ],
     [
      "+5V",
      22.3,
-     10.0
+     10.0,
+     false
     ],
     [
      "+5V",
      25.1375,
-     19.5
+     19.5,
+     false
     ],
     [
      "+8V",
      34.35,
-     20.5
+     20.5,
+     false
     ],
     [
      "+8V",
      18.29,
-     20.5
+     20.5,
+     false
     ],
     [
      "+5V",
      10.4,
-     12.6
+     12.6,
+     false
     ],
     [
      "+3V3",
      8.375,
-     11.2
+     11.2,
+     false
     ],
     [
      "+3V3",
      16.5,
-     11.2
+     11.2,
+     false
     ],
     [
      "+5V",
      46.1,
-     0.6
+     0.6,
+     false
     ]
    ],
    "routes": [
@@ -2873,7 +2972,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2888,7 +2988,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2903,7 +3004,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2918,7 +3020,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2933,7 +3036,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2948,7 +3052,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2963,7 +3068,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2978,7 +3084,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -2993,7 +3100,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3008,7 +3116,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3023,7 +3132,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3038,7 +3148,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3053,7 +3164,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3068,7 +3180,8 @@
       0,
       1
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3089,7 +3202,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3104,7 +3218,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3119,7 +3234,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ],
     [
      [
@@ -3134,7 +3250,8 @@
       0,
       0
      ],
-     null
+     null,
+     false
     ]
    ],
    "texts": [
@@ -3185,6 +3302,4308 @@
     ]
    ],
    "slots": []
+  },
+  {
+   "id": "R10",
+   "idx": 10,
+   "name": "synthesizer",
+   "subtitle": "MAX2871",
+   "sections": [],
+   "cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "supply": "+5 V",
+   "x0": 7.75,
+   "y0": 72.25,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked",
+   "notes": [
+    "MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA,",
+    "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
+    "and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and",
+    "100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are",
+    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+   ],
+   "top_pour": true,
+   "fine": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "OUT A",
+     "net": "/R10_OUTA",
+     "role": "out",
+     "limit": "",
+     "ref": "J1001",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "OUT A"
+    },
+    {
+     "slot": "TM",
+     "label": "REF IN",
+     "net": "/R10_REF",
+     "role": "in",
+     "limit": "25 MHz, 3.3 V CMOS",
+     "ref": "J1002",
+     "x": 20.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "REF IN"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J1001",
+     "key": "SMA",
+     "value": "OUT A",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_OUTA",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J1002",
+     "key": "SMA",
+     "value": "REF IN",
+     "x": 20.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_REF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW1001",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 22.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R10_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q1001",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 27.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_G",
+      "2": "+5V",
+      "3": "/R10_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U1001",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 30.5,
+     "y": 14.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_VS",
+      "2": "GND",
+      "3": "/R10_VS",
+      "5": "/R10_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1001",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 27.5,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1002",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 31.6,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U1002",
+     "key": "MAX2871",
+     "value": "MAX2871",
+     "x": 13.5,
+     "y": 10.5,
+     "rot": 270,
+     "pins": {
+      "1": "/PMOD6",
+      "2": "/PMOD7",
+      "3": "/PMOD5",
+      "4": "/R10_V33",
+      "6": "/R10_V33",
+      "7": "/R10_CP",
+      "8": "GND",
+      "9": "GND",
+      "10": "/R10_V33",
+      "11": "GND",
+      "12": "/R10_AP",
+      "13": "/R10_AN",
+      "16": "/R10_V33",
+      "17": "/R10_V33",
+      "18": "GND",
+      "19": "/R10_NF",
+      "20": "/R10_TN",
+      "21": "GND",
+      "22": "/R10_RS",
+      "23": "/R10_BF",
+      "24": "/R10_REG",
+      "25": "/R10_LD",
+      "26": "/R10_V33",
+      "27": "GND",
+      "28": "/R10_V33",
+      "29": "/R10_REFI",
+      "30": "/PMOD8",
+      "31": "GND",
+      "32": "/R10_V33",
+      "33": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1003",
+     "key": "C0603 470pF",
+     "value": "470p",
+     "x": 12.25,
+     "y": 5.5,
+     "rot": 90,
+     "pins": {
+      "1": "/R10_CP",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1001",
+     "key": "R0402 470R",
+     "value": "470",
+     "x": 10.9,
+     "y": 4.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_TN",
+      "2": "/R10_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1002",
+     "key": "R0402 820R",
+     "value": "820",
+     "x": 9.4,
+     "y": 5.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_N2",
+      "2": "/R10_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1004",
+     "key": "C0603 6.8nF",
+     "value": "6.8n",
+     "x": 9.4,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R10_N2",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1005",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 13.6,
+     "y": 5.5,
+     "rot": 90,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1003",
+     "key": "R0402 100k",
+     "value": "100k",
+     "x": 14.3,
+     "y": 3.4,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/PMOD5"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1006",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 17.6,
+     "y": 9.15,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1007",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 19.2,
+     "y": 11.3,
+     "rot": 0,
+     "pins": {
+      "1": "/R10_REFI",
+      "2": "/R10_REF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1008",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 19.5,
+     "y": 12.9,
+     "rot": 90,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1004",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 18.3,
+     "y": 14.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_LD",
+      "2": "/R10_LEDA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED1001",
+     "key": "LED_R",
+     "value": "LOCK",
+     "x": 18.3,
+     "y": 16.9,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/R10_LEDA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L1001",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 9.8,
+     "y": 8.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "/R10_AP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1009",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 8.9,
+     "y": 10.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R10_OUTA",
+      "2": "/R10_AP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L1002",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 9.7,
+     "y": 13.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_AN",
+      "2": "/R10_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1010",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 8.5,
+     "y": 13.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_AN",
+      "2": "/R10_TRM"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1005",
+     "key": "R0402 51R",
+     "value": "51R",
+     "x": 8.5,
+     "y": 15.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_TRM",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1011",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 10.8,
+     "y": 14.7,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1012",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 11.6,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_NF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1013",
+     "key": "C0603 100pF",
+     "value": "100p",
+     "x": 13.0,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_TN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1006",
+     "key": "R0402 5.1k",
+     "value": "5.1k",
+     "x": 14.4,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_RS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1014",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 15.6,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_BF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1015",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 16.8,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R10_REG",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J1003",
+     "key": "PMOD",
+     "value": "Pmod",
+     "x": 8.05,
+     "y": 24.25,
+     "rot": 0,
+     "pins": {
+      "2": "/PMOD5",
+      "4": "/PMOD6",
+      "6": "/PMOD7",
+      "8": "/PMOD8",
+      "5": "/PMOD3",
+      "7": "/PMOD4",
+      "9": "GND",
+      "10": "GND",
+      "11": "/PMOD_VCC",
+      "12": "/PMOD_VCC"
+     },
+     "label": null,
+     "hide_value": true
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW1001",
+       "3"
+      ],
+      [
+       25.7,
+       17.85
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q1001",
+       "2"
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1001",
+       "5"
+      ],
+      [
+       31.6375,
+       11.6
+      ],
+      [
+       30.65,
+       11.6
+      ],
+      [
+       "C1002",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "C1002",
+       "1"
+      ],
+      [
+       30.65,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "8"
+      ],
+      [
+       12.1,
+       9.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "9"
+      ],
+      [
+       12.05,
+       8.75
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "11"
+      ],
+      [
+       12.2,
+       9.75
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "18"
+      ],
+      [
+       12.25,
+       11.8
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "21"
+      ],
+      [
+       13.75,
+       11.8
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "27"
+      ],
+      [
+       14.8,
+       11.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1002",
+       "31"
+      ],
+      [
+       14.8,
+       9.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_CP",
+     [
+      [
+       "U1002",
+       "7"
+      ],
+      [
+       12.25,
+       7.3
+      ],
+      [
+       "C1003",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_CP",
+     [
+      [
+       12.25,
+       7.3
+      ],
+      [
+       10.9,
+       7.3
+      ],
+      [
+       "R1001",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_CP",
+     [
+      [
+       10.9,
+       6.4
+      ],
+      [
+       9.4,
+       6.4
+      ],
+      [
+       "R1002",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_N2",
+     [
+      [
+       "R1002",
+       "1"
+      ],
+      [
+       "C1004",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_TN",
+     [
+      [
+       "R1001",
+       "1"
+      ],
+      [
+       10.9,
+       3.2
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_TN",
+     [
+      [
+       10.9,
+       3.2
+      ],
+      [
+       10.9,
+       9.0
+      ],
+      [
+       13.5,
+       9.0
+      ],
+      [
+       13.5,
+       14.2
+      ],
+      [
+       13.0,
+       14.7
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "6"
+      ],
+      [
+       12.75,
+       7.5
+      ],
+      [
+       13.6,
+       6.65
+      ],
+      [
+       "C1005",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "4"
+      ],
+      [
+       13.75,
+       7.5
+      ],
+      [
+       14.6,
+       6.65
+      ],
+      [
+       14.6,
+       5.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD5",
+     [
+      [
+       "U1002",
+       "3"
+      ],
+      [
+       14.25,
+       7.5
+      ],
+      [
+       15.1,
+       6.65
+      ],
+      [
+       15.1,
+       4.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD6",
+     [
+      [
+       "U1002",
+       "1"
+      ],
+      [
+       15.25,
+       7.5
+      ],
+      [
+       16.1,
+       6.65
+      ],
+      [
+       16.1,
+       5.6
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       "U1002",
+       "2"
+      ],
+      [
+       14.75,
+       7.5
+      ],
+      [
+       15.6,
+       6.65
+      ],
+      [
+       15.6,
+       3.4
+      ],
+      [
+       16.6,
+       2.4
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD5",
+     [
+      [
+       15.1,
+       4.3
+      ],
+      [
+       15.1,
+       3.4
+      ],
+      [
+       "R1003",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "32"
+      ],
+      [
+       16.6,
+       8.75
+      ],
+      [
+       17.0,
+       9.15
+      ],
+      [
+       "C1006",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "C1006",
+       "1"
+      ],
+      [
+       17.09,
+       8.4
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD8",
+     [
+      [
+       "U1002",
+       "30"
+      ],
+      [
+       16.6,
+       9.75
+      ],
+      [
+       17.4,
+       10.55
+      ],
+      [
+       18.3,
+       10.55
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_REFI",
+     [
+      [
+       "U1002",
+       "29"
+      ],
+      [
+       16.6,
+       10.25
+      ],
+      [
+       17.65,
+       11.3
+      ],
+      [
+       "C1007",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_REF",
+     [
+      [
+       "J1002",
+       "1"
+      ],
+      [
+       20.75,
+       11.3
+      ],
+      [
+       "C1007",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "28"
+      ],
+      [
+       16.6,
+       10.75
+      ],
+      [
+       19.2,
+       13.35
+      ],
+      [
+       "C1008",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "C1008",
+       "1"
+      ],
+      [
+       19.5,
+       14.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "26"
+      ],
+      [
+       16.85,
+       11.75
+      ],
+      [
+       17.6,
+       12.5
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_LD",
+     [
+      [
+       "U1002",
+       "25"
+      ],
+      [
+       16.6,
+       12.25
+      ],
+      [
+       17.84,
+       13.49
+      ],
+      [
+       "R1004",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_LEDA",
+     [
+      [
+       "R1004",
+       "2"
+      ],
+      [
+       "LED1001",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_AP",
+     [
+      [
+       "U1002",
+       "12"
+      ],
+      [
+       8.9,
+       10.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_AP",
+     [
+      [
+       "L1001",
+       "2"
+      ],
+      [
+       9.8,
+       10.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "L1001",
+       "1"
+      ],
+      [
+       9.8,
+       7.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "10"
+      ],
+      [
+       10.4,
+       9.25
+      ],
+      [
+       10.4,
+       8.115
+      ],
+      [
+       "L1001",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_OUTA",
+     [
+      [
+       "C1009",
+       "1"
+      ],
+      [
+       8.9,
+       11.6
+      ],
+      [
+       4.75,
+       11.6
+      ],
+      [
+       "J1001",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_AN",
+     [
+      [
+       "U1002",
+       "13"
+      ],
+      [
+       10.1,
+       10.75
+      ],
+      [
+       10.1,
+       12.3
+      ],
+      [
+       9.7,
+       12.3
+      ],
+      [
+       "L1002",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_AN",
+     [
+      [
+       9.7,
+       12.3
+      ],
+      [
+       8.5,
+       12.3
+      ],
+      [
+       "C1010",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_TRM",
+     [
+      [
+       "C1010",
+       "2"
+      ],
+      [
+       "R1005",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "L1002",
+       "2"
+      ],
+      [
+       9.7,
+       14.7
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "16"
+      ],
+      [
+       10.5,
+       12.25
+      ],
+      [
+       10.5,
+       13.3
+      ],
+      [
+       10.8,
+       13.6
+      ],
+      [
+       "C1011",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       "U1002",
+       "17"
+      ],
+      [
+       11.75,
+       13.6
+      ],
+      [
+       11.14,
+       14.21
+      ],
+      [
+       "C1011",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_V33",
+     [
+      [
+       10.5,
+       13.3
+      ],
+      [
+       11.0,
+       13.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_NF",
+     [
+      [
+       "U1002",
+       "19"
+      ],
+      [
+       12.75,
+       13.5
+      ],
+      [
+       11.6,
+       14.65
+      ],
+      [
+       "C1012",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_TN",
+     [
+      [
+       "U1002",
+       "20"
+      ],
+      [
+       13.25,
+       13.5
+      ],
+      [
+       13.0,
+       13.75
+      ],
+      [
+       "C1013",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_RS",
+     [
+      [
+       "U1002",
+       "22"
+      ],
+      [
+       14.25,
+       13.5
+      ],
+      [
+       14.4,
+       13.65
+      ],
+      [
+       "R1006",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_BF",
+     [
+      [
+       "U1002",
+       "23"
+      ],
+      [
+       14.75,
+       13.5
+      ],
+      [
+       15.6,
+       14.35
+      ],
+      [
+       "C1014",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R10_REG",
+     [
+      [
+       "U1002",
+       "24"
+      ],
+      [
+       15.25,
+       13.5
+      ],
+      [
+       16.8,
+       15.05
+      ],
+      [
+       "C1015",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD_VCC",
+     [
+      [
+       "J1003",
+       "11"
+      ],
+      [
+       "J1003",
+       "12"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD5",
+     [
+      [
+       15.1,
+       4.3
+      ],
+      [
+       15.1,
+       20.6
+      ],
+      [
+       1.7,
+       20.6
+      ],
+      [
+       "J1003",
+       "2"
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ],
+    [
+     "/PMOD6",
+     [
+      [
+       16.1,
+       5.6
+      ],
+      [
+       16.1,
+       20.95
+      ],
+      [
+       4.24,
+       20.95
+      ],
+      [
+       "J1003",
+       "4"
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       16.6,
+       2.4
+      ],
+      [
+       16.6,
+       21.3
+      ],
+      [
+       6.78,
+       21.3
+      ],
+      [
+       "J1003",
+       "6"
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ],
+    [
+     "/PMOD8",
+     [
+      [
+       18.3,
+       10.55
+      ],
+      [
+       18.3,
+       21.65
+      ],
+      [
+       9.32,
+       21.65
+      ],
+      [
+       "J1003",
+       "8"
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     25.7,
+     19.05,
+     false
+    ],
+    [
+     "/R10_V33",
+     30.65,
+     12.6,
+     false
+    ],
+    [
+     "/R10_TN",
+     10.9,
+     3.2,
+     true
+    ],
+    [
+     "/R10_TN",
+     13.0,
+     14.7,
+     true
+    ],
+    [
+     "/R10_V33",
+     13.6,
+     6.9,
+     true
+    ],
+    [
+     "/R10_V33",
+     14.6,
+     5.0,
+     true
+    ],
+    [
+     "/PMOD5",
+     15.1,
+     4.3,
+     true
+    ],
+    [
+     "/PMOD6",
+     16.1,
+     5.6,
+     true
+    ],
+    [
+     "/PMOD7",
+     16.6,
+     2.4,
+     true
+    ],
+    [
+     "/R10_V33",
+     17.09,
+     8.4,
+     true
+    ],
+    [
+     "/PMOD8",
+     18.3,
+     10.55,
+     true
+    ],
+    [
+     "/R10_V33",
+     19.5,
+     14.3,
+     true
+    ],
+    [
+     "/R10_V33",
+     17.6,
+     12.5,
+     true
+    ],
+    [
+     "/R10_V33",
+     9.8,
+     7.3,
+     true
+    ],
+    [
+     "/R10_V33",
+     9.7,
+     14.7,
+     false
+    ],
+    [
+     "/R10_V33",
+     11.0,
+     13.3,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/R10_G",
+     [
+      [
+       "SW1001",
+       "2"
+      ],
+      [
+       "Q1001",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R10_VS",
+     [
+      [
+       "Q1001",
+       "3"
+      ],
+      [
+       "U1001",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R10_VS",
+     [
+      [
+       "U1001",
+       "1"
+      ],
+      [
+       "U1001",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R10_VS",
+     [
+      [
+       "U1001",
+       "1"
+      ],
+      [
+       "C1001",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW1001",
+      "1"
+     ],
+     [
+      24.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1001",
+      "2"
+     ],
+     [
+      28.1,
+      14.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1001",
+      "2"
+     ],
+     [
+      28.45,
+      9.8
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1002",
+      "2"
+     ],
+     [
+      33.5,
+      10.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1002",
+      "33"
+     ],
+     [
+      12.9,
+      9.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1002",
+      "33"
+     ],
+     [
+      14.1,
+      9.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1002",
+      "33"
+     ],
+     [
+      12.9,
+      11.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1002",
+      "33"
+     ],
+     [
+      14.1,
+      11.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1003",
+      "2"
+     ],
+     [
+      12.25,
+      3.9
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1004",
+      "2"
+     ],
+     [
+      9.4,
+      1.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1005",
+      "2"
+     ],
+     [
+      13.6,
+      4.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "R1003",
+      "1"
+     ],
+     [
+      13.79,
+      2.5
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1006",
+      "2"
+     ],
+     [
+      18.8,
+      9.15
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "LED1001",
+      "1"
+     ],
+     [
+      19.2,
+      17.84
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R1005",
+      "2"
+     ],
+     [
+      8.5,
+      16.7
+     ],
+     [
+      0,
+      1
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1011",
+      "2"
+     ],
+     [
+      10.8,
+      15.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1012",
+      "2"
+     ],
+     [
+      11.6,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1013",
+      "2"
+     ],
+     [
+      13.0,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "R1006",
+      "2"
+     ],
+     [
+      14.4,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ]
+   ],
+   "texts": [
+    [
+     1.2,
+     13.3,
+     "R10",
+     1.0,
+     0.18,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     14.6,
+     "MAX2871",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R11",
+   "idx": 11,
+   "name": "synthesizer",
+   "subtitle": "MAX2871",
+   "sections": [],
+   "cells": [
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "supply": "+5 V",
+   "x0": 50.75,
+   "y0": 72.25,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked",
+   "notes": [
+    "MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA,",
+    "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
+    "and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and",
+    "100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are",
+    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+   ],
+   "top_pour": true,
+   "fine": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "OUT A",
+     "net": "/R11_OUTA",
+     "role": "out",
+     "limit": "",
+     "ref": "J1101",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "OUT A"
+    },
+    {
+     "slot": "TM",
+     "label": "REF IN",
+     "net": "/R11_REF",
+     "role": "in",
+     "limit": "25 MHz, 3.3 V CMOS",
+     "ref": "J1102",
+     "x": 20.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "REF IN"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J1101",
+     "key": "SMA",
+     "value": "OUT A",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_OUTA",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J1102",
+     "key": "SMA",
+     "value": "REF IN",
+     "x": 20.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_REF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW1101",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 22.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R11_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q1101",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 27.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_G",
+      "2": "+5V",
+      "3": "/R11_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U1101",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 30.5,
+     "y": 14.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_VS",
+      "2": "GND",
+      "3": "/R11_VS",
+      "5": "/R11_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1101",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 27.5,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1102",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 31.6,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U1102",
+     "key": "MAX2871",
+     "value": "MAX2871",
+     "x": 13.5,
+     "y": 10.5,
+     "rot": 270,
+     "pins": {
+      "1": "/PMOD6",
+      "2": "/PMOD7",
+      "3": "/PMOD3",
+      "4": "/R11_V33",
+      "6": "/R11_V33",
+      "7": "/R11_CP",
+      "8": "GND",
+      "9": "GND",
+      "10": "/R11_V33",
+      "11": "GND",
+      "12": "/R11_AP",
+      "13": "/R11_AN",
+      "16": "/R11_V33",
+      "17": "/R11_V33",
+      "18": "GND",
+      "19": "/R11_NF",
+      "20": "/R11_TN",
+      "21": "GND",
+      "22": "/R11_RS",
+      "23": "/R11_BF",
+      "24": "/R11_REG",
+      "25": "/R11_LD",
+      "26": "/R11_V33",
+      "27": "GND",
+      "28": "/R11_V33",
+      "29": "/R11_REFI",
+      "30": "/PMOD4",
+      "31": "GND",
+      "32": "/R11_V33",
+      "33": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1103",
+     "key": "C0603 470pF",
+     "value": "470p",
+     "x": 12.25,
+     "y": 5.5,
+     "rot": 90,
+     "pins": {
+      "1": "/R11_CP",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1101",
+     "key": "R0402 470R",
+     "value": "470",
+     "x": 10.9,
+     "y": 4.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_TN",
+      "2": "/R11_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1102",
+     "key": "R0402 820R",
+     "value": "820",
+     "x": 9.4,
+     "y": 5.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_N2",
+      "2": "/R11_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1104",
+     "key": "C0603 6.8nF",
+     "value": "6.8n",
+     "x": 9.4,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R11_N2",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1105",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 13.6,
+     "y": 5.5,
+     "rot": 90,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1103",
+     "key": "R0402 100k",
+     "value": "100k",
+     "x": 14.3,
+     "y": 3.4,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/PMOD3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1106",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 17.6,
+     "y": 9.15,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1107",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 19.2,
+     "y": 11.3,
+     "rot": 0,
+     "pins": {
+      "1": "/R11_REFI",
+      "2": "/R11_REF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1108",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 19.5,
+     "y": 12.9,
+     "rot": 90,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1104",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 18.3,
+     "y": 14.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_LD",
+      "2": "/R11_LEDA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED1101",
+     "key": "LED_R",
+     "value": "LOCK",
+     "x": 18.3,
+     "y": 16.9,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/R11_LEDA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L1101",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 9.8,
+     "y": 8.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "/R11_AP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1109",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 8.9,
+     "y": 10.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R11_OUTA",
+      "2": "/R11_AP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L1102",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 9.7,
+     "y": 13.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_AN",
+      "2": "/R11_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1110",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 8.5,
+     "y": 13.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_AN",
+      "2": "/R11_TRM"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1105",
+     "key": "R0402 51R",
+     "value": "51R",
+     "x": 8.5,
+     "y": 15.3,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_TRM",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1111",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 10.8,
+     "y": 14.7,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1112",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 11.6,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_NF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1113",
+     "key": "C0603 100pF",
+     "value": "100p",
+     "x": 13.0,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_TN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1106",
+     "key": "R0402 5.1k",
+     "value": "5.1k",
+     "x": 14.4,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_RS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1114",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 15.6,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_BF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1115",
+     "key": "C0402 1uF",
+     "value": "1u",
+     "x": 16.8,
+     "y": 16.9,
+     "rot": 270,
+     "pins": {
+      "1": "/R11_REG",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW1101",
+       "3"
+      ],
+      [
+       25.7,
+       17.85
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q1101",
+       "2"
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1101",
+       "5"
+      ],
+      [
+       31.6375,
+       11.6
+      ],
+      [
+       30.65,
+       11.6
+      ],
+      [
+       "C1102",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "C1102",
+       "1"
+      ],
+      [
+       30.65,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "8"
+      ],
+      [
+       12.1,
+       9.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "9"
+      ],
+      [
+       12.05,
+       8.75
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "11"
+      ],
+      [
+       12.2,
+       9.75
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "18"
+      ],
+      [
+       12.25,
+       11.8
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "21"
+      ],
+      [
+       13.75,
+       11.8
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "27"
+      ],
+      [
+       14.8,
+       11.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U1102",
+       "31"
+      ],
+      [
+       14.8,
+       9.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_CP",
+     [
+      [
+       "U1102",
+       "7"
+      ],
+      [
+       12.25,
+       7.3
+      ],
+      [
+       "C1103",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_CP",
+     [
+      [
+       12.25,
+       7.3
+      ],
+      [
+       10.9,
+       7.3
+      ],
+      [
+       "R1101",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_CP",
+     [
+      [
+       10.9,
+       6.4
+      ],
+      [
+       9.4,
+       6.4
+      ],
+      [
+       "R1102",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_N2",
+     [
+      [
+       "R1102",
+       "1"
+      ],
+      [
+       "C1104",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_TN",
+     [
+      [
+       "R1101",
+       "1"
+      ],
+      [
+       10.9,
+       3.2
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_TN",
+     [
+      [
+       10.9,
+       3.2
+      ],
+      [
+       10.9,
+       9.0
+      ],
+      [
+       13.5,
+       9.0
+      ],
+      [
+       13.5,
+       14.2
+      ],
+      [
+       13.0,
+       14.7
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "6"
+      ],
+      [
+       12.75,
+       7.5
+      ],
+      [
+       13.6,
+       6.65
+      ],
+      [
+       "C1105",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "4"
+      ],
+      [
+       13.75,
+       7.5
+      ],
+      [
+       14.6,
+       6.65
+      ],
+      [
+       14.6,
+       5.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD3",
+     [
+      [
+       "U1102",
+       "3"
+      ],
+      [
+       14.25,
+       7.5
+      ],
+      [
+       15.1,
+       6.65
+      ],
+      [
+       15.1,
+       4.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD6",
+     [
+      [
+       "U1102",
+       "1"
+      ],
+      [
+       15.25,
+       7.5
+      ],
+      [
+       16.1,
+       6.65
+      ],
+      [
+       16.1,
+       5.6
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       "U1102",
+       "2"
+      ],
+      [
+       14.75,
+       7.5
+      ],
+      [
+       15.6,
+       6.65
+      ],
+      [
+       15.6,
+       3.4
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD3",
+     [
+      [
+       15.1,
+       4.3
+      ],
+      [
+       15.1,
+       3.4
+      ],
+      [
+       "R1103",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "32"
+      ],
+      [
+       16.6,
+       8.75
+      ],
+      [
+       17.0,
+       9.15
+      ],
+      [
+       "C1106",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "C1106",
+       "1"
+      ],
+      [
+       17.09,
+       8.4
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD4",
+     [
+      [
+       "U1102",
+       "30"
+      ],
+      [
+       16.6,
+       9.75
+      ],
+      [
+       17.4,
+       10.55
+      ],
+      [
+       18.3,
+       10.55
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_REFI",
+     [
+      [
+       "U1102",
+       "29"
+      ],
+      [
+       16.6,
+       10.25
+      ],
+      [
+       17.65,
+       11.3
+      ],
+      [
+       "C1107",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_REF",
+     [
+      [
+       "J1102",
+       "1"
+      ],
+      [
+       20.75,
+       11.3
+      ],
+      [
+       "C1107",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "28"
+      ],
+      [
+       16.6,
+       10.75
+      ],
+      [
+       19.2,
+       13.35
+      ],
+      [
+       "C1108",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "C1108",
+       "1"
+      ],
+      [
+       19.5,
+       14.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "26"
+      ],
+      [
+       16.85,
+       11.75
+      ],
+      [
+       17.6,
+       12.5
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_LD",
+     [
+      [
+       "U1102",
+       "25"
+      ],
+      [
+       16.6,
+       12.25
+      ],
+      [
+       17.84,
+       13.49
+      ],
+      [
+       "R1104",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_LEDA",
+     [
+      [
+       "R1104",
+       "2"
+      ],
+      [
+       "LED1101",
+       "2"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_AP",
+     [
+      [
+       "U1102",
+       "12"
+      ],
+      [
+       8.9,
+       10.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_AP",
+     [
+      [
+       "L1101",
+       "2"
+      ],
+      [
+       9.8,
+       10.25
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "L1101",
+       "1"
+      ],
+      [
+       9.8,
+       7.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "10"
+      ],
+      [
+       10.4,
+       9.25
+      ],
+      [
+       10.4,
+       8.115
+      ],
+      [
+       "L1101",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_OUTA",
+     [
+      [
+       "C1109",
+       "1"
+      ],
+      [
+       8.9,
+       11.6
+      ],
+      [
+       4.75,
+       11.6
+      ],
+      [
+       "J1101",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_AN",
+     [
+      [
+       "U1102",
+       "13"
+      ],
+      [
+       10.1,
+       10.75
+      ],
+      [
+       10.1,
+       12.3
+      ],
+      [
+       9.7,
+       12.3
+      ],
+      [
+       "L1102",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_AN",
+     [
+      [
+       9.7,
+       12.3
+      ],
+      [
+       8.5,
+       12.3
+      ],
+      [
+       "C1110",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_TRM",
+     [
+      [
+       "C1110",
+       "2"
+      ],
+      [
+       "R1105",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "L1102",
+       "2"
+      ],
+      [
+       9.7,
+       14.7
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "16"
+      ],
+      [
+       10.5,
+       12.25
+      ],
+      [
+       10.5,
+       13.3
+      ],
+      [
+       10.8,
+       13.6
+      ],
+      [
+       "C1111",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       "U1102",
+       "17"
+      ],
+      [
+       11.75,
+       13.6
+      ],
+      [
+       11.14,
+       14.21
+      ],
+      [
+       "C1111",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_V33",
+     [
+      [
+       10.5,
+       13.3
+      ],
+      [
+       11.0,
+       13.3
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_NF",
+     [
+      [
+       "U1102",
+       "19"
+      ],
+      [
+       12.75,
+       13.5
+      ],
+      [
+       11.6,
+       14.65
+      ],
+      [
+       "C1112",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_TN",
+     [
+      [
+       "U1102",
+       "20"
+      ],
+      [
+       13.25,
+       13.5
+      ],
+      [
+       13.0,
+       13.75
+      ],
+      [
+       "C1113",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_RS",
+     [
+      [
+       "U1102",
+       "22"
+      ],
+      [
+       14.25,
+       13.5
+      ],
+      [
+       14.4,
+       13.65
+      ],
+      [
+       "R1106",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_BF",
+     [
+      [
+       "U1102",
+       "23"
+      ],
+      [
+       14.75,
+       13.5
+      ],
+      [
+       15.6,
+       14.35
+      ],
+      [
+       "C1114",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R11_REG",
+     [
+      [
+       "U1102",
+       "24"
+      ],
+      [
+       15.25,
+       13.5
+      ],
+      [
+       16.8,
+       15.05
+      ],
+      [
+       "C1115",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD4",
+     [
+      [
+       18.3,
+       10.55
+      ],
+      [
+       18.3,
+       21.0
+      ]
+     ],
+     0.15,
+     "B.Cu",
+     false,
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     25.7,
+     19.05,
+     false
+    ],
+    [
+     "/R11_V33",
+     30.65,
+     12.6,
+     false
+    ],
+    [
+     "/R11_TN",
+     10.9,
+     3.2,
+     true
+    ],
+    [
+     "/R11_TN",
+     13.0,
+     14.7,
+     true
+    ],
+    [
+     "/R11_V33",
+     13.6,
+     6.9,
+     true
+    ],
+    [
+     "/R11_V33",
+     14.6,
+     5.0,
+     true
+    ],
+    [
+     "/PMOD3",
+     15.1,
+     4.3,
+     true
+    ],
+    [
+     "/PMOD6",
+     16.1,
+     5.6,
+     true
+    ],
+    [
+     "/PMOD7",
+     15.6,
+     3.4,
+     true
+    ],
+    [
+     "/R11_V33",
+     17.09,
+     8.4,
+     true
+    ],
+    [
+     "/PMOD4",
+     18.3,
+     10.55,
+     true
+    ],
+    [
+     "/R11_V33",
+     19.5,
+     14.3,
+     true
+    ],
+    [
+     "/R11_V33",
+     17.6,
+     12.5,
+     true
+    ],
+    [
+     "/R11_V33",
+     9.8,
+     7.3,
+     true
+    ],
+    [
+     "/R11_V33",
+     9.7,
+     14.7,
+     false
+    ],
+    [
+     "/R11_V33",
+     11.0,
+     13.3,
+     false
+    ],
+    [
+     "/PMOD4",
+     18.3,
+     21.0,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/R11_G",
+     [
+      [
+       "SW1101",
+       "2"
+      ],
+      [
+       "Q1101",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R11_VS",
+     [
+      [
+       "Q1101",
+       "3"
+      ],
+      [
+       "U1101",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R11_VS",
+     [
+      [
+       "U1101",
+       "1"
+      ],
+      [
+       "U1101",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R11_VS",
+     [
+      [
+       "U1101",
+       "1"
+      ],
+      [
+       "C1101",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW1101",
+      "1"
+     ],
+     [
+      24.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1101",
+      "2"
+     ],
+     [
+      28.1,
+      14.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1101",
+      "2"
+     ],
+     [
+      28.45,
+      9.8
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1102",
+      "2"
+     ],
+     [
+      33.5,
+      10.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1102",
+      "33"
+     ],
+     [
+      12.9,
+      9.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1102",
+      "33"
+     ],
+     [
+      14.1,
+      9.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1102",
+      "33"
+     ],
+     [
+      12.9,
+      11.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1102",
+      "33"
+     ],
+     [
+      14.1,
+      11.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1103",
+      "2"
+     ],
+     [
+      12.25,
+      3.9
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1104",
+      "2"
+     ],
+     [
+      9.4,
+      1.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1105",
+      "2"
+     ],
+     [
+      13.6,
+      4.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "R1103",
+      "1"
+     ],
+     [
+      13.79,
+      2.5
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1106",
+      "2"
+     ],
+     [
+      18.8,
+      9.15
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "LED1101",
+      "1"
+     ],
+     [
+      19.2,
+      17.84
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R1105",
+      "2"
+     ],
+     [
+      8.5,
+      16.7
+     ],
+     [
+      0,
+      1
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1111",
+      "2"
+     ],
+     [
+      10.8,
+      15.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1112",
+      "2"
+     ],
+     [
+      11.6,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C1113",
+      "2"
+     ],
+     [
+      13.0,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "R1106",
+      "2"
+     ],
+     [
+      14.4,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ]
+   ],
+   "texts": [
+    [
+     1.2,
+     13.3,
+     "R11",
+     1.0,
+     0.18,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     14.6,
+     "MAX2871",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
   }
  ],
  "gnd_loops": [
@@ -3231,7 +7650,7 @@
   [
    50.0,
    61.4,
-   "R6  RFX2401C 2.4 GHz FRONT END AND R13  TRF3722 QUADRATURE TRANSMITTER: REV B"
+   "R6  RFX2401C 2.4 GHz FRONT END AND R13  TRF3722 QUADRATURE TRANSMITTER: REV B (R13'S CELLS HOLD R11)"
   ],
   [
    50.0,
@@ -3255,9 +7674,112 @@
    93.0,
    50.75,
    1
+  ],
+  [
+   "/R10_V33",
+   16.75,
+   74.25,
+   39.25,
+   90.65,
+   2
+  ],
+  [
+   "/R11_V33",
+   59.75,
+   74.25,
+   82.25,
+   90.65,
+   2
   ]
  ],
- "back_wires": [],
+ "back_wires": [
+  [
+   "/PMOD6",
+   [
+    [
+     66.85,
+     77.85
+    ],
+    [
+     66.85,
+     71.1
+    ],
+    [
+     23.85,
+     71.1
+    ],
+    [
+     23.85,
+     77.85
+    ]
+   ]
+  ],
+  [
+   "/PMOD7",
+   [
+    [
+     66.35,
+     75.65
+    ],
+    [
+     66.35,
+     71.5
+    ],
+    [
+     24.35,
+     71.5
+    ],
+    [
+     24.35,
+     74.65
+    ]
+   ]
+  ],
+  [
+   "/PMOD3",
+   [
+    [
+     65.85,
+     76.55
+    ],
+    [
+     65.85,
+     99.25
+    ],
+    [
+     14.530000000000001,
+     99.25
+    ],
+    [
+     14.530000000000001,
+     97.77
+    ]
+   ]
+  ]
+ ],
+ "front_wires": [
+  [
+   "/PMOD4",
+   [
+    [
+     69.05,
+     93.25
+    ],
+    [
+     69.05,
+     99.05
+    ],
+    [
+     17.07,
+     99.05
+    ],
+    [
+     17.07,
+     97.77
+    ]
+   ]
+  ]
+ ],
  "back_text_x": 50.0,
  "qr_at": [
   17.75,
