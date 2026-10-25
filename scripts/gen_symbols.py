@@ -54,7 +54,7 @@ SYMBOLS = [
     box("MC1496", "U", [("1", "SIG+", "input"), ("4", "SIG-", "input"), ("8", "CAR+", "input"), ("10", "CAR-", "input"),
                         ("2", "GAIN", "passive"), ("3", "GAIN", "passive"), ("5", "BIAS", "passive")],
         [("6", "OUT+", "output"), ("12", "OUT-", "output"), ("14", "VEE", "power_in"),
-         ("7", "NC", "no_connect"), ("9", "NC", "no_connect"), ("11", "NC", "no_connect"), ("13", "NC", "no_connect")],
+         ("7", "NC", "passive"), ("9", "NC", "passive"), ("11", "NC", "passive"), ("13", "NC", "passive")],
         "Package_SO:SOIC-14_3.9x8.7mm_P1.27mm", "balanced modulator / demodulator (Gilbert cell)"),
     # TMP235 (TI TMP235A4DBZR, SOT-23-3; datasheet pin functions): 1 VDD, 2 VOUT, 3 GND
     box("TMP235", "U", [("1", "VDD", "power_in"), ("3", "GND", "power_in")], [("2", "VOUT", "output")],

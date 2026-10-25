@@ -221,6 +221,14 @@ PASSIVES = {
     "R0603 1.1k": dict(lcsc="C22764", mpn="0603WAF1101T5E", jlc_type="extended", stock=234930, price=0.0018),
     "R0603 1k": dict(lcsc="C21190", mpn="0603WAF1001T5E", jlc_type="basic", stock=35103609, price=0.0017),
     "R0603 10R": dict(lcsc="C22859", mpn="0603WAF100JT5E", jlc_type="basic", stock=6896653, price=0.0032),
+    "R0402 10k": dict(lcsc="C25744", mpn="0402WGF1002TCE", jlc_type="basic", stock=17894795, price=0.0011),
+    "R0402 1k": dict(lcsc="C11702", mpn="0402WGF1001TCE", jlc_type="basic", stock=19375230, price=0.0013),
+    "R0402 470R": dict(lcsc="C25117", mpn="0402WGF4700TCE", jlc_type="basic", stock=1060806, price=0.0012),
+    "C0402 100nF": dict(lcsc="C1525", mpn="CL05B104KO5NNNC", jlc_type="basic", stock=35681170, price=0.0035),
+    "C0402 1nF": dict(lcsc="C1523", mpn="0402B102K500NT", jlc_type="basic", stock=2782063, price=0.0038),
+    "R0402 51R": dict(lcsc="C25125", mpn="0402WGF510JTCE", jlc_type="extended", stock=1180377, price=0.0012),
+    "R0402 1.5k": dict(lcsc="C25867", mpn="0402WGF1501TCE", jlc_type="basic", stock=1667102, price=0.0029),
+    "R0402 3.9k": dict(lcsc="C51721", mpn="0402WGF3901TCE", jlc_type="extended", stock=379616, price=0.0012),
     "R0603 10k": dict(lcsc="C25804", mpn="0603WAF1002T5E", jlc_type="basic", stock=40711984, price=0.0022),
     "C0603 270pF": dict(lcsc="C501846", mpn="0603CG271J500NT", jlc_type="extended", stock=842, price=0.0131, note="C0G"),
     "C0603 2.2nF": dict(lcsc="C2991172", mpn="0603CG222J500NT", jlc_type="extended", stock=74606, price=0.0142, note="C0G"),
@@ -235,7 +243,7 @@ PASSIVES = {
     "L1210 150uH": dict(lcsc="C250237", mpn="NLCV32T-151K-EF", jlc_type="extended", stock=10151, price=0.0482, note="TDK, 6.1 ohm, 100 mA, shielded"),
 }
 
-FOOTPRINT_OF = {"R0805": "Resistor_SMD:R_0805_2012Metric", "R0603": "Resistor_SMD:R_0603_1608Metric", "R1206": "Resistor_SMD:R_1206_3216Metric",
+FOOTPRINT_OF = {"R0805": "Resistor_SMD:R_0805_2012Metric", "R0603": "Resistor_SMD:R_0603_1608Metric", "R0402": "Resistor_SMD:R_0402_1005Metric", "R1206": "Resistor_SMD:R_1206_3216Metric",
                 "R2512": "Resistor_SMD:R_2512_6332Metric", "C0805": "Capacitor_SMD:C_0805_2012Metric", "C0603": "Capacitor_SMD:C_0603_1608Metric", "C0402": "Capacitor_SMD:C_0402_1005Metric",
                 "C1206": "Capacitor_SMD:C_1206_3216Metric", "L0805": "Inductor_SMD:L_0805_2012Metric", "L0603": "Inductor_SMD:L_0603_1608Metric",
                 "L1210": "Inductor_SMD:L_1210_3225Metric"}
