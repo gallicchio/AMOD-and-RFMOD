@@ -151,3 +151,96 @@ took:
   passive rows by the longest net name, starts them under the tallest chip symbol and shrinks
   the notes when the drawing needs the room.  Three library footprints without a STEP file in
   KiCad's share (the WSON-8, the USB-C, the 1812 fuse) are pointed at stand-in bodies.
+
+**RF-MOD** (08:30-09:55, first five tiles, then the synthesizers): the RF framework in the same generators, then the
+tiles.  What it took:
+
+- *The RF rules, from CostasLink.*  A wire 0.29 mm wide (`Tile.rf`) is a 50 ohm CPWG line on JLC04161H-7628: an "RF"
+  net class (0.25 mm clearance), a ground pour on L1 over every RF tile at 0.25 mm, a fence of ground vias 0.845 mm
+  off each line every 1.0 mm wherever one fits, and rule areas under every jack of an RF tile (no fill within 2.2 mm
+  of the centre pin on L2-L4, 1.9 mm on L1).  CostasLink's `gen/rf_launch.py` numbers.
+- *IN top-left, OUT bottom-right* on every RF tile: the jacks form a checkerboard, closest pair 14.4 mm.
+- *Stock decided the tiles.*  QPL9547 none, LTC5510 35, so: two GALI-84+ gain blocks (22 ohm from a 7.8 V MT3608
+  boost on an L3 strip), the two filters, R9 (USB-C, the boost, a TC32H4 TCXO through a 74LVC1G17 to REF OUT), and
+  the two MAX2871 synthesizers in CostasLink's circuit.
+- *The loop filter for both bands at once.*  The VCO runs 3-6 GHz whatever the output divider, so 915 MHz (VCO / 4,
+  N 146) and 2.44 GHz (VCO / 2, N 195) see the loop through Kvco / N.  A search of stocked C0G values with
+  CostasLink's open-loop model gave C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p: 77-120 kHz and 61-64 degrees over
+  Kvco 35-75 MHz/V (the first search reported 350 degrees: an unwrapped phase, caught and fixed).
+- *The QFN fan-out* needed a "Fine" net class (0.127 mm, 0.15 mm tracks, 0.45 / 0.25 vias) on the synthesizer's nets
+  only, the board's floor lowered to JLCPCB's four-layer limits, per-tile V33 islands on L3 under each chip, and
+  `FRONT_WIRES` for the one line that had to cross the back's.
+- *Stand-in 3D bodies drawn 2.54 times too big:* VRML's unit is 2.54 mm.  The loader now gives a substituted stand-in a
+  1/2.54 scale, and copies the model vectors' numbers rather than the SWIG proxies (which had written a scale of
+  1486236861 into the board file).
+
+## Prompt 2 (about 08:05, during the RF-MOD work)
+
+> Keep going, but do the mounting holes take up too much room or are inappropriate for such a board? They may be a
+> good idea and maybe they should be kept, but it pushes the PMOD connector away from the edge and seems to really
+> squish all of the SMA connectors together in a way that might make them difficult to use. If it would free up a lot
+> of breathing room, the mounting holes could be replaced by the same type of rubber half-spheres that are stuck to
+> the bottom of the PYNQ board with adhesive.
+
+## Prompt 3 (about 08:20)
+
+> Im not wedded to the 20 mm cell layout. The goal is just to fit it all in 100 mm by 100 mm.
+
+## Prompt 4 (about 09:35)
+
+> Keep going, but why are there so few tiles on the RF-MOD board?
+
+## Prompt 5 (about 09:40)
+
+> Fill the RF-MOD, even if it's not with what you initially thought it would be filled with. Prioritize things that
+> work nicely together.
+
+## Prompt 6 (about 09:55)
+
+> keep going, but I switched you from Fable 5.1 to Opus 5.5 because I ran out of credits.
+
+## Prompt 7 (about 09:57)
+
+> You can ignore the time constraint now and keep going as long as you need to go to finish the job well.
+
+### Response to Prompts 2-7 (09:40-10:30; Claude Opus 5.5 from 09:55)
+
+**The holes and the jacks.**  The holes cost only the corners.  The 7.75 mm margins, and the jacks' 10.5 mm, come
+from the grid: two jacks in one 20 mm cell, 4.75 mm in from its sides.  Dropping the holes alone frees nothing for
+the jacks.  Moving OUT to the bottom-right slot does: the checkerboard's closest pair is 14.4 mm.  RF-MOD was laid
+that way from the start of this exchange.  AMOD-P and AMOD-A keep IN and OUT along the top, because changing them
+means re-laying 24 finished, DRC-clean tiles.  That rework is offered as the next decision, not done.  The holes did
+go on AMOD-A and RF-MOD, for the reason below, and four rubber feet are circled on the back instead.
+
+**Why so few tiles, and filling the board.**  RF-MOD had five tiles at that point because stock had removed half the
+plan (QPL9547 none, LTC5510 35), and the antennas, the RFX2401C and the TRF3722 were cut for time.  Filled with
+things that work together, it is one complete link on one reference (handbook, "The tiles together"):
+
+| tile | what |
+|---|---|
+| R1 | resistive splitter, 3 x 18 ohm: the reference to both synthesizers, one LO to two mixers |
+| R2, R4 | 2.45 GHz LTCC and 915 MHz SAW filters |
+| R5, R12 | GALI-84+ gain blocks |
+| R7, R8 | ADL5350 passive mixers (2,036 in stock), a 200 MHz crossover on the RF/IF node: every band, either direction |
+| R9 | USB-C power, 7.8 V boost, 25 MHz TCXO to REF OUT |
+| R10, R11 | MAX2871 synthesizers, R10 carrying the Pmod plug |
+
+ERC 0, DRC 0, the fab checks pass, $55.78 of parts.
+
+**The Pmod plugs were mirrored, on both boards (found while drawing the adapter's socket).**  The plug footprint is
+JLCPCB's drawing of the PZ254R-12-12P.  Its pad 1 is at the other end of the row nearest the body from KiCad's
+horizontal header's pad 1, so its pad p is KiCad's pad 13 - p.  The boards used KiCad's rule (Pmod pin k = pad 2k-1)
+on JLCPCB's numbering, so every plug pin k met the host's pin 13 - k.  That puts IO lines on the host's ground and
+3.3 V.  The fix keeps every feed as laid:
+
+- the plug moved two columns left, into the corner where a mounting hole stood (hence the feet);
+- the nets were renamed to the standard IO numbers (AMOD-A: A6 IO8/IO7, A8 IO6, A10 IO5, A11 IO4/IO3, A12 IO2);
+- `check_outputs.check_pmod` maps every plug pad to its pin by position, and fails on the old layout (11 of 12 pads).
+
+**The fourth board, the Icepi Zero adapter with a Pmod** (`icepi_adapter/`, from the OpticsPCBs generator's new board
+`adda12p`).  The socket's housing does not fit on the 65 mm board, so the board is 80 x 30 mm, the extra 15 mm past
+the Icepi's end.  It has four layers: the original fan-out untouched on the outside, and the eight lines on In2
+between through-hole pads, with no vias and no crossings.  Header pins 8, 10, 22, 27, 28, 36, 38 and 40 are IO1-8 and
+pin 1 gives 3.3 V.  DRC 0, no unconnected pads; the `.lpf` and pin map are generated with it.
+
+Commits: c429126 (RF-MOD filled), the Pmod fix, `icepi_adapter/`, and OpticsPCBs 08305ee (the generator).
