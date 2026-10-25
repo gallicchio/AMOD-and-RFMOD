@@ -197,7 +197,8 @@ def opa_tile(t, rg_key, rg_label, chip="OPA810", rf_key="R0805 10k", jack_in=Tru
     return u
 
 
-def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=True, dx=0.0, neg="bottom", in_from=None, legend=True, loop=True):
+def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=True, dx=0.0, neg="bottom", in_from=None, legend=True, loop=True,
+                vs_from_header=True):
     """The non-inverting gain tile with OUT at the bottom-right jack (rev A after Prompt 12: the jacks in a checkerboard).
     Everything is 0603 and sits in the two quarters the jacks and the power header leave.  The op amp (SOT-23-5 at rot
     270: +IN, V-, OUT along the top, -IN and V+ along the bottom) stands in the top-right quarter at (12.2, 6.9); the IN
@@ -242,7 +243,9 @@ def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=
     ro = t.add("R", "R0603 49.9R", "49.9", X(15.25), 7.6, 270, {"1": "OUT_A", "2": "OUT"}, label=None)      # pad 1 up
     t.wire("OUT_A", [(u, "1"), (X(13.15), 5.76), (X(14.1), 5.76), (X(14.1), 10.5), (rf, "2")])
     t.wire("OUT_A", [(X(14.1), 5.76), (X(15.25), 5.76), (ro, "1")])
-    out_jack = [j["ref"] for j in t.jacks if j["slot"] in ("BR", "BR0", "BR1")][0]
+    outs = [j for j in t.jacks if j["slot"] in ("BR", "BR0", "BR1")]
+    out_jack = ([j for j in outs if j["slot"] == "BR1"] if dx > 10 else []) or outs     # the right cell's when the tile is shifted there
+    out_jack = out_jack[0]["ref"]
     t.wire("OUT", [(ro, "2"), (out_jack, "1")])
     if loop:
         tp = t.loop("OUT", X(17.45), 9.2, 90, "OUT", label_at="hide")
@@ -254,7 +257,8 @@ def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=
     t.wire("FB", [(X(11.25), 10.5), (X(10.3), 10.5), (rg, "1")])
     t.gnd_stub(rg, "2", [(X(10.3), 11.9), (X(9.3), 11.9)], sym=(0, 0))
     # VS: the drain to a via, up the back at x 10.2, a via under V+; Cp on a via in the column
-    t.wire("VS", [HDR_VS, (X(10.2), 18.1)] if dx == 0 else [(X(10.2), 18.1)], silk=bool(dx == 0))
+    if vs_from_header:                                         # else the tile brings VS to the via at (X(10.2), 18.1) itself
+        t.wire("VS", [HDR_VS, (X(10.2), 18.1)] if dx == 0 else [(X(10.2), 18.1)], silk=bool(dx == 0))
     t.via("VS", X(13.15), 9.36)
     t.wire("VS", [(X(10.2), 18.1), (X(10.2), 9.36), (X(13.15), 9.36)], layer="B.Cu", silk=False)
     if chip == "OPA847":

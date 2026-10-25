@@ -171,6 +171,21 @@ SYMBOLS = [
     box("SKY13370", "U", [("2", "RFC", "passive"), ("1", "V1", "input"), ("3", "V2", "input")],
         [("6", "RF1", "passive"), ("4", "RF2", "passive"), ("5", "GND", "power_in"), ("7", "EP", "power_in")],
         "amod:DFN-6-1EP_1.5x1.5mm_P0.5mm_SKY13370", "SKY13370 absorptive SPDT 0.5-6 GHz, DFN-6 1.5 x 1.5", width=10.16),
+    # THS3491 (TI, VQFN-16 RGT; datasheet Pin Functions): 1 FB (the output, for the feedback resistor), 3 VIN-, 4 VIN+, 5 GND (PD's
+    # reference), 6 TJ_SENSE, 7 8 -VS, 10 11 VOUT, 13 14 +VS, 16 PD (low = off); 2 9 12 15 NC; 17 the isolated thermal pad
+    box("THS3491_RGT", "U", [("4", "VIN+", "input"), ("3", "VIN-", "input"), ("1", "FB", "output"), ("16", "PD", "input"), ("5", "GND", "power_in"),
+                             ("6", "TJ", "output")],
+        [("10", "VOUT", "output"), ("11", "VOUT", "output", "stack"), ("13", "+VS", "power_in"), ("14", "+VS", "power_in", "stack"),
+         ("7", "-VS", "power_in"), ("8", "-VS", "power_in", "stack"), ("17", "PAD", "passive"), ("2", "NC", "passive"), ("9", "NC", "passive"),
+         ("12", "NC", "passive"), ("15", "NC", "passive")],
+        "Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.7x1.7mm", "THS3491 900 MHz 420 mA current-feedback amplifier, VQFN-16", width=12.7),
+    # DRV8876 (TI, HTSSOP-16 PWP; datasheet Pin Functions): 1 EN/IN1, 2 PH/IN2, 3 nSLEEP, 4 nFAULT, 5 VREF, 6 IPROPI, 7 IMODE,
+    # 8 OUT1, 9 PGND, 10 OUT2, 11 VM, 12 VCP, 13 CPH, 14 CPL, 15 GND, 16 PMODE, 17 the thermal pad
+    box("DRV8876", "U", [("1", "EN/IN1", "input"), ("2", "PH/IN2", "input"), ("3", "~{SLEEP}", "input"), ("16", "PMODE", "input"), ("7", "IMODE", "input"),
+                         ("5", "VREF", "input"), ("6", "IPROPI", "output"), ("4", "~{FAULT}", "open_collector")],
+        [("11", "VM", "power_in"), ("12", "VCP", "passive"), ("13", "CPH", "passive"), ("14", "CPL", "passive"), ("8", "OUT1", "output"),
+         ("10", "OUT2", "output"), ("9", "PGND", "power_in"), ("15", "GND", "power_in"), ("17", "PAD", "power_in")],
+        "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.66x2.46mm", "DRV8876 3.5 A H-bridge with current sense output", width=12.7),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

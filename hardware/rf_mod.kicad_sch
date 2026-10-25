@@ -7442,18 +7442,6 @@
 		)
 	)
 	(rectangle
-		(start 406.4 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "1c5c9153-af2d-4f23-bd9a-7ecbc6024dc8")
-	)
-	(rectangle
 		(start 25.4 411.48)
 		(end 401.32 533.4)
 		(stroke
@@ -7463,67 +7451,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "24939ec3-101f-4d4c-8dfd-3a5f090b3a42")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "2521577b-662e-42bf-a11f-f0ca805ff459")
-	)
-	(rectangle
-		(start 25.4 284.48)
-		(end 401.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "3c712055-2719-4d46-a099-6f641b30f047")
-	)
-	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "618b14ea-6ae5-4af4-9904-9f4825f5dd0f")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "790a7e16-7f7b-4264-856d-390cf0e7e626")
-	)
-	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "80dea959-a040-4f03-90ef-03f358d91bc8")
+		(uuid "26fc1fca-eb47-4128-9a81-6152be472e72")
 	)
 	(rectangle
 		(start 25.4 30.48)
@@ -7535,7 +7463,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "8d49ef06-8f44-4243-bd21-2765a4be46cb")
+		(uuid "3e1dd763-196c-413f-8955-f858d008df6e")
+	)
+	(rectangle
+		(start 25.4 284.48)
+		(end 401.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "645ab687-7884-4560-b9a9-a8ea0b3f9b12")
 	)
 	(rectangle
 		(start 25.4 157.48)
@@ -7547,7 +7487,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "c7be3b78-fcd6-40e0-b5fc-386ba3db5a03")
+		(uuid "696afebc-062c-42e7-b8b4-7a4999a5c313")
 	)
 	(rectangle
 		(start 406.4 30.48)
@@ -7559,7 +7499,67 @@
 		(fill
 			(type none)
 		)
-		(uuid "c7ec6dbc-d9b8-49fc-85b9-3423894e0a6b")
+		(uuid "6baecbb3-c680-4324-ab22-84b45f336075")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "71e0cd5a-88bd-401e-931f-b08ee791e565")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "8a8435c8-d8de-4a14-be20-6dd15860f1a8")
+	)
+	(rectangle
+		(start 596.9 30.48)
+		(end 782.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "94ceb643-43e7-49a1-81d0-d8231ea97332")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "bc7336b0-37e6-4ceb-a6c6-2465844c9add")
+	)
+	(rectangle
+		(start 406.4 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "e1723fe4-ce5d-4111-bd81-025155621c9f")
 	)
 	(text "+-1 V into 50 ohm"
 		(exclude_from_sim no)

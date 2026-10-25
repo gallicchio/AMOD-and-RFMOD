@@ -7271,42 +7271,6 @@
 		)
 	)
 	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "0aa14520-0d0f-4af4-8d3a-d40825780dc7")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 401.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "0f079014-0470-4785-8f3c-ea20940d0fec")
-	)
-	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "0f50d609-21e6-41fa-8468-25a5e850358d")
-	)
-	(rectangle
 		(start 25.4 284.48)
 		(end 401.32 406.4)
 		(stroke
@@ -7316,31 +7280,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "18d525dc-6b0b-4b9c-9209-2cb2fb3abb53")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "4984236c-2efb-4956-99f5-26d887a050ba")
-	)
-	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "64d11f85-78d7-4c96-b30e-73a157eea98a")
+		(uuid "0276d916-87b7-4950-bc9a-8710d8767e6e")
 	)
 	(rectangle
 		(start 406.4 411.48)
@@ -7352,55 +7292,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "7bcef31a-59c6-4610-875a-127620324bf8")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "98fc7d7a-595f-435e-af0e-af6b8e3a48c0")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c33dfa9e-540e-4ed8-96cd-91d9be3bfdca")
-	)
-	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "cc1038ef-290f-457b-8a87-5967888d8d1c")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d5c5ea30-4cd9-4ff3-a51c-b0952f632b41")
+		(uuid "22b02409-55e2-4a27-bf88-849c01907970")
 	)
 	(rectangle
 		(start 25.4 157.48)
@@ -7412,7 +7304,115 @@
 		(fill
 			(type none)
 		)
-		(uuid "dddf16c4-2998-44cc-a6e4-079100fdbe68")
+		(uuid "3fb6de7a-0694-460f-b8ca-dcde7e6fc99c")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "53d72740-295a-4ff4-80ce-e7b40d975e18")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "6629bf27-4962-4a7d-8438-6ca922c0472e")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "769b6a38-33ab-48bd-8b8d-d4df9b1ab79b")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "88516a2b-4db5-424b-9bbc-3382bcb76d68")
+	)
+	(rectangle
+		(start 25.4 411.48)
+		(end 401.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "91cc3f50-4a75-45fd-b629-6820e94379de")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "9d494a3f-8d3a-4754-b778-3b43b5be4889")
+	)
+	(rectangle
+		(start 596.9 30.48)
+		(end 782.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "b398a178-8146-430a-a5ed-07e26de76cc6")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 591.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "b97122c2-93d3-4fe0-9ac4-684224fab725")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "f292a406-210a-4a93-9587-aae1c635e04b")
 	)
 	(text "OUT"
 		(exclude_from_sim no)

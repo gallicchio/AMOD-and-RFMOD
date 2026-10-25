@@ -16,6 +16,7 @@ from schlib import Sheet
 HERE = os.path.dirname(os.path.abspath(__file__))
 HW = os.path.join(HERE, "..", "hardware")
 G = 2.54
+RAILS = ("+5V", "-5V", "+3V3", "+8V", "+15V", "-15V")      # nets drawn as KiCad power symbols (global)
 BLOCK_W, BLOCK_H = 190.5, 127.0         # one cell's block on the sheet (75 x 50 grid units)
 OX0, OY0 = 25.4, 30.48                  # the top-left block
 LIB = parts.LIB
@@ -303,7 +304,7 @@ class SchCtx:
                         net = t.parts[r].pins.get(str(num))
                         if net is None:
                             continue
-                        wmax = max(wmax, 5.08 if net == "GND" or net in ("+5V", "-5V", "+3V3", "+8V") else 3.81 + 1.0 * len(net.lstrip("/")))
+                        wmax = max(wmax, 5.08 if net == "GND" or net in RAILS else 3.81 + 1.0 * len(net.lstrip("/")))
                     return wmax
                 lw, rw = side_w(0), side_w(180)
                 if x > ox + 25.4 and x + lw + 2 * half_w + rw > ox + w - 2.54:    # no room left in this row: start another below
@@ -342,7 +343,7 @@ class SchCtx:
         # the two-terminal parts in rows, horizontal, pin 1 on the left (symbols drawn vertical turn 90)
         vertical = ("Device:R_US", "Device:C", "Device:L", "Device:FerriteBead", "Device:Thermistor_NTC", "Device:Polyfuse", "Device:C_Polarized")
         x, y = ox + 15.24, max(oy + row_y, oy + 2.54 * math.ceil((low - oy + 7.62) / 2.54))
-        longest = max([len(n.lstrip("/")) for r in twos for n in t.parts[r].pins.values() if n not in ("GND", "+5V", "-5V", "+3V3", "+8V")] or [4])
+        longest = max([len(n.lstrip("/")) for r in twos for n in t.parts[r].pins.values() if n not in (("GND",) + RAILS)] or [4])
         pitch = max(30.48, 2.54 * math.ceil((12.7 + 2 * 1.0 * (longest + 1) + 2.54) / 2.54))      # two labels back to back between parts
         per_row = max(1, int((w - 25.4 - 15.24) // pitch) + 1)
         rows = -(-len(twos) // per_row)
@@ -379,8 +380,8 @@ class SchCtx:
         self.wire([pos, end])
         if net == "GND":
             self.gnd(end[0], end[1])
-        elif net in ("+5V", "-5V", "+3V3", "+8V"):
-            self.rail(net, end[0], end[1], up=(net != "-5V"))
+        elif net in RAILS:
+            self.rail(net, end[0], end[1], up=not net.startswith("-"))
             self._flag(net, end)
         else:
             self._flag(net, end)
