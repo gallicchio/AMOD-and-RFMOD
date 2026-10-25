@@ -40,8 +40,8 @@ Buy "SMA male" whips, or make a quarter-wave monopole from a jack and 31 mm (2.4
 | item | tile | fits |
 |---|---|---|
 | 40 kHz ultrasonic transducer pair, TCT40-16T and TCT40-16R (16 mm, 10 mm lead spacing) | AMOD-A A11 | pins 1 and 5 of each 1 x 5 socket (10.16 mm apart) |
-| Speaker, 4-8 ohm, 1-3 W, 20-40 mm, with wire leads | AMOD-A A12 | the 2-way screw terminal |
-| Electret microphone capsule, 2 pin, 6-10 mm, with leads (for example CUI CMA-6542PF) | AMOD-A A12 | the 1 x 2 socket, pin 1 the + side |
+| Speaker, 4-8 ohm, 2-3 W (the PAM8302A gives 2.5 W into 4 ohm), 28-40 mm, with wire leads | AMOD-A A12 | the 2-way screw terminal |
+| Electret microphone capsule, 2 pin, 6-10 mm, with leads | AMOD-A A12 | the 1 x 2 socket, pin 1 the + side |
 | Ferrite-rod AM antenna coil, about 330 uH, 50-100 mm, with a tap | AMOD-P P13 | the 3-way screw terminal (ends and tap), held by a cable tie through the two slots |
 | A few 1/4 W through-hole resistors, 100 ohm to 1 M | AMOD-A A5 (Johnson noise) | the 1 x 2 socket |
 | Small cable ties, 2.5 mm wide | AMOD-P P13 | the slots |
