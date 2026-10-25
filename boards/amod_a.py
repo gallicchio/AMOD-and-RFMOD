@@ -130,7 +130,7 @@ def tile_a1():
 
 
 # ------------------------------------------------------------------------------------------------------- A2, A3 --
-def opa_tile(t, rg_key, rg_label):
+def opa_tile(t, rg_key, rg_label, chip="OPA810", rf_key="R0805 10k", jack_in=True):
     """The one-op-amp non-inverting gain tile (A2, A3): 50 ohm at the IN jack, the OPA810 (SOT-23-5, rot 0: OUT top-left,
     V- left, +IN bottom-left, -IN bottom-right, V+ top-right) at (10.5, 12.5), its output over the top at y 9.4 to
     Rf (standing right of it) and on to the 49.9 ohm series resistor under the OUT jack, whose far end feeds the jack
@@ -138,14 +138,19 @@ def opa_tile(t, rg_key, rg_label):
     the op amp (VS right, -5 V below).  VS comes from the header's FET on the back (two vias); -5 V goes to the gutter
     strip on the back.  Every clearance here was worked out by hand against the footprints' pads: see the chat."""
     idx = t.idx
-    rt = t.add("R", "R0805 49.9R", "49.9", 6.6, 9.3, 0, {"1": "IN", "2": "GND"}, label=None)
-    t.wire("IN", [("J%d01" % idx, "1"), (4.75, 9.3), (rt, "1")])
-    t.wire("IN", [(4.75, 9.3), (4.75, LINE_Y)])
-    t.gnd_stub(rt, "2", (8.5, 9.3), sym=(0, 0))
-    u = t.add("U", "OPA810", "OPA810", 10.5, 12.5, 0, {"1": "OUT_A", "2": "-5V", "3": "IN", "4": "FB", "5": "VS"}, hide_value=False, label=None)
-    t.wire("IN", [(4.75, LINE_Y), (7.2, LINE_Y), (7.2, 13.45), (u, "3")])
+    if jack_in:
+        rt = t.add("R", "R0805 49.9R", "49.9", 6.6, 9.3, 0, {"1": "IN", "2": "GND"}, label=None)
+        t.wire("IN", [("J%d01" % idx, "1"), (4.75, 9.3), (rt, "1")])
+        t.wire("IN", [(4.75, 9.3), (4.75, LINE_Y)])
+        t.gnd_stub(rt, "2", (8.5, 9.3), sym=(0, 0))
+        t.wire("IN", [(4.75, LINE_Y), (7.2, LINE_Y)])
+    pins = {"1": "OUT_A", "2": "-5V", "3": "IN", "4": "FB", "5": "VS"}
+    if chip == "LT6230":
+        pins["6"] = "VS"
+    u = t.add("U", chip, chip, 10.5, 12.5, 0, pins, hide_value=False, label=None)
+    t.wire("IN", [(7.2, LINE_Y), (7.2, 13.45), (u, "3")])
     cp = t.add("C", "C0805 100nF", "100n", 13.62, 11.5, 270, {"1": "VS", "2": "GND"}, label=None)          # pad 1 up
-    rf = t.add("R", "R0805 10k", "10k", 15.66, 12.5, 270, {"1": "OUT_A", "2": "FB"}, label=None)           # pad 1 up
+    rf = t.add("R", rf_key, rf_key.split(" ", 1)[1], 15.66, 12.5, 270, {"1": "OUT_A", "2": "FB"}, label=None)   # pad 1 up
     rg = t.add("R", rg_key, rg_label, 14.85, 15.5, 180, {"1": "FB", "2": "GND"}, label=None)      # pad 1 at +x
     cn = t.add("C", "C0805 100nF", "100n", 11.35, 15.9, 0, {"1": "-5V", "2": "GND"}, label=None)           # pad 1 at -x
     ro = t.add("R", "R0805 49.9R", "49.9", 17.5, 9.5, 0, {"1": "OUT_A", "2": "OUT"}, label=None)
@@ -162,7 +167,10 @@ def opa_tile(t, rg_key, rg_label):
     t.wire("VS", [HDR_VS, (8.54, 18.5), (10.2, 18.5)])
     t.wire("VS", [(10.2, 18.5), (10.2, 10.15), (12.3, 10.15)], layer="B.Cu")
     t.wire("VS", [(12.3, 10.15), (12.3, 10.55), (cp, "1")])
-    t.wire("VS", [(12.3, 10.55), (11.637, 10.55), (u, "5")])
+    if chip == "LT6230":                                       # SHDN-bar (top right) to V+ (right middle), both on VS
+        t.wire("VS", [(12.3, 10.55), (11.637, 10.55), (u, "6"), (u, "5")])
+    else:
+        t.wire("VS", [(12.3, 10.55), (11.637, 10.55), (u, "5")])
     # -5 V: V- through the gap between the pin rows down to Cn, and from Cn's pad to the gutter strip on the back
     t.wire("-5V", [(u, "2"), (10.5, 12.5), (10.5, 15.9), (cn, "1")])
     t.wire("-5V", [(cn, "1"), (9.4, 15.9)])
@@ -170,9 +178,13 @@ def opa_tile(t, rg_key, rg_label):
     t.wire("-5V", [(9.4, 15.9), (9.4, 20.5)], layer="B.Cu")
     t.gnd_stub(cn, "2", (12.3, 17.3), sym=(0, 0))
     # OUT: Ro's right pad round the right edge to the jack's pin (between its right legs), and down to the loop
-    t.wire("OUT", [("J%d02" % idx, "1"), (19.3, 4.75), (19.3, 9.5), (ro, "2")])
+    out_jack = [j["ref"] for j in t.jacks if j["slot"] == "TR"][0]
+    t.wire("OUT", [(out_jack, "1"), (19.3, 4.75), (19.3, 9.5), (ro, "2")])
     t.wire("OUT", [(ro, "2"), (18.412, 12.9), (tp, "1")])
-    t.legend()
+    if jack_in:
+        t.legend()
+    else:
+        t.text(t.w - 1.1, 18.2, (t.name + ((" " + t.subtitle) if t.subtitle else "")).upper(), 0.8, 0.15, "right")
     return u
 
 
@@ -261,8 +273,38 @@ def tile_a4():
     return t
 
 
+# ------------------------------------------------------------------------------------------------------------ A5 --
+def tile_a5():
+    """Johnson noise: the source resistor (10 k or 1 k by a 2-way DIP, or your own in the 1 x 2 socket) at the +IN of an
+    LT6230 (1.1 nV/rtHz) at x100 (1 k / 10 ohm) in the A2 geometry, 49.9 ohm out.  No IN jack: the socket and DIP sit
+    in its place.  The amplifier's 2 MHz is the noise bandwidth; the bias current (600 nA) makes 10 k a sensible upper
+    limit (0.6 V of DC at the output)."""
+    t = Tile("A5", "noise", [(3, 0)], supply="+-5 V", subtitle="x100", sections=["5.08", "7.05"])
+    t.jack("TR", "OUT", "OUT", "out", "")
+    power_header(t)
+    h = t.add("J", "HDR2", "R", 2.6, 2.6, 90, {"1": "IN", "2": "GND"}, hide_value=True)                      # pins at x 2.6, 5.14
+    sw = t.add("SW", "DIP2", "DIP2", 5.6, 7.1, 270, {"1": "R1K", "2": "R10K", "3": "IN", "4": "IN"}, hide_value=True)   # pads 1, 2 left; 3, 4 right
+    r10 = t.add("R", "R0603 10k", "10k", 2.4, 10.3, 0, {"1": "R10K", "2": "GND"}, label=None)
+    r1 = t.add("R", "R0603 1k", "1k", 5.5, 10.3, 0, {"1": "R1K", "2": "GND"}, label=None)
+    t.wire("IN", [(sw, "3"), (sw, "4"), (9.41, 5.6), (2.6, 5.6), (h, "1")])
+    t.wire("IN", [(sw, "3"), (7.2, 7.735), (7.2, LINE_Y)])
+    t.wire("R10K", [(sw, "2"), (1.79, 10.3), (r10, "1")])
+    t.wire("R1K", [(sw, "1"), (4.4, 6.465), (4.4, 10.3), (r1, "1")])
+    t.gnd_stub(r10, "2", (3.175, 9.3), sym=(0, 0))
+    t.gnd_stub(r1, "2", (6.275, 11.5), sym=(0, 0))
+    opa_tile(t, "R0603 10R", "10R", chip="LT6230", rf_key="R0805 1k", jack_in=False)
+    t.text(10.0, 2.4, "A5", 1.5, 0.3, "center")
+    t.text(10.0, 4.4, "5.08", 0.8, 0.15, "center")
+    t.result = "the source resistor's Johnson noise x100: about 1.3 mV rms from 10 k, 0.4 mV from 1 k, 0.16 mV (the amplifier itself) shorted"
+    t.notes = ["4kTR: 12.9 nV/rtHz from 10 k at room temperature, x100 and the LT6230's 2 MHz: 1.3 mV rms.  Both DIP ways off",
+               "with nothing in the socket leaves +IN open: switch one on, or plug a resistor (100 ohm to 10 k) into the socket.",
+               "Keep the scope AC-coupled: 600 nA of bias current puts 0.6 V of DC on the output with 10 k."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
 def tiles():
-    return [tile_a2(), tile_a3(), tile_a4(), tile_a1()]
+    return [tile_a2(), tile_a3(), tile_a4(), tile_a5(), tile_a1()]
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 60.0), (97.0, 80.0)]
