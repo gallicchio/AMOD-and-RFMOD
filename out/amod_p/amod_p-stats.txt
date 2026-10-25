@@ -1,0 +1,60 @@
+PCB statistics report
+=====================
+- Date: 2026-10-25
+- Project: amod_p
+- Board name: amod_p
+
+Board
+-----
+- Width: 100.0000 mm
+- Height: 100.0000 mm
+- Area: 9992.261 mm²
+- Front copper area: 1242.149 mm²
+- Back copper area: 9665.767 mm²
+- Min track clearance: 0.2850 mm
+- Min track width: 0.3500 mm
+- Min drill diameter: 0.3000 mm
+- Board stackup thickness: 1.6000 mm
+
+- Front footprint area: 2761.35 mm²
+- Back footprint area: 757.779 mm²
+- Front component density: 27.63 %
+- Back component density: 7.58 %
+Pads
+----
+- Through hole: 140
+- SMD: 213
+- Connector: 0
+- NPTH: 8
+- Castellated: 0
+- Press-fit: 0
+
+Vias
+----
+- Through vias: 45
+- Blind vias: 0
+- Buried vias: 0
+- Micro vias: 0
+
+Components
+----------
+
+|              | Front Side | Back Side | Total |
+|--------------|------------|-----------|-------|
+|THT:          |         29 |         0 |    29 |
+|SMD:          |        113 |         0 |   113 |
+|Unspecified:  |          8 |         0 |     8 |
+|Total:        |        150 |         0 |   150 |
+
+Drill holes
+-----------
+
+| Count | Shape |    X Size |    Y Size | Plated | Via/Pad | Start Layer | Stop Layer |
+|-------|-------|-----------|-----------|--------|---------|-------------|------------|
+|   108 | Round | 1.5000 mm | 1.5000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|    45 | Round | 0.3000 mm | 0.3000 mm |    PTH |     Via |        F.Cu |       B.Cu |
+|    27 | Round | 1.3500 mm | 1.3500 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     4 | Round | 3.2000 mm | 3.2000 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     4 |  Slot | 1.2000 mm | 3.4000 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     3 | Round | 1.4000 mm | 1.4000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     2 | Round | 0.8000 mm | 0.8000 mm |    PTH |     Pad |        F.Cu |       B.Cu |

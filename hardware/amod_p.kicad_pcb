@@ -870,12 +870,12 @@
 			(uuid "1df1c9df-3442-50bd-881a-b815d7a53c6f")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
+		(model "${KIPRJMOD}/lib/amod.3dshapes/LED_0805.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
 			(scale
-				(xyz 1 1 1)
+				(xyz 0.393701 0.393701 0.393701)
 			)
 			(rotate
 				(xyz 0 0 0)
@@ -6567,12 +6567,12 @@
 			(uuid "d46c5eda-ec43-5a64-a3ef-88fb02bada6a")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
+		(model "${KIPRJMOD}/lib/amod.3dshapes/LED_0805.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
 			(scale
-				(xyz 1 1 1)
+				(xyz 0.393701 0.393701 0.393701)
 			)
 			(rotate
 				(xyz 0 0 0)
@@ -9756,12 +9756,12 @@
 			(uuid "9d7e3541-079a-5ad8-8fbe-64d0a392cfb7")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
+		(model "${KIPRJMOD}/lib/amod.3dshapes/LED_0805.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
 			(scale
-				(xyz 1 1 1)
+				(xyz 0.393701 0.393701 0.393701)
 			)
 			(rotate
 				(xyz 0 0 0)
@@ -20196,12 +20196,12 @@
 			(uuid "6c9c9e10-8714-59f5-865d-06a93f004737")
 		)
 		(embedded_fonts no)
-		(model "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"
+		(model "${KIPRJMOD}/lib/amod.3dshapes/LED_0805.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
 			(scale
-				(xyz 1 1 1)
+				(xyz 0.393701 0.393701 0.393701)
 			)
 			(rotate
 				(xyz 0 0 0)

@@ -339,9 +339,7 @@ def led_0805():
     rect_lines(f, -1.0, -0.625, 1.0, 0.625, "F.Fab", FAB_W, f"{name}/fab")
     f.add(line(-1.0, -0.625, -0.6, -0.625, "F.Fab", FAB_W * 3, f"{name}/fabk"))
     rect_lines(f, -1.68, -0.95, 1.68, 0.95, "F.CrtYd", CRT_W, f"{name}/crt")
-    m = S("model", q("${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_0805_2012Metric.wrl"))
-    m.add(S("offset").add(S("xyz", "0", "0", "0")), S("scale").add(S("xyz", "1", "1", "1")), S("rotate").add(S("xyz", "0", "0", "0")))
-    f.add(m)
+    model(f, "LED_0805.wrl")
     return name, f
 
 

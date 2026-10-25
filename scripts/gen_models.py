@@ -63,6 +63,13 @@ def dip(n):
     return "SW_DIP_x%02d_DSHP.wrl" % n, s
 
 
+def led_0805():
+    """An 0805 LED: a white body with a clear dome, the cathode end marked."""
+    s = HEAD + box(0, 0, 0.35, 2.0, 1.25, 0.7, WHITE) + box(0, 0, 0.85, 1.2, 1.0, 0.3, (0.9, 0.9, 0.6))
+    s += box(-0.8, 0, 0.72, 0.3, 1.25, 0.04, (0.2, 0.6, 0.2))
+    return "LED_0805.wrl", s
+
+
 def kf301(n):
     w = n * 5.0 + 0.4
     s = HEAD + box(0, 0.2, 5.0, w, 7.6, 10.0, TERMBLUE)
@@ -129,7 +136,7 @@ def slide():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug,
+    makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
               kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide]
     for mk in makers:
         name, body = mk()
