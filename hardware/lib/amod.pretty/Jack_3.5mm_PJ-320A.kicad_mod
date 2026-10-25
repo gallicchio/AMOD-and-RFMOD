@@ -1,0 +1,234 @@
+(footprint "Jack_3.5mm_PJ-320A"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "3.5 mm TRRS jack, SMD, XKB PJ-320A (LCSC C2884926); the plug enters from -x")
+	(tags "audio jack 3.5mm")
+	(property "Reference" "REF**"
+		(at 0 4 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "8e0c759a-f51a-5768-8277-7f1dfba2b9e5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Jack_3.5mm_PJ-320A"
+		(at 0 -4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "9d8f983f-b333-5d3e-bbfa-b5917dac88ed")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3e0e2a0e-76ec-54d4-aa50-73b774b0f09b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "3.5 mm TRRS jack, SMD, XKB PJ-320A (LCSC C2884926); the plug enters from -x"
+		(at 0 -4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "9759950f-1f3e-57b0-ad2a-4fdf9cb0312d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -9.2 -3.2)
+		(end 5.2 -3.2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ab911257-a9a3-5776-81be-48b72e33b26c")
+	)
+	(fp_line
+		(start -9.2 3.2)
+		(end -9.2 -3.2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "e3085a67-9af7-5fdf-80c4-f1874445cc7b")
+	)
+	(fp_line
+		(start 5.2 -3.2)
+		(end 5.2 3.2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4ed515bc-9f57-5f91-b49a-5e25558b7cc0")
+	)
+	(fp_line
+		(start 5.2 3.2)
+		(end -9.2 3.2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "8b6833fc-a54c-581d-8458-ad6e8538b23d")
+	)
+	(fp_line
+		(start -9.5 -3.7)
+		(end 5.5 -3.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "64bbd051-155a-5e2e-82c7-dd2e122ef9f1")
+	)
+	(fp_line
+		(start -9.5 3.7)
+		(end -9.5 -3.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5fbe81c8-f763-5cdb-9c8c-5c986368e5c1")
+	)
+	(fp_line
+		(start 5.5 -3.7)
+		(end 5.5 3.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "3f137b5c-0be9-57db-9696-cbe722a4df9e")
+	)
+	(fp_line
+		(start 5.5 3.7)
+		(end -9.5 3.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "8005e81a-80b9-5e3a-97e2-0d989ffd0974")
+	)
+	(fp_line
+		(start -9.2 -3.05)
+		(end 5.2 -3.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2499f248-99b2-5920-a527-738eb7740e0c")
+	)
+	(fp_line
+		(start -9.2 3.05)
+		(end -9.2 -3.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ac28b644-9d58-5d8b-943a-00a0f8e4de2e")
+	)
+	(fp_line
+		(start 5.2 -3.05)
+		(end 5.2 3.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "60857731-450e-53b2-9802-e470d615087c")
+	)
+	(fp_line
+		(start 5.2 3.05)
+		(end -9.2 3.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "37c510e2-b438-5e86-83b5-c43a6c118208")
+	)
+	(pad "" np_thru_hole circle
+		(at -5.6 0)
+		(size 1.2 1.2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "8e255375-22af-5295-9794-8abce3261526")
+	)
+	(pad "" np_thru_hole circle
+		(at 1.4 0)
+		(size 1.2 1.2)
+		(drill 1.2)
+		(layers "*.Cu" "*.Mask")
+		(uuid "a238ba3e-5a3c-56eb-bae8-4b893f2a4597")
+	)
+	(pad "2" smd roundrect
+		(at -4 -2.4)
+		(size 1 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "c25f9ff7-be75-5efe-9d91-62a45b35e5b0")
+	)
+	(pad "3" smd roundrect
+		(at -1 -2.4)
+		(size 1 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "15d025dd-762f-5fe9-8939-7d4dd581bea5")
+	)
+	(pad "4" smd roundrect
+		(at 3 -2.4)
+		(size 1 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "8e2588b2-cd6f-567e-94f3-7f16e29c3f97")
+	)
+	(pad "5" smd roundrect
+		(at 4 2.4)
+		(size 1 2)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6a20e80d-fc75-5173-9878-4964a836175f")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/Jack_PJ320A.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

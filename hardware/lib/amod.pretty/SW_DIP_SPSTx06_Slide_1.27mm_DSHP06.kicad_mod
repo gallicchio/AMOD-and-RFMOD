@@ -1,0 +1,287 @@
+(footprint "SW_DIP_SPSTx06_Slide_1.27mm_DSHP06"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "6-way SMD DIP switch, 1.27 mm pitch, DSHP06TSGET (LCSC C40737), JLCPCB's land pattern")
+	(tags "DIP switch SPST x6 SMD 1.27mm half pitch")
+	(property "Reference" "REF**"
+		(at 0 5.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "0d113c42-f52e-530c-9026-6a89cb5a9ad7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "SW_DIP_SPSTx06_Slide_1.27mm_DSHP06"
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "0c598b42-4350-5ce0-a75d-50d61e1da561")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "473fdbb6-eb00-569d-bb6b-8c86ec368f41")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "6-way SMD DIP switch, 1.27 mm pitch, DSHP06TSGET (LCSC C40737), JLCPCB's land pattern"
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b9ddaa75-7812-5324-b225-1c1d76ae81db")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -4.61 -2.7)
+		(end 4.61 -2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "13d63709-feeb-500f-8501-eded6dbf5d1d")
+	)
+	(fp_line
+		(start -4.61 2.7)
+		(end -4.61 -2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "68f96907-c02c-5eb4-8125-42f2815474d5")
+	)
+	(fp_line
+		(start 4.61 -2.7)
+		(end 4.61 2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "dc815755-cff8-510c-9df7-8fc5a996e904")
+	)
+	(fp_line
+		(start 4.61 2.7)
+		(end -4.61 2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c32a4e3c-09c0-5e1d-bbac-bfc29286e8b4")
+	)
+	(fp_line
+		(start -4.86 -4.82)
+		(end 4.86 -4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "667af6c7-d569-5fb5-819b-d4b77419d434")
+	)
+	(fp_line
+		(start -4.86 4.82)
+		(end -4.86 -4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c626a0e0-531d-5166-94c0-831727d99202")
+	)
+	(fp_line
+		(start 4.86 -4.82)
+		(end 4.86 4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "aeffdc05-ef42-550b-93ee-abeb92c1c61b")
+	)
+	(fp_line
+		(start 4.86 4.82)
+		(end -4.86 4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a0817c3a-f0c9-5400-bf8c-cef6efa334a1")
+	)
+	(fp_line
+		(start -4.61 -2.7)
+		(end 4.61 -2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "e95fda6a-a974-5de0-9b73-e5ead2401f61")
+	)
+	(fp_line
+		(start -4.61 2.7)
+		(end -4.61 -2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5769a3ef-2065-5846-a01a-ff3b30f7556f")
+	)
+	(fp_line
+		(start 4.61 -2.7)
+		(end 4.61 2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d0a9c194-2cf6-5b02-9154-b7d0afcd928d")
+	)
+	(fp_line
+		(start 4.61 2.7)
+		(end -4.61 2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "c5a0abf0-28ed-5a23-9ff1-e81930a54777")
+	)
+	(fp_text user "ON"
+		(at 0 -1.5 0)
+		(layer "F.Fab")
+		(uuid "27be005b-e859-5dbb-9de3-9f6cab073a4e")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.12)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -3.175 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "78e06f99-e4d7-5fd7-a8ca-b770cdec68d7")
+	)
+	(pad "2" smd roundrect
+		(at -1.905 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "825c608e-9b36-582f-ae73-f1c0c8fd1268")
+	)
+	(pad "3" smd roundrect
+		(at -0.635 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6da63d3c-dd30-5deb-9a9b-f68f3c562276")
+	)
+	(pad "4" smd roundrect
+		(at 0.635 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "258b6223-502b-544e-8f59-e08f946c5be9")
+	)
+	(pad "5" smd roundrect
+		(at 1.905 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ed8b84f3-7f5b-572d-9c5e-bb708572f713")
+	)
+	(pad "6" smd roundrect
+		(at 3.175 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "3389f672-bf88-58d2-b1c4-6be3dd7fd7aa")
+	)
+	(pad "7" smd roundrect
+		(at 3.175 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "17613f18-6d18-5787-ae03-335e832351ab")
+	)
+	(pad "8" smd roundrect
+		(at 1.905 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "2ed5b784-addb-5508-a488-c377086db30d")
+	)
+	(pad "9" smd roundrect
+		(at 0.635 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "3f6f3ba7-547f-5e82-ae6c-4f59ee71c039")
+	)
+	(pad "10" smd roundrect
+		(at -0.635 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "c0d3e62a-b583-5fa2-8236-7d71f8f1a075")
+	)
+	(pad "11" smd roundrect
+		(at -1.905 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "478cf6a3-c3a9-5c15-a386-91bbae6ee7d0")
+	)
+	(pad "12" smd roundrect
+		(at -3.175 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "02f746b3-71d5-5569-8ac2-e38730c878e1")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/SW_DIP_x06_DSHP.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

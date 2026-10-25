@@ -1,0 +1,231 @@
+(footprint "SW_DIP_SPSTx02_Slide_1.27mm_DSHP02"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "2-way SMD DIP switch, 1.27 mm pitch, DSHP02TSGET (LCSC C40735), JLCPCB's land pattern")
+	(tags "DIP switch SPST x2 SMD 1.27mm half pitch")
+	(property "Reference" "REF**"
+		(at 0 5.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "319f763d-477c-50c3-a247-7545e60ada70")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "SW_DIP_SPSTx02_Slide_1.27mm_DSHP02"
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "819f165a-5f82-5a5d-8e3a-72d399851ce3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "7e8cbba4-dcd9-5e73-93e3-930276ea5c36")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "2-way SMD DIP switch, 1.27 mm pitch, DSHP02TSGET (LCSC C40735), JLCPCB's land pattern"
+		(at 0 -5.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "56364c47-0246-59e6-963d-d46113171c1d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.07 -2.7)
+		(end 2.07 -2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "73974753-29dc-5501-ae6d-4e00f6c4125f")
+	)
+	(fp_line
+		(start -2.07 2.7)
+		(end -2.07 -2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4240032f-59b5-53e6-b8ae-b1dcdff6fd13")
+	)
+	(fp_line
+		(start 2.07 -2.7)
+		(end 2.07 2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "283d5be1-a587-5d52-8a20-60a201959a15")
+	)
+	(fp_line
+		(start 2.07 2.7)
+		(end -2.07 2.7)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "01993a2e-e0b9-5224-9d58-a30888b3fca0")
+	)
+	(fp_line
+		(start -2.32 -4.82)
+		(end 2.32 -4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "7cdebb06-96b8-51a4-9792-1af4f5d164e7")
+	)
+	(fp_line
+		(start -2.32 4.82)
+		(end -2.32 -4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9f23988e-7f2b-5f16-bece-930da2880271")
+	)
+	(fp_line
+		(start 2.32 -4.82)
+		(end 2.32 4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c9904b3b-0ad4-5bc9-bcac-458015e04fd7")
+	)
+	(fp_line
+		(start 2.32 4.82)
+		(end -2.32 4.82)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f2157d6a-1c6a-56e8-84ce-938f86239ca8")
+	)
+	(fp_line
+		(start -2.07 -2.7)
+		(end 2.07 -2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d38d8ca9-c66e-53f1-87ba-2d3542009bfc")
+	)
+	(fp_line
+		(start -2.07 2.7)
+		(end -2.07 -2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "bd21c664-e27f-51d8-b2bf-699f0850b1ff")
+	)
+	(fp_line
+		(start 2.07 -2.7)
+		(end 2.07 2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "fa206555-74c8-5014-97e0-5a7b3d050c6e")
+	)
+	(fp_line
+		(start 2.07 2.7)
+		(end -2.07 2.7)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8d358f2d-fcac-54e0-b857-fa0a6d322914")
+	)
+	(fp_text user "ON"
+		(at 0 -1.5 0)
+		(layer "F.Fab")
+		(uuid "6e11bdcb-cb52-5ace-8dcf-460583625bf8")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.12)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -0.635 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "37d062b5-a1f5-5aa1-9536-2c6c658ecb37")
+	)
+	(pad "2" smd roundrect
+		(at 0.635 3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "45ba9319-573a-5565-a818-e494e1d22d19")
+	)
+	(pad "3" smd roundrect
+		(at 0.635 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "b615dd6d-5772-5794-9204-94d04e4709a4")
+	)
+	(pad "4" smd roundrect
+		(at -0.635 -3.81)
+		(size 0.76 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "0fedb257-9266-522f-aae9-a213dda512c0")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/SW_DIP_x02_DSHP.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

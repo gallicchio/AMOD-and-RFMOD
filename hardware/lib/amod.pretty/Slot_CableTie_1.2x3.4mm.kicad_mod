@@ -1,0 +1,108 @@
+(footprint "Slot_CableTie_1.2x3.4mm"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "NPTH slot 1.2 x 3.4 mm for a cable tie")
+	(tags "slot cable tie")
+	(property "Reference" "REF**"
+		(at 0 2.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "7055052c-1fac-59ef-97f1-32831e5f9966")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Slot_CableTie_1.2x3.4mm"
+		(at 0 -2.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "6cedd539-8892-5079-9509-f9d9251e8cc1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -2.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "4ea4da66-6f35-5c9d-bae2-8c846b087ec0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "NPTH slot 1.2 x 3.4 mm for a cable tie"
+		(at 0 -2.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "39aeaa84-6be7-52ba-8d0b-11fbaff707e8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1 -2.1)
+		(end 1 -2.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "61a83383-c4ac-5dd9-967a-590b8d0fc00c")
+	)
+	(fp_line
+		(start -1 2.1)
+		(end -1 -2.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "460c3515-2c7c-56b7-ad1b-fd00e46ac049")
+	)
+	(fp_line
+		(start 1 -2.1)
+		(end 1 2.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "ce1ea4b3-3f6d-5dfc-8730-c2f26b9b5756")
+	)
+	(fp_line
+		(start 1 2.1)
+		(end -1 2.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "be4de8e9-5fe9-5e28-97b7-77aa4e22a725")
+	)
+	(pad "" np_thru_hole oval
+		(at 0 0)
+		(size 1.2 3.4)
+		(drill oval 1.2 3.4)
+		(layers "*.Cu" "*.Mask")
+		(uuid "3f581d78-5cc5-5bc8-89b6-1daae06e598e")
+	)
+	(embedded_fonts no)
+)

@@ -1,0 +1,267 @@
+(footprint "SW_DIP_SPSTx06_KingTek_DSIC06_P2.54mm"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "6-way SMD DIP switch, 2.54 mm pitch, KingTek DSIC06LSGET (LCSC C54952), JLCPCB's land pattern")
+	(tags "DIP switch SPST x6 SMD 2.54mm")
+	(property "Reference" "REF**"
+		(at 0 4.9 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "a19ecd37-5189-5c57-8e05-1bbe9c761da7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "SW_DIP_SPSTx06_KingTek_DSIC06_P2.54mm"
+		(at 0 -4.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "34822859-0a3e-50e6-b082-a1f6616466d1")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -4.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "43c261e9-8d06-50e7-aacc-f6fcabae55b5")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "6-way SMD DIP switch, 2.54 mm pitch, KingTek DSIC06LSGET (LCSC C54952), JLCPCB's land pattern"
+		(at 0 -4.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c0af85be-6335-592e-8c82-353dc5d5e495")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3 -8.27)
+		(end 3 -8.27)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "13f6fcd3-c5f5-51f1-9d54-ef114fc33010")
+	)
+	(fp_line
+		(start -3 8.27)
+		(end 3 8.27)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "99e9a7f5-e7ee-50b8-981f-7bd0d4b92e8c")
+	)
+	(fp_line
+		(start -5.77 -8.52)
+		(end 5.77 -8.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "0c23a59f-7a56-5347-a275-982fa8fa1729")
+	)
+	(fp_line
+		(start -5.77 8.52)
+		(end -5.77 -8.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c1a06e0c-6cb2-5e50-9e3a-dbaf7cbcebc2")
+	)
+	(fp_line
+		(start 5.77 -8.52)
+		(end 5.77 8.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "79f4c4fb-0af2-5477-9b8f-455d0424ff73")
+	)
+	(fp_line
+		(start 5.77 8.52)
+		(end -5.77 8.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "70dc807e-8623-5d5a-b28d-61309b3c9181")
+	)
+	(fp_line
+		(start -3 -8.27)
+		(end 3 -8.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8d15359e-b7fc-56c5-b7ea-cfb292f0c042")
+	)
+	(fp_line
+		(start -3 8.27)
+		(end -3 -8.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "84b14e9b-b207-5883-bc44-453232c15540")
+	)
+	(fp_line
+		(start 3 -8.27)
+		(end 3 8.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "7f306c12-d00e-567d-aab7-7bd7c409eaac")
+	)
+	(fp_line
+		(start 3 8.27)
+		(end -3 8.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "945fd8d2-8ca5-5dca-93cc-a93774340932")
+	)
+	(fp_text user "ON ->"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "9a4a93fa-3da8-5c3c-b5c4-bb7331bd0a3a")
+		(effects
+			(font
+				(size 0.7 0.7)
+				(thickness 0.12)
+			)
+		)
+	)
+	(pad "1" smd roundrect
+		(at -4.375 -6.35)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "4d726468-388b-5a98-b026-1b6bd60f877e")
+	)
+	(pad "2" smd roundrect
+		(at -4.375 -3.81)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ab4d78f9-5205-5849-8520-64f5110d6413")
+	)
+	(pad "3" smd roundrect
+		(at -4.375 -1.27)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "678d7741-8a32-52c5-b4e9-7cffac8f04c6")
+	)
+	(pad "4" smd roundrect
+		(at -4.375 1.27)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "79a2bbaa-fae6-5e8c-a24b-ad1fe5403796")
+	)
+	(pad "5" smd roundrect
+		(at -4.375 3.81)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6a53e695-d601-5fc9-8644-a942634616b9")
+	)
+	(pad "6" smd roundrect
+		(at -4.375 6.35)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6fb0138f-2810-5aa9-8d30-afc183bcd37e")
+	)
+	(pad "7" smd roundrect
+		(at 4.375 6.35)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ce65f834-74f8-5642-8200-87f3f48626df")
+	)
+	(pad "8" smd roundrect
+		(at 4.375 3.81)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "64b8df55-f01a-504e-9546-3ad47592b5cd")
+	)
+	(pad "9" smd roundrect
+		(at 4.375 1.27)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "0d27119d-5fa7-5fdd-8244-784719a00c9f")
+	)
+	(pad "10" smd roundrect
+		(at 4.375 -1.27)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "a6a4201e-2ba7-5ddb-9895-11bb1ff21cfb")
+	)
+	(pad "11" smd roundrect
+		(at 4.375 -3.81)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "b7949d10-431e-5e03-b01b-bdd1b0598b65")
+	)
+	(pad "12" smd roundrect
+		(at 4.375 -6.35)
+		(size 2.29 1.52)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "a7423708-8f4a-5a20-ac3c-2d9dec81c9ce")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/SW_DIP_x06_DSIC.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

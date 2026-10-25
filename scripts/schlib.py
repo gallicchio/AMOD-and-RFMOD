@@ -23,7 +23,8 @@ _ROT = {
 
 class Sheet:
     def __init__(self, share_dir, paper="A3", title="", date="", rev="",
-                 company="", comments=()):
+                 company="", comments=(), project="amod"):
+        self.project = project
         self.libs = SymbolLibs(share_dir)
         self.paper = paper
         self.title, self.date, self.rev, self.company = title, date, rev, company
@@ -138,7 +139,7 @@ class Sheet:
         for num in self.all_pin_numbers(lib_id):
             s.add(S("pin", q(num)).add(S("uuid", q(uid(f"pin/{ref}/{unit}/{num}")))))
         inst = S("instances").add(
-            S("project", q("opamp")).add(
+            S("project", q(self.project)).add(
                 S("path", q("/" + uid("sheet/root"))).add(
                     S("reference", q(ref)), S("unit", n(unit)))))
         s.add(inst)
@@ -196,7 +197,9 @@ class Sheet:
         t.add(S("exclude_from_sim", "no"), S("at", n(x), n(y), n(rot)))
         e = effects(size=size, justify=justify)
         if bold:
-            e.first("font").add(S("bold", "yes"))
+            for k in e.kids:
+                if k.tag == "font":
+                    k.add(S("bold", "yes"))
         t.add(e, S("uuid", q(uid(f"txt/{x},{y},{txt[:24]}"))))
         self.items.append(t)
 

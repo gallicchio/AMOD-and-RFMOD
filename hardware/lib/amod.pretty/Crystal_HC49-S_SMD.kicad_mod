@@ -1,0 +1,186 @@
+(footprint "Crystal_HC49-S_SMD"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "HC-49S SMD crystal, 11.4 x 4.5 mm body, two gull-wing leads: YXC X49SM4MSD2SC 4 MHz (LCSC C13774)")
+	(tags "crystal HC49 SMD")
+	(property "Reference" "REF**"
+		(at 0 3.4 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "49c667f0-bb0f-580f-b742-7bb7497e73de")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Crystal_HC49-S_SMD"
+		(at 0 -3.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "f2a35dd6-e4eb-52c0-96a4-103aabe00458")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -3.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "ff70b48c-e25e-5aa5-80ca-1ce0a569d154")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "HC-49S SMD crystal, 11.4 x 4.5 mm body, two gull-wing leads: YXC X49SM4MSD2SC 4 MHz (LCSC C13774)"
+		(at 0 -3.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "41af96b0-132d-5212-af3a-c0cdd2f36eba")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -5.7 -2.4)
+		(end 5.7 -2.4)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c41527cc-3d71-5b2a-b182-19f962b94222")
+	)
+	(fp_line
+		(start -5.7 2.4)
+		(end 5.7 2.4)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4c4692d2-644d-58f4-8d3e-94f2e5d3e961")
+	)
+	(fp_line
+		(start -7.6 -2.6)
+		(end 7.6 -2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9da85999-d1a3-5eb9-bb4e-b45e4627c31a")
+	)
+	(fp_line
+		(start -7.6 2.6)
+		(end -7.6 -2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "09d172bc-8078-59e4-a47f-b1a8cdf62999")
+	)
+	(fp_line
+		(start 7.6 -2.6)
+		(end 7.6 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "732206a1-3440-5629-898e-332502e107b8")
+	)
+	(fp_line
+		(start 7.6 2.6)
+		(end -7.6 2.6)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "5ca43924-551a-5819-ae5e-baee52276d68")
+	)
+	(fp_line
+		(start -5.7 -2.25)
+		(end 5.7 -2.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "fad6d93a-b10c-53e4-84e6-49e8be690588")
+	)
+	(fp_line
+		(start -5.7 2.25)
+		(end -5.7 -2.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "ce564598-4ebe-5473-9ed9-f9e5dde8add8")
+	)
+	(fp_line
+		(start 5.7 -2.25)
+		(end 5.7 2.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "f2c53751-4774-5ff6-98ee-4e7d4d8c282b")
+	)
+	(fp_line
+		(start 5.7 2.25)
+		(end -5.7 2.25)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1806520d-a9a0-503d-a16e-62fd1b966f94")
+	)
+	(pad "1" smd roundrect
+		(at -4.553 0)
+		(size 5.5 1.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "0bbd90f6-6e7c-54a6-8082-97b5a2bedc91")
+	)
+	(pad "2" smd roundrect
+		(at 4.553 0)
+		(size 5.5 1.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "f372e954-6ef2-592e-abf9-85f133703028")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/Crystal_HC49S_SMD.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

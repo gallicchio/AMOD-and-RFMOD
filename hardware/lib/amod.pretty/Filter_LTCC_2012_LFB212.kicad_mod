@@ -1,0 +1,191 @@
+(footprint "Filter_LTCC_2012_LFB212"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm, 4 pads: Murata LFB212G45SG8A127 (LCSC C341536)")
+	(tags "LTCC filter")
+	(property "Reference" "REF**"
+		(at 0 1.8 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "f0787935-b6d1-521e-a30b-1c1fd8ff7f92")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Filter_LTCC_2012_LFB212"
+		(at 0 -1.8 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "ecd02fca-91be-539f-a28b-c6219186f76d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -1.8 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "3f6c71d6-09bd-5258-818c-c85b32dfd3df")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm, 4 pads: Murata LFB212G45SG8A127 (LCSC C341536)"
+		(at 0 -1.8 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "db32b04e-7ac1-5e50-a836-914a78b9c810")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center -1.2 -0.85)
+		(end -1.12 -0.85)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "4a70e3e2-fe43-59e2-a3da-5d29e7720bb7")
+	)
+	(fp_line
+		(start -1.3 -0.95)
+		(end 1.3 -0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "8faa75ce-78f6-5ef9-9b03-2ee1737c727a")
+	)
+	(fp_line
+		(start -1.3 0.95)
+		(end -1.3 -0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "dbb35ae5-2680-53ed-9d07-e58a3d9c92bd")
+	)
+	(fp_line
+		(start 1.3 -0.95)
+		(end 1.3 0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "1c03aab8-c9ea-5632-97cf-53fedd29b043")
+	)
+	(fp_line
+		(start 1.3 0.95)
+		(end -1.3 0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9cc45dc7-9e82-5f3e-ae80-a1c3cb735683")
+	)
+	(fp_line
+		(start -1 -0.625)
+		(end 1 -0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "8537c2ab-9d73-586e-ad87-8378146196de")
+	)
+	(fp_line
+		(start -1 0.625)
+		(end -1 -0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "bda2cf4a-e81c-59b8-886a-c387cde9ef64")
+	)
+	(fp_line
+		(start 1 -0.625)
+		(end 1 0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "7d268884-c4c8-539c-b6ba-46868df65709")
+	)
+	(fp_line
+		(start 1 0.625)
+		(end -1 0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "99ab5adb-6f04-5edd-8b7f-57b086bc344a")
+	)
+	(pad "1" smd roundrect
+		(at 0 -0.574)
+		(size 1.6 0.35)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "574e1280-9030-518b-891e-67acfea1e5fa")
+	)
+	(pad "2" smd roundrect
+		(at 0.9 0)
+		(size 0.35 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "920b32cf-aef9-5ae3-b960-eaed18411116")
+	)
+	(pad "3" smd roundrect
+		(at 0 0.574)
+		(size 1.6 0.35)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "8043f53a-5ba0-57ff-9b92-5daab63113d8")
+	)
+	(pad "4" smd roundrect
+		(at -0.9 0)
+		(size 0.35 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "a2e22174-a0a0-5039-b8f9-7033f2b736d4")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/Filter_2012.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)
