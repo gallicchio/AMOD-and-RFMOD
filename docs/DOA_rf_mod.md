@@ -29,7 +29,7 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
    of the board keeps 0.2 mm.
 9. **The stack.**  The 50 ohm lines assume JLC04161H-7628 (0.21 mm of 7628 prepreg between L1 and L2).  Choose that
    stack in the order; another one moves the impedance by 10-20 ohm.
-10. **Stock.**  The GALI-84+ had 144 on the day: enough for 72 boards' pairs but thin; the alternate is the GALI-S66+
+10. **Stock.**  The GALI-84+ had 144 on the day: enough for 72 boards' pairs but thin; alternates (stock not checked) are the GALI-S66+
     or a PGA-103+ on the same footprint with a different bias resistor.
 
 ## Bench, first power

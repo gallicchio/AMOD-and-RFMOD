@@ -466,6 +466,7 @@ def dump(tiles, mod, path):
            "slots": list(getattr(mod, "SLOTS", [])), "front_text": list(getattr(mod, "FRONT_TEXT", [])), "rail_pours": list(getattr(mod, "RAIL_POURS", [])),
            "back_wires": list(getattr(mod, "BACK_WIRES", [])), "front_wires": list(getattr(mod, "FRONT_WIRES", [])), "back_text_x": getattr(mod, "BACK_TEXT_X", 50.0),
            "qr_at": getattr(mod, "QR_AT", None),
+           "holes": [list(h) for h in getattr(mod, "HOLES", G.HOLES)], "feet": [list(f) for f in getattr(mod, "FEET", [])],
            "stem": getattr(mod, "STEM", "")}
     for t in tiles:
         out["tiles"].append(dict(

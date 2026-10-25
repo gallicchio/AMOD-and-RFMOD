@@ -592,10 +592,12 @@ def build(stem):
                     ref_off=(0, -3.5), val_off=(0, 3.5), hide_value=True)
     # board-level: the mounting holes and the ground loops, in a strip under the blocks
     y = OY0 + 4 * BLOCK_H + 2.54
-    for i, (hx, hy) in enumerate(getattr(mod, "HOLES", [(0, 0)] * 4)):
+    holes = getattr(mod, "HOLES", [(0, 0)] * 4)
+    for i, (hx, hy) in enumerate(holes):
         s.place("Mechanical:MountingHole", "MH%d" % (i + 1), "MountingHole", OX0 + 10.16 + i * 12.7, y + 2.54,
                 footprint=parts.PARTS["MH"]["footprint"], in_bom=False, ref_off=(0, -3.5), val_off=(0, 3.5), hide_value=True)
-    s.text("M3 mounting holes, one per corner", OX0 + 10.16 + 4 * 12.7, y + 2.54, size=1.2)
+    s.text("M3 mounting holes, one per corner" if holes else "no mounting holes: four stick-on rubber feet, marked on the back",
+           OX0 + 10.16 + 4 * 12.7, y + 2.54, size=1.2)
     for i, (gx, gy) in enumerate(getattr(mod, "GND_LOOPS", [])):
         ref = "TP%d" % (9900 + i + 1)
         x = OX0 + 101.6 + i * 15.24

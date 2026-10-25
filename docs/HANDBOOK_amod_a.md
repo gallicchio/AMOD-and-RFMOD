@@ -18,13 +18,13 @@ takes 5 V from its USB-C; its socket along the top edge carries +5, ground, -5, 
 
 The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V):
 
-- Pmod pin 1 (PMOD1): A6
-- Pmod pin 2 (PMOD2): A6
-- Pmod pin 3 (PMOD3): A8
-- Pmod pin 4 (PMOD4): A10
-- Pmod pin 7 (PMOD5): A11
-- Pmod pin 8 (PMOD6): A11
-- Pmod pin 9 (PMOD7): A12
+- Pmod pin 2 (PMOD2): A12
+- Pmod pin 3 (PMOD3): A11
+- Pmod pin 4 (PMOD4): A11
+- Pmod pin 7 (PMOD5): A10
+- Pmod pin 8 (PMOD6): A8
+- Pmod pin 9 (PMOD7): A6
+- Pmod pin 10 (PMOD8): A6
 
 ## The tiles
 

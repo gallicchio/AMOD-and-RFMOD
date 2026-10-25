@@ -275,8 +275,8 @@ def synth_tile(id, cells, host):
     jout = t.jack("TL", "OUT A", "OUTA", "out", "", silk="OUT A")
     jref = t.jack("TM", "REF IN", "REF", "in", "25 MHz, 3.3 V CMOS", silk="REF IN")
     power_header(t, rail="+5V", dx=20.0)
-    SCLK, SDATA = "/PMOD6", "/PMOD7"
-    LE, MUX = ("/PMOD5", "/PMOD8") if host else ("/PMOD3", "/PMOD4")
+    SCLK, SDATA = "/PMOD3", "/PMOD2"
+    LE, MUX = ("/PMOD4", "/PMOD1") if host else ("/PMOD6", "/PMOD5")
     # ---- the LDO in the right cell: VS (the switched 5 V) in, V33 out to the island through a via
     ldo = t.add("U", "TPS7A2033", "3.3V", 30.5, 14.0, 0, {"1": "VS", "2": "GND", "3": "VS", "5": "V33"}, hide_value=False, label=None)
     ci = t.add("C", "C0805 1uF", "1u", 27.5, 10.9, 0, {"1": "VS", "2": "GND"}, label=None)
@@ -393,13 +393,14 @@ def synth_tile(id, cells, host):
             t.gnd_stub(ref, "2", (X, 18.4), sym=(0, 0), fine=True)
     # ---- the Pmod plug (the host) and the lines to it on the back: the leftmost line turns highest (no crossings)
     if host:
-        pm = t.add("J", "PMOD", "Pmod", 8.05, 24.25, 0, {"2": LE, "4": SCLK, "6": SDATA, "8": MUX, "5": "/PMOD3", "7": "/PMOD4",
-                                                            "9": "GND", "10": "GND", "11": "/PMOD_VCC", "12": "/PMOD_VCC"}, hide_value=True)
-        t.wire("/PMOD_VCC", [(pm, "11"), (pm, "12")])
-        t.wire(LE, [(15.1, 4.3), (15.1, 20.6), (1.7, 20.6), (pm, "2")], width=F, layer="B.Cu", silk=False, fine=True)
-        t.wire(SCLK, [(16.1, 5.6), (16.1, 20.95), (4.24, 20.95), (pm, "4")], width=F, layer="B.Cu", silk=False, fine=True)
-        t.wire(SDATA, [(16.6, 2.4), (16.6, 21.3), (6.78, 21.3), (pm, "6")], width=F, layer="B.Cu", silk=False, fine=True)
-        t.wire(MUX, [(18.3, 10.55), (18.3, 21.65), (9.32, 21.65), (pm, "8")], width=F, layer="B.Cu", silk=False, fine=True)
+        # two columns left of the feeds' first layout: they meet pads 5-12, ground and 3.3 V are pads 1-4 (see pmod_plug)
+        pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"6": LE, "8": SCLK, "10": SDATA, "12": MUX, "9": "/PMOD6", "11": "/PMOD5",
+                                                            "3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"}, hide_value=True)
+        t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
+        t.wire(LE, [(15.1, 4.3), (15.1, 20.6), (1.7, 20.6), (pm, "6")], width=F, layer="B.Cu", silk=False, fine=True)
+        t.wire(SCLK, [(16.1, 5.6), (16.1, 20.95), (4.24, 20.95), (pm, "8")], width=F, layer="B.Cu", silk=False, fine=True)
+        t.wire(SDATA, [(16.6, 2.4), (16.6, 21.3), (6.78, 21.3), (pm, "10")], width=F, layer="B.Cu", silk=False, fine=True)
+        t.wire(MUX, [(18.3, 10.55), (18.3, 21.65), (9.32, 21.65), (pm, "12")], width=F, layer="B.Cu", silk=False, fine=True)
     else:
         t.via(MUX, 18.3, 21.0)                                                   # down the back, then the front along the bottom edge
         t.wire(MUX, [(18.3, 10.55), (18.3, 21.0)], width=F, layer="B.Cu", silk=False, fine=True)
@@ -550,8 +551,8 @@ def tiles():
     return [tile_r1(), tile_r2(), tile_r4(), tile_r5(), tile_r12(), tile_r9(), tile_r7(), tile_r8(), tile_r10(), tile_r11()]
 
 
-PMOD_NAMES = {"/PMOD3": "LE of R11", "/PMOD4": "MUXOUT of R11", "/PMOD5": "LE of R10", "/PMOD6": "SCLK to both synthesizers",
-              "/PMOD7": "SDATA to both synthesizers", "/PMOD8": "MUXOUT of R10"}
+PMOD_NAMES = {"/PMOD6": "LE of R11", "/PMOD5": "MUXOUT of R11", "/PMOD4": "LE of R10", "/PMOD3": "SCLK to both synthesizers",
+              "/PMOD2": "SDATA to both synthesizers", "/PMOD1": "MUXOUT of R10"}
 HANDBOOK_INTRO = [
     "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on R9.  Every tile's input is its top-left jack and its output its",
     "bottom-right jack (a third jack, where there is one, sits in the middle of the top edge), so neighbouring jacks are at least",
@@ -587,6 +588,10 @@ HANDBOOK_SECTIONS = [
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 50.0), (97.0, 84.0)]
+# no mounting holes: the Pmod plug fills the bottom-left corner where one stood, and a board plugged into a host's Pmod is
+# held by the plug.  Four stick-on rubber feet instead, circled on the back (the bottom-left one above the plug's pins).
+HOLES = []
+FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 95.0), (5.0, 85.0)]
 SLOTS = []
 # the rails on L3: +5 V under the whole board; +7.8 V in the gutter under row 1, from R9's vias to the gain blocks' headers
 def _island(c0):
@@ -603,10 +608,10 @@ RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
 # down and along the bottom margin into the plug's pad 5; its MUXOUT down the back, then the front along the bottom
 # edge into pad 7 (two lines from the same side to pads in the same order cannot both stay on one layer)
 _R10, _R11 = G.cell_origin(0, 3), G.cell_origin(2, 3)
-BACK_WIRES = [("/PMOD6", [(_R11[0] + 16.1, _R11[1] + 5.6), (_R11[0] + 16.1, 71.1), (_R10[0] + 16.1, 71.1), (_R10[0] + 16.1, _R10[1] + 5.6)]),
-              ("/PMOD7", [(_R11[0] + 15.6, _R11[1] + 3.4), (_R11[0] + 15.6, 71.5), (_R10[0] + 16.6, 71.5), (_R10[0] + 16.6, _R10[1] + 2.4)]),
-              ("/PMOD3", [(_R11[0] + 15.1, _R11[1] + 4.3), (_R11[0] + 15.1, 99.25), (_R10[0] + 6.78, 99.25), (_R10[0] + 6.78, _R10[1] + 25.52)])]
-FRONT_WIRES = [("/PMOD4", [(_R11[0] + 18.3, _R11[1] + 21.0), (_R11[0] + 18.3, 99.05), (_R10[0] + 9.32, 99.05), (_R10[0] + 9.32, _R10[1] + 25.52)])]
+BACK_WIRES = [("/PMOD3", [(_R11[0] + 16.1, _R11[1] + 5.6), (_R11[0] + 16.1, 71.1), (_R10[0] + 16.1, 71.1), (_R10[0] + 16.1, _R10[1] + 5.6)]),
+              ("/PMOD2", [(_R11[0] + 15.6, _R11[1] + 3.4), (_R11[0] + 15.6, 71.5), (_R10[0] + 16.6, 71.5), (_R10[0] + 16.6, _R10[1] + 2.4)]),
+              ("/PMOD6", [(_R11[0] + 15.1, _R11[1] + 4.3), (_R11[0] + 15.1, 99.25), (_R10[0] + 6.78, 99.25), (_R10[0] + 6.78, _R10[1] + 25.52)])]
+FRONT_WIRES = [("/PMOD5", [(_R11[0] + 18.3, _R11[1] + 21.0), (_R11[0] + 18.3, 99.05), (_R10[0] + 9.32, 99.05), (_R10[0] + 9.32, _R10[1] + 25.52)])]
 FRONT_TEXT = []
 BACK_TEXT_X = 50.0
 QR_AT = (80.0, 40.5)              # under R9's right cell: the boost and the USB-C input, no jack within 10 mm

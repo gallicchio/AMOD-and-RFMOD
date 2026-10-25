@@ -20,12 +20,12 @@ end of this handbook).
 The 2 x 6 plug on R10's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
 which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
 
-- Pmod pin 3 (PMOD3): LE of R11, R11
-- Pmod pin 4 (PMOD4): MUXOUT of R11, R11
-- Pmod pin 7 (PMOD5): LE of R10, R10
-- Pmod pin 8 (PMOD6): SCLK to both synthesizers, R10, R11
-- Pmod pin 9 (PMOD7): SDATA to both synthesizers, R10, R11
-- Pmod pin 10 (PMOD8): MUXOUT of R10, R10
+- Pmod pin 1 (PMOD1): MUXOUT of R10, R10
+- Pmod pin 2 (PMOD2): SDATA to both synthesizers, R10, R11
+- Pmod pin 3 (PMOD3): SCLK to both synthesizers, R10, R11
+- Pmod pin 4 (PMOD4): LE of R10, R10
+- Pmod pin 7 (PMOD5): MUXOUT of R11, R11
+- Pmod pin 8 (PMOD6): LE of R11, R11
 
 ## The tiles together
 
@@ -126,7 +126,7 @@ Jacks: TL REF OUT (25 MHz, 1.6 Vpp into 50 ohm).
 
 **Expect:** +5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT
 
-USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; a tee feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.
+USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.
 
 Parts: XRNR4030-22uH/M (C5289362), KT-0805G (C2297), KT-0805Y (C2296), SN74LVC1G17DBVR (C7836), MT3608 (C84817), MF-MSMF200-2 (C210837), SS34 (C8678), TC32H4-25.000-33GNDTNL (C5119013), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
@@ -137,7 +137,7 @@ Jacks: TL OUT A; TM REF IN (25 MHz, 3.3 V CMOS).
 
 **Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked
 
-MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee.
+MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.
 
 Parts: NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 
@@ -148,7 +148,7 @@ Jacks: TL OUT A; TM REF IN (25 MHz, 3.3 V CMOS).
 
 **Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked
 
-MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee.
+MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.
 
 Parts: NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 

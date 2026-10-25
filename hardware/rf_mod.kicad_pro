@@ -404,13 +404,13 @@
       "/R10_V33": [
         "Fine"
       ],
-      "/PMOD6": [
+      "/PMOD3": [
         "Fine"
       ],
-      "/PMOD7": [
+      "/PMOD2": [
         "Fine"
       ],
-      "/PMOD5": [
+      "/PMOD4": [
         "Fine"
       ],
       "/R10_CP": [
@@ -443,7 +443,7 @@
       "/R10_REFI": [
         "Fine"
       ],
-      "/PMOD8": [
+      "/PMOD1": [
         "Fine"
       ],
       "/R10_N2": [
@@ -455,10 +455,10 @@
       "/R10_TRM": [
         "Fine"
       ],
-      "/PMOD3": [
+      "/PMOD6": [
         "Fine"
       ],
-      "/PMOD4": [
+      "/PMOD5": [
         "Fine"
       ],
       "/PMOD_VCC": [

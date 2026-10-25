@@ -324,15 +324,15 @@ def tile_a6():
     power_header(t, rail="+3V3")
     rin = t.add("R", "R0805 10k", "10k", 6.6, 9.3, 0, {"1": "IN", "2": "NODE"}, label=None)
     t.wire("IN", [("J%d01" % idx, "1"), (4.75, 9.3), (rin, "1")])
-    rfb = t.add("R", "R0603 10k", "10k", 6.5, 12.6, 270, {"1": "/PMOD1", "2": "NODE"}, label=None)       # pad 1 up
+    rfb = t.add("R", "R0603 10k", "10k", 6.5, 12.6, 270, {"1": "/PMOD8", "2": "NODE"}, label=None)       # pad 1 up
     cint = t.add("C", "C0805 10nF", "10n", 8.3, 15.3, 0, {"1": "NODE", "2": "GND"}, label=None)
-    u = t.add("U", "TLV3501", "TLV3501", 10.5, 12.5, 0, {"1": "VREF", "2": "GND", "3": "NODE", "4": "VS", "5": "/PMOD2", "6": "GND"},
+    u = t.add("U", "TLV3501", "TLV3501", 10.5, 12.5, 0, {"1": "VREF", "2": "GND", "3": "NODE", "4": "VS", "5": "/PMOD7", "6": "GND"},
               hide_value=False, label=None)
     t.wire("NODE", [(rin, "2"), (7.4, 9.3), (7.4, 15.3), (cint, "1")])
     t.wire("NODE", [(7.4, 13.45), (u, "3")])
     t.wire("NODE", [(rfb, "2"), (7.4, 13.375)])
-    t.wire("/PMOD1", [(rfb, "1"), (6.5, 10.5)])
-    t.via("/PMOD1", 6.5, 10.5)
+    t.wire("/PMOD8", [(rfb, "1"), (6.5, 10.5)])
+    t.via("/PMOD8", 6.5, 10.5)
     t.gnd_stub(cint, "2", (10.0, 16.6), sym=(0, 0))
     t.gnd_stub(u, "2", (8.3, 12.5), sym=(0, 0))
     t.gnd_stub(u, "6", (11.637, 10.5), sym=(0, 0))
@@ -354,10 +354,10 @@ def tile_a6():
     t.gnd_stub(r2, "2", (15.35, 8.9), sym=(0, 0))
     t.gnd_stub(cref, "2", (15.35, 8.9), sym=(0, 0))
     # the bit: over the top to the loop under the (absent) OUT jack and to the Pmod via below it
-    tp = t.loop("/PMOD2", 18.1, 12.9, 90, "BIT", label_at=(0.8, 2.9, "right", 0.8))
-    t.wire("/PMOD2", [(u, "5"), (12.8, 12.5), (12.8, 10.1), (18.1, 10.1), (tp, "1")])
-    t.wire("/PMOD2", [(tp, "1"), (18.1, 16.5)], silk=False)
-    t.via("/PMOD2", 18.1, 16.5)
+    tp = t.loop("/PMOD7", 18.1, 12.9, 90, "BIT", label_at=(0.8, 2.9, "right", 0.8))
+    t.wire("/PMOD7", [(u, "5"), (12.8, 12.5), (12.8, 10.1), (18.1, 10.1), (tp, "1")])
+    t.wire("/PMOD7", [(tp, "1"), (18.1, 16.5)], silk=False)
+    t.via("/PMOD7", 18.1, 16.5)
     t.legend()
     t.result = "a one-bit stream on Pmod 2 whose density follows IN; the FPGA closes the loop through Pmod 1 (the handbook's gateware)"
     t.notes = ["First-order delta-sigma: the comparator decides, the FPGA registers the bit and feeds it back through 10 k into the",
@@ -378,14 +378,14 @@ def tile_a8():
     power_header(t)
     ra = t.add("R", "R2512_15R", "15R", 11.3, 10.2, 0, {"1": "HTR", "2": "VS"}, label=None)
     rb = t.add("R", "R2512_15R", "15R", 11.3, 14.35, 0, {"1": "HTR", "2": "DRN"}, label=None)
-    q = t.add("Q", "NFET", "AO3400A", 17.2, 14.35, 0, {"1": "/PMOD3", "2": "GND", "3": "DRN"}, hide_value=True)
-    rpd = t.add("R", "R0603 10k", "10k", 18.5, 11.0, 270, {"1": "/PMOD3", "2": "GND"}, label=None)          # pad 1 up
+    q = t.add("Q", "NFET", "AO3400A", 17.2, 14.35, 0, {"1": "/PMOD6", "2": "GND", "3": "DRN"}, hide_value=True)
+    rpd = t.add("R", "R0603 10k", "10k", 18.5, 11.0, 270, {"1": "/PMOD6", "2": "GND"}, label=None)          # pad 1 up
     t.wire("HTR", [(ra, "1"), (rb, "1")])
     t.wire("DRN", [(rb, "2"), (q, "3")])
     t.gnd_stub(q, "2", (16.262, 16.7), sym=(0, 0))
-    t.wire("/PMOD3", [(q, "1"), (16.262, 11.6)])
-    t.via("/PMOD3", 16.262, 11.6)
-    t.wire("/PMOD3", [(16.262, 11.6), (17.3, 11.6), (17.3, 10.225), (rpd, "1")])
+    t.wire("/PMOD6", [(q, "1"), (16.262, 11.6)])
+    t.via("/PMOD6", 16.262, 11.6)
+    t.wire("/PMOD6", [(16.262, 11.6), (17.3, 11.6), (17.3, 10.225), (rpd, "1")])
     t.gnd_stub(rpd, "2", (18.5, 13.1), sym=(0, 0))
     # VS on the back: the FET's drain to the top heater's right pad and, up the left, to the TMP235
     t.wire("VS", [HDR_VS, (8.54, 18.5), (10.2, 18.5)])
@@ -425,7 +425,7 @@ def tile_a11():
     power_header(t)
     # --- transmit: the bridge beside the socket's left end
     jtx = t.add("J", "HDR5", "TX", 2.4, 2.6, 90, {"1": "OUT1", "5": "OUT2"}, hide_value=True)             # pins at x 2.4 ... 12.56
-    d = t.add("U", "DRV8837", "DRV8837", 8.0, 8.5, 0, {"1": "VS", "2": "OUT1", "3": "OUT2", "4": "GND", "5": "/PMOD5", "6": "/PMOD6",
+    d = t.add("U", "DRV8837", "DRV8837", 8.0, 8.5, 0, {"1": "VS", "2": "OUT1", "3": "OUT2", "4": "GND", "5": "/PMOD4", "6": "/PMOD3",
                                                        "7": "VS", "8": "VS", "9": "GND"}, hide_value=False, label=None)
     cvcc = t.add("C", "C0603 100nF", "100n", 11.2, 7.0, 0, {"1": "VS", "2": "GND"}, label=None)
     cvm = t.add("C", "C0603 100nF", "100n", 10.4, 5.3, 0, {"1": "VS", "2": "GND"}, label=None)
@@ -445,10 +445,10 @@ def tile_a11():
     t.wire("VS", [(9.9, 17.3), (9.9, 18.5)])
     t.gnd_stub(cvcc, "2", (12.9, 7.0), sym=(0, 0))
     t.gnd_stub(cvm, "2", (11.175, 4.1), sym=(0, 0))
-    t.wire("/PMOD6", [(d, "6"), (10.3, 8.75), (10.3, 8.3), (10.6, 8.3)], width=W)
-    t.via("/PMOD6", 10.6, 8.3)
-    t.wire("/PMOD5", [(d, "5"), (11.6, 9.25)], width=W)
-    t.via("/PMOD5", 11.6, 9.25)
+    t.wire("/PMOD3", [(d, "6"), (10.3, 8.75), (10.3, 8.3), (10.6, 8.3)], width=W)
+    t.via("/PMOD3", 10.6, 8.3)
+    t.wire("/PMOD4", [(d, "5"), (11.6, 9.25)], width=W)
+    t.via("/PMOD4", 11.6, 9.25)
     t.text(17.5, 6.0, "A11", 0.9, 0.17, "center")
     t.text(17.5, 7.4, "4.06", 0.8, 0.15, "center")
     # --- receive: the socket in the right cell's top-left, 10 nF and 3.9 k into the A2 geometry
@@ -465,21 +465,23 @@ def tile_a11():
     # --- the Pmod plug, below the left cell in the bottom margin (global 15.4, 96.5), and the board's lines to it:
     # the upper row (even pads) straight down from feeds on the back; the lower row (odd pads) through the upper row's
     # gaps on the front with 0.2 mm tracks (pads 1, 3) or along the bottom edge (pads 5, 7)
-    pm = t.add("J", "PMOD", "Pmod", 8.05, 24.25, 0, {"1": "/PMOD1", "3": "/PMOD2", "5": "/PMOD3", "7": "/PMOD4", "2": "/PMOD5", "4": "/PMOD6",
-                                                      "6": "/PMOD7", "9": "GND", "10": "GND", "11": "/PMOD_VCC", "12": "/PMOD_VCC"}, hide_value=True)
-    t.wire("/PMOD_VCC", [(pm, "11"), (pm, "12")], silk=False)
-    t.wire("/PMOD5", [(11.6, 9.25), (11.6, 20.1), (1.7, 20.1), (pm, "2")], layer="B.Cu", silk=False)
-    t.wire("/PMOD6", [(10.6, 8.3), (12.3, 8.3), (12.3, 20.75), (4.24, 20.75), (pm, "4")], layer="B.Cu", silk=False)
-    t.via("/PMOD1", 14.05, 20.2)
-    t.wire("/PMOD1", [(14.05, 20.2), (2.97, 20.2), (2.97, 24.75), (pm, "1")], width=0.2, silk=False)
-    t.via("/PMOD2", 14.75, 20.85)
-    t.wire("/PMOD2", [(14.75, 20.85), (5.51, 20.85), (5.51, 24.75), (pm, "3")], width=0.2, silk=False)
-    t.via("/PMOD3", 16.55, 25.75)
-    t.wire("/PMOD3", [(16.55, 25.75), (16.55, 27.15), (6.78, 27.15), (pm, "5")], width=0.2, silk=False)
-    t.via("/PMOD4", 15.85, 26.5)
-    t.wire("/PMOD4", [(15.85, 26.5), (15.85, 26.74), (9.32, 26.74), (pm, "7")], width=0.2, silk=False)
-    t.via("/PMOD7", 44.25, 21.5)                                                                          # board (52.0, 93.75)
-    t.wire("/PMOD7", [(44.25, 21.5), (6.78, 21.5), (pm, "6")], width=0.2, silk=False)
+    # the plug two columns left of where the feeds were first laid, so they meet pads 5-11 (the IO columns) and ground and
+    # 3.3 V sit on pads 1-4 at the left: JLCPCB's numbering of this part runs the other way from KiCad's (see pmod_plug)
+    pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"5": "/PMOD8", "7": "/PMOD7", "9": "/PMOD6", "11": "/PMOD5", "6": "/PMOD4", "8": "/PMOD3",
+                                                      "10": "/PMOD2", "3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"}, hide_value=True)
+    t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
+    t.wire("/PMOD4", [(11.6, 9.25), (11.6, 20.1), (1.7, 20.1), (pm, "6")], layer="B.Cu", silk=False)
+    t.wire("/PMOD3", [(10.6, 8.3), (12.3, 8.3), (12.3, 20.75), (4.24, 20.75), (pm, "8")], layer="B.Cu", silk=False)
+    t.via("/PMOD8", 14.05, 20.2)
+    t.wire("/PMOD8", [(14.05, 20.2), (2.97, 20.2), (2.97, 24.75), (pm, "5")], width=0.2, silk=False)
+    t.via("/PMOD7", 14.75, 20.85)
+    t.wire("/PMOD7", [(14.75, 20.85), (5.51, 20.85), (5.51, 24.75), (pm, "7")], width=0.2, silk=False)
+    t.via("/PMOD6", 16.55, 25.75)
+    t.wire("/PMOD6", [(16.55, 25.75), (16.55, 27.15), (6.78, 27.15), (pm, "9")], width=0.2, silk=False)
+    t.via("/PMOD5", 15.85, 26.5)
+    t.wire("/PMOD5", [(15.85, 26.5), (15.85, 26.74), (9.32, 26.74), (pm, "11")], width=0.2, silk=False)
+    t.via("/PMOD2", 44.25, 21.5)                                                                          # board (52.0, 93.75)
+    t.wire("/PMOD2", [(44.25, 21.5), (6.78, 21.5), (pm, "10")], width=0.2, silk=False)
     t.result = "a 40 kHz burst from Pmod 5/6 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
     t.notes = ["Drive IN1/IN2 (Pmod 5, 6) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX",
                "transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's",
@@ -674,8 +676,8 @@ def tile_a10():
     # --- the current source and the LED (right cell)
     u2 = t.add("U", "OPA810", "OPA810", 32.0, 12.5, 0, {"1": "DRV_O", "2": "-5V", "3": "INP", "4": "SENSE", "5": "VS"}, hide_value=False, label=None)
     rin = t.add("R", "R0805 1k", "1k", 33.6, 9.4, 0, {"1": "INP", "2": "DRV"}, label=None)
-    q2 = t.add("Q", "NFET_S", "2N7002", 26.0, 11.3, 0, {"1": "/PMOD4", "2": "GND", "3": "INP"}, hide_value=True)
-    rpd = t.add("R", "R0603 10k", "10k", 23.3, 11.0, 270, {"1": "/PMOD4", "2": "GND"}, label=None)       # pad 1 up
+    q2 = t.add("Q", "NFET_S", "2N7002", 26.0, 11.3, 0, {"1": "/PMOD5", "2": "GND", "3": "INP"}, hide_value=True)
+    rpd = t.add("R", "R0603 10k", "10k", 23.3, 11.0, 270, {"1": "/PMOD5", "2": "GND"}, label=None)       # pad 1 up
     rs = t.add("R", "R0805 22R", "22", 38.5, 14.8, 0, {"1": "SENSE", "2": "GND"}, label=None)
     led = t.add("LED", "LED_SIDE", "LED", 44.5, 12.0, 270, {"1": "SENSE", "2": "DRV_O"}, hide_value=True)   # faces +x: the board's edge
     cn2 = t.add("C", "C0603 100nF", "100n", 30.5, 16.5, 0, {"1": "-5V", "2": "GND"}, label=None)
@@ -684,9 +686,9 @@ def tile_a10():
     t.wire("INP", [(rin, "1"), (28.5, 9.4), (28.5, 14.5), (30.863, 14.5), (u2, "3")])
     t.wire("INP", [(q2, "3"), (28.5, 11.3)])
     t.gnd_stub(q2, "2", (25.062, 13.4), sym=(0, 0))
-    t.wire("/PMOD4", [(q2, "1"), (23.3, 10.35), (rpd, "1")])
-    t.via("/PMOD4", 23.3, 9.2)
-    t.wire("/PMOD4", [(23.3, 9.2), (rpd, "1")])
+    t.wire("/PMOD5", [(q2, "1"), (23.3, 10.35), (rpd, "1")])
+    t.via("/PMOD5", 23.3, 9.2)
+    t.wire("/PMOD5", [(23.3, 9.2), (rpd, "1")])
     t.wire("GND", [(rpd, "2"), (23.3, 12.1), (22.3, 12.1)])
     t.via("GND", 22.3, 12.1)
     t.wire("DRV_O", [(u2, "1"), (30.863, 10.5), (44.725, 10.5), (led, "2")])
@@ -731,7 +733,7 @@ def tile_a12():
     pa = t.add("U", "PAM8302", "PAM8302A", 10.3, 12.6, 270, {"1": "VS", "2": "BYP", "3": "NODE", "4": "INM", "5": "VOP", "6": "VS", "7": "GND", "8": "VOM"},
                hide_value=False, label=None)
     cin = t.add("C", "C0805 1uF", "1u", 9.665, 5.0, 270, {"1": "AIN", "2": "NODE"}, label=None)             # pad 1 up
-    rdac = t.add("R", "R0603 10k", "10k", 18.0, 5.0, 0, {"1": "NODE", "2": "/PMOD7"}, label=None)
+    rdac = t.add("R", "R0603 10k", "10k", 18.0, 5.0, 0, {"1": "NODE", "2": "/PMOD2"}, label=None)
     cdac = t.add("C", "C0805 10nF", "10n", 15.2, 6.5, 270, {"1": "NODE", "2": "GND"}, label=None)          # pad 1 up
     cm = t.add("C", "C0603 1uF", "1u", 6.6, 11.5, 270, {"1": "INM", "2": "GND"}, label=None)
     cb = t.add("C", "C0603 1uF", "1u", 12.4, 8.0, 0, {"1": "BYP", "2": "GND"}, label=None)
@@ -742,10 +744,10 @@ def tile_a12():
     t.wire("NODE", [(cin, "2"), (9.665, 10.125), (pa, "3")])
     t.wire("NODE", [(9.665, 6.0), (15.2, 6.0), (17.225, 6.0), (rdac, "1")])
     t.gnd_stub(cdac, "2", (16.1, 7.45), sym=(0, 0))
-    t.via("/PMOD7", 18.775, 3.9)
-    t.wire("/PMOD7", [(rdac, "2"), (18.775, 3.9)])
-    t.wire("/PMOD7", [(18.775, 3.9), (18.775, 3.0), (26.5, 3.0), (26.5, 20.5), (1.25, 20.5), (1.25, 21.5)], layer="B.Cu", silk=False)
-    t.via("/PMOD7", 1.25, 21.5)                                                                           # board (52.0, 93.75)
+    t.via("/PMOD2", 18.775, 3.9)
+    t.wire("/PMOD2", [(rdac, "2"), (18.775, 3.9)])
+    t.wire("/PMOD2", [(18.775, 3.9), (18.775, 3.0), (26.5, 3.0), (26.5, 20.5), (1.25, 20.5), (1.25, 21.5)], layer="B.Cu", silk=False)
+    t.via("/PMOD2", 1.25, 21.5)                                                                           # board (52.0, 93.75)
     t.wire("INM", [(cm, "1"), (8.395, 10.725), (pa, "4")])
     t.gnd_stub(cm, "2", (6.6, 13.4), sym=(0, 0))
     t.wire("BYP", [(pa, "2"), (10.935, 8.9), (11.625, 8.9), (cb, "1")])
@@ -796,6 +798,10 @@ def tiles():
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 50.0), (97.0, 84.0)]
+# no mounting holes: the Pmod plug fills the bottom-left corner where one stood, and a board plugged into a host's Pmod is
+# held by the plug.  Four stick-on rubber feet instead, circled on the back (the bottom-left one above the plug's pins).
+HOLES = []
+FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 95.0), (5.0, 85.0)]
 SLOTS = []
 # the rails on L3: +5 V under the whole board; -5 V in the gutter under row 0 (and a strip down the left margin to the
 # gutter under row 2, for A9); +3.3 V in the gutter under row 1.  Each tile reaches its rail with a via in the gutter.
@@ -806,10 +812,10 @@ RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
               ("+3V3", 7.0, 49.25, 93.0, 50.75, 1)]
 # the Pmod lines on the back, board mm: from a tile's via to the via A11 declares by the plug; A11's own two run inside
 # its tile.  Down the back of A9 and A11 at x 21.8 ... 24.3 (left of A9's LO jack and A11's RX socket), kept free there.
-BACK_WIRES = [("/PMOD1", [(14.25, 39.75), (14.25, 48.9), (21.8, 48.9), (21.8, 92.45)]),
-              ("/PMOD2", [(25.85, 45.75), (25.85, 48.3), (22.5, 48.3), (22.5, 93.1)]),
-              ("/PMOD3", [(67.012, 40.85), (70.05, 40.85), (70.05, 50.0), (49.7, 50.0), (49.7, 98.0), (24.3, 98.0)]),
-              ("/PMOD4", [(74.05, 59.95), (74.05, 72.0), (50.4, 72.0), (50.4, 98.75), (23.6, 98.75)])]
+BACK_WIRES = [("/PMOD8", [(14.25, 39.75), (14.25, 48.9), (21.8, 48.9), (21.8, 92.45)]),
+              ("/PMOD7", [(25.85, 45.75), (25.85, 48.3), (22.5, 48.3), (22.5, 93.1)]),
+              ("/PMOD6", [(67.012, 40.85), (70.05, 40.85), (70.05, 50.0), (49.7, 50.0), (49.7, 98.0), (24.3, 98.0)]),
+              ("/PMOD5", [(74.05, 59.95), (74.05, 72.0), (50.4, 72.0), (50.4, 98.75), (23.6, 98.75)])]
 BACK_TEXT_X = 71.0                # right of the QR code's captions
 QR_AT = (39.5, 87.3)              # under A11's right cell: the op amp's lower half has no holes
 BACK_TEXT = ["AMOD-A: active blocks on USB-C power.  Each tile",

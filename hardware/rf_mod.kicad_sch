@@ -2909,105 +2909,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Mechanical:MountingHole"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom no)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "H"
-				(at 0 5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "MountingHole"
-				(at 0 3.175 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Mounting Hole without connection"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "mounting hole"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "MountingHole*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "MountingHole_0_1"
-				(circle
-					(center 0 0)
-					(radius 1.27)
-					(stroke
-						(width 1.27)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Regulator_Linear:TPS7A20xxxDBV"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -6089,54 +5990,6 @@
 		)
 	)
 	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "24bfbb2b-4cdc-46b0-95c1-80ee22b71096")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "35c699ee-0606-4630-b5bf-610ccd3b5edd")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "4f5b1354-6944-4ef9-8d53-c34a7b3f86d6")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "5d95f65f-229c-4857-8ad4-17a1471467b0")
-	)
-	(rectangle
 		(start 215.9 157.48)
 		(end 401.32 279.4)
 		(stroke
@@ -6146,11 +5999,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "66638626-fa33-446c-b07e-4166a0a454a0")
+		(uuid "0386f8e9-494d-4483-91d5-c6cdcc279155")
 	)
 	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
+		(start 406.4 30.48)
+		(end 591.82 152.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -6158,7 +6011,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "764bd5d8-efae-4771-b292-bab0d3588532")
+		(uuid "253332f6-01a4-4b86-b1dc-dc1998d5b68d")
 	)
 	(rectangle
 		(start 406.4 411.48)
@@ -6170,7 +6023,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "8ad9629b-d17f-4ce3-9c31-f42829d0fcf4")
+		(uuid "2f639125-901f-4494-8d14-3dbcec38b289")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "5a9dd90e-79de-4eb6-8654-2e23d875456d")
 	)
 	(rectangle
 		(start 25.4 411.48)
@@ -6182,7 +6047,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "8d6f5c8e-4d86-493a-86e3-cf91bd9790d6")
+		(uuid "7930b3d5-e416-42f8-9471-885573f1488a")
 	)
 	(rectangle
 		(start 25.4 284.48)
@@ -6194,7 +6059,31 @@
 		(fill
 			(type none)
 		)
-		(uuid "b33b4b96-8833-4b75-9011-c59e085eba48")
+		(uuid "883c1a7f-af92-4359-9e66-35f25cc1a677")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "9bd5dab4-4a2d-4867-98a3-6737f7e6b29e")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "bc0ee670-bc31-44ac-b20d-34a71271a3f8")
 	)
 	(rectangle
 		(start 596.9 30.48)
@@ -6206,7 +6095,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "e6fe78fa-2758-4b65-bf4f-e6490bac02ed")
+		(uuid "c9062784-30e2-4b46-961e-ad86746ce8b1")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "e69e4ab8-9fe0-4483-a410-2bfb9c952b43")
 	)
 	(text "cells (2,1), (3,1)"
 		(exclude_from_sim no)
@@ -6630,6 +6531,17 @@
 		)
 		(uuid "7157e12f-c66d-52e3-a047-3b4d9ab5a320")
 	)
+	(text "no mounting holes: four stick-on rubber feet, marked on the back"
+		(exclude_from_sim no)
+		(at 86.36 543.56 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "72d2ae0b-f86d-5311-9f8c-91012dbffce1")
+	)
 	(text "MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA,"
 		(exclude_from_sim no)
 		(at 27.94 523.82 0)
@@ -7024,7 +6936,7 @@
 		)
 		(uuid "ba0b861d-fd05-5154-a269-f600b417909e")
 	)
-	(text "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+	(text "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1."
 		(exclude_from_sim no)
 		(at 27.94 530.86 0)
 		(effects
@@ -7205,17 +7117,6 @@
 		)
 		(uuid "daf05229-f554-55ed-88d9-ccc1b1a62d19")
 	)
-	(text "M3 mounting holes, one per corner"
-		(exclude_from_sim no)
-		(at 86.36 543.56 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "dc0d44d5-5eb3-567b-bef6-c87c6e351a7d")
-	)
 	(text "MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA,"
 		(exclude_from_sim no)
 		(at 408.94 523.82 0)
@@ -7249,7 +7150,7 @@
 		)
 		(uuid "ec997f11-dcde-5b32-8e5c-51f2b4d93373")
 	)
-	(text "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+	(text "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1."
 		(exclude_from_sim no)
 		(at 408.94 530.86 0)
 		(effects
@@ -7383,7 +7284,7 @@
 		)
 		(uuid "fd15929e-722d-5fef-aae0-b7effdce38f8")
 	)
-	(text "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; a tee feeds both synthesizers)."
+	(text "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers)."
 		(exclude_from_sim no)
 		(at 408.94 274.88 0)
 		(effects
@@ -7432,6 +7333,10 @@
 		(uuid "09b89e12-6afb-5132-a211-d508b088ba3f")
 	)
 	(no_connect
+		(at 223.52 457.2)
+		(uuid "09be25d9-18a8-52d0-87ca-dd4cb4d307c7")
+	)
+	(no_connect
 		(at 144.78 330.2)
 		(uuid "208d9ff5-6ca1-58be-a437-efbc914ecbe1")
 	)
@@ -7458,10 +7363,6 @@
 	(no_connect
 		(at 553.72 463.55)
 		(uuid "64134f02-e47c-5da8-b25b-ede9ac9a65f2")
-	)
-	(no_connect
-		(at 223.52 452.12)
-		(uuid "657396d0-9275-5671-8aca-1730ece13b0c")
 	)
 	(no_connect
 		(at 172.72 463.55)
@@ -7496,16 +7397,16 @@
 		(uuid "ba3faff5-f0ce-5427-9f55-c647f9f1b05b")
 	)
 	(no_connect
+		(at 223.52 459.74)
+		(uuid "caac5ada-f61e-55db-978d-8d70ab734758")
+	)
+	(no_connect
 		(at 472.44 205.74)
 		(uuid "d55f450c-9a31-5e89-9615-0b18081acf71")
 	)
 	(no_connect
 		(at 510.54 203.2)
 		(uuid "d7c57ceb-1369-5021-b8e0-320fa327a4ce")
-	)
-	(no_connect
-		(at 223.52 454.66)
-		(uuid "d87e489e-926a-56b4-afe6-49e9cdf74f66")
 	)
 	(no_connect
 		(at 195.58 455.93)
@@ -7604,16 +7505,6 @@
 			(type default)
 		)
 		(uuid "04cca368-f030-52b2-b947-aa86c5b473d6")
-	)
-	(wire
-		(pts
-			(xy 223.52 457.2) (xy 220.98 457.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "068bd155-8a18-5036-9846-008524fcfadc")
 	)
 	(wire
 		(pts
@@ -8194,6 +8085,16 @@
 			(type default)
 		)
 		(uuid "25a4bc4e-2a16-5fef-87eb-187c7f6abbbc")
+	)
+	(wire
+		(pts
+			(xy 223.52 454.66) (xy 220.98 454.66)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26819bce-ca98-5380-87e1-04b05e4bac7a")
 	)
 	(wire
 		(pts
@@ -8974,6 +8875,16 @@
 			(type default)
 		)
 		(uuid "4cba001a-bb35-57d4-a4bd-cadfa568d50b")
+	)
+	(wire
+		(pts
+			(xy 223.52 452.12) (xy 220.98 452.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d34a1a9-cc82-5bf2-b918-8bb32e9d8bbb")
 	)
 	(wire
 		(pts
@@ -10234,16 +10145,6 @@
 			(type default)
 		)
 		(uuid "9e6cdf37-38bb-5bc9-a2eb-0d8d43f58a02")
-	)
-	(wire
-		(pts
-			(xy 223.52 459.74) (xy 220.98 459.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9f05fad5-d7ce-5098-8533-365729b904cd")
 	)
 	(wire
 		(pts
@@ -12145,6 +12046,16 @@
 		)
 		(uuid "04509199-84bf-5a04-bd07-15ca2a767871")
 	)
+	(label "PMOD1"
+		(at 170.18 450.85 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "0854a021-2dad-5065-b1da-271e7a9f637d")
+	)
 	(label "R8_RFN"
 		(at 485.14 353.06 180)
 		(effects
@@ -12415,16 +12326,6 @@
 		)
 		(uuid "23aab067-dc84-53cb-84a4-0dccd921af99")
 	)
-	(label "PMOD7"
-		(at 170.18 440.69 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "26ba6f90-a757-599d-8c0b-8e5659b167cd")
-	)
 	(label "R10_RS"
 		(at 170.18 461.01 180)
 		(effects
@@ -12514,16 +12415,6 @@
 			(justify right)
 		)
 		(uuid "33b72458-fcaa-5601-b84e-6ecf3078be66")
-	)
-	(label "PMOD7"
-		(at 238.76 457.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3423374e-cfbd-50f8-bbeb-0b342005a41d")
 	)
 	(label "R9_BUF"
 		(at 629.92 254 0)
@@ -12685,16 +12576,6 @@
 		)
 		(uuid "3e52681d-f943-5d5c-8a0a-95d8d5c38684")
 	)
-	(label "PMOD6"
-		(at 170.18 438.15 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "3f717834-eaf5-5009-ad74-71c34d710e94")
-	)
 	(label "R7_LOJ"
 		(at 73.66 314.96 0)
 		(effects
@@ -12704,16 +12585,6 @@
 			(justify left)
 		)
 		(uuid "3ff894ea-e1fb-5b43-8177-96b40e21bf0e")
-	)
-	(label "PMOD7"
-		(at 551.18 440.69 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "4008e48b-47d7-5a7a-810e-ac489942edea")
 	)
 	(label "R5_IN"
 		(at 48.26 187.96 0)
@@ -12735,16 +12606,6 @@
 		)
 		(uuid "42c78b83-bcdb-5de3-b52f-ee89f891baa8")
 	)
-	(label "PMOD_VCC"
-		(at 238.76 464.82 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "42e8250d-1b8f-5092-abd0-4d71e339ca42")
-	)
 	(label "R7_LON"
 		(at 170.18 328.93 180)
 		(effects
@@ -12764,6 +12625,16 @@
 			(justify right)
 		)
 		(uuid "433c0398-32ad-58b8-a3cf-111ab3b23e13")
+	)
+	(label "PMOD5"
+		(at 220.98 464.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "436bb95f-bebe-5c81-81dc-0b70d347705a")
 	)
 	(label "R8_LOC"
 		(at 683.26 353.06 180)
@@ -12924,6 +12795,16 @@
 			(justify left)
 		)
 		(uuid "4d795098-a5e0-521b-b2a1-1084d9c85b3c")
+	)
+	(label "PMOD3"
+		(at 170.18 438.15 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "508b61fb-8020-5369-8247-1ce2f50c0ed1")
 	)
 	(label "R9_LEDY"
 		(at 464.82 254 0)
@@ -13145,16 +13026,6 @@
 		)
 		(uuid "644c9cc8-1b63-5961-ba4d-646686606b29")
 	)
-	(label "PMOD3"
-		(at 220.98 457.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "649090b5-732e-57dd-8b87-b57526029443")
-	)
 	(label "R11_V33"
 		(at 525.78 505.46 180)
 		(effects
@@ -13174,6 +13045,16 @@
 			(justify left)
 		)
 		(uuid "666305e9-96ee-56b5-9e9d-ddf922da883f")
+	)
+	(label "PMOD4"
+		(at 299.72 492.76 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "67a03d4b-ad93-5261-ae7f-a431b90db78d")
 	)
 	(label "R5_OUT_A"
 		(at 121.92 223.52 0)
@@ -13215,16 +13096,6 @@
 		)
 		(uuid "6884ac4d-2ade-5f85-a3fa-bcd6ed57e15f")
 	)
-	(label "PMOD6"
-		(at 551.18 438.15 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "698176a7-2e7f-599e-9c3a-95e3d8927c55")
-	)
 	(label "R11_V33"
 		(at 632.46 492.76 180)
 		(effects
@@ -13234,6 +13105,16 @@
 			(justify right)
 		)
 		(uuid "6d446716-9d7f-53ba-aa2f-ff279bac34d5")
+	)
+	(label "PMOD4"
+		(at 170.18 443.23 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6d4b5311-3816-5c61-8079-fd5892f9ea6b")
 	)
 	(label "R9_CC2"
 		(at 474.98 195.58 0)
@@ -13285,6 +13166,16 @@
 		)
 		(uuid "701c827f-be72-5b16-b8a2-5576ec8b952c")
 	)
+	(label "PMOD6"
+		(at 220.98 462.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "712f3966-7d66-5737-808f-3b80eca01125")
+	)
 	(label "R10_TN"
 		(at 170.18 458.47 180)
 		(effects
@@ -13294,6 +13185,16 @@
 			(justify right)
 		)
 		(uuid "7203181f-da68-5049-a051-0a9a7eb3d83e")
+	)
+	(label "PMOD_VCC"
+		(at 238.76 452.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "72fa7664-d1dc-59be-894f-e4c359823145")
 	)
 	(label "R7_LON"
 		(at 269.24 353.06 180)
@@ -13415,16 +13316,6 @@
 		)
 		(uuid "7d536338-efa7-5ae4-9860-44e54bbdcc3a")
 	)
-	(label "PMOD6"
-		(at 238.76 454.66 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7fe744e6-05fd-52dd-b174-2d858458a028")
-	)
 	(label "R10_VS"
 		(at 129.54 457.2 180)
 		(effects
@@ -13514,16 +13405,6 @@
 			(justify left)
 		)
 		(uuid "8665c099-0780-5d00-b548-a5e67d277557")
-	)
-	(label "PMOD5"
-		(at 238.76 452.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "86fd602f-4cf5-5e04-9cc5-4b629f284a8c")
 	)
 	(label "R11_AP"
 		(at 579.12 450.85 0)
@@ -13775,16 +13656,6 @@
 		)
 		(uuid "9b3c17fc-5dc2-5b96-a475-9d91e2a9ff97")
 	)
-	(label "PMOD8"
-		(at 170.18 450.85 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9c61de42-e33b-53d6-b0af-82e786749570")
-	)
 	(label "R5_VD"
 		(at 144.78 223.52 180)
 		(effects
@@ -13845,15 +13716,15 @@
 		)
 		(uuid "a8939b77-bc18-5744-bed8-6aa2378ac82a")
 	)
-	(label "PMOD5"
-		(at 170.18 443.23 180)
+	(label "PMOD2"
+		(at 238.76 462.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
-		(uuid "ab09d57d-727e-54ea-b67a-d258afddb92d")
+		(uuid "a9df1a76-6d57-5b5d-a993-038d0345840f")
 	)
 	(label "R11_NF"
 		(at 551.18 466.09 180)
@@ -13874,6 +13745,16 @@
 			(justify right)
 		)
 		(uuid "af5de2d9-6491-5807-afb3-ef6cb3b5798d")
+	)
+	(label "PMOD2"
+		(at 551.18 440.69 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "b178b470-6308-51c1-8569-38a33b9053d8")
 	)
 	(label "R10_RS"
 		(at 73.66 518.16 180)
@@ -14005,16 +13886,6 @@
 		)
 		(uuid "c4965119-aea6-5ee4-b7b1-0961570f740d")
 	)
-	(label "PMOD8"
-		(at 238.76 459.74 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c50f92e9-605b-54a2-a277-6735406ed473")
-	)
 	(label "R9_LEDY"
 		(at 431.8 254 0)
 		(effects
@@ -14054,6 +13925,16 @@
 			(justify right)
 		)
 		(uuid "c7296aa6-f2e8-5ea3-b12c-1b961bd4a48b")
+	)
+	(label "PMOD_VCC"
+		(at 220.98 452.12 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c7d3c6e7-c3d8-5436-8aaa-b84e6637ef2d")
 	)
 	(label "R11_AP"
 		(at 538.48 505.46 0)
@@ -14145,16 +14026,6 @@
 		)
 		(uuid "d0684e1c-bf2d-5868-84fd-ec20e9a8615d")
 	)
-	(label "PMOD4"
-		(at 220.98 459.74 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "d1199354-2ecc-58ae-b6d2-029ee1f28c44")
-	)
 	(label "R11_N2"
 		(at 596.9 492.76 180)
 		(effects
@@ -14245,6 +14116,16 @@
 		)
 		(uuid "d9ff3101-b1d2-5fc2-ad94-65d97df5c8b6")
 	)
+	(label "PMOD5"
+		(at 551.18 450.85 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "da2cf257-1ba4-5def-b384-e9b6c4e4b3f1")
+	)
 	(label "R9_REF"
 		(at 617.22 254 180)
 		(effects
@@ -14325,6 +14206,16 @@
 		)
 		(uuid "e2fd1622-edee-5e45-a710-0d8a8ed6f83b")
 	)
+	(label "PMOD6"
+		(at 551.18 443.23 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e4b1f18e-8d17-5989-81fa-474b61796d74")
+	)
 	(label "R8_V33"
 		(at 452.12 353.06 180)
 		(effects
@@ -14364,6 +14255,26 @@
 			(justify right)
 		)
 		(uuid "e707bf59-d989-5ff2-9b06-ee5db59f90b4")
+	)
+	(label "PMOD1"
+		(at 238.76 464.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e82de020-07b3-5575-bd63-a3b374967295")
+	)
+	(label "PMOD3"
+		(at 551.18 438.15 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e839abce-1ba3-5085-ac5d-62df1c49f970")
 	)
 	(label "R7_IFN"
 		(at 182.88 353.06 0)
@@ -14405,6 +14316,26 @@
 		)
 		(uuid "ed583a89-2aac-5130-a502-cbf60cb5ab26")
 	)
+	(label "PMOD4"
+		(at 238.76 457.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ed626d26-3db5-5487-acee-dd938032619c")
+	)
+	(label "PMOD3"
+		(at 238.76 459.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eda144eb-2f04-51f4-852b-0070ba7c24f6")
+	)
 	(label "R10_BF"
 		(at 109.22 518.16 180)
 		(effects
@@ -14424,26 +14355,6 @@
 			(justify right)
 		)
 		(uuid "f18cd0a2-d640-5db9-a374-4b543df2494e")
-	)
-	(label "PMOD4"
-		(at 551.18 450.85 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f40f957e-0e9c-5481-987a-33bf8c9f8345")
-	)
-	(label "PMOD5"
-		(at 299.72 492.76 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "f43311cb-feb0-5417-b601-49417f2352d7")
 	)
 	(label "R5_IN"
 		(at 38.1 223.52 180)
@@ -14465,15 +14376,15 @@
 		)
 		(uuid "f98ad52b-8083-5516-acf7-be49f5ecd496")
 	)
-	(label "PMOD3"
-		(at 680.72 492.76 0)
+	(label "PMOD2"
+		(at 170.18 440.69 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
-		(uuid "f99b70cc-ff04-5f1c-81a9-f581f316a558")
+		(uuid "fa163776-6e53-5d99-aec8-f95fefe8705e")
 	)
 	(label "R12_IN_A"
 		(at 241.3 223.52 0)
@@ -14495,16 +14406,6 @@
 		)
 		(uuid "fcf383e6-5634-5898-aa92-f5a8cfc978fc")
 	)
-	(label "PMOD3"
-		(at 551.18 443.23 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "fd5e8549-cc2e-50b5-9faf-473f64b13874")
-	)
 	(label "R10_CP"
 		(at 193.04 492.76 0)
 		(effects
@@ -14515,15 +14416,15 @@
 		)
 		(uuid "fdace639-3465-5c2d-a77b-1507e5aab6da")
 	)
-	(label "PMOD_VCC"
-		(at 220.98 464.82 180)
+	(label "PMOD6"
+		(at 680.72 492.76 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
-		(uuid "fdcaa3e9-7922-54ba-84f6-09bcca79e627")
+		(uuid "ff5ac566-e242-5b84-a3a8-a034202c16ea")
 	)
 	(label "R7_RFN"
 		(at 137.16 353.06 180)
@@ -18787,7 +18688,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 238.76 462.28 0)
+		(at 238.76 454.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -18797,7 +18698,7 @@
 		(dnp no)
 		(uuid "238b4653-29ec-508a-940c-2c59a08e6be9")
 		(property "Reference" "#PWR10017"
-			(at 238.76 454.66 0)
+			(at 238.76 447.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18808,7 +18709,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 238.76 469.9 0)
+			(at 238.76 462.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18819,7 +18720,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 238.76 462.28 0)
+			(at 238.76 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18830,7 +18731,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 238.76 462.28 0)
+			(at 238.76 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18841,7 +18742,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 238.76 462.28 0)
+			(at 238.76 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23273,80 +23174,6 @@
 			(project "rf_mod"
 				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
 					(reference "J501")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 73.66 543.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "46c32e25-e3b8-594b-aada-88acb2236485")
-		(property "Reference" "MH4"
-			(at 73.66 540.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 73.66 547.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 73.66 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 73.66 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 73.66 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "rf_mod"
-				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
-					(reference "MH4")
 					(unit 1)
 				)
 			)
@@ -28710,80 +28537,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 48.26 543.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "755d25ce-8f3c-5099-a8c5-889138fa62eb")
-		(property "Reference" "MH2"
-			(at 48.26 540.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 48.26 547.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 48.26 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 48.26 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 48.26 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "rf_mod"
-				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
-					(reference "MH2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 459.74 77.47 0)
 		(unit 1)
@@ -33536,7 +33289,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 220.98 462.28 0)
+		(at 220.98 454.66 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -33546,7 +33299,7 @@
 		(dnp no)
 		(uuid "a6b3ff03-a52d-5bc6-a554-7a4a5b245404")
 		(property "Reference" "#PWR10016"
-			(at 220.98 454.66 0)
+			(at 220.98 447.04 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -33557,7 +33310,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 220.98 469.9 0)
+			(at 220.98 462.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -33568,7 +33321,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 220.98 462.28 0)
+			(at 220.98 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -33579,7 +33332,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 220.98 462.28 0)
+			(at 220.98 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -33590,7 +33343,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 220.98 462.28 0)
+			(at 220.98 454.66 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -41265,154 +41018,6 @@
 			(project "rf_mod"
 				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
 					(reference "U902")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 60.96 543.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "da9584b5-b944-592e-83a1-ea899b4ab487")
-		(property "Reference" "MH3"
-			(at 60.96 540.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 60.96 547.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 60.96 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 60.96 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 60.96 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "rf_mod"
-				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
-					(reference "MH3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Mechanical:MountingHole")
-		(at 35.56 543.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "dba26c71-f4c6-56ca-8004-aff376721f94")
-		(property "Reference" "MH1"
-			(at 35.56 540.06 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "MountingHole"
-			(at 35.56 547.06 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 35.56 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 35.56 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" ""
-			(at 35.56 543.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(instances
-			(project "rf_mod"
-				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
-					(reference "MH1")
 					(unit 1)
 				)
 			)

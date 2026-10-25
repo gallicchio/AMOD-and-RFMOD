@@ -2086,7 +2086,7 @@
     "USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
     "(0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their",
     "headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives",
-    "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; a tee feeds both synthesizers).",
+    "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers).",
     "The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled."
    ],
    "top_pour": false,
@@ -5766,7 +5766,7 @@
     "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
     "and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and",
     "100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are",
-    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1."
    ],
    "top_pour": true,
    "fine": true,
@@ -5907,9 +5907,9 @@
      "y": 10.5,
      "rot": 270,
      "pins": {
-      "1": "/PMOD6",
-      "2": "/PMOD7",
-      "3": "/PMOD5",
+      "1": "/PMOD3",
+      "2": "/PMOD2",
+      "3": "/PMOD4",
       "4": "/R10_V33",
       "6": "/R10_V33",
       "7": "/R10_CP",
@@ -5933,7 +5933,7 @@
       "27": "GND",
       "28": "/R10_V33",
       "29": "/R10_REFI",
-      "30": "/PMOD8",
+      "30": "/PMOD1",
       "31": "GND",
       "32": "/R10_V33",
       "33": "GND"
@@ -6020,7 +6020,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/PMOD5"
+      "2": "/PMOD4"
      },
      "label": null,
      "hide_value": false
@@ -6253,20 +6253,20 @@
      "ref": "J1003",
      "key": "PMOD",
      "value": "Pmod",
-     "x": 8.05,
+     "x": 2.97,
      "y": 24.25,
      "rot": 0,
      "pins": {
-      "2": "/PMOD5",
-      "4": "/PMOD6",
-      "6": "/PMOD7",
-      "8": "/PMOD8",
-      "5": "/PMOD3",
-      "7": "/PMOD4",
-      "9": "GND",
-      "10": "GND",
-      "11": "/PMOD_VCC",
-      "12": "/PMOD_VCC"
+      "6": "/PMOD4",
+      "8": "/PMOD3",
+      "10": "/PMOD2",
+      "12": "/PMOD1",
+      "9": "/PMOD6",
+      "11": "/PMOD5",
+      "3": "GND",
+      "4": "GND",
+      "1": "/PMOD_VCC",
+      "2": "/PMOD_VCC"
      },
      "label": null,
      "hide_value": true
@@ -6649,7 +6649,7 @@
      false
     ],
     [
-     "/PMOD5",
+     "/PMOD4",
      [
       [
        "U1002",
@@ -6674,7 +6674,7 @@
      false
     ],
     [
-     "/PMOD6",
+     "/PMOD3",
      [
       [
        "U1002",
@@ -6699,7 +6699,7 @@
      false
     ],
     [
-     "/PMOD7",
+     "/PMOD2",
      [
       [
        "U1002",
@@ -6728,7 +6728,7 @@
      false
     ],
     [
-     "/PMOD5",
+     "/PMOD4",
      [
       [
        15.1,
@@ -6791,7 +6791,7 @@
      false
     ],
     [
-     "/PMOD8",
+     "/PMOD1",
      [
       [
        "U1002",
@@ -7352,20 +7352,20 @@
      [
       [
        "J1003",
-       "11"
+       "1"
       ],
       [
        "J1003",
-       "12"
+       "2"
       ]
      ],
      0.35,
      "F.Cu",
-     true,
+     false,
      false
     ],
     [
-     "/PMOD5",
+     "/PMOD4",
      [
       [
        15.1,
@@ -7381,7 +7381,7 @@
       ],
       [
        "J1003",
-       "2"
+       "6"
       ]
      ],
      0.15,
@@ -7390,7 +7390,7 @@
      true
     ],
     [
-     "/PMOD6",
+     "/PMOD3",
      [
       [
        16.1,
@@ -7406,7 +7406,7 @@
       ],
       [
        "J1003",
-       "4"
+       "8"
       ]
      ],
      0.15,
@@ -7415,7 +7415,7 @@
      true
     ],
     [
-     "/PMOD7",
+     "/PMOD2",
      [
       [
        16.6,
@@ -7431,7 +7431,7 @@
       ],
       [
        "J1003",
-       "6"
+       "10"
       ]
      ],
      0.15,
@@ -7440,7 +7440,7 @@
      true
     ],
     [
-     "/PMOD8",
+     "/PMOD1",
      [
       [
        18.3,
@@ -7456,7 +7456,7 @@
       ],
       [
        "J1003",
-       "8"
+       "12"
       ]
      ],
      0.15,
@@ -7503,19 +7503,19 @@
      true
     ],
     [
-     "/PMOD5",
+     "/PMOD4",
      15.1,
      4.3,
      true
     ],
     [
-     "/PMOD6",
+     "/PMOD3",
      16.1,
      5.6,
      true
     ],
     [
-     "/PMOD7",
+     "/PMOD2",
      16.6,
      2.4,
      true
@@ -7527,7 +7527,7 @@
      true
     ],
     [
-     "/PMOD8",
+     "/PMOD1",
      18.3,
      10.55,
      true
@@ -7977,7 +7977,7 @@
     "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
     "and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and",
     "100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are",
-    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through a tee."
+    "tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1."
    ],
    "top_pour": true,
    "fine": true,
@@ -8118,9 +8118,9 @@
      "y": 10.5,
      "rot": 270,
      "pins": {
-      "1": "/PMOD6",
-      "2": "/PMOD7",
-      "3": "/PMOD3",
+      "1": "/PMOD3",
+      "2": "/PMOD2",
+      "3": "/PMOD6",
       "4": "/R11_V33",
       "6": "/R11_V33",
       "7": "/R11_CP",
@@ -8144,7 +8144,7 @@
       "27": "GND",
       "28": "/R11_V33",
       "29": "/R11_REFI",
-      "30": "/PMOD4",
+      "30": "/PMOD5",
       "31": "GND",
       "32": "/R11_V33",
       "33": "GND"
@@ -8231,7 +8231,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/PMOD3"
+      "2": "/PMOD6"
      },
      "label": null,
      "hide_value": false
@@ -8838,7 +8838,7 @@
      false
     ],
     [
-     "/PMOD3",
+     "/PMOD6",
      [
       [
        "U1102",
@@ -8863,7 +8863,7 @@
      false
     ],
     [
-     "/PMOD6",
+     "/PMOD3",
      [
       [
        "U1102",
@@ -8888,7 +8888,7 @@
      false
     ],
     [
-     "/PMOD7",
+     "/PMOD2",
      [
       [
        "U1102",
@@ -8913,7 +8913,7 @@
      false
     ],
     [
-     "/PMOD3",
+     "/PMOD6",
      [
       [
        15.1,
@@ -8976,7 +8976,7 @@
      false
     ],
     [
-     "/PMOD4",
+     "/PMOD5",
      [
       [
        "U1102",
@@ -9533,7 +9533,7 @@
      false
     ],
     [
-     "/PMOD4",
+     "/PMOD5",
      [
       [
        18.3,
@@ -9588,19 +9588,19 @@
      true
     ],
     [
-     "/PMOD3",
+     "/PMOD6",
      15.1,
      4.3,
      true
     ],
     [
-     "/PMOD6",
+     "/PMOD3",
      16.1,
      5.6,
      true
     ],
     [
-     "/PMOD7",
+     "/PMOD2",
      15.6,
      3.4,
      true
@@ -9612,7 +9612,7 @@
      true
     ],
     [
-     "/PMOD4",
+     "/PMOD5",
      18.3,
      10.55,
      true
@@ -9648,7 +9648,7 @@
      false
     ],
     [
-     "/PMOD4",
+     "/PMOD5",
      18.3,
      21.0,
      false
@@ -10104,7 +10104,7 @@
  ],
  "back_wires": [
   [
-   "/PMOD6",
+   "/PMOD3",
    [
     [
      66.85,
@@ -10125,7 +10125,7 @@
    ]
   ],
   [
-   "/PMOD7",
+   "/PMOD2",
    [
     [
      66.35,
@@ -10146,7 +10146,7 @@
    ]
   ],
   [
-   "/PMOD3",
+   "/PMOD6",
    [
     [
      65.85,
@@ -10169,7 +10169,7 @@
  ],
  "front_wires": [
   [
-   "/PMOD4",
+   "/PMOD5",
    [
     [
      69.05,
@@ -10194,6 +10194,25 @@
  "qr_at": [
   80.0,
   40.5
+ ],
+ "holes": [],
+ "feet": [
+  [
+   5.0,
+   5.0
+  ],
+  [
+   95.0,
+   5.0
+  ],
+  [
+   95.0,
+   95.0
+  ],
+  [
+   5.0,
+   85.0
+  ]
  ],
  "stem": "rf_mod"
 }

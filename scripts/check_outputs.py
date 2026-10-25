@@ -222,6 +222,40 @@ def check_codes(problems, notes):
     notes.append(f"{seen} LCSC codes match JLCPCB's own descriptions (MPN, value, package)")
 
 
+def check_pmod(stem, problems, notes):
+    """Every Pmod plug's pads carry the nets the Pmod standard puts there.  The plug's footprint is JLCPCB's drawing, whose
+    numbering runs the opposite way from KiCad's horizontal header (pad 1 at the other end, on the row nearest the body):
+    JLCPCB's pad p is KiCad's pad 13 - p, and KiCad's pad q is Pmod pin (q + 1) / 2 (odd q) or q / 2 + 6 (even q), the
+    numbering the ECP5 board's sockets use.  Rev A's first layout used KiCad's rule on JLCPCB's numbering and mirrored every
+    line; this check is why that cannot happen twice."""
+    import json
+    path = os.path.join(ROOT, "out", stem + "_geom.json")
+    if not os.path.exists(path):
+        return
+    pads = json.load(open(path))["pads"]
+    want = {1: "/PMOD1", 2: "/PMOD2", 3: "/PMOD3", 4: "/PMOD4", 5: "GND", 6: "/PMOD_VCC",
+            7: "/PMOD5", 8: "/PMOD6", 9: "/PMOD7", 10: "/PMOD8", 11: "GND", 12: "/PMOD_VCC"}
+    refs = {p["ref"] for p in pads if p["ref"].startswith("J")}
+    n = 0
+    for ref in sorted(refs):
+        mine = [p for p in pads if p["ref"] == ref]
+        nums = {p["pad"] for p in mine}
+        if nums != {str(k) for k in range(1, 13)} or not any(p["net"].startswith("/PMOD") for p in mine):
+            continue
+        for p in mine:
+            q = 13 - int(p["pad"])
+            pin = (q + 1) // 2 if q % 2 else q // 2 + 6
+            net = p["net"]
+            if net in ("", None) or net.startswith("unconnected"):
+                if want[pin].startswith("/PMOD") and want[pin] != "/PMOD_VCC":
+                    continue                                 # an unused IO line
+            if net != want[pin]:
+                problems.append(f"{stem}: {ref} pad {p['pad']} is Pmod pin {pin}, which must be {want[pin]}, and carries {net}")
+        n += 1
+    if n:
+        notes.append(f"{stem}: {n} Pmod plug(s): every pad's net is the Pmod standard's for its pin")
+
+
 def check_stock(problems, notes):
     """Every chosen part had stock when the design was frozen."""
     low = []
@@ -244,6 +278,7 @@ def main():
     check(stem, parts.BOARDS[stem]["layers"], G.BOARD, G.BOARD, problems, notes)
     check_models(stem, problems, notes)
     check_stock(problems, notes)
+    check_pmod(stem, problems, notes)
     check_codes(problems, notes)
     for n in notes:
         print(f"  ok   {n}")

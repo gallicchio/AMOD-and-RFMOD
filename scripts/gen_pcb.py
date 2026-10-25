@@ -54,6 +54,7 @@ SHARE_FP = None
 SILK_W, SILK_CLEAR = 0.3, 0.3
 VIA_DIA, VIA_DRILL = 0.6, 0.3
 FINE_VIA_DIA, FINE_VIA_DRILL = 0.45, 0.25     # beside a 0.5 mm pitch QFN (JLCPCB: 0.35 / 0.2 at least)
+FOOT_R = 4.0                           # an 8 mm adhesive bumper (3M SJ5303 class, about 2 mm tall)
 RF_W = 0.29                            # tiles.RF_W: a wire this wide is a 50 ohm line and gets a via fence
 RF_GAP = 0.25                          # the top pour's distance from it (the RF net class says the same)
 FENCE_OFF, FENCE_PITCH = RF_W / 2 + RF_GAP + 0.45, 1.0      # fence vias: 0.845 off the line's centre, every 1.0 mm
@@ -198,7 +199,7 @@ class Board:
             for ref, p in t.parts.items():
                 bx, by = t.to_board((p.x, p.y))
                 self.place_table[ref] = (bx, by, p.rot, t, p)
-        for i, (hx, hy) in enumerate(G.HOLES):
+        for i, (hx, hy) in enumerate(self.meta.get("holes", G.HOLES)):
             self.place_table["MH%d" % (i + 1)] = (hx, hy, 0, None, None)
         for i, (gx, gy) in enumerate(self.meta["gnd_loops"]):
             self.place_table["TP%d" % (9901 + i)] = (gx, gy, 0, None, None)
@@ -955,6 +956,15 @@ class Board:
         lines = self.meta["back_text"]
         for i, line in enumerate(lines):
             self._text(self.meta.get("back_text_x", 50.0), BACK_Y + i * BACK_PITCH, line, 0.8, 0.15, justify="center", layer=pcbnew.B_SilkS)
+        # stick-on rubber feet where a board has no mounting holes: an 8 mm circle on the back for each, clear of every hole
+        for (fx, fy) in self.meta.get("feet", []):
+            self._circle(fx, fy, FOOT_R, layer=pcbnew.B_SilkS)
+            self._text(fx, fy, "FOOT", 0.8, 0.15, justify="center", layer=pcbnew.B_SilkS)
+            for key, p in self.pads.items():
+                if p["through"] and math.hypot(p["x"] - fx, p["y"] - fy) < FOOT_R + 1.0:
+                    self.problems.append("foot at (%.1f, %.1f): through-hole pad %s under it" % (fx, fy, key))
+            for (n2, vx, vy) in self.vias:
+                pass                                          # tented vias under a foot are fine
         qx, qy = self.meta.get("qr_at") or QR_AT
         n, rects = self.add_qr("https://" + parts.URL, qx, qy, QR_MODULE)
         half = n * QR_MODULE / 2
