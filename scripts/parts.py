@@ -313,6 +313,10 @@ PASSIVES = {
     "L0402 18nH": dict(lcsc="C91622", mpn="LQW15AN18NG00D", jlc_type="extended", stock=46287, price=0.0506, note="Murata LQW15: the QPL9547's supply choke (Qorvo's 18 nH)"),
     "R0402 75R": dict(lcsc="C25133", mpn="0402WGF750JTCE", jlc_type="extended", stock=1170071, price=0.0013, note="the TRF3722's negative baseband bias (100 || 270)"),
     "C0402 10nF": dict(lcsc="C15195", mpn="CL05B103KB5NNNC", jlc_type="basic", stock=6830429, price=0.0039, note="X7R: the TRF3722's loop-filter zero"),
+    # --- AMOD-A rev A after Prompt 13: the impedance tile's reference resistors ---
+    "R0402 47R": dict(lcsc="C25118", mpn="0402WGF470JTCE", jlc_type="basic", stock=1838822, price=0.0012, note="A10's 47 ohm range"),
+    "R0402 4.7k": dict(lcsc="C25900", mpn="0402WGF4701TCE", jlc_type="basic", stock=14689108, price=0.0021, note="A10's 4.7 k range"),
+    "R0402 47k": dict(lcsc="C25792", mpn="0402WGF4702TCE", jlc_type="basic", stock=6700528, price=0.0020, note="A10's 47 k range"),
     "R0402 100k": dict(lcsc="C25741", mpn="0402WGF1003TCE", jlc_type="basic", stock=7850595, price=0.0015),
 }
 

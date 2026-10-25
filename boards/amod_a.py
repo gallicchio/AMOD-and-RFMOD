@@ -197,7 +197,7 @@ def opa_tile(t, rg_key, rg_label, chip="OPA810", rf_key="R0805 10k", jack_in=Tru
     return u
 
 
-def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=True, dx=0.0, neg="bottom", in_from=None, legend=True):
+def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=True, dx=0.0, neg="bottom", in_from=None, legend=True, loop=True):
     """The non-inverting gain tile with OUT at the bottom-right jack (rev A after Prompt 12: the jacks in a checkerboard).
     Everything is 0603 and sits in the two quarters the jacks and the power header leave.  The op amp (SOT-23-5 at rot
     270: +IN, V-, OUT along the top, -IN and V+ along the bottom) stands in the top-right quarter at (12.2, 6.9); the IN
@@ -242,11 +242,12 @@ def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=
     ro = t.add("R", "R0603 49.9R", "49.9", X(15.25), 7.6, 270, {"1": "OUT_A", "2": "OUT"}, label=None)      # pad 1 up
     t.wire("OUT_A", [(u, "1"), (X(13.15), 5.76), (X(14.1), 5.76), (X(14.1), 10.5), (rf, "2")])
     t.wire("OUT_A", [(X(14.1), 5.76), (X(15.25), 5.76), (ro, "1")])
-    out_jack = [j["ref"] for j in t.jacks if j["slot"] in ("BR", "BR1")][0]
+    out_jack = [j["ref"] for j in t.jacks if j["slot"] in ("BR", "BR0", "BR1")][0]
     t.wire("OUT", [(ro, "2"), (out_jack, "1")])
-    tp = t.loop("OUT", X(17.45), 9.2, 90, "OUT", label_at="hide")
-    t.wire("OUT", [(X(15.25), 9.6), (X(16.35), 9.6)])
-    t.wire("OUT", [(X(16.35), 9.6), (tp, "1")])
+    if loop:
+        tp = t.loop("OUT", X(17.45), 9.2, 90, "OUT", label_at="hide")
+        t.wire("OUT", [(X(15.25), 9.6), (X(16.35), 9.6)])
+        t.wire("OUT", [(X(16.35), 9.6), (tp, "1")])
     # feedback: Rf's left end to -IN above it and Rg beside it
     rg = t.add("R", rg_key, rg_label, X(10.3), 10.6, 270, {"1": "FB", "2": "GND"}, label=None)              # pad 1 up
     t.wire("FB", [(rf, "1"), (X(11.25), 10.5), (u, "4")])
@@ -319,31 +320,35 @@ def tile_a4():
 
 # ------------------------------------------------------------------------------------------------------------ A5 --
 def tile_a5():
-    """Johnson noise: the source resistor (10 k or 1 k by a 2-way DIP, or your own in the 1 x 2 socket) at the +IN of an
-    LT6230 (1.1 nV/rtHz) at x100 (1 k / 10 ohm) in the A2 geometry, 49.9 ohm out.  No IN jack: the socket and DIP sit
-    in its place.  The amplifier's 2 MHz is the noise bandwidth; the bias current (600 nA) makes 10 k a sensible upper
-    limit (0.6 V of DC at the output)."""
-    t = Tile("A5", "noise", [(3, 0)], supply="+-5 V", subtitle="x100", sections=["5.08", "7.05"])
-    t.jack("TR", "OUT", "OUT", "out", "")
+    """10.525 GHz Doppler radar: an HB100 module on three jumper wires to a 1 x 3 header (+5 V from the tile's switch, IF,
+    ground), its IF through 1 uF (100 k to ground) into the A2 geometry at x101 (100 ohm / 10 k), 49.9 ohm out.  1 m/s
+    toward the module is 70 Hz; walking, a fan's blades, a speaker cone and breathing are all within reach.  (Rev A's
+    first A5 was a Johnson-noise amplifier: the ECP5-2ADC-2DAC board has that source and a x100 input of its own.)"""
+    t = Tile("A5", "Doppler", [(3, 0)], supply="+-5 V", subtitle="HB100", sections=["5.08"])
+    t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
-    h = t.add("J", "HDR2", "R", 2.6, 2.6, 90, {"1": "IN", "2": "GND"}, hide_value=True)                      # pins at x 2.6, 5.14
-    sw = t.add("SW", "DIP2", "DIP2", 5.6, 7.1, 270, {"1": "R1K", "2": "R10K", "3": "IN", "4": "IN"}, hide_value=True)   # pads 1, 2 left; 3, 4 right
-    r10 = t.add("R", "R0603 10k", "10k", 2.4, 10.3, 0, {"1": "R10K", "2": "GND"}, label=None)
-    r1 = t.add("R", "R0603 1k", "1k", 5.5, 10.3, 0, {"1": "R1K", "2": "GND"}, label=None)
-    t.wire("IN", [(sw, "3"), (sw, "4"), (9.41, 5.6), (2.6, 5.6), (h, "1")])
-    t.wire("IN", [(sw, "3"), (7.2, 7.735), (7.2, 13.45)])
-    t.wire("R10K", [(sw, "2"), (1.79, 10.3), (r10, "1")])
-    t.wire("R1K", [(sw, "1"), (4.4, 6.465), (4.4, 10.3), (r1, "1")])
-    t.gnd_stub(r10, "2", (3.175, 9.3), sym=(0, 0))
-    t.gnd_stub(r1, "2", (6.275, 11.5), sym=(0, 0))
-    u = opa_tile(t, "R0603 10R", "10R", chip="LT6230", rf_key="R0805 1k", jack_in=False)
-    t.wire("IN", [(7.2, 13.45), (u, "3")])
-    t.text(10.0, 2.4, "A5", 1.5, 0.3, "center")
-    t.text(10.0, 4.4, "5.08", 0.8, 0.15, "center")
-    t.result = "the source resistor's Johnson noise x100: about 1.3 mV rms from 10 k, 0.4 mV from 1 k, 0.16 mV (the amplifier itself) shorted"
-    t.notes = ["4kTR: 12.9 nV/rtHz from 10 k at room temperature, x100 and the LT6230's 2 MHz: 1.3 mV rms.  Both DIP ways off",
-               "with nothing in the socket leaves +IN open: switch one on, or plug a resistor (100 ohm to 10 k) into the socket.",
-               "Keep the scope AC-coupled: 600 nA of bias current puts 0.6 V of DC on the output with 10 k."]
+    hb = t.add("J", "HDR3", "HB100", 3.0, 2.2, 0, {"1": "VS", "2": "IF", "3": "GND"}, hide_value=True)      # pins at y 2.2, 4.74, 7.28
+    cin = t.add("C", "C0805 1uF", "1u", 6.7, 4.74, 0, {"1": "IF", "2": "IN"}, label=None)
+    rb = t.add("R", "R0402 100k", "100k", 9.3, 6.4, 270, {"1": "IN", "2": "GND"}, label=None)                  # pad 1 up
+    t.wire("IF", [(hb, "2"), (cin, "1")])
+    t.wire("IN", [(9.3, 4.75), (rb, "1")])
+    t.gnd_stub(rb, "2", (9.3, 7.9), sym=(0, 0))
+    t.gnd_stub(hb, "3", (4.0, 8.4), sym=(0, 0))
+    opa_tile_br(t, "R0603 100R", "100R", jack_in=False, in_from=[(cin, "2")], legend=False)
+    # the module's 5 V: from the op amp's VS via on the back, along y 12.8 and up the left edge to a via beside pin 1
+    t.via("VS", 1.4, 2.2)
+    t.wire("VS", [(10.2, 13.6), (10.2, 12.8), (1.4, 12.8), (1.4, 2.2)], layer="B.Cu", silk=False)
+    t.wire("VS", [(1.4, 2.2), (hb, "1")])
+    t.text(4.5, 2.2, "+5", 0.8, 0.15, "left")
+    t.text(4.5, 7.28, "G", 0.8, 0.15, "left")
+    t.text(7.6, 1.8, "A5", 1.2, 0.24, "center")
+    t.text(7.6, 3.15, "5.08", 0.8, 0.15, "center")
+    t.text(19.0, 1.65, "DOPPLER 10.5G", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "HB100", 0.8, 0.15, "right")
+    t.result = "the Doppler beat of a target moving toward or away: 70 Hz per m/s (19.4 Hz per km/h), tens of mV after x101"
+    t.notes = ["HB100: a 10.525 GHz oscillator and mixer on one board; its IF is the beat between what it sends and what comes",
+               "back, 2v/lambda = 70 Hz per m/s.  Wire its +5, IF and GND pins to the header; point it at something that moves.",
+               "The host's x10 input after this tile's x101 brings a hand at 1 m to the ADC's range."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -502,7 +507,7 @@ def tile_a11():
     # gaps on the front with 0.2 mm tracks (pads 1, 3) or along the bottom edge (pads 5, 7)
     # the plug two columns left of where the feeds were first laid, so they meet pads 5-11 (the IO columns) and ground and
     # 3.3 V sit on pads 1-4 at the left: JLCPCB's numbering of this part runs the other way from KiCad's (see pmod_plug)
-    pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"5": "/PMOD8", "7": "/PMOD7", "9": "/PMOD6", "11": "/PMOD5", "6": "/PMOD4", "8": "/PMOD3",
+    pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"5": "/PMOD8", "7": "/PMOD7", "9": "/PMOD6", "6": "/PMOD4", "8": "/PMOD3",
                                                       "10": "/PMOD2", "3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"}, hide_value=True)
     t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
     t.wire("/PMOD4", [(11.6, 9.25), (11.6, 20.1), (1.7, 20.1), (pm, "6")], layer="B.Cu", silk=False)
@@ -513,8 +518,6 @@ def tile_a11():
     t.wire("/PMOD7", [(14.75, 20.85), (5.51, 20.85), (5.51, 24.75), (pm, "7")], width=0.2, silk=False)
     t.via("/PMOD6", 16.55, 25.75)
     t.wire("/PMOD6", [(16.55, 25.75), (16.55, 27.15), (6.78, 27.15), (pm, "9")], width=0.2, silk=False)
-    t.via("/PMOD5", 15.85, 26.5)
-    t.wire("/PMOD5", [(15.85, 26.5), (15.85, 26.74), (9.32, 26.74), (pm, "11")], width=0.2, silk=False)
     t.via("/PMOD2", 44.25, 21.5)                                                                          # board (52.0, 93.75)
     t.wire("/PMOD2", [(44.25, 21.5), (6.78, 21.5), (pm, "10")], width=0.2, silk=False)
     t.result = "a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)"
@@ -666,90 +669,63 @@ def tile_a9():
 
 # ----------------------------------------------------------------------------------------------------------- A10 --
 def tile_a10():
-    """Light, two cells, +-5 V.  Left: the PD70 photodiode (reverse-biased from VS) into an OPA810 transimpedance stage
-    (10 k, 10 pF: 1.6 MHz) and out through 49.9 ohm to PD OUT (the TL jack).  Right: DRIVE IN (the TR jack) through 1 k
-    into an OPA810 voltage-to-current source (22 ohm sense: 45 mA per volt) driving the side-view red LED at the board's
-    right edge; a 2N7002 from Pmod IO5 (10 k pull-down) grounds the input for TTL modulation.  The plan's laser terminal
-    and its DIP did not fit beside the jack: solder a module's leads to the LED's pads instead."""
-    t = Tile("A10", "light", [(2, 2), (3, 2)], supply="+-5 V", subtitle="LED + PD", sections=["4.07"])
+    """Impedance and I-V, two cells, +-5 V.  Left: DRIVE IN (50 ohm) into the A2 geometry at x2 (1 k / 1 k): the driven
+    node S, which also leaves through 49.9 ohm on S OUT (the bottom-right jack).  Right: a 4-way DIP picks the reference
+    resistor (47, 470, 4.7 k, 47 k) from S to X, the part under test between X and ground on the DUT jack, and an
+    OPA810 follower brings X out through 49.9 ohm on X OUT.  With the host's two ADCs on S OUT and X OUT (50 ohm: each
+    reads half), I = (S - X) / R and Z = R X / (S - X): an impedance analyzer from DC to a few MHz after an open-short
+    calibration, and an I-V curve tracer to +-4 V and 40 mA.  (Rev A's first A10 was an LED driver and a photodiode
+    amplifier: the ECP5-2ADC-2DAC board has both.)"""
+    t = Tile("A10", "impedance", [(2, 2), (3, 2)], supply="+-5 V", subtitle="V and I", sections=["4.02", "4.10"])
     idx = t.idx
-    t.jack("TL", "PD", "PD", "out", "", silk="PD OUT"); t.jack("TR", "DRV", "DRV", "in", "0-1 V", silk="DRIVE IN")
+    t.jack("TL", "DRIVE", "IN", "in", "+-1 V into 50 ohm", silk="DRIVE IN")
+    t.jack("BR0", "S", "OUT", "out", "", silk="S OUT")
+    jd = t.jack("TL1", "DUT", "X", "out", "", silk="DUT")
+    jx = t.jack("BR1", "X", "XO", "out", "", silk="X OUT")
     power_header(t)
-    # --- the photodiode's transimpedance stage (left cell)
-    pd = t.add("D", "PD70", "PD70", 14.0, 4.6, 0, {"1": "VS", "2": "FB"}, hide_value=True)                 # 1 cathode, 2 anode
-    u1 = t.add("U", "OPA810", "OPA810", 10.5, 12.5, 0, {"1": "OUTA", "2": "-5V", "3": "GND", "4": "FB", "5": "VS"}, hide_value=False, label=None)
-    rf = t.add("R", "R0603 10k", "10k", 10.5, 9.8, 0, {"1": "OUTA", "2": "FB"}, label=None)
-    cf = t.add("C", "C0805 10pF", "10p", 10.5, 8.0, 0, {"1": "OUTA", "2": "FB"}, label=None)
-    ro = t.add("R", "R0805 49.9R", "49.9", 6.6, 9.3, 0, {"1": "PD", "2": "OUTA"}, label=None)
-    cn = t.add("C", "C0603 100nF", "100n", 10.3, 16.0, 0, {"1": "-5V", "2": "GND"}, label=None)
-    cp = t.add("C", "C0603 100nF", "100n", 13.5, 16.0, 0, {"1": "VS", "2": "GND"}, label=None)
-    t.wire("OUTA", [(u1, "1"), (9.363, 9.3), (ro, "2")])
-    t.wire("OUTA", [(9.363, 9.3), (9.363, 8.0), (cf, "1")])
-    t.wire("FB", [(cf, "2"), (13.3, 8.0), (13.3, 13.45), (u1, "4")])
-    t.wire("FB", [(rf, "2"), (13.3, 9.8)])
-    t.wire("FB", [(pd, "2"), (17.6, 9.8), (13.3, 9.8)])
-    t.wire("PD", [(ro, "1"), (4.75, 9.3), (4.75, 4.75), ("J%d01" % idx, "1")])
-    t.gnd_stub(u1, "3", (8.3, 13.45), sym=(0, 0))
-    t.wire("-5V", [(u1, "2"), (10.5, 12.5), (10.5, 15.2), (9.525, 15.2), (cn, "1")])
-    t.wire("-5V", [(cn, "1"), (8.6, 16.0)])
-    t.via("-5V", 8.6, 20.5)
-    t.wire("-5V", [(8.6, 16.0), (8.6, 20.5)], layer="B.Cu", silk=False)
-    t.gnd_stub(cn, "2", (11.075, 17.2), sym=(0, 0))
-    t.gnd_stub(cp, "2", (15.2, 16.0), sym=(0, 0))
-    # VS on the front along y 18.95 to both cells, on the back up to V+, the capacitor and the photodiode's cathode
-    t.wire("VS", [HDR_VS, (8.54, 18.95), (37.2, 18.95)], silk=False)
-    t.via("VS", 12.4, 18.95)
-    t.via("VS", 12.4, 16.0)
-    t.via("VS", 12.4, 12.5)
-    t.via("VS", 10.4, 3.0)
-    t.wire("VS", [(12.4, 18.95), (12.4, 16.0)], layer="B.Cu", silk=False)
-    t.wire("VS", [(12.4, 16.0), (12.4, 12.5)], layer="B.Cu", silk=False)
-    t.wire("VS", [(12.4, 12.5), (12.4, 3.0), (10.4, 3.0)], layer="B.Cu", silk=False)
-    t.wire("VS", [(12.4, 16.0), (cp, "1")])
-    t.wire("VS", [(12.4, 12.5), (12.4, 11.55), (u1, "5")])
-    t.wire("VS", [(10.4, 3.0), (pd, "1")])
-    t.text(26.0, 2.4, "A10  4.07", 0.9, 0.17, "center")
-    # --- the current source and the LED (right cell)
-    u2 = t.add("U", "OPA810", "OPA810", 32.0, 12.5, 0, {"1": "DRV_O", "2": "-5V", "3": "INP", "4": "SENSE", "5": "VS"}, hide_value=False, label=None)
-    rin = t.add("R", "R0805 1k", "1k", 33.6, 9.4, 0, {"1": "INP", "2": "DRV"}, label=None)
-    q2 = t.add("Q", "NFET_S", "2N7002", 26.0, 11.3, 0, {"1": "/PMOD5", "2": "GND", "3": "INP"}, hide_value=True)
-    rpd = t.add("R", "R0603 10k", "10k", 23.3, 11.0, 270, {"1": "/PMOD5", "2": "GND"}, label=None)       # pad 1 up
-    rs = t.add("R", "R0805 22R", "22", 38.5, 14.8, 0, {"1": "SENSE", "2": "GND"}, label=None)
-    led = t.add("LED", "LED_SIDE", "LED", 44.5, 12.0, 270, {"1": "SENSE", "2": "DRV_O"}, hide_value=True)   # faces +x: the board's edge
-    cn2 = t.add("C", "C0603 100nF", "100n", 30.5, 16.5, 0, {"1": "-5V", "2": "GND"}, label=None)
-    cp2 = t.add("C", "C0603 100nF", "100n", 36.0, 12.3, 270, {"1": "VS", "2": "GND"}, label=None)        # pad 1 up
-    t.wire("DRV", [("J%d02" % idx, "1"), (40.8, 4.75), (40.8, 9.4), (rin, "2")])
-    t.wire("INP", [(rin, "1"), (28.5, 9.4), (28.5, 14.5), (30.863, 14.5), (u2, "3")])
-    t.wire("INP", [(q2, "3"), (28.5, 11.3)])
-    t.gnd_stub(q2, "2", (25.062, 13.4), sym=(0, 0))
-    t.wire("/PMOD5", [(q2, "1"), (23.3, 10.35), (rpd, "1")])
-    t.via("/PMOD5", 23.3, 9.2)
-    t.wire("/PMOD5", [(23.3, 9.2), (rpd, "1")])
-    t.wire("GND", [(rpd, "2"), (23.3, 12.1), (22.3, 12.1)])
-    t.via("GND", 22.3, 12.1)
-    t.wire("DRV_O", [(u2, "1"), (30.863, 10.5), (44.725, 10.5), (led, "2")])
-    t.wire("SENSE", [(led, "1"), (42.0, 13.6), (42.0, 16.0), (37.588, 16.0), (rs, "1")])
-    t.wire("SENSE", [(rs, "1"), (35.0, 14.8), (35.0, 13.45), (u2, "4")])
-    t.gnd_stub(rs, "2", (39.412, 13.3), sym=(0, 0))
-    t.via("-5V", 29.7, 10.2)
-    t.wire("-5V", [(u2, "2"), (29.7, 12.5), (29.7, 10.2)])
-    t.via("-5V", 29.7, 16.5)
-    t.via("-5V", 29.7, 20.5)
-    t.wire("-5V", [(29.7, 10.2), (29.7, 16.5)], layer="B.Cu", silk=False)
-    t.wire("-5V", [(29.7, 16.5), (29.7, 20.5)], layer="B.Cu", silk=False)
-    t.wire("-5V", [(29.7, 16.5), (cn2, "1")])
-    t.gnd_stub(cn2, "2", (32.1, 16.5), sym=(0, 0))
-    t.via("VS", 37.2, 18.95)
-    t.via("VS", 37.2, 11.55)
-    t.wire("VS", [(37.2, 18.95), (37.2, 11.55)], layer="B.Cu", silk=False)
-    t.wire("VS", [(37.2, 11.55), (cp2, "1"), (u2, "5")])
-    t.gnd_stub(cp2, "2", (36.0, 14.0), sym=(0, 0))
-    t.text(t.w - 1.1, 18.2, "LIGHT  LED + PD", 0.8, 0.15, "right")
-    t.result = "45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod IO5 is high); PD OUT climbs 10 V per mA of photocurrent"
-    t.notes = ["The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's",
-               "full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod IO5 shorts the input: TTL modulation to",
-               "a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED",
-               "of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up."]
+    opa_tile_br(t, "R0603 1k", "1k", rf_key="R0603 1k", legend=False, loop=False)
+    # S (the driver's output node) right along y 11.2 to the DIP's bus
+    t.wire("OUT_A", [(14.1, 10.5), (14.1, 11.2), (14.5, 11.2)])                     # under S OUT's line on the back
+    t.via("OUT_A", 14.5, 11.2)
+    t.via("OUT_A", 16.0, 11.2)
+    t.wire("OUT_A", [(14.5, 11.2), (16.0, 11.2)], layer="B.Cu", silk=False)
+    t.wire("OUT_A", [(16.0, 11.2), (20.2, 11.2), (20.2, 16.305)])
+    sw = t.add("SW", "DIP4", "DIP4", 24.8, 14.4, 270, {"1": "OUT_A", "2": "OUT_A", "3": "OUT_A", "4": "OUT_A",
+                                                       "8": "R1", "7": "R2", "6": "R3", "5": "R4"}, hide_value=True)
+    ys = (12.495, 13.765, 15.035, 16.305)
+    for k, y in enumerate(ys):
+        t.wire("OUT_A", [(20.2, y), (sw, str(k + 1))])
+    for k, (key, val, y) in enumerate(zip(("R0402 47R", "R0402 470R", "R0402 4.7k", "R0402 47k"), ("47", "470", "4.7k", "47k"), ys)):
+        r = t.add("R", key, val, 30.7, y, 0, {"1": "R%d" % (k + 1), "2": "X"}, label=None)
+        t.wire("R%d" % (k + 1), [(sw, str(8 - k)), (r, "1")])
+        t.wire("X", [(r, "2"), (32.0, y)])
+    t.wire("X", [(32.0, ys[3]), (32.0, 9.5), (26.25, 9.5), (jd, "1")])
+    # the follower on X, its output down into X OUT
+    u2 = t.add("U", "OPA810", "OPA810", 35.4, 6.0, 0, {"1": "XF", "2": "-5V", "3": "X", "4": "XF", "5": "VS"}, hide_value=False, label=None)
+    ro2 = t.add("R", "R0603 49.9R", "49.9", 37.6, 10.2, 270, {"1": "XF", "2": "XO"}, label=None)              # pad 1 up
+    t.wire("X", [(32.0, 9.5), (33.2, 9.5), (33.2, 6.95), (u2, "3")])
+    t.wire("XF", [(u2, "1"), (35.1, 5.05), (35.7, 6.95), (u2, "4")], width=0.2)       # under the body: a follower
+    t.wire("XF", [(u2, "4"), (37.6, 6.95), (ro2, "1")])
+    t.wire("XO", [(ro2, "2"), (37.6, 12.0), (36.75, 12.0), (jx, "1")])
+    cp2 = t.add("C", "C0603 100nF", "100n", 39.4, 5.5, 270, {"1": "VS", "2": "GND"}, label=None)              # pad 1 up
+    cn2 = t.add("C", "C0603 100nF", "100n", 32.0, 4.4, 90, {"1": "-5V", "2": "GND"}, label=None)              # pad 1 down
+    t.wire("VS", [(u2, "5"), (38.5, 5.05), (38.5, 4.725), (cp2, "1")])
+    t.gnd_stub(cp2, "2", (39.4, 7.2), sym=(0, 0))
+    t.wire("-5V", [(u2, "2"), (32.0, 6.0), (cn2, "1")])
+    t.gnd_stub(cn2, "2", (32.0, 2.3), sym=(0, 0))
+    # VS along the bottom on the back from the left cell's header; -5 V from the gutter strip below
+    t.wire("VS", [(10.2, 18.1), (10.2, 19.4), (40.8, 19.4), (40.8, 2.6), (39.4, 2.6), (cp2, "1")], silk=False)
+    t.via("-5V", 31.0, 6.0)
+    t.via("-5V", 31.0, 20.5)
+    t.wire("-5V", [(32.0, 6.0), (31.0, 6.0)])
+    t.wire("-5V", [(31.0, 6.0), (31.0, 20.5)], layer="B.Cu", silk=False)
+    t.text(10.4, 2.0, "A10", 1.2, 0.24, "center")
+    t.text(19.0, 1.65, "4.02 4.10", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "IMPEDANCE", 0.8, 0.15, "right")
+    t.result = "S OUT and X OUT (each half the node's voltage into 50 ohm): Z = R X / (S - X); +-4 V and up to 40 mA for an I-V curve"
+    t.notes = ["DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for",
+               "high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against",
+               "its colour (P12) gives Planck's constant; a crystal (P8) shows its series and parallel resonances."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -763,7 +739,7 @@ def tile_a12():
     class-D runs on the switched +5 V).  No 3.5 mm jack: the one-bit stream is heard on the speaker."""
     t = Tile("A12", "audio", [(2, 3), (3, 3)], supply="+-5 V", sections=["1.05", "6.04"])
     idx = t.idx
-    t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="AUDIO IN"); t.jack("TR", "OUT", "OUT", "out", "", silk="MIC OUT")
+    t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="AUDIO IN"); t.jack("BR1", "OUT", "OUT", "out", "", silk="MIC OUT")
     power_header(t)
     # --- the class-D amplifier (left cell)
     pa = t.add("U", "PAM8302", "PAM8302A", 10.3, 12.6, 270, {"1": "VS", "2": "BYP", "3": "NODE", "4": "INM", "5": "VOP", "6": "VS", "7": "GND", "8": "VOM"},
@@ -775,14 +751,14 @@ def tile_a12():
     cb = t.add("C", "C0603 1uF", "1u", 12.4, 8.0, 0, {"1": "BYP", "2": "GND"}, label=None)
     c100 = t.add("C", "C0603 100nF", "100n", 11.4, 17.5, 0, {"1": "VS", "2": "GND"}, label=None)
     cvdd = t.add("C", "C0805 10uF", "10u", 14.9, 17.3, 0, {"1": "VS", "2": "GND"}, label=None)
-    spk = t.add("J", "TERM2", "SPK", 26.5, 5.5, 0, {"1": "VOP", "2": "VOM"}, hide_value=True)
+    spk = t.add("J", "TERM2", "SPK", 25.6, 6.6, 90, {"1": "VOP", "2": "VOM"}, hide_value=True)            # pads at (25.6, 9.1) and (25.6, 4.1)
     t.wire("AIN", [("J%d01" % idx, "1"), (8.6, 4.75), (8.6, 4.05), (cin, "1")])
     t.wire("NODE", [(cin, "2"), (9.665, 10.125), (pa, "3")])
     t.wire("NODE", [(9.665, 6.0), (15.2, 6.0), (17.225, 6.0), (rdac, "1")])
     t.gnd_stub(cdac, "2", (16.1, 7.45), sym=(0, 0))
     t.via("/PMOD2", 18.775, 3.9)
     t.wire("/PMOD2", [(rdac, "2"), (18.775, 3.9)])
-    t.wire("/PMOD2", [(18.775, 3.9), (18.775, 3.0), (26.5, 3.0), (26.5, 20.5), (1.25, 20.5), (1.25, 21.5)], layer="B.Cu", silk=False)
+    t.wire("/PMOD2", [(18.775, 3.9), (22.0, 3.9), (22.0, 20.5), (1.25, 20.5), (1.25, 21.5)], layer="B.Cu", silk=False)
     t.via("/PMOD2", 1.25, 21.5)                                                                           # board (52.0, 93.75)
     t.wire("INM", [(cm, "1"), (8.395, 10.725), (pa, "4")])
     t.gnd_stub(cm, "2", (6.6, 13.4), sym=(0, 0))
@@ -801,26 +777,26 @@ def tile_a12():
     t.gnd_stub(cvdd, "2", (15.85, 18.2), sym=(0, 0))
     t.via("VOP", 8.395, 16.7)
     t.wire("VOP", [(pa, "5"), (8.395, 16.7)])
-    t.wire("VOP", [(8.395, 16.7), (8.395, 17.3), (21.0, 17.3), (21.0, 5.5), (spk, "1")], layer="B.Cu", silk=False)
-    t.wire("VOM", [(pa, "8"), (14.6, 15.075), (14.6, 8.75), (29.0, 8.75), (spk, "2")])
+    t.wire("VOP", [(8.395, 16.7), (8.395, 17.3), (21.0, 17.3), (21.0, 9.1)], layer="B.Cu", silk=False)
+    t.wire("VOP", [(21.0, 9.1), (spk, "1")])
+    t.wire("VOM", [(pa, "8"), (14.6, 15.075), (14.6, 8.75), (20.4, 8.75), (20.4, 4.1), (spk, "2")])
     t.text(16.7, 2.4, "A12 1.05", 0.9, 0.17, "center")
-    t.text(26.0, 10.4, "SPK", 0.8, 0.15, "center")
-    # --- the microphone amplifier (right cell)
-    mic = t.add("J", "HDR2", "MIC", 22.5, 15.5, 90, {"1": "MICP", "2": "GND"}, hide_value=True)             # pins at x 22.5, 25.04
-    rb = t.add("R", "R0805 2.2k", "2.2k", 23.77, 11.3, 270, {"1": "VS", "2": "MICP"}, label=None)          # pad 1 up
-    cc = t.add("C", "C0805 1uF", "1u", 28.3, 12.5, 270, {"1": "MICP", "2": "IN"}, label=None)               # pad 1 up
-    t.wire("MICP", [(mic, "1"), (22.5, 12.0), (28.3, 12.0), (cc, "1")])
-    t.wire("MICP", [(rb, "2"), (23.77, 12.0)])
-    t.via("VS", 23.77, 9.6)
-    t.via("VS", 23.77, 18.4)
-    t.wire("VS", [(23.77, 9.6), (rb, "1")])
-    t.wire("VS", [(23.77, 9.6), (23.77, 18.4)], layer="B.Cu", silk=False)
-    t.wire("VS", [HDR_VS, (8.54, 18.9), (31.7, 18.9), (31.7, 18.5)], silk=False)
-    t.wire("VS", [(23.77, 18.4), (23.77, 18.9)], silk=False)
-    u = opa_tile(t, "R0805 100R", "100R", jack_in=False, dx=21.5, vs_feed=False, neg_via=(40.9, -0.75),
-                 neg_route=[(31.9, 17.4), (32.9, 17.4), (32.9, 18.2), (40.9, 18.2)])
-    t.wire("IN", [(cc, "2"), (u, "3")])
-    t.text(20.9, 15.5, "MIC", 0.8, 0.15, "right")
+    t.text(26.5, 13.0, "SPK", 0.8, 0.15, "center")
+    # --- the microphone amplifier (right cell): the electret's socket at the bottom, 2.2 k from VS beside it, the signal up
+    # the back past the speaker terminal to 1 uF above it, into the A2 geometry at x100 and down to MIC OUT
+    mic = t.add("J", "HDR2", "MIC", 23.6, 17.0, 90, {"1": "MICP", "2": "GND"}, hide_value=True)             # pins at x 23.6, 26.14
+    rb = t.add("R", "R0805 2.2k", "2.2k", 29.0, 16.6, 90, {"1": "VS", "2": "MICP"}, label=None)            # pad 1 down
+    cc = t.add("C", "C0603 1uF", "1u", 31.5, 2.4, 0, {"1": "MICP", "2": "IN"}, label=None)
+    t.wire("MICP", [(mic, "1"), (23.6, 15.0), (29.0, 15.0), (rb, "2")])
+    t.wire("MICP", [(rb, "2"), (29.9, 15.65)])
+    t.via("MICP", 29.9, 15.65)
+    t.via("MICP", 29.9, 3.4)
+    t.wire("MICP", [(29.9, 15.65), (29.9, 3.4)], layer="B.Cu", silk=False)
+    t.wire("MICP", [(29.9, 3.4), (30.725, 3.4), (cc, "1")])
+    t.wire("VS", [HDR_VS, (8.54, 18.9), (31.7, 18.9), (31.7, 18.1)], silk=False)
+    t.wire("VS", [(rb, "1"), (29.0, 18.9)], silk=False)
+    opa_tile_br(t, "R0603 100R", "100R", jack_in=False, dx=21.5, neg="top", legend=False, in_from=[(cc, "2"), (32.75, 2.4)])
+    t.text(22.2, 14.0, "MIC", 0.8, 0.15, "left")
     t.result = "a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
     t.notes = ["PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
                "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
@@ -850,8 +826,7 @@ RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
 # its tile.  Down the back of A9 and A11 at x 21.8 ... 24.3 (left of A9's LO jack and A11's RX socket), kept free there.
 BACK_WIRES = [("/PMOD8", [(14.25, 39.75), (14.25, 48.9), (21.8, 48.9), (21.8, 92.45)]),
               ("/PMOD7", [(25.85, 45.75), (25.85, 48.3), (22.5, 48.3), (22.5, 93.1)]),
-              ("/PMOD6", [(62.112, 30.65), (70.05, 30.65), (70.05, 50.0), (49.7, 50.0), (49.7, 98.0), (24.3, 98.0)]),
-              ("/PMOD5", [(74.05, 59.95), (74.05, 72.0), (50.4, 72.0), (50.4, 98.75), (23.6, 98.75)])]
+              ("/PMOD6", [(62.112, 30.65), (70.05, 30.65), (70.05, 50.0), (49.7, 50.0), (49.7, 98.0), (24.3, 98.0)])]
 BACK_TEXT_X = 71.0                # right of the QR code's captions
 QR_AT = (34.65, 84.25)            # under A11's right cell, left of its jack's legs and below the RX socket: 12.2 mm with no hole
 BACK_TEXT = ["AMOD-A: active blocks on USB-C power.  Each tile",

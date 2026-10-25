@@ -21,7 +21,6 @@ The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 
 - Pmod pin 2 (PMOD2): A12
 - Pmod pin 3 (PMOD3): A11
 - Pmod pin 4 (PMOD4): A11
-- Pmod pin 7 (PMOD5): A10
 - Pmod pin 8 (PMOD6): A8
 - Pmod pin 9 (PMOD7): A6
 - Pmod pin 10 (PMOD8): A6
@@ -71,16 +70,16 @@ Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so 
 
 Parts: OPA847IDBVR (C160422).
 
-### A5  noise, x100
+### A5  Doppler, HB100
 
-Cell (3,0); tutorial 5.08, 7.05; +-5 V.
-Jacks: TR OUT.
+Cell (3,0); tutorial 5.08; +-5 V.
+Jacks: BR OUT.
 
-**Expect:** the source resistor's Johnson noise x100: about 1.3 mV rms from 10 k, 0.4 mV from 1 k, 0.16 mV (the amplifier itself) shorted
+**Expect:** the Doppler beat of a target moving toward or away: 70 Hz per m/s (19.4 Hz per km/h), tens of mV after x101
 
-4kTR: 12.9 nV/rtHz from 10 k at room temperature, x100 and the LT6230's 2 MHz: 1.3 mV rms.  Both DIP ways off with nothing in the socket leaves +IN open: switch one on, or plug a resistor (100 ohm to 10 k) into the socket. Keep the scope AC-coupled: 600 nA of bias current puts 0.6 V of DC on the output with 10 k.
+HB100: a 10.525 GHz oscillator and mixer on one board; its IF is the beat between what it sends and what comes back, 2v/lambda = 70 Hz per m/s.  Wire its +5, IF and GND pins to the header; point it at something that moves. The host's x10 input after this tile's x101 brings a hand at 1 m to the ADC's range.
 
-Parts: DSHP02TSGET (C40735), LT6230CS6#TRPBF (C580235).
+Parts: OPA810IDBVR (C2833513).
 
 ### A6  1-bit ADC
 
@@ -126,16 +125,16 @@ Gilbert cell on +-5 V: signal pair at ground (51 ohm), carrier pair at 2.5 V (51
 
 Parts: MC1496DR2G (C7295).
 
-### A10  light, LED + PD
+### A10  impedance, V and I
 
-Cells (2,2), (3,2); tutorial 4.07; +-5 V.
-Jacks: TL PD OUT; TR DRIVE IN (0-1 V).
+Cells (2,2), (3,2); tutorial 4.02, 4.10; +-5 V.
+Jacks: TL DRIVE IN (+-1 V into 50 ohm); BR0 S OUT; TL1 DUT; BR1 X OUT.
 
-**Expect:** 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod IO5 is high); PD OUT climbs 10 V per mA of photocurrent
+**Expect:** S OUT and X OUT (each half the node's voltage into 50 ohm): Z = R X / (S - X); +-4 V and up to 40 mA for an I-V curve
 
-The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod IO5 shorts the input: TTL modulation to a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up.
+DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against its colour (P12) gives Planck's constant; a crystal (P8) shows its series and parallel resonances.
 
-Parts: E6C1204URAC1UDA (C375479), 2N7002 (C8545), OPA810IDBVR (C2833513), PD70-01C/TR7 (C131196).
+Parts: DSHP04TSGET (C40736), OPA810IDBVR (C2833513).
 
 ### A11  ultrasound
 
@@ -151,7 +150,7 @@ Parts: DRV8837DSGR (C39159), OPA810IDBVR (C2833513).
 ### A12  audio
 
 Cells (2,3), (3,3); tutorial 1.05, 6.04; +-5 V.
-Jacks: TL AUDIO IN (±1 V); TR MIC OUT.
+Jacks: TL AUDIO IN (±1 V); BR1 MIC OUT.
 
 **Expect:** a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100
 
