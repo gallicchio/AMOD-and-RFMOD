@@ -81,6 +81,7 @@ class Tile:
         self.sch_draw = None       # f(ctx, tile)
         self.top_pour = False      # an RF tile: ground poured on L1 round everything, launch voids under its jacks, fences along its lines
         self.fine = False          # a tile with a fine-pitch chip: its nets get the "Fine" net class (0.127 mm clearance, 0.15 tracks)
+        self.voids = []            # (x, y, r, layers): no copper fill within r of (x, y) on "inner" (L2-L4), "top" (L1) or "all" layers
         self._counts = {}
         self.x0, self.y0, self.w, self.h = G.tile_frame(self.cells)
 
@@ -515,7 +516,7 @@ def dump(tiles, mod, path):
             routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
             gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w, fine) for (pr, pt, sym, w, fine) in t.gnd_stubs],
-            texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])]))
+            texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
     return path

@@ -1,0 +1,205 @@
+(footprint "UDFN-6_1.5x1.0mm_P0.5mm_MAX2659"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "MAX2659 GNSS LNA, UDFN-6 1.5 x 1.0 mm, 0.5 mm pitch: JLCPCB's land pattern for C28043")
+	(tags "UDFN LNA GPS")
+	(property "Reference" "REF**"
+		(at 0 1.4 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "dde74159-8687-545f-b430-8cf338965ff8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "UDFN-6_1.5x1.0mm_P0.5mm_MAX2659"
+		(at 0 -1.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "db65e939-cd2c-5161-a092-af93d3d5aa56")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -1.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e842318a-021d-57b9-a781-db29b0b60643")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "MAX2659 GNSS LNA, UDFN-6 1.5 x 1.0 mm, 0.5 mm pitch: JLCPCB's land pattern for C28043"
+		(at 0 -1.4 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f1e729b2-287c-57e1-841e-c56ac939b141")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center -0.95 0.75)
+		(end -0.87 0.75)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "ab08c7f1-e98f-5a41-947f-020c8c19fa62")
+	)
+	(fp_line
+		(start -0.95 -0.95)
+		(end 0.95 -0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "315b1079-32f7-5a85-ab92-afd962eb1dc2")
+	)
+	(fp_line
+		(start -0.95 0.95)
+		(end -0.95 -0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "25e202be-251a-51e8-a174-2cd8b9fcf717")
+	)
+	(fp_line
+		(start 0.95 -0.95)
+		(end 0.95 0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9b627f9e-d988-5f9c-8138-c2d3fd0d865e")
+	)
+	(fp_line
+		(start 0.95 0.95)
+		(end -0.95 0.95)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "2d30777e-b70b-5e28-bec3-e75d76c5e9b3")
+	)
+	(fp_line
+		(start -0.75 -0.5)
+		(end 0.75 -0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "74c3c450-1285-5a53-a350-a2829d5106e2")
+	)
+	(fp_line
+		(start -0.75 0.5)
+		(end -0.75 -0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "23e881de-b9f5-506a-adfd-76c76f4a72aa")
+	)
+	(fp_line
+		(start 0.75 -0.5)
+		(end 0.75 0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "04807dd4-d3b7-5654-8b85-489a907d558b")
+	)
+	(fp_line
+		(start 0.75 0.5)
+		(end -0.75 0.5)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "72f4da5e-22b3-5607-8b82-7cb67f3a55fb")
+	)
+	(pad "1" smd roundrect
+		(at -0.5 0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "6476c2cb-2dc6-562d-a00f-af1576d656d4")
+	)
+	(pad "2" smd roundrect
+		(at 0 0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "f2b63c3b-1db3-501a-bb1d-08b75caa11eb")
+	)
+	(pad "3" smd roundrect
+		(at 0.5 0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "9bd7708d-2ba5-517d-914c-692508c30b5d")
+	)
+	(pad "4" smd roundrect
+		(at 0.5 -0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "296ebfc9-10bc-58b8-a960-6778a8f0a242")
+	)
+	(pad "5" smd roundrect
+		(at 0 -0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "917936ed-fb48-5aee-901e-acbb6dc32584")
+	)
+	(pad "6" smd roundrect
+		(at -0.5 -0.417)
+		(size 0.28 0.58)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "2e590435-5b96-506e-a826-3f3af3179db2")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/UDFN-6_1.5x1.0.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

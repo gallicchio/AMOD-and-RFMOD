@@ -40,6 +40,8 @@ def box(name, ref, pins_left, pins_right, footprint="", desc="", width=None):
             stacked = len(pin) > 3 and pin[3] == "stack"          # on the previous pin of this side, hidden (one net)
             if not stacked:
                 i += 1
+            else:
+                ptype = "passive"           # a hidden power input would make a global net of its name (KiCad's legacy rule)
             y = top - 2.54 * i
             if side == "L":
                 x, rot = -w / 2 - 2.54, 0
@@ -131,6 +133,44 @@ SYMBOLS = [
         + [("9", "NC", "passive"), ("12", "NC", "passive"), ("13", "NC", "passive"), ("24", "NC", "passive"), ("25", "NC", "passive"),
            ("28", "NC", "passive")] + [("36", "NC", "passive")],
         "Package_DFN_QFN:Texas_RGZ0048A_VQFN-48-1EP_7x7mm_P0.5mm_EP5.15x5.15mm", "TRF3722 I/Q modulator with PLL and VCO, 400-4200 MHz, VQFN-48", width=17.78),
+    # ADL5375-05 (ADI, LFCSP-24 4 x 4; datasheet Table 4): 1 DSOP (high: output off), 3 LOIP, 4 LOIN, 9 QBBN, 10 QBBP, 16 RFOUT,
+    # 18 VPS1, 21 IBBP, 22 IBBN, 24 VPS2; COM 2 5 8 11 12 14 17 19 20 23 and the paddle; 6 7 13 15 NC
+    box("ADL5375", "U", [("21", "IBBP", "input"), ("22", "IBBN", "input"), ("10", "QBBP", "input"), ("9", "QBBN", "input"),
+                         ("3", "LOIP", "input"), ("4", "LOIN", "input"), ("1", "DSOP", "input")],
+        [("16", "RFOUT", "output"), ("18", "VPS1", "power_in"), ("24", "VPS2", "power_in"), ("2", "COM", "power_in")]
+        + [(n, "COM", "power_in", "stack") for n in ("5", "8", "11", "12", "14", "17", "19", "20", "23", "25")]
+        + [("6", "NC", "passive"), ("7", "NC", "passive"), ("13", "NC", "passive"), ("15", "NC", "passive")],
+        "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm", "ADL5375-05 I/Q modulator, 0.4-6 GHz, LFCSP-24", width=12.7),
+    # ADL5380 (ADI, LFCSP-24 4 x 4; datasheet Table 4): 3 IHI, 4 ILO, 15 QLO, 16 QHI, 6 13 24 VCC, 7 ENBL (low: on), 9 LOIP,
+    # 10 LOIN, 19 ADJ, 21 RFIN, 22 RFIP; GND 1 2 5 8 11 14 17 18 20 23 and the paddle; 12 NC
+    box("ADL5380", "U", [("22", "RFIP", "input"), ("21", "RFIN", "input"), ("9", "LOIP", "input"), ("10", "LOIN", "input"),
+                         ("7", "ENBL", "input"), ("19", "ADJ", "passive")],
+        [("3", "IHI", "output"), ("4", "ILO", "output"), ("16", "QHI", "output"), ("15", "QLO", "output"), ("6", "VCC", "power_in"),
+         ("13", "VCC", "power_in", "stack"), ("24", "VCC", "power_in", "stack"), ("1", "GND", "power_in")]
+        + [(n, "GND", "power_in", "stack") for n in ("2", "5", "8", "11", "14", "17", "18", "20", "23", "25")]
+        + [("12", "NC", "passive")],
+        "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm", "ADL5380 I/Q demodulator, 0.4-6 GHz, LFCSP-24", width=12.7),
+    # AD8318 (ADI, LFCSP-16 4 x 4; datasheet Table 3): 1 2 11 12 CMIP, 3 4 VPSI, 5 CLPF, 6 VOUT, 7 VSET, 8 CMOP, 9 VPSO, 10 TADJ,
+    # 13 TEMP, 14 INHI, 15 INLO, 16 ENBL; the paddle is CMIP
+    box("AD8318", "U", [("14", "INHI", "input"), ("15", "INLO", "input"), ("16", "ENBL", "input"), ("7", "VSET", "input"),
+                        ("10", "TADJ", "passive"), ("5", "CLPF", "passive")],
+        [("6", "VOUT", "output"), ("13", "TEMP", "output"), ("3", "VPSI", "power_in"), ("4", "VPSI", "power_in", "stack"), ("9", "VPSO", "power_in"),
+         ("8", "CMOP", "power_in"), ("1", "CMIP", "power_in")] + [(n, "CMIP", "power_in", "stack") for n in ("2", "11", "12", "17")],
+        "Package_DFN_QFN:QFN-16-1EP_4x4mm_P0.65mm_EP2.1x2.1mm", "AD8318 1 MHz-8 GHz 60 dB log detector, LFCSP-16", width=12.7),
+    # MAX2659 (Maxim, UDFN-6 1.5 x 1.0; datasheet Pin Description): 1 2 GND, 3 RFIN, 4 VCC, 5 SHDN (high: on), 6 RFOUT
+    box("MAX2659", "U", [("3", "RFIN", "input"), ("5", "SHDN", "input"), ("1", "GND", "power_in")],
+        [("6", "RFOUT", "output"), ("4", "VCC", "power_in"), ("2", "GND", "power_in")],
+        "amod:UDFN-6_1.5x1.0mm_P0.5mm_MAX2659", "MAX2659 GNSS LNA, UDFN-6", width=10.16),
+    # SAFFB1G56KB0F0AR1X (Murata, 1.1 x 0.9, 5 pads): 1 and 4 the unbalanced ports, 2 3 5 ground
+    box("SAW1G57", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in")], [("4", "OUT", "passive"), ("3", "GND", "power_in")],
+        "amod:Filter_SAW_1109-5P_SAFFB1G56", "GNSS SAW band-pass filter 1561 / 1575 / 1602 MHz, 1.1 x 0.9 mm", width=10.16),
+    # ADL5611 (ADI, SOT-89; datasheet Table 4): 1 RFIN, 2 GND (and the tab), 3 RFOUT and the supply through a choke
+    box("ADL5611", "U", [("1", "IN", "input")], [("3", "OUT", "output"), ("2", "GND", "power_in")],
+        "Package_TO_SOT_SMD:SOT-89-3", "ADL5611 22 dB gain block, 30 MHz-6 GHz, SOT-89 (1 IN, 2 GND, 3 OUT + DC)", width=10.16),
+    # SKY13370-374LF (Skyworks, DFN-6 1.5 x 1.5; datasheet Table 1): 1 V1, 2 RFC, 3 V2, 4 RF2, 5 GND, 6 RF1, paddle 7
+    box("SKY13370", "U", [("2", "RFC", "passive"), ("1", "V1", "input"), ("3", "V2", "input")],
+        [("6", "RF1", "passive"), ("4", "RF2", "passive"), ("5", "GND", "power_in"), ("7", "EP", "power_in")],
+        "amod:DFN-6-1EP_1.5x1.5mm_P0.5mm_SKY13370", "SKY13370 absorptive SPDT 0.5-6 GHz, DFN-6 1.5 x 1.5", width=10.16),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

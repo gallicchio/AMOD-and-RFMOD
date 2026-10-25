@@ -330,6 +330,54 @@ def adl5350():
     return name, f
 
 
+def max2659():
+    """MAX2659ELT+ (LCSC C28043), UDFN-6 1.5 x 1.0: six 0.28 x 0.58 pads at x = -0.5, 0, +0.5, y = +-0.417, pins 1-3 along the
+    bottom from the left and 4-6 along the top from the right (JLCPCB's drawing, pin 1 bottom-left).  Maxim's pinout: 1 and 2
+    GND, 3 RFIN, 4 VCC, 5 SHDN, 6 RFOUT; no paddle."""
+    name = "UDFN-6_1.5x1.0mm_P0.5mm_MAX2659"
+    f = fp_header(name, "MAX2659 GNSS LNA, UDFN-6 1.5 x 1.0 mm, 0.5 mm pitch: JLCPCB's land pattern for C28043", "UDFN LNA GPS", "smd", 1.4)
+    for i, x in enumerate((-0.5, 0.0, 0.5)):
+        f.add(smd_pad(str(i + 1), x, 0.417, 0.28, 0.58, f"{name}/p{i + 1}"))
+        f.add(smd_pad(str(6 - i), x, -0.417, 0.28, 0.58, f"{name}/p{6 - i}"))
+    rect_lines(f, -0.75, -0.5, 0.75, 0.5, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -0.95, -0.95, 0.95, 0.95, "F.CrtYd", CRT_W, f"{name}/crt")
+    f.add(circle(-0.95, 0.75, 0.08, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "UDFN-6_1.5x1.0.wrl")
+    return name, f
+
+
+def saw_1109():
+    """SAFFB1G56KB0F0AR1X GNSS SAW (LCSC C91647), 1.1 x 0.9 mm, five 0.20 x 0.28 pads: 1 at (-0.399, 0), 2 (0, +0.25),
+    3 (+0.401, +0.25), 4 (+0.401, -0.25), 5 (0, -0.25) (JLCPCB's drawing).  Murata's: 1 and 4 the unbalanced ports, the
+    rest ground."""
+    name = "Filter_SAW_1109-5P_SAFFB1G56"
+    f = fp_header(name, "1575 MHz GNSS SAW filter, 1.1 x 0.9 mm, 5 pads: Murata SAFFB1G56KB0F0AR1X (LCSC C91647)", "SAW filter GNSS", "smd", 1.3)
+    for num, (x, y) in {"1": (-0.399, 0.0), "2": (0.0, 0.25), "3": (0.401, 0.25), "4": (0.401, -0.25), "5": (0.0, -0.25)}.items():
+        f.add(smd_pad(num, x, y, 0.20, 0.28, f"{name}/p{num}"))
+    rect_lines(f, -0.55, -0.45, 0.55, 0.45, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -0.75, -0.65, 0.75, 0.65, "F.CrtYd", CRT_W, f"{name}/crt")
+    f.add(circle(-0.75, 0.0, 0.08, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "Filter_1109.wrl")
+    return name, f
+
+
+def sky13370():
+    """SKY13370-374LF (LCSC C105628), DFN-6 1.5 x 1.5 with a paddle: six 0.28 x 0.30 pads at x = -0.5, 0, +0.5, y = +-0.704,
+    pins 1-3 along the bottom from the left and 4-6 along the top from the right, the 1.30 x 0.80 paddle as pad 7 (JLCPCB's
+    drawing, pin 1 bottom-left).  Skyworks' pinout: 1 V1, 2 RFC, 3 V2, 4 RF2, 5 GND, 6 RF1."""
+    name = "DFN-6-1EP_1.5x1.5mm_P0.5mm_SKY13370"
+    f = fp_header(name, "SKY13370 SPDT, DFN-6 1.5 x 1.5 mm, 0.5 mm pitch, 1.3 x 0.8 paddle: JLCPCB's land pattern for C105628", "DFN switch SPDT", "smd", 1.6)
+    for i, x in enumerate((-0.5, 0.0, 0.5)):
+        f.add(smd_pad(str(i + 1), x, 0.704, 0.28, 0.30, f"{name}/p{i + 1}"))
+        f.add(smd_pad(str(6 - i), x, -0.704, 0.28, 0.30, f"{name}/p{6 - i}"))
+    f.add(smd_pad("7", 0, 0, 1.30, 0.80, f"{name}/p7"))
+    rect_lines(f, -0.75, -0.75, 0.75, 0.75, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -1.0, -1.1, 1.0, 1.1, "F.CrtYd", CRT_W, f"{name}/crt")
+    f.add(circle(-0.95, 1.0, 0.08, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "DFN-6_1.5x1.5.wrl")
+    return name, f
+
+
 def l_4x4():
     """XRNR4030-22uH 4 x 4 x 3 mm shielded power inductor (LCSC C5289362): two 1.6 x 3.7 pads at x = +-1.6, as JLCPCB draws it."""
     name = "L_4x4_XRNR4030"
@@ -380,7 +428,8 @@ def led_0805():
 
 
 MAKERS = [sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
-          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot]
+          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot,
+          max2659, saw_1109, sky13370]
 
 
 def main():

@@ -62,8 +62,9 @@ LAUNCH_R_INNER, LAUNCH_R_TOP = 2.2, 1.9                      # no copper under a
 BOARD_RULES = dict(m_MinClearance=0.20, m_HoleClearance=0.30, m_HoleToHoleMin=0.50, m_CopperEdgeClearance=0.30, m_SilkClearance=0.15)
 # the RF board carries a 0.5 mm pitch QFN: the floor drops to JLCPCB's 0.127 mm there, the net classes keep 0.2 for everything
 # but the synthesizer's own nets (gen_project.py says the same in the project file)
-BOARD_RULES_BY_STEM = {"rf_mod": dict(m_MinClearance=0.127, m_TrackMinWidth=0.127, m_ViasMinSize=0.45, m_ViasMinAnnularWidth=0.10,
-                                      m_MinThroughDrill=0.20, m_HoleClearance=0.25)}
+FINE_BOARD_RULES = dict(m_MinClearance=0.127, m_TrackMinWidth=0.127, m_ViasMinSize=0.45, m_ViasMinAnnularWidth=0.10,
+                        m_MinThroughDrill=0.20, m_HoleClearance=0.25)
+BOARD_RULES_BY_STEM = {s: FINE_BOARD_RULES for s, b in parts.BOARDS.items() if b.get("fine")}
 FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (96.5, 90.0)]
 QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under P12's switch, between its jack's legs and P13's: 14 mm with no hole
 BACK_Y, BACK_PITCH = 94.2, 1.4       # between the two rows of cable-tie slots
@@ -394,7 +395,7 @@ class Board:
                 continue
             for a, b in zip(pts, pts[1:]):
                 a, b = (float(a[0]), float(a[1])), (float(b[0]), float(b[1]))
-                self.track(a, b, 0.15 if self.meta.get("stem") == "rf_mod" else 0.35, net, pcbnew.B_Cu)
+                self.track(a, b, 0.15 if parts.BOARDS[self.meta.get("stem")].get("fine") else 0.35, net, pcbnew.B_Cu)
                 self.nosilk.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
 
     def front_wires(self):
@@ -557,6 +558,7 @@ class Board:
         """Ground vias along every 50 ohm line (the RF_W wires), FENCE_OFF each side every FENCE_PITCH, wherever one fits:
         clear of every pad, of other nets' tracks, of other vias and of the launch under a jack."""
         jacks = [t.to_board((j["x"], j["y"])) for t in self.tiles if t.top_pour for j in t.jacks]
+        voids = [(*t.to_board((v[0], v[1])), v[2]) for t in self.tiles for v in getattr(t, "voids", [])]
         placed = []
 
         def seg_dist(p, a, b):
@@ -568,6 +570,8 @@ class Board:
 
         def fits(x, y):
             if any(math.hypot(x - jx, y - jy) < LAUNCH_R_INNER + 0.4 for (jx, jy) in jacks):
+                return False
+            if any(math.hypot(x - vx, y - vy) < vr + 0.4 for (vx, vy, vr) in voids):
                 return False
             for p in self.pad_list:
                 if p["x0"] - 0.6 <= x <= p["x1"] + 0.6 and p["y0"] - 0.6 <= y <= p["y1"] + 0.6:
@@ -606,6 +610,20 @@ class Board:
                 a = 2 * math.pi * i / 32
                 o.Append(mm(cx + r * math.cos(a)), mm(cy + r * math.sin(a)))
 
+        inner = (pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu) if self.B["layers"] == 4 else (pcbnew.B_Cu,)
+        for t in self.tiles:                                   # a tile's own voids: a loop that must not see its image in a plane
+            for (vx, vy, r, which) in getattr(t, "voids", []):
+                cx, cy = t.to_board((vx, vy))
+                z = pcbnew.ZONE(self.board)
+                z.SetIsRuleArea(True)
+                z.SetDoNotAllowZoneFills(True)
+                z.SetDoNotAllowTracks(False); z.SetDoNotAllowVias(False); z.SetDoNotAllowPads(False); z.SetDoNotAllowFootprints(False)
+                ls = pcbnew.LSET()
+                for l in {"inner": inner, "top": (pcbnew.F_Cu,), "all": inner + (pcbnew.F_Cu,)}[which]:
+                    ls.AddLayer(l)
+                z.SetLayerSet(ls)
+                circle(z, cx, cy, r)
+                self.board.Add(z)
         for t in self.tiles:
             if not t.top_pour:
                 continue

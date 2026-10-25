@@ -218,7 +218,10 @@ def check_codes(problems, notes):
             problems.append(f"{code} ({key}): JLCPCB's description {text[:60]!r}... lacks {missing}")
         stock = part.get("stockCount") or 0
         if stock < 100:
-            problems.append(f"{code} ({key}): only {stock} in stock ({ts[:10]})")
+            if p.get("stock_exception"):                # a thin stock someone accepted, with who and when (parts.PARTS)
+                notes.append(f"{code} ({key}): {stock} in stock ({ts[:10]}), accepted: {p['stock_exception']}")
+            else:
+                problems.append(f"{code} ({key}): only {stock} in stock ({ts[:10]})")
     notes.append(f"{seen} LCSC codes match JLCPCB's own descriptions (MPN, value, package)")
 
 

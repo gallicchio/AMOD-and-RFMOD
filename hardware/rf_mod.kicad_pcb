@@ -43379,10 +43379,10 @@
 			)
 		)
 	)
-	(gr_text "two synthesizers, two mixers, two gain blocks, two filters, a splitter, power and a 25 MHz reference"
+	(gr_text "a quadrature transmitter, a synthesizer, two mixers, an LNA and a gain block, two filters, a splitter, power and a 25 MHz reference"
 		(at 50 5.4 0)
 		(layer "F.SilkS")
-		(uuid "a35c1d4f-0e6d-566b-9ba1-9806f78d6d11")
+		(uuid "5b2b090e-5804-52d1-a753-54ec75b926e0")
 		(effects
 			(font
 				(size 0.8 0.8)

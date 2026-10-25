@@ -317,7 +317,7 @@ def tile_r9():
 
 
 # ------------------------------------------------------------------------------------------------------ R10, R13 --
-def synth_tile(id, cells, host):
+def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM"):
     """A MAX2871 synthesizer on two cells: OUT A at the top-left jack, REF IN at the top-middle one, the switch and
     P-FET header in the right cell with a TPS7A2033 making the tile's 3.3 V (V33, an island on L3 under the chip).
     The QFN sits in the left cell (rot 270: RF outputs on its left, the digital pins on its right, the SPI and charge
@@ -327,29 +327,33 @@ def synth_tile(id, cells, host):
     loop filter (C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p: 80-120 kHz, 61 deg across both bands) sits above the
     chip at CP_OUT; its output hops to TUNE on the back.  CE and RFOUT_EN are tied to V33; LE has 100 k to ground;
     LD lights a red LED.  The host (R10) carries the 2 x 6 Pmod plug in the bottom margin; R13's SPI lines reach it
-    on the back (gutter above the tiles, bottom margin)."""
+    on the back (gutter above the tiles, bottom margin).  `share_ref` (default: the host) puts REF IN on the board-wide
+    /REF25 net with a via for a back wire; `pmod_extra` adds the plug's other pads (pad: net); `ref_slot` "BR1" moves
+    REF IN to the right cell's bottom corner (the tile above may then use its BR0), its line on the back."""
+    share_ref = host if share_ref is None else share_ref
     t = Tile(id, "synthesizer", cells, supply="+5 V", subtitle="MAX2871", sections=[], kind="rf")
     t.top_pour = True
     t.fine = True
     jout = t.jack("TL", "OUT A", "OUTA", "out", "", silk="OUT A")
-    REFN = "/REF25" if host else "REF"                                  # the host's REF IN also feeds R13's TRF3722 (a back wire)
-    jref = t.jack("TM", "REF IN", REFN, "in", "25 MHz, 3.3 V CMOS", silk="REF IN")
+    REFN = "/REF25" if share_ref else "REF"                             # the host's REF IN also feeds R13's TRF3722 (a back wire)
+    jref = t.jack(ref_slot, "REF IN", REFN, "in", "25 MHz, 3.3 V CMOS", silk="REF IN")
     power_header(t, rail="+5V", dx=20.0)
     SCLK, SDATA = "/PMOD3", "/PMOD2"
     LE, MUX = ("/PMOD4", "/PMOD1") if host else ("/PMOD6", "/PMOD5")
     # ---- the LDO in the right cell: VS (the switched 5 V) in, V33 out to the island through a via
     ldo = t.add("U", "TPS7A2033", "3.3V", 30.5, 14.0, 0, {"1": "VS", "2": "GND", "3": "VS", "5": "V33"}, hide_value=False, label=None)
     ci = t.add("C", "C0805 1uF", "1u", 27.5, 10.9, 0, {"1": "VS", "2": "GND"}, label=None)
-    co = t.add("C", "C0805 1uF", "1u", 31.6, 10.9, 0, {"1": "V33", "2": "GND"}, label=None)
+    cox, coy = (31.6, 10.9) if ref_slot == "TM" else (32.5, 10.7)       # with REF IN at BR1: right of the V33 track, clear of the jack
+    co = t.add("C", "C0805 1uF", "1u", cox, coy, 0, {"1": "V33", "2": "GND"}, label=None)
     t.route("VS", [("Q%d01" % t.idx, "3"), (ldo, "3")])
     t.route("VS", [(ldo, "1"), (ldo, "3")])
     t.route("VS", [(ldo, "1"), (ci, "1")])
     t.gnd_stub(ldo, "2", (28.1, 14.0), sym=(0, 0))
     t.gnd_stub(ci, "2", (28.45, 9.8), sym=(0, -1))
-    t.gnd_stub(co, "2", (33.5, 10.9), sym=(0, 0))
-    t.wire("V33", [(ldo, "5"), (31.6375, 11.6), (30.65, 11.6), (co, "1")])
+    t.gnd_stub(co, "2", (cox + 1.9, coy), sym=(0, 0))
+    t.wire("V33", [(ldo, "5"), (31.6375, 11.6), (cox - 0.95, 11.6), (co, "1")])
     t.via("V33", 30.65, 12.6)
-    t.wire("V33", [(co, "1"), (30.65, 12.6)])
+    t.wire("V33", [(cox - 0.95, 11.6), (30.65, 12.6)] if cox != 31.6 else [(co, "1"), (30.65, 12.6)])
     # ---- the chip (rot 270 at (13.5, 10.5)): pins as the datasheet names them; 5 (SW), 14, 15 (RFOUTB) open
     u = t.add("U", "MAX2871", "MAX2871", 13.5, 10.5, 270,
               {"1": SCLK, "2": SDATA, "3": LE, "4": "V33", "6": "V33", "7": "CP", "8": "GND", "9": "GND", "10": "V33", "11": "GND",
@@ -406,8 +410,12 @@ def synth_tile(id, cells, host):
     t.wire(MUX, [(u, "30"), (16.6, 9.75), (17.4, 10.55), (18.3, 10.55)], width=F)
     cref = t.add("C", "C0402 100nF", "100n", 19.2, 11.3, 0, {"1": "REFI", "2": REFN}, label=None)
     t.wire("REFI", [(u, "29"), (16.6, 10.25), (17.65, 11.3), (cref, "1")], width=F)
-    t.wire(REFN, [(jref, "1"), (20.75, 11.3), (cref, "2")], width=0.25)
-    if host:
+    if ref_slot == "TM":
+        t.wire(REFN, [(jref, "1"), (20.75, 11.3), (cref, "2")], width=0.25)
+    else:                                                               # along the back from the jack's pin to a via beside cref
+        t.wire(REFN, [(jref, "1"), (36.4, 15.6), (20.75, 15.6), (20.75, 11.3)], width=0.25, layer="B.Cu", silk=False)
+        t.wire(REFN, [(20.75, 11.3), (cref, "2")], width=0.25)
+    if share_ref:
         t.via(REFN, 20.75, 11.3, fine=True)                             # down the back and along the bottom margin to R13
     c28 = t.add("C", "C0402 100nF", "100n", 19.5, 12.9, 90, {"1": "V33", "2": "GND"}, label=None)             # pad 1 down
     t.wire("V33", [(u, "28"), (16.6, 10.75), (19.2, 13.35), (c28, "1")], width=F)
@@ -456,8 +464,9 @@ def synth_tile(id, cells, host):
     # ---- the Pmod plug (the host) and the lines to it on the back: the leftmost line turns highest (no crossings)
     if host:
         # two columns left of the feeds' first layout: they meet pads 5-12, ground and 3.3 V are pads 1-4 (see pmod_plug)
-        pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"6": LE, "8": SCLK, "10": SDATA, "12": MUX, "9": "/PMOD6", "11": "/PMOD5",
-                                                            "3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"}, hide_value=True)
+        pins = {"6": LE, "8": SCLK, "10": SDATA, "12": MUX, "9": "/PMOD6", "11": "/PMOD5", "3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"}
+        pins.update(pmod_extra or {})
+        pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, pins, hide_value=True)
         t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
         t.wire(LE, [(15.1, 4.3), (15.1, 20.6), (1.7, 20.6), (pm, "6")], width=F, layer="B.Cu", silk=False, fine=True)
         t.wire(SCLK, [(16.1, 5.6), (16.1, 20.95), (4.24, 20.95), (pm, "8")], width=F, layer="B.Cu", silk=False, fine=True)

@@ -24,7 +24,8 @@ def net_class(name, track, clearance=CLEARANCE, priority=2147483647, via=VIA_DIA
             "wire_width": 6, "bus_width": 12, "priority": priority}
 
 
-FINE = {"rf_mod": dict(clearance=0.127, track=0.127, via=0.45, annular=0.10, drill=0.20, hole_clearance=0.25)}      # the RF board's floor beside its 0.5 mm pitch QFN
+FINE_RULES = dict(clearance=0.127, track=0.127, via=0.45, annular=0.10, drill=0.20, hole_clearance=0.25)    # the floor beside a 0.5 mm pitch QFN
+FINE = {s: FINE_RULES for s, b in parts.BOARDS.items() if b.get("fine")}
 
 
 def design_rules(stem=None):
@@ -111,7 +112,7 @@ SYM_LIB_TABLE = '(sym_lib_table\n  (version 7)\n  (lib (name "amod")(type "KiCad
 FP_LIB_TABLE = ('(fp_lib_table\n  (version 7)\n  (lib (name "amod")(type "KiCad")(uri "${KIPRJMOD}/lib/amod.pretty")(options "")'
                 '(descr "Footprints drawn for the AMOD boards"))\n)\n')
 
-POWER_NETS = {"amod_p": ["GND"], "amod_a": ["GND", "+5V", "-5V", "+3V3"], "rf_mod": ["GND", "+5V", "+3V3", "+8V"]}
+POWER_NETS = {s: b["power_nets"] for s, b in parts.BOARDS.items()}
 
 
 def main():

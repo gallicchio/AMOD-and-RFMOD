@@ -2640,8 +2640,8 @@
 		)
 	)
 	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
+		(start 215.9 30.48)
+		(end 401.32 152.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -2649,7 +2649,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "10fa9f7d-8b93-4d6b-8d1c-d09867619103")
+		(uuid "12fd080a-0e52-4cb8-8703-b637fa9c8c61")
 	)
 	(rectangle
 		(start 215.9 284.48)
@@ -2661,7 +2661,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "2f7e37d8-127c-4abd-b841-ad2bb7d0d0cf")
+		(uuid "321869bc-1a3e-4204-b1a7-d28b70bc1837")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "3fed2eae-4377-4cee-8b1a-469f64feaad8")
 	)
 	(rectangle
 		(start 215.9 411.48)
@@ -2673,7 +2685,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "5b6e46a9-9185-488a-a1a3-f2a960881a44")
+		(uuid "4bda53c8-0da2-43f3-bc78-0b9cebee13c1")
 	)
 	(rectangle
 		(start 25.4 284.48)
@@ -2685,91 +2697,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "78346604-320a-471f-b86c-076cc85d022e")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "84788783-621d-45fd-b4ef-8b4341af47cd")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "b73a3fa0-697e-4d12-b590-362d80158832")
-	)
-	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c9186d7f-9c00-4550-b88a-fa8499aa159d")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d619a9e5-b73f-4597-b02f-39e47b3499e7")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d6bd5925-a42c-4854-ac64-9707d9e51dfa")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 210.82 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "d9c81bc7-ad44-4a8e-b5bc-52479b89eeeb")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "e4f02950-08c6-4483-98a2-492174147afd")
+		(uuid "5d57e472-a4cd-4544-84c6-41abd092f4bb")
 	)
 	(rectangle
 		(start 596.9 411.48)
@@ -2781,7 +2709,79 @@
 		(fill
 			(type none)
 		)
-		(uuid "f336d120-e3d8-404a-8f90-2d2730bab1b1")
+		(uuid "7491100d-840a-4442-8419-28ae7096a436")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 591.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "7add41ac-0c5d-4204-b925-d94d0782ea38")
+	)
+	(rectangle
+		(start 596.9 30.48)
+		(end 782.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "7f2960ee-c736-42b9-959e-ffbcff8124c8")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "ab573534-db82-4041-a62f-73b63fd405f1")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "c99f2c24-a0eb-429f-8096-a192a482d95e")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "cc07752a-897b-4a42-a000-0bf15beb7bfa")
+	)
+	(rectangle
+		(start 25.4 411.48)
+		(end 210.82 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "d68eaf36-9ea0-40f5-840e-a291f432d409")
 	)
 	(rectangle
 		(start 596.9 157.48)
@@ -2793,7 +2793,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "fd84942a-b8c9-4fec-8ef8-74d0fcfa66ae")
+		(uuid "f0342720-7395-42ba-8c4c-614bd6015465")
 	)
 	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
 		(exclude_from_sim no)

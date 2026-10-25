@@ -283,6 +283,7 @@ class SchCtx:
         if not t.jacks:
             chips_y -= 12.7
         x = ox + 25.4
+        row_h = 0.0
         low = oy + row_y - 7.62                               # the lowest chip value label: the two-terminal rows start below it
         for r in chips:
             d = parts.info(t.parts[r].key)
@@ -293,7 +294,24 @@ class SchCtx:
                     continue
                 xs = [v[0] for v in dirs.values()]; ys = [v[1] for v in dirs.values()]
                 half_w = max(abs(min(xs)), abs(max(xs)))
-                xc = x + half_w + 10.16
+
+                def side_w(rot_in):                           # how far this side's labels reach past its pins
+                    wmax = 1.27
+                    for num, (px, py, rot) in dirs.items():
+                        if int(rot) % 360 != rot_in:
+                            continue
+                        net = t.parts[r].pins.get(str(num))
+                        if net is None:
+                            continue
+                        wmax = max(wmax, 5.08 if net == "GND" or net in ("+5V", "-5V", "+3V3", "+8V") else 3.81 + 1.0 * len(net.lstrip("/")))
+                    return wmax
+                lw, rw = side_w(0), side_w(180)
+                if x > ox + 25.4 and x + lw + 2 * half_w + rw > ox + w - 2.54:    # no room left in this row: start another below
+                    chips_y += row_h + 22.86
+                    x = ox + 25.4
+                    row_h = 0.0
+                row_h = max(row_h, max(ys) - min(ys))
+                xc = 2.54 * math.ceil((x + max(lw, 5.08) + half_w) / 2.54 - 1e-6)       # on the 2.54 grid
                 pins = self.part(r, xc, oy + chips_y, rot=0, unit=unit, label_off=((0, -(max(ys) + 5.08)), (0, -(min(ys) - 5.08))))
                 low = max(low, oy + chips_y - min(ys) + 5.08)
                 done = set()
@@ -320,7 +338,7 @@ class SchCtx:
                     if net is not None:
                         dx, dy = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}[int(rot) % 360]
                         seen[key] = (pins[num][0] + dx, pins[num][1] + dy)
-                x = xc + half_w + 15.24
+                x = xc + half_w + rw + 2.54
         # the two-terminal parts in rows, horizontal, pin 1 on the left (symbols drawn vertical turn 90)
         vertical = ("Device:R_US", "Device:C", "Device:L", "Device:FerriteBead", "Device:Thermistor_NTC", "Device:Polyfuse", "Device:C_Polarized")
         x, y = ox + 15.24, max(oy + row_y, oy + 2.54 * math.ceil((low - oy + 7.62) / 2.54))
@@ -328,7 +346,8 @@ class SchCtx:
         pitch = max(30.48, 2.54 * math.ceil((12.7 + 2 * 1.0 * (longest + 1) + 2.54) / 2.54))      # two labels back to back between parts
         per_row = max(1, int((w - 25.4 - 15.24) // pitch) + 1)
         rows = -(-len(twos) // per_row)
-        step = 12.7 if rows < 2 or y + (rows - 1) * 12.7 < oy + h - 22.0 else max(7.62, 2.54 * math.floor((oy + h - 22.0 - y) / (rows - 1) / 2.54))
+        note_h = max(22.0, 2.54 + 1.98 * len(self._wrap(["EXPECT: " + t.result], 0.9) + self._wrap(t.notes, 0.9)) + 8.0)   # the result note at 0.9 mm
+        step = 12.7 if rows < 2 or y + (rows - 1) * 12.7 < oy + h - note_h else max(7.62, 2.54 * math.floor((oy + h - note_h - y) / (rows - 1) / 2.54))
         for r in twos:
             if x > ox + w - 25.4:
                 x, y = ox + 15.24, y + step

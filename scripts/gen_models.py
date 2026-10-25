@@ -163,10 +163,31 @@ def l_4x4():
     return "L_4x4.wrl", HEAD + box(0, 0, 1.5, 4.0, 4.0, 3.0, BLACK)
 
 
+def udfn6_1510():
+    """The MAX2659's 1.5 x 1.0 x 0.55 mm UDFN."""
+    return "UDFN-6_1.5x1.0.wrl", HEAD + box(0, 0, 0.275, 1.5, 1.0, 0.55, BLACK)
+
+
+def filt1109():
+    """The GNSS SAW, 1.1 x 0.9 x 0.5 mm."""
+    return "Filter_1109.wrl", HEAD + box(0, 0, 0.25, 1.1, 0.9, 0.5, WHITE)
+
+
+def qfn24_4x4():
+    """A 4 x 4 x 0.85 mm LFCSP-24 body (the ADL5375 and ADL5380) for KiCad's EP2.5 footprint, which has no STEP file."""
+    return "QFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm.wrl", HEAD + box(0, 0, 0.425, 4.0, 4.0, 0.85, BLACK)
+
+
+def dfn6_1515():
+    """The SKY13370's 1.5 x 1.5 x 0.45 mm DFN."""
+    return "DFN-6_1.5x1.5.wrl", HEAD + box(0, 0, 0.225, 1.5, 1.5, 0.45, BLACK)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
-              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3]
+              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3,
+              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

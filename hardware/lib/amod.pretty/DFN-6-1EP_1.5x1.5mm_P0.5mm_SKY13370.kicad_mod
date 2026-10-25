@@ -1,0 +1,212 @@
+(footprint "DFN-6-1EP_1.5x1.5mm_P0.5mm_SKY13370"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "SKY13370 SPDT, DFN-6 1.5 x 1.5 mm, 0.5 mm pitch, 1.3 x 0.8 paddle: JLCPCB's land pattern for C105628")
+	(tags "DFN switch SPDT")
+	(property "Reference" "REF**"
+		(at 0 1.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "4025739d-045a-550f-bbb6-10cd9cc6150d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "DFN-6-1EP_1.5x1.5mm_P0.5mm_SKY13370"
+		(at 0 -1.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "5c4fae3b-af93-5dbf-a33d-b02ddc001630")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -1.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2cae9a21-7755-5caf-a88b-9187d6f78f16")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "SKY13370 SPDT, DFN-6 1.5 x 1.5 mm, 0.5 mm pitch, 1.3 x 0.8 paddle: JLCPCB's land pattern for C105628"
+		(at 0 -1.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "2d570d9b-b558-5da1-914d-6dc354dead68")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center -0.95 1)
+		(end -0.87 1)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "abe9e0e6-b265-5d62-85b1-a8aaa16462f7")
+	)
+	(fp_line
+		(start -1 -1.1)
+		(end 1 -1.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f7acc5f3-4336-56f5-a9e7-a6667e9afa20")
+	)
+	(fp_line
+		(start -1 1.1)
+		(end -1 -1.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "52251fee-802a-58a8-86e9-3f1516b21031")
+	)
+	(fp_line
+		(start 1 -1.1)
+		(end 1 1.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "2df6c2d9-d70e-5419-8501-39b0f39a9db2")
+	)
+	(fp_line
+		(start 1 1.1)
+		(end -1 1.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "dc2ae932-85c4-5be0-9cd9-a920ac3aedb3")
+	)
+	(fp_line
+		(start -0.75 -0.75)
+		(end 0.75 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "51160a90-45ad-5310-94a0-bd59ae31248d")
+	)
+	(fp_line
+		(start -0.75 0.75)
+		(end -0.75 -0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5c5875c9-6da8-555f-aa32-5c04bdb07df7")
+	)
+	(fp_line
+		(start 0.75 -0.75)
+		(end 0.75 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "be8ca6c8-9ad8-5a84-b20c-71bc70951780")
+	)
+	(fp_line
+		(start 0.75 0.75)
+		(end -0.75 0.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5fabc47a-0a20-56c6-8dd4-99a8fef4df47")
+	)
+	(pad "1" smd roundrect
+		(at -0.5 0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "fab83191-0dbf-5455-8f66-618d4aac37c0")
+	)
+	(pad "2" smd roundrect
+		(at 0 0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "15405407-8176-51ac-b6bd-74958157b87e")
+	)
+	(pad "3" smd roundrect
+		(at 0.5 0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "8355889f-8633-585d-939c-9891f5d909cc")
+	)
+	(pad "4" smd roundrect
+		(at 0.5 -0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "9af2774e-3e87-5563-a510-31ace616e21f")
+	)
+	(pad "5" smd roundrect
+		(at 0 -0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "2fb64262-0c4c-56d5-9513-f44ce9f67eca")
+	)
+	(pad "6" smd roundrect
+		(at -0.5 -0.704)
+		(size 0.28 0.3)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "aa545253-d7ae-5cd5-a286-6c0b026ef06e")
+	)
+	(pad "7" smd roundrect
+		(at 0 0)
+		(size 1.3 0.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "ed454a92-435c-57e3-927c-205fe1353997")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/DFN-6_1.5x1.5.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

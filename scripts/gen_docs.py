@@ -16,7 +16,7 @@ sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(ROOT, "boards"))
 import parts
 
 DOCS = os.path.join(ROOT, "docs")
-BOARDS = {"amod_p": ("AMOD-P", "the passive board"), "amod_a": ("AMOD-A", "the active board"), "rf_mod": ("RF-MOD", "the RF board")}
+BOARDS = {s: (b["name"], b["what"]) for s, b in parts.BOARDS.items()}
 
 
 def load(stem):
@@ -62,10 +62,10 @@ def handbook(stem, meta, mod):
     else:
         lines += ["Cells are 20 mm on a 21.5 mm pitch; a tile's number sits between its jacks, the tutorial sections it serves under",
                   "the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and OUT to the ADC.", ""]
-    if stem == "rf_mod":
+    if getattr(mod, "PMOD_NAMES", None):
         pm = pmod_pins(meta)
         names = getattr(mod, "PMOD_NAMES", {})
-        lines += ["### Pmod lines", "", "The 2 x 6 plug on R10's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,",
+        lines += ["### Pmod lines", "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "R10's bottom edge"),
                   "which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):", ""]
         for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
             k = int(net.replace("/PMOD", ""))
@@ -134,7 +134,7 @@ def manufacturing(stems):
         layers = getattr(mod, "LAYERS", 2)
         lines += ["## %s: %s" % (name, what), "",
                   "- Gerbers and drills: `out/%s/%s-gerbers.zip` (upload as the PCB file)." % (stem, stem),
-                  "- Board: 100 x 100 mm, %d layers, 1.6 mm, JLCPCB's standard stack%s." % (layers, " (JLC04161H-7628 for the RF lines)" if stem == "rf_mod" else ""),
+                  "- Board: 100 x 100 mm, %d layers, 1.6 mm, JLCPCB's standard stack%s." % (layers, " (JLC04161H-7628 for the RF lines)" if parts.BOARDS[stem].get("rf") else ""),
                   "- BOM: `out/%s/%s_bom_jlcpcb_upload.csv`; placements: `out/%s/%s_cpl_jlcpcb_upload.csv` (rotations already turned" % (stem, stem, stem, stem),
                   "  for JLCPCB's conventions; the native KiCad file is beside it)." ,
                   "- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  %d BOM lines, %d of them" % (len(rows), ext),
