@@ -106,3 +106,48 @@ $16.97 of parts a board).  What it took, and what changed on the way:
 
 The record of the pre-compaction work in this session is in the summary at the head of the
 session; the files are the truth.  AMOD-A next (03:45).
+
+**AMOD-A** (03:45-08:30): twelve tiles, 21 jacks, 186 placed parts, four layers (L2 solid ground,
+L3 the rails as pours: +5 V everywhere, -5 V as one polygon through the gutters under rows 0 and 2
+and down the left margin, +3.3 V in the gutter under row 1; L4 ground with the back wires), the
+Pmod plug on the bottom edge with its lines, ERC 0, DRC 0, the fab package through every check
+($45.97 of parts a board, 63 BOM lines, 133 LCSC codes checked against JLCPCB's own
+descriptions), the handbook and the manufacturing notes written from the same sources.  What it
+took:
+
+- *The router put a via on an SMA leg.*  The pad table was keyed by pad number, so a jack's four
+  legs (all "2") and the USB-C's four shell pads collapsed to one each: three legs were invisible
+  to the router and to the silk clipper.  Every pad is now an obstacle; the (ref, number) table
+  keeps the first for wire ends.  That bug had eaten A2's first three hours; once found, the
+  geometry below was written by hand against the real pad boxes (a `fpdump` of every footprint's
+  courtyard and pads from KiCad itself).
+- *One op-amp geometry for every x-gain tile* (`opa_tile` in `boards/amod_a.py`): the SOT-23-5
+  at (10.5, 12.5), the output over the top at y 9.4 into the series 49.9 and down into Rf, the
+  feedback along y 14.3, VS from the header's FET on the back through two vias, -5 V on the back
+  to the gutter, the loop under the OUT jack with its name hidden.  A2, A3, A5 (an LT6230,
+  1.1 nV/rtHz, with a 2-way DIP and a 1 x 2 socket for the source resistor where the IN jack
+  would be), A11's receiver and A12's microphone amplifier use it, with an x offset for the right
+  cell of a double tile.
+- *The SOIC-16 and SOIC-14 across a cell* (A7, A9): rot 90 or 270, 0.25 mm below the jacks'
+  legs, the wires that must cross the chip in the 3 mm gap between its pin rows, the resistors
+  that hang off pins as 0402s in a column beside the chip or under the bottom row at the pin
+  pitch.  The MC1496's NC pins carry the output past the chip, as the OPA847's pin 1 carries A4's
+  feedback node: box symbols with those pins passive.
+- *A1's socket moved to the top edge* with its pins named in the gutter above (the tile below
+  owns the gutter below), the LEDs into the right margin above the USB-C, the red one on the end
+  of the -5 V strip, which stops at x 93.6 so the +5 V pour keeps its only path down the right
+  margin.  The USB-C's SMD ground pads reach its shell holes with a wire each.
+- *The Pmod lines.*  Twelve 1.8 mm pads in two rows under a 15 mm body: the upper row fed from
+  the back, the lower row through the upper row's 0.74 mm gaps on the front with 0.2 mm tracks
+  or along the bottom edge for the two outer ones; the lines come down the back of A9 and A11 at
+  x 21.8-24.3 (the one strip clear of those tiles' sockets and jacks), each feed above the feed
+  of the pad to its right so none cross.
+- *Lost on the way* (the DOA list has them): A4's loop, A7's loop-filter DIP and its two loops,
+  A8's NTC divider and loop, A10's laser terminal and DIP, A12's 3.5 mm jack, A9's carrier-null
+  trimmer and output follower, A5's four-way DIP (two values and a socket instead), A11's TX IN
+  jack and comparator.  Each fell to the 20 mm cell beside the switch and FET; each is a line in
+  the tile's handbook entry.
+- *The generic schematic block* now joins adjacent same-net pins under one label, spaces its
+  passive rows by the longest net name, starts them under the tallest chip symbol and shrinks
+  the notes when the drawing needs the room.  Three library footprints without a STEP file in
+  KiCad's share (the WSON-8, the USB-C, the 1812 fuse) are pointed at stand-in bodies.

@@ -107,7 +107,7 @@ PARTS = {
                    desc="0.85 nV/rtHz, 3.9 GHz GBW, decompensated (gain 12 minimum): the HF LNA at x100"),
     "TLV3501": dict(value="TLV3501", mpn="TLV3501AIDBVR", lcsc="C193413", jlc_type="extended", process="SMT", stock=5079, price=1.9246,
                     footprint="Package_TO_SOT_SMD:SOT-23-6", symbol="Comparator:TLV3501AIDBV", match=["TLV3501AIDBVR"], desc="4.5 ns rail-to-rail comparator: the one-bit ADC"),
-    "HC4046": dict(value="CD74HC4046A", mpn="CD74HC4046AM", lcsc="C1519916", jlc_type="extended", process="SMT", stock=91, price=1.3714,
+    "HC4046": dict(value="CD74HC4046A", mpn="CD74HC4046AM96", lcsc="C6542", jlc_type="extended", process="SMT", stock=959, price=0.9050,
                    footprint="Package_SO:SOIC-16_3.9x9.9mm_P1.27mm", symbol="4xxx:4046", match=["4046"], alt="CD4046BM/TR C7432285 (4,889 in stock; the same pinout, a 1.3 MHz VCO)",
                    desc="PLL: three phase comparators and a VCO (drawn with the 4046 symbol; pin 15 is the HC part's PC3 output)"),
     "MC1496": dict(value="MC1496", mpn="MC1496DR2G", lcsc="C7295", jlc_type="extended", process="SMT", stock=14255, price=0.2492,
@@ -203,7 +203,6 @@ PASSIVES = {
     "C0805 2.2nF": dict(lcsc="C51795", mpn="0805CG222J500NT", jlc_type="extended", stock=3380, price=0.0424, note="C0G"),
     "C0805 4.7nF": dict(lcsc="C50131", mpn="CL21B472KBANNNC", jlc_type="extended", stock=44652, price=0.0136, note="X7R"),
     "C0805 22nF": dict(lcsc="C1729", mpn="CL21B223KBANNNC", jlc_type="basic", stock=477331, price=0.0084, note="X7R"),
-    "C0805 2.2uF": dict(lcsc="C49217", mpn="0805F225M500NT", jlc_type="extended", stock=0, price=0.0241, note="X7R; 0 in stock 2026-10-25: do not use"),
     "C0805 4.7uF": dict(lcsc="C1779", mpn="CL21A475KAQNNNE", jlc_type="basic", stock=2033617, price=0.0343, note="X5R 25 V"),
     "C0805 10nF": dict(lcsc="C2971995", mpn="0805CG103J500NT", jlc_type="extended", stock=154680, price=0.0421, note="C0G"),
     # --- 0805 capacitors, X7R / X5R (decoupling only) ---

@@ -7774,42 +7774,6 @@
 		)
 	)
 	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "000837f8-a81b-4452-bddb-26314ca01689")
-	)
-	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "17e013e2-e588-4bd1-93f2-a61791de2431")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "3dbd722c-f2ce-45b0-a135-d19202563370")
-	)
-	(rectangle
 		(start 596.9 157.48)
 		(end 782.32 279.4)
 		(stroke
@@ -7819,7 +7783,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "41153f30-2640-4e6b-b29d-7114f7d4fb77")
+		(uuid "0a2d0d9c-6027-4a62-9466-1d1a1ba772ab")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "1571058b-3151-4f96-9412-6730f818324b")
 	)
 	(rectangle
 		(start 596.9 30.48)
@@ -7831,19 +7807,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "4b6ffed4-e4c4-4a69-8aa4-30b06b2f82c3")
-	)
-	(rectangle
-		(start 25.4 284.48)
-		(end 401.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "519eb116-306d-488d-9fb9-f2eed9546aa7")
+		(uuid "3e59df62-ba07-44e5-b313-e8dd905f8570")
 	)
 	(rectangle
 		(start 25.4 411.48)
@@ -7855,43 +7819,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "63d43d19-b682-4b7f-9b40-8d47af378630")
-	)
-	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "67e55d3b-e367-40b5-87cb-7d8a30a9a447")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "7639361f-4efa-4e27-b2c8-16cbde32f5b0")
-	)
-	(rectangle
-		(start 406.4 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "897c360b-214b-40e0-b278-213e57588224")
+		(uuid "6722e6b2-2927-4398-9f4d-3e16254837f7")
 	)
 	(rectangle
 		(start 406.4 284.48)
@@ -7903,7 +7831,43 @@
 		(fill
 			(type none)
 		)
-		(uuid "ab30039b-9a16-43a7-bef3-f7fdc5dbfcc3")
+		(uuid "6f1a21bc-0f7e-42e9-859e-8f29e4e58640")
+	)
+	(rectangle
+		(start 406.4 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "7331a150-efae-40c3-8502-b8537f06e5d8")
+	)
+	(rectangle
+		(start 25.4 284.48)
+		(end 401.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "805906c1-6a98-4f63-afee-b281563c2e53")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "848baa83-4e71-4a78-be3a-09489fa604d1")
 	)
 	(rectangle
 		(start 406.4 157.48)
@@ -7915,7 +7879,43 @@
 		(fill
 			(type none)
 		)
-		(uuid "d947b583-ad4d-40c7-ac5d-1e1f66ac92c3")
+		(uuid "8fc8533e-9dce-43b6-83b4-6daf1cdb11a1")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "b5560c1e-48f6-4988-910e-17bfddc7f459")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "c6eb2cf9-6e74-4252-a974-feba4140505b")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "f76bbcdf-fcf2-47c7-bb23-eee971a5beaf")
 	)
 	(text "per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches,"
 		(exclude_from_sim no)
@@ -32350,7 +32350,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C1519916"
+		(property "LCSC" "C6542"
 			(at 335.28 203.2 0)
 			(hide yes)
 			(show_name no)
@@ -32361,7 +32361,7 @@
 				)
 			)
 		)
-		(property "MPN" "CD74HC4046AM"
+		(property "MPN" "CD74HC4046AM96"
 			(at 335.28 203.2 0)
 			(hide yes)
 			(show_name no)

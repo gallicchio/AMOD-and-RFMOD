@@ -9,6 +9,7 @@ Runs under KiCad's bundled Python (it needs pcbnew):
     <AppRun> python3.11 scripts/gen_pcb.py amod_p out/amod_p.net hardware/amod_p.kicad_pcb
 """
 import json, math, os, sys
+import kienv
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import pcbnew
@@ -89,6 +90,24 @@ def load_fp(fpid):
     fp = pcbnew.FootprintLoad(path, name)
     if fp is None:
         raise SystemExit("footprint %s not found in %s" % (fpid, path))
+    # a library footprint whose STEP file KiCad does not ship: point it at our stand-in body of the same name
+    share = kienv.share_dir()
+    keep, changed = [], False
+    for m in fp.Models():
+        fname = str(m.m_Filename)
+        real = fname.replace("${KICAD10_3DMODEL_DIR}", os.path.join(share, "3dmodels")).replace("${KICAD9_3DMODEL_DIR}", os.path.join(share, "3dmodels"))
+        if not os.path.exists(real):
+            stand_in = os.path.join(HW, "lib", "amod.3dshapes", os.path.splitext(os.path.basename(fname))[0] + ".wrl")
+            if os.path.exists(stand_in):
+                fname = "${KIPRJMOD}/lib/amod.3dshapes/" + os.path.basename(stand_in)
+                changed = True
+        keep.append((fname, m.m_Scale, m.m_Rotation, m.m_Offset, m.m_Show))
+    if changed:
+        fp.Models().clear()
+        for (fname, scale, rot, off, show) in keep:
+            m = pcbnew.FP_3DMODEL()
+            m.m_Filename, m.m_Scale, m.m_Rotation, m.m_Offset, m.m_Show = fname, scale, rot, off, show
+            fp.Models().push_back(m)
     return fp
 
 
