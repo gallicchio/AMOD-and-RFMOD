@@ -111,8 +111,16 @@ def main():
     os.makedirs(HW, exist_ok=True)
     B = parts.BOARDS[stem]
     path = os.path.join(HW, stem + ".kicad_pro")
+    # the RF net class: every net a tile draws as a 50 ohm line (tiles.RF_W), once the schematic stage has written the tiles
+    rf_nets = []
+    tj = os.path.join(HW, "..", "out", stem + "_tiles.json")
+    if os.path.exists(tj):
+        for t in json.load(open(tj))["tiles"]:
+            for w in t["wires"]:
+                if abs(w[2] - 0.29) < 1e-6 and w[0] not in rf_nets:
+                    rf_nets.append(w[0])
     with open(path, "w") as fh:
-        json.dump(project(stem, B["layers"], POWER_NETS[stem]), fh, indent=2)
+        json.dump(project(stem, B["layers"], POWER_NETS[stem], rf_nets), fh, indent=2)
         fh.write("\n")
     for name, body in (("sym-lib-table", SYM_LIB_TABLE), ("fp-lib-table", FP_LIB_TABLE)):
         with open(os.path.join(HW, name), "w") as fh:

@@ -31,6 +31,7 @@ ID_Y = 2.4             # the tile's number between the jacks' legs
 SECT_Y0, SECT_PITCH = 4.4, 1.35   # the tutorial sections, one under the other below the number (3.2 mm between the legs)
 NAME_Y = 18.6          # the name, under the loops (0.9 mm text: 18.0 .. 19.4; the frame's line is at 19.7)
 W_SIG, W_RAIL = 0.35, 0.6
+RF_W = 0.29            # a 50 ohm line on JLC04161H-7628 as CPWG: 0.29 wide, 0.25 to the top ground pour, 0.21 mm over L2 (CostasLink's sim/rf_lines.py)
 # nominal half pad spacing (centre to pad centre) and body half-width across, by package
 PAD = {"0805": 0.95, "0603": 0.775, "0402": 0.485, "1206": 1.4, "1210": 1.4, "2512": 2.95}
 BODY_W = {"0805": 1.25, "0603": 0.8, "0402": 0.5, "1206": 1.6, "1210": 2.5, "2512": 3.2}
@@ -78,6 +79,7 @@ class Tile:
         self.result = ""           # the one-line expected result ("-3 dB at 8.9 MHz")
         self.sim = {}              # numbers the documents quote
         self.sch_draw = None       # f(ctx, tile)
+        self.top_pour = False      # an RF tile: ground poured on L1 round everything, launch voids under its jacks, fences along its lines
         self._counts = {}
         self.x0, self.y0, self.w, self.h = G.tile_frame(self.cells)
 
@@ -118,6 +120,10 @@ class Tile:
         one beside it)."""
         self.wires.append((self.net(net), list(pts), width, layer, silk))
 
+    def rf(self, net, pts):
+        """A 50 ohm line between pads or points: RF_W wide, the top pour 0.25 away each side, ground vias along it (gen_pcb)."""
+        self.wire(net, pts, width=RF_W)
+
     def via(self, net, x, y):
         """A via on `net` at (x, y): a tile's connection to a rail pour on the inner layer."""
         self.vias.append((self.net(net), x, y))
@@ -130,10 +136,10 @@ class Tile:
     def hop(self, net, a, b):
         self.hops.append((self.net(net), a, b))
 
-    def gnd_stub(self, ref, pad, pt, sym=None):
+    def gnd_stub(self, ref, pad, pt, sym=None, width=None):
         """Copper from the pad to a ground via at `pt` (or along a path); the ground symbol is drawn on from the via
-        in the stub's direction unless `sym` (a unit vector) says otherwise."""
-        self.gnd_stubs.append(((ref, str(pad)), pt, sym))
+        in the stub's direction unless `sym` (a unit vector) says otherwise.  `width` overrides the tile's first wire's."""
+        self.gnd_stubs.append(((ref, str(pad)), pt, sym, width))
 
     def text(self, x, y, s, size=0.8, thick=0.15, justify="left", angle=0):
         self.texts.append((x, y, s, size, thick, justify, angle))
@@ -461,7 +467,7 @@ def dump(tiles, mod, path):
     for t in tiles:
         out["tiles"].append(dict(
             id=t.id, idx=t.idx, name=t.name, subtitle=t.subtitle, sections=t.sections, cells=t.cells, supply=t.supply,
-            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result, notes=list(getattr(t, "notes", []) or []),
+            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result, notes=list(getattr(t, "notes", []) or []), top_pour=bool(getattr(t, "top_pour", False)),
             jacks=[dict(j) for j in t.jacks],
             parts=[dict(ref=p.ref, key=p.key, value=p.value, x=p.x, y=p.y, rot=p.rot, pins=p.pins, label=p.label,
                         hide_value=p.hide_value) for p in t.parts.values()],
@@ -469,7 +475,7 @@ def dump(tiles, mod, path):
             vias=[(n, x, y) for (n, x, y) in t.vias],
             routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
-            gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None)) for (pr, pt, sym) in t.gnd_stubs],
+            gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w) for (pr, pt, sym, w) in t.gnd_stubs],
             texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])]))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)

@@ -41,8 +41,9 @@ def load_tiles(path):
         t.vias = [(v[0], float(v[1]), float(v[2])) for v in td.get("vias", [])]
         t.routes = [(r[0], [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in r[1]], r[2]) for r in td.get("routes", [])]
         t.hops = [(n, tuple(a), tuple(b)) for (n, a, b) in td["hops"]]
-        t.gnd_stubs = [(tuple(pr), (tuple(pt) if not isinstance(pt[0], list) else [tuple(q) for q in pt]), (tuple(sym) if sym else None))
-                       for (pr, pt, sym) in td["gnd_stubs"]]
+        t.gnd_stubs = [(tuple(g[0]), (tuple(g[1]) if not isinstance(g[1][0], list) else [tuple(q) for q in g[1]]), (tuple(g[2]) if g[2] else None),
+                        (g[3] if len(g) > 3 else None))
+                       for g in td["gnd_stubs"]]
         t.texts = [tuple(x) for x in td["texts"]]
         tiles.append(t)
     return tiles, d
@@ -52,6 +53,10 @@ LOCAL_FP = os.path.join(HW, "lib", "amod.pretty")
 SHARE_FP = None
 SILK_W, SILK_CLEAR = 0.3, 0.3
 VIA_DIA, VIA_DRILL = 0.6, 0.3
+RF_W = 0.29                            # tiles.RF_W: a wire this wide is a 50 ohm line and gets a via fence
+RF_GAP = 0.25                          # the top pour's distance from it (the RF net class says the same)
+FENCE_OFF, FENCE_PITCH = RF_W / 2 + RF_GAP + 0.45, 1.0      # fence vias: 0.845 off the line's centre, every 1.0 mm
+LAUNCH_R_INNER, LAUNCH_R_TOP = 2.2, 1.9                      # no copper under a jack's centre pin on L2-L4, and the top pour this far away
 BOARD_RULES = dict(m_MinClearance=0.20, m_HoleClearance=0.30, m_HoleToHoleMin=0.50, m_CopperEdgeClearance=0.30, m_SilkClearance=0.15)
 FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (96.5, 90.0)]
 QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under P12's switch, between its jack's legs and P13's: 14 mm with no hole
@@ -171,6 +176,7 @@ class Board:
                         self.problems.append("%s: %s is both %s and %s in the netlist" % (t.id, net, self.kname[net], kn))
                     self.kname[net] = kn
         self.segments, self.vias, self.hops, self.back = [], [], [], []
+        self.rf_segs, self.fence_vias = [], set()
         self.pad_list, self.nosilk = [], set()
         self.stub_dir, self.via_at = {}, {}
         # placements: tile parts in board coordinates, plus the board-level parts
@@ -323,6 +329,9 @@ class Board:
                         self.back.append((net, a, b))
                     continue
                 for a, b in zip(pts, pts[1:]):
+                    if abs(width - RF_W) < 1e-6:
+                        self.rf_segs.append((net, a, b))
+                    key = (net, (round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
                     key = (net, (round(a[0], 3), round(a[1], 3)), (round(b[0], 3), round(b[1], 3)))
                     if key in hops:
                         self.via(*a, net); self.via(*b, net)
@@ -337,7 +346,7 @@ class Board:
                     continue
                 bx, by = t.to_board((vx, vy))
                 self.via(bx, by, net)
-            for (padref, path, sym) in t.gnd_stubs:
+            for (padref, path, sym, swidth) in t.gnd_stubs:
                 pad = self.pads.get(padref)
                 if pad is None:
                     raise SystemExit("%s: ground stub from %s: no such pad" % (t.id, padref))
@@ -345,7 +354,7 @@ class Board:
                     self.problems.append("%s: ground stub from %s, which is on %r" % (t.id, padref, pad["net"]))
                 pts = [(pad["x"], pad["y"])] + [t.to_board(q) for q in (path if isinstance(path, list) else [path])]
                 for a, b in zip(pts, pts[1:]):
-                    self.track(a, b, t.wires[0][2] if t.wires else 0.35, "GND")
+                    self.track(a, b, swidth or (t.wires[0][2] if t.wires else 0.35), "GND")
                 vx, vy = pts[-1]
                 self.via(vx, vy, "GND")
                 dx, dy = vx - pts[-2][0], vy - pts[-2][1]
@@ -516,7 +525,98 @@ class Board:
                         grid.cost[1][i][j] = 1.0
         return grid
 
+    def rf_fences(self):
+        """Ground vias along every 50 ohm line (the RF_W wires), FENCE_OFF each side every FENCE_PITCH, wherever one fits:
+        clear of every pad, of other nets' tracks, of other vias and of the launch under a jack."""
+        jacks = [t.to_board((j["x"], j["y"])) for t in self.tiles if t.top_pour for j in t.jacks]
+        placed = []
+
+        def seg_dist(p, a, b):
+            (px, py), (ax, ay), (bx, by) = p, a, b
+            dx, dy = bx - ax, by - ay
+            L2 = dx * dx + dy * dy
+            u = 0.0 if L2 == 0 else max(0.0, min(1.0, ((px - ax) * dx + (py - ay) * dy) / L2))
+            return math.hypot(px - (ax + u * dx), py - (ay + u * dy))
+
+        def fits(x, y):
+            if any(math.hypot(x - jx, y - jy) < LAUNCH_R_INNER + 0.4 for (jx, jy) in jacks):
+                return False
+            for p in self.pad_list:
+                if p["x0"] - 0.6 <= x <= p["x1"] + 0.6 and p["y0"] - 0.6 <= y <= p["y1"] + 0.6:
+                    return False
+            for (n2, a, b, layer) in self.segments:
+                if n2 != "GND" and seg_dist((x, y), a, b) < 0.75:
+                    return False
+            for (n2, vx, vy) in self.vias:
+                if math.hypot(x - vx, y - vy) < 0.9:
+                    return False
+            return all(math.hypot(x - px, y - py) >= 0.9 for (px, py) in placed)
+
+        for (net, a, b) in self.rf_segs:
+            L = math.hypot(b[0] - a[0], b[1] - a[1])
+            if L < 0.8:
+                continue
+            ux, uy = (b[0] - a[0]) / L, (b[1] - a[1]) / L
+            nx, ny = -uy, ux
+            k = 0
+            while 0.4 + k * FENCE_PITCH <= L - 0.4:
+                d = 0.4 + k * FENCE_PITCH
+                for sgn in (1, -1):
+                    x, y = a[0] + ux * d + sgn * nx * FENCE_OFF, a[1] + uy * d + sgn * ny * FENCE_OFF
+                    if fits(x, y):
+                        self.via(x, y, "GND")
+                        placed.append((x, y))
+                        self.fence_vias.add((round(x, 3), round(y, 3)))
+                k += 1
+
+    def rf_voids(self):
+        """Rule areas under every jack of an RF tile: no fill within LAUNCH_R_INNER of the centre pin on L2, L3 and L4, none within
+        LAUNCH_R_TOP on L1, so the pin's pad does not sit on 0.6 pF of plane (CostasLink's gen/rf_launch.py)."""
+        def circle(z, cx, cy, r):
+            o = z.Outline(); o.NewOutline()
+            for i in range(32):
+                a = 2 * math.pi * i / 32
+                o.Append(mm(cx + r * math.cos(a)), mm(cy + r * math.sin(a)))
+
+        for t in self.tiles:
+            if not t.top_pour:
+                continue
+            for j in t.jacks:
+                cx, cy = t.to_board((j["x"], j["y"]))
+                for layers, r in (((pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu) if self.B["layers"] == 4 else (pcbnew.B_Cu,), LAUNCH_R_INNER),
+                                  ((pcbnew.F_Cu,), LAUNCH_R_TOP)):
+                    z = pcbnew.ZONE(self.board)
+                    z.SetIsRuleArea(True)
+                    z.SetDoNotAllowZoneFills(True)
+                    z.SetDoNotAllowTracks(False); z.SetDoNotAllowVias(False); z.SetDoNotAllowPads(False); z.SetDoNotAllowFootprints(False)
+                    ls = pcbnew.LSET()
+                    for l in layers:
+                        ls.AddLayer(l)
+                    z.SetLayerSet(ls)
+                    circle(z, cx, cy, r)
+                    self.board.Add(z)
+
+    def top_pours(self):
+        """Ground on L1 over each RF tile (inside its frame), RF_GAP from every track and pad, solid to the ground pads."""
+        for t in self.tiles:
+            if not t.top_pour:
+                continue
+            z = pcbnew.ZONE(self.board)
+            z.SetLayer(pcbnew.F_Cu)
+            z.SetNet(self.netmap["GND"])
+            z.SetAssignedPriority(0)
+            z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
+            z.SetLocalClearance(mm(RF_GAP)); z.SetMinThickness(mm(0.2))
+            z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
+            o = z.Outline(); o.NewOutline()
+            m = 0.9
+            for (x, y) in ((t.x0 + m, t.y0 + m), (t.x0 + t.w - m, t.y0 + m), (t.x0 + t.w - m, t.y0 + t.h - m), (t.x0 + m, t.y0 + t.h - m)):
+                o.Append(mm(x), mm(y))
+            self.board.Add(z)
+
     def plane(self):
+        self.rf_voids()
+        self.top_pours()
         # the rails: pours on In2 from the board module (net, x0, y0, x1, y1, priority); the lowest priority covers the board
         for spec in self.meta.get("rail_pours", []):
             if len(spec) == 3:                                 # (net, [(x, y), ...], priority): a polygon
@@ -744,7 +844,7 @@ class Board:
 
     def silk_grounds(self):
         for (net, x, y) in self.vias:
-            if net != "GND":
+            if net != "GND" or (round(x, 3), round(y, 3)) in self.fence_vias:
                 continue
             ux, uy = self.stub_dir.get((round(x, 3), round(y, 3)), (0, 1))
             self.ground_symbol(x, y, ux, uy)
@@ -877,6 +977,7 @@ class Board:
         self.wires()
         self.back_wires()
         self.autoroute()
+        self.rf_fences()
         self.trim_edge_silk()
         self.plane()
         self.silk_wires()

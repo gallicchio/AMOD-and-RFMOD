@@ -311,6 +311,19 @@ def lfb212():
     return name, f
 
 
+def l_4x4():
+    """XRNR4030-22uH 4 x 4 x 3 mm shielded power inductor (LCSC C5289362): two 1.6 x 3.7 pads at x = +-1.6, as JLCPCB draws it."""
+    name = "L_4x4_XRNR4030"
+    f = fp_header(name, "4 x 4 mm shielded power inductor, two 1.6 x 3.7 pads at +-1.6: XRNR4030 (LCSC C5289362)", "inductor", "smd", 3.1)
+    f.add(smd_pad("1", -1.6, 0, 1.6, 3.7, f"{name}/p1"), smd_pad("2", 1.6, 0, 1.6, 3.7, f"{name}/p2"))
+    rect_lines(f, -2.0, -2.0, 2.0, 2.0, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -2.65, -2.25, 2.65, 2.25, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sy in (-2.1, 2.1):
+        f.add(line(-2.1, sy, 2.1, sy, "F.SilkS", SILK_W, f"{name}/silk/{sy}"))
+    model(f, "L_4x4.wrl")
+    return name, f
+
+
 def slot():
     """A 1.2 x 3.4 mm plated-nothing slot, for a cable tie through the board (P13's ferrite rod)."""
     name = "Slot_CableTie_1.2x3.4mm"
@@ -344,7 +357,7 @@ def led_0805():
 
 
 MAKERS = [sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
-          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, slot]
+          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, slot]
 
 
 def main():

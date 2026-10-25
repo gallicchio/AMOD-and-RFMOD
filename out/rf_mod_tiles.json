@@ -1,0 +1,3267 @@
+{
+ "tiles": [
+  {
+   "id": "R2",
+   "idx": 2,
+   "name": "2.45 GHz filter",
+   "subtitle": "",
+   "sections": [],
+   "cells": [
+    [
+     2,
+     0
+    ]
+   ],
+   "supply": null,
+   "x0": 50.75,
+   "y0": 7.75,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out",
+   "notes": [
+    "Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm",
+    "wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void).",
+    "Sweep it with the synthesizer R10 or R11 into a power meter, or with a DAC harmonic comb and the ADC."
+   ],
+   "top_pour": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "IN",
+     "net": "/R2_IN",
+     "role": "in",
+     "limit": "+10 dBm",
+     "ref": "J201",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IN"
+    },
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/R2_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J202",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J201",
+     "key": "SMA",
+     "value": "IN",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R2_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J202",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R2_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "FL201",
+     "key": "LTCC2G4",
+     "value": "LFB212",
+     "x": 10.0,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "4": "/R2_IN",
+      "2": "/R2_OUT",
+      "1": "GND",
+      "3": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/R2_IN",
+     [
+      [
+       "J201",
+       "1"
+      ],
+      [
+       4.75,
+       10.0
+      ],
+      [
+       "FL201",
+       "4"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R2_OUT",
+     [
+      [
+       "FL201",
+       "2"
+      ],
+      [
+       15.25,
+       10.0
+      ],
+      [
+       "J202",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ]
+   ],
+   "vias": [],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "FL201",
+      "1"
+     ],
+     [
+      10.0,
+      8.4
+     ],
+     [
+      0,
+      -1
+     ],
+     null
+    ],
+    [
+     [
+      "FL201",
+      "3"
+     ],
+     [
+      10.0,
+      11.6
+     ],
+     [
+      0,
+      1
+     ],
+     null
+    ]
+   ],
+   "texts": [
+    [
+     12.6,
+     2.4,
+     "R2",
+     1.5,
+     0.3,
+     "center",
+     0
+    ],
+    [
+     12.6,
+     4.3,
+     "2.45 GHz",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     12.6,
+     5.6,
+     "LTCC BPF",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     1.2,
+     18.6,
+     "2.4-2.5 GHz",
+     0.9,
+     0.17,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     17.2,
+     "1.7 dB LOSS",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     15.8,
+     "LFB212G45",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R4",
+   "idx": 4,
+   "name": "915 MHz filter",
+   "subtitle": "",
+   "sections": [],
+   "cells": [
+    [
+     3,
+     0
+    ]
+   ],
+   "supply": null,
+   "x0": 72.25,
+   "y0": 7.75,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out",
+   "notes": [
+    "RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package;",
+    "its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2."
+   ],
+   "top_pour": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "IN",
+     "net": "/R4_IN",
+     "role": "in",
+     "limit": "+10 dBm",
+     "ref": "J401",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IN"
+    },
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/R4_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J402",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J401",
+     "key": "SMA",
+     "value": "IN",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R4_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J402",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R4_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "FL401",
+     "key": "SAW915",
+     "value": "B39921",
+     "x": 10.0,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R4_IN",
+      "3": "/R4_OUT",
+      "2": "GND",
+      "4": "GND",
+      "5": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/R4_IN",
+     [
+      [
+       "J401",
+       "1"
+      ],
+      [
+       4.75,
+       10.0
+      ],
+      [
+       9.2,
+       10.0
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R4_IN",
+     [
+      [
+       9.2,
+       10.0
+      ],
+      [
+       "FL401",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R4_OUT",
+     [
+      [
+       "FL401",
+       "3"
+      ],
+      [
+       10.75,
+       10.287
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R4_OUT",
+     [
+      [
+       10.75,
+       10.287
+      ],
+      [
+       10.9,
+       10.287
+      ],
+      [
+       11.19,
+       10.0
+      ],
+      [
+       15.25,
+       10.0
+      ],
+      [
+       "J402",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ]
+   ],
+   "vias": [],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "FL401",
+      "5"
+     ],
+     [
+      10.0,
+      8.5
+     ],
+     [
+      0,
+      -1
+     ],
+     0.2
+    ],
+    [
+     [
+      "FL401",
+      "2"
+     ],
+     [
+      10.0,
+      11.5
+     ],
+     [
+      0,
+      1
+     ],
+     0.2
+    ]
+   ],
+   "texts": [
+    [
+     12.6,
+     2.4,
+     "R4",
+     1.5,
+     0.3,
+     "center",
+     0
+    ],
+    [
+     12.6,
+     4.3,
+     "915 MHz",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     12.6,
+     5.6,
+     "SAW BPF",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     1.2,
+     18.6,
+     "902-928 MHz",
+     0.9,
+     0.17,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     17.2,
+     "1.1 dB LOSS",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     15.8,
+     "B39921B2672",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R5",
+   "idx": 5,
+   "name": "gain block",
+   "subtitle": "GALI-84+",
+   "sections": [],
+   "cells": [
+    [
+     0,
+     1
+    ]
+   ],
+   "supply": "+8 V",
+   "x0": 7.75,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V",
+   "notes": [
+    "Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its",
+    "5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the",
+    "output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide",
+    "switch and P-FET gate the tile's 7.8 V as on AMOD-A."
+   ],
+   "top_pour": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "IN",
+     "net": "/R5_IN",
+     "role": "in",
+     "limit": "0 dBm",
+     "ref": "J501",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IN"
+    },
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/R5_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J502",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J501",
+     "key": "SMA",
+     "value": "IN",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J502",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW501",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R5_G",
+      "3": "+8V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q501",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_G",
+      "2": "+8V",
+      "3": "/R5_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U501",
+     "key": "GALI84",
+     "value": "GALI-84+",
+     "x": 11.5,
+     "y": 8.55,
+     "rot": 90,
+     "pins": {
+      "1": "/R5_IN_A",
+      "2": "GND",
+      "3": "/R5_OUT_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C501",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 6.45,
+     "y": 10.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_IN",
+      "2": "/R5_IN_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C502",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 15.0,
+     "y": 10.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_OUT_A",
+      "2": "/R5_OUT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L501",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 14.6,
+     "y": 8.4,
+     "rot": 270,
+     "pins": {
+      "1": "/R5_VD",
+      "2": "/R5_OUT_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C503",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 16.1,
+     "y": 6.7,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_VD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R501",
+     "key": "R2512_22R",
+     "value": "22R",
+     "x": 14.5,
+     "y": 3.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R5_VS",
+      "2": "/R5_VD"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C504",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 10.7,
+     "y": 14.4,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R5_VS"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+8V",
+     [
+      [
+       "SW501",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ],
+      [
+       5.7,
+       20.5
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+8V",
+     [
+      [
+       "Q501",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_IN",
+     [
+      [
+       "J501",
+       "1"
+      ],
+      [
+       4.75,
+       10.5
+      ],
+      [
+       "C501",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_IN_A",
+     [
+      [
+       "C501",
+       "2"
+      ],
+      [
+       "U501",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_OUT_A",
+     [
+      [
+       "U501",
+       "3"
+      ],
+      [
+       "C502",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_OUT",
+     [
+      [
+       "C502",
+       "2"
+      ],
+      [
+       15.48,
+       15.25
+      ],
+      [
+       "J502",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_OUT_A",
+     [
+      [
+       14.6,
+       10.5
+      ],
+      [
+       "L501",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_VD",
+     [
+      [
+       "L501",
+       "1"
+      ],
+      [
+       14.6,
+       6.7
+      ],
+      [
+       "C503",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_VD",
+     [
+      [
+       14.6,
+       6.7
+      ],
+      [
+       14.6,
+       5.8
+      ],
+      [
+       17.46,
+       5.8
+      ],
+      [
+       "R501",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       8.54,
+       17.0
+      ],
+      [
+       10.7,
+       17.0
+      ],
+      [
+       "C504",
+       "2"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R5_VS",
+     [
+      [
+       10.7,
+       17.0
+      ],
+      [
+       10.7,
+       1.3
+      ],
+      [
+       11.54,
+       1.3
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false
+    ],
+    [
+     "/R5_VS",
+     [
+      [
+       11.54,
+       1.3
+      ],
+      [
+       "R501",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+8V",
+     5.7,
+     20.5
+    ],
+    [
+     "/R5_VS",
+     10.7,
+     17.0
+    ],
+    [
+     "/R5_VS",
+     11.54,
+     1.3
+    ]
+   ],
+   "routes": [
+    [
+     "/R5_G",
+     [
+      [
+       "SW501",
+       "2"
+      ],
+      [
+       "Q501",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW501",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C503",
+      "2"
+     ],
+     [
+      17.5,
+      6.7
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U501",
+      "2"
+     ],
+     [
+      [
+       11.5,
+       6.3
+      ],
+      [
+       12.1,
+       6.3
+      ],
+      [
+       12.1,
+       5.75
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U501",
+      "2"
+     ],
+     [
+      11.5,
+      11.9
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C504",
+      "1"
+     ],
+     [
+      [
+       10.0,
+       13.45
+      ],
+      [
+       10.0,
+       12.9
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ]
+   ],
+   "texts": [
+    [
+     17.0,
+     8.3,
+     "R5",
+     1.2,
+     0.2,
+     "center",
+     0
+    ],
+    [
+     5.9,
+     11.85,
+     "GALI-84+",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     7.6,
+     13.1,
+     "20 dB",
+     0.8,
+     0.15,
+     "center",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R12",
+   "idx": 12,
+   "name": "gain block",
+   "subtitle": "GALI-84+",
+   "sections": [],
+   "cells": [
+    [
+     1,
+     1
+    ]
+   ],
+   "supply": "+8 V",
+   "x0": 29.25,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V",
+   "notes": [
+    "Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its",
+    "5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the",
+    "output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide",
+    "switch and P-FET gate the tile's 7.8 V as on AMOD-A."
+   ],
+   "top_pour": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "IN",
+     "net": "/R12_IN",
+     "role": "in",
+     "limit": "0 dBm",
+     "ref": "J1201",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IN"
+    },
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/R12_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J1202",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J1201",
+     "key": "SMA",
+     "value": "IN",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J1202",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW1201",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R12_G",
+      "3": "+8V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q1201",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_G",
+      "2": "+8V",
+      "3": "/R12_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U1201",
+     "key": "GALI84",
+     "value": "GALI-84+",
+     "x": 11.5,
+     "y": 8.55,
+     "rot": 90,
+     "pins": {
+      "1": "/R12_IN_A",
+      "2": "GND",
+      "3": "/R12_OUT_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1201",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 6.45,
+     "y": 10.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_IN",
+      "2": "/R12_IN_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1202",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 15.0,
+     "y": 10.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_OUT_A",
+      "2": "/R12_OUT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L1201",
+     "key": "L0402 27nH",
+     "value": "27n",
+     "x": 14.6,
+     "y": 8.4,
+     "rot": 270,
+     "pins": {
+      "1": "/R12_VD",
+      "2": "/R12_OUT_A"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1203",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 16.1,
+     "y": 6.7,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_VD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1201",
+     "key": "R2512_22R",
+     "value": "22R",
+     "x": 14.5,
+     "y": 3.5,
+     "rot": 0,
+     "pins": {
+      "1": "/R12_VS",
+      "2": "/R12_VD"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1204",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 10.7,
+     "y": 14.4,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R12_VS"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+8V",
+     [
+      [
+       "SW1201",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ],
+      [
+       5.7,
+       20.5
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+8V",
+     [
+      [
+       "Q1201",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_IN",
+     [
+      [
+       "J1201",
+       "1"
+      ],
+      [
+       4.75,
+       10.5
+      ],
+      [
+       "C1201",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_IN_A",
+     [
+      [
+       "C1201",
+       "2"
+      ],
+      [
+       "U1201",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_OUT_A",
+     [
+      [
+       "U1201",
+       "3"
+      ],
+      [
+       "C1202",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_OUT",
+     [
+      [
+       "C1202",
+       "2"
+      ],
+      [
+       15.48,
+       15.25
+      ],
+      [
+       "J1202",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_OUT_A",
+     [
+      [
+       14.6,
+       10.5
+      ],
+      [
+       "L1201",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_VD",
+     [
+      [
+       "L1201",
+       "1"
+      ],
+      [
+       14.6,
+       6.7
+      ],
+      [
+       "C1203",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_VD",
+     [
+      [
+       14.6,
+       6.7
+      ],
+      [
+       14.6,
+       5.8
+      ],
+      [
+       17.46,
+       5.8
+      ],
+      [
+       "R1201",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       8.54,
+       17.0
+      ],
+      [
+       10.7,
+       17.0
+      ],
+      [
+       "C1204",
+       "2"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R12_VS",
+     [
+      [
+       10.7,
+       17.0
+      ],
+      [
+       10.7,
+       1.3
+      ],
+      [
+       11.54,
+       1.3
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false
+    ],
+    [
+     "/R12_VS",
+     [
+      [
+       11.54,
+       1.3
+      ],
+      [
+       "R1201",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+8V",
+     5.7,
+     20.5
+    ],
+    [
+     "/R12_VS",
+     10.7,
+     17.0
+    ],
+    [
+     "/R12_VS",
+     11.54,
+     1.3
+    ]
+   ],
+   "routes": [
+    [
+     "/R12_G",
+     [
+      [
+       "SW1201",
+       "2"
+      ],
+      [
+       "Q1201",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW1201",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C1203",
+      "2"
+     ],
+     [
+      17.5,
+      6.7
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U1201",
+      "2"
+     ],
+     [
+      [
+       11.5,
+       6.3
+      ],
+      [
+       12.1,
+       6.3
+      ],
+      [
+       12.1,
+       5.75
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U1201",
+      "2"
+     ],
+     [
+      11.5,
+      11.9
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C1204",
+      "1"
+     ],
+     [
+      [
+       10.0,
+       13.45
+      ],
+      [
+       10.0,
+       12.9
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ]
+   ],
+   "texts": [
+    [
+     17.0,
+     8.3,
+     "R12",
+     1.2,
+     0.2,
+     "center",
+     0
+    ],
+    [
+     5.9,
+     11.85,
+     "GALI-84+",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     7.6,
+     13.1,
+     "20 dB",
+     0.8,
+     0.15,
+     "center",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R9",
+   "idx": 9,
+   "name": "power",
+   "subtitle": "USB-C 5 V in: +5, +7.8 V; 25 MHz reference",
+   "sections": [],
+   "cells": [
+    [
+     2,
+     1
+    ],
+    [
+     3,
+     1
+    ]
+   ],
+   "supply": null,
+   "x0": 50.75,
+   "y0": 29.25,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "+5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), 25 MHz square wave on REF OUT and the REF25 bus",
+   "notes": [
+    "USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
+    "(0.6 V x 13 from 12 k / 1 k) for the two GALI-84+ tiles (200 mA); the +8V rail is a strip under row 1 that their",
+    "headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives",
+    "REF OUT (51 ohm: 1.6 Vpp into 50 ohm) and the REF25 line on the back to the synthesizers' jumpers (3.3 Vpp open).",
+    "The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled."
+   ],
+   "top_pour": false,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "REF OUT",
+     "net": "/R9_REF",
+     "role": "out",
+     "limit": "25 MHz, 1.6 Vpp into 50 ohm",
+     "ref": "J902",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "REF OUT"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J901",
+     "key": "USBC",
+     "value": "USB-C",
+     "x": 46.8,
+     "y": 10.0,
+     "rot": 90,
+     "pins": {
+      "A4": "/R9_VBUS",
+      "A9": "/R9_VBUS",
+      "B4": "/R9_VBUS",
+      "B9": "/R9_VBUS",
+      "A5": "/R9_CC1",
+      "B5": "/R9_CC2",
+      "A1": "GND",
+      "A12": "GND",
+      "B1": "GND",
+      "B12": "GND",
+      "SH": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R901",
+     "key": "R0805 5.1k",
+     "value": "5.1k",
+     "x": 39.1,
+     "y": 11.5,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/R9_CC1"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R902",
+     "key": "R0805 5.1k",
+     "value": "5.1k",
+     "x": 39.1,
+     "y": 9.3,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/R9_CC2"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "F901",
+     "key": "PTC2A",
+     "value": "2A",
+     "x": 37.0,
+     "y": 6.2,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "/R9_VBUS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D901",
+     "key": "TVS5V",
+     "value": "SMAJ5.0A",
+     "x": 32.1,
+     "y": 7.6,
+     "rot": 270,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C901",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 28.5,
+     "y": 6.2,
+     "rot": 180,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C902",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 28.5,
+     "y": 8.8,
+     "rot": 180,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C903",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 24.5,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L901",
+     "key": "L22U",
+     "value": "22u",
+     "x": 24.5,
+     "y": 13.4,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "/R9_SW"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U901",
+     "key": "MT3608",
+     "value": "MT3608",
+     "x": 24.0,
+     "y": 17.7,
+     "rot": 0,
+     "pins": {
+      "1": "/R9_SW",
+      "2": "GND",
+      "3": "/R9_FB",
+      "4": "+5V",
+      "5": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D902",
+     "key": "SS34",
+     "value": "SS34",
+     "x": 30.0,
+     "y": 17.6,
+     "rot": 180,
+     "pins": {
+      "1": "+8V",
+      "2": "/R9_SW"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C904",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 35.3,
+     "y": 17.6,
+     "rot": 0,
+     "pins": {
+      "1": "+8V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R903",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 20.5,
+     "y": 17.5,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R9_FB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R904",
+     "key": "R0402 12k",
+     "value": "12k",
+     "x": 18.8,
+     "y": 18.65,
+     "rot": 0,
+     "pins": {
+      "1": "+8V",
+      "2": "/R9_FB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R905",
+     "key": "R0805 1k",
+     "value": "1k",
+     "x": 35.3,
+     "y": 15.2,
+     "rot": 0,
+     "pins": {
+      "1": "+8V",
+      "2": "/R9_LEDY"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED901",
+     "key": "LED_Y",
+     "value": "+8V",
+     "x": 38.9,
+     "y": 15.2,
+     "rot": 180,
+     "pins": {
+      "1": "GND",
+      "2": "/R9_LEDY"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J902",
+     "key": "SMA",
+     "value": "REF OUT",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R9_REF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U902",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 14.1,
+     "y": 13.2,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "+5V",
+      "5": "+3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C905",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 10.4,
+     "y": 15.4,
+     "rot": 270,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C906",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 17.3,
+     "y": 14.8,
+     "rot": 270,
+     "pins": {
+      "1": "+3V3",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "X901",
+     "key": "TCXO25",
+     "value": "25 MHz",
+     "x": 14.8,
+     "y": 7.2,
+     "rot": 180,
+     "pins": {
+      "2": "GND",
+      "3": "/R9_OSC",
+      "4": "+3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C907",
+     "key": "C0603 100nF",
+     "value": "100n",
+     "x": 17.8,
+     "y": 9.6,
+     "rot": 270,
+     "pins": {
+      "1": "+3V3",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U903",
+     "key": "LVC1G17",
+     "value": "74LVC1G17",
+     "x": 10.4,
+     "y": 9.2,
+     "rot": 180,
+     "pins": {
+      "2": "/R9_OSC",
+      "3": "GND",
+      "4": "/R9_BUF",
+      "5": "+3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C908",
+     "key": "C0603 100nF",
+     "value": "100n",
+     "x": 7.6,
+     "y": 12.3,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "+3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R906",
+     "key": "R0402 51R",
+     "value": "51R",
+     "x": 9.2625,
+     "y": 6.4,
+     "rot": 270,
+     "pins": {
+      "1": "/R9_REF",
+      "2": "/R9_BUF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED902",
+     "key": "LED_G",
+     "value": "+5V",
+     "x": 46.1,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R9_LEDG",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R907",
+     "key": "R0805 1k",
+     "value": "1k",
+     "x": 48.1,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/R9_LEDG",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "GND",
+     [
+      [
+       "J901",
+       "A1"
+      ],
+      [
+       43.669999999999995,
+       14.32
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "GND",
+     [
+      [
+       "J901",
+       "B1"
+      ],
+      [
+       43.669999999999995,
+       5.68
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_CC1",
+     [
+      [
+       "J901",
+       "A5"
+      ],
+      [
+       40.8,
+       11.25
+      ],
+      [
+       40.8,
+       11.5
+      ],
+      [
+       "R901",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_CC2",
+     [
+      [
+       "J901",
+       "B5"
+      ],
+      [
+       40.8,
+       8.25
+      ],
+      [
+       40.8,
+       9.3
+      ],
+      [
+       "R902",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_VBUS",
+     [
+      [
+       "J901",
+       "B9"
+      ],
+      [
+       41.4,
+       12.45
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_VBUS",
+     [
+      [
+       "J901",
+       "A9"
+      ],
+      [
+       41.4,
+       7.55
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_VBUS",
+     [
+      [
+       41.4,
+       12.45
+      ],
+      [
+       41.4,
+       7.55
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     true
+    ],
+    [
+     "/R9_VBUS",
+     [
+      [
+       41.4,
+       7.55
+      ],
+      [
+       41.4,
+       6.2
+      ],
+      [
+       "F901",
+       "2"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "F901",
+       "1"
+      ],
+      [
+       "C901",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C901",
+       "1"
+      ],
+      [
+       "C902",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       22.3,
+       10.0
+      ],
+      [
+       "C903",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       22.3,
+       10.0
+      ],
+      [
+       22.3,
+       12.3
+      ],
+      [
+       "L901",
+       "1"
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_SW",
+     [
+      [
+       "L901",
+       "2"
+      ],
+      [
+       26.1,
+       15.85
+      ],
+      [
+       21.9,
+       15.85
+      ],
+      [
+       21.9,
+       16.75
+      ],
+      [
+       "U901",
+       "1"
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_SW",
+     [
+      [
+       26.1,
+       15.85
+      ],
+      [
+       28.0,
+       15.85
+      ],
+      [
+       "D902",
+       "2"
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U901",
+       "4"
+      ],
+      [
+       "U901",
+       "5"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U901",
+       "4"
+      ],
+      [
+       25.1375,
+       19.5
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+8V",
+     [
+      [
+       "D902",
+       "1"
+      ],
+      [
+       "C904",
+       "1"
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true
+    ],
+    [
+     "+8V",
+     [
+      [
+       "C904",
+       "1"
+      ],
+      [
+       34.35,
+       20.5
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     false
+    ],
+    [
+     "/R9_FB",
+     [
+      [
+       "U901",
+       "3"
+      ],
+      [
+       20.5,
+       18.65
+      ],
+      [
+       "R904",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_FB",
+     [
+      [
+       "R903",
+       "2"
+      ],
+      [
+       20.5,
+       18.65
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "+8V",
+     [
+      [
+       "R904",
+       "1"
+      ],
+      [
+       18.29,
+       20.5
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     false
+    ],
+    [
+     "+8V",
+     [
+      [
+       "C904",
+       "1"
+      ],
+      [
+       "R905",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_LEDY",
+     [
+      [
+       "R905",
+       "2"
+      ],
+      [
+       "LED901",
+       "2"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C905",
+       "1"
+      ],
+      [
+       10.4,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "U902",
+       "5"
+      ],
+      [
+       15.2375,
+       9.6
+      ],
+      [
+       15.9,
+       9.6
+      ],
+      [
+       "X901",
+       "4"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "X901",
+       "4"
+      ],
+      [
+       17.8,
+       8.05
+      ],
+      [
+       "C907",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_OSC",
+     [
+      [
+       "X901",
+       "3"
+      ],
+      [
+       13.7,
+       9.2
+      ],
+      [
+       "U903",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "C908",
+       "2"
+      ],
+      [
+       8.375,
+       10.15
+      ],
+      [
+       "U903",
+       "5"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+3V3",
+     [
+      [
+       8.375,
+       11.2
+      ],
+      [
+       16.5,
+       11.2
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false
+    ],
+    [
+     "+3V3",
+     [
+      [
+       16.5,
+       11.2
+      ],
+      [
+       16.5,
+       13.85
+      ],
+      [
+       "C906",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "U902",
+       "5"
+      ],
+      [
+       16.5,
+       12.25
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_BUF",
+     [
+      [
+       "U903",
+       "4"
+      ],
+      [
+       "R906",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true
+    ],
+    [
+     "/R9_REF",
+     [
+      [
+       "R906",
+       "1"
+      ],
+      [
+       9.2625,
+       4.75
+      ],
+      [
+       "J902",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ],
+    [
+     "+5V",
+     [
+      [
+       "LED902",
+       "2"
+      ],
+      [
+       46.1,
+       0.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     false
+    ],
+    [
+     "/R9_LEDG",
+     [
+      [
+       "LED902",
+       "1"
+      ],
+      [
+       "R907",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     30.6,
+     6.2
+    ],
+    [
+     "+5V",
+     22.3,
+     10.0
+    ],
+    [
+     "+5V",
+     25.1375,
+     19.5
+    ],
+    [
+     "+8V",
+     34.35,
+     20.5
+    ],
+    [
+     "+8V",
+     18.29,
+     20.5
+    ],
+    [
+     "+5V",
+     10.4,
+     12.6
+    ],
+    [
+     "+3V3",
+     8.375,
+     11.2
+    ],
+    [
+     "+3V3",
+     16.5,
+     11.2
+    ],
+    [
+     "+5V",
+     46.1,
+     0.6
+    ]
+   ],
+   "routes": [
+    [
+     "+5V",
+     [
+      [
+       "U902",
+       "1"
+      ],
+      [
+       "U902",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U902",
+       "1"
+      ],
+      [
+       "C905",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "R901",
+      "1"
+     ],
+     [
+      38.188,
+      10.4
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "R902",
+      "1"
+     ],
+     [
+      37.4,
+      9.3
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "D901",
+      "2"
+     ],
+     [
+      32.1,
+      11.3
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C901",
+      "2"
+     ],
+     [
+      27.55,
+      4.7
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C902",
+      "2"
+     ],
+     [
+      26.5,
+      8.8
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C903",
+      "2"
+     ],
+     [
+      26.3,
+      10.0
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U901",
+      "2"
+     ],
+     [
+      21.6,
+      17.7
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C904",
+      "2"
+     ],
+     [
+      37.1,
+      17.6
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "R903",
+      "1"
+     ],
+     [
+      19.8,
+      16.99
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "LED901",
+      "1"
+     ],
+     [
+      40.8,
+      15.2
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U902",
+      "2"
+     ],
+     [
+      11.7,
+      13.2
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C905",
+      "2"
+     ],
+     [
+      10.4,
+      17.6
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C906",
+      "2"
+     ],
+     [
+      17.3,
+      17.2
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C907",
+      "2"
+     ],
+     [
+      17.8,
+      11.4
+     ],
+     [
+      0,
+      1
+     ],
+     null
+    ],
+    [
+     [
+      "X901",
+      "2"
+     ],
+     [
+      [
+       13.7,
+       5.6
+      ],
+      [
+       12.0,
+       5.6
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "U903",
+      "3"
+     ],
+     [
+      12.3,
+      8.25
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "C908",
+      "1"
+     ],
+     [
+      6.0,
+      12.3
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ],
+    [
+     [
+      "R907",
+      "2"
+     ],
+     [
+      48.1,
+      0.6
+     ],
+     [
+      0,
+      0
+     ],
+     null
+    ]
+   ],
+   "texts": [
+    [
+     10.5,
+     2.4,
+     "R9",
+     1.5,
+     0.3,
+     "center",
+     0
+    ],
+    [
+     19.2,
+     4.4,
+     "REF 25 MHz",
+     0.8,
+     0.15,
+     "right",
+     0
+    ],
+    [
+     41.0,
+     18.6,
+     "POWER",
+     0.8,
+     0.15,
+     "right",
+     0
+    ],
+    [
+     23.5,
+     5.0,
+     "BOOST",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     23.5,
+     6.4,
+     "7.8 V",
+     0.8,
+     0.15,
+     "center",
+     0
+    ]
+   ],
+   "slots": []
+  }
+ ],
+ "gnd_loops": [
+  [
+   3.0,
+   30.0
+  ],
+  [
+   3.0,
+   70.0
+  ],
+  [
+   97.0,
+   50.0
+  ],
+  [
+   97.0,
+   84.0
+  ]
+ ],
+ "back_text": [
+  "RF-MOD: 915 MHz and 2.4 GHz.  IN is each tile's top-left",
+  "jack, OUT its bottom-right; the gain blocks and synthesizers",
+  "have a slide switch (up: on).  Power: USB-C on R9.",
+  "The handbook has the rest."
+ ],
+ "slots": [],
+ "front_text": [
+  [
+   28.5,
+   16.6,
+   "R1  915 MHz INVERTED-F ANTENNA (TI DN023)"
+  ],
+  [
+   28.5,
+   18.4,
+   "REV B: NOT ON THIS BOARD"
+  ],
+  [
+   50.0,
+   59.6,
+   "R7, R8  LTC5510 UP- AND DOWN-CONVERTING MIXERS: REV B (35 IN STOCK ON 2026-10-25)"
+  ],
+  [
+   50.0,
+   61.4,
+   "R6  RFX2401C 2.4 GHz FRONT END AND R13  TRF3722 QUADRATURE TRANSMITTER: REV B"
+  ],
+  [
+   50.0,
+   63.2,
+   "R3  2.4 GHz MEANDERED INVERTED-F ANTENNA (TI AN043): REV B"
+  ]
+ ],
+ "rail_pours": [
+  [
+   "+5V",
+   0.6,
+   0.6,
+   99.4,
+   99.4,
+   0
+  ],
+  [
+   "+8V",
+   7.0,
+   49.25,
+   93.0,
+   50.75,
+   1
+  ]
+ ],
+ "back_wires": [],
+ "back_text_x": 50.0,
+ "qr_at": [
+  17.75,
+  17.75
+ ],
+ "stem": "rf_mod"
+}

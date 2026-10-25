@@ -143,6 +143,37 @@ PARTS = {
                  desc="2 x 6 right-angle Pmod plug at the bottom edge: pin k is pad 2k-1, pin k+6 is pad 2k"),
     "BEAD": dict(value="220R bead", mpn="BLM21PG221SN1D", lcsc="C85840", jlc_type="extended", process="SMT", stock=605640, price=0.0346,
                  footprint="Inductor_SMD:L_0805_2012Metric", symbol="Device:FerriteBead", match=["BLM21PG221SN1D"], desc="ferrite bead, 220 ohm at 100 MHz, 2 A"),
+    # ---- RF-MOD: the synthesizers, the gain blocks, the filters, the reference and the boost (stock 2026-10-25 08:02) ----
+    "MAX2871": dict(value="MAX2871", mpn="MAX2871ETJ+T", lcsc="C7458627", jlc_type="extended", process="SMT", stock=3120, price=9.9745,
+                    footprint="Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm", symbol="amod:MAX2871", match=["MAX2871ETJ"],
+                    desc="23.5 MHz to 6 GHz fractional-N synthesizer with its VCOs, TQFN-32 (CostasLink's part and circuit)"),
+    "GALI84": dict(value="GALI-84+", mpn="GALI-84+", lcsc="C3193261", jlc_type="extended", process="SMT", stock=144, price=4.2238,
+                   footprint="Package_TO_SOT_SMD:SOT-89-3", symbol="amod:GALI84", match=["GALI-84+"],
+                   desc="Mini-Circuits MMIC gain block, DC-6 GHz, 20 dB at 1 GHz, P1dB +20 dBm; 5.8 V at 97 mA through a 22 ohm bias resistor from 7.8 V"),
+    "TCXO25": dict(value="25 MHz", mpn="TC32H4-25.000-33GNDTNL", lcsc="C5119013", jlc_type="extended", process="SMT", stock=1240, price=1.5760,
+                   footprint="Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", symbol="amod:TCXO_3225", match=["TC32H4-25.000"],
+                   desc="25 MHz TCXO, +-2 ppm, 3.3 V CMOS out, 3.2 x 2.5 mm (CostasLink's reference)"),
+    "MT3608": dict(value="MT3608", mpn="MT3608", lcsc="C84817", jlc_type="extended", process="SMT", stock=91453, price=0.0987,
+                   footprint="Package_TO_SOT_SMD:SOT-23-6", symbol="Regulator_Switching:MT3608", match=["MT3608"],
+                   desc="1.2 MHz boost converter, 2 A switch: +5 V to +7.8 V (12 k / 1 k on FB) for the gain blocks"),
+    "SAW915": dict(value="915 MHz SAW", mpn="B39921B2672P810", lcsc="C1518004", jlc_type="extended", process="SMT", stock=6411, price=0.5581,
+                   footprint="amod:Filter_SAW_1411-5P_B39921", symbol="amod:SAW915", match=["B39921B2672P810"],
+                   desc="915 MHz SAW band-pass, 26 MHz wide, 1.1 dB loss, 1.4 x 1.1 mm (1 IN, 3 OUT, the rest ground)"),
+    "LTCC2G4": dict(value="2.45 GHz LTCC", mpn="LFB212G45SG8A127", lcsc="C341536", jlc_type="extended", process="SMT", stock=3940, price=0.1858,
+                    footprint="amod:Filter_LTCC_2012_LFB212", symbol="amod:LTCC2G4", match=["LFB212G45SG8A127"],
+                    desc="2.4-2.5 GHz LTCC band-pass, 1.7 dB loss, 2.0 x 1.25 mm (4 IN, 2 OUT, 1 and 3 ground)"),
+    "LVC1G17": dict(value="74LVC1G17", mpn="SN74LVC1G17DBVR", lcsc="C7836", jlc_type="extended", process="SMT", stock=9560, price=0.1549,
+                    footprint="Package_TO_SOT_SMD:SOT-23-5", symbol="74xGxx:74LVC1G17", match=["SN74LVC1G17DBVR"],
+                    desc="Schmitt buffer, SOT-23-5: the TCXO's output to the REF OUT jack and the reference bus"),
+    "SS34": dict(value="SS34", mpn="SS34", lcsc="C8678", jlc_type="basic", process="SMT", stock=3637362, price=0.0351,
+                 footprint="Diode_SMD:D_SMA", symbol="Diode:B340", match=["SS34"], desc="3 A 40 V Schottky, SMA: the boost's rectifier (drawn with the B340's symbol, the same pins)"),
+    "L22U": dict(value="22uH", mpn="XRNR4030-22uH/M", lcsc="C5289362", jlc_type="extended", process="SMT", stock=1198, price=0.0385,
+                 footprint="amod:L_4x4_XRNR4030", symbol="Device:L", match=["XRNR4030-22uH"], desc="22 uH 1.3 A shielded power inductor, 4 x 4 x 3 mm: the boost"),
+    "R2512_22R": dict(value="22R 1W", mpn="25121WJ0220T4E", lcsc="C27258", jlc_type="extended", process="SMT", stock=14728, price=0.0282,
+                      footprint="Resistor_SMD:R_2512_6332Metric", symbol="Device:R_US", match=["22Ω", "2512"], desc="the GALI-84+ bias resistor: 0.2 W from 7.8 V"),
+    "HDR3": dict(value="1x3", mpn="PZ254V-11-03P", lcsc="C2937625", jlc_type="extended", process="THT", stock=786642, price=0.0199,
+                 footprint="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", symbol="Connector_Generic:Conn_01x03", match=["PZ254V-11-03P"],
+                 desc="1 x 3 pin header with a jumper: the synthesizer's reference from its jack (1-2) or the board's TCXO (2-3)"),
 }
 
 # Passives: key "<kind><package> <value>".  Footprint and symbol follow from the key.  C0G/NP0 wherever the value sets
@@ -241,12 +272,21 @@ PASSIVES = {
     "L0805 2.7uH": dict(lcsc="C74318", mpn="SDFL2012Q2R7KTF", jlc_type="extended", stock=2719, price=0.0477, note="multilayer, Q 45 at 10 MHz, SRF 45 MHz, 30 mA"),
     "L1210 100uH": dict(lcsc="C76836", mpn="NLV32T-101J-PF", jlc_type="extended", stock=66282, price=0.0555, note="TDK, 10 ohm, 40 mA, shielded"),
     "L1210 150uH": dict(lcsc="C250237", mpn="NLCV32T-151K-EF", jlc_type="extended", stock=10151, price=0.0482, note="TDK, 6.1 ohm, 100 mA, shielded"),
+    # --- RF-MOD (stock 2026-10-25 08:02): 0402 for the synthesizer, C0G in every signal path ---
+    "C0402 100pF": dict(lcsc="C1546", mpn="0402CG101J500NT", jlc_type="basic", stock=3331448, price=0.0033, note="C0G: the RF blocks and the loop filter's C3"),
+    "C0402 1uF": dict(lcsc="C14445", mpn="CL05A105KP5NNNC", jlc_type="extended", stock=1049930, price=0.0053, note="X5R 10 V: the MAX2871's filter pins"),
+    "L0402 27nH": dict(lcsc="C882469", mpn="LQW15AN27NG80D", jlc_type="extended", stock=18979, price=0.0902, note="Murata LQW15, SRF 3.4 GHz min: the RF chokes"),
+    "R0402 12k": dict(lcsc="C25752", mpn="0402WGF1202TCE", jlc_type="basic", stock=887758, price=0.0018),
+    "R0402 820R": dict(lcsc="C25135", mpn="0402WGF8200TCE", jlc_type="extended", stock=98870, price=0.0019),
+    "R0402 2k": dict(lcsc="C4109", mpn="0402WGF2001TCE", jlc_type="basic", stock=7184892, price=0.0026),
+    "R0402 5.1k": dict(lcsc="C25905", mpn="0402WGF5101TCE", jlc_type="basic", stock=4223875, price=0.0023),
+    "R0402 100k": dict(lcsc="C25741", mpn="0402WGF1003TCE", jlc_type="basic", stock=7850595, price=0.0015),
 }
 
 FOOTPRINT_OF = {"R0805": "Resistor_SMD:R_0805_2012Metric", "R0603": "Resistor_SMD:R_0603_1608Metric", "R0402": "Resistor_SMD:R_0402_1005Metric", "R1206": "Resistor_SMD:R_1206_3216Metric",
                 "R2512": "Resistor_SMD:R_2512_6332Metric", "C0805": "Capacitor_SMD:C_0805_2012Metric", "C0603": "Capacitor_SMD:C_0603_1608Metric", "C0402": "Capacitor_SMD:C_0402_1005Metric",
                 "C1206": "Capacitor_SMD:C_1206_3216Metric", "L0805": "Inductor_SMD:L_0805_2012Metric", "L0603": "Inductor_SMD:L_0603_1608Metric",
-                "L1210": "Inductor_SMD:L_1210_3225Metric"}
+                "L1210": "Inductor_SMD:L_1210_3225Metric", "L0402": "Inductor_SMD:L_0402_1005Metric"}
 SYMBOL_OF = {"R": "Device:R_US", "C": "Device:C", "L": "Device:L"}
 
 
@@ -311,6 +351,10 @@ JLC_ROTATION = {
     "C2297": (0, "read", "KT-0805G on KiCad's LED_0805: GPiBridge rev A preview"),
     "C2296": (0, "predicted", "KT-0805Y: the same family drawing as the KT-0805G"),
     "C2293": (0, "predicted", "KT-0805B: the same family drawing as the KT-0805G"),
+    "C3193261": (180, "predicted", "GALI-84+ on KiCad's SOT-89-3: JLCPCB's drawing has pins 1 and 3 at +x, KiCad's at -x"),
+    "C5119013": (180, "predicted", "TC32H4 on KiCad's Crystal_SMD_3225: JLCPCB's pad 1 is top-left (y up), KiCad's bottom-left"),
+    "C5289362": (0, "predicted", "XRNR4030: the footprint IS JLCPCB's drawing (two pads along x); symmetric"),
+    "C7458627": (0, "predicted", "MAX2871 TQFN-32: JLCPCB's QFN drawings put pin 1 top-left as KiCad's; confirm the dot in the preview"),
 }
 
 

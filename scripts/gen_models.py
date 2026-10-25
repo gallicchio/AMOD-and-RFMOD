@@ -144,10 +144,15 @@ def fuse_1812():
     return "Fuse_1812_4532Metric.wrl", HEAD + box(0, 0, 0.5, 4.5, 3.2, 1.0, (0.85, 0.7, 0.35))
 
 
+def l_4x4():
+    """A 4 x 4 x 3 mm shielded inductor (the boost's XRNR4030)."""
+    return "L_4x4.wrl", HEAD + box(0, 0, 1.5, 4.0, 4.0, 3.0, BLACK)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
-              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, fuse_1812]
+              kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, fuse_1812, l_4x4]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

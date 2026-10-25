@@ -1,0 +1,61 @@
+PCB statistics report
+=====================
+- Date: 2026-10-25
+- Project: rf_mod
+- Board name: rf_mod
+
+Board
+-----
+- Width: 100.0000 mm
+- Height: 100.0000 mm
+- Area: 9992.261 mm²
+- Front copper area: 1616.356 mm²
+- Back copper area: 9683.633 mm²
+- Min track clearance: 0.2750 mm
+- Min track width: 0.2000 mm
+- Min drill diameter: 0.3000 mm
+- Board stackup thickness: 1.6000 mm
+
+- Front footprint area: 1252.931 mm²
+- Back footprint area: 276.926 mm²
+- Front component density: 12.54 %
+- Back component density: 2.77 %
+Pads
+----
+- Through hole: 49
+- SMD: 141
+- Connector: 0
+- NPTH: 10
+- Castellated: 0
+- Press-fit: 0
+
+Vias
+----
+- Through vias: 109
+- Blind vias: 0
+- Buried vias: 0
+- Micro vias: 0
+
+Components
+----------
+
+|              | Front Side | Back Side | Total |
+|--------------|------------|-----------|-------|
+|THT:          |          9 |         0 |     9 |
+|SMD:          |         50 |         0 |    50 |
+|Unspecified:  |          4 |         0 |     4 |
+|Total:        |         63 |         0 |    63 |
+
+Drill holes
+-----------
+
+| Count | Shape |    X Size |    Y Size | Plated | Via/Pad | Start Layer | Stop Layer |
+|-------|-------|-----------|-----------|--------|---------|-------------|------------|
+|   109 | Round | 0.3000 mm | 0.3000 mm |    PTH |     Via |        F.Cu |       B.Cu |
+|    36 | Round | 1.5000 mm | 1.5000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     9 | Round | 1.3500 mm | 1.3500 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     4 | Round | 3.2000 mm | 3.2000 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     4 |  Slot | 0.9000 mm | 1.4500 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     2 | Round | 0.6500 mm | 0.6500 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     2 |  Slot | 0.6000 mm | 1.7000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     2 |  Slot | 0.6000 mm | 1.2000 mm |    PTH |     Pad |        F.Cu |       B.Cu |

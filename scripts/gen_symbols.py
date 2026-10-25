@@ -85,8 +85,26 @@ SYMBOLS = [
     # TC32H4 25 MHz TCXO (Taitien, 3.2 x 2.5 mm, 4 pads): 1 EN/NC, 2 GND, 3 OUT, 4 VCC (the 3225 TCXO convention; CostasLink)
     box("TCXO_3225", "X", [("1", "EN", "input"), ("2", "GND", "power_in")], [("4", "VCC", "power_in"), ("3", "OUT", "output")],
         "Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", "TCXO, LVCMOS out", width=10.16),
+    # MAX2871 (ADI, TQFN-32 5 x 5; datasheet "Pin Description", the table CostasLink's gen/symbols.py quotes): the reference,
+    # the SPI and the loop filter on the left; the supplies, the four open-collector RF outputs and the grounds on the right
+    box("MAX2871", "U", [("29", "REF_IN", "input"), ("1", "CLK", "input"), ("2", "DATA", "input"), ("3", "LE", "input"), ("4", "CE", "input"),
+                         ("26", "RFOUT_EN", "input"), ("30", "MUX", "output"), ("25", "LD", "output"), ("7", "CP_OUT", "output"), ("20", "TUNE", "input"),
+                         ("22", "RSET", "passive"), ("5", "SW", "passive"), ("19", "NOISE_FILT", "passive"), ("23", "BIAS_FILT", "passive"), ("24", "REG", "passive")],
+        [("6", "VCC_CP", "power_in"), ("10", "VCC_PLL", "power_in"), ("28", "VCC_DIG", "power_in"), ("32", "VCC_SD", "power_in"), ("17", "VCC_VCO", "power_in"),
+         ("16", "VCC_RF", "power_in"), ("12", "RFOUTA+", "output"), ("13", "RFOUTA-", "output"), ("14", "RFOUTB+", "output"), ("15", "RFOUTB-", "output"),
+         ("8", "GND", "power_in"), ("9", "GND", "power_in"), ("27", "GND", "power_in"), ("31", "GND", "power_in"), ("21", "GND", "power_in"),
+         ("18", "GND", "power_in"), ("11", "GND", "power_in"), ("33", "EP", "power_in")],
+        "Package_DFN_QFN:QFN-32-1EP_5x5mm_P0.5mm_EP3.1x3.1mm", "MAX2871 23.5 MHz to 6 GHz fractional-N synthesizer with VCOs, TQFN-32", width=17.78),
+    # GALI-84+ (Mini-Circuits, SOT-89): 1 RF IN, 2 GND (the tab), 3 RF OUT and DC in
+    box("GALI84", "U", [("1", "IN", "input")], [("3", "OUT", "output"), ("2", "GND", "power_in")],
+        "Package_TO_SOT_SMD:SOT-89-3", "Mini-Circuits GALI-84+ MMIC amplifier, SOT-89 (1 IN, 2 GND, 3 OUT + DC)", width=10.16),
+    # B39921B2672P810 915 MHz SAW (RF360, 1.4 x 1.1, 5 pads): 1 IN, 3 OUT, 2 / 4 / 5 ground
+    box("SAW915", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in")], [("3", "OUT", "passive"), ("4", "GND", "power_in")],
+        "amod:Filter_SAW_1411-5P_B39921", "915 MHz SAW band-pass filter, 1.4 x 1.1 mm", width=10.16),
+    # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
+    box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
+        "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),
 ]
-
 
 def main():
     text = ['(kicad_symbol_lib (version 20241209) (generator "amod_gen_symbols") (generator_version "10.0")']
