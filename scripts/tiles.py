@@ -461,7 +461,7 @@ def dump(tiles, mod, path):
     for t in tiles:
         out["tiles"].append(dict(
             id=t.id, idx=t.idx, name=t.name, subtitle=t.subtitle, sections=t.sections, cells=t.cells, supply=t.supply,
-            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result,
+            x0=t.x0, y0=t.y0, w=t.w, h=t.h, result=t.result, notes=list(getattr(t, "notes", []) or []),
             jacks=[dict(j) for j in t.jacks],
             parts=[dict(ref=p.ref, key=p.key, value=p.value, x=p.x, y=p.y, rot=p.rot, pins=p.pins, label=p.label,
                         hide_value=p.hide_value) for p in t.parts.values()],

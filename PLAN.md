@@ -154,23 +154,24 @@ Rails: +5 V from USB-C (5.1 k CC pull-downs: 1.5 A; a 2 A PTC, an SMAJ5.0A TVS, 
 (the comparator and anything that meets the FPGA).  Every powered tile has its own slide switch,
 P-FET and green LED; the -5 V rail is not switched (an op amp with V+ open draws nothing).
 
-| cell | # | tile | supply | jacks | Pmod | the circuit |
+| cell | # | tile | supply | jacks | Pmod | the circuit as built (rev A, 2026-10-25) |
 |---|---|---|---|---|---|---|
-| (0,0) | A2 | gain x10, 20 MHz | +-5 | IN (50 ohm / hi-Z by DIP), OUT | | OPA2810 dual, two stages of x3.16, 50 ohm back-terminated: x10 into hi-Z, x5 into 50 |
-| (1,0) | A3 | gain x100 | +-5 | IN, OUT | | OPA2810 dual, two stages of x10: 9 MHz; x100 into hi-Z |
-| (2,0) | A4 | HF LNA 1-30 MHz, 40 dB | +-5 | IN (50 ohm), OUT | | OPA847 at x100 (39 MHz), NF about 3 dB from 50 ohm |
-| (3,0) | A5 | Johnson noise | +-5 | OUT | | 100 / 1 k / 10 k / 100 k on a 4-way DIP and a 2-pin header for your own resistor, OPA1612 two stages of x33 (x1000, 1 MHz), 100 kHz 2-pole roll-off |
-| (0,1) | A6 | delta-sigma ADC | +3.3 | IN | 2 | TLV3501 comparator, 10 k / 10 k / 10 nF integrator: the FPGA's bit in, the comparator's bit out |
-| (1,1) | A7 | PLL 74HC4046 | +5 | IN, VCO OUT | | signal in to the comparator through a 1 k and clamps; loop filter 10 k / 100 nF or 1 k / 10 nF by DIP; VCO C 1 nF or 10 nF by DIP; VCO OUT through 470 ohm; loops on VCO IN (the demodulated FM) and PC2 |
-| (2,1) | A8 | heat | +5 | OUT (TMP235) | 1 | two 15 ohm 2512 in series (0.83 W) switched by an AO3400 from a Pmod pin; a 10 k NTC in a divider to a loop; TMP235 (10 mV/K) to the jack |
-| (3,1) | A1 | power | | | | USB-C on the right edge, PTC, TVS, polymer, LM2664, TPS7A2033, a LED and a loop per rail, a header with every rail |
-| (0,2)-(1,2) | A9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell biased for +-5 V (pin 5 at 1 mA), 1.5 k loads, single-ended IF out through an OPA... no: a 50 ohm back-terminated emitter follower; carrier null trimmer |
-| (2,2)-(3,2) | A10 | light | +5 | DRIVE IN, PD OUT | 1 | OPA2810 A as a voltage-to-current source (0 to 40 mA for 0 to 1 V) into a side-view red LED at the board's edge or, by DIP, a 2-way terminal for an external laser module; a Pmod pin gates the current through a 2N7002 (TTL modulation); PD70-01C into OPA2810 B at 10 k (9 MHz), 50 ohm out |
-| (0,3)-(1,3) | A11 | 40 kHz ultrasound | +5 | TX IN, RX OUT | 2 | DRV8837 H-bridge from two Pmod pins (or TX IN through a comparator by DIP) into a transducer in a 1 x 5 socket at the left edge; the second transducer into OPA2810 x10 x10 with a 40 kHz band-pass |
-| (2,3)-(3,3) | A12 | audio | +5 | AUDIO IN, MIC OUT | 1 | PAM8302 class-D into a 20 mm speaker on a terminal, fed by AUDIO IN or by the one-bit DAC (a Pmod pin, 10 k / 10 nF) by DIP; the one-bit stream also to a 3.5 mm jack through the RC; an electret in a 2-way socket, 2.2 k bias, OPA1612 x100 to MIC OUT |
+| (0,0) | A2 | gain x10, 14 MHz | +-5 | IN (50 ohm), OUT | | one OPA810 non-inverting, 1.1 k / 10 k, 49.9 ohm out: x10 into a high impedance, x5 into 50 ohm (the plan's two-stage x3.16 did not fit a cell beside the switch) |
+| (1,0) | A3 | gain x100, 1.4 MHz | +-5 | IN (50 ohm), OUT | | the same stage with 100 ohm / 10 k |
+| (2,0) | A4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 at x101 (1 k / 10 ohm), the feedback node carried through the NC pin 1; no loop |
+| (3,0) | A5 | Johnson noise x100 | +-5 | OUT | | LT6230 (1.1 nV/rtHz, SOT-23-6) at x100 in the A2 geometry; 10 k or 1 k by a 2-way DIP, or your own resistor in a 1 x 2 socket (the OPA1612 two-stage x1000 and a 4-way DIP did not fit) |
+| (0,1) | A6 | delta-sigma ADC | +3.3 | IN (10 k) | 1, 2 | TLV3501 against a 1.65 V reference; 10 k / 10 k / 10 nF integrator; the FPGA's bit in on Pmod 1, the comparator's bit out on Pmod 2 and a loop |
+| (1,1) | A7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | CD74HC4046A: 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
+| (2,1) | A8 | heat | +5 | TEMP OUT | 3 | two 15 ohm 2512 in series (0.83 W) switched by an AO3400 from Pmod 3 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) to the jack (the NTC divider did not fit) |
+| (3,1) | A1 | power | | | | USB-C on the right edge, 5.1 k CC pull-downs, 2 A PTC, SMAJ5.0A, 2 x 10 uF, LM2664 for -5 V, TPS7A2033 for +3.3 V, green +5 V and red -5 V LEDs in the margin, a 1 x 5 socket along the top edge (+5, G, -5, G, 3.3) |
+| (0,2)-(1,2) | A9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell on +-5 V: 51 ohm inputs, carrier pair at 2.5 V, 1 mA per side, 1.5 k loads, IF single-ended through 100 n (1.5 k source: a high-impedance input); no null trimmer |
+| (2,2)-(3,2) | A10 | light | +-5 | PD OUT, DRIVE IN | 4 | OPA810 voltage-to-current source (22 ohm: 45 mA per volt) into a side-view red LED at the board's right edge, a 2N7002 from Pmod 4 blanks it; PD70-01C (5 V reverse) into an OPA810 transimpedance stage, 10 k / 10 pF, 49.9 ohm out (the laser terminal and its DIP did not fit) |
+| (0,3)-(1,3) | A11 | 40 kHz ultrasound | +-5 | RX OUT | 5, 6 | DRV8837 H-bridge from Pmod 5 and 6 into a transducer in pins 1 and 5 of a 1 x 5 socket; the second transducer through 10 n / 3.9 k into the A2 geometry at x100; the Pmod plug hangs off this tile's bottom edge |
+| (2,3)-(3,3) | A12 | audio | +-5 | AUDIO IN, MIC OUT | 7 | PAM8302A into a speaker on a screw terminal, fed by AUDIO IN through 1 u and by the one-bit stream on Pmod 7 through 10 k / 10 n; an electret in a 1 x 2 socket (2.2 k bias) through 1 u into the A2 geometry at x100 (no 3.5 mm jack) |
 
-The Pmod lines, by position (section 6): A6 two, A8 one, A10 one, A11 two, A12 one, one spare on a
-loop.
+The Pmod lines: A6 two (1, 2), A8 one (3), A10 one (4), A11 two (5, 6), A12 one (7); 8 is unused.
+The switched rail of every tile comes from its own slide switch and P-FET; -5 V (40 mA from the
+LM2664) is shared and unswitched.
 
 ## 6. RF-MOD: 915 MHz, 2.4 GHz, a stretch to 5.8 GHz
 
@@ -291,9 +292,13 @@ the tutorial's `.lpf`.  Last in the order of work; it is a day's board, not a ni
 ## 10. Order of work and status
 
 1. Plan, decisions, stock (this file): done 2026-10-25 01:05.
-2. The framework: geometry, parts, the Tile class, the schematic and board generators: in progress.
-3. AMOD-P end to end: simulate each tile, schematic, ERC, board, DRC, fab package, documents.
-4. AMOD-A: the power tile and the op-amp tiles on the same framework, four layers.
+2. The framework: geometry, parts, the Tile class, the schematic and board generators: done 02:00
+   (the grid router and the back-wire machinery came with AMOD-A).
+3. AMOD-P end to end: done 03:40 (ERC 0, DRC 0, the fab package through every check, $16.97 of parts).
+4. AMOD-A: done 08:30 (twelve tiles, four layers, ERC 0, DRC 0, the fab package through every check,
+   $45.97 of parts; the handbook and manufacturing notes generated).  The plan's tiles were trimmed to
+   fit 20 mm cells beside a switch and a FET: section 5's table says what was built, the handbook's
+   DOA list what was dropped.
 5. RF-MOD: the RF rules (CPWG lines on JLC04161H-7628, CostasLink's launch, via fences, the
    antennas' keep-outs), the synthesizers' circuit from CostasLink.
 6. The Icepi adapter.

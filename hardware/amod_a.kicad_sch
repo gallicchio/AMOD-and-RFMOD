@@ -7774,8 +7774,8 @@
 		)
 	)
 	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
+		(start 406.4 411.48)
+		(end 782.32 533.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -7783,19 +7783,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "0a2d0d9c-6027-4a62-9466-1d1a1ba772ab")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "1571058b-3151-4f96-9412-6730f818324b")
+		(uuid "196d4d87-32b9-4e86-9310-91c956b3bd4d")
 	)
 	(rectangle
 		(start 596.9 30.48)
@@ -7807,43 +7795,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "3e59df62-ba07-44e5-b313-e8dd905f8570")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 401.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "6722e6b2-2927-4398-9f4d-3e16254837f7")
-	)
-	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "6f1a21bc-0f7e-42e9-859e-8f29e4e58640")
-	)
-	(rectangle
-		(start 406.4 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "7331a150-efae-40c3-8502-b8537f06e5d8")
+		(uuid "2dfdfc51-f27d-4490-80a1-52b25cbd9709")
 	)
 	(rectangle
 		(start 25.4 284.48)
@@ -7855,11 +7807,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "805906c1-6a98-4f63-afee-b281563c2e53")
+		(uuid "4125ff51-8d77-403c-94df-71cbec3185e1")
 	)
 	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
+		(start 25.4 411.48)
+		(end 401.32 533.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -7867,19 +7819,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "848baa83-4e71-4a78-be3a-09489fa604d1")
-	)
-	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "8fc8533e-9dce-43b6-83b4-6daf1cdb11a1")
+		(uuid "653bb6de-bb86-4e2e-9548-e732421b7bf9")
 	)
 	(rectangle
 		(start 215.9 157.48)
@@ -7891,19 +7831,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "b5560c1e-48f6-4988-910e-17bfddc7f459")
-	)
-	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c6eb2cf9-6e74-4252-a974-feba4140505b")
+		(uuid "7fca2caa-9c51-416a-83c0-90dc356b8ff1")
 	)
 	(rectangle
 		(start 215.9 30.48)
@@ -7915,7 +7843,79 @@
 		(fill
 			(type none)
 		)
-		(uuid "f76bbcdf-fcf2-47c7-bb23-eee971a5beaf")
+		(uuid "8ba6cd05-6a8a-4364-9382-de96736d2efe")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "97166686-c4c4-461a-9b86-4127ecab4740")
+	)
+	(rectangle
+		(start 406.4 157.48)
+		(end 591.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "99178f59-d68a-4df9-8ec8-1aab59da788b")
+	)
+	(rectangle
+		(start 25.4 30.48)
+		(end 210.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "a27d31ae-eeb8-4a57-b0e2-4b8347225c17")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "ab458dca-d3a4-4686-b621-f572a38bd6bb")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "bdf51ebd-c8f9-4197-98dc-6189acdd2c90")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "f1f683a5-836a-476f-b3f3-7a0138afee51")
 	)
 	(text "per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches,"
 		(exclude_from_sim no)

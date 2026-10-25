@@ -34,6 +34,8 @@ Cell (3,1); tutorial 1.01.
 
 **Expect:** +5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up
 
+USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF. The LM2664 charge pump makes -5 V for the op-amp tiles (40 mA: four tiles at 10 mA); it is not switched per tile, an op amp with its +5 V removed draws nothing.  The TPS7A2033 makes 3.3 V for the comparator and the lines that meet the FPGA. The socket along the top carries +5, ground, -5, ground, +3.3: the bench's rails for a breadboard experiment.
+
 Parts: KT-0805G (C2297), NCD0805R1 (C84256), LM2664M6X/NOPB (C108573), MF-MSMF200-2 (C210837), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
 ### A2  x10, 14 MHz
@@ -42,6 +44,8 @@ Cell (0,0); tutorial 4.06, 5.02; +-5 V.
 Jacks: TL IN 50R (±0.4 V); TR OUT.
 
 **Expect:** x10 (20 dB) into a high impedance, x5 into 50 ohm, -3 dB near 14 MHz; clips at about +-4 V
+
+Non-inverting OPA810: gain 1 + 10 k / 1.1 k = 10.1, bandwidth 140 MHz / 10 = 14 MHz.  50 ohm at the input, 49.9 ohm in series with the output (a 50 ohm load halves it: x5).  Keep the input under 0.4 V peak: the output clips at 4 V.
 
 Parts: OPA810IDBVR (C2833513).
 
@@ -52,6 +56,8 @@ Jacks: TL IN 50R (±40 mV); TR OUT.
 
 **Expect:** x100 (40 dB) into a high impedance, -3 dB near 1.4 MHz; keep the input under 40 mV peak
 
+Non-inverting OPA810: gain 1 + 10 k / 100 = 101, bandwidth 140 MHz / 100 = 1.4 MHz.  50 ohm at the input, 49.9 ohm in series with the output.  For 40 dB out to 30 MHz use A4 (the OPA847 LNA); this tile is the FET-input, high-impedance friendly x100 for everything slower.  (The plan's two stages of x10 did not fit the cell.)
+
 Parts: OPA810IDBVR (C2833513).
 
 ### A4  LNA, 30 MHz
@@ -60,6 +66,8 @@ Cell (2,0); tutorial 4.06, 5.03; +-5 V.
 Jacks: TL IN 50R (±30 mV); TR OUT.
 
 **Expect:** x100 (40 dB) from 50 ohm, flat 1-30 MHz, about 3 dB noise figure from 50 ohm; keep the input under 30 mV peak
+
+Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at gains above 12 (it is decompensated): do not change Rg upward.  Pin 1 (no connection) carries the feedback node.
 
 Parts: OPA847IDR (C2870028).
 
@@ -70,6 +78,8 @@ Jacks: TR OUT.
 
 **Expect:** the source resistor's Johnson noise x100: about 1.3 mV rms from 10 k, 0.4 mV from 1 k, 0.16 mV (the amplifier itself) shorted
 
+4kTR: 12.9 nV/rtHz from 10 k at room temperature, x100 and the LT6230's 2 MHz: 1.3 mV rms.  Both DIP ways off with nothing in the socket leaves +IN open: switch one on, or plug a resistor (100 ohm to 10 k) into the socket. Keep the scope AC-coupled: 600 nA of bias current puts 0.6 V of DC on the output with 10 k.
+
 Parts: DSHP02TSGET (C40735), LT6230CS6#TRPBF (C580235).
 
 ### A6  1-bit ADC
@@ -78,6 +88,8 @@ Cell (0,1); tutorial 7.05; +3.3 V.
 Jacks: TL IN 10K (±1.5 V).
 
 **Expect:** a one-bit stream on Pmod 2 whose density follows IN; the FPGA closes the loop through Pmod 1 (the handbook's gateware)
+
+First-order delta-sigma: the comparator decides, the FPGA registers the bit and feeds it back through 10 k into the 10 k / 10 nF integrator (1.6 kHz; clock the loop at 1-10 MHz).  IN takes 0 to 3.3 V, or +-1.5 V about the 1.65 V reference if you AC-couple.  Both Pmod lines are 3.3 V logic; the tile runs on the 3.3 V rail.
 
 Parts: TLV3501AIDBVR (C193413).
 
@@ -88,6 +100,8 @@ Jacks: TL IN 1K (±1 V); TR VCO OUT.
 
 **Expect:** VCO OUT locks to a 50-200 kHz square or sine on IN; pin 9 is the demodulated FM, pin 13 the phase detector
 
+CD74HC4046A: R1 10 k, C1 1 nF put the VCO near 100 kHz (R2 open: it can go down to 0).  PC2 (the edge-triggered tri-state detector) through 10 k / 100 n into VCOin: a lag filter, so expect ringing on lock.  IN self-biases through 100 n / 1 k (any level above 0.4 V peak).  VCO OUT is 5 V CMOS through 470 ohm.  Probe pins 9 and 13.
+
 Parts: CD74HC4046AM96 (C6542).
 
 ### A8  heat
@@ -96,6 +110,8 @@ Cell (2,1); tutorial 5.02, 7.06; +5 V.
 Jacks: TR TEMP OUT.
 
 **Expect:** 0.83 W into the board when Pmod 3 is high (the FET's drain), 10 mV/K + 500 mV on OUT
+
+Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod 3 is high (10 k keeps it off otherwise). The TMP235 reads 750 mV at 25 C and climbs 10 mV per kelvin.  A feedback-control experiment: hold the TMP235 at a set point with the FPGA's PWM.  (The plan's NTC divider did not fit the cell beside the two 2512s.)
 
 Parts: AO3400A (C20917), 25121WF150JT4E (C20087), TMP235A4DBZR (C2868809).
 
@@ -106,6 +122,8 @@ Jacks: TL RF IN (±0.3 V); TM LO IN (±0.3 V); TR IF OUT.
 
 **Expect:** IF OUT = RF x LO (sum and difference frequencies, about 0.3 V peak per volt of RF at 0.3 V of LO); a balanced mixer, the carrier mostly cancels
 
+Gilbert cell on +-5 V: signal pair at ground (51 ohm), carrier pair at 2.5 V (51 ohm to the 10 k / 10 k bias), 1 mA per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches, which is fine for a product detector).  IF OUT is single-ended from pin 6 through 100 n: a 1.5 k source, so read it with a high-impedance input, not 50 ohm.  No carrier-null trimmer: expect -40 dB of LO feedthrough.
+
 Parts: MC1496DR2G (C7295).
 
 ### A10  light, LED + PD
@@ -114,6 +132,8 @@ Cells (2,2), (3,2); tutorial 4.07; +-5 V.
 Jacks: TL PD OUT; TR DRIVE IN (0-1 V).
 
 **Expect:** 45 mA of LED current per volt on DRIVE IN (0-1 V, blanked while Pmod 4 is high); PD OUT climbs 10 V per mA of photocurrent
+
+The current source: the op amp holds 22 ohm at the input voltage, so the LED carries V / 22 ohm (0.9 V is the LED's full 40 mA; above 1.1 V the op amp runs out of headroom).  A 2N7002 from Pmod 4 shorts the input: TTL modulation to a few MHz.  The photodiode (5 V reverse) into 10 k with 10 pF: 1.6 MHz; daylight on the PD gives millivolts, the LED of a second board across a desk gives tens.  The LED looks out of the board's right edge, the photodiode looks up.
 
 Parts: E6C1204URAC1UDA (C375479), 2N7002 (C8545), OPA810IDBVR (C2833513), PD70-01C/TR7 (C131196).
 
@@ -124,6 +144,8 @@ Jacks: TR RX OUT.
 
 **Expect:** a 40 kHz burst from Pmod 5/6 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)
 
+Drive IN1/IN2 (Pmod 5, 6) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).
+
 Parts: DRV8837DSGR (C39159), OPA810IDBVR (C2833513).
 
 ### A12  audio
@@ -132,6 +154,8 @@ Cells (2,3), (3,3); tutorial 1.05, 6.04; +-5 V.
 Jacks: TL AUDIO IN (±1 V); TR MIC OUT.
 
 **Expect:** a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod 7 (10 k / 10 n); MIC OUT is the electret x100
+
+PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod 7 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.
 
 Parts: OPA810IDBVR (C2833513), PAM8302AASCR (C113367).
 
