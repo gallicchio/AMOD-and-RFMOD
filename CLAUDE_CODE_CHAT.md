@@ -244,3 +244,36 @@ between through-hole pads, with no vias and no crossings.  Header pins 8, 10, 22
 pin 1 gives 3.3 V.  DRC 0, no unconnected pads; the `.lpf` and pin map are generated with it.
 
 Commits: c429126 (RF-MOD filled), the Pmod fix, `icepi_adapter/`, and OpticsPCBs 08305ee (the generator).
+
+## Prompt 8 (about 10:30)
+
+> Keep going, but do the speaker and microphone have SMAs because you need to attach them to an external speaker and
+> external mic? Or are the SMAs inputs and outputs to drive an onboard speaker and microphone?
+
+### Response 8
+
+The SMAs are signal ports for the converters, not transducer connections.  On A12, AUDIO IN (top-left) takes a DAC's
+output into the PAM8302A class-D amplifier, and MIC OUT (top-right) is the electret preamplifier's output (x100) for
+the ADC.  The transducers attach on the tile itself.  The speaker's wires go into the 2-way screw terminal in the
+right cell.  The electret capsule plugs into the 1 x 2 socket beside the preamplifier (pin 1 is its + side, biased
+through 2.2 k).  Neither is on the board because JLCPCB stocks neither in a form worth placing.
+
+## Prompt 9 (about 10:35)
+
+> In general, give me a list of external components that are required that are not on the ECP5-2DAC-2ADC board and
+> not on any of these boards. What will students need in their kit? A USB-C power brick of some current rating, some
+> SMA cables of some particular lengths, maybe quarter wave or half wave antennas with SMA connectors, and what else?
+
+## Prompt 10 (about 10:40)
+
+> That list should include prices and links to specific things that are in stock and able to be purchased from the US
+> and shipped there.
+
+### Response 9 and 10
+
+`docs/KIT.md`, read from the tiles' own declarations: per board a 5 V / 3 A USB-C supply and cable; SMA cables (6 x
+15 cm, 6 x 30 cm, 2 x 1 m), SMA-BNC adapters, terminators, 10 and 20 dB attenuators and barrels; SMA-male (not RP-SMA)
+2.4 GHz and 915 MHz whips; the 40 kHz transducer pair, a 2-3 W speaker, an electret capsule, a 330 uH ferrite-rod
+coil, a resistor assortment and cable ties for the tiles' sockets and terminals; rubber feet; a Pmod extension cable
+for the Icepi adapter.  Prices, links and stock as read on 2026-10-25 were gathered by two research agents and added
+to the same file.
