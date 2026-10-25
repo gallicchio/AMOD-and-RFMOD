@@ -2640,8 +2640,8 @@
 		)
 	)
 	(rectangle
-		(start 406.4 157.48)
-		(end 591.82 279.4)
+		(start 596.9 30.48)
+		(end 782.32 152.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -2649,31 +2649,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "12e9a739-f6c2-42f6-898b-b2fbb792ff66")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 210.82 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "1c872864-a29a-41b9-a45c-1393e920ccea")
-	)
-	(rectangle
-		(start 215.9 30.48)
-		(end 401.32 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "5187067f-f091-4c7c-9c71-1ca010613b42")
+		(uuid "00cfe9bb-5876-4997-b03a-5b4868c697a4")
 	)
 	(rectangle
 		(start 406.4 30.48)
@@ -2685,55 +2661,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "5b3e7859-9b14-40ea-84c0-5833766b8229")
-	)
-	(rectangle
-		(start 215.9 411.48)
-		(end 591.82 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "6a108aa8-8e48-4d6a-98a0-595bfab07b37")
-	)
-	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "854f34a0-a546-4c02-801b-3356e69efd5f")
-	)
-	(rectangle
-		(start 25.4 284.48)
-		(end 210.82 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "8accd0d3-85f3-4031-be07-1d6f14c618d3")
-	)
-	(rectangle
-		(start 25.4 30.48)
-		(end 210.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "96705818-f017-46df-89aa-e212a539367f")
+		(uuid "02f7d082-4c0e-4f75-8a9c-e7e1c4f3e203")
 	)
 	(rectangle
 		(start 25.4 411.48)
@@ -2745,11 +2673,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "a86d5599-b281-449c-9924-480ca51eabf4")
+		(uuid "29b33b9f-f6d1-4e31-b0c2-9c8f3c1e6e71")
 	)
 	(rectangle
-		(start 596.9 30.48)
-		(end 782.32 152.4)
+		(start 406.4 157.48)
+		(end 591.82 279.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -2757,11 +2685,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "c91c698a-0b0f-4893-9011-96e520e6be05")
+		(uuid "2b5deeed-2b00-4e52-b705-49fe95d6257a")
 	)
 	(rectangle
-		(start 215.9 157.48)
-		(end 401.32 279.4)
+		(start 25.4 30.48)
+		(end 210.82 152.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -2769,11 +2697,11 @@
 		(fill
 			(type none)
 		)
-		(uuid "da86eb65-6af1-48db-bd64-b940a27ebf7d")
+		(uuid "4bcd02ea-6214-4840-9800-6699d0354b66")
 	)
 	(rectangle
-		(start 215.9 284.48)
-		(end 782.32 406.4)
+		(start 215.9 411.48)
+		(end 591.82 533.4)
 		(stroke
 			(width 0.25)
 			(type default)
@@ -2781,7 +2709,43 @@
 		(fill
 			(type none)
 		)
-		(uuid "e37fc1da-3b39-44ae-b5f2-f322a1b76c22")
+		(uuid "60d1353e-9a35-4f79-ba0c-fedd97fa8d33")
+	)
+	(rectangle
+		(start 25.4 284.48)
+		(end 210.82 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "78abc0df-94d9-48ea-b8cc-f3c4adae7d44")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "81aa1663-1cb6-4db3-ab18-98b44c82d5f4")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 210.82 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "86eb86ac-7c2b-48fb-970e-f4bd518a9d7e")
 	)
 	(rectangle
 		(start 596.9 411.48)
@@ -2793,7 +2757,43 @@
 		(fill
 			(type none)
 		)
-		(uuid "e881512c-3c44-4b0f-8ac9-3ede65767009")
+		(uuid "90d7fdd7-6707-4074-9eeb-836493f65ac8")
+	)
+	(rectangle
+		(start 215.9 30.48)
+		(end 401.32 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "91dbdf6c-06e1-4509-9e42-0f8468a340bb")
+	)
+	(rectangle
+		(start 215.9 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "bb97b53f-b3cb-4e99-833a-9e7a18bd4cd9")
+	)
+	(rectangle
+		(start 215.9 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "c1fd9a0b-f729-4f03-af8f-e59d31a5ff67")
 	)
 	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
 		(exclude_from_sim no)

@@ -423,8 +423,131 @@ def tile_r11():
     return synth_tile("R11", [(2, 3), (3, 3)], host=False)
 
 
+# -------------------------------------------------------------------------------------------------------- R7, R8 --
+def mixer_tile(id, cells, name):
+    """An ADL5350 passive mixer on two cells, used either way: RF at the top-left jack, LO at the top-middle one (3.75 mm right of
+    the slot, so it keeps 14 mm from the gain block's OUT above it), IF at the bottom-right.  The chip's RF and IF pins are one node; a crossover separates them (the datasheet's Figure 63 scaled to
+    a 200 MHz corner): 15 pF series and 47 nH shunt toward the RF jack, 47 nH series and 15 pF shunt toward the IF, then
+    100 nF to the IF jack, so one tile serves 915 MHz and 2.4 GHz with an IF anywhere the ADC reaches.  The LO goes in
+    through 0 ohm (fit 3-8 nH to tune a band) and 100 pF; the LO buffer's bias comes through 10 nH from the tile's 3.3 V
+    (TPS7A2033 behind the switch and FET in the right cell).  Pins 4 and 7 (no connect) are grounded as the datasheet
+    recommends; the paddle has its via; the IF line crosses the header's cell on the back."""
+    t = Tile(id, name, cells, supply="+5 V", subtitle="ADL5350", sections=[], kind="rf")
+    t.top_pour = True
+    t.fine = True
+    t.pwr_flags = ["VPOS"]                                                               # fed through the choke, not by a regulator pin
+    jrf = t.jack("TL", "RF", "RFN", "in", "+10 dBm", silk="RF")
+    jlo = t.jack("TMr", "LO", "LOJ", "in", "0 to +6 dBm", silk="LO")
+    jif = t.jack("BR", "IF", "IF", "out", "", silk="IF")
+    power_header(t, rail="+5V", dx=20.0)
+    ldo = t.add("U", "TPS7A2033", "3.3V", 30.5, 14.0, 0, {"1": "VS", "2": "GND", "3": "VS", "5": "V33"}, hide_value=False, label=None)
+    ci = t.add("C", "C0805 1uF", "1u", 27.5, 10.9, 0, {"1": "VS", "2": "GND"}, label=None)
+    co = t.add("C", "C0805 4.7uF", "4.7u", 31.4, 10.6, 0, {"1": "V33", "2": "GND"}, label=None)
+    t.route("VS", [("Q%d01" % t.idx, "3"), (ldo, "3")])
+    t.route("VS", [(ldo, "1"), (ldo, "3")])
+    t.route("VS", [(ldo, "1"), (ci, "1")])
+    t.gnd_stub(ldo, "2", (28.1, 14.0), sym=(0, 0))
+    t.gnd_stub(ci, "2", (28.45, 9.8), sym=(0, -1))
+    t.gnd_stub(co, "2", (33.3, 10.6), sym=(0, 0))
+    t.wire("V33", [(ldo, "5"), (31.6375, 11.4), (30.55, 11.4), (30.55, 12.6)])
+    t.wire("V33", [(co, "1"), (30.55, 11.4)])
+    t.via("V33", 30.55, 12.6)
+    F = 0.15
+    u = t.add("U", "ADL5350", "ADL5350", 12.5, 10.0, 0, {"1": "RFIF", "8": "RFIF", "3": "LON", "6": "VPOS", "2": "GND", "5": "GND", "4": "GND", "7": "GND", "9": "GND"},
+              hide_value=False, label=None)
+    t.gnd_stub(u, "9", (12.5, 10.0), sym=(0, 0), fine=True)                              # the paddle's via
+    for n in ("2", "4", "5"):                                                            # the ground pins into the paddle
+        t.wire("GND", [(u, n), (12.249 if n == "2" else 13.249, 10.0)], width=F)
+    t.gnd_stub(u, "7", [(12.249, 11.55), (11.9, 11.9)], sym=(0, 0), width=F, fine=True)
+    t.wire("RFIF", [(u, "1"), (11.2, 9.098), (11.2, 10.902), (u, "8")], width=0.2)
+    # the RF side: 15 pF series, 47 nH shunt, the 50 ohm line down from the jack
+    c1 = t.add("C", "C0402 15pF", "15p", 9.7, 10.0, 0, {"1": "RFN", "2": "RFIF"}, label=None)
+    l1 = t.add("L", "L0402 47nH", "47n", 8.2, 11.4, 270, {"1": "RFN", "2": "GND"}, label=None)        # pad 1 up
+    t.wire("RFIF", [(c1, "2"), (11.2, 10.0)], width=0.2)
+    t.rf("RFN", [(jrf, "1"), (4.75, 10.0), (c1, "1")])
+    t.wire("RFN", [(8.2, 10.0), (l1, "1")], width=0.2)
+    t.gnd_stub(l1, "2", (8.2, 12.7), sym=(0, 0), fine=True)
+    # the IF side: 47 nH series, 15 pF shunt, 100 nF block, then across the tile on the back to the IF jack
+    l2 = t.add("L", "L0402 47nH", "47n", 11.2, 13.0, 270, {"1": "RFIF", "2": "IFN"}, label=None)       # pad 1 up
+    c2 = t.add("C", "C0402 15pF", "15p", 12.1, 15.0, 270, {"1": "IFN", "2": "GND"}, label=None)
+    c6 = t.add("C", "C0402 100nF", "100n", 14.6, 14.1, 0, {"1": "IFN", "2": "IF"}, label=None)
+    t.wire("RFIF", [(11.2, 10.902), (l2, "1")], width=0.2)
+    t.wire("IFN", [(l2, "2"), (11.2, 14.1), (12.1, 14.1), (c2, "1")], width=0.2)
+    t.wire("IFN", [(12.1, 14.1), (c6, "1")], width=0.2)
+    t.gnd_stub(c2, "2", (12.1, 16.4), sym=(0, 0), fine=True)
+    t.via("IF", 17.0, 14.1)
+    t.wire("IF", [(c6, "2"), (17.0, 14.1)], width=0.25)
+    t.wire("IF", [(17.0, 14.1), (17.0, 15.7), (33.0, 15.7), (33.0, 15.25), (jif, "1")], width=0.25, layer="B.Cu", silk=False)
+    # the LO: 0 ohm (a band's inductor if wanted), 100 pF, the 50 ohm line up into the top-middle jack
+    l3 = t.add("R", "R0402 0R", "0R", 15.3, 8.9, 0, {"1": "LON", "2": "LOC"}, label=None)
+    c3 = t.add("C", "C0402 100pF", "100p", 17.3, 8.9, 0, {"1": "LOC", "2": "LOJ"}, label=None)
+    t.wire("LON", [(u, "3"), (12.749, 8.2), (14.79, 8.2), (l3, "1")], width=F)
+    t.wire("LOC", [(l3, "2"), (c3, "1")], width=0.2)
+    t.rf("LOJ", [(c3, "2"), (24.5, 8.9), (jlo, "1")])
+    # the LO buffer's supply: 10 nH from 3.3 V, 100 pF at the pin
+    l4 = t.add("L", "L0402 10nH", "10n", 12.75, 12.6, 270, {"1": "VPOS", "2": "V33"}, label=None)      # pad 1 up
+    c4 = t.add("C", "C0402 100pF", "100p", 14.3, 12.0, 0, {"1": "VPOS", "2": "GND"}, label=None)
+    t.wire("VPOS", [(u, "6"), (l4, "1")], width=F)
+    t.wire("VPOS", [(12.75, 11.5), (13.69, 11.5), (c4, "1")], width=F)
+    t.gnd_stub(c4, "2", (15.5, 12.0), sym=(0, 0), fine=True)
+    t.via("V33", 13.3, 13.6, fine=True)
+    t.wire("V33", [(l4, "2"), (12.75, 13.6), (13.3, 13.6)], width=F)
+    t.wire("V33", [(30.55, 12.6), (14.0, 12.6), (13.3, 13.3), (13.3, 13.6)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    t.text(1.2, 13.3, id, 1.0, 0.18, "left")
+    t.text(1.2, 14.6, "ADL5350", 0.8, 0.15, "left")
+    t.text(1.2, 15.9, name.upper(), 0.8, 0.15, "left")
+    t.result = "RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough"
+    t.notes = ["ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover",
+               "(series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the",
+               "datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the",
+               "datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz).",
+               "Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out).",
+               "Both images appear: filter the RF side with R2 or R4."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
+def tile_r7():
+    return mixer_tile("R7", [(0, 2), (1, 2)], "TX mixer")
+
+
+def tile_r8():
+    return mixer_tile("R8", [(2, 2), (3, 2)], "RX mixer")
+
+
+# ------------------------------------------------------------------------------------------------------------ R1 --
+def tile_r1():
+    """A resistive three-port splitter and combiner: 18 ohm from each jack to one node (50/3 ohm would be exact), 6 dB from
+    any port to any other, matched at every port, DC to 6 GHz.  One reference or LO feeds two tiles; two tones combine
+    for an intermodulation test on a gain block; a 6 dB pad between any two ports.  The 915 MHz antenna the plan put
+    here is rev B (the handbook says why)."""
+    t = Tile("R1", "splitter", [(0, 0), (1, 0)], subtitle="3 x 18 ohm, 6 dB", sections=[], kind="rf")
+    t.top_pour = True
+    j1 = t.jack("TL", "P1", "P1", "in", "+20 dBm", silk="P1")
+    j2 = t.jack("TM", "P2", "P2", "out", "", silk="P2")
+    j3 = t.jack("BR", "P3", "P3", "out", "", silk="P3")
+    r1 = t.add("R", "R0402 18R", "18R", 15.0, 10.0, 0, {"1": "P1", "2": "N"}, label=None)
+    r2 = t.add("R", "R0402 18R", "18R", 17.0, 10.0, 0, {"1": "N", "2": "P2"}, label=None)
+    r3 = t.add("R", "R0402 18R", "18R", 16.0, 11.6, 270, {"1": "N", "2": "P3"}, label=None)            # pad 1 up
+    t.rf("P1", [(j1, "1"), (4.75, 10.0), (r1, "1")])
+    t.rf("P2", [(j2, "1"), (20.75, 10.0), (r2, "2")])
+    t.rf("P3", [(r3, "2"), (16.0, 15.25), (36.75, 15.25), (j3, "1")])
+    t.wire("N", [(r1, "2"), (r2, "1")], width=0.25)
+    t.wire("N", [(16.0, 10.0), (r3, "1")], width=0.25)
+    t.text(1.2, 13.3, "R1", 1.0, 0.18, "left")
+    t.text(1.2, 14.6, "SPLITTER / COMBINER", 0.8, 0.15, "left")
+    t.text(1.2, 17.3, "ANY PORT TO ANY: -6 dB", 0.8, 0.15, "left")
+    t.text(1.2, 18.6, "3 x 18R, DC - 6 GHz", 0.8, 0.15, "left")
+    t.result = "6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)"
+    t.notes = ["Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two",
+               "outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to",
+               "both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
 def tiles():
-    return [tile_r2(), tile_r4(), tile_r5(), tile_r12(), tile_r9(), tile_r10(), tile_r11()]
+    return [tile_r1(), tile_r2(), tile_r4(), tile_r5(), tile_r12(), tile_r9(), tile_r7(), tile_r8(), tile_r10(), tile_r11()]
 
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 50.0), (97.0, 84.0)]
@@ -448,19 +571,13 @@ BACK_WIRES = [("/PMOD6", [(_R11[0] + 16.1, _R11[1] + 5.6), (_R11[0] + 16.1, 71.1
               ("/PMOD7", [(_R11[0] + 15.6, _R11[1] + 3.4), (_R11[0] + 15.6, 71.5), (_R10[0] + 16.6, 71.5), (_R10[0] + 16.6, _R10[1] + 2.4)]),
               ("/PMOD3", [(_R11[0] + 15.1, _R11[1] + 4.3), (_R11[0] + 15.1, 99.25), (_R10[0] + 6.78, 99.25), (_R10[0] + 6.78, _R10[1] + 25.52)])]
 FRONT_WIRES = [("/PMOD4", [(_R11[0] + 18.3, _R11[1] + 21.0), (_R11[0] + 18.3, 99.05), (_R10[0] + 9.32, 99.05), (_R10[0] + 9.32, _R10[1] + 25.52)])]
-# the cells rev A leaves empty say why, on the front
-FRONT_TEXT = [(28.5, 16.6, "R1  915 MHz INVERTED-F ANTENNA (TI DN023)"), (28.5, 18.4, "REV B: NOT ON THIS BOARD"),
-              (71.0 + 7.75 + 10.0 - 7.75 - 10.0 + 0.0, 16.6, ""),
-              (50.0, 59.6, "R7, R8  LTC5510 UP- AND DOWN-CONVERTING MIXERS: REV B (35 IN STOCK ON 2026-10-25)"),
-              (50.0, 61.4, "R6  RFX2401C 2.4 GHz FRONT END AND R13  TRF3722 QUADRATURE TRANSMITTER: REV B (R13'S CELLS HOLD R11)"),
-              (50.0, 63.2, "R3  2.4 GHz MEANDERED INVERTED-F ANTENNA (TI AN043): REV B")]
-FRONT_TEXT = [ft for ft in FRONT_TEXT if ft[2]]
+FRONT_TEXT = []
 BACK_TEXT_X = 50.0
-QR_AT = (17.75, 17.75)            # under the empty cell (0,0): no holes anywhere near
+QR_AT = (80.0, 40.5)              # under R9's right cell: the boost and the USB-C input, no jack within 10 mm
 BACK_TEXT = ["RF-MOD: 915 MHz and 2.4 GHz.  IN is each tile's top-left",
-             "jack, OUT its bottom-right; the gain blocks and synthesizers",
-             "have a slide switch (up: on).  Power: USB-C on R9.",
-             "The handbook has the rest."]
+             "jack, OUT its bottom-right; the powered tiles have a slide",
+             "switch (up: on).  Power: USB-C on R9.  The handbook has",
+             "the rest."]
 
 
 if __name__ == "__main__":

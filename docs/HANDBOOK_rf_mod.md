@@ -12,6 +12,15 @@ the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and
 
 ## The tiles
 
+### R1  splitter, 3 x 18 ohm, 6 dB
+
+Cells (0,0), (1,0).
+Jacks: TL P1 (+20 dBm); TM P2; BR P3.
+
+**Expect:** 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)
+
+Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block.
+
 ### R2  2.45 GHz filter
 
 Cell (2,0).
@@ -44,6 +53,28 @@ Jacks: TL IN (0 dBm); BR OUT.
 Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its 5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide switch and P-FET gate the tile's 7.8 V as on AMOD-A.
 
 Parts: GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
+
+### R7  TX mixer, ADL5350
+
+Cells (0,2), (1,2); +5 V.
+Jacks: TL RF (+10 dBm); TMr LO (0 to +6 dBm); BR IF.
+
+**Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
+
+ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.
+
+Parts: ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
+
+### R8  RX mixer, ADL5350
+
+Cells (2,2), (3,2); +5 V.
+Jacks: TL RF (+10 dBm); TMr LO (0 to +6 dBm); BR IF.
+
+**Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
+
+ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.
+
+Parts: ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
 
 ### R9  power, USB-C 5 V in: +5, +7.8 V; 25 MHz reference
 

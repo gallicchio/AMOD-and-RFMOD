@@ -275,6 +275,15 @@
       "+8V": [
         "Power"
       ],
+      "/R1_P1": [
+        "RF"
+      ],
+      "/R1_P2": [
+        "RF"
+      ],
+      "/R1_P3": [
+        "RF"
+      ],
       "/R2_IN": [
         "RF"
       ],
@@ -311,11 +320,77 @@
       "/R12_OUT": [
         "RF"
       ],
+      "/R7_RFN": [
+        "RF"
+      ],
+      "/R7_LOJ": [
+        "RF"
+      ],
+      "/R8_RFN": [
+        "RF"
+      ],
+      "/R8_LOJ": [
+        "RF"
+      ],
       "/R10_OUTA": [
         "RF"
       ],
       "/R11_OUTA": [
         "RF"
+      ],
+      "/R7_IF": [
+        "Fine"
+      ],
+      "/R7_G": [
+        "Fine"
+      ],
+      "/R7_VS": [
+        "Fine"
+      ],
+      "/R7_V33": [
+        "Fine"
+      ],
+      "/R7_RFIF": [
+        "Fine"
+      ],
+      "/R7_LON": [
+        "Fine"
+      ],
+      "/R7_VPOS": [
+        "Fine"
+      ],
+      "/R7_IFN": [
+        "Fine"
+      ],
+      "/R7_LOC": [
+        "Fine"
+      ],
+      "/R8_IF": [
+        "Fine"
+      ],
+      "/R8_G": [
+        "Fine"
+      ],
+      "/R8_VS": [
+        "Fine"
+      ],
+      "/R8_V33": [
+        "Fine"
+      ],
+      "/R8_RFIF": [
+        "Fine"
+      ],
+      "/R8_LON": [
+        "Fine"
+      ],
+      "/R8_VPOS": [
+        "Fine"
+      ],
+      "/R8_IFN": [
+        "Fine"
+      ],
+      "/R8_LOC": [
+        "Fine"
       ],
       "/R10_REF": [
         "Fine"

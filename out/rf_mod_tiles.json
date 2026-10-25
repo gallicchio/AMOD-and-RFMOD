@@ -1,6 +1,306 @@
 {
  "tiles": [
   {
+   "id": "R1",
+   "idx": 1,
+   "name": "splitter",
+   "subtitle": "3 x 18 ohm, 6 dB",
+   "sections": [],
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "supply": null,
+   "x0": 7.75,
+   "y0": 7.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)",
+   "notes": [
+    "Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two",
+    "outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to",
+    "both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block."
+   ],
+   "top_pour": true,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "P1",
+     "net": "/R1_P1",
+     "role": "in",
+     "limit": "+20 dBm",
+     "ref": "J101",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "P1"
+    },
+    {
+     "slot": "TM",
+     "label": "P2",
+     "net": "/R1_P2",
+     "role": "out",
+     "limit": "",
+     "ref": "J102",
+     "x": 20.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "P2"
+    },
+    {
+     "slot": "BR",
+     "label": "P3",
+     "net": "/R1_P3",
+     "role": "out",
+     "limit": "",
+     "ref": "J103",
+     "x": 36.75,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "P3"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J101",
+     "key": "SMA",
+     "value": "P1",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R1_P1",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J102",
+     "key": "SMA",
+     "value": "P2",
+     "x": 20.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R1_P2",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J103",
+     "key": "SMA",
+     "value": "P3",
+     "x": 36.75,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R1_P3",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R101",
+     "key": "R0402 18R",
+     "value": "18R",
+     "x": 15.0,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R1_P1",
+      "2": "/R1_N"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R102",
+     "key": "R0402 18R",
+     "value": "18R",
+     "x": 17.0,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R1_N",
+      "2": "/R1_P2"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R103",
+     "key": "R0402 18R",
+     "value": "18R",
+     "x": 16.0,
+     "y": 11.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R1_N",
+      "2": "/R1_P3"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/R1_P1",
+     [
+      [
+       "J101",
+       "1"
+      ],
+      [
+       4.75,
+       10.0
+      ],
+      [
+       "R101",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R1_P2",
+     [
+      [
+       "J102",
+       "1"
+      ],
+      [
+       20.75,
+       10.0
+      ],
+      [
+       "R102",
+       "2"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R1_P3",
+     [
+      [
+       "R103",
+       "2"
+      ],
+      [
+       16.0,
+       15.25
+      ],
+      [
+       36.75,
+       15.25
+      ],
+      [
+       "J103",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R1_N",
+     [
+      [
+       "R101",
+       "2"
+      ],
+      [
+       "R102",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R1_N",
+     [
+      [
+       16.0,
+       10.0
+      ],
+      [
+       "R103",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [],
+   "texts": [
+    [
+     1.2,
+     13.3,
+     "R1",
+     1.0,
+     0.18,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     14.6,
+     "SPLITTER / COMBINER",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     17.3,
+     "ANY PORT TO ANY: -6 dB",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     18.6,
+     "3 x 18R, DC - 6 GHz",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
    "id": "R2",
    "idx": 2,
    "name": "2.45 GHz filter",
@@ -3298,6 +3598,2142 @@
      0.8,
      0.15,
      "center",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R7",
+   "idx": 7,
+   "name": "TX mixer",
+   "subtitle": "ADL5350",
+   "sections": [],
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "supply": "+5 V",
+   "x0": 7.75,
+   "y0": 50.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough",
+   "notes": [
+    "ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover",
+    "(series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the",
+    "datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the",
+    "datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz).",
+    "Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out).",
+    "Both images appear: filter the RF side with R2 or R4."
+   ],
+   "top_pour": true,
+   "fine": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "RF",
+     "net": "/R7_RFN",
+     "role": "in",
+     "limit": "+10 dBm",
+     "ref": "J701",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "RF"
+    },
+    {
+     "slot": "TMr",
+     "label": "LO",
+     "net": "/R7_LOJ",
+     "role": "in",
+     "limit": "0 to +6 dBm",
+     "ref": "J702",
+     "x": 24.5,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "LO"
+    },
+    {
+     "slot": "BR",
+     "label": "IF",
+     "net": "/R7_IF",
+     "role": "out",
+     "limit": "",
+     "ref": "J703",
+     "x": 36.75,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "IF"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J701",
+     "key": "SMA",
+     "value": "RF",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_RFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J702",
+     "key": "SMA",
+     "value": "LO",
+     "x": 24.5,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_LOJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J703",
+     "key": "SMA",
+     "value": "IF",
+     "x": 36.75,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_IF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW701",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 22.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R7_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q701",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 27.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_G",
+      "2": "+5V",
+      "3": "/R7_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U701",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 30.5,
+     "y": 14.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_VS",
+      "2": "GND",
+      "3": "/R7_VS",
+      "5": "/R7_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C701",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 27.5,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C702",
+     "key": "C0805 4.7uF",
+     "value": "4.7u",
+     "x": 31.4,
+     "y": 10.6,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U702",
+     "key": "ADL5350",
+     "value": "ADL5350",
+     "x": 12.5,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_RFIF",
+      "8": "/R7_RFIF",
+      "3": "/R7_LON",
+      "6": "/R7_VPOS",
+      "2": "GND",
+      "5": "GND",
+      "4": "GND",
+      "7": "GND",
+      "9": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C703",
+     "key": "C0402 15pF",
+     "value": "15p",
+     "x": 9.7,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_RFN",
+      "2": "/R7_RFIF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L701",
+     "key": "L0402 47nH",
+     "value": "47n",
+     "x": 8.2,
+     "y": 11.4,
+     "rot": 270,
+     "pins": {
+      "1": "/R7_RFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L702",
+     "key": "L0402 47nH",
+     "value": "47n",
+     "x": 11.2,
+     "y": 13.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R7_RFIF",
+      "2": "/R7_IFN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C704",
+     "key": "C0402 15pF",
+     "value": "15p",
+     "x": 12.1,
+     "y": 15.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R7_IFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C705",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 14.6,
+     "y": 14.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_IFN",
+      "2": "/R7_IF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R701",
+     "key": "R0402 0R",
+     "value": "0R",
+     "x": 15.3,
+     "y": 8.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_LON",
+      "2": "/R7_LOC"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C706",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 17.3,
+     "y": 8.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_LOC",
+      "2": "/R7_LOJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L703",
+     "key": "L0402 10nH",
+     "value": "10n",
+     "x": 12.75,
+     "y": 12.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R7_VPOS",
+      "2": "/R7_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C707",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 14.3,
+     "y": 12.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R7_VPOS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW701",
+       "3"
+      ],
+      [
+       25.7,
+       17.85
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q701",
+       "2"
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_V33",
+     [
+      [
+       "U701",
+       "5"
+      ],
+      [
+       31.6375,
+       11.4
+      ],
+      [
+       30.55,
+       11.4
+      ],
+      [
+       30.55,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_V33",
+     [
+      [
+       "C702",
+       "1"
+      ],
+      [
+       30.55,
+       11.4
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U702",
+       "2"
+      ],
+      [
+       12.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U702",
+       "4"
+      ],
+      [
+       13.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U702",
+       "5"
+      ],
+      [
+       13.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_RFIF",
+     [
+      [
+       "U702",
+       "1"
+      ],
+      [
+       11.2,
+       9.098
+      ],
+      [
+       11.2,
+       10.902
+      ],
+      [
+       "U702",
+       "8"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_RFIF",
+     [
+      [
+       "C703",
+       "2"
+      ],
+      [
+       11.2,
+       10.0
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_RFN",
+     [
+      [
+       "J701",
+       "1"
+      ],
+      [
+       4.75,
+       10.0
+      ],
+      [
+       "C703",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_RFN",
+     [
+      [
+       8.2,
+       10.0
+      ],
+      [
+       "L701",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_RFIF",
+     [
+      [
+       11.2,
+       10.902
+      ],
+      [
+       "L702",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_IFN",
+     [
+      [
+       "L702",
+       "2"
+      ],
+      [
+       11.2,
+       14.1
+      ],
+      [
+       12.1,
+       14.1
+      ],
+      [
+       "C704",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_IFN",
+     [
+      [
+       12.1,
+       14.1
+      ],
+      [
+       "C705",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_IF",
+     [
+      [
+       "C705",
+       "2"
+      ],
+      [
+       17.0,
+       14.1
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_IF",
+     [
+      [
+       17.0,
+       14.1
+      ],
+      [
+       17.0,
+       15.7
+      ],
+      [
+       33.0,
+       15.7
+      ],
+      [
+       33.0,
+       15.25
+      ],
+      [
+       "J703",
+       "1"
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/R7_LON",
+     [
+      [
+       "U702",
+       "3"
+      ],
+      [
+       12.749,
+       8.2
+      ],
+      [
+       14.79,
+       8.2
+      ],
+      [
+       "R701",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_LOC",
+     [
+      [
+       "R701",
+       "2"
+      ],
+      [
+       "C706",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_LOJ",
+     [
+      [
+       "C706",
+       "2"
+      ],
+      [
+       24.5,
+       8.9
+      ],
+      [
+       "J702",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_VPOS",
+     [
+      [
+       "U702",
+       "6"
+      ],
+      [
+       "L703",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_VPOS",
+     [
+      [
+       12.75,
+       11.5
+      ],
+      [
+       13.69,
+       11.5
+      ],
+      [
+       "C707",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_V33",
+     [
+      [
+       "L703",
+       "2"
+      ],
+      [
+       12.75,
+       13.6
+      ],
+      [
+       13.3,
+       13.6
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R7_V33",
+     [
+      [
+       30.55,
+       12.6
+      ],
+      [
+       14.0,
+       12.6
+      ],
+      [
+       13.3,
+       13.3
+      ],
+      [
+       13.3,
+       13.6
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     25.7,
+     19.05,
+     false
+    ],
+    [
+     "/R7_V33",
+     30.55,
+     12.6,
+     false
+    ],
+    [
+     "/R7_IF",
+     17.0,
+     14.1,
+     false
+    ],
+    [
+     "/R7_V33",
+     13.3,
+     13.6,
+     true
+    ]
+   ],
+   "routes": [
+    [
+     "/R7_G",
+     [
+      [
+       "SW701",
+       "2"
+      ],
+      [
+       "Q701",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R7_VS",
+     [
+      [
+       "Q701",
+       "3"
+      ],
+      [
+       "U701",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R7_VS",
+     [
+      [
+       "U701",
+       "1"
+      ],
+      [
+       "U701",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R7_VS",
+     [
+      [
+       "U701",
+       "1"
+      ],
+      [
+       "C701",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW701",
+      "1"
+     ],
+     [
+      24.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U701",
+      "2"
+     ],
+     [
+      28.1,
+      14.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C701",
+      "2"
+     ],
+     [
+      28.45,
+      9.8
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C702",
+      "2"
+     ],
+     [
+      33.3,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U702",
+      "9"
+     ],
+     [
+      12.5,
+      10.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "U702",
+      "7"
+     ],
+     [
+      [
+       12.249,
+       11.55
+      ],
+      [
+       11.9,
+       11.9
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     0.15,
+     true
+    ],
+    [
+     [
+      "L701",
+      "2"
+     ],
+     [
+      8.2,
+      12.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C704",
+      "2"
+     ],
+     [
+      12.1,
+      16.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C707",
+      "2"
+     ],
+     [
+      15.5,
+      12.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ]
+   ],
+   "texts": [
+    [
+     1.2,
+     13.3,
+     "R7",
+     1.0,
+     0.18,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     14.6,
+     "ADL5350",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     15.9,
+     "TX MIXER",
+     0.8,
+     0.15,
+     "left",
+     0
+    ]
+   ],
+   "slots": []
+  },
+  {
+   "id": "R8",
+   "idx": 8,
+   "name": "RX mixer",
+   "subtitle": "ADL5350",
+   "sections": [],
+   "cells": [
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "supply": "+5 V",
+   "x0": 50.75,
+   "y0": 50.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough",
+   "notes": [
+    "ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover",
+    "(series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the",
+    "datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the",
+    "datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz).",
+    "Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out).",
+    "Both images appear: filter the RF side with R2 or R4."
+   ],
+   "top_pour": true,
+   "fine": true,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "RF",
+     "net": "/R8_RFN",
+     "role": "in",
+     "limit": "+10 dBm",
+     "ref": "J801",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "RF"
+    },
+    {
+     "slot": "TMr",
+     "label": "LO",
+     "net": "/R8_LOJ",
+     "role": "in",
+     "limit": "0 to +6 dBm",
+     "ref": "J802",
+     "x": 24.5,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "LO"
+    },
+    {
+     "slot": "BR",
+     "label": "IF",
+     "net": "/R8_IF",
+     "role": "out",
+     "limit": "",
+     "ref": "J803",
+     "x": 36.75,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "IF"
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J801",
+     "key": "SMA",
+     "value": "RF",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_RFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J802",
+     "key": "SMA",
+     "value": "LO",
+     "x": 24.5,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_LOJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J803",
+     "key": "SMA",
+     "value": "IF",
+     "x": 36.75,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_IF",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW801",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 22.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/R8_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q801",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 27.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_G",
+      "2": "+5V",
+      "3": "/R8_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U801",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 30.5,
+     "y": 14.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_VS",
+      "2": "GND",
+      "3": "/R8_VS",
+      "5": "/R8_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C801",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 27.5,
+     "y": 10.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C802",
+     "key": "C0805 4.7uF",
+     "value": "4.7u",
+     "x": 31.4,
+     "y": 10.6,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_V33",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U802",
+     "key": "ADL5350",
+     "value": "ADL5350",
+     "x": 12.5,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_RFIF",
+      "8": "/R8_RFIF",
+      "3": "/R8_LON",
+      "6": "/R8_VPOS",
+      "2": "GND",
+      "5": "GND",
+      "4": "GND",
+      "7": "GND",
+      "9": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C803",
+     "key": "C0402 15pF",
+     "value": "15p",
+     "x": 9.7,
+     "y": 10.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_RFN",
+      "2": "/R8_RFIF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L801",
+     "key": "L0402 47nH",
+     "value": "47n",
+     "x": 8.2,
+     "y": 11.4,
+     "rot": 270,
+     "pins": {
+      "1": "/R8_RFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L802",
+     "key": "L0402 47nH",
+     "value": "47n",
+     "x": 11.2,
+     "y": 13.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R8_RFIF",
+      "2": "/R8_IFN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C804",
+     "key": "C0402 15pF",
+     "value": "15p",
+     "x": 12.1,
+     "y": 15.0,
+     "rot": 270,
+     "pins": {
+      "1": "/R8_IFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C805",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 14.6,
+     "y": 14.1,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_IFN",
+      "2": "/R8_IF"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R801",
+     "key": "R0402 0R",
+     "value": "0R",
+     "x": 15.3,
+     "y": 8.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_LON",
+      "2": "/R8_LOC"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C806",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 17.3,
+     "y": 8.9,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_LOC",
+      "2": "/R8_LOJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "L803",
+     "key": "L0402 10nH",
+     "value": "10n",
+     "x": 12.75,
+     "y": 12.6,
+     "rot": 270,
+     "pins": {
+      "1": "/R8_VPOS",
+      "2": "/R8_V33"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C807",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 14.3,
+     "y": 12.0,
+     "rot": 0,
+     "pins": {
+      "1": "/R8_VPOS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW801",
+       "3"
+      ],
+      [
+       25.7,
+       17.85
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q801",
+       "2"
+      ],
+      [
+       25.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_V33",
+     [
+      [
+       "U801",
+       "5"
+      ],
+      [
+       31.6375,
+       11.4
+      ],
+      [
+       30.55,
+       11.4
+      ],
+      [
+       30.55,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_V33",
+     [
+      [
+       "C802",
+       "1"
+      ],
+      [
+       30.55,
+       11.4
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U802",
+       "2"
+      ],
+      [
+       12.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U802",
+       "4"
+      ],
+      [
+       13.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U802",
+       "5"
+      ],
+      [
+       13.249,
+       10.0
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_RFIF",
+     [
+      [
+       "U802",
+       "1"
+      ],
+      [
+       11.2,
+       9.098
+      ],
+      [
+       11.2,
+       10.902
+      ],
+      [
+       "U802",
+       "8"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_RFIF",
+     [
+      [
+       "C803",
+       "2"
+      ],
+      [
+       11.2,
+       10.0
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_RFN",
+     [
+      [
+       "J801",
+       "1"
+      ],
+      [
+       4.75,
+       10.0
+      ],
+      [
+       "C803",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_RFN",
+     [
+      [
+       8.2,
+       10.0
+      ],
+      [
+       "L801",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_RFIF",
+     [
+      [
+       11.2,
+       10.902
+      ],
+      [
+       "L802",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_IFN",
+     [
+      [
+       "L802",
+       "2"
+      ],
+      [
+       11.2,
+       14.1
+      ],
+      [
+       12.1,
+       14.1
+      ],
+      [
+       "C804",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_IFN",
+     [
+      [
+       12.1,
+       14.1
+      ],
+      [
+       "C805",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_IF",
+     [
+      [
+       "C805",
+       "2"
+      ],
+      [
+       17.0,
+       14.1
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_IF",
+     [
+      [
+       17.0,
+       14.1
+      ],
+      [
+       17.0,
+       15.7
+      ],
+      [
+       33.0,
+       15.7
+      ],
+      [
+       33.0,
+       15.25
+      ],
+      [
+       "J803",
+       "1"
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/R8_LON",
+     [
+      [
+       "U802",
+       "3"
+      ],
+      [
+       12.749,
+       8.2
+      ],
+      [
+       14.79,
+       8.2
+      ],
+      [
+       "R801",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_LOC",
+     [
+      [
+       "R801",
+       "2"
+      ],
+      [
+       "C806",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_LOJ",
+     [
+      [
+       "C806",
+       "2"
+      ],
+      [
+       24.5,
+       8.9
+      ],
+      [
+       "J802",
+       "1"
+      ]
+     ],
+     0.29,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_VPOS",
+     [
+      [
+       "U802",
+       "6"
+      ],
+      [
+       "L803",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_VPOS",
+     [
+      [
+       12.75,
+       11.5
+      ],
+      [
+       13.69,
+       11.5
+      ],
+      [
+       "C807",
+       "1"
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_V33",
+     [
+      [
+       "L803",
+       "2"
+      ],
+      [
+       12.75,
+       13.6
+      ],
+      [
+       13.3,
+       13.6
+      ]
+     ],
+     0.15,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/R8_V33",
+     [
+      [
+       30.55,
+       12.6
+      ],
+      [
+       14.0,
+       12.6
+      ],
+      [
+       13.3,
+       13.3
+      ],
+      [
+       13.3,
+       13.6
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     true
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     25.7,
+     19.05,
+     false
+    ],
+    [
+     "/R8_V33",
+     30.55,
+     12.6,
+     false
+    ],
+    [
+     "/R8_IF",
+     17.0,
+     14.1,
+     false
+    ],
+    [
+     "/R8_V33",
+     13.3,
+     13.6,
+     true
+    ]
+   ],
+   "routes": [
+    [
+     "/R8_G",
+     [
+      [
+       "SW801",
+       "2"
+      ],
+      [
+       "Q801",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R8_VS",
+     [
+      [
+       "Q801",
+       "3"
+      ],
+      [
+       "U801",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R8_VS",
+     [
+      [
+       "U801",
+       "1"
+      ],
+      [
+       "U801",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/R8_VS",
+     [
+      [
+       "U801",
+       "1"
+      ],
+      [
+       "C801",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW801",
+      "1"
+     ],
+     [
+      24.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U801",
+      "2"
+     ],
+     [
+      28.1,
+      14.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C801",
+      "2"
+     ],
+     [
+      28.45,
+      9.8
+     ],
+     [
+      0,
+      -1
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C802",
+      "2"
+     ],
+     [
+      33.3,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U802",
+      "9"
+     ],
+     [
+      12.5,
+      10.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "U802",
+      "7"
+     ],
+     [
+      [
+       12.249,
+       11.55
+      ],
+      [
+       11.9,
+       11.9
+      ]
+     ],
+     [
+      0,
+      0
+     ],
+     0.15,
+     true
+    ],
+    [
+     [
+      "L801",
+      "2"
+     ],
+     [
+      8.2,
+      12.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C804",
+      "2"
+     ],
+     [
+      12.1,
+      16.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ],
+    [
+     [
+      "C807",
+      "2"
+     ],
+     [
+      15.5,
+      12.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     true
+    ]
+   ],
+   "texts": [
+    [
+     1.2,
+     13.3,
+     "R8",
+     1.0,
+     0.18,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     14.6,
+     "ADL5350",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
+     1.2,
+     15.9,
+     "RX MIXER",
+     0.8,
+     0.15,
+     "left",
      0
     ]
    ],
@@ -7626,38 +10062,12 @@
  ],
  "back_text": [
   "RF-MOD: 915 MHz and 2.4 GHz.  IN is each tile's top-left",
-  "jack, OUT its bottom-right; the gain blocks and synthesizers",
-  "have a slide switch (up: on).  Power: USB-C on R9.",
-  "The handbook has the rest."
+  "jack, OUT its bottom-right; the powered tiles have a slide",
+  "switch (up: on).  Power: USB-C on R9.  The handbook has",
+  "the rest."
  ],
  "slots": [],
- "front_text": [
-  [
-   28.5,
-   16.6,
-   "R1  915 MHz INVERTED-F ANTENNA (TI DN023)"
-  ],
-  [
-   28.5,
-   18.4,
-   "REV B: NOT ON THIS BOARD"
-  ],
-  [
-   50.0,
-   59.6,
-   "R7, R8  LTC5510 UP- AND DOWN-CONVERTING MIXERS: REV B (35 IN STOCK ON 2026-10-25)"
-  ],
-  [
-   50.0,
-   61.4,
-   "R6  RFX2401C 2.4 GHz FRONT END AND R13  TRF3722 QUADRATURE TRANSMITTER: REV B (R13'S CELLS HOLD R11)"
-  ],
-  [
-   50.0,
-   63.2,
-   "R3  2.4 GHz MEANDERED INVERTED-F ANTENNA (TI AN043): REV B"
-  ]
- ],
+ "front_text": [],
  "rail_pours": [
   [
    "+5V",
@@ -7782,8 +10192,8 @@
  ],
  "back_text_x": 50.0,
  "qr_at": [
-  17.75,
-  17.75
+  80.0,
+  40.5
  ],
  "stem": "rf_mod"
 }

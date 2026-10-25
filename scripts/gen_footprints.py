@@ -311,6 +311,25 @@ def lfb212():
     return name, f
 
 
+def adl5350():
+    """ADL5350 in its 2 x 3 mm LFCSP (LCSC C206667): eight 0.28 x 0.71 pads at 0.5 mm along the long sides (1-4 along the top
+    from the left, 5-8 along the bottom from the right) and the 1.74 x 0.45 paddle as pad 9, as JLCPCB draws it."""
+    name = "LFCSP-8_2x3mm_P0.5mm_ADL5350"
+    f = fp_header(name, "ADL5350 LFCSP-8 2 x 3 mm, 0.5 mm pitch, 1.74 x 0.45 paddle: JLCPCB's land pattern for C206667", "LFCSP mixer", "smd", 2.0)
+    xs = (-0.749, -0.249, 0.249, 0.749)
+    for i, x in enumerate(xs):
+        f.add(smd_pad(str(i + 1), x, -0.902, 0.28, 0.71, f"{name}/p{i + 1}"))
+        f.add(smd_pad(str(8 - i), x, 0.902, 0.28, 0.71, f"{name}/p{8 - i}"))
+    f.add(smd_pad("9", 0, 0, 1.74, 0.45, f"{name}/p9"))
+    rect_lines(f, -1.5, -1.0, 1.5, 1.0, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -1.75, -1.5, 1.75, 1.5, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sx in (-1, 1):                                        # silk ticks at the ends of the long sides, clear of the pads
+        f.add(line(sx * 1.55, -1.1, sx * 1.55, 1.1, "F.SilkS", SILK_W, f"{name}/silk/{sx}"))
+    f.add(circle(-1.3, -1.45, 0.08, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "LFCSP-8_2x3.wrl")
+    return name, f
+
+
 def l_4x4():
     """XRNR4030-22uH 4 x 4 x 3 mm shielded power inductor (LCSC C5289362): two 1.6 x 3.7 pads at x = +-1.6, as JLCPCB draws it."""
     name = "L_4x4_XRNR4030"
@@ -338,6 +357,10 @@ def slide_switch():
     lengthened so JLCPCB's drawing of the posts (0.3 mm further out) fits too.  Copied, with its model pointed at our library."""
     text = open(os.path.join(VENDORED, "SW_SPDT_Shouhan_MSK12C02.kicad_mod"), encoding="utf-8").read()
     text = re.sub(r'\(model "[^"]*"', '(model "${KIPRJMOD}/lib/%s.3dshapes/SW_MSK12C02.wrl"' % LIB, text)
+    # our stand-in is drawn in mm and VRML's unit is 2.54 mm: scale it down (the library's STEP had scale 1)
+    i = text.index("SW_MSK12C02.wrl")
+    j = text.index("(xyz 1 1 1)", i)
+    text = text[:j] + "(xyz %.6f %.6f %.6f)" % (MM_SCALE, MM_SCALE, MM_SCALE) + text[j + len("(xyz 1 1 1)"):]
     return "SW_SPDT_Shouhan_MSK12C02", text
 
 
@@ -357,7 +380,7 @@ def led_0805():
 
 
 MAKERS = [sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
-          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, slot]
+          pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot]
 
 
 def main():

@@ -44,7 +44,8 @@ def slot(cells, name):
     """Local (x, y) of a jack slot in a tile's frame."""
     x0, y0, w, h = tile_frame(cells)
     return {"TL": (INSET, INSET), "TR": (w - INSET, INSET), "BL": (INSET, h - INSET),
-            "BR": (w - INSET, h - INSET), "TM": (w / 2, INSET), "BM": (w / 2, h - INSET)}[name]
+            "BR": (w - INSET, h - INSET), "TM": (w / 2, INSET), "BM": (w / 2, h - INSET),
+            "TMr": (w / 2 + 3.75, INSET)}[name]            # a two-cell tile's middle jack moved right, clear of the tile above-left's BR
 
 
 def check_spacing(jacks, minimum=MIN_JACK_SPACING):

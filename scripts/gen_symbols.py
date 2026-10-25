@@ -101,6 +101,10 @@ SYMBOLS = [
     # B39921B2672P810 915 MHz SAW (RF360, 1.4 x 1.1, 5 pads): 1 IN, 3 OUT, 2 / 4 / 5 ground
     box("SAW915", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in")], [("3", "OUT", "passive"), ("4", "GND", "power_in")],
         "amod:Filter_SAW_1411-5P_B39921", "915 MHz SAW band-pass filter, 1.4 x 1.1 mm", width=10.16),
+    # ADL5350 (ADI, LFCSP-8 2 x 3; datasheet Table 6): 1 and 8 RF/IF (tied inside), 2 and 5 GND, 3 LOIN, 4 and 7 NC (ground them), paddle 9
+    box("ADL5350", "U", [("1", "RF/IF", "passive"), ("8", "RF/IF", "passive"), ("3", "LOIN", "input")],
+        [("6", "VPOS", "power_in"), ("2", "GND", "power_in"), ("5", "GND", "power_in"), ("4", "NC", "passive"), ("7", "NC", "passive"), ("9", "EP", "power_in")],
+        "amod:LFCSP-8_2x3mm_P0.5mm_ADL5350", "ADL5350 LF to 4 GHz passive mixer with LO buffer, LFCSP-8", width=10.16),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

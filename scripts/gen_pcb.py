@@ -111,12 +111,18 @@ def load_fp(fpid):
             if os.path.exists(stand_in):
                 fname = "${KIPRJMOD}/lib/amod.3dshapes/" + os.path.basename(stand_in)
                 changed = True
-        keep.append((fname, m.m_Scale, m.m_Rotation, m.m_Offset, m.m_Show))
+                k = 1 / 2.54                                  # a stand-in is drawn in mm, VRML's unit is 2.54 mm
+                keep.append((fname, (k, k, k), (0, 0, 0), (0, 0, 0), m.m_Show))
+                continue
+        # copy the vectors' numbers, not the SWIG proxies: those die with the list and leave garbage in the board file
+        keep.append((fname, (m.m_Scale.x, m.m_Scale.y, m.m_Scale.z), (m.m_Rotation.x, m.m_Rotation.y, m.m_Rotation.z),
+                     (m.m_Offset.x, m.m_Offset.y, m.m_Offset.z), m.m_Show))
     if changed:
         fp.Models().clear()
         for (fname, scale, rot, off, show) in keep:
             m = pcbnew.FP_3DMODEL()
-            m.m_Filename, m.m_Scale, m.m_Rotation, m.m_Offset, m.m_Show = fname, scale, rot, off, show
+            m.m_Filename, m.m_Show = fname, show
+            m.m_Scale = pcbnew.VECTOR3D(*scale); m.m_Rotation = pcbnew.VECTOR3D(*rot); m.m_Offset = pcbnew.VECTOR3D(*off)
             fp.Models().push_back(m)
     return fp
 
@@ -914,7 +920,7 @@ class Board:
                 if j.get("label_at"):
                     dx, dy, just, size = j["label_at"]
                     self._text(x0 + j["x"] + dx, y0 + j["y"] + dy, name, size, 0.15, justify=just)
-                elif j["slot"] in ("TL", "TR", "TM"):
+                elif j["slot"] in ("TL", "TR", "TM", "TMr"):
                     self._text(x0 + j["x"], y0 - 0.8, name, 1.0, 0.18, justify="center")
                 else:
                     self._text(x0 + j["x"], y0 + h + 0.8, name, 1.0, 0.18, justify="center")

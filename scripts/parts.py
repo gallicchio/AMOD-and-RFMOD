@@ -23,7 +23,7 @@ BOARDS = {
     "amod_a": dict(stem="amod_a", name="AMOD-A", title="AMOD-A: active building blocks on USB-C power", layers=4,
                    subtitle="gain blocks, an HF LNA, Johnson noise, a one-pin ADC, a 74HC4046 PLL, heat, a mixer, light, ultrasound, audio"),
     "rf_mod": dict(stem="rf_mod", name="RF-MOD", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
-                   subtitle="printed antennas, filters, an LNA, a 2.4 GHz front end, two mixers, two synthesizers, a gain block, a quadrature transmitter"),
+                   subtitle="two synthesizers, two mixers, two gain blocks, two filters, a splitter, power and a 25 MHz reference"),
 }
 
 # lcsc / jlc_type ("basic" | "preferred" | "extended") / process ("SMT" | "THT") / stock on STOCK_DATE / price (1-9) /
@@ -171,6 +171,9 @@ PARTS = {
                  footprint="amod:L_4x4_XRNR4030", symbol="Device:L", match=["XRNR4030-22uH"], desc="22 uH 1.3 A shielded power inductor, 4 x 4 x 3 mm: the boost"),
     "R2512_22R": dict(value="22R 1W", mpn="25121WJ0220T4E", lcsc="C27258", jlc_type="extended", process="SMT", stock=14728, price=0.0282,
                       footprint="Resistor_SMD:R_2512_6332Metric", symbol="Device:R_US", match=["22Ω", "2512"], desc="the GALI-84+ bias resistor: 0.2 W from 7.8 V"),
+    "ADL5350": dict(value="ADL5350", mpn="ADL5350ACPZ-R7", lcsc="C206667", jlc_type="extended", process="SMT", stock=2036, price=5.6410,
+                    footprint="amod:LFCSP-8_2x3mm_P0.5mm_ADL5350", symbol="amod:ADL5350", match=["ADL5350ACPZ"],
+                    desc="LF to 4 GHz passive Y-mixer, 6.8 dB loss, IIP3 +25 dBm, LO buffer (4 dBm), 3 V 19 mA, 2 x 3 mm LFCSP: the up- and down-converters"),
     "HDR3": dict(value="1x3", mpn="PZ254V-11-03P", lcsc="C2937625", jlc_type="extended", process="THT", stock=786642, price=0.0199,
                  footprint="Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical", symbol="Connector_Generic:Conn_01x03", match=["PZ254V-11-03P"],
                  desc="1 x 3 pin header with a jumper: the synthesizer's reference from its jack (1-2) or the board's TCXO (2-3)"),
@@ -274,6 +277,11 @@ PASSIVES = {
     "L1210 150uH": dict(lcsc="C250237", mpn="NLCV32T-151K-EF", jlc_type="extended", stock=10151, price=0.0482, note="TDK, 6.1 ohm, 100 mA, shielded"),
     # --- RF-MOD (stock 2026-10-25 08:02): 0402 for the synthesizer, C0G in every signal path ---
     "C0402 100pF": dict(lcsc="C1546", mpn="0402CG101J500NT", jlc_type="basic", stock=3331448, price=0.0033, note="C0G: the RF blocks and the loop filter's C3"),
+    "R0402 18R": dict(lcsc="C25084", mpn="0402WGF180JTCE", jlc_type="extended", stock=126992, price=0.0013, note="the splitter's three legs (50/3 = 16.7)"),
+    "R0402 0R": dict(lcsc="C17168", mpn="0402WGF0000TCE", jlc_type="basic", stock=8603414, price=0.0011, note="the mixer's LO series element (a 3-8 nH inductor per band)"),
+    "C0402 15pF": dict(lcsc="C1548", mpn="0402CG150J500NT", jlc_type="basic", stock=1035905, price=0.0038, note="C0G: the mixer's diplexer"),
+    "L0402 47nH": dict(lcsc="C192855", mpn="LQW15AN47NJ00D", jlc_type="extended", stock=40459, price=0.0521, note="Murata LQW15: the mixer's diplexer"),
+    "L0402 10nH": dict(lcsc="C184029", mpn="LQW15AN10NJ00D", jlc_type="extended", stock=54298, price=0.0423, note="Murata LQW15: the mixer's LO bias choke"),
     "C0603 6.8nF": dict(lcsc="C162241", mpn="GRM1885C1H682JA01D", jlc_type="extended", stock=88521, price=0.0223, note="C0G: the loop filter's C2"),
     "C0402 1uF": dict(lcsc="C14445", mpn="CL05A105KP5NNNC", jlc_type="extended", stock=1049930, price=0.0053, note="X5R 10 V: the MAX2871's filter pins"),
     "L0402 27nH": dict(lcsc="C882469", mpn="LQW15AN27NG80D", jlc_type="extended", stock=18979, price=0.0902, note="Murata LQW15, SRF 3.4 GHz min: the RF chokes"),
@@ -356,6 +364,7 @@ JLC_ROTATION = {
     "C5119013": (180, "predicted", "TC32H4 on KiCad's Crystal_SMD_3225: JLCPCB's pad 1 is top-left (y up), KiCad's bottom-left"),
     "C5289362": (0, "predicted", "XRNR4030: the footprint IS JLCPCB's drawing (two pads along x); symmetric"),
     "C7458627": (0, "predicted", "MAX2871 TQFN-32: JLCPCB's QFN drawings put pin 1 top-left as KiCad's; confirm the dot in the preview"),
+    "C206667": (0, "predicted", "ADL5350: the footprint IS JLCPCB's drawing (pads renumbered as theirs)"),
 }
 
 
