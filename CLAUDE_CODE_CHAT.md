@@ -1,7 +1,7 @@
 # Claude Code Chat Log: AMOD and RF-MOD, the boards of analog and RF building blocks
 
 Every prompt, verbatim (minor typos fixed), followed by the response as it was given, with the
-renders as they were at the time (kept under `docs/history/`).  Model: Claude Fable 5.1.  The
+renders as they were at the time (kept under `docs/history/`).  Model: Claude Fable 5.1, then Claude Opus 5.5 from Prompt 6.  The
 boards were specified first in the tutorial's Appendix D
 (`icepi-zero-dac-adc/tutorial/D_coming_soon.md`, "An AMOD: a board of analog blocks" and
 "For the agent that will design these boards"), and Jason's answers to the open questions
