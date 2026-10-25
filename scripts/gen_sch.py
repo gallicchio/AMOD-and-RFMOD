@@ -35,6 +35,7 @@ class SchCtx:
     def __init__(self, sheet, tile, ox, oy, w, h):
         self.s, self.t, self.ox, self.oy, self.w, self.h = sheet, tile, ox, oy, w, h
         self.pwr_n = [0]
+        self.flagged = set()
         self.notes_y = oy + h - 2.54
 
     # ------------------------------------------------------------- symbols --
@@ -47,7 +48,7 @@ class SchCtx:
             f["MPN"] = d["mpn"]
         return f, d
 
-    def part(self, ref, x, y, rot=0, side="right", mirror=None, value=None, label_off=None):
+    def part(self, ref, x, y, rot=0, side="right", mirror=None, value=None, label_off=None, unit=1):
         """Place the tile's part `ref` at (x, y, rot); returns {pin: (x, y)} on the sheet.
         Two-terminal parts: rot 0 vertical (pin 1 up), rot 90 horizontal (pin 1 left)."""
         p = self.t.parts[ref]
@@ -74,7 +75,7 @@ class SchCtx:
             ro, vo, j = (0, -7.62), (0, 7.62), None
             if label_off:
                 ro, vo = label_off
-        self.s.place(sym, ref, val, x, y, rot=rot, mirror=mirror, footprint=d["footprint"], fields=fields,
+        self.s.place(sym, ref, val, x, y, rot=rot, mirror=mirror, footprint=d["footprint"], fields=fields, unit=unit,
                      ref_off=ro, val_off=vo, ref_justify=j, val_justify=j, hide_value=hide_value, in_bom=d.get("in_bom", True))
         return self.pins(ref)
 
@@ -241,6 +242,116 @@ class SchCtx:
             xcur = xs + 10.16
             shunts.pop(r)
         return xcur
+
+    # ------------------------------------------------------- the generic drawer for the active tiles --
+    def netlist_block(self, t, chips_y=45.72, row_y=66.04):
+        """Every part of the tile on the sheet with a label on every pin: the jacks at the left and right on a
+        signal row, the chips (any part whose symbol is not a plain two-terminal) side by side on a second row, the
+        two-terminal parts in rows below, each pin's net written at its end (ground as a ground symbol, the rails as
+        power symbols).  Correct by construction and checked against the declared netlist like every other drawing;
+        it is the first drawing of every active tile and some will stay this way."""
+        s, ox, oy, w = self.s, self.ox, self.oy, self.w
+        y_sig = oy + 30.48
+        jin = [j for j in t.jacks if j["role"] == "in"]
+        jout = [j for j in t.jacks if j["role"] != "in"]
+        used_loops = set()
+        for i, j in enumerate(jin):
+            p = self.jack(j["ref"], ox + 12.7 + i * 25.4, y_sig, "in", j["label"], j["limit"])
+            self.wire([p, (p[0] + 5.08, y_sig)])
+            self.label(j["net"].lstrip("/"), p[0] + 5.08, y_sig)
+        for i, j in enumerate(jout):
+            p = self.jack(j["ref"], ox + w - 12.7 - i * 25.4, y_sig, "out", j["label"], j["limit"])
+            self.wire([(p[0] - 5.08, y_sig), p])
+            self.label(j["net"].lstrip("/"), p[0] - 5.08, y_sig, justify="right")
+        simple = ("Device:R_US", "Device:C", "Device:L", "Device:LED", "Diode:1N4148W", "Device:Crystal", "Device:FerriteBead",
+                  "Device:Thermistor_NTC", "Device:D_Photo", "Device:Polyfuse", "Diode:SMAJ5.0A", "Device:C_Polarized")
+        chips, twos, loops = [], [], []
+        for r, p in t.parts.items():
+            if p.key in ("SMA", "MH", "SLOT"):
+                continue
+            if p.key == "TP":
+                loops.append(r); continue
+            d = parts.info(p.key)
+            (twos if d["symbol"] in simple else chips).append(r)
+        # the chips: side by side, each unit its own symbol
+        x = ox + 25.4
+        for r in chips:
+            d = parts.info(t.parts[r].key)
+            lib = d["symbol"]
+            for unit in s.units_of(lib):
+                dirs = s.pin_dirs(lib, unit)
+                if not dirs:
+                    continue
+                xs = [v[0] for v in dirs.values()]; ys = [v[1] for v in dirs.values()]
+                half_w = max(abs(min(xs)), abs(max(xs)))
+                xc = x + half_w + 10.16
+                pins = self.part(r, xc, oy + chips_y, rot=0, unit=unit, label_off=((0, -(max(ys) + 5.08)), (0, -(min(ys) - 5.08))))
+                done = set()
+                for num, (px, py, rot) in dirs.items():
+                    if num not in pins or (round(pins[num][0], 2), round(pins[num][1], 2)) in done:
+                        continue                              # stacked pins (a USB-C's four VBUS) get one label
+                    done.add((round(pins[num][0], 2), round(pins[num][1], 2)))
+                    self._pin_label(t, r, num, pins[num], rot)
+                x = xc + half_w + 15.24
+        # the two-terminal parts in rows, horizontal, pin 1 on the left (symbols drawn vertical turn 90)
+        vertical = ("Device:R_US", "Device:C", "Device:L", "Device:FerriteBead", "Device:Thermistor_NTC", "Device:Polyfuse", "Device:C_Polarized")
+        x, y = ox + 15.24, oy + row_y
+        for r in twos:
+            if x > ox + w - 25.4:
+                x, y = ox + 15.24, y + 12.7
+            d = parts.info(t.parts[r].key)
+            pins = self.part(r, x + 3.81, y, rot=90 if d["symbol"] in vertical else 0)
+            lo = min(pins, key=lambda k: pins[k][0]); hi = max(pins, key=lambda k: pins[k][0])
+            self._pin_label(t, r, lo, pins[lo], 0)
+            self._pin_label(t, r, hi, pins[hi], 180)
+            x += 30.48
+        # the loops: beside the two-terminal rows' end
+        for r in loops:
+            if x > ox + w - 25.4:
+                x, y = ox + 15.24, y + 12.7
+            p = t.parts[r]
+            self.loop(r, x + 2.54, y, p.value, dx=0.8, justify="left")
+            self.wire([(x + 2.54, y), (x + 2.54, y + 2.54)])
+            self.label(p.pins["1"].lstrip("/"), x + 2.54, y + 2.54)
+            x += 30.48
+        self.result_note(t)
+
+    def _pin_label(self, t, ref, num, pos, rot_into_body):
+        """A 2.54 stub out of a pin and the net's name (or a ground / rail symbol) at its end."""
+        net = t.parts[ref].pins.get(str(num))
+        if net is None:
+            self.s.no_connect(pos[0], pos[1])
+            return
+        dx, dy = {0: (-2.54, 0), 180: (2.54, 0), 90: (0, 2.54), 270: (0, -2.54)}[int(rot_into_body) % 360]
+        end = (pos[0] + dx, pos[1] + dy)
+        self.wire([pos, end])
+        if net == "GND":
+            self.gnd(end[0], end[1])
+        elif net in ("+5V", "-5V", "+3V3", "+8V"):
+            self.rail(net, end[0], end[1], up=(net != "-5V"))
+            self._flag(net, end)
+        else:
+            self._flag(net, end)
+            just = "right" if dx < 0 else "left"
+            if dy:
+                self.label(net.lstrip("/"), end[0], end[1], justify="left")
+            else:
+                self.label(net.lstrip("/"), end[0], end[1], justify=just)
+
+    def _flag(self, net, end):
+        """A PWR_FLAG on a net the tile says drives power pins (once per net)."""
+        local = net.split("_", 1)[-1] if net.startswith("/") else net
+        if local not in self.t.pwr_flags or net in self.flagged:
+            return
+        self.flagged.add(net)
+        self.pwr_n[0] += 1
+        self.s.place("power:PWR_FLAG", "#FLG%s%03d" % (self.t.idx, self.pwr_n[0]), "PWR_FLAG", end[0], end[1], in_bom=False, on_board=False,
+                     hide_ref=True, val_off=(0, -3.81))
+
+    def rail(self, net, x, y, up=True):
+        self.pwr_n[0] += 1
+        self.s.place("power:" + net, "#PWR%s%03d" % (self.t.idx, self.pwr_n[0]), net, x, y, rot=0 if up else 180,
+                     in_bom=False, on_board=False, hide_ref=True, hide_value=False)
 
     def dip_caps(self, t):
         """A DIP switch whose poles put capacitors across two nodes of the chain (P4, P8): drawn under the line, each
@@ -435,6 +546,7 @@ def build(stem):
               company="Board: %s  |  open hardware, CERN-OHL-P-2.0  |  %s" % (parts.AUTHORS, parts.URL),
               comments=[B["subtitle"], "Every tile is one circuit with its own SMA jacks; the board's silkscreen draws each tile's wires as they are laid.",
                         "Drawn by scripts/gen_sch.py from boards/%s.py; the expected responses from sim/passive.py" % stem], project=stem)
+    s.add_local_lib(os.path.join(HERE, "..", "hardware", "lib", "amod.kicad_sym"), "amod")
     for t in ts:
         c0 = min(c for c, r in t.cells); r0 = t.cells[0][1]
         ox = OX0 + c0 * BLOCK_W

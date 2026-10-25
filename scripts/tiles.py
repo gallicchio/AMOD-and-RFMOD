@@ -66,7 +66,10 @@ class Tile:
         self.supply, self.kind = supply, kind
         self.jacks = []            # dicts: slot, label, net, role, limit, ref
         self.parts = {}            # ref -> Part (insertion ordered)
-        self.wires = []            # (local net, [points], width); a point is (x, y) or (ref, pad)
+        self.wires = []            # (net, [points], width, layer); a point is (x, y) or (ref, pad)
+        self.vias = []             # (net, x, y): rail vias
+        self.routes = []           # (net, [specs], width): for the router
+        self.pwr_flags = []        # local nets that drive power pins without a power-output pin (the schematic flags them)
         self.hops = []             # (net, a, b)
         self.gnd_stubs = []        # ((ref, pad), point or [points])
         self.texts = []            # (x, y, text, size, thickness, justify, angle)
@@ -96,21 +99,33 @@ class Tile:
         self.parts[ref] = p
         return ref
 
-    def jack(self, slot, label, net, role="in", limit="", ref=None, label_at=None):
+    def jack(self, slot, label, net, role="in", limit="", ref=None, label_at=None, silk=None):
         """A jack in a slot; its name goes in the gutter above (top slots) or below (bottom slots) unless label_at =
         (dx, dy, justify, size) puts it elsewhere relative to the jack's centre."""
         x, y = G.slot(self.cells, slot)
         ref = self.add("J", "SMA", label, x, y, 0, {"1": net, "2": "GND"}, ref=ref, hide_value=True)
-        self.jacks.append(dict(slot=slot, label=label, net=self.net(net), role=role, limit=limit, ref=ref, x=x, y=y, label_at=label_at))
+        self.jacks.append(dict(slot=slot, label=label, net=self.net(net), role=role, limit=limit, ref=ref, x=x, y=y, label_at=label_at, silk=silk or label))
         return ref
 
     def loop(self, net, x, y, rot=0, label=None, label_at=None):
         """An RH-5019 test loop on `net`; its silk label is the net's name unless given, drawn at label_at =
-        (dx, dy, justify, size) from the loop's centre (default: under it)."""
+        (dx, dy, justify, size) from the loop's centre (default: under it; "hide": no silk name)."""
         return self.add("TP", "TP", label if label is not None else net, x, y, rot, {"1": net}, label=label_at, hide_value=False)
 
-    def wire(self, net, pts, width=W_SIG):
-        self.wires.append((self.net(net), list(pts), width))
+    def wire(self, net, pts, width=W_SIG, layer="F.Cu", silk=True):
+        """Copper along pts (and silk, when on the front, unless silk=False).  On "B.Cu" the wire runs on the back with
+        a via at each end that is a coordinate (a pad end needs none when the pad is through-hole; an SMD pad end gets
+        one beside it)."""
+        self.wires.append((self.net(net), list(pts), width, layer, silk))
+
+    def via(self, net, x, y):
+        """A via on `net` at (x, y): a tile's connection to a rail pour on the inner layer."""
+        self.vias.append((self.net(net), x, y))
+
+    def route(self, net, specs, width=W_SIG):
+        """Let the board generator find the path between these pads / points (scripts/router.py), on the front where
+        it can and on the back with vias where it must; the silk draws what it finds."""
+        self.routes.append((self.net(net), list(specs), width))
 
     def hop(self, net, a, b):
         self.hops.append((self.net(net), a, b))
@@ -148,12 +163,40 @@ class Tile:
         x = w / 2 if at is None else at
         size = 1.5 if len(self.id) <= 2 else 0.9           # three characters at 1.5 would reach the legs' pads
         self.text(x, ID_Y, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
-        self.text(1.2, NAME_Y, self.name.upper() + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
+        if self.supply:                     # a powered tile: the switch and FET own the bottom-left; a short name at the bottom right
+            self.text(w - 1.1, 18.2, (self.name + ((" " + self.subtitle) if self.subtitle else "")).upper(), 0.8, 0.15, "right")
+        else:
+            self.text(1.2, NAME_Y, self.name.upper() + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
         for i, s in enumerate(self.sections[:3]):
             self.text(x, SECT_Y0 + SECT_PITCH * i, s, 0.8, 0.15, "center")
 
 
 # ------------------------------------------------------------------------------------------------
+HDR_SW = (2.75, 15.6)        # the slide switch along the left edge (rot 270: pads at x 4.7, y 13.35 / 16.35 / 17.85; slider up = ON)
+HDR_Q = (7.6, 18.1)          # the P-FET right of the switch's foot (rot 0: G 6.66,17.15  S 6.66,19.05  D 8.54,18.1)
+HDR_VIA = (5.7, 19.05)       # the rail via between the switch's pads and the FET's source
+HDR_VS = (8.54, 18.1)        # where the tile's own rail starts: the drain
+
+
+def power_header(tile, rail="+5V", local="VS"):
+    """A powered tile's switch at the standard places (HDR_*): the MSK12C02 standing along the left edge below the IN
+    stub, its common (pad 2) to the P-FET's gate, pad 1 (slider up: ON) to ground and pad 3 to the rail, so the gate
+    is either grounded (on) or at the source (off); the AO3401A at the switch's foot with its source on the rail
+    through the via beside it and its drain the tile's own `local` rail, which the tile routes on from HDR_VS.
+    Returns dict(sw, q)."""
+    sx, sy = HDR_SW
+    qx, qy = HDR_Q
+    sw = tile.add("SW", "SW_SLIDE", "ON", sx, sy, 270, {"1": "GND", "2": "G", "3": rail}, hide_value=True)
+    q = tile.add("Q", "PFET", "AO3401A", qx, qy, 0, {"1": "G", "2": rail, "3": local}, hide_value=True)
+    tile.gnd_stub(sw, "1", (sx + 1.95, sy - 0.75), sym=(0, 0))          # between pads 1 and 2, no symbol (the switch's own ground)
+    tile.via(rail, HDR_VIA[0], HDR_VIA[1])
+    tile.wire(rail, [(q, "2"), HDR_VIA])
+    tile.wire(rail, [(sw, "3"), (HDR_VIA[0], sy + 2.25), HDR_VIA])
+    tile.route("G", [(sw, "2"), (q, "1")])
+    tile.pwr_flags.append(local)
+    return dict(sw=sw, q=q)
+
+
 def unit(v):
     """Pretty value: 1.5e-6 -> '1.5u', 220e-12 -> '220p', 61.9 -> '61.9'."""
     for mult, suf in ((1e6, "M"), (1e3, "k"), (1.0, ""), (1e-3, "m"), (1e-6, "u"), (1e-9, "n"), (1e-12, "p")):
@@ -406,7 +449,8 @@ def dump(tiles, mod, path):
     """Everything gen_pcb.py needs, as JSON, so it can run under KiCad's own Python (no numpy there)."""
     import json
     out = {"tiles": [], "gnd_loops": list(getattr(mod, "GND_LOOPS", [])), "back_text": list(getattr(mod, "BACK_TEXT", [])),
-           "slots": list(getattr(mod, "SLOTS", [])), "front_text": list(getattr(mod, "FRONT_TEXT", [])), "stem": getattr(mod, "STEM", "")}
+           "slots": list(getattr(mod, "SLOTS", [])), "front_text": list(getattr(mod, "FRONT_TEXT", [])), "rail_pours": list(getattr(mod, "RAIL_POURS", [])),
+           "stem": getattr(mod, "STEM", "")}
     for t in tiles:
         out["tiles"].append(dict(
             id=t.id, idx=t.idx, name=t.name, subtitle=t.subtitle, sections=t.sections, cells=t.cells, supply=t.supply,
@@ -414,7 +458,9 @@ def dump(tiles, mod, path):
             jacks=[dict(j) for j in t.jacks],
             parts=[dict(ref=p.ref, key=p.key, value=p.value, x=p.x, y=p.y, rot=p.rot, pins=p.pins, label=p.label,
                         hide_value=p.hide_value) for p in t.parts.values()],
-            wires=[(n, [list(q) for q in pts], w) for (n, pts, w) in t.wires],
+            wires=[(n, [list(q) for q in pts], w, layer, silk) for (n, pts, w, layer, silk) in t.wires],
+            vias=[(n, x, y) for (n, x, y) in t.vias],
+            routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
             gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None)) for (pr, pt, sym) in t.gnd_stubs],
             texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])]))

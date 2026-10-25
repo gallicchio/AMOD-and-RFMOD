@@ -60,6 +60,7 @@ def stage_libs(stem):
     banner("footprints, models and project files")
     sys_py("gen_models.py")
     sys_py("gen_footprints.py")
+    sys_py("gen_symbols.py")
     kienv.cli("fp", "upgrade", os.path.join(HW, "lib", "amod.pretty"), "--force")
     sys_py("gen_project.py", stem)
 

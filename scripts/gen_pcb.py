@@ -34,7 +34,11 @@ def load_tiles(path):
     for td in d["tiles"]:
         t = NS(td)
         t.parts = {pd["ref"]: NS(pd) for pd in td["parts"]}
-        t.wires = [(n, [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in pts], w) for (n, pts, w) in td["wires"]]
+        t.wires = [(w[0], [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in w[1]], w[2], (w[3] if len(w) > 3 else "F.Cu"),
+                    (w[4] if len(w) > 4 else True))
+                   for w in td["wires"]]
+        t.vias = [(v[0], float(v[1]), float(v[2])) for v in td.get("vias", [])]
+        t.routes = [(r[0], [tuple(q) if isinstance(q[0], str) else (float(q[0]), float(q[1])) for q in r[1]], r[2]) for r in td.get("routes", [])]
         t.hops = [(n, tuple(a), tuple(b)) for (n, a, b) in td["hops"]]
         t.gnd_stubs = [(tuple(pr), (tuple(pt) if not isinstance(pt[0], list) else [tuple(q) for q in pt]), (tuple(sym) if sym else None))
                        for (pr, pt, sym) in td["gnd_stubs"]]
@@ -147,7 +151,8 @@ class Board:
                     if net in self.kname and self.kname[net] != kn:
                         self.problems.append("%s: %s is both %s and %s in the netlist" % (t.id, net, self.kname[net], kn))
                     self.kname[net] = kn
-        self.segments, self.vias, self.hops = [], [], []
+        self.segments, self.vias, self.hops, self.back = [], [], [], []
+        self.pad_list, self.nosilk = [], set()
         self.stub_dir, self.via_at = {}, {}
         # placements: tile parts in board coordinates, plus the board-level parts
         self.place_table = {}
@@ -208,10 +213,12 @@ class Board:
                 fp.Value().SetVisible(False)
             for pad in fp.Pads():
                 b = pad.GetBoundingBox()
-                self.pads[(ref, pad.GetNumber())] = dict(
-                    x=tomm(pad.GetPosition().x), y=tomm(pad.GetPosition().y),
-                    x0=tomm(b.GetLeft()), y0=tomm(b.GetTop()), x1=tomm(b.GetRight()), y1=tomm(b.GetBottom()),
-                    through=pad.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH), net=pad.GetNetname())
+                d = dict(x=tomm(pad.GetPosition().x), y=tomm(pad.GetPosition().y),
+                         x0=tomm(b.GetLeft()), y0=tomm(b.GetTop()), x1=tomm(b.GetRight()), y1=tomm(b.GetBottom()),
+                         through=pad.GetAttribute() in (pcbnew.PAD_ATTRIB_PTH, pcbnew.PAD_ATTRIB_NPTH), net=pad.GetNetname(),
+                         round=(pad.GetShape() == pcbnew.PAD_SHAPE_CIRCLE))
+                self.pad_list.append(d)                       # every pad: the SMA's four legs are all "2", the USB-C has four "SH"
+                self.pads.setdefault((ref, pad.GetNumber()), d)    # the first of a number: where a wire or route ends
         self.board.GetDesignSettings().SetAuxOrigin(pt(0, G.BOARD))
         self.outline()
 
@@ -279,12 +286,23 @@ class Board:
                 A, B = t.to_board(a), t.to_board(b)
                 hops[(n, (round(A[0], 3), round(A[1], 3)), (round(B[0], 3), round(B[1], 3)))] = True
                 hops[(n, (round(B[0], 3), round(B[1], 3)), (round(A[0], 3), round(A[1], 3)))] = True
-            for (net, points, width) in t.wires:
+            for (net, points, width, layer, silk) in t.wires:
                 net = self.kname.get(net, net)
                 if net not in self.netmap:
                     self.problems.append("%s: wire names a net that is not in the netlist: %r" % (t.id, net))
                     continue
                 pts = [self.resolve(p, net, t) for p in points]
+                if not silk:
+                    for a, b in zip(pts, pts[1:]):
+                        self.nosilk.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
+                if layer == "B.Cu":
+                    for end, spec in ((pts[0], points[0]), (pts[-1], points[-1])):
+                        if not isinstance(spec[0], str) or self.pads[(spec[0], spec[1])]["through"] is False:
+                            self.via(*end, net)
+                    for a, b in zip(pts, pts[1:]):
+                        self.track(a, b, width, net, pcbnew.B_Cu)
+                        self.back.append((net, a, b))
+                    continue
                 for a, b in zip(pts, pts[1:]):
                     key = (net, (round(a[0], 3), round(a[1], 3)), (round(b[0], 3), round(b[1], 3)))
                     if key in hops:
@@ -293,6 +311,13 @@ class Board:
                         self.hops.append((net, a, b))
                     else:
                         self.track(a, b, width, net)
+            for (net, vx, vy) in t.vias:
+                net = self.kname.get(net, net)
+                if net not in self.netmap:
+                    self.problems.append("%s: via on a net that is not in the netlist: %r" % (t.id, net))
+                    continue
+                bx, by = t.to_board((vx, vy))
+                self.via(bx, by, net)
             for (padref, path, sym) in t.gnd_stubs:
                 pad = self.pads.get(padref)
                 if pad is None:
@@ -315,7 +340,173 @@ class Board:
                 self.via(pad["x"], pad["y"] + 1.6, "GND")
                 self.stub_dir[(round(pad["x"], 3), round(pad["y"] + 1.6, 3))] = (0, 1)
 
+    def autoroute(self):
+        """scripts/router.py over each tile's declared routes, one at a time, each avoiding everything laid so far."""
+        import router as R
+        for t in self.tiles:
+            if not t.routes:
+                continue
+            x0, y0, x1, y1 = t.x0 - 1.2, t.y0 - 1.2, t.x0 + t.w + 1.2, t.y0 + t.h + 1.2
+            for ref, p in t.parts.items():                   # parts the tile puts past its frame (the USB-C in the margin)
+                bx, by = t.to_board((p.x, p.y))
+                x0, y0, x1, y1 = min(x0, bx - 4.0), min(y0, by - 4.0), max(x1, bx + 4.0), max(y1, by + 4.0)
+            x0, y0, x1, y1 = max(0.5, x0), max(0.5, y0), min(G.BOARD - 0.5, x1), min(G.BOARD - 0.5, y1)
+            for (net, specs, width) in t.routes:
+                net = self.kname.get(net, net)
+                if net not in self.netmap:
+                    self.problems.append("%s: route on a net that is not in the netlist: %r" % (t.id, net)); continue
+                pts = []
+                for sp in specs:
+                    if isinstance(sp[0], str):
+                        pad = self.pads.get((sp[0], sp[1]))
+                        if pad is None:
+                            raise SystemExit("%s: route on %s: no pad %s.%s" % (t.id, net, sp[0], sp[1]))
+                        if pad["net"] != net:
+                            self.problems.append("%s: route on %s ends on %s.%s, which is on %r" % (t.id, net, sp[0], sp[1], pad["net"]))
+                        pts.append(("pad", pad))
+                    else:
+                        bx, by = t.to_board(sp)
+                        pts.append(("pt", (bx, by)))
+                for a, b in zip(pts, pts[1:]):
+                    grid = self._grid(x0, y0, x1, y1, net, width)
+                    starts = self._cells_of(grid, a, width)
+                    goals = self._cells_of(grid, b, width)
+                    path = R.search(grid, starts, goals, width)
+                    if path is None:
+                        sfree = sum(1 for (i, j, l) in starts if grid.cost[l][i][j] >= 0)
+                        gfree = sum(1 for (i, j, l) in goals if grid.cost[l][i][j] >= 0)
+                        self.problems.append("%s: no route for %s between %r and %r (start cells %d/%d free, goal cells %d/%d free)" % (
+                            t.id, net, specs[pts.index(a)], specs[pts.index(b)], sfree, len(starts), gfree, len(goals)))
+                        self._dump_grid(grid, starts, goals, "%s_%s" % (t.id, net.strip("/").replace("/", "_")))
+                        with open(os.path.join(os.path.dirname(self.out_path), "..", "build", "route_%s_segments.txt" % t.id), "w") as fh:
+                            for (n2, sa, sb, layer) in self.segments:
+                                if x0 <= sa[0] <= x1 and y0 <= sa[1] <= y1:
+                                    fh.write("%s %s %s %s\n" % (n2, sa, sb, "F" if layer == pcbnew.F_Cu else "B"))
+                            for (n2, vx, vy) in self.vias:
+                                if x0 <= vx <= x1 and y0 <= vy <= y1:
+                                    fh.write("via %s %s %s\n" % (n2, vx, vy))
+                        continue
+                    path = R.simplify(path)
+                    for (i, j, l), (i2, j2, l2) in zip(path, path[1:]):
+                        p, q = grid.xy(i, j), grid.xy(i2, j2)
+                        if l != l2:
+                            self.via(p[0], p[1], net)
+                            continue
+                        layer = pcbnew.F_Cu if l == 0 else pcbnew.B_Cu
+                        self.track(p, q, width, net, layer)
+                        if l == 1:
+                            self.back.append((net, p, q))
+
+    def _dump_grid(self, grid, starts, goals, name):
+        """An ASCII map of the front layer for a failed route (build/route_<name>.txt): . free, # blocked, + soft, S/G ends."""
+        ss = {(i, j) for (i, j, l) in starts if l == 0}; gs = {(i, j) for (i, j, l) in goals if l == 0}
+        rows = []
+        for j in range(grid.ny):
+            row = []
+            for i in range(grid.nx):
+                c = grid.cost[0][i][j]
+                ch = "#" if c < 0 else ("+" if c > 1.5 else ".")
+                if (i, j) in ss: ch = "S"
+                if (i, j) in gs: ch = "G"
+                row.append(ch)
+            rows.append("".join(row))
+        path = os.path.join(os.path.dirname(self.out_path), "..", "build", "route_%s.txt" % name)
+        with open(path, "w") as fh:
+            fh.write("\n".join(rows) + "\n")
+
+    def _cells_of(self, grid, spec, width):
+        kind, v = spec
+        if kind == "pt":
+            i, j = grid.ij(*v)
+            grid.free(0, v[0] - 0.15, v[1] - 0.15, v[0] + 0.15, v[1] + 0.15)       # the point is on this net's own copper
+            return [(i, j, 0)]
+        if v["through"]:                                      # a through-hole pad: its centre, on either layer
+            i, j = grid.ij(v["x"], v["y"])
+            grid.cost[0][i][j] = 1.0; grid.cost[1][i][j] = 1.0
+            return [(i, j, 0), (i, j, 1)]
+        out = []
+        for i, j in grid.cells_inside(v["x0"] + 0.05, v["y0"] + 0.05, v["x1"] - 0.05, v["y1"] - 0.05):
+            out.append((i, j, 0))
+        if not out:
+            i, j = grid.ij(v["x"], v["y"])
+            out = [(i, j, 0)]
+        return out
+
+    def _grid(self, x0, y0, x1, y1, net, width):
+        import router as R
+        grid = R.Grid(x0, y0, x1, y1)
+        grow = R.CLEAR + width / 2 + 0.05
+        dbg = os.environ.get("ROUTE_DEBUG")
+        for p in self.pad_list:
+            if p["through"]:                                  # no via near any hole, whatever its net
+                grid.no_via(p["x0"], p["y0"], p["x1"], p["y1"], 0.5 + R.VIA_D / 2 + 0.05)
+            if p["net"] == net:
+                continue
+            if dbg and p["x1"] + grow > x0 and p["x0"] - grow < x1 and p["y1"] + grow > y0 and p["y0"] - grow < y1 and (p["x1"] - p["x0"] > 3 or p["y1"] - p["y0"] > 3):
+                print("   big pad near grid:", p["net"], p["x0"], p["y0"], p["x1"], p["y1"])
+            if p.get("round"):
+                rad = (p["x1"] - p["x0"]) / 2 + grow
+                for l in ((0, 1) if p["through"] else (0,)):
+                    grid.block_circle(l, p["x"], p["y"], rad)
+                grid.no_via(p["x0"], p["y0"], p["x1"], p["y1"], R.CLEAR + R.VIA_D / 2 + 0.05)
+            elif p["through"]:
+                grid.block(0, p["x0"], p["y0"], p["x1"], p["y1"], grow)
+                grid.block(1, p["x0"], p["y0"], p["x1"], p["y1"], grow)
+                grid.no_via(p["x0"], p["y0"], p["x1"], p["y1"], R.CLEAR + R.VIA_D / 2 + 0.05)
+            else:
+                grid.block(0, p["x0"], p["y0"], p["x1"], p["y1"], grow)
+                grid.no_via(p["x0"], p["y0"], p["x1"], p["y1"], R.CLEAR + R.VIA_D / 2 + 0.05)
+        for (n2, a, b, layer) in self.segments:
+            if n2 == net:
+                continue
+            l = 0 if layer == pcbnew.F_Cu else 1
+            hw = 0.18
+            grid.block(l, min(a[0], b[0]) - hw, min(a[1], b[1]) - hw, max(a[0], b[0]) + hw, max(a[1], b[1]) + hw, grow)
+            grid.no_via(min(a[0], b[0]) - hw, min(a[1], b[1]) - hw, max(a[0], b[0]) + hw, max(a[1], b[1]) + hw, R.CLEAR + R.VIA_D / 2 + 0.05)
+        for (n2, vx, vy) in self.vias:
+            grid.no_via(vx - 0.3, vy - 0.3, vx + 0.3, vy + 0.3, 0.5 + R.VIA_D / 2 + 0.05)
+            if n2 == net:
+                continue
+            grid.block_circle(0, vx, vy, 0.3 + grow)
+            grid.block_circle(1, vx, vy, 0.3 + grow)
+            grid.no_via(vx - 0.3, vy - 0.3, vx + 0.3, vy + 0.3, R.CLEAR + R.VIA_D / 2 + 0.05)
+        for ref, fp in self.fps.items():
+            poly = fp.GetCourtyard(pcbnew.F_CrtYd)
+            if poly.OutlineCount():
+                bb = poly.BBox()
+                grid.soft(0, tomm(bb.GetLeft()), tomm(bb.GetTop()), tomm(bb.GetRight()), tomm(bb.GetBottom()), 6.0)
+                grid.no_via(tomm(bb.GetLeft()), tomm(bb.GetTop()), tomm(bb.GetRight()), tomm(bb.GetBottom()), 0.0)
+        # same-net pads are reachable whatever lies near them
+        for p in self.pad_list:
+            if p["net"] == net:
+                for (i, j) in grid.cells_inside(p["x0"], p["y0"], p["x1"], p["y1"]):
+                    grid.cost[0][i][j] = 1.0
+                    if p["through"]:
+                        grid.cost[1][i][j] = 1.0
+        return grid
+
     def plane(self):
+        # the rails: pours on In2 from the board module (net, x0, y0, x1, y1, priority); the lowest priority covers the board
+        for spec in self.meta.get("rail_pours", []):
+            if len(spec) == 3:                                 # (net, [(x, y), ...], priority): a polygon
+                net, pts, prio = spec
+            else:                                              # (net, x0, y0, x1, y1, priority): a rectangle
+                net, x0, y0, x1, y1, prio = spec
+                pts = ((x0, y0), (x1, y0), (x1, y1), (x0, y1))
+            if net not in self.netmap:
+                self.problems.append("rail pour on %s, which is not in the netlist" % net)
+                continue
+            z = pcbnew.ZONE(self.board)
+            z.SetLayer(pcbnew.In2_Cu)
+            z.SetNet(self.netmap[net])
+            z.SetAssignedPriority(prio)
+            z.SetPadConnection(pcbnew.ZONE_CONNECTION_FULL)
+            z.SetLocalClearance(mm(0.3)); z.SetMinThickness(mm(0.2))
+            z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
+            o = z.Outline(); o.NewOutline()
+            for (x, y) in pts:
+                o.Append(mm(x), mm(y))
+            self.board.Add(z)
         for layer in ([pcbnew.B_Cu] if self.B["layers"] == 2 else [pcbnew.In1_Cu, pcbnew.B_Cu]):
             z = pcbnew.ZONE(self.board)
             z.SetLayer(layer)
@@ -381,6 +572,7 @@ class Board:
     def keepouts(self):
         boxes = []
         self.silk_boxes = []
+        self.silk_items = []
         for ref, fp in self.fps.items():
             ext = None
             for item in fp.GraphicalItems():
@@ -388,11 +580,14 @@ class Board:
                     continue
                 b = item.GetBoundingBox()
                 e = (tomm(b.GetLeft()), tomm(b.GetTop()), tomm(b.GetRight()), tomm(b.GetBottom()))
+                self.silk_items.append(e)
                 ext = e if ext is None else (min(ext[0], e[0]), min(ext[1], e[1]), max(ext[2], e[2]), max(ext[3], e[3]))
             if ext is not None:
                 self.silk_boxes.append(ext)
-        for key, p in self.pads.items():
+        for p in self.pad_list:
             boxes.append((p["x0"] - SILK_CLEAR, p["y0"] - SILK_CLEAR, p["x1"] + SILK_CLEAR, p["y1"] + SILK_CLEAR))
+        for (sx0, sy0, sx1, sy1) in self.silk_items:          # a wire's silk stops short of a footprint's own silk
+            boxes.append((sx0 - 0.3, sy0 - 0.3, sx1 + 0.3, sy1 + 0.3))
         for ref, fp in self.fps.items():
             if ref[:2] in ("TP", "MH"):
                 continue
@@ -438,16 +633,33 @@ class Board:
             out.append(((x1 + dx * p0, y1 + dy * p0), (x1 + dx * p1, y1 + dy * p1)))
         return out
 
+    def trim_edge_silk(self):
+        """Silk of a footprint that overhangs the board (the USB-C's face) would sit on the edge: drop those lines."""
+        for ref, fp in self.fps.items():
+            for item in list(fp.GraphicalItems()):
+                if item.GetLayer() not in (pcbnew.F_SilkS, pcbnew.B_SilkS):
+                    continue
+                b = item.GetBoundingBox()
+                if tomm(b.GetRight()) > G.BOARD - 0.3 or tomm(b.GetLeft()) < 0.3 or tomm(b.GetBottom()) > G.BOARD - 0.3 or tomm(b.GetTop()) < 0.3:
+                    fp.Remove(item)
+
     def silk_wires(self):
         self.keepouts()
         hopset = set()
         for (_, a, b) in self.hops:
             hopset.add((round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
             hopset.add((round(b[0], 3), round(b[1], 3), round(a[0], 3), round(a[1], 3)))
+        backset = {(round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)) for (_, a, b) in self.back}
         for (net, a, b, layer) in self.segments:
             if net == "GND":
                 continue
             key = (round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3))
+            if key in self.nosilk:
+                continue
+            if key in backset:
+                for (p, q) in self.clip(a, b):
+                    self._line(p, q, width=0.12)
+                continue
             if key in hopset:
                 cx, cy = (a[0] + b[0]) / 2, (a[1] + b[1]) / 2
                 r = 0.5
@@ -494,7 +706,7 @@ class Board:
         return False
 
     def _on_pad(self, x, y, reach=0.55):
-        for p in self.pads.values():
+        for p in self.pad_list:
             if p["x0"] - reach <= x <= p["x1"] + reach and p["y0"] - reach <= y <= p["y1"] + reach:
                 return True
         return False
@@ -546,16 +758,19 @@ class Board:
                 v.SetHorizJustify({"left": pcbnew.GR_TEXT_H_ALIGN_LEFT, "right": pcbnew.GR_TEXT_H_ALIGN_RIGHT, "center": pcbnew.GR_TEXT_H_ALIGN_CENTER}[just])
             # the jack names in the gutter above (or below) each jack
             for j in t.jacks:
+                name = j.get("silk") or j["label"]
                 if j.get("label_at"):
                     dx, dy, just, size = j["label_at"]
-                    self._text(x0 + j["x"] + dx, y0 + j["y"] + dy, j["label"], size, 0.15, justify=just)
+                    self._text(x0 + j["x"] + dx, y0 + j["y"] + dy, name, size, 0.15, justify=just)
                 elif j["slot"] in ("TL", "TR", "TM"):
-                    self._text(x0 + j["x"], y0 - 0.8, j["label"], 1.0, 0.18, justify="center")
+                    self._text(x0 + j["x"], y0 - 0.8, name, 1.0, 0.18, justify="center")
                 else:
-                    self._text(x0 + j["x"], y0 + h + 0.8, j["label"], 1.0, 0.18, justify="center")
+                    self._text(x0 + j["x"], y0 + h + 0.8, name, 1.0, 0.18, justify="center")
             # the test loops: name where the tile says, else under the loop
             for ref, p in t.parts.items():
                 if p.key == "TP" and p.value:
+                    if p.label == "hide":
+                        continue
                     if p.label:
                         dx, dy, just, size = p.label[:4]
                         self._text(x0 + p.x + dx, y0 + p.y + dy, p.value, size, 0.15, justify=just, angle=p.label[4] if len(p.label) > 4 else 0)
@@ -629,6 +844,8 @@ class Board:
     def build(self):
         self.place()
         self.wires()
+        self.autoroute()
+        self.trim_edge_silk()
         self.plane()
         self.silk_wires()
         self.silk_grounds()

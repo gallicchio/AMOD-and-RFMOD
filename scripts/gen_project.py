@@ -99,11 +99,11 @@ def project(stem, layers, power_nets, rf_nets=()):
         "sheets": [[ROOT_SHEET_UUID, "Root"]], "text_variables": {}}
 
 
-SYM_LIB_TABLE = "(sym_lib_table\n  (version 7)\n)\n"
+SYM_LIB_TABLE = '(sym_lib_table\n  (version 7)\n  (lib (name "amod")(type "KiCad")(uri "${KIPRJMOD}/lib/amod.kicad_sym")(options "")(descr "the project symbols"))\n)\n'
 FP_LIB_TABLE = ('(fp_lib_table\n  (version 7)\n  (lib (name "amod")(type "KiCad")(uri "${KIPRJMOD}/lib/amod.pretty")(options "")'
                 '(descr "Footprints drawn for the AMOD boards"))\n)\n')
 
-POWER_NETS = {"amod_p": ["GND"], "amod_a": ["GND", "+5V", "-5V", "+3V3", "/+5V_IN"], "rf_mod": ["GND", "+5V", "+3V3", "+8V", "/+5V_IN"]}
+POWER_NETS = {"amod_p": ["GND"], "amod_a": ["GND", "+5V", "-5V", "+3V3"], "rf_mod": ["GND", "+5V", "+3V3", "+8V"]}
 
 
 def main():

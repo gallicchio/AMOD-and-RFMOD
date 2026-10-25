@@ -45,3 +45,64 @@ The answers in Appendix D that this prompt points at (2026-10-25):
 >   more to something like that than a bimorph cantilever would add, stick with the bimorph
 >   cantilever. You do need to find specific ones to buy and record their dimensions and
 >   mechanical and electrical specs.**
+
+### Response 1 (2026-10-25, 00:40 onward; this entry is kept up to date as the night goes on)
+
+**The plan first** (`PLAN.md`, 01:05): the three boards on one 100 x 100 mm, 4 x 4-cell tile
+grid (20 mm cells, 1.5 mm gutters, 7.75 mm margins: the geometry of Appendix D's sketches), a
+jack-slot rule that keeps every pair of SMA jacks 10.5 mm or more apart whatever the neighbours
+do, "IN top-left, OUT top-right, the signal along a line under the jacks", "the silkscreen is the
+schematic" (every wire laid as copper and drawn on the silk, clipped round pads), and one parts
+table (`scripts/parts.py`) that the schematics, the boards, the BOMs and the legends all read.
+JLCPCB's shelf was queried for every part by its API with the time of the answer kept.  The
+decisions that changed Appendix D are listed in the plan with their reasons: the vertical SMA
+(BWSMA-KE-Z001, 113 k in stock) instead of the right-angle one (a right-angle barrel on an
+interior tile has nowhere to go), the TRF3722 tile that Jason asked for, the 455 kHz ceramic
+resonator for P9 (JLCPCB stocks no 455 kHz IF filter), switched capacitors instead of a trimmer on
+P4 (no SMD trimmers in stock), an OPA847 for the one HF LNA and an OPA1612 for the noise tiles
+beside the OPA2810s, the LTC5510 mixers with a Digi-Key fallback (35 on the shelf), the TMP235 for
+the dead TMP36, and the feasible Icepi Zero adapter (ten free header pins) as a fourth, last board.
+
+**The framework** (01:05-02:00): `scripts/geometry.py` (the grid and the jack rule, asserted per
+board), `scripts/tiles.py` (a Tile declares its netlist once; the schematic drawing and the board
+layout both have to reproduce it and the build checks both), `scripts/gen_sch.py` (one sheet per
+board, a block per tile, ERC, the netlist, the circuit check and a text-overlap check),
+`scripts/gen_pcb.py` (runs under KiCad's own Python, which has no numpy, so it reads the tiles
+from a JSON the schematic step dumps), `sim/passive.py` (ABCD two-ports for every passive tile's
+expected response; the silk and the handbook quote it), the footprints and 3D stand-ins drawn or
+vendored (`scripts/gen_footprints.py`, `gen_models.py`), and `make.py` to run it all.
+
+**AMOD-P** (02:00-03:40): thirteen tiles, 27 jacks, 138 parts, two layers.  ERC 0, every tile's
+connectivity equal to its declared netlist, DRC 0, the fab package through every check
+(gerbers, BOM, both placement files, 59 LCSC codes checked against JLCPCB's own descriptions,
+$16.97 of parts a board).  What it took, and what changed on the way:
+
+- *The 20 mm vertical budget.*  The first board put the 4 x 2.2 mm test loops on top of the name
+  line and spilled the end shunts' values into the next tile.  The budget that works: jacks to
+  y 8.4 (their legs' 2.2 mm pads), the values at y 9.0, the signal line at 10.6, shunts hanging
+  to a via and a ground symbol by 15.4, the loops lying along x under the jacks at 16.6 with
+  their names between them, the tile's name at 18.6, the frame at 19.7.  The tutorial sections
+  stand one under the other below the tile's number, between the jacks' legs (3.2 mm of room:
+  three-character numbers like P10 are set at 0.9 mm).  KiCad's DRC box for 0.8 mm text is 0.5
+  above and 0.7 below the line, and the project rules ask 0.15 mm between silk items, so every
+  margin was budgeted with those numbers, not the glyphs'.
+- *Half-pitch DIP switches.*  The 2.54 mm DSIC02/04 (11.7 x 6.9 and 11.5 x 12 mm) would not fit
+  beside two jacks in a cell; the DSHP02/04/06TSGET (C40735/36/37, 1.27 mm, 4.8 x 9.7 and
+  7.2 x 9.7 mm, 13 k / 31 k / 5 k in stock) do.  A pen tip flips them; the part is printed ON.
+- *P11, the delay line.*  Twenty 0603 inductors with 0603 capacitors at the nodes need 4.5 mm a
+  section; ten do not fit beside the three top jacks.  0402 capacitors (CC0402JRNPO9BN391, NP0,
+  92 k in stock) bring a section to 4.0 mm: row A along the line, row B back along y = 15.25
+  into the OUT jack, row B's capacitors standing up between row A's.  The 100 and 200 ns tap
+  resistors stand above the line either side of the text block, the 300 ns one lies under row B.
+- *P4 lost its IN loop* (the switch took that corner; IN is the DAC's own signal) and its coil's
+  and capacitor's values moved into its name (no room under the 1210 once the switch's feed runs
+  there).  *P6's inner 10 nF pair* is unlabelled (no room beside the 1210's tall pads; the outer
+  pair says 10nF).  *P12* lost its wavelength texts (the colours are visible lit; the handbook has
+  them).  *P7's* band on the silk is the simulated 4.7-7.5 MHz, not the design's 4.7-7.8.
+- *The QR code* sits on the back under P12's switch, the only 14 mm of back with no hole in it,
+  as a 29-module version 3 at 0.42 mm; the back text runs between the two rows of cable-tie
+  slots, which lie along x (a tie's width) 5.7 mm apart.
+- *P13's terminal pins* are named in the margin below the tile, where the wires come in.
+
+The record of the pre-compaction work in this session is in the summary at the head of the
+session; the files are the truth.  AMOD-A next (03:45).

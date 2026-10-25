@@ -54,8 +54,38 @@ class Sheet:
         else:
             lib, name = lib_id.split(":", 1)
             node = self.libs.get(lib, name)
+            ext = node.first("extends")
+            if ext is not None:
+                node = _derive(self._resolve(lib + ":" + ext.atom(0)), node, lib_id)
         self.lib_symbols[lib_id] = node
         return node
+
+    def pin_dirs(self, lib_id, unit):
+        """{pin number: (px, py, rot)} in library space for one unit: rot is the direction the pin points into the
+        body (0 right, 90 up, 180 left, 270 down), so the free end is on the opposite side."""
+        sym = self._resolve(lib_id)
+        out = {}
+        for sub in sym.kids("symbol"):
+            nm = sub.atom(0) or ""
+            parts = nm.rsplit("_", 2)
+            u = int(parts[1]) if len(parts) == 3 and parts[1].isdigit() else 0
+            if u not in (0, unit):
+                continue
+            for p in sub.kids("pin"):
+                a = p.first("at")
+                out[p.first("number").atom(0)] = (float(a.atom(0)), float(a.atom(1)), float(a.atom(2, 0)))
+        return out
+
+    def units_of(self, lib_id):
+        """The unit numbers a symbol has (1 for a single-unit symbol)."""
+        sym = self._resolve(lib_id)
+        us = set()
+        for sub in sym.kids("symbol"):
+            nm = sub.atom(0) or ""
+            parts = nm.rsplit("_", 2)
+            if len(parts) == 3 and parts[1].isdigit() and int(parts[1]) > 0:
+                us.add(int(parts[1]))
+        return sorted(us) or [1]
 
     def all_pin_numbers(self, lib_id):
         """Every pin of a symbol, across all its units.
@@ -335,6 +365,31 @@ def _clone_with_id(sym, lib_id):
     from sexp_parse import _clone
     c = _clone(sym)
     c.items = [lib_id] + c.items[1:]
+    return c
+
+
+def _derive(parent, child, lib_id):
+    """A symbol that `extends` another: the parent's drawing and pins under the child's name, with the child's own
+    properties (value, footprint, datasheet, description, keywords) in place of the parent's.  KiCad would embed the
+    parent and a stub; a full copy is simpler for the sheet and for us."""
+    from sexp_parse import _clone
+    base = lib_id.split(":", 1)[1]
+    c = _clone(parent)
+    c.items = [lib_id] + c.items[1:]
+    pname = parent.atom(0).split(":", 1)[-1]
+    child_props = {k.atom(0): k for k in child.kids("property")}
+    new_items = []
+    for it in c.items:
+        if hasattr(it, "tag"):
+            if it.tag == "property" and it.atom(0) in child_props:
+                new_items.append(_clone(child_props[it.atom(0)]))
+                continue
+            if it.tag == "symbol":
+                nm = it.atom(0) or ""
+                if nm.startswith(pname + "_"):
+                    it.items = [base + nm[len(pname):]] + it.items[1:]
+        new_items.append(it)
+    c.items = new_items
     return c
 
 
