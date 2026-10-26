@@ -54,7 +54,8 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
 17. Y2 with IO1 low into a 50 ohm load rated 2 W: OUT sits at 0 V.  IO1 high and a 10 MHz burst of 0.1 V from DAC 1:
     1 V at OUT.  Then full scale, in bursts.
 18. Y10 with no laser and a 10 ohm resistor on LD: SET at 0.1 V gives 10 mA (0.1 V across the resistor), MON reads
-    the resistor's voltage / 200; IO5 high takes it to 0.  Only then a laser, starting at a few millivolts of SET.
+    the resistor's voltage / 200; IO5 high takes it to 0.  Only then a laser, starting at a few millivolts of SET; a
+    VCSEL (about 1.5 mA) gets 30 dB of SMA attenuation on SET, so the DAC's full scale is about 3 mA.
 19. Y8: DAC 1 swept 5-15 MHz into SIG, OUT 1 into an ADC: tank 1's resonance near 10 MHz; TUNE/PUMP's DC moves tank 2's.
 20. Y4 on USB power with a 10 ohm, 5 W resistor as the coil: IO6 high gives 0.46 A; MON reads it.
 

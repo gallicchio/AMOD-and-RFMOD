@@ -1,7 +1,8 @@
 # The student kit: what the boards need that is on none of them
 
 Everything machine-placed is on the boards.  This is what one bench needs beside the ECP5-2ADC-2DAC board and one
-each of AMOD-P, AMOD-A and RF-MOD, read from the tiles' own declarations.  Every product was chosen in stock and
+each of AMOD-P, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (AMOD-2 and
+RF-MOD-2) add is in its own section at the end.  Every product was chosen in stock and
 shipping to a US address on **2026-10-25**.  "Page" means the price and stock were read on the vendor's product page
 that day.  "Snippet" means the vendor's page would not load for a script (Digi-Key and Mouser block them) and the
 figure came from a search result: check it before ordering.
@@ -64,7 +65,7 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
 | Speaker, 36 mm, 8 ohm, 2 W, wire leads | A12 | 1 | [Adafruit 6486](https://www.adafruit.com/product/6486) | $1.95 | 14 | page |
 | Electret capsule, 9.7 mm, 2 pins at 2.54 mm | A12 | 1 | [SparkFun COM-08635](https://www.sparkfun.com/electret-microphone.html) | $1.50 | in stock | page |
 | AM loopstick, 240 uH, 10 x 70 mm ferrite rod | P13 | 1 | [Atomic-29 240 uH loopstick coil](https://atomic-29.com/products/240uh-loopstick-antenna-coil) | $4.65 | add-to-cart, no count | page |
-| 1/4 W resistor kit, 20 values 0 ohm-1 M, 500 pieces | A5 | 1 | [SparkFun COM-10969](https://www.sparkfun.com/resistor-kit-1-4w-500-total.html) | $9.95 | "in stock" but cart says backorder | page |
+| HB100 10.525 GHz Doppler module | A5 | 1 | [MH-ET Live HB100 X at Amazon, B07YY6FD4T](https://www.amazon.com/dp/B07YY6FD4T) | $13.76 | in stock | page |
 | Cable ties, 2.5 x 99 mm | P13 | 2 | [Panduit PLT1M-C at Digi-Key](https://www.digikey.com/en/products/detail/panduit-corp/PLT1M-C/280033) | about $0.25 | not shown | snippet |
 
 - **The transducers** plug into pins 1 and 5 of A11's 1 x 5 sockets.  Those pins are 10.16 mm apart and the leads
@@ -78,6 +79,10 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
   terminal's tap pin empty.  A 350 uH coil with a 10 uH secondary on a 10 x 60 mm rod is listed on Amazon (ASIN
   B0BPQM9P79), but its page did not load: price and stock unverified.
 - **The cable ties** come singly from Digi-Key; a 100-pack is about $19.46 at Newark (snippet).
+- **The HB100** has no distributor listing in the US; Amazon is the only source found (also B0DYYP5X1K, $12.17).  Modules
+  differ in pin order ("+5V GND IF" or "IF GND +5V"): A5's header is +5 V, IF, ground on jumper wires, so wire it to the
+  module's own print (`DOA_amod_a.md` item 1).  Check the photos for the bare three-pin module, not one on a carrier
+  board with its own amplifier.  (Rev A's first A5 needed a resistor kit for Johnson noise; the host has that source.)
 
 ## Mechanical
 
@@ -100,6 +105,88 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
 These are for the RH-5019 test loops, straight into a scope input.  A 10x probe with its own hook tip does the same.
 Pomona's 3788 is BNC **female** and needs a BNC cable.  The long-cable experiments' coax is in the tutorial's
 Appendix D, "Long cables".
+
+## For the second-level boards (AMOD-2 and RF-MOD-2)
+
+Read on 2026-10-25 as above.  Thorlabs' prices and US-warehouse stock came from its store's own product data;
+Remington's from its store's options service.  Several items are per lab rather than per bench (marked).
+
+### AMOD-2: NMR and ESR
+
+| item | tile | qty | product | unit price | stock as read | source |
+|---|---|---|---|---|---|---|
+| SMA male 50 ohm termination, 2 W, DC-18 GHz | Y2 | 1 | [Mini-Circuits TERM-2W-183S+](https://www.minicircuits.com/WebStore/dashboard.html?model=TERM-2W-183S%2B) | $55.00 | over 1,000 | page |
+| N52 cube, 12.7 mm (1/2 in), Ni-Cu-Ni | Y3's magnet | 16 (32 for two rings) | [K&J Magnetics B888-N52](https://www.kjmagnetics.com/b888-n52-neodymium-block-magnet) | $5.74 at 10-24 | in stock (no count) | page |
+| Magnet wire, 26 AWG, solderable, 1 lb (1,280 ft) | Y3, Y4, Y6 coils | 1 | [Remington Industries 26SNSP](https://www.remingtonindustries.com/magnet-wire/magnet-wire-26-awg-enameled-copper-9-spool-sizes/) | $27.71 | in stock (no count) | page |
+| Film trimmer, 2.5-22 pF, 250 V, through-hole | Y3's probe | 4 | [Vishay BFC280811229 at Digi-Key](https://www.digikey.com/en/products/detail/vishay-beyschlag-draloric-bc-components/BFC280811229/3028987) | $7.46 | 730 | snippet |
+| DPPH, 95 %, 1 g (per lab) | Y7 / Y4 ESR | 1 | [Thermo Scientific 044150.03](https://www.thermofisher.com/order/catalog/product/044150.03) | $125.65 (list $148.00) | add-to-cart, no count | page |
+| Supply, 3-12 V adjustable, 5 A, 2.1 mm plug | Y4 | 1 | [Adafruit 4880](https://www.adafruit.com/product/4880) | $17.50 | 56 | page |
+| 2.1 mm jack to screw terminals | Y4 | 1 | [Adafruit 368](https://www.adafruit.com/product/368) | $2.00 | in stock | page |
+
+- **The termination:** Y2's pulses (1 W at under 10 % duty) average 0.1 W, so the kit's 1 W ANNE-50+ copes; the 2 W
+  part is margin for a mistake left on.  A cheaper 2 W one: ShowMeCables SMTR1001 (DC-1 GHz), $23.39, 4 in stock.
+- **The wire:** the 4 oz spool ($13.49) covers the probe, a Helmholtz pair and a gradient coil, not the Earth's-field
+  coils (a 12 ohm polarizing coil is about 90 m, a 1,000-turn receive coil about 300 m).
+- **The trimmer** stops at 22 pF: add fixed C0G capacitors beside it.  Passive Plus PPXE27000 (3.5-27 pF, 200 V) is
+  $14.17 (snippet).
+- **DPPH** is sold to institutional accounts only (Sigma-Aldrich D9132, 1 g, $151, snippet); one gram lasts years.
+- **The magnet:** NdFeB drifts about 0.12 % per kelvin, about 20 kHz per kelvin at 17 MHz: track the Larmor frequency
+  or hold the temperature.  Each cube pulls 23 lb: build the ring in a jig, wear eye protection, keep pacemakers away.
+
+### AMOD-2: radio
+
+| item | tile | qty | product | unit price | stock as read | source |
+|---|---|---|---|---|---|---|
+| SMA low-pass, DC-32 MHz | Y5 to the ADCs | 2 | [Mini-Circuits SLP-30+](https://www.minicircuits.com/WebStore/dashboard.html?model=SLP-30%2B) | $52.10 | 173 | page |
+| Active HF loop, MLA-30 type, USB bias box | Y5's IN A / IN B | 1 (2 for bearings) | [HAON MLA-30 at Amazon, B085ZSXF8Z](https://www.amazon.com/dp/B085ZSXF8Z) | $43.99 | in stock | page |
+| WWVB 60 kHz ferrite rod, 60 x 10 mm | Y6 | 1 | [Universal-Solder 60 kHz antenna, SKU 26996](https://www.universal-solder.ca/product/loopstick-antenna-60khz-for-atomic-clock-receiver/) | $3.54 | in stock (no count) | page |
+| Loop amplifier kit, 20 kHz-55 MHz (optional; you build the loop) | Y5 or Y6 | 1 | [LZ1AQ AAA-1C](https://active-antenna.eu/amplifier-kit/) | EUR 112 ex VAT | in stock | page |
+
+- **The low-pass's** corner sits at the 65 MS/s Nyquist: under 1 dB to 32 MHz, but only 20 dB from 47 MHz, so 33-47 MHz
+  folds back partly suppressed.  SLP-21.4+ is cleaner below 21 MHz but had none in stock.
+- **The MLA-30** is an HF loop: its listing claims 100 kHz-30 MHz at best, so it is not for 24 or 60 kHz.  For VLF, wind
+  the handbook's loop (a 1 m square of 10 turns of hookup wire) or use the ferrite rod into Y6; a small capacitor across
+  the rod (tens of pF) tunes it to 60 kHz.
+
+### Lasers and atoms (Y10, RF-MOD-2's X9)
+
+| item | tile | qty | product | unit price | stock as read | source |
+|---|---|---|---|---|---|---|
+| 795 nm single-mode VCSEL, 0.25 mW, TO-46 | Y10 | 1 | [Thorlabs L795VH1](https://www.thorlabs.com/item/L795VH1) | $176.20 | 33 | page |
+| 650 nm laser diode, 7 mW | Y10 | 1-2 | [Thorlabs L650P007](https://www.thorlabs.com/item/L650P007) | $20.17 | 92 | page |
+| Laser diode socket, 5.6 / 9 mm | Y10 | 2 | [Thorlabs S7060R](https://www.thorlabs.com/item/S7060R) | $7.49 | 2,018 | page |
+| Rb vapor cell, natural abundance, 25 x 75 mm (per lab) | Y10 | 1 | [Thorlabs GC25075-RB](https://www.thorlabs.com/item/GC25075-RB) | $615.39 | 11 | page |
+| NV diamond, Element Six DNV-B14, 3 x 3 x 0.5 mm (per lab) | X9 | 1 | [Thorlabs DNVB14](https://www.thorlabs.com/item/DNVB14) | $4,091.98 | 19 | page |
+| 532 nm module, 4.5 mW, Class 3R | X9 | 1 | [Thorlabs CPS532](https://www.thorlabs.com/item/CPS532) | $202.10 | 2 | page |
+
+- **Protect the VCSEL.**  It runs at 1.2-1.5 mA (threshold 0.5 mA), and Y10 gives 100 mA per volt: 15 mV of SET is its
+  whole operating current.  Put 30 dB of SMA attenuation on SET (the kit's VAT-10A+ and VAT-20A+ in series; SET is
+  terminated in 50 ohm, so the pads work as designed): the DAC's full scale is then about 3 mA.
+- **No laser mount reaches 3.4 GHz at a sane price** (Thorlabs' TCLDM9 and LM9LP stop at 0.5-1 GHz and cost $491-597).
+  Y10 has its own bias-T: solder the VCSEL with the shortest leads to an SMA plug on the LD jack; use the socket for the
+  650 nm diode and the L-I-V work.
+- **The VCSEL's wavelength** spans 788-800 nm at 0.055 nm per kelvin: ask for a unit near 794.98 nm or plan to heat or
+  cool it.  3.417 GHz sidebands address only Rb-87, 28 % of natural rubidium; the isotopically pure GC19075-RB87 is
+  $1,171.18.  Heat the cell for optical depth.
+- **The diamond** is the expensive item: DNVB1 (0.3 ppm NV) is $1,897.73 with none in US stock; Adamas quotes on request;
+  Sigma's NV nanodiamond (798169, $508, snippet) gives a weaker, broader signal.  ODMR also needs a long-pass filter near
+  600 nm and goggles (CPS532 is Class 3R); a 40 mW DPSS (DJ532-40, $227.52) needs more current than Y10 gives.
+
+### RF-MOD-2
+
+| item | tile | qty | product | unit price | stock as read | source |
+|---|---|---|---|---|---|---|
+| Amplifier, 0.7-3.5 GHz, +24 dBm, 12 V 0.54 A | X9's drive | 1 | [Mini-Circuits ZRL-3500+](https://www.minicircuits.com/WebStore/dashboard.html?model=ZRL-3500%2B) | $185.88 | 74 | page |
+| SMA DC block, 0.1-8000 MHz | X8, Y10 | 2 | [Mini-Circuits BLK-89-S+](https://www.minicircuits.com/WebStore/dashboard.html?model=BLK-89-S%2B) | $20.26 | over 1,000 | page |
+| Active GPS L1 antenna, 3-5 V, SMA | X8 | 1 | [Adafruit 960](https://www.adafruit.com/product/960) | $21.50 | in stock | page |
+
+- **The amplifier** gives +24 dBm from about +7 dBm in (X3 through X1 at full scale); its input limit is +10 dBm.  The
+  cheaper ZX60-V62+ ($92.90) gives +17.9 dBm at 3 GHz.  It runs from the same 12 V supply as Y4.  X9's termination
+  then takes 0.25 W: the kit's 1 W ANNE-50+ copes.
+- **The DC block** starts at 0.1 MHz: keep it out of the HF and VLF paths.  Put one between X8 and a passive antenna.
+
+**Rough totals:** about $860 a bench for the per-bench items above, plus the per-lab DPPH, rubidium cell and green
+laser (about $940 together) and a diamond (DNVB14 $4,092, DNVB1 $1,898).
 
 ## For the Icepi Zero instead of the ECP5 board
 

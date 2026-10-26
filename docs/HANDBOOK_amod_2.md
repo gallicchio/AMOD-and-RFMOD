@@ -54,8 +54,9 @@ response, and the gateware does the rest (quadrature demodulation, averaging, lo
    EIT analogue; pump at twice the frequency: phase-sensitive gain and de-amplification, then parametric oscillation.
 7. **Noise.**  Y9 into Y5 (or Y3's preamp) with IO8 toggled: the Y-factor gives the amplifier's noise figure; Y9's noise into
    a filter with ADC 1 on its input and ADC 2 on its output: the transfer function from the cross-spectrum.
-8. **Lasers and atoms.**  Y10 drives a VCSEL or a laser diode on its LD jack (SET from DAC 1: 100 mA per volt; start at a few
-   millivolts); RF-MOD-2's synthesizer on RF IN puts sidebands on the light: 3.417 GHz on a 795 nm VCSEL through a rubidium
+8. **Lasers and atoms.**  Y10 drives a VCSEL or a laser diode on its LD jack (SET from DAC 1: 100 mA per volt; a VCSEL runs
+   at about 1.5 mA, so put 30 dB of SMA attenuation on SET and the DAC's full scale is 3 mA); RF-MOD-2's synthesizer on RF IN
+   puts sidebands on the light: 3.417 GHz on a 795 nm VCSEL through a rubidium
    cell is coherent population trapping, the chip-scale atomic clock's physics; IO5 blanks the light for pulsed ODMR with
    RF-MOD-2's X9 loop; MON (the diode's voltage) with a photodiode on an ADC gives the L-I-V curve and the threshold.
 
