@@ -5,10 +5,10 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
 
 ## Order gate: pins, packages and polarity
 
-1. **MAX2871 (R10, R11).** The pin table is CostasLink's, which passed two review rounds; the footprint is KiCad's
+1. **MAX2871 (R10).** The pin table is CostasLink's, which passed two review rounds; the footprint is KiCad's
    QFN-32 5 x 5 with EP 3.1.  Check pin 1's dot in the placement preview (the CPL adds no rotation).  RFOUTB (14, 15)
    and SW (5) are left open: the gateware must keep RFOUTB disabled (register 4, bit 8 = 0).
-2. **GALI-84+ (R5, R12).** SOT-89, pin 1 in, 2 the tab (ground), 3 out and DC.  JLCPCB's drawing has pins 1 and 3 on
+2. **GALI-84+ (R12).** SOT-89, pin 1 in, 2 the tab (ground), 3 out and DC.  JLCPCB's drawing has pins 1 and 3 on
    the opposite side to KiCad's, so the CPL turns it 180 degrees (`JLC_ROTATION`, predicted).  Reversed, DC lands on
    the input's 100 pF and the part does nothing.  Confirm the tab faces the board's top edge in the preview.
 3. **TC32H4 TCXO (R9).** The CPL turns it 180 degrees (JLCPCB's pad 1 is top-left, KiCad's bottom-left); pad 1 (enable
@@ -21,10 +21,17 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
    grounds the signal.
 7. **MT3608 boost (R9).** SOT-23-6: 1 SW, 2 GND, 3 FB, 4 EN, 5 IN, 6 NC.  FB 0.6 V with 12 k / 1 k: 7.8 V.  The SS34's
    cathode bar must face the output capacitor.
+7a. **QPL9547 (R5).** DFN-8 2 x 2 mm on KiCad's footprint, CPL rotation 0 (predicted: JLCPCB's DFN drawings put pin 1
+   top-left as KiCad's).  Confirm pin 1's dot in the preview; a half turn swaps input and output and puts the bias on
+   the input.  It runs from 5 V (not R12's 7.8 V).
+7b. **TRF3722 (R13) and its TLV75733.** VQFN-48 7 x 7 and WSON-6 2 x 2, both rotation 0 (predicted).  Confirm both
+   pin-1 dots.  The TRF3722's I and Q come from the host's DACs through the tile's bias networks; its LO output is the
+   jack beside its RF output.
 
 8a. **The Pmod plug (J1003, on R10).**  JLCPCB's numbering: pads 1-2 3.3 V, 3-4 ground (Pmod pins 6/12 and 5/11), the
-    lines on pads 5-12; `check_pmod` maps every pad to its standard pin.  IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE
-    of R10, IO5 MUXOUT of R11, IO6 LE of R11.  Confirm the body hangs off the bottom edge in the placement preview.
+    lines on pads 5-12; `check_pmod` maps every pad to its standard pin.  IO1 MUXOUT of R10, IO2 SDATA and IO3 SCLK
+    (R10 and R13), IO4 LE of R10, IO5 the TRF3722's readback, IO6 LE of R13.  Confirm the body hangs off the bottom edge
+    in the placement preview.
 8b. **No mounting holes**: four stick-on rubber feet, circled on the back.
 
 ## Order gate: rules and fab
@@ -34,19 +41,22 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
    of the board keeps 0.2 mm.
 10. **The stack.**  The 50 ohm lines assume JLC04161H-7628 (0.21 mm of 7628 prepreg between L1 and L2).  Choose that
    stack in the order; another one moves the impedance by 10-20 ohm.
-11. **Stock.**  The GALI-84+ had 144 on the day: enough for 72 boards' pairs but thin; alternates (stock not checked) are the GALI-S66+
+11. **Stock.**  The GALI-84+ (R12 only now) had 144 on the day: thin; alternates (stock not checked) are the GALI-S66+
     or a PGA-103+ on the same footprint with a different bias resistor.
 
 ## Bench, first power
 
 11. With every tile off: the green LED (5 V in) and the yellow one (7.8 V) light; REF OUT shows 25 MHz.
-12. R5 or R12 on: 97 mA from 7.8 V each; the 2512 runs warm (0.2 W).  The pin 3 voltage should read 5.4-6.2 V.
-13. R10 or R11 on: 3.3 V on the LDO's output; program the chip (the gateware's `max2871` module); the red LED lights
-    on lock.  Unprogrammed, the part may output anything from nothing to full power.
+12. R12 on: 97 mA from 7.8 V; the 2512 runs warm (0.2 W).  The pin 3 voltage should read 5.4-6.2 V.  R5 on: the
+    QPL9547's current from 5 V should match its datasheet's (tens of mA); far more means a turned part.
+13. R10 or R13 on: 3.3 V on the LDO's output; program the chip (the gateware's `max2871` module, or the TRF3722's
+    registers over the same SDATA and SCLK); the red LED lights on lock.  Unprogrammed, a synthesizer may output
+    anything from nothing to full power.
 14. R7 or R8: the LO at +4 dBm or more; a 6.25 MHz IF at 0 dBm gives about -8 dBm at RF on both sides of the LO.
 
 ## What changed from the plan (scope, not faults)
 
-The QPL9547 LNA (no stock), the LTC5510 mixers (35 in stock), the RFX2401C front end and the TRF3722 quadrature
-transmitter are not on rev A; the GALI-84+ (twice) and the ADL5350 (twice) take their places.  The printed antennas
-are replaced by SMA whips; R1's cell holds a resistive splitter that the reference and the LO distribution need.
+After Prompt 13 the QPL9547 LNA (R5, now in stock as the taped QPL9547TR7) and the TRF3722 quadrature transmitter (R13)
+are on rev A.  The LTC5510 mixers (35 in stock) and the RFX2401C front end are not; the ADL5350 (twice) takes the
+mixers' place.  The printed antennas are replaced by SMA whips; R1's cell holds a resistive splitter that the reference
+and the LO distribution need.

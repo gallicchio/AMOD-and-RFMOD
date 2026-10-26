@@ -5,15 +5,13 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
 
 ## Order gate: pin and polarity assumptions
 
-1. **PD70-01C photodiode (A10, D1001).** The footprint puts the cathode on pad 1 at x = -3.6 (KiCad's convention);
-   the tile wires pad 1 to VS and pad 2 to the amplifier's -IN.  JLCPCB's drawing and the datasheet's marking must
-   agree.  Reversed, the diode conducts and PD OUT sits at the rail: not fatal, but the tile does nothing.
-2. **E6C1204 side-view LED (A10, LED1001).** Pad 1 is taken as the cathode (Device:LED pin 1 = K) and the light
-   leaves along the footprint's -y, which rot 270 points at the board's right edge.  Check the orientation in the
-   placement preview and the cathode mark in JLCPCB's drawing.  Reversed, no light.
-3. **LT6230 (A5, U501).** TSOT-23-6, taken as OUT 1, V- 2, +IN 3, -IN 4, V+ 5, SHDN-bar 6 with SHDN-bar tied to V+.
-   Confirm the pin order on the datasheet's package drawing; a swap of 5 and 6 would still run (both are at V+),
-   a different order would not.
+1. **The HB100's header (A5, J501).**  A 1 x 3 socket wired +5 V (the tile's switched rail), IF, ground.  HB100
+   modules differ in their pin order (some print "+5V GND IF", some "IF GND +5V"): the module goes on three jumper
+   wires, so read the module's own print and wire it to match.  +5 V on the IF pin does no harm through 1 uF; on the
+   ground pin it shorts the tile's rail through the P-FET (the PTC on A1 limits it).
+2. **A10's DIP4 (SW1001).**  One reference resistor at a time (47, 470, 4.7 k, 47 k from S to X); two closed give
+   their parallel value, which the analysis must use.  The DUT jack's part sees up to +-4 V and 40 mA (47 ohm).
+3. (Rev A's LT6230 item: A5 no longer carries an LT6230.)
 4. **TLV3501 (A6, U601).** SOT-23-6, taken as -IN 1, V- 2, +IN 3, V+ 4, OUT 5, SHDN 6 with SHDN grounded (active
    high).  Confirm.
 5. **PAM8302A (A12, U1201).** SOIC-8, taken as SD 1, BYP 2, IN+ 3, IN- 4, VO+ 5, VDD 6, GND 7, VO- 8 (the board's
@@ -43,7 +41,7 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
      plug now sits two columns left with ground on pads 3-4 and 3.3 V on pads 1-2 in JLCPCB's numbering, which is
      Pmod pins 5/11 and 6/12; `check_pmod` confirms every pad.  Confirm in the placement preview that the plug's body
      hangs off the bottom edge and pad 1's square is at the left end of the row nearest the edge.  The lines are now
-     IO8/IO7 (A6), IO6 (A8), IO5 (A10), IO4/IO3 (A11), IO2 (A12).
+     IO8/IO7 (A6), IO6 (A8), IO4/IO3 (A11), IO2 (A12); IO1 and IO5 are spare (A10 and A5 no longer use a line).
 12b. **No mounting holes.**  Four stick-on rubber feet (8 mm, circled on the back) replace them; buy them with the order.
 
 ## Order gate: the rails
@@ -53,15 +51,16 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
     lands in a gutter strip; `check_outputs` found the net connected, and KiCad's DRC found no island.
 13. The +3.3 V rail is the strip in the gutter under row 1; only A6 draws from it, through the header via at the
     tile's bottom edge.
-14. A1's LM2664 gives 40 mA of -5 V.  The op-amp tiles draw about 4 mA each at rest (OPA810), the LT6230 3.5 mA,
-    the MC1496 2 mA, the class-D nothing from -5 V: all twelve tiles on at once stay under 40 mA.  The USB-C
-    source must give 1.5 A for the heater (170 mA), the LED drive (45 mA) and the class-D at full volume.
+14. A1's LM2664 gives 40 mA of -5 V.  The op-amp tiles draw about 4 mA each at rest (OPA810), the MC1496 2 mA, the
+    class-D nothing from -5 V: all twelve tiles on at once stay under 40 mA.  The USB-C source must give 1.5 A for
+    the heater (170 mA), the HB100 (about 40 mA), A10's DUT drive (40 mA at most) and the class-D at full volume.
 
 ## Bench, first power
 
 15. With every tile off, the green LED lights and the socket shows +5, -5 and 3.3 V.  Then one tile at a time.
-16. A10's current source: with 1 V on DRIVE IN the LED carries 45 mA; above about 1.1 V the op amp runs out of
-    headroom.  Never put the DAC's +4 V open-circuit swing on DRIVE IN without a series resistor.
+16. A10: with the DUT jack open, S OUT and X OUT read the same (half of S each into 50 ohm); shorted, X OUT reads 0.
+    Calibrate open and short at every range before measuring.  A5: wave a hand a metre in front of the HB100 and the
+    IF shows tens of hertz at x101.
 17. A8's heater is 170 mA when Pmod IO6 is high; the 2512 pair runs warm (0.83 W).  It now sits in A8's top-left,
     about 2 mm below A4's slide switch and FET across the gutter, which tolerate the rise; no precise part is near it.
 18. A9's IF OUT is a 1.5 k source: read it with a high-impedance scope input or the ADC's high-impedance setting.
@@ -69,6 +68,7 @@ first bench test must confirm.  The ones marked **order gate** must be confirmed
 ## What was dropped from the plan (not faults: scope)
 
 A4's loop; A7's loop-filter and VCO-capacitor DIPs and its two loops (probe pins 9 and 13); A8's NTC divider and
-loop; A10's laser terminal and its DIP (solder a module's leads to the LED's pads); A12's 3.5 mm jack; A9's
+loop; rev A's first A10 (an LED driver and a photodiode amplifier, now on the host) and A5 (Johnson noise, now on the
+host); A12's 3.5 mm jack; A9's
 carrier-null trimmer and output follower; A5's 4-way DIP (10 k, 1 k and a socket instead); A11's TX IN jack and
 comparator (the bridge is driven from the Pmod); A2's and A3's two-stage variants.

@@ -7025,6 +7025,7 @@
  "front_wires": [],
  "back_text_x": 50.0,
  "qr_at": null,
+ "fiducials": null,
  "holes": [
   [
    4.0,

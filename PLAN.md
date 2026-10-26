@@ -183,18 +183,18 @@ P-FET and green LED; the -5 V rail is not switched (an op amp with V+ open draws
 | (0,0) | A2 | gain x10, 14 MHz | +-5 | IN (50 ohm), OUT | | one OPA810 non-inverting, 1.1 k / 10 k, 49.9 ohm out: x10 into a high impedance, x5 into 50 ohm (the plan's two-stage x3.16 did not fit a cell beside the switch) |
 | (1,0) | A3 | gain x100, 1.4 MHz | +-5 | IN (50 ohm), OUT | | the same stage with 100 ohm / 10 k |
 | (2,0) | A4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 (SOT-23-6, DIS tied to +VS) at x101 (1 k / 10 ohm) in the A2 geometry; no loop |
-| (3,0) | A5 | Johnson noise x100 | +-5 | OUT | | LT6230 (1.1 nV/rtHz, SOT-23-6) at x100 in the A2 geometry; 10 k or 1 k by a 2-way DIP, or your own resistor in a 1 x 2 socket (the OPA1612 two-stage x1000 and a 4-way DIP did not fit) |
+| (3,0) | A5 | Doppler | +-5 | OUT | | a 1 x 3 socket (+5 V, IF, ground) for an HB100 10.525 GHz module on jumper wires; the IF through 1 uF (100 k to ground) into the A2 geometry at x101, 49.9 ohm out: 70 Hz per m/s (Prompt 13: the host has the Johnson-noise source this tile was) |
 | (0,1) | A6 | delta-sigma ADC | +3.3 | IN (10 k) | IO8, IO7 | TLV3501 against a 1.65 V reference; 10 k / 10 k / 10 nF integrator; the FPGA's bit in on IO8, the comparator's bit out on IO7 and a loop |
 | (1,1) | A7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | 74HC4046A (Nexperia, TSSOP-16): 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
 | (2,1) | A8 | heat | +5 | TEMP OUT | IO6 | two 15 ohm 2512 in series (0.83 W) in the top-left, switched by an AO3400 from IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) straight above the jack (the NTC divider did not fit) |
 | (3,1) | A1 | power | | | | USB-C on the right edge, 5.1 k CC pull-downs, 2 A PTC, SMAJ5.0A, 2 x 10 uF, LM2664 for -5 V, TPS7A2033 for +3.3 V, green +5 V and red -5 V LEDs in the margin, a 1 x 5 socket along the top edge (+5, G, -5, G, 3.3) |
 | (0,2)-(1,2) | A9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell on +-5 V: 51 ohm inputs, carrier pair at 2.5 V, 1 mA per side, 1.5 k loads, IF single-ended through 100 n (1.5 k source: a high-impedance input); no null trimmer |
-| (2,2)-(3,2) | A10 | light | +-5 | PD OUT, DRIVE IN | IO5 | OPA810 voltage-to-current source (22 ohm: 45 mA per volt) into a side-view red LED at the board's right edge, a 2N7002 from IO5 blanks it; PD70-01C (5 V reverse) into an OPA810 transimpedance stage, 10 k / 10 pF, 49.9 ohm out (the laser terminal and its DIP did not fit) |
+| (2,2)-(3,2) | A10 | impedance and I-V | +-5 | DRIVE IN, S OUT, DUT, X OUT | | DRIVE IN into the A2 geometry at x2: the driven node S (also out through 49.9 ohm on S OUT); a 4-way DIP picks 47, 470, 4.7 k or 47 k from S to X, the part under test from X to ground on DUT, an OPA810 follower to X OUT: Z = R X / (S - X), DC to a few MHz, and I-V curves to +-4 V and 40 mA (Prompt 13: the host has the LED driver and photodiode amplifier this tile was) |
 | (0,3)-(1,3) | A11 | 40 kHz ultrasound | +-5 | RX OUT | IO4, IO3 | DRV8837 H-bridge from IO4 and IO3 into a transducer in pins 1 and 5 of a 1 x 5 socket; the second transducer through 10 n / 3.9 k into the A2 geometry at x100; the Pmod plug hangs off this tile's bottom edge |
 | (2,3)-(3,3) | A12 | audio | +-5 | AUDIO IN, MIC OUT | IO2 | PAM8302A into a speaker on a screw terminal, fed by AUDIO IN through 1 u and by the one-bit stream on IO2 through 10 k / 10 n; an electret in a 1 x 2 socket (2.2 k bias) through 1 u into the A2 geometry at x100 (no 3.5 mm jack) |
 
-The Pmod lines (the standard's IO numbers: IO1-4 on pins 1-4, IO5-8 on pins 7-10): A6 IO8 and IO7, A8 IO6, A10 IO5,
-A11 IO4 and IO3, A12 IO2; IO1 is unused.  (Renumbered 2026-10-25 when the plug's mirrored pinout was fixed.)
+The Pmod lines (the standard's IO numbers: IO1-4 on pins 1-4, IO5-8 on pins 7-10): A6 IO8 and IO7, A8 IO6,
+A11 IO4 and IO3, A12 IO2; IO1 and IO5 are unused (A10 needs no line since Prompt 13).  (Renumbered 2026-10-25 when the plug's mirrored pinout was fixed.)
 The switched rail of every tile comes from its own slide switch and P-FET; -5 V (40 mA from the
 LM2664) is shared and unswitched.
 
@@ -203,36 +203,36 @@ LM2664) is shared and unswitched.
 As built (rev A, 2026-10-25): ten tiles on sixteen cells, four layers, every tile's IN top-left and OUT bottom-right
 (a third jack at the top middle on R1, R10 and R11, at the right cell's top-left on the mixers), CPWG lines (0.29 mm, 0.25 mm gaps over 0.21 mm of 7628) with via fences, a launch
 void under every jack's centre pin, a top-side ground pour on every RF tile.  ERC 0, DRC 0, the fab checks pass,
-$55.78 of parts per board.
+$57.19 of parts per board (after Prompt 13's QPL9547 and TRF3722).
 
 | cells | # | tile | supply | jacks | Pmod | the circuit as built |
 |---|---|---|---|---|---|---|
 | (0,0)-(1,0) | R1 | splitter | | P1, P2, P3 | | three 18 ohm 0402 to one node: 6 dB any port to any, DC-6 GHz.  The reference to both synthesizers, one LO to two mixers, two tones into a gain block |
 | (2,0) | R2 | 2.45 GHz filter | | IN, OUT | | Murata LFB212G45SG8A127 LTCC, 1.7 dB, 2.4-2.5 GHz |
 | (3,0) | R4 | 915 MHz filter | | IN, OUT | | RF360 B39921B2672P810 SAW, 1.1 dB, 902-928 MHz |
-| (0,1) | R5 | gain block | +7.8 | IN, OUT | | GALI-84+: 100 pF in and out, 27 nH and 22 ohm (2512) from the switched 7.8 V; 20 dB, +20 dBm P1dB |
-| (1,1) | R12 | gain block | +7.8 | IN, OUT | | the same |
+| (0,1) | R5 | LNA | +5 | IN, OUT | | QPL9547 (Prompt 13; the taped QPL9547TR7 was in stock): Qorvo's 18 nH choke feeding 5 V into the output pin, 3.3 k to Vbias for 65 mA; 19.5 dB, 0.3-0.5 dB NF from 0.5 to 3 GHz, 22 dBm absolute maximum at the input |
+| (1,1) | R12 | gain block | +7.8 | IN, OUT | | GALI-84+: 100 pF in and out, 27 nH and 22 ohm (2512) from the switched 7.8 V; 20 dB, +20 dBm P1dB |
 | (2,1)-(3,1) | R9 | power and reference | | REF OUT | | USB-C (5.1 k CC, 2 A PTC, SMAJ5.0A, 2 x 10 uF); MT3608 boost to 7.8 V (22 uH, SS34, 12 k / 1 k) on the L3 strip under row 1; TPS7A2033 3.3 V for a TC32H4 25 MHz TCXO and a 74LVC1G17 driving REF OUT through 51 ohm; green (5 V) and yellow (7.8 V) LEDs |
 | (0,2)-(1,2) | R7 | TX mixer | +5 (3.3 V LDO) | RF, LO, IF | | ADL5350 with a 200 MHz crossover on its RF/IF node, 0 ohm + 100 pF LO input, 10 nH LO-buffer choke; its own TPS7A2033 behind the switch |
 | (2,2)-(3,2) | R8 | RX mixer | +5 (3.3 V LDO) | RF, LO, IF | | the same |
 | (0,3)-(1,3) | R10 | synthesizer | +5 (3.3 V LDO) | OUT A, REF IN | IO1-4 | MAX2871, CostasLink's circuit: RFOUTA+ through 27 nH / 100 pF to the jack, RFOUTA- into 51 ohm, RFOUTB open; loop filter C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p (80-120 kHz, 61 degrees for 915 MHz at VCO/4 and 2.4 GHz at VCO/2, ICP 2.56 mA); LD on a red LED; carries the Pmod plug |
-| (2,3)-(3,3) | R11 | synthesizer | +5 (3.3 V LDO) | OUT A, REF IN | IO2, IO3, IO5, IO6 | the same, sharing SCLK and SDATA |
+| (2,3)-(3,3) | R13 | I/Q transmitter | +5 (3.3 V LDO) | I IN, Q IN, RF OUT | IO2, IO3, IO5, IO6 | TRF3722 (PLL, VCO, I/Q modulator, 0.4-4.2 GHz; Prompt 13, replacing rev A's second MAX2871) on SPI shared with R10 (LE IO6, readback IO5), referenced from R10's REF IN; each DAC through 56 ohm at the jack and 270 ohm to a node at 0.25 V; about -3 dBm, image-free (-42 dBc untrimmed); a TLV75733 for its 3.3 V |
 
-Pmod (the standard's IO numbers): IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE of R10, IO5 MUXOUT of R11, IO6 LE of
-R11; IO7 and IO8 unused.  The synthesizers' and mixers' nets use a "Fine" class (0.127 mm, 0.15 mm tracks, 0.45 / 0.25
+Pmod (the standard's IO numbers): IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE of R10, IO5 the TRF3722's readback,
+IO6 LE of R13; IO7 and IO8 unused.  The synthesizers' and mixers' nets use a "Fine" class (0.127 mm, 0.15 mm tracks, 0.45 / 0.25
 vias) for the QFN fan-out; everything else keeps 0.2 mm.
 
-Not on rev A, with the reason: the QPL9547 LNA (no stock: the GALI-84+ in front of R8 is the receiver's first stage,
-5 dB NF), the RFX2401C front end and the TRF3722 quadrature transmitter (their cells went to a complete second chain),
-the LTC5510 mixers (35 in stock: the ADL5350 instead), and the printed antennas (TI's dimensions are for another stack
-and need a bench to tune; SMA whips on R5 and R12 instead, see the handbook).
+Not on rev A, with the reason: the RFX2401C front end (its cells went to a complete second chain), the LTC5510 mixers
+(35 in stock: the ADL5350 instead), and the printed antennas (TI's dimensions are for another stack and need a bench to
+tune; SMA whips instead, see the handbook).  The QPL9547 and the TRF3722, missing from the first layout, came back in
+Prompt 13 (`PLAN_LEVEL2.md` section 2).
 
 ## 7. Parts and sourcing
 
 The table below is the plan's list (2026-10-25 01:00).  The boards as built use what `scripts/parts.py` lists; the
-differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, LT6230 for Johnson noise, OPA847IDBVR (C160422, SOT-23-6)
-for A4, 74HC4046APW-Q100J (C546981, TSSOP-16, 234 in stock on 2026-10-25) for A7, no
-NTC or 3.5 mm jack, and on RF-MOD the GALI-84+ twice, the ADL5350 twice and no QPL9547, LTC5510, RFX2401C or TRF3722.
+differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, OPA847IDBVR (C160422, SOT-23-6) for A4, 74HC4046APW-Q100J
+(C546981, TSSOP-16, 234 in stock on 2026-10-25) for A7, no LT6230, NTC or 3.5 mm jack, and on RF-MOD one GALI-84+, the
+QPL9547TR7, the TRF3722, the ADL5350 twice and no LTC5510 or RFX2401C.
 
 JLCPCB's shelf for everything machine-placed, queried through `scripts/jlc_api.py` on
 2026-10-25 00:45-01:00 PDT (the cache keeps each answer's time).  `scripts/parts.py` is the one

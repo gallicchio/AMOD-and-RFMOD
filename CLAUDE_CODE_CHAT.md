@@ -331,3 +331,62 @@ All three boards: ERC 0, DRC 0, every fab check passed.  AMOD-A's parts rose fro
 the OPA847's SOT-23-6.  PLAN.md (the jack rule, the tables, the status), the DOA list (items 8, 9, 17), the review
 brief, the README, the assembler's notes (the 45-degree parts) and Appendix D (the text, the cost and the three
 renders) were updated, and CLAUDE_PCB.md has the lesson.
+
+## Prompt 13 (about 12:50)
+
+> Go back to Appendix D of the tutorial and make sure that the first AMOD and first RF-MOD board contain the right
+> things to build first to maximize interesting experiments. Then work on the 2nd version of each board, filling them
+> with whatever would make the most interesting RF (physics and communications) tutorials/experiments/demonstrations.
+
+Two follow-ups during the work:
+
+> The second-level boards will almost certainly only be used with the 2DAC+2ADC board, so make them interesting for
+> thst board.
+
+> 14 and 21 in stock isn't great, but I would not consider that level too low to proceed.
+
+### Response 13 (12:50 onward)
+
+**The first level, checked against Appendix D and the host.**  The ECP5-2ADC-2DAC board has its own Johnson-noise
+source, photodiode amplifier and LED driver, so two AMOD-A tiles were duplicates, and two parts Appendix D wanted had
+come into stock.  Four changes, each built to ERC 0, DRC 0 and the fab checks (`PLAN_LEVEL2.md` section 2):
+
+- RF-MOD's R5 is now the QPL9547 LNA (QPL9547TR7, C5367093, 5,070 in stock): 0.3 dB of noise figure instead of a
+  second GALI-84+.
+- RF-MOD gained R13, a TRF3722 quadrature transmitter (C1850395) fed by the host's two DACs, in place of the second
+  MAX2871: an image-free transmitter whose LO output drives a receive mixer coherently.
+- AMOD-A's A5 is a Doppler tile: a socket for an HB100 10.525 GHz module and x101 of IF gain.
+- AMOD-A's A10 is an impedance and I-V tile: a DIP-selected reference resistor and two buffered outputs, V and I, for
+  the host's two ADCs.
+
+**RF-MOD-2 (rev A, $98.61 of parts a board): a coherent I/Q transceiver and microwave physics.**  One MAX2871 (X3,
+locked to the host's CLK OUT) split by X5 is the LO of an ADL5375 modulator (X1, the host's DACs on I and Q) and an
+ADL5380 demodulator (X2, the host's ADCs on I and Q, through OPA810 difference amplifiers): a 0.4-6 GHz zero-IF
+transceiver whose baseband is the host's 30 MHz.  Around it the QPL9547 LNA (X4), an AD8318 log detector (X6), an
+ADL5611 noise source switched by a TPS22917 (X7), a GNSS front end with a MAX2659 between two SAWs (X8), a broadband
+through-line loop for NV-centre ODMR (X9), USB-C power (X10) and a SKY13370 absorptive SPDT (X11).  The ADL5380 had
+14 in stock; Jason accepted it, and `check_outputs` records the exception per part.  The plan's printed coupler and
+split-ring resonator were dropped (they need a field solver and bench tuning); the switch moved to X11 and X5 became
+the splitter the shared LO needs.
+
+**AMOD-2 (rev A, $78.19 a board): HF, magnetic resonance and the reflectometer.**  Ten tiles for DC to 30 MHz:
+Y1 power (USB-C, an LM2664 for -5 V, a TPS65131 for +-15 V carried to Y2 only); Y2 a THS3491 pulse amplifier (1 W into
+50 ohm, gated by IO1); Y3 NMR's passive duplexer (crossed diodes) and an OPA847 preamplifier; Y4 a DRV8876 coil driver
+(IO6 PWM, IO7 direction, IPROPI buffered to MON, USB or 12-18 V); Y5 two LMH6629 receive channels at x9.9 with the
+Pmod plug; Y6 a VLF loop amplifier (x101, 1.6-160 kHz); Y7 a reflection bridge (REFL / INC = Gamma); Y8 two passive
+coupled 10 MHz tanks with varactor tuning, a pump input and 2.2 pF ports; Y9 a switched avalanche-noise source
+(IO8); Y10 a 100 mA/V laser driver with a 20 MHz-3 GHz bias-T and an IO5 shunt for pulses.  The handbook's "tiles
+together" lists the experiments: pulsed NMR and one-dimensional MRI, Earth's-field NMR, ESR of DPPH, WWV Doppler and
+VLF sferics, the Smith chart, normal modes and the EIT analogue, parametric gain, noise figure, CPT and ODMR.
+
+Where AMOD-2 differs from its plan, `PLAN_LEVEL2.md` section 3 says why: no I/O expander (five Pmod lines suffice),
+crossed diodes instead of a PIN switch, Y5 without attenuators, Y6 with one channel (two did not fit a cell), Y8
+without buffers, Y10 with one range.
+
+**Build and documents.**  Both boards: ERC 0, DRC 0, every fab check.  New this round in the scripts: per-board
+fiducials, the schematic's label-width layout with wrapped notes, `+-15 V` as power symbols, stacked hidden pins as
+passive, footprints for the MAX2659, the 1109 SAW and the SKY13370 from JLCPCB's drawings, `stock_exception` for
+accepted thin stock.  Handbooks (`docs/HANDBOOK_amod_2.md`, `docs/HANDBOOK_rf_mod_2.md`), DOA lists for both new
+boards and the updated first-level ones, `PLAN_LEVEL2.md` as built, the README, the kit list and Appendix D were
+written; CLAUDE_PCB.md section 20 has the lessons (the empty-string replace that corrupted a board module, net-name
+collisions with helpers, planning a tile's crossings before its coordinates, back-layer polylines and vias).

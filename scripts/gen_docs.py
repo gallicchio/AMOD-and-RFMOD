@@ -110,7 +110,8 @@ def handbook(stem, meta, mod):
             lines += ["", "Parts: " + ", ".join("%s (%s)" % (parts.PARTS[k]["mpn"], parts.PARTS[k]["lcsc"]) for k in chips) + "."]
         lines.append("")
     lines += ["## Ground, loops and probing", "",
-              "Four ground loops stand in the margins (two a side); every tile's loops are on the signal they name.  The RH-5019",
+              "%s ground loops stand in the margins; every tile's loops are on the signal they name.  The RH-5019" % (
+                  ["No", "One", "Two", "Three", "Four", "Five", "Six"][min(len(meta.get("gnd_loops", [])), 6)]),
               "loops take a scope's grabber.  The SMA jacks are 50 ohm; where an input is not 50 ohm the jack's silk says so.", ""]
     with open(os.path.join(DOCS, "HANDBOOK_%s.md" % stem), "w") as fh:
         fh.write("\n".join(lines))

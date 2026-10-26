@@ -906,9 +906,55 @@ def tiles():
 
 PMOD_USED = {"/PMOD1", "/PMOD5", "/PMOD6", "/PMOD7", "/PMOD8"}
 PMOD_HOST = "Y5's bottom edge"
-PMOD_NAMES = {}
-HANDBOOK_INTRO = []
-HANDBOOK_SECTIONS = []
+PMOD_NAMES = {"/PMOD1": "Y2's PD (high: the pulse amplifier on)", "/PMOD5": "Y10's shunt (high: the laser's current diverted)",
+              "/PMOD6": "Y4's EN (high: the bridge on; PWM it)", "/PMOD7": "Y4's PH (the current's direction)",
+              "/PMOD8": "Y9's load switch (high: noise on)"}
+HANDBOOK_INTRO = [
+    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on Y1, built for the ECP5-2ADC-2DAC board, whose converters sample",
+    "DC to 30 MHz directly: two DACs and two ADCs, so most tiles take one or two DAC channels and give one or two ADC channels.",
+    "Every tile's input is its top-left jack and its output its bottom-right jack; a two-cell tile has two of each.  The powered",
+    "tiles have the AMOD-A slide switch (up: on).  +5 V is everywhere on L3; -5 V (40 mA, the LM2664) reaches the tiles above and",
+    "below the gutter under row 0 (Y3, Y7, Y9); +-15 V from the TPS65131 reach only Y2, on two tracks on the back.  Nothing here",
+    "needs more than USB's 5 V except Y4's coil, which may have 12-18 V of its own on its upper terminal."]
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "Every experiment below uses the ECP5 board's converters directly: DAC 1 and DAC 2 make the stimulus, ADC 1 and ADC 2 read the",
+     "response, and the gateware does the rest (quadrature demodulation, averaging, lock-in).  One clock, so phase means something.",
+     "",
+     "1. **Pulsed NMR, 5-25 MHz.**  DAC 1 into Y2 (IO1 high only during the pulse: +-1 V becomes +-10 V, 1 W into 50 ohm), Y2's",
+     "   OUT into Y3's TX IN, Y3's PROBE to the probe (match it first with Y7: S11 below -20 dB at the Larmor frequency), a",
+     "   quarter-wave cable from a tee at the probe back to LINE; Y3's RX OUT (the OPA847, x12) into ADC 1, demodulated at the",
+     "   Larmor frequency in the gateware.  A Halbach or yoke magnet of N52",
+     "   cubes (0.3-0.5 T, protons at 13-21 MHz), a 5 mm vial of water with a little copper sulphate: the FID, the spin echo, CPMG,",
+     "   T1 by inversion recovery, T2.  Y4 on a gradient coil during the echo: a one-dimensional image.",
+     "2. **Earth's-field NMR, 2 kHz.**  Y4 drives a polarizing coil round a litre of water for a few seconds (12 V, an amp), then",
+     "   stops (IO6 low); a second, receive coil round the same bottle into Y6 (gain 101) and ADC 1: the protons' precession in the",
+     "   Earth's 50 uT, outdoors, away from mains wiring.",
+     "3. **ESR of DPPH, 10-100 MHz.**  A small loop round the sample, tuned to the DAC's frequency and read by Y7 (DRIVE from DAC 1,",
+     "   INC and REFL into the ADCs); Y4 sweeps a Helmholtz pair through g = 2 (1.07 mT at 30 MHz): the loop's S11 dips on resonance.",
+     "4. **The ionosphere.**  Two HF antennas into Y5's IN A and IN B (gain 9.9 each, 0.7 nV/rtHz): WWV's carrier Doppler at 5, 10",
+     "   and 15 MHz (HamSCI), the phase between the channels as a bearing, FT8 and WSPR decoded in software.  A VLF loop into Y6:",
+     "   sferics from lightning thousands of kilometres away, the Navy's MSK stations near 24 kHz (and their daily phase change at",
+     "   sunrise and sunset), sudden ionospheric disturbances from solar flares, WWVB's 60 kHz time code.",
+     "5. **Impedance and the Smith chart.**  Y7: DRIVE from DAC 1, REFL and INC into the ADCs; REFL / INC = Gamma at every",
+     "   frequency the DAC makes.  Calibrate with an open, a short and 50 ohm on DUT, then a crystal's motional arm, an antenna's",
+     "   match, a cable's length (time-domain reflectometry from a step), an NMR probe's tuning.",
+     "6. **Coupled and parametric resonators.**  Y8: DAC 1 into SIG, DAC 2 into TUNE / PUMP (a slow ramp, a 20 MHz pump, or both",
+     "   added), OUT 1 and OUT 2 into the ADCs.  Normal-mode splitting and the avoided crossing as TUNE sweeps tank 2 through tank",
+     "   1 (the DIP's 1 and 2.2 pF set the coupling); damp tank 1 (the DIP's 2 k) and its response shows a transparency window: the",
+     "   EIT analogue; pump at twice the frequency: phase-sensitive gain and de-amplification, then parametric oscillation.",
+     "7. **Noise.**  Y9 into Y5 (or Y3's preamp) with IO8 toggled: the Y-factor gives the amplifier's noise figure; Y9's noise into",
+     "   a filter with ADC 1 on its input and ADC 2 on its output: the transfer function from the cross-spectrum.",
+     "8. **Lasers and atoms.**  Y10 drives a VCSEL or a laser diode on its LD jack (SET from DAC 1: 100 mA per volt; start at a few",
+     "   millivolts); RF-MOD-2's synthesizer on RF IN puts sidebands on the light: 3.417 GHz on a 795 nm VCSEL through a rubidium",
+     "   cell is coherent population trapping, the chip-scale atomic clock's physics; IO5 blanks the light for pulsed ODMR with",
+     "   RF-MOD-2's X9 loop; MON (the diode's voltage) with a photodiode on an ADC gives the L-I-V curve and the threshold.",
+     "",
+     "Levels to remember: Y2 gives 1 W into 50 ohm from +-1 V and is for pulses (keep the duty cycle under 10 %); Y3 lets through",
+     "the transmitter above about 0.7 V and gives x12 on the way back; Y5's channels give x9.9 (20 dB); Y6 x101; Y7's REFL and INC",
+     "reach the ADCs at half (49.9 ohm into 50 ohm), and so does every output here; Y8's ports are -43 dB; Y10 stops at 100 mA (1 V);",
+     "Y4 chops at about 1.3 A."],
+]
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0)]
 HOLES = []
 FEET = [(5.0, 5.0), (95.0, 5.0), (95.8, 71.0), (5.0, 85.0)]

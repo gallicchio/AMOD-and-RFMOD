@@ -60,3 +60,41 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
    through-hole and must be selected for assembly).
 3. Check the placement preview against `docs/images/rf_mod-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
+
+## AMOD-2: the second-level HF board
+
+- Gerbers and drills: `out/amod_2/amod_2-gerbers.zip` (upload as the PCB file).
+- Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
+- BOM: `out/amod_2/amod_2_bom_jlcpcb_upload.csv`; placements: `out/amod_2/amod_2_cpl_jlcpcb_upload.csv` (rotations already turned
+  for JLCPCB's conventions; the native KiCad file is beside it).
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  76 BOM lines, 40 of them
+  extended parts (each adds JLCPCB's loading fee).
+- Parts per board: $78.19.  Read `out/amod_2/amod_2-assembly-notes.txt` before confirming the order.
+
+### Order steps
+
+1. Order now > PCB: upload the gerber zip; 100 x 100 mm, 4 layers, 1.6 mm, any colour, HASL or ENIG, 5 pieces.
+2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
+   every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
+   through-hole and must be selected for assembly).
+3. Check the placement preview against `docs/images/amod_2-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+4. Pay; keep the order number in the chat log.
+
+## RF-MOD-2: the second-level RF board
+
+- Gerbers and drills: `out/rf_mod_2/rf_mod_2-gerbers.zip` (upload as the PCB file).
+- Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
+- BOM: `out/rf_mod_2/rf_mod_2_bom_jlcpcb_upload.csv`; placements: `out/rf_mod_2/rf_mod_2_cpl_jlcpcb_upload.csv` (rotations already turned
+  for JLCPCB's conventions; the native KiCad file is beside it).
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  63 BOM lines, 38 of them
+  extended parts (each adds JLCPCB's loading fee).
+- Parts per board: $98.61.  Read `out/rf_mod_2/rf_mod_2-assembly-notes.txt` before confirming the order.
+
+### Order steps
+
+1. Order now > PCB: upload the gerber zip; 100 x 100 mm, 4 layers, 1.6 mm, any colour, HASL or ENIG, 5 pieces.
+2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
+   every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
+   through-hole and must be selected for assembly).
+3. Check the placement preview against `docs/images/rf_mod_2-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+4. Pay; keep the order number in the chat log.

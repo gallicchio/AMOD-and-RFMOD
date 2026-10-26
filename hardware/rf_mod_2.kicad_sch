@@ -7617,43 +7617,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "21c0b191-ba5e-405f-ba77-d1e58aeda29d")
-	)
-	(rectangle
-		(start 25.4 411.48)
-		(end 401.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "355dd854-b164-4c60-8ae9-bac6a65944bc")
-	)
-	(rectangle
-		(start 406.4 30.48)
-		(end 591.82 152.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "3b32fbec-7ff3-493b-b5cc-4d01fafec5d4")
-	)
-	(rectangle
-		(start 25.4 157.48)
-		(end 401.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "483cbabd-c6b1-4609-ac52-934b66e70b8c")
+		(uuid "09169ba0-5ae4-5e8a-8446-0b3c2951742a")
 	)
 	(rectangle
 		(start 25.4 284.48)
@@ -7665,43 +7629,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "6797787e-df57-4703-9bd7-d7c813246fd4")
-	)
-	(rectangle
-		(start 406.4 411.48)
-		(end 782.32 533.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "6cd86c22-030f-4d23-acee-2df7939366ca")
-	)
-	(rectangle
-		(start 406.4 284.48)
-		(end 782.32 406.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "c5233aeb-491c-4121-9d6c-0732d5ffacaf")
-	)
-	(rectangle
-		(start 596.9 157.48)
-		(end 782.32 279.4)
-		(stroke
-			(width 0.25)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid "de472f04-1f6f-4e35-b31e-165df00f13c9")
+		(uuid "1464c744-5cdf-5e77-a159-04d6c41116ae")
 	)
 	(rectangle
 		(start 406.4 157.48)
@@ -7713,7 +7641,31 @@
 		(fill
 			(type none)
 		)
-		(uuid "e8561c9f-b09e-41d1-934c-3ca47cb58335")
+		(uuid "33761a56-d2aa-5caf-bdec-96b79375cda7")
+	)
+	(rectangle
+		(start 406.4 30.48)
+		(end 591.82 152.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "52dfe431-fe1d-5d92-a037-a9fab0d0a205")
+	)
+	(rectangle
+		(start 596.9 157.48)
+		(end 782.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "724561f5-b576-5621-ba68-797069c68258")
 	)
 	(rectangle
 		(start 25.4 30.48)
@@ -7725,7 +7677,19 @@
 		(fill
 			(type none)
 		)
-		(uuid "e9d917df-b126-41ac-8ee6-d7381157ead8")
+		(uuid "785df852-8a0a-57c1-a8e4-e253330c29a2")
+	)
+	(rectangle
+		(start 25.4 157.48)
+		(end 401.32 279.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "792c0e90-0ef7-5f9e-8bfc-58ca75616ddd")
 	)
 	(rectangle
 		(start 215.9 30.48)
@@ -7737,7 +7701,43 @@
 		(fill
 			(type none)
 		)
-		(uuid "f305de2b-1e7c-4703-9dc4-c98dc63bdfbe")
+		(uuid "c36c7d82-6718-5f42-8867-1737dbe48716")
+	)
+	(rectangle
+		(start 406.4 411.48)
+		(end 782.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "dae846a8-ea12-5b98-a899-9c39663c007a")
+	)
+	(rectangle
+		(start 25.4 411.48)
+		(end 401.32 533.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "eb95c3bc-9fdc-5771-af30-4c00a13d2d95")
+	)
+	(rectangle
+		(start 406.4 284.48)
+		(end 782.32 406.4)
+		(stroke
+			(width 0.25)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid "f7bdb910-18b4-577e-b3bd-5a1475d3a1e7")
 	)
 	(text "+30 dBm"
 		(exclude_from_sim no)

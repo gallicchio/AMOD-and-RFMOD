@@ -166,5 +166,5 @@ Parts: NCD0805R1 (C84256), TLV75733PDRVR (C2868428), TRF3722IRGZR (C1850395).
 
 ## Ground, loops and probing
 
-Four ground loops stand in the margins (two a side); every tile's loops are on the signal they name.  The RH-5019
+Four ground loops stand in the margins; every tile's loops are on the signal they name.  The RH-5019
 loops take a scope's grabber.  The SMA jacks are 50 ohm; where an input is not 50 ohm the jack's silk says so.

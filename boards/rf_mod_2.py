@@ -701,12 +701,37 @@ def tiles():
 
 PMOD_HOST = "X3's bottom edge"
 PMOD_NAMES = {"/PMOD1": "MUXOUT of X3", "/PMOD2": "SDATA to X3", "/PMOD3": "SCLK to X3", "/PMOD4": "LE of X3",
-              "/PMOD5": "V1 of X11 (RF1 on)", "/PMOD6": "X7's noise on", "/PMOD7": "X1's output off (DSOP)", "/PMOD8": "V2 of X11 (RF2 on)"}
+              "/PMOD5": "V1 of X11 (RF1 on)", "/PMOD6": "X7's noise on", "/PMOD8": "V2 of X11 (RF2 on)"}
 HANDBOOK_INTRO = [
     "Eleven tiles on sixteen 20 mm cells, four layers, USB-C power on X10.  The board is built for the ECP5-2ADC-2DAC board: its two",
     "DACs drive X1's I and Q, its two ADCs read X2's I and Q, and X3 split by X5 is the LO of both, so transmitter and receiver share",
     "one phase.  Every 50 ohm line is coplanar waveguide with a via fence; every jack's centre pin has no plane under it."]
-HANDBOOK_SECTIONS = []
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "X3 (the MAX2871, locked to the 25 MHz on its REF IN: the ECP5 board's CLK OUT) split by X5 is the LO of both X1 and X2, so the",
+     "transmitter and the receiver share one phase.  The ECP5 board's DACs are X1's I and Q, its ADCs read X2's I and Q: a complete",
+     "coherent I/Q transceiver from 0.4 to 6 GHz whose baseband is the ECP5 board's 30 MHz.",
+     "",
+     "1. **A radio link, any modulation.**  DAC 1 and DAC 2 into X1's I IN and Q IN, X1's RF OUT on a cable (or an antenna) into X4",
+     "   (the LNA) and X2's RF IN, X2's I OUT and Q OUT into the ADCs: QPSK, 16-QAM, OFDM, FSK, chirps, with the constellation",
+     "   on the screen and the carrier, timing and equalisation in gateware.  X11 switches one antenna between transmit and receive.",
+     "2. **A vector network analyzer.**  X1 makes a tone (a DC on I), the device under test sits between X1 and X2, and X2's I and",
+     "   Q are its transmission, magnitude and phase, at every frequency X3 steps to: filters, cables, the board's own LNA.",
+     "3. **Radar.**  X3 stepped (or X1 chirped), X1's RF OUT to one antenna, X2's RF IN on another: a stepped-frequency or FMCW",
+     "   radar whose range bins are an FFT of X2's samples, and whose phase gives millimetre motion (breathing, a pendulum).",
+     "4. **Diamond NV centres (ODMR).**  X3 near 2.87 GHz through X1 (the DACs make the sweep and the modulation) and an amplifier",
+     "   into X9's loop under a diamond plate; green light from AMOD-2's Y10 (pulsed with IO5) and a photodiode on an ADC: the",
+     "   resonance dip, its Zeeman splitting under a magnet (a magnetometer), Rabi oscillations, a Ramsey sequence.",
+     "5. **GNSS.**  An active antenna on X8 (bias on its centre pin, the MAX2659 and two SAW filters), X2's LO at 1575.42 MHz minus",
+     "   a few MHz, I and Q into the ADCs: GPS L1 C/A acquisition by correlation, Doppler and code phase, then a position fix.",
+     "6. **Power and noise.**  X6 (the AD8318, 25 mV per dB) is a power meter from 1 MHz to 8 GHz on an ADC (antenna patterns, a",
+     "   filter's sweep); X7 (IO6) is a switched noise source for the Y-factor noise figure of X4 or the whole receiver, and with X11",
+     "   switching between an antenna and a load, a Dicke radiometer (the Sun at 2.4 GHz).",
+     "",
+     "Levels to remember: X3 gives -4 to +5 dBm and X5 loses 6 dB to each output; X1 wants 0 dBm of LO and gives about 0 dBm at",
+     "full scale; X2's amplified I and Q reach the ADCs' full scale near -10 dBm of RF (measure it) and it wants -6 to +6 dBm of LO; X4 gives 19 dB (no more",
+     "than +20 dBm in); X6 reads -60 to 0 dBm; X9 is a through line rated for 1 W from an external amplifier."],
+]
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 70.0)]
 HOLES = []
