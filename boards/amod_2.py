@@ -484,6 +484,127 @@ def tile_y8():
     return t
 
 
+# ----------------------------------------------------------------------------------------------------------- Y10 --
+def tile_y10():
+    """The laser driver with an RF bias-T, two cells.  SET (terminated, 1 k / 100 nF) drives OPA810 U1 and a 2N7002 that pull
+    SET / 1 k through 1 k from VS: REF = VS - SET.  OPA810 U2 holds the AO3401's source at REF (1 k into -IN, 10 nF to its
+    output, 100 ohm to the gate), so 10 ohm from VS carries SET / 10 ohm: 100 mA per volt, from 0.  The drain (ID) feeds the
+    diode through 330 nH and 27 nH; RF IN reaches it through 100 pF and 47 ohm (about 20 MHz to 3 GHz); an AO3400 from ID to
+    ground (Pmod IO5 high) steals the current for microsecond pulses without upsetting the loop; a B5819W guards against
+    reverse current.  MON is the diode's voltage through 10 k into the host's 50 ohm (1/200).  The RF line drops from RF IN
+    and runs along y 9 to the LD jack's left; the gate and source lines go under it on the back."""
+    t = Tile("Y10", "laser driver", [(2, 2), (3, 2)], supply="+5 V", subtitle="current source + bias-T", sections=[])
+    jset = t.jack("TL0", "SET", "SET", "in", "0-1 V: 0-100 mA", silk="SET")
+    jmon = t.jack("BR0", "MON", "MON", "out", "", silk="MON")
+    jrf = t.jack("TL1", "RF IN", "RF", "in", "+10 dBm max", silk="RF IN")
+    jld = t.jack("BR1", "LD", "LDN", "out", "100 mA max", silk="LD")
+    power_header(t, rail="+5V")
+    # ---- U1 and the 2N7002: REF = VS - SET
+    rterm = t.add("R", "R0402 49.9R", "49.9", 8.9, 6.1, 270, {"1": "SET", "2": "GND"}, label=None)              # pad 1 up
+    rf = t.add("R", "R0402 1k", "1k", 10.4, 4.75, 0, {"1": "SET", "2": "SETF"}, label=None)
+    t.wire("SET", [(jset, "1"), (rf, "1")], width=0.25)
+    t.wire("SET", [(8.9, 4.75), (rterm, "1")], width=0.25)
+    gnd(t, rterm, "2", (8.9, 7.4))
+    cf = t.add("C", "C0402 100nF", "100n", 11.6, 3.3, 90, {"1": "SETF", "2": "GND"}, label=None)                # pad 1 down
+    t.wire("SETF", [(11.6, 4.75), (cf, "1")], width=0.2)
+    gnd(t, cf, "2", (11.6, 1.6), w=0.2)
+    ub = t.add("U", "OPA810", "OPA810", 13.2, 6.9, 270, {"1": "GB", "2": "GND", "3": "SETF", "4": "NS", "5": "VS"}, hide_value=False, label=None)
+    t.wire("SETF", [(rf, "2"), (12.25, 4.75), (ub, "3")], width=0.2)
+    t.gnd_stub(ub, "2", (13.4, 4.4), sym=(0, 0), width=0.2, fine=True)
+    q1 = t.add("Q", "NFET_S", "2N7002", 16.9, 7.0, 0, {"1": "GB", "2": "NS", "3": "REF"}, hide_value=False, label=None)
+    t.wire("GB", [(ub, "1"), (q1, "1")], width=0.2)
+    t.wire("NS", [(q1, "2"), (15.9625, 10.0), (12.25, 10.0), (ub, "4")], width=0.2)
+    rref = t.add("R", "R0402 1k", "1k", 15.25, 11.0, 0, {"1": "NS", "2": "GND"}, label=None)
+    t.wire("NS", [(14.77, 10.0), (rref, "1")], width=0.2)
+    gnd(t, rref, "2", (16.6, 11.0), w=0.2)
+    rtop = t.add("R", "R0402 1k", "1k", 19.4, 6.4, 270, {"1": "VS", "2": "REF"}, label=None)                    # pad 1 up
+    t.via("VS", 19.4, 4.9, fine=True)
+    t.wire("VS", [(rtop, "1"), (19.4, 4.9)], width=0.2)
+    t.wire("REF", [(q1, "3"), (rtop, "2")], width=0.2)
+    t.wire("REF", [(rtop, "2"), (19.4, 8.9), (24.65, 8.9), (24.65, 11.2625)], width=0.2)
+    t.via("VS", 14.15, 9.25, fine=True)
+    t.wire("VS", [(ub, "5"), (14.15, 9.25)], width=0.2)
+    cpb = t.add("C", "C0402 100nF", "100n", 9.0, 12.3, 270, {"1": "VS", "2": "GND"}, label=None)
+    t.via("VS", 10.2, 11.0, fine=True)
+    t.wire("VS", [(cpb, "1"), (9.0, 11.0), (10.2, 11.0)], width=0.2)
+    gnd(t, cpb, "2", (9.0, 13.9), w=0.2)
+    # ---- U2 holds the AO3401's source at REF.  rot 270: +IN (24.65, 11.26), V- (25.6, 11.26), OUT (26.55, 11.26); -IN, V+ below
+    ua = t.add("U", "OPA810", "OPA810", 25.6, 12.4, 270, {"1": "GA", "2": "GND", "3": "REF", "4": "NA", "5": "VS"}, hide_value=False, label=None)
+    t.gnd_stub(ua, "2", (25.6, 10.1), sym=(0, 0), width=0.2, fine=True)
+    riso = t.add("R", "R0402 100R", "100", 28.4, 11.26, 0, {"1": "GA", "2": "GQ"}, label=None)
+    t.wire("GA", [(ua, "1"), (riso, "1")], width=0.2)
+    ccomp = t.add("C", "C0402 10nF", "10n", 25.6, 15.0, 0, {"1": "NA", "2": "GA"}, label=None)
+    t.wire("GA", [(27.2, 11.26), (27.2, 15.0), (ccomp, "2")], width=0.2)
+    t.wire("NA", [(ua, "4"), (24.65, 15.0), (ccomp, "1")], width=0.2)
+    rcomp = t.add("R", "R0402 1k", "1k", 23.6, 15.0, 0, {"1": "SQ", "2": "NA"}, label=None)
+    t.wire("NA", [(rcomp, "2"), (24.65, 15.0)], width=0.2)
+    t.via("SQ", 22.4, 15.0, fine=True)
+    t.wire("SQ", [(rcomp, "1"), (22.4, 15.0)], width=0.2)
+    t.via("VS", 26.55, 14.2, fine=True)
+    t.wire("VS", [(ua, "5"), (26.55, 14.2)], width=0.2)
+    t.via("GQ", 29.6, 11.26, fine=True)
+    t.wire("GQ", [(riso, "2"), (29.6, 11.26)], width=0.2)
+    # ---- the AO3401 (rot 0 at (32, 3.5)), its 10 ohm, the AO3400 shunt, the bias-T down to the LD jack
+    q2 = t.add("Q", "PFET", "AO3401A", 32.0, 3.2, 0, {"1": "GQ", "2": "SQ", "3": "ID"}, hide_value=False, label=None)
+    t.via("GQ", 31.0625, 1.4, fine=True)
+    t.wire("GQ", [(q2, "1"), (31.0625, 1.4)], width=0.2)
+    t.wire("GQ", [(29.6, 11.26), (30.2, 10.66), (30.2, 2.2), (31.0625, 1.4)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    rs = t.add("R", "R0805 10R", "10", 31.0, 6.6, 90, {"1": "VS", "2": "SQ"}, label=None)                         # rot 90: pad 2 up
+    t.wire("SQ", [(q2, "2"), (rs, "2")], width=0.4)
+    t.via("SQ", 32.2, 6.09, fine=True)
+    t.wire("SQ", [(rs, "2"), (32.2, 6.09)], width=0.2)
+    t.wire("SQ", [(22.4, 15.0), (22.4, 16.5), (31.6, 16.5), (31.6, 6.7), (32.2, 6.09)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    t.via("VS", 32.3, 7.9)
+    t.wire("VS", [(rs, "1"), (32.3, 7.9)], width=0.4)
+    cbulk = t.add("C", "C0805 10uF", "10u", 34.6, 9.0, 90, {"1": "GND", "2": "VS"}, label=None)                 # rot 90: pad 2 up
+    t.wire("VS", [(32.3, 7.9), (34.6, 8.0875)], width=0.4)
+    gnd(t, cbulk, "1", (34.6, 11.0), w=0.4)
+    q3 = t.add("Q", "NFET", "AO3400A", 35.9, 2.0, 0, {"1": "/PMOD5", "2": "GND", "3": "ID"}, hide_value=False, label=None)
+    gnd(t, q3, "2", (34.9625, 3.85), w=0.3)
+    t.wire("ID", [(q2, "3"), (33.5, 4.6), (36.75, 4.6), (36.75, 2.0), (q3, "3")], width=0.4)
+    la = t.add("L", "L0805 330nH", "330n", 36.75, 8.0, 270, {"1": "ID", "2": "LM"}, label=None)                 # pad 1 up
+    lb = t.add("L", "L0402 27nH", "27n", 36.75, 10.75, 270, {"1": "LM", "2": "LDN"}, label=None)
+    t.wire("ID", [(36.75, 4.6), (la, "1")], width=0.4)
+    t.wire("LM", [(la, "2"), (lb, "1")], width=0.3)
+    t.wire("LDN", [(lb, "2"), (jld, "1")], width=0.3)
+    dp = t.add("D", "B5819W", "B5819W", 39.2, 3.3, 90, {"1": "ID", "2": "GND"}, hide_value=False, label=None)    # rot 90: K down
+    t.wire("ID", [(dp, "1"), (36.75, 4.95)], width=0.3)
+    gnd(t, dp, "2", (39.2, 0.5), w=0.4)
+    # ---- RF IN: down from its jack, along y 9 through 100 pF and 47 ohm, down x 33 and into the LD jack from the left
+    crf = t.add("C", "C0402 100pF", "100p", 28.4, 9.0, 0, {"1": "RF", "2": "RFC"}, label=None)
+    rrf = t.add("R", "R0402 47R", "47", 30.4, 9.0, 0, {"1": "RFC", "2": "LDN"}, label=None)
+    t.wire("RF", [(jrf, "1"), (26.25, 9.0), (crf, "1")], width=0.35)
+    t.wire("RFC", [(crf, "2"), (rrf, "1")], width=0.35)
+    t.wire("LDN", [(rrf, "2"), (32.4, 9.0), (32.4, 15.25), (jld, "1")], width=0.35)
+    rmon = t.add("R", "R0402 10k", "10k", 31.5, 12.0, 0, {"1": "MON", "2": "LDN"}, label=None)
+    t.wire("LDN", [(rmon, "2"), (32.4, 12.0)], width=0.2)
+    t.wire("MON", [(rmon, "1"), (30.2, 12.8), (30.2, 19.6), (19.4, 19.6), (19.4, 15.25), (jmon, "1")], width=0.25)
+    # ---- IO5 along the top to the shunt's gate, 100 k holding it low
+    t.wire("/PMOD5", [(-0.35, 0.25), (34.4, 0.25), (q3, "1")], width=F, silk=False)
+    rsd = t.add("R", "R0402 100k", "100k", 22.0, 1.2, 270, {"1": "/PMOD5", "2": "GND"}, label=None)
+    t.wire("/PMOD5", [(22.0, 0.25), (rsd, "1")], width=F)
+    gnd(t, rsd, "2", (22.0, 2.7), w=0.2)
+    # ---- VS on the back: the switch's drain up x 10.2 to U1; on to REF's 1 k, U2 and a 100 nF; along the gutter to the 10 ohm
+    t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
+    t.wire("VS", [(10.2, 18.1), (10.2, 9.6), (13.8, 9.6), (14.15, 9.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(14.15, 9.25), (18.6, 4.9), (19.4, 4.9)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(19.4, 4.9), (21.0, 6.5), (21.0, 14.2), (26.55, 14.2)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(10.2, 18.1), (10.2, 20.4), (32.3, 20.4), (32.3, 7.9)], width=0.4, layer="B.Cu", silk=False)
+    t.via("VS", 21.0, 12.0, fine=True)
+    cpa = t.add("C", "C0402 100nF", "100n", 22.2, 12.0, 0, {"1": "VS", "2": "GND"}, label=None)
+    t.wire("VS", [(21.0, 12.0), (cpa, "1")], width=0.2)
+    gnd(t, cpa, "2", (23.4, 12.0), w=0.2)
+    t.text(1.2, 9.4, "Y10", 1.2, 0.2, "left")
+    t.text(4.9, 9.4, "LASER", 0.8, 0.15, "left")
+    t.result = "0-100 mA from 0-1 V on SET, about 10 kHz of loop bandwidth; IO5 blanks it in about 1 us; RF from about 20 MHz to 3 GHz rides on the current"
+    t.notes = ["A high-side current source: REF = VS - SET (OPA810 and a 2N7002 through 1 k / 1 k), OPA810 holds the AO3401's source at",
+               "REF so 10 ohm carries SET / 10 ohm, 100 mA per volt (start a VCSEL at a few millivolts).  The drain feeds the diode through",
+               "330 nH + 27 nH; RF IN joins through 100 pF + 47 ohm: the modulation for a rubidium CPT clock (3.4 GHz) or NV ODMR.  IO5 high",
+               "shorts the drain (the AO3400) for pulses.  MON = the diode's voltage / 200 into 50 ohm: with SET swept, its I-V curve."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
 # ------------------------------------------------------------------------------------------------------------ Y1 --
 def tile_y1():
     """Power, two cells, no jacks.  Left: the TPS65131 boost and inverter make +15 and -15 V from the 5 V (1 M / 88.7 k and
@@ -656,17 +777,17 @@ def tile_y1():
 
 
 def tiles():
-    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y5()]
+    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y10(), tile_y5()]
 
 
-PMOD_USED = {"/PMOD1", "/PMOD8"}
+PMOD_USED = {"/PMOD1", "/PMOD5", "/PMOD8"}
 PMOD_HOST = "Y5's bottom edge"
 PMOD_NAMES = {}
 HANDBOOK_INTRO = []
 HANDBOOK_SECTIONS = []
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0)]
 HOLES = []
-FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 70.0), (5.0, 85.0)]
+FEET = [(5.0, 5.0), (95.0, 5.0), (95.8, 71.0), (5.0, 85.0)]
 SLOTS = []
 RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
               ("-5V", [(8.0, 27.85), (72.65, 27.85), (72.65, 16.75), (74.25, 16.75), (74.25, 27.85), (93.4, 27.85),   # with Y9's finger
@@ -688,6 +809,9 @@ def _pad(k):
 _Y9 = G.cell_origin(3, 0)
 FRONT_WIRES = [("/PMOD1", [_pad(12), (_pad(12)[0], 93.05), (50.0, 93.05), (50.0, _Y2[1] + 0.6)]),
                # IO8 round the left and top margins to Y9's load switch
+               # IO5 up the gutter at x 50.4 to Y10's shunt
+               ("/PMOD5", [_pad(11), (_pad(11)[0] + 1.27, _PM[1]), (_pad(11)[0] + 1.27, 93.5), (50.4, 93.5), (50.4, G.cell_origin(2, 2)[1] + 0.25),
+                           (G.cell_origin(2, 2)[0] - 0.35, G.cell_origin(2, 2)[1] + 0.25)]),
                ("/PMOD8", [_pad(5), (_pad(5)[0], 99.15), (2.4, 99.15), (2.4, 93.2), (6.0, 93.2), (6.0, 1.5), (71.5, 1.5), (71.5, _Y9[1] + 3.95),
                            (_Y9[0] + 2.0625, _Y9[1] + 3.95)])]
 FRONT_TEXT = []
