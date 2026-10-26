@@ -151,13 +151,15 @@ def tile_y3():
 
 
 # ------------------------------------------------------------------------------------------------- the LMH6629 amp --
-def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True):
+def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True, chip="LMH6629", rf=("R0402 240R", "240"), rg=("R0402 27R", "27"),
+            rb=("R0402 10k", "10k"), cf=None):
     """A single-supply LMH6629 at gain 9.9 (240 ohm / 27 ohm, the 27 ohm to ground through 1 uF so the output sits at the
     bias) in a cell's top-right quarter.  The IN line along y 4.75: 49.9 ohm to ground (the termination), 1 uF in series,
     +IN biased at half the supply by 10 k / 10 k above the line.  The op amp at (13.2, 6.9), rot 270 (+IN, V-, OUT along the
     top, -IN and V+ along the bottom); OUT round its right side at x 15.1 to Rf under it and to 1 uF and 49.9 ohm into the OUT
     jack at the cell's bottom-right.  VS comes up the back from a via at (10.2, 18.1) that the tile feeds.  term=False leaves
-    out the 49.9 ohm termination (a source on the tile drives the line)."""
+    out the 49.9 ohm termination (a source on the tile drives the line).  `chip`, `rf`, `rg`, `rb` (the bias pair) and `cf` (a
+    capacitor across Rf, under it) re-use the core for other gains (Y6)."""
     X = lambda x: x + dx
     sfx = "" if dx == 0 else "B"
     IN, IN2, OUTA, FBN, OUTC, OUT = ("IN" + sfx, "IN2" + sfx, "OA" + sfx, "FB" + sfx, "OC" + sfx, "OUT" + sfx)
@@ -172,10 +174,10 @@ def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True):
     if term:
         t.wire(IN, [(X(8.9), 4.75), (rt, "1")], width=0.25)
         t.gnd_stub(rt, "2", (X(8.9), 7.4), sym=(0, 0), width=0.2, fine=True)
-    u = t.add("U", "LMH6629", "LMH6629", X(13.2), 6.9, 270, {"1": OUTA, "2": "GND", "3": IN2, "4": FBN, "5": "VS"}, hide_value=False, label=None)
+    u = t.add("U", chip, chip, X(13.2), 6.9, 270, {"1": OUTA, "2": "GND", "3": IN2, "4": FBN, "5": "VS"}, hide_value=False, label=None)
     t.wire(IN2, [(cin, "2"), (X(12.25), 4.75), (u, "3")], width=0.25)
-    rb1 = t.add("R", "R0402 10k", "10k", X(11.6), 3.3, 90, {"1": IN2, "2": "VS"}, label=None)                  # pad 1 down
-    rb2 = t.add("R", "R0402 10k", "10k", X(12.65), 3.3, 270, {"1": "GND", "2": IN2}, label=None)               # pad 2 down
+    rb1 = t.add("R", rb[0], rb[1], X(11.6), 3.3, 90, {"1": IN2, "2": "VS"}, label=None)                        # pad 1 down
+    rb2 = t.add("R", rb[0], rb[1], X(12.65), 3.3, 270, {"1": "GND", "2": IN2}, label=None)                     # pad 2 down
     t.wire(IN2, [(X(11.6), 4.75), (rb1, "1")], width=0.2)
     t.wire(IN2, [(rb2, "2"), (X(12.4), 4.4), (X(12.25), 4.75)], width=0.2)
     t.gnd_stub(rb2, "1", (X(12.65), 1.6), sym=(0, 0), width=0.2, fine=True)
@@ -183,13 +185,17 @@ def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True):
     t.wire("VS", [(rb1, "2"), (X(11.6), 1.6)], width=0.2)
     t.gnd_stub(u, "2", (X(13.4), 4.4), sym=(0, 0), width=0.2, fine=True)
     # the output: up and round the right side at x 15.1 to Rf under the op amp and to 1 uF and 49.9 ohm down into the jack
-    rf = t.add("R", "R0402 240R", "240", X(13.6), 10.2, 0, {"1": FBN, "2": OUTA}, label=None)
-    t.wire(OUTA, [(u, "1"), (X(14.15), 4.5), (X(15.1), 4.5), (X(15.1), 10.2), (rf, "2")], width=0.2)
-    rg = t.add("R", "R0402 27R", "27", X(11.05), 10.9, 270, {"1": FBN, "2": "CG" + sfx}, label=None)           # pad 1 up
+    rf_ = t.add("R", rf[0], rf[1], X(13.6), 10.2, 0, {"1": FBN, "2": OUTA}, label=None)
+    t.wire(OUTA, [(u, "1"), (X(14.15), 4.5), (X(15.1), 4.5), (X(15.1), 10.2), (rf_, "2")], width=0.2)
+    rg_ = t.add("R", rg[0], rg[1], X(11.05), 10.9, 270, {"1": FBN, "2": "CG" + sfx}, label=None)                # pad 1 up
     cg = t.add("C", "C0402 1uF", "1u", X(11.05), 12.9, 270, {"1": "CG" + sfx, "2": "GND"}, label=None)
-    t.wire(FBN, [(u, "4"), (X(12.25), 10.2), (rf, "1")], width=0.2)
-    t.wire(FBN, [(X(12.25), 10.2), (X(11.05), 10.2), (rg, "1")], width=0.2)
-    t.wire("CG" + sfx, [(rg, "2"), (cg, "1")], width=0.2)
+    t.wire(FBN, [(u, "4"), (X(12.25), 10.2), (rf_, "1")], width=0.2)
+    t.wire(FBN, [(X(12.25), 10.2), (X(11.05), 10.2), (rg_, "1")], width=0.2)
+    t.wire("CG" + sfx, [(rg_, "2"), (cg, "1")], width=0.2)
+    if cf:                                                     # across Rf, just under it, clear of the OUT jack's leg
+        cf_ = t.add("C", cf[0], cf[1], X(14.2), 11.23, 0, {"1": FBN, "2": OUTA}, label=None)
+        t.wire(FBN, [(X(13.12), 10.2), (X(13.72), 10.75), (cf_, "1")], width=0.2, silk=False)
+        t.wire(OUTA, [(X(14.08), 10.2), (X(14.68), 10.75), (cf_, "2")], width=0.2, silk=False)
     t.gnd_stub(cg, "2", (X(11.05), 14.2), sym=(0, 0), width=0.2, fine=True)
     co = t.add("C", "C0402 1uF", "1u", X(16.6), 5.6, 270, {"1": OUTA, "2": OUTC}, label=None)                  # pad 1 up
     ro = t.add("R", "R0402 49.9R", "49.9", X(16.6), 7.6, 270, {"1": OUTC, "2": OUT}, label=None)
@@ -605,6 +611,124 @@ def tile_y10():
     return t
 
 
+# ------------------------------------------------------------------------------------------------------------ Y6 --
+def tile_y6():
+    """A VLF / LF loop amplifier, one cell: the loop (or a ferrite rod's coil) on the IN jack through an SMA lead, 1 uF into an
+    OPA810 biased at half the supply by 100 k / 100 k (the loop is a low-impedance source; the 50 ohm termination stays off),
+    gain 101 (10 k / 100 ohm, the 100 ohm to ground through 1 uF: a 1.6 kHz high-pass), 100 pF across 10 k (a 160 kHz roll-off
+    that keeps the AM broadcast band out), 1 uF and 49.9 ohm into OUT.  The LMH6629 tile's core with other values."""
+    t = Tile("Y6", "VLF loop amplifier", [(2, 3)], supply="+5 V", subtitle="OPA810 x101", sections=[])
+    t.jack("TL", "LOOP", "IN", "in", "mV", silk="LOOP")
+    t.jack("BR", "OUT", "OUT", "out", "", silk="OUT")
+    power_header(t, rail="+5V")
+    t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
+    lmh_amp(t, 0.0, term=False, chip="OPA810", rf=("R0402 10k", "10k"), rg=("R0402 100R", "100"), rb=("R0402 100k", "100k"),
+            cf=("C0402 100pF", "100p"))
+    t.text(1.2, 9.4, "Y6", 1.2, 0.2, "left")
+    t.text(4.1, 9.4, "VLF", 0.8, 0.15, "left")
+    t.result = "gain 101 from 1.6 kHz to 160 kHz (the loop's EMF rises with frequency on top): sferics, the Navy's MSK stations near 24 kHz, WWVB at 60 kHz"
+    t.notes = ["A loop's EMF is N A dB/dt: a 1 m square of 10 turns gives about 1 uV for 1 pT at 20 kHz.  1 uF into an OPA810 at half",
+               "the supply (100 k / 100 k), gain 101 (10 k / 100 ohm to ground through 1 uF), 100 pF across 10 k: 1.6 - 160 kHz.  Sferics",
+               "(lightning, thousands of kilometres away), NAA's 24 kHz MSK, WWVB's 60 kHz time code.  Two loops at right angles (this and",
+               "Y5's IN A, or two boards) give a lightning stroke's bearing from the ratio of the two signals."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
+# ------------------------------------------------------------------------------------------------------------ Y4 --
+def tile_y4():
+    """The coil driver, one cell in the board's corner: a DRV8876 H-bridge in PH/EN mode (Pmod IO6 enables and is the PWM, IO7
+    the direction; 100 k holds both low), nSLEEP and the 5 V divider from the switched rail.  VM through two B5819W: USB's 5 V
+    (4.6 V) or 12-18 V on the right-margin terminal, whichever is higher (the 25 V bulk capacitor sets the limit).  IPROPI into
+    1.5 k sets the current limit with VREF (5.1 k / 3.3 k: 2 V) and is buffered by an OPA810 (from VM) into MON through 49.9 ohm.
+    The coil on the lower terminal.  The chip at (13, 12.5), rot 0: control pins down its left, the charge pump, VM and OUT2
+    down its right, OUT1 at its foot; the diodes above it, the buffer beside the MON jack; IO6 / IO7 come down the back at
+    x 9.55 / 8.95 to vias beside pins 1 and 2."""
+    t = Tile("Y4", "coil driver", [(3, 3)], supply="+5 V or 12-18 V", subtitle="DRV8876", sections=[])
+    t.fine = True
+    jmon = t.jack("TL", "MON", "MON", "out", "IPROPI", silk="MON")
+    power_header(t, rail="+5V")
+    t.pwr_flags.append("VM")                                   # VM comes through the two Schottkys
+    u = t.add("U", "DRV8876", "DRV8876", 13.0, 12.5, 0, {"1": "/PMOD6", "2": "/PMOD7", "3": "VS", "5": "VREF", "6": "IP", "7": "GND",
+                                                         "8": "OUT1", "9": "GND", "10": "OUT2", "11": "VM", "12": "VCP", "13": "CPH",
+                                                         "14": "CPL", "15": "GND", "16": "GND", "17": "GND"}, hide_value=False, label=None)
+    for (x, y) in ((12.2, 11.0), (13.8, 11.0), (12.2, 12.5), (13.8, 12.5), (12.2, 14.0), (13.8, 14.0)):
+        t.gnd_stub(u, "17", (x, y), sym=(0, 0), width=0.3)                          # the PowerPAD's vias
+    t.wire("GND", [(u, "9"), (14.5, 14.775)], width=0.3, silk=False)
+    t.wire("GND", [(u, "15"), (14.5, 10.875)], width=0.3, silk=False)
+    t.wire("GND", [(u, "16"), (15.5, 10.225), (15.5, 10.875)], width=0.25, silk=False)
+    t.wire("GND", [(u, "7"), (11.5, 14.125)], width=0.25, silk=False)
+    # IO6 / IO7: vias beside pins 1 and 2 (the board's back wires end on them); 100 k pull-downs to one ground via
+    t.via("/PMOD6", 9.55, 9.5, fine=True)
+    t.wire("/PMOD6", [(9.55, 9.5), (u, "1")], width=F)
+    t.via("/PMOD7", 8.95, 10.875, fine=True)
+    t.wire("/PMOD7", [(8.95, 10.875), (u, "2")], width=F)
+    rpd6 = t.add("R", "R0402 100k", "100k", 7.4, 9.7, 0, {"1": "GND", "2": "/PMOD6"}, label=None)
+    t.wire("/PMOD6", [(rpd6, "2"), (9.55, 9.5)], width=F)
+    rpd7 = t.add("R", "R0402 100k", "100k", 7.7, 10.9, 0, {"1": "GND", "2": "/PMOD7"}, label=None)
+    t.wire("/PMOD7", [(rpd7, "2"), (8.95, 10.875)], width=F)
+    gnd(t, rpd6, "1", (6.0, 9.7), w=0.2)
+    t.wire("GND", [(rpd7, "1"), (6.4, 10.3), (6.0, 9.7)], width=0.2, silk=False)
+    # VS: the drain to a via, on the back under the FET and up x 5.9 to a via; along y 11.52 to nSLEEP and the divider's top
+    t.via("VS", 9.0, 17.3, fine=True)
+    t.wire("VS", [HDR_VS, (9.0, 17.3)], width=0.3)
+    t.via("VS", 5.9, 11.3, fine=True)
+    t.wire("VS", [(9.0, 17.3), (6.5, 17.3), (5.9, 16.7), (5.9, 11.3)], width=0.3, layer="B.Cu", silk=False, fine=True)
+    rv1 = t.add("R", "R0402 5.1k", "5.1k", 6.2, 12.0, 270, {"1": "VS", "2": "VREF"}, label=None)                 # pad 1 up
+    rv2 = t.add("R", "R0402 3.3k", "3.3k", 6.2, 13.95, 270, {"1": "VREF", "2": "GND"}, label=None)
+    t.wire("VS", [(5.9, 11.3), (rv1, "1")], width=0.25)
+    t.wire("VS", [(rv1, "1"), (u, "3")], width=0.25)
+    t.wire("VREF", [(rv1, "2"), (rv2, "1")], width=0.2)
+    t.wire("VREF", [(6.2, 12.825), (u, "5")], width=0.2)
+    gnd(t, rv2, "2", (7.2, 14.9), w=0.2)
+    # IPROPI: 1.5 k to ground, and up the back to the buffer's +IN
+    rip = t.add("R", "R0402 1.5k", "1.5k", 8.55, 15.1, 90, {"1": "GND", "2": "IP"}, label=None)                 # pad 2 up
+    t.wire("IP", [(u, "6"), (8.55, 13.475), (rip, "2")], width=0.2)
+    gnd(t, rip, "1", (8.55, 16.15), w=0.2)
+    t.via("IP", 7.9, 13.9, fine=True)
+    t.wire("IP", [(8.55, 13.475), (7.9, 13.9)], width=0.2)
+    t.wire("IP", [(7.9, 13.9), (10.9, 9.6), (11.65, 6.9)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    t.via("IP", 11.65, 6.9, fine=True)
+    # the buffer (OPA810 rot 270 at (12.9, 6.9), from VM): OUT round the top-left to -IN, 49.9 ohm to MON
+    ub = t.add("U", "OPA810", "OPA810", 12.6, 6.9, 270, {"1": "MO", "2": "GND", "3": "IP", "4": "MO", "5": "VM"}, hide_value=False, label=None)
+    t.wire("IP", [(11.65, 6.9), (ub, "3")], width=0.2)
+    t.wire("MO", [(ub, "1"), (13.55, 3.6), (10.9, 3.6), (10.9, 8.04), (ub, "4")], width=0.2)
+    t.gnd_stub(ub, "2", (12.6, 4.4), sym=(0, 0), width=0.2, fine=True)
+    rmo = t.add("R", "R0402 49.9R", "49.9", 9.9, 4.75, 0, {"1": "MON", "2": "MO"}, label=None)
+    t.wire("MO", [(10.9, 4.75), (rmo, "2")], width=0.2)
+    t.wire("MON", [(rmo, "1"), (jmon, "1")], width=0.25)
+    # VM: the two Schottkys above the chip, joined along y 7.3, down x 19.2 into pin 11; the charge pump beside the pins
+    dint = t.add("D", "B5819W", "B5819W", 15.9, 5.0, 90, {"1": "VM", "2": "VS"}, hide_value=False, label=None)    # rot 90: K down
+    dext = t.add("D", "B5819W", "B5819W", 18.25, 4.2, 90, {"1": "VM", "2": "VEXT"}, hide_value=False, label=None)
+    t.wire("VM", [(dint, "1"), (15.9, 7.3), (19.2, 7.3), (19.2, 13.475), (u, "11")], width=0.3)
+    t.wire("VM", [(dext, "1"), (18.25, 7.3)], width=0.3)
+    t.wire("VM", [(15.9, 7.3), (ub, "5")], width=0.25)
+    cvm = t.add("C", "C0805 10uF", "10u", 16.6, 8.75, 0, {"1": "GND", "2": "VM"}, label=None)
+    t.wire("VM", [(cvm, "2"), (19.2, 8.75)], width=0.4)
+    gnd(t, cvm, "1", (15.2, 9.6), w=0.4)
+    ccp = t.add("C", "C0402 22nF", "22n", 17.6, 11.85, 90, {"1": "CPH", "2": "CPL"}, label=None)               # pad 1 down
+    t.wire("CPH", [(u, "13"), (17.3, 12.175), (ccp, "1")], width=0.2)
+    t.wire("CPL", [(u, "14"), (17.3, 11.525), (ccp, "2")], width=0.2)
+    cvcp = t.add("C", "C0402 100nF", "100n", 18.6, 12.75, 90, {"1": "VM", "2": "VCP"}, label=None)              # pad 1 down
+    t.wire("VCP", [(u, "12"), (18.1, 12.9), (cvcp, "2")], width=0.2)
+    t.wire("VM", [(cvcp, "1"), (19.2, 13.23)], width=0.25)
+    # the terminals in the right margin (rot 270: the wires enter from the board's edge): VM in above, the coil below
+    tvm = t.add("J", "TERM2", "VM in", 23.4, 9.0, 270, {"1": "VEXT", "2": "GND"}, hide_value=True)
+    tco = t.add("J", "TERM2", "coil", 23.4, 21.0, 270, {"1": "OUT2", "2": "OUT1"}, hide_value=True)
+    t.wire("VEXT", [(tvm, "1"), (21.4, 2.55), (dext, "2")], width=0.6)
+    t.wire("OUT2", [(u, "10"), (19.9, 14.125), (23.4, 17.6), (tco, "1")], width=0.6)
+    t.wire("OUT1", [(u, "8"), (10.1, 15.6), (10.1, 19.6), (21.5, 19.6), (23.4, 21.5), (tco, "2")], width=0.6)
+    t.via("VS", 15.9, 2.4, fine=True)
+    t.wire("VS", [(dint, "2"), (15.9, 2.4)], width=0.3)
+    t.wire("VS", [(9.0, 17.3), (19.6, 17.3), (19.6, 2.4), (15.9, 2.4)], width=0.3, layer="B.Cu", silk=False, fine=True)
+    t.text(1.2, 21.3, "Y4", 1.2, 0.2, "left")
+    t.text(4.1, 21.3, "COIL", 0.8, 0.15, "left")
+    t.result = "about 1.3 A either way into a coil, PWM on IO6; MON about 1.5 V per amp"
+    t.notes = ["DRV8876 in PH/EN mode: IO6 enables (PWM), IO7 the direction; VM = USB or 12-18 V (two B5819W); IPROPI buffered to MON."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
 # ------------------------------------------------------------------------------------------------------------ Y1 --
 def tile_y1():
     """Power, two cells, no jacks.  Left: the TPS65131 boost and inverter make +15 and -15 V from the 5 V (1 M / 88.7 k and
@@ -777,10 +901,10 @@ def tile_y1():
 
 
 def tiles():
-    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y10(), tile_y5()]
+    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y10(), tile_y5(), tile_y6(), tile_y4()]
 
 
-PMOD_USED = {"/PMOD1", "/PMOD5", "/PMOD8"}
+PMOD_USED = {"/PMOD1", "/PMOD5", "/PMOD6", "/PMOD7", "/PMOD8"}
 PMOD_HOST = "Y5's bottom edge"
 PMOD_NAMES = {}
 HANDBOOK_INTRO = []
@@ -794,8 +918,6 @@ RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
                        (93.4, 29.15), (8.0, 29.15)], 1)]
 _Y1, _Y2 = G.cell_origin(2, 1), G.cell_origin(2, 0)
 # +-15 V from Y1 up to Y2 on the back: +15 V up the gutter at x 70.8, -15 V straight up at Y1 / Y2's local x 10.6 to 11.15
-BACK_WIRES = [("+15V", [(_Y1[0] + 20.05, _Y1[1] + 7.2), (_Y1[0] + 20.05, _Y2[1] + 6.45), (_Y2[0] + 19.6, _Y2[1] + 6.0)]),
-              ("-15V", [(_Y1[0] + 11.15, _Y1[1] + 5.7), (_Y1[0] + 9.55, _Y1[1] + 4.1), (_Y2[0] + 9.55, _Y2[1] + 13.75)])]
 _PM = (G.cell_origin(0, 3)[0] + 2.97, G.cell_origin(0, 3)[1] + 24.25)   # the Pmod plug's centre: pad columns at -6.35 .. 6.35, rows at +-1.27
 
 
@@ -805,13 +927,21 @@ def _pad(k):
     return (round(_PM[0] - 6.35 + 2.54 * col, 3), round(_PM[1] + (1.27 if k % 2 else -1.27), 3))
 
 
+_Y4 = G.cell_origin(3, 3)
+BACK_WIRES = [("+15V", [(_Y1[0] + 20.05, _Y1[1] + 7.2), (_Y1[0] + 20.05, _Y2[1] + 6.45), (_Y2[0] + 19.6, _Y2[1] + 6.0)]),
+              ("-15V", [(_Y1[0] + 11.15, _Y1[1] + 5.7), (_Y1[0] + 9.55, _Y1[1] + 4.1), (_Y2[0] + 9.55, _Y2[1] + 13.75)]),
+              # IO6 / IO7 to Y4: along the bottom edge, up the left side of the gutter at x 48.6 / 49.0, across the top of Y6
+              ("/PMOD6", [_pad(9), (_pad(9)[0], 99.0), (48.6, 99.0), (48.6, _Y4[1] - 0.4), (_Y4[0] + 9.55, _Y4[1] - 0.4), (_Y4[0] + 9.55, _Y4[1] + 9.5)]),
+              ("/PMOD7", [_pad(7), (_pad(7)[0], 99.4), (49.0, 99.4), (49.0, _Y4[1] + 0.1), (_Y4[0] + 8.95, _Y4[1] + 0.1), (_Y4[0] + 8.95, _Y4[1] + 10.875)])]
+FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (88.0, 97.0)]          # the third off Y4's coil terminal
+
 # the Pmod lines: along the bottom margin, then up the gutter between columns 1 and 2 (x 49.4 .. 50.6)
 _Y9 = G.cell_origin(3, 0)
 FRONT_WIRES = [("/PMOD1", [_pad(12), (_pad(12)[0], 93.05), (50.0, 93.05), (50.0, _Y2[1] + 0.6)]),
-               # IO8 round the left and top margins to Y9's load switch
                # IO5 up the gutter at x 50.4 to Y10's shunt
                ("/PMOD5", [_pad(11), (_pad(11)[0] + 1.27, _PM[1]), (_pad(11)[0] + 1.27, 93.5), (50.4, 93.5), (50.4, G.cell_origin(2, 2)[1] + 0.25),
                            (G.cell_origin(2, 2)[0] - 0.35, G.cell_origin(2, 2)[1] + 0.25)]),
+               # IO8 round the left and top margins to Y9's load switch
                ("/PMOD8", [_pad(5), (_pad(5)[0], 99.15), (2.4, 99.15), (2.4, 93.2), (6.0, 93.2), (6.0, 1.5), (71.5, 1.5), (71.5, _Y9[1] + 3.95),
                            (_Y9[0] + 2.0625, _Y9[1] + 3.95)])]
 FRONT_TEXT = []

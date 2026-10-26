@@ -1017,7 +1017,7 @@ class Board:
         return n, len(rects)
 
     def fiducials(self):
-        for (x, y) in FIDUCIALS:
+        for (x, y) in (self.meta.get("fiducials") or FIDUCIALS):              # a board may move them off its parts
             for layer, r in ((pcbnew.F_Cu, 0.5), (pcbnew.F_Mask, 1.0)):
                 c = pcbnew.PCB_SHAPE(self.board)
                 c.SetShape(pcbnew.SHAPE_T_CIRCLE)
