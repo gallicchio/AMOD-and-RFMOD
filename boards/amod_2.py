@@ -151,24 +151,27 @@ def tile_y3():
 
 
 # ------------------------------------------------------------------------------------------------- the LMH6629 amp --
-def lmh_amp(t, dx=0.0, jack_in=True, in_from=None):
+def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True):
     """A single-supply LMH6629 at gain 9.9 (240 ohm / 27 ohm, the 27 ohm to ground through 1 uF so the output sits at the
     bias) in a cell's top-right quarter.  The IN line along y 4.75: 49.9 ohm to ground (the termination), 1 uF in series,
     +IN biased at half the supply by 10 k / 10 k above the line.  The op amp at (13.2, 6.9), rot 270 (+IN, V-, OUT along the
     top, -IN and V+ along the bottom); OUT round its right side at x 15.1 to Rf under it and to 1 uF and 49.9 ohm into the OUT
-    jack at the cell's bottom-right.  VS comes up the back from a via at (10.2, 18.1) that the tile feeds."""
+    jack at the cell's bottom-right.  VS comes up the back from a via at (10.2, 18.1) that the tile feeds.  term=False leaves
+    out the 49.9 ohm termination (a source on the tile drives the line)."""
     X = lambda x: x + dx
     sfx = "" if dx == 0 else "B"
     IN, IN2, OUTA, FBN, OUTC, OUT = ("IN" + sfx, "IN2" + sfx, "OA" + sfx, "FB" + sfx, "OC" + sfx, "OUT" + sfx)
-    rt = t.add("R", "R0402 49.9R", "49.9", X(8.9), 6.1, 270, {"1": IN, "2": "GND"}, label=None)                 # pad 1 up
+    if term:
+        rt = t.add("R", "R0402 49.9R", "49.9", X(8.9), 6.1, 270, {"1": IN, "2": "GND"}, label=None)             # pad 1 up
     cin = t.add("C", "C0402 1uF", "1u", X(10.4), 4.75, 0, {"1": IN, "2": IN2}, label=None)
     if jack_in:
         jref = [j["ref"] for j in t.jacks if j["slot"] in (("TL", "TL0") if dx == 0 else ("TL1",))][0]
         t.wire(IN, [(jref, "1"), (cin, "1")], width=0.25)
     else:
         t.wire(IN, list(in_from) + [(cin, "1")], width=0.25)
-    t.wire(IN, [(X(8.9), 4.75), (rt, "1")], width=0.25)
-    t.gnd_stub(rt, "2", (X(8.9), 7.4), sym=(0, 0), width=0.2, fine=True)
+    if term:
+        t.wire(IN, [(X(8.9), 4.75), (rt, "1")], width=0.25)
+        t.gnd_stub(rt, "2", (X(8.9), 7.4), sym=(0, 0), width=0.2, fine=True)
     u = t.add("U", "LMH6629", "LMH6629", X(13.2), 6.9, 270, {"1": OUTA, "2": "GND", "3": IN2, "4": FBN, "5": "VS"}, hide_value=False, label=None)
     t.wire(IN2, [(cin, "2"), (X(12.25), 4.75), (u, "3")], width=0.25)
     rb1 = t.add("R", "R0402 10k", "10k", X(11.6), 3.3, 90, {"1": IN2, "2": "VS"}, label=None)                  # pad 1 down
@@ -233,6 +236,250 @@ def tile_y5():
     t.notes = ["Two TI LMH6629 (0.69 nV/rtHz, 4 GHz at gain 10) on one 5 V: 49.9 ohm terminates each input, 1 uF couples it to +IN at half",
                "the supply, 240 / 27 ohm (the 27 ohm to ground through 1 uF) set the gain, 1 uF and 49.9 ohm feed the output jack.  Two",
                "antennas into IN A and IN B and the host's two ADCs: a coherent two-channel HF receiver (WWV Doppler, direction finding)."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
+# ------------------------------------------------------------------------------------------------------------ Y9 --
+def tile_y9():
+    """A switched HF noise source: the base-emitter junction of an MMBT3904 in avalanche (the base at -5 V, the emitter fed from
+    the switched rail VN through 680 ohm: about 8 V across it at 2-3 mA), its noise straight into an LMH6629 at gain 9.9 (the
+    Y5 channel without its input termination) and out through 1 uF and 49.9 ohm.  A TPS22917 load switch makes VN from the
+    tile's 5 V when Pmod IO8 is high: off is the cold state of a Y-factor measurement (the amplifier's own noise), on the hot.
+    The switch and the junction stand in the top-left quarter (no jack there), the amplifier in the top-right; -5 V comes up
+    a finger of L3 from the gutter below."""
+    t = Tile("Y9", "noise source", [(3, 0)], supply="+5 V", subtitle="MMBT3904 + LMH6629", sections=[])
+    t.jack("BR", "OUT", "OUT", "out", "", silk="OUT")
+    power_header(t, rail="+5V")
+    t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
+    # the switch: TPS22917 (rot 0: VIN 1, GND 2, ON 3 down the left; VOUT 6 top-right; CT and QOD open); ON is Pmod IO8
+    sw = t.add("U", "TPS22917", "TPS22917", 3.2, 3.0, 0, {"1": "VS", "2": "GND", "3": "/PMOD8", "6": "VN"}, hide_value=False, label=None)
+    t.gnd_stub(sw, "2", (3.2, 3.0), sym=(0, 0), width=0.25, fine=True)
+    cvs = t.add("C", "C0402 1uF", "1u", 3.2, 0.6, 180, {"1": "VS", "2": "GND"}, label=None)                  # rot 180: VS pad right
+    gnd(t, cvs, "2", (1.6, 0.6), w=0.25)
+    t.wire("VS", [(sw, "1"), (2.0625, 1.3), (3.68, 1.3), (cvs, "1")], width=0.25)
+    t.wire("VS", [(3.68, 1.3), (11.6, 1.3), (11.6, 1.6)], width=0.25)                  # to the amplifier's bias via
+    # VN: down x 5.45 to its 100 nF and the 680 ohm feed
+    cvn = t.add("C", "C0402 100nF", "100n", 6.35, 3.3, 0, {"1": "VN", "2": "GND"}, label=None)
+    re_ = t.add("R", "R0402 680R", "680", 6.35, 4.9, 0, {"1": "VN", "2": "IN"}, label=None)
+    t.wire("VN", [(sw, "6"), (5.45, 2.05), (5.45, 4.9), (re_, "1")], width=0.25)
+    t.wire("VN", [(5.45, 3.3), (cvn, "1")], width=0.25)
+    gnd(t, cvn, "2", (7.7, 3.3), w=0.25)
+    # the junction: MMBT3904 rot 180 (E 2 top-right, B 1 bottom-right, C 3 left and open); E is the noise node IN
+    q = t.add("Q", "MMBT3904", "MMBT3904", 6.6, 7.6, 180, {"1": "-5V", "2": "IN"}, hide_value=False, label=None)
+    t.wire("IN", [(re_, "2"), (7.54, 4.9)], width=0.25)
+    t.wire("IN", [(q, "2"), (7.54, 4.9)], width=0.25)
+    cb1 = t.add("C", "C0402 100pF", "100p", 7.54, 10.4, 270, {"1": "-5V", "2": "GND"}, label=None)            # pad 1 up
+    cb2 = t.add("C", "C0402 100nF", "100n", 6.4, 10.4, 270, {"1": "-5V", "2": "GND"}, label=None)
+    t.wire("-5V", [(q, "1"), (cb1, "1")], width=0.25)
+    t.wire("-5V", [(cb2, "1"), (6.4, 9.55), (7.54, 9.55)], width=0.25)
+    t.via("-5V", 1.2, 9.55)
+    t.wire("-5V", [(6.4, 9.55), (1.2, 9.55)], width=0.25)
+    gnd(t, cb1, "2", (7.54, 12.0), w=0.25)
+    gnd(t, cb2, "2", (6.4, 12.0), w=0.25)
+    lmh_amp(t, 0.0, jack_in=False, in_from=[(7.54, 4.9), (8.0, 4.75)], term=False)
+    t.text(1.0, 6.3, "Y9", 1.2, 0.2, "left")
+    t.text(1.0, 7.8, "NOISE", 0.8, 0.15, "left")
+    t.result = "off: the amplifier's own noise (about 6 nV/rtHz at OUT); on: tens to hundreds of nV/rtHz from 10 kHz to 50 MHz, flat to about 1 dB"
+    t.notes = ["An MMBT3904's emitter-base junction breaks down near 8 V; between -5 V and the switched 5 V through 680 ohm it carries",
+               "2-3 mA and its avalanche noise, many times kT's, goes straight into an LMH6629 at gain 9.9 and out through 49.9 ohm.  IO8",
+               "high turns it on (a TPS22917 switches its 5 V): hot and cold for a Y-factor noise figure, or a broadband stimulus whose",
+               "cross-spectrum against the response on the host's second ADC is a transfer function."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
+# ------------------------------------------------------------------------------------------------------------ Y7 --
+def tile_y7():
+    """The reflection bridge, two cells, +-5 V.  DRIVE (the top-left jack) feeds node D; 49.9 ohm from D to A, which runs right
+    along y 4.75 to the DUT jack (the right cell's top-left); 49.9 ohm from D to B and 49.9 ohm from B to ground.  With a 50 ohm
+    DUT the bridge balances (A = B); in general A - B = B x Gamma.  Two OPA810 (SOT-23-5, rot 270) stand under the line, each
+    input a millimetre or two from its node: U1 at gain 2 on B (INC, through 49.9 ohm to the left cell's bottom-right jack) and
+    U2 as a difference amplifier, +IN on A and 499 ohm from U1's output to -IN, 499 ohm feedback: 2 A - 2 B (REFL, through
+    49.9 ohm along y 10 to the right cell's bottom-right jack).  REFL / INC = Gamma, complex, at every frequency the host
+    makes.  -5 V comes down the back from the gutter above at x 14.6 and 19.8; VS up the back from the switch at x 10.2."""
+    t = Tile("Y7", "reflection bridge", [(0, 1), (1, 1)], supply="+-5 V", subtitle="2 x OPA810", sections=[])
+    jd = t.jack("TL0", "DRIVE", "DRV", "in", "+-1 V into 50 ohm", silk="DRIVE")
+    ji = t.jack("BR0", "INC", "INC", "out", "", silk="INC")
+    ju = t.jack("TL1", "DUT", "A", "out", "", silk="DUT")
+    jr = t.jack("BR1", "REFL", "REFL", "out", "", silk="REFL")
+    power_header(t, rail="+5V")
+    # the bridge: D at (12.1, 4.75); R1 along the line to A, R2 and R3 down from D to B and ground
+    t.wire("DRV", [(jd, "1"), (12.1, 4.75)], width=0.3)
+    r1 = t.add("R", "R0402 49.9R", "49.9", 13.1, 4.75, 0, {"1": "DRV", "2": "A"}, label=None)
+    r2 = t.add("R", "R0402 49.9R", "49.9", 12.1, 6.3, 270, {"1": "DRV", "2": "B"}, label=None)                 # pad 1 up
+    r3 = t.add("R", "R0402 49.9R", "49.9", 12.1, 8.2, 270, {"1": "B", "2": "GND"}, label=None)
+    t.wire("DRV", [(12.1, 4.75), (r1, "1")], width=0.3)
+    t.wire("DRV", [(12.1, 4.75), (r2, "1")], width=0.3)
+    t.wire("B", [(r2, "2"), (r3, "1")], width=0.25)
+    gnd(t, r3, "2", (12.1, 9.7), w=0.3)
+    t.wire("A", [(r1, "2"), (ju, "1")], width=0.3)
+    # U1: INC = 2 B.  rot 270: +IN (13.65, 7.26), V- (14.6, 7.26), OUT (15.55, 7.26); -IN (13.65, 9.54), V+ (15.55, 9.54)
+    u1 = t.add("U", "OPA810", "OPA810", 14.6, 8.4, 270, {"1": "O1", "2": "-5V", "3": "B", "4": "N1", "5": "VS"}, hide_value=False, label=None)
+    t.wire("B", [(12.1, 7.25), (u1, "3")], width=0.2)
+    rf1 = t.add("R", "R0402 499R", "499", 14.8, 11.1, 0, {"1": "N1", "2": "O1"}, label=None)
+    rg1 = t.add("R", "R0402 499R", "499", 12.9, 11.1, 0, {"1": "GND", "2": "N1"}, label=None)
+    t.wire("N1", [(u1, "4"), (13.65, 11.1)], width=0.2)
+    t.wire("N1", [(rg1, "2"), (rf1, "1")], width=0.2)
+    gnd(t, rg1, "1", (11.4, 11.6), w=0.2)
+    ro1 = t.add("R", "R0402 49.9R", "49.9", 16.9, 10.6, 270, {"1": "O1", "2": "INC"}, label=None)              # pad 1 up
+    t.wire("O1", [(u1, "1"), (16.2, 7.26), (16.2, 10.12), (ro1, "1")], width=0.2)
+    t.wire("O1", [(16.2, 10.12), (16.2, 10.6), (15.7, 11.1), (rf1, "2")], width=0.2)
+    t.wire("INC", [(ro1, "2"), (15.25, 12.73), (ji, "1")], width=0.25)
+    # U2: REFL = 2 A - 2 B.  +IN (18.85, 7.26) straight down from A; Rg2 from O1 to -IN, Rf2 under it
+    u2 = t.add("U", "OPA810", "OPA810", 19.8, 8.4, 270, {"1": "O2", "2": "-5V", "3": "A", "4": "N2", "5": "VS"}, hide_value=False, label=None)
+    t.wire("A", [(18.85, 4.75), (u2, "3")], width=0.2)
+    rg2 = t.add("R", "R0402 499R", "499", 17.5, 8.4, 270, {"1": "O1", "2": "N2"}, label=None)                  # pad 1 up
+    t.wire("O1", [(16.2, 7.92), (rg2, "1")], width=0.2)
+    t.wire("N2", [(rg2, "2"), (17.5, 9.54), (u2, "4")], width=0.2)
+    rf2 = t.add("R", "R0402 499R", "499", 19.8, 11.1, 0, {"1": "N2", "2": "O2"}, label=None)
+    t.wire("N2", [(u2, "4"), (18.85, 11.1), (rf2, "1")], width=0.2)
+    ro2 = t.add("R", "R0402 49.9R", "49.9", 23.5, 10.0, 0, {"1": "O2", "2": "REFL"}, label=None)
+    t.wire("O2", [(u2, "1"), (21.8, 7.26), (21.8, 10.0), (ro2, "1")], width=0.2)
+    t.wire("O2", [(21.8, 10.0), (21.8, 11.1), (rf2, "2")], width=0.2)
+    t.wire("REFL", [(ro2, "2"), (36.75, 10.0), (jr, "1")], width=0.25)
+    # -5 V: the V- pins up to vias, up the back to the gutter's L3 strip; 100 nF at a via on the way
+    for x, u in ((14.6, u1), (19.8, u2)):
+        t.wire("-5V", [(u, "2"), (x, 6.0)], width=0.25)
+        t.via("-5V", x, 2.0)
+        t.wire("-5V", [(x, 6.0), (x, -0.75)], width=0.3, layer="B.Cu", silk=False)
+        cn = t.add("C", "C0402 100nF", "100n", x + 1.0, 2.0, 0, {"1": "-5V", "2": "GND"}, label=None)
+        t.wire("-5V", [(x, 2.0), (cn, "1")], width=0.25)
+        gnd(t, cn, "2", (x + 2.2, 2.0), w=0.25)
+    # VS: the drain to a via, up the back at x 10.2 and along y 10.9 to vias under the V+ pins; 100 nF at each end
+    t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
+    for x, u in ((15.55, u1), (20.75, u2)):
+        t.wire("VS", [(u, "5"), (x, 10.25)], width=0.2)
+    t.wire("VS", [(10.2, 18.1), (10.2, 10.9), (15.0, 10.9), (15.55, 10.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(15.55, 10.25), (16.2, 10.9), (20.75, 10.9), (20.75, 10.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(20.75, 10.25), (21.3, 10.9), (22.8, 10.9), (22.8, 12.4)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.via("VS", 10.2, 10.9, fine=True)
+    cp1 = t.add("C", "C0402 100nF", "100n", 9.2, 11.6, 270, {"1": "VS", "2": "GND"}, label=None)               # pad 1 up
+    t.wire("VS", [(10.2, 10.9), (9.2, 10.9), (cp1, "1")], width=0.25)
+    gnd(t, cp1, "2", (9.2, 13.2), w=0.25)
+    cp2 = t.add("C", "C0402 100nF", "100n", 22.8, 13.5, 270, {"1": "VS", "2": "GND"}, label=None)
+    t.wire("VS", [(22.8, 12.4), (cp2, "1")], width=0.25)
+    gnd(t, cp2, "2", (22.8, 15.0), w=0.25)
+    t.text(1.2, 9.4, "Y7", 1.2, 0.2, "left")
+    t.text(4.1, 9.4, "BRIDGE", 0.8, 0.15, "left")
+    t.text(21.6, 17.6, "REFL/INC=S11", 0.8, 0.15, "left")
+    t.result = "REFL / INC = Gamma (S11) from DC to about 30 MHz: 0 for 50 ohm, +1 open, -1 short; after open-short-load calibration, better than -35 dB"
+    t.notes = ["A 50 ohm resistive bridge: D from DRIVE, 49.9 ohm to A (the DUT jack) and 49.9 + 49.9 ohm from D to ground with B between.",
+               "A - B = B x Gamma.  OPA810 U1 at gain 2 on B gives INC; U2, +IN on A and 499 / 499 ohm from U1's output, gives 2 A - 2 B,",
+               "REFL; each leaves through 49.9 ohm, so into the host's 50 ohm inputs REFL / INC = Gamma, magnitude and phase.  Calibrate",
+               "with an open, a short and a 50 ohm load on DUT (three complex numbers per frequency), then match an NMR probe or an antenna."]
+    t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
+    return t
+
+
+# ------------------------------------------------------------------------------------------------------------ Y8 --
+def tile_y8():
+    """Coupled and parametric resonators, two cells, passive: two 10 MHz LC tanks (TDK's 10 uH NLV32, Q about 30), each tuned
+    by a back-to-back pair of BB133 varactors whose cathodes sit at half the supply through 100 k / 100 k.  Like two cavities
+    each has weak capacitive ports: SIG (terminated in 49.9 ohm) drives tank 1 through 2.2 pF, and 2.2 pF from each tank feeds
+    its OUT jack, which the host's 50 ohm ADC input loads (about -43 dB, no buffer, no loading of the tank).  TUNE / PUMP
+    reaches tank 2's varactor cathodes through 100 k (DC: tank 2's frequency, half the open-circuit voltage) and 1 nF (RF: the
+    pump at twice the resonance).  A DIP4 switches 1 pF and 2.2 pF of coupling between the tanks and 2 k of damping across
+    either.  Tank 1 in the left cell's top-right quarter on a bus along y 4.75, tank 2 in the right cell's on y 5.5; the
+    switch under the right jack, its top row fed along y 8.55 - 9.35 from the left and y 9.0 from the right, its bottom row
+    joined to tank 2 round its right side."""
+    t = Tile("Y8", "coupled resonators", [(0, 2), (1, 2)], supply="+5 V", subtitle="2 x LC + BB133", sections=[])
+    js = t.jack("TL0", "SIG", "SIG", "in", "+-1 V into 50 ohm", silk="SIG")
+    jo1 = t.jack("BR0", "OUT 1", "OUT1", "out", "", silk="OUT 1")
+    jt = t.jack("TL1", "TUNE / PUMP", "TP", "in", "+-2 V open", silk="TUNE/PUMP")
+    jo2 = t.jack("BR1", "OUT 2", "OUT2", "out", "", silk="OUT 2")
+    power_header(t, rail="+5V")
+    # ---- tank 1: SIG through 2.2 pF onto the bus T1 along y 4.75; L1 and C1 above, the varactors and their bias to the right
+    rt = t.add("R", "R0402 49.9R", "49.9", 8.9, 6.1, 270, {"1": "SIG", "2": "GND"}, label=None)                 # pad 1 up
+    cs = t.add("C", "C0402 2.2pF", "2.2p", 10.4, 4.75, 0, {"1": "SIG", "2": "T1"}, label=None)
+    t.wire("SIG", [(js, "1"), (cs, "1")], width=0.25)
+    t.wire("SIG", [(8.9, 4.75), (rt, "1")], width=0.25)
+    gnd(t, rt, "2", (8.9, 7.4))
+    t.wire("T1", [(cs, "2"), (15.25, 4.75)], width=0.25)
+    t.wire("T1", [(15.25, 4.75), (20.0, 4.75)], width=0.25, silk=False)
+    c1 = t.add("C", "C0402 4.7pF", "4.7p", 10.9, 2.7, 90, {"1": "T1", "2": "GND"}, label=None)                  # pad 1 down
+    t.wire("T1", [(c1, "1"), (10.9, 4.75)], width=0.25)
+    gnd(t, c1, "2", (10.9, 1.1))
+    l1 = t.add("L", "L1210 10uH", "10u", 13.9, 1.9, 0, {"1": "T1", "2": "GND"}, label=None)
+    t.wire("T1", [(l1, "1"), (12.5, 4.75)], width=0.3)
+    gnd(t, l1, "2", (15.3, 3.6), w=0.4)
+    gnd(t, l1, "2", (15.9, 0.45), w=0.4)
+    d1a = t.add("D", "BB133", "BB133", 17.2, 2.8, 270, {"1": "K1", "2": "T1"}, hide_value=True, label=None)      # K up, A down
+    d1b = t.add("D", "BB133", "BB133", 19.2, 2.8, 90, {"1": "K1", "2": "GND"}, hide_value=True, label=None)      # K down, A up
+    t.wire("T1", [(d1a, "2"), (17.2, 4.75)], width=0.25, silk=False)
+    gnd(t, d1b, "2", (19.2, 0.6))
+    t.wire("K1", [(d1a, "1"), (18.2, 1.75), (18.2, 3.85), (d1b, "1")], width=0.2)
+    rk1a = t.add("R", "R0402 100k", "100k", 21.0, 2.4, 270, {"1": "VS", "2": "K1"}, label=None)                 # pad 1 up
+    rk1b = t.add("R", "R0402 100k", "100k", 21.0, 4.4, 270, {"1": "K1", "2": "GND"}, label=None)
+    t.wire("K1", [(d1b, "1"), (20.4, 3.85), (21.0, 3.4), (rk1a, "2")], width=0.2)
+    t.wire("K1", [(21.0, 3.4), (rk1b, "1")], width=0.2)
+    gnd(t, rk1b, "2", (21.0, 5.9))
+    t.via("VS", 21.0, 0.85, fine=True)
+    t.wire("VS", [(rk1a, "1"), (21.0, 0.85)], width=0.2)
+    # T1's ports: 2.2 pF down to OUT 1; 1 pF, 2.2 pF and 2 k down to the switch's top row (pins 8, 7, 6)
+    co1 = t.add("C", "C0402 2.2pF", "2.2p", 15.25, 10.6, 270, {"1": "T1", "2": "OUT1"}, label=None)             # pad 1 up
+    t.wire("T1", [(15.25, 4.75), (co1, "1")], width=0.25)
+    t.wire("OUT1", [(co1, "2"), (jo1, "1")], width=0.25)
+    cc1 = t.add("C", "C0402 1pF", "1p", 17.6, 6.4, 270, {"1": "T1", "2": "CA"}, label=None)
+    cc2 = t.add("C", "C0402 2.2pF", "2.2p", 18.8, 6.4, 270, {"1": "T1", "2": "CB"}, label=None)
+    rd1 = t.add("R", "R0402 2k", "2k", 20.0, 6.4, 270, {"1": "T1", "2": "RDA"}, label=None)
+    for x, part in ((17.6, cc1), (18.8, cc2), (20.0, rd1)):
+        t.wire("T1", [(x, 4.75), (part, "1")], width=0.2, silk=False)
+    sw = t.add("SW", "DIP4", "DIP4", 26.0, 14.3, 0, {"8": "CA", "7": "CB", "6": "RDA", "5": "RDB",
+                                                      "1": "T2", "2": "T2", "3": "GND", "4": "GND"}, hide_value=True)
+    t.wire("CA", [(cc1, "2"), (17.6, 9.5), (24.095, 9.5), (sw, "8")], width=0.2)
+    t.wire("CB", [(cc2, "2"), (18.8, 9.1), (25.365, 9.1), (sw, "7")], width=0.2)
+    t.wire("RDA", [(rd1, "2"), (20.0, 8.7), (26.635, 8.7), (sw, "6")], width=0.2)
+    gnd(t, sw, "3", (26.635, 16.6))
+    gnd(t, sw, "4", (27.905, 16.6))
+    # ---- tank 2: TUNE / PUMP right from its jack to 1 nF and 100 k into K2; the varactors stand on the bus T2 along y 5.5
+    cp = t.add("C", "C0402 1nF", "1n", 30.7, 2.6, 270, {"1": "K2", "2": "TP"}, label=None)                      # pad 1 up
+    rk2b = t.add("R", "R0402 100k", "100k", 31.9, 2.6, 270, {"1": "K2", "2": "TP"}, label=None)
+    rk2a = t.add("R", "R0402 100k", "100k", 33.1, 2.6, 270, {"1": "K2", "2": "VS"}, label=None)
+    t.wire("TP", [(jt, "1"), (30.0, 4.75), (30.7, 4.05), (31.9, 4.05)], width=0.25)
+    t.wire("TP", [(30.7, 4.05), (cp, "2")], width=0.25)
+    t.wire("TP", [(31.9, 4.05), (rk2b, "2")], width=0.25)
+    t.via("VS", 33.1, 4.1, fine=True)
+    t.wire("VS", [(rk2a, "2"), (33.1, 4.1)], width=0.2)
+    d2a = t.add("D", "BB133", "BB133", 34.85, 2.8, 270, {"1": "K2", "2": "T2"}, hide_value=True, label=None)      # K up, A down
+    d2b = t.add("D", "BB133", "BB133", 37.05, 2.8, 270, {"1": "K2", "2": "GND"}, hide_value=True, label=None)
+    t.wire("K2", [(cp, "1"), (30.7, 1.2), (37.05, 1.2), (d2b, "1")], width=0.2)
+    t.wire("K2", [(31.9, 1.2), (rk2b, "1")], width=0.2)
+    t.wire("K2", [(33.1, 1.2), (rk2a, "1")], width=0.2)
+    t.wire("K2", [(34.85, 1.2), (d2a, "1")], width=0.2)
+    gnd(t, d2b, "2", (37.05, 4.8))
+    l2 = t.add("L", "L1210 10uH", "10u", 39.75, 2.6, 90, {"1": "T2", "2": "GND"}, label=None)                   # rot 90: pad 1 down
+    gnd(t, l2, "2", (38.85, 0.45), w=0.4)
+    gnd(t, l2, "2", (40.65, 0.45), w=0.4)
+    t.wire("T2", [(31.2, 5.5), (39.75, 5.5), (l2, "1")], width=0.3)
+    t.wire("T2", [(d2a, "2"), (34.85, 5.5)], width=0.25)
+    c2 = t.add("C", "C0402 6.8pF", "6.8p", 38.0, 6.6, 270, {"1": "T2", "2": "GND"}, label=None)
+    t.wire("T2", [(38.0, 5.5), (c2, "1")], width=0.25)
+    gnd(t, c2, "2", (38.0, 8.0))
+    co2 = t.add("C", "C0402 2.2pF", "2.2p", 36.75, 10.6, 270, {"1": "T2", "2": "OUT2"}, label=None)
+    t.wire("T2", [(36.75, 5.5), (co2, "1")], width=0.25)
+    t.wire("OUT2", [(co2, "2"), (jo2, "1")], width=0.25)
+    rd2 = t.add("R", "R0402 2k", "2k", 31.2, 6.6, 270, {"1": "T2", "2": "RDB"}, label=None)
+    t.wire("T2", [(31.2, 5.5), (rd2, "1")], width=0.25)
+    t.wire("RDB", [(rd2, "2"), (31.2, 9.0), (27.905, 9.0), (sw, "5")], width=0.2)
+    # T2 down the switch's right side and along its foot to pins 1 and 2
+    t.wire("T2", [(32.6, 5.5), (32.6, 19.4), (24.095, 19.4), (sw, "1")], width=0.25, silk=False)
+    t.wire("T2", [(25.365, 19.4), (sw, "2")], width=0.25, silk=False)
+    # VS: the drain to a via, up the back at x 10.2, along y 8.75 (under the right jack's feet) to both bias dividers
+    t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
+    t.wire("VS", [(10.2, 18.1), (10.2, 8.75), (22.0, 8.75), (22.0, 1.6), (21.0, 0.85)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(33.1, 4.1), (33.1, 8.75), (10.2, 8.75), (10.2, 18.1)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    cvs = t.add("C", "C0402 100nF", "100n", 9.0, 12.3, 270, {"1": "VS", "2": "GND"}, label=None)               # pad 1 up
+    t.via("VS", 10.2, 11.0, fine=True)
+    t.wire("VS", [(cvs, "1"), (9.0, 11.0), (10.2, 11.0)], width=0.2)
+    gnd(t, cvs, "2", (9.0, 13.9), w=0.2)
+    t.text(1.2, 9.4, "Y8", 1.2, 0.2, "left")
+    t.text(4.1, 9.4, "TANKS", 0.8, 0.15, "left")
+    t.result = "two 10 MHz tanks (Q about 30); coupled by 1, 2.2 or 3.2 pF they split by 0.4 - 1.2 MHz; TUNE moves tank 2 by +-5 %; a 20 MHz pump on it gives parametric gain"
+    t.notes = ["Two LC tanks, 10 uH and about 25 pF each (fixed, two BB133 back to back at 2.5 V, the ports), near 10 MHz, Q about 30.",
+               "SIG drives tank 1 through 2.2 pF; each tank feeds its OUT jack through 2.2 pF, -43 dB into the host's 50 ohm.  The DIP:",
+               "1 pF and 2.2 pF between the tanks (normal modes, the avoided crossing as TUNE sweeps tank 2), 2 k across tank 1 or tank 2",
+               "(a lossy tank coupled to a sharp one: the EIT analogue).  A pump at twice the frequency on TUNE / PUMP: parametric gain."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -409,10 +656,10 @@ def tile_y1():
 
 
 def tiles():
-    return [tile_y3(), tile_y2(), tile_y1(), tile_y5()]
+    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y5()]
 
 
-PMOD_USED = {"/PMOD1"}
+PMOD_USED = {"/PMOD1", "/PMOD8"}
 PMOD_HOST = "Y5's bottom edge"
 PMOD_NAMES = {}
 HANDBOOK_INTRO = []
@@ -422,7 +669,8 @@ HOLES = []
 FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 70.0), (5.0, 85.0)]
 SLOTS = []
 RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
-              ("-5V", 8.0, 27.85, 93.4, 29.15, 1)]
+              ("-5V", [(8.0, 27.85), (72.65, 27.85), (72.65, 16.75), (74.25, 16.75), (74.25, 27.85), (93.4, 27.85),   # with Y9's finger
+                       (93.4, 29.15), (8.0, 29.15)], 1)]
 _Y1, _Y2 = G.cell_origin(2, 1), G.cell_origin(2, 0)
 # +-15 V from Y1 up to Y2 on the back: +15 V up the gutter at x 70.8, -15 V straight up at Y1 / Y2's local x 10.6 to 11.15
 BACK_WIRES = [("+15V", [(_Y1[0] + 20.05, _Y1[1] + 7.2), (_Y1[0] + 20.05, _Y2[1] + 6.45), (_Y2[0] + 19.6, _Y2[1] + 6.0)]),
@@ -437,7 +685,11 @@ def _pad(k):
 
 
 # the Pmod lines: along the bottom margin, then up the gutter between columns 1 and 2 (x 49.4 .. 50.6)
-FRONT_WIRES = [("/PMOD1", [_pad(12), (_pad(12)[0], 93.05), (50.0, 93.05), (50.0, _Y2[1] + 0.6)])]
+_Y9 = G.cell_origin(3, 0)
+FRONT_WIRES = [("/PMOD1", [_pad(12), (_pad(12)[0], 93.05), (50.0, 93.05), (50.0, _Y2[1] + 0.6)]),
+               # IO8 round the left and top margins to Y9's load switch
+               ("/PMOD8", [_pad(5), (_pad(5)[0], 99.15), (2.4, 99.15), (2.4, 93.2), (6.0, 93.2), (6.0, 1.5), (71.5, 1.5), (71.5, _Y9[1] + 3.95),
+                           (_Y9[0] + 2.0625, _Y9[1] + 3.95)])]
 FRONT_TEXT = []
 BACK_TEXT_X = 50.0
 QR_AT = (61.0, 33.0)
