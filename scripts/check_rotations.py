@@ -139,7 +139,7 @@ def main(stems):
                     flag = "DATUM" if flag == "ok" else flag
             line = "  %-7s %-10s %-6s %-46s fits +%-3d (rms %.2f mm); table +%d %s%s%s" % (flag, code, ref, fpid[:46], best, e0, table[0], table[1], amb, dat)
             print(line)
-            if flag != "ok" and not amb:
+            if flag not in ("ok", "known") and not amb:
                 bad.append(line)
     print("\n%d codes checked; %d differ from the table" % (len(seen), len(bad)))
     for b in bad:
