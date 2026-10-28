@@ -503,3 +503,33 @@ splitter is what makes X1 and X2 coherent.  Proposed for Jason's decision: bring
   README tables, DOA lists, PLAN files, the review brief, KIT.md and Appendix D's renders updated; CLAUDE_PCB.md
   section 22 has the lessons.  One thing noticed, not changed: AMOD-A's In2 pour fills to one of two equivalent shapes
   on alternate builds (both DRC-clean).
+
+## Prompt 16 (2026-10-28)
+
+> Are there any other RF or Analof building blocks that we are sorely lacking in this set of tiles?
+
+### Response 16 (about 10:50; an answer, no change to the boards)
+
+Every tile on the five boards was checked against the usual RF and analog blocks, and JLCPCB's shelf read for the
+candidates (2026-10-28).  Mixers (six kinds), amplifiers, switches, detectors, couplers and bridges, noise sources and
+synthesizers are well covered.  Two real gaps and two smaller ones:
+
+1. *A step attenuator* (the biggest gap).  Nothing changes a signal's level by a known amount; the only attenuator is
+   P1's fixed 20 dB.  It is what compression point, IP3, noise figure, sensitivity, bit-error rate against SNR, the
+   log detector's slope and an AGC loop all need.  The pSemi PE43711B-Z (C470929, 1,673, $3.91): 9 kHz-6 GHz,
+   0-31.75 dB in 0.25 dB steps, so one tile serves HF and RF; a DIP switch (parallel mode) or three Pmod lines
+   (serial: on RF-MOD-2 the MAX2871's data and clock, its latch on IO7, the spare line).  The PE4312C-Z (C500480,
+   1,978, $2.22) is the 1 MHz-4 GHz, 0.5 dB alternative.
+2. *An oscillator made of a transistor and a tank.*  Every frequency on the boards comes from a chip.  A Colpitts on an
+   MMBTH10 (C545531, 7,387, $0.015) or BFR92P (C273250, 1,508, $0.42), an LC tank with BB133 varactors (Y8's) or a
+   crystal on a DIP switch, a TUNE/INJECT jack and OUT: start-up and loop gain, an FM transmitter from a DAC, phase
+   noise against the crystal and the MAX2871, and injection locking (Adler's equation) from the DAC.
+3. *A zero-bias Schottky detector* (smaller): square law at low power, linear at high, AM's envelope; the AD8318 hides
+   the diode.  SMS7630-006LF (C6489012, 83, $6.22) or SMS7621-005LF (C74287, 354, $3.59, wants a little bias).
+4. *Wideband transformers* (smaller; Appendix D's "maybe" twice): TC4-1W+ 1:4 (C879855, 2,227, $1.71) and
+   TC1-1TG2+ 1:1 (C3305009, 85, $4.17): baluns for 6.12's dipole, breaking a ground loop, single-ended to balanced.
+
+Not on the list: RF low-passes for the MAX2871's harmonics (LFCN-320+/530+ are in stock) if the lab has none on SMA.
+All 80 cells are full.  Suggested homes: the attenuator in place of RF-MOD-2's X4 (a copy of RF-MOD's R5; a cable to
+R5 does its job); the oscillator in place of AMOD-A's A3 (the host's x100 input now does its job, though A2 and A3
+together show gain times bandwidth).  Waiting for Jason's choice.
