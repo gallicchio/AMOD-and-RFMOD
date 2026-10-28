@@ -35,3 +35,6 @@ fp-info-cache
 
 # Reviewers' working copies of the project (design_reviews/README.md)
 /design_reviews/*/project/
+
+# the label placer's debug rasters (LABEL_DEBUG=<tile> ./make.py ...)
+out/label_debug_*.pbm
