@@ -111,6 +111,7 @@ def stage_out(stem):
 
 def stage_docs(stem):
     banner("documentation: " + stem)
+    sys_py("tile_thumbs.py", stem)
     sys_py("gen_docs.py", stem)
 
 

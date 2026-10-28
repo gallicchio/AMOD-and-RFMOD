@@ -46,10 +46,10 @@ def tile_r2():
     t.gnd_stub(fl, "3", (10.0, 11.6), sym=(0, 1))
     t.text(12.6, 2.4, "R2", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "2.45 GHz", 0.8, 0.15, "center")
-    t.text(12.6, 5.6, "LTCC BPF", 0.8, 0.15, "center")
-    t.text(1.2, 18.6, "2.4-2.5 GHz", 0.9, 0.17, "left")
-    t.text(1.2, 17.2, "1.7 dB LOSS", 0.8, 0.15, "left")
-    t.text(1.2, 15.8, "LFB212G45", 0.8, 0.15, "left")
+    t.text(12.6, 5.6, "BAND-PASS", 0.8, 0.15, "center")
+    t.text(1.2, 18.6, "2.4-2.5 GHz", 0.8, 0.15, "left")
+    t.text(1.2, 17.2, "LOSS 1.7 dB", 0.8, 0.15, "left")
+    t.text(1.2, 15.8, "LTCC LFB212", 0.8, 0.15, "left")
     t.result = "1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out"
     t.notes = ["Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm",
                "wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void).",
@@ -70,10 +70,10 @@ def tile_r4():
     t.gnd_stub(fl, "2", (10.0, 11.5), sym=(0, 1), width=0.2)
     t.text(12.6, 2.4, "R4", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "915 MHz", 0.8, 0.15, "center")
-    t.text(12.6, 5.6, "SAW BPF", 0.8, 0.15, "center")
-    t.text(1.2, 18.6, "902-928 MHz", 0.9, 0.17, "left")
-    t.text(1.2, 17.2, "1.1 dB LOSS", 0.8, 0.15, "left")
-    t.text(1.2, 15.8, "B39921B2672", 0.8, 0.15, "left")
+    t.text(12.6, 5.6, "BAND-PASS", 0.8, 0.15, "center")
+    t.text(1.2, 18.6, "902-928 MHz", 0.8, 0.15, "left")
+    t.text(1.2, 17.2, "LOSS 1.1 dB", 0.8, 0.15, "left")
+    t.text(1.2, 15.8, "SAW B39921", 0.8, 0.15, "left")
     t.result = "1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out"
     t.notes = ["RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package;",
                "its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2."]
@@ -116,6 +116,7 @@ def gali_tile(id, cell):
     t.wire("VS", [(11.54, 1.3), (rb, "1")])
     t.gnd_stub(c10, "1", [(10.0, 13.45), (10.0, 12.9)], sym=(0, 0))
     t.text(17.0, 8.3, id, 1.2, 0.2, "center")
+    t.titles.append("GAIN")
     t.text(5.9, 11.85, "GALI-84+", 0.8, 0.15, "left")
     t.text(7.6, 13.1, "20 dB", 0.8, 0.15, "center")
     t.result = "20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V"
@@ -175,7 +176,7 @@ def qpl_tile(id, cell):
     t.wire("VS", [(10.7, 6.4), (11.588, 6.4)], width=0.25)
     t.gnd_stub(c10, "1", [(10.0, 13.45), (10.0, 12.9)], sym=(0, 0))
     t.text(11.6, 3.2, id, 1.2, 0.2, "center")
-    t.text(19.0, 3.2, "QPL9547", 0.8, 0.15, "right")
+    t.titles.append("LNA QPL9547")
     t.text(5.6, 11.3, "NF 0.3 dB", 0.8, 0.15, "left")
     t.result = "19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V"
     t.notes = ["Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver",
@@ -476,7 +477,8 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM"):
         t.via(MUX, 18.3, 21.0)                                                   # down the back, then the front along the bottom edge
         t.wire(MUX, [(18.3, 10.55), (18.3, 21.0)], width=F, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
-    t.text(1.2, 14.6, "MAX2871", 0.8, 0.15, "left")
+    t.titles.append("SYNTHESIZER")
+    t.info(["MAX2871", "23.5 MHz - 6 GHz", "OUT A -4 to +5 dBm", "REF IN 25 MHz CMOS"], near=(26.5, 1.6))
     t.result = "any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked"
     t.notes = ["MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA,",
                "LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4)",
@@ -735,8 +737,9 @@ def mixer_tile(id, cells, name):
     t.wire("V33", [(l4, "2"), (12.75, 13.6), (13.3, 13.6)], width=F)
     t.wire("V33", [(30.55, 12.6), (14.0, 12.6), (13.3, 13.3), (13.3, 13.6)], width=0.2, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
-    t.text(1.2, 14.6, "ADL5350", 0.8, 0.15, "left")
-    t.text(1.2, 15.9, name.upper(), 0.8, 0.15, "left")
+    t.titles.append(name.upper() + " ADL5350")
+    t.info(["RF 0.4-2.5 GHz", "RF, IF < +10 dBm"], near=(1.2, 14.8))
+    t.info(["LO 0 to +6 dBm", "IF DC-200 MHz", "LOSS 7-9 dB"], near=(29.5, 1.6))
     t.result = "RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough"
     t.notes = ["ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover",
                "(series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the",
@@ -808,7 +811,7 @@ HANDBOOK_SECTIONS = [
      "1. **Reference.**  R9's REF OUT into R10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it",
      "   on to R13's TRF3722, so both synthesizers share it.  R1 splits it to a second board.",
      "2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into R13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); R13's",
-     "   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  Chapter 6's waveforms with",
+     "   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  The digital-communications waveforms with",
      "   no image: the sideband suppression is about 42 dB untrimmed, better after the DACs' gain and phase are trimmed.",
      "3. **Receiver.**  The antenna or cable into R5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then R4 or R2, then",
      "   R8's RF; R10 into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's output through R1 it is a",

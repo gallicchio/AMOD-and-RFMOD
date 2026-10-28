@@ -34,7 +34,7 @@ frequency on the board is locked to every other and phase means something.
 1. **Reference.**  R9's REF OUT into R10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it
    on to R13's TRF3722, so both synthesizers share it.  R1 splits it to a second board.
 2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into R13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); R13's
-   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  Chapter 6's waveforms with
+   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  The digital-communications waveforms with
    no image: the sideband suppression is about 42 dB untrimmed, better after the DACs' gain and phase are trimmed.
 3. **Receiver.**  The antenna or cable into R5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then R4 or R2, then
    R8's RF; R10 into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's output through R1 it is a
@@ -56,113 +56,234 @@ a monopole from a jack and 31 mm (2.4 GHz) or 78 mm (915 MHz) of wire.
 
 ## The tiles
 
+Each tile in a table: its picture, then what it does, its jacks, what to expect, how to cable it, what to buy
+(the links are in [KIT.md](KIT.md)), its numbers and limits, the experiments it is for and the circuit.
+
+<a id="r1"></a>
+
 ### R1  splitter, 3 x 18 ohm, 6 dB
 
-Cells (0,0), (1,0).
-Jacks: TL P1 (+20 dBm); TM P2; BR P3.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R1.jpg" width="520" alt="R1  splitter, 3 x 18 ohm, 6 dB"></td>
+<td valign="top">
 
-**Expect:** 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)
+<b>A resistive splitter / combiner: three 18 ohm resistors to one node, every port 50 ohm.</b><br><br>
+<b>Jacks:</b> P1, top left (+20 dBm); P2, top middle; P3, bottom right.<br><br>
+<b>Expect:</b> 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)<br><br>
+<b>How to use it:</b> Feed any port; the other two are the outputs (or combine two signals into one).<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 6.2 dB from any port to any other, DC-6 GHz.<br><br>
+<b>Limits:</b> 6 dB of loss each way and only 6 dB between the two outputs (no isolation).<br><br>
+<b>Experiments:</b> One LO to both mixers (two coherent receive channels: direction finding); two tones into R12 (intermodulation); watching a signal while you use it.<br><br>
+<b>The circuit:</b> Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block.
 
-Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block.
+</td></tr></table>
+
+<a id="r2"></a>
 
 ### R2  2.45 GHz filter
 
-Cell (2,0).
-Jacks: TL IN (+10 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_R2.jpg" width="262" alt="R2  2.45 GHz filter"></td>
+<td valign="top">
 
-**Expect:** 1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out
+<b>A 2.4-2.5 GHz band-pass filter (the Wi-Fi and Bluetooth band).</b><br><br>
+<b>Jacks:</b> IN, top left (+10 dBm); OUT, bottom right.<br><br>
+<b>Expect:</b> 1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out<br><br>
+<b>How to use it:</b> In line, either direction.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 1.7 dB of loss in the band; 30 dB or more below 2.2 GHz and above 2.7 GHz.<br><br>
+<b>Limits:</b> A fixed band, about 100 MHz wide: it does not reject an image 20 MHz away.<br><br>
+<b>Experiments:</b> A transmitter's image and harmonics removed; a receiver preselected; a filter measured with a swept synthesizer.<br><br>
+<b>Chip:</b> <a href="https://www.murata.com/en-us/products/productdetail?partno=LFB212G45SG8A127">LFB212G45</a><br><br>
+<b>The circuit:</b> Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void). Sweep it with R10 or R13 into a power meter, or with a DAC harmonic comb and the ADC.<br><br>
+<b>Parts:</b> LFB212G45SG8A127 (C341536).
 
-Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void). Sweep it with R10 or R13 into a power meter, or with a DAC harmonic comb and the ADC.
+</td></tr></table>
 
-Parts: LFB212G45SG8A127 (C341536).
+<a id="r4"></a>
 
 ### R4  915 MHz filter
 
-Cell (3,0).
-Jacks: TL IN (+10 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_R4.jpg" width="262" alt="R4  915 MHz filter"></td>
+<td valign="top">
 
-**Expect:** 1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out
+<b>A 902-928 MHz SAW band-pass filter (the 915 MHz ISM band: LoRa, RFID).</b><br><br>
+<b>Jacks:</b> IN, top left (+10 dBm); OUT, bottom right.<br><br>
+<b>Expect:</b> 1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out<br><br>
+<b>How to use it:</b> In line, either direction.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 1.1 dB of loss in the band; 40 dB or more 30 MHz outside it.<br><br>
+<b>Limits:</b> Keep the input under about +10 dBm; a fixed 26 MHz band.<br><br>
+<b>Experiments:</b> A transmitter cleaned up; a receiver preselected; steep SAW skirts against R2's LTCC.<br><br>
+<b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C1518004.html">B39921B2672</a><br><br>
+<b>The circuit:</b> RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package; its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2.<br><br>
+<b>Parts:</b> B39921B2672P810 (C1518004).
 
-RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package; its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2.
+</td></tr></table>
 
-Parts: B39921B2672P810 (C1518004).
+<a id="r5"></a>
 
 ### R5  LNA, QPL9547
 
-Cell (0,1); +5 V.
-Jacks: TL IN (-20 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_R5.jpg" width="262" alt="R5  LNA, QPL9547"></td>
+<td valign="top">
 
-**Expect:** 19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V
+<b>A low-noise amplifier: +19.5 dB with a 0.3 dB noise figure, the first stage of any receiver here.</b><br><br>
+<b>Jacks:</b> IN, top left (-20 dBm); OUT, bottom right.<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> 19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V<br><br>
+<b>How to use it:</b> Antenna to IN, OUT to a filter or a mixer's RF.<br><br>
+<b>You need:</b> An SMA (not RP-SMA) antenna for the band (kit: L-com LCANRBD1044 at 2.4 GHz, LCANRBD1057 at 915 MHz). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> 0.1-6 GHz; 19.5 dB; NF 0.3-0.5 dB from 0.5 to 3 GHz; OIP3 +39 dBm; 65 mA.<br><br>
+<b>Limits:</b> Linear below about -20 dBm in; +22 dBm at the input is the absolute maximum: never cable a transmitter into it without 30 dB of attenuation.<br><br>
+<b>Experiments:</b> Receiver sensitivity; a noise figure with a noise source; Wi-Fi, LoRa, ADS-B and GPS heard over the air.<br><br>
+<b>Chip:</b> <a href="https://www.qorvo.com/products/p/QPL9547">QPL9547</a><br><br>
+<b>The circuit:</b> Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare. The 18 nH wire-wound choke (Qorvo's value) feeds 5 V into the output pin; 3.3 k from 5 V to Vbias sets 65 mA. Never cable a transmitter into it without 30 dB of attenuation (22 dBm absolute maximum at the input).<br><br>
+<b>Parts:</b> QPL9547TR7 (C5367093).
 
-Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare. The 18 nH wire-wound choke (Qorvo's value) feeds 5 V into the output pin; 3.3 k from 5 V to Vbias sets 65 mA. Never cable a transmitter into it without 30 dB of attenuation (22 dBm absolute maximum at the input).
+</td></tr></table>
 
-Parts: QPL9547TR7 (C5367093).
+<a id="r7"></a>
 
 ### R7  TX mixer, ADL5350
 
-Cells (0,2), (1,2); +5 V.
-Jacks: TL RF (+10 dBm); TL1 LO (0 to +6 dBm); BR IF.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R7.jpg" width="520" alt="R7  TX mixer, ADL5350"></td>
+<td valign="top">
 
-**Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
+<b>A passive mixer: moves a signal between RF and IF with an LO, up or down (the same tile does both).</b><br><br>
+<b>Jacks:</b> RF, top left (+10 dBm); LO, top of the right cell (0 to +6 dBm); IF, bottom right.<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough<br><br>
+<b>How to use it:</b> Transmit: DAC to IF, R10 to LO, RF through a filter to the antenna.  Receive: antenna through R5 and a filter to RF, R10 (at the carrier minus the IF) to LO, IF to an ADC.<br><br>
+<b>You need:</b> An LO: R10 (or R13's output used as a CW source).<br><br>
+<b>Specs:</b> RF 0.4-2.5 GHz (to 4 GHz with more loss); IF DC-200 MHz; LO 0 to +6 dBm (+4 dBm best); conversion loss 7-9 dB; IIP3 +25 dBm; RF and IF up to about +10 dBm.<br><br>
+<b>Limits:</b> Makes both sidebands (an image): filter the RF side with R2 or R4.  The LO leaks to RF and IF.<br><br>
+<b>Experiments:</b> A DAC's 5-10 MHz moved to 915 MHz or 2.4 GHz and back; a heterodyne receiver whose I and Q are made in the gateware; a link on a cable or over the air.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/adl5350.html">ADL5350</a><br><br>
+<b>The circuit:</b> ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.<br><br>
+<b>Parts:</b> ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
 
-ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.
+</td></tr></table>
 
-Parts: ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
+<a id="r8"></a>
 
 ### R8  RX mixer, ADL5350
 
-Cells (2,2), (3,2); +5 V.
-Jacks: TL RF (+10 dBm); TL1 LO (0 to +6 dBm); BR IF.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R8.jpg" width="520" alt="R8  RX mixer, ADL5350"></td>
+<td valign="top">
 
-**Expect:** RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough
+<b>A passive mixer: moves a signal between RF and IF with an LO, up or down (the same tile does both).</b><br><br>
+<b>Jacks:</b> RF, top left (+10 dBm); LO, top of the right cell (0 to +6 dBm); IF, bottom right.<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough<br><br>
+<b>How to use it:</b> Transmit: DAC to IF, R10 to LO, RF through a filter to the antenna.  Receive: antenna through R5 and a filter to RF, R10 (at the carrier minus the IF) to LO, IF to an ADC.<br><br>
+<b>You need:</b> An LO: R10 (or R13's output used as a CW source).<br><br>
+<b>Specs:</b> RF 0.4-2.5 GHz (to 4 GHz with more loss); IF DC-200 MHz; LO 0 to +6 dBm (+4 dBm best); conversion loss 7-9 dB; IIP3 +25 dBm; RF and IF up to about +10 dBm.<br><br>
+<b>Limits:</b> Makes both sidebands (an image): filter the RF side with R2 or R4.  The LO leaks to RF and IF.<br><br>
+<b>Experiments:</b> A DAC's 5-10 MHz moved to 915 MHz or 2.4 GHz and back; a heterodyne receiver whose I and Q are made in the gateware; a link on a cable or over the air.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/adl5350.html">ADL5350</a><br><br>
+<b>The circuit:</b> ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.<br><br>
+<b>Parts:</b> ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
 
-ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover (series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz). Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out). Both images appear: filter the RF side with R2 or R4.
+</td></tr></table>
 
-Parts: ADL5350ACPZ-R7 (C206667), TPS7A2033PDBVR (C2862740).
+<a id="r9"></a>
 
 ### R9  power, USB-C 5 V in: +5, +7.8 V; 25 MHz reference
 
-Cells (2,1), (3,1).
-Jacks: TL REF OUT (25 MHz, 1.6 Vpp into 50 ohm).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R9.jpg" width="520" alt="R9  power, USB-C 5 V in: +5, +7.8 V; 25 MHz reference"></td>
+<td valign="top">
 
-**Expect:** +5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT
+<b>Power from USB-C (+5 V, and +7.8 V boosted for R12) and the board's 25 MHz reference oscillator.</b><br><br>
+<b>Jacks:</b> REF OUT, top left (25 MHz, 1.6 Vpp into 50 ohm).<br><br>
+<b>Expect:</b> +5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT<br><br>
+<b>How to use it:</b> Plug in the USB-C; REF OUT to R10's REF IN (R13 takes it from there on the back).<br><br>
+<b>You need:</b> A 5 V USB-C supply (kit: Raspberry Pi 5.1 V 3 A supply). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> TCXO +-2 ppm; REF OUT a 25 MHz square wave, 1.6 V p-p into 50 ohm (3.3 V into a high impedance).<br><br>
+<b>Limits:</b> One REF OUT: R1 splits it.<br><br>
+<b>Experiments:</b> Everything on one reference (the ECP5 board too), so phase means something; the TCXO against GPS.<br><br>
+<b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C5119013.html">TC32H4 TCXO</a>, <a href="https://www.lcsc.com/product-detail/C84817.html">MT3608</a>, <a href="https://www.ti.com/product/TPS7A20">TPS7A20</a>, <a href="https://www.ti.com/product/SN74LVC1G17">SN74LVC1G17</a><br><br>
+<b>The circuit:</b> USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.<br><br>
+<b>Parts:</b> XRNR4030-22uH/M (C5289362), KT-0805G (C2297), KT-0805Y (C2296), SN74LVC1G17DBVR (C7836), MT3608 (C84817), MF-MSMF200-2 (C210837), SS34 (C8678), TC32H4-25.000-33GNDTNL (C5119013), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
-USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.
+</td></tr></table>
 
-Parts: XRNR4030-22uH/M (C5289362), KT-0805G (C2297), KT-0805Y (C2296), SN74LVC1G17DBVR (C7836), MT3608 (C84817), MF-MSMF200-2 (C210837), SS34 (C8678), TC32H4-25.000-33GNDTNL (C5119013), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
+<a id="r10"></a>
 
 ### R10  synthesizer, MAX2871
 
-Cells (0,3), (1,3); +5 V.
-Jacks: TL OUT A; TM REF IN (25 MHz, 3.3 V CMOS).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R10.jpg" width="520" alt="R10  synthesizer, MAX2871"></td>
+<td valign="top">
 
-**Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked
+<b>A frequency synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to a 25 MHz reference and set over SPI from the FPGA.</b><br><br>
+<b>Jacks:</b> OUT A, top left; REF IN, top middle (25 MHz, 3.3 V CMOS).<br><br>
+<b>Pmod:</b> IO1 (Pmod pin 1): MUXOUT of R10; IO2 (Pmod pin 2): SDATA to R10 and R13; IO3 (Pmod pin 3): SCLK to R10 and R13; IO4 (Pmod pin 4): LE of R10<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked<br><br>
+<b>How to use it:</b> REF IN from R9's REF OUT; program it over the Pmod (SPI); OUT A to a mixer's LO or a filter.<br><br>
+<b>You need:</b> Nothing (the SPI gateware or driver).<br><br>
+<b>Specs:</b> -4 to +5 dBm on OUT A; fractional-N; 80-120 kHz loop; a red LED when locked.<br><br>
+<b>Limits:</b> Below 3 GHz the output is divided down: a square-ish wave with strong harmonics (filter it); fractional spurs; about a millisecond to relock.<br><br>
+<b>Experiments:</b> The mixers' LO; a signal generator; a swept source for filters; FSK and chirps by reprogramming; phase noise.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/max2871.html">MAX2871</a><br><br>
+<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.<br><br>
+<b>Parts:</b> NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 
-MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.
+</td></tr></table>
 
-Parts: NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
+<a id="r12"></a>
 
 ### R12  gain block, GALI-84+
 
-Cell (1,1); +8 V.
-Jacks: TL IN (0 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_R12.jpg" width="262" alt="R12  gain block, GALI-84+"></td>
+<td valign="top">
 
-**Expect:** 20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V
+<b>A gain block: +20 dB from DC to 6 GHz, up to +20 dBm out.</b><br><br>
+<b>Jacks:</b> IN, top left (0 dBm); OUT, bottom right.<br><br>
+<b>Supply:</b> +8 V<br><br>
+<b>Expect:</b> 20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V<br><br>
+<b>How to use it:</b> Signal to IN, OUT to the load; 10 dB of attenuation after a synthesizer.<br><br>
+<b>You need:</b> A 10 dB SMA attenuator after a synthesizer (kit: VAT-10A+). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> 20 dB (21.9 dB at 1 GHz); 1 dB compression at +20 dBm out; 97 mA from 7.8 V.<br><br>
+<b>Limits:</b> Keep the input under 0 dBm; its noise figure (about 4 dB) makes it a driver, not an LNA.<br><br>
+<b>Experiments:</b> Driving an antenna or a mixer's LO; two-tone intermodulation; the compression curve.<br><br>
+<b>Chip:</b> <a href="https://www.minicircuits.com/WebStore/dashboard.html?model=GALI-84%2B">GALI-84+</a><br><br>
+<b>The circuit:</b> Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its 5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide switch and P-FET gate the tile's 7.8 V as on AMOD-A.<br><br>
+<b>Parts:</b> GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
 
-Mini-Circuits GALI-84+: a Darlington MMIC that sets its own current; the 22 ohm from the 7.8 V rail drops to its 5.8 V device voltage (0.2 W in the 2512).  The 27 nH choke (415 ohm at 2.45 GHz, 155 at 915 MHz) feeds the output pin; 100 pF blocks keep the DC off the jacks.  Keep the input under 0 dBm for linear gain.  The slide switch and P-FET gate the tile's 7.8 V as on AMOD-A.
+</td></tr></table>
 
-Parts: GALI-84+ (C3193261), 25121WJ0220T4E (C27258).
+<a id="r13"></a>
 
 ### R13  I/Q transmitter, TRF3722
 
-Cells (2,3), (3,3); +5 V.
-Jacks: TL I IN (+-1 V into 50 ohm); TL1 Q IN (+-1 V into 50 ohm); BR1 RF OUT.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R13.jpg" width="520" alt="R13  I/Q transmitter, TRF3722"></td>
+<td valign="top">
 
-**Expect:** I + jQ from two DACs on 0.4-4.2 GHz, about -3 dBm, image-free (-42 dBc untrimmed)
+<b>A quadrature (I/Q) transmitter with its own synthesizer: two DAC signals, I and Q, become RF anywhere from 0.4 to 4.2 GHz with no image.</b><br><br>
+<b>Jacks:</b> I IN, top left (+-1 V into 50 ohm); Q IN, top of the right cell (+-1 V into 50 ohm); RF OUT, bottom right.<br><br>
+<b>Pmod:</b> IO2 (Pmod pin 2): SDATA to R10 and R13; IO3 (Pmod pin 3): SCLK to R10 and R13; IO5 (Pmod pin 7): readback of R13; IO6 (Pmod pin 8): LE of R13 (TRF3722)<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> I + jQ from two DACs on 0.4-4.2 GHz, about -3 dBm, image-free (-42 dBc untrimmed)<br><br>
+<b>How to use it:</b> DAC 1 to I IN, DAC 2 to Q IN; program it over SPI (it shares the bus with R10); RF OUT through R2 or R4.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> I and Q +-1 V into 50 ohm; RF about -3 dBm; sideband suppression about 42 dB untrimmed; referenced to the 25 MHz on R10's REF IN.<br><br>
+<b>Limits:</b> Its LO is inside the chip, so it cannot feed a demodulator; the carrier leak and the image depend on trimming the DACs' offset, gain and phase.<br><br>
+<b>Experiments:</b> SSB, QPSK, QAM, OFDM and chirps on a real carrier; image rejection; a coherent link with R8 and R10 as the receiver.<br><br>
+<b>Chip:</b> <a href="https://www.ti.com/product/TRF3722">TRF3722</a><br><br>
+<b>The circuit:</b> TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from R10's REF IN.  Each DAC: 56 ohm at the jack, 270 ohm to a node held at 0.25 V (+-0.25 V for +-1 V).  DC on I alone is a CW carrier.<br><br>
+<b>Parts:</b> NCD0805R1 (C84256), TLV75733PDRVR (C2868428), TRF3722IRGZR (C1850395).
 
-TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from R10's REF IN.  Each DAC: 56 ohm at the jack, 270 ohm to a node held at 0.25 V (+-0.25 V for +-1 V).  DC on I alone is a CW carrier.
-
-Parts: NCD0805R1 (C84256), TLV75733PDRVR (C2868428), TRF3722IRGZR (C1850395).
+</td></tr></table>
 
 ## Ground, loops and probing
 

@@ -123,7 +123,7 @@ def tile_x1():
     t.wire("JQ", [(28.5, 11.7), (rtq, "1")], width=0.25)
     t.gnd_stub(rtq, "2", (28.5, 14.1), sym=(0, 0), width=0.25, fine=True)
     t.text(1.2, 9.4, "X1", 1.0, 0.18, "left")
-    t.text(1.2, 10.7, "ADL5375", 0.8, 0.15, "left")
+    t.info(["I/Q MODULATOR", "ADL5375 0.4-6 GHz"], near=(1.2, 10.7))
     t.result = ("about 0 dBm of single-sideband RF at full scale (I and Q +-1 V at 1 V p-p differential equivalent), 0.4-6 GHz, sideband "
                 "and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz, far past the DACs' 12 MHz")
     t.notes = ["ADI ADL5375-05: two Gilbert-cell mixers and a quadrature LO splitter, 0.4-6 GHz, baseband bias 0.5 V.  Each input is",
@@ -255,7 +255,8 @@ def tile_x2():
     t.wire("QOA", [(31.6, 11.86), (rfq, "2")], width=0.2)
     t.wire("JQO", [(roq, "2"), (32.6, 9.0), (36.75, 9.0), (jQ, "1")], width=0.25)
     t.text(1.2, 9.4, "X2", 1.0, 0.18, "left")
-    t.text(1.2, 10.7, "ADL5380", 0.8, 0.15, "left")
+    t.info(["I/Q DEMODULATOR"], near=(1.2, 10.7))
+    t.titles.append("ADL5380")
     t.result = ("I and Q of the RF input against the LO, 0.4-6 GHz: about 7 dB of conversion gain from the chip, x2 in the amplifiers, "
                 "+-1 V at the ADC for about -4 dBm of RF; flat from DC to beyond the ADCs' 23 MHz")
     t.notes = ["ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810",
@@ -367,6 +368,7 @@ def tile_x6():
     t.wire("OUT", [(17.2, 9.9), (17.2, 10.6), (15.25, 12.55), (jout, "1")], width=0.25)
     t.text(1.2, 9.6, "X6", 1.0, 0.18, "left")
     t.text(1.2, 10.9, "AD8318", 0.8, 0.15, "left")
+    t.titles.append("POWER METER")
     t.result = ("VOUT falls 25 mV per dB of input from -60 to 0 dBm, 1 MHz-8 GHz (2.1 V at -60 dBm, 0.6 V at 0 dBm at the chip); at the jack "
                 "0.45 x that from 50 ohm: 0.27-0.95 V into the ADC's high impedance, half into 50 ohm; 10 ns response")
     t.notes = ["ADI AD8318: a nine-stage log amplifier with detectors, 60 dB of range to 8 GHz, temperature-compensated (499 ohm on TADJ",
@@ -439,7 +441,8 @@ def tile_x8():
     t.gnd_stub(ci, "1", (9.2, 11.1), sym=(0, 0))
     t.wire("VS", [HDR_VS, (8.54, 11.9), (10.98, 11.9), (ci, "2")], width=0.25)
     t.text(5.9, 13.4, "X8", 1.0, 0.18, "left")
-    t.text(14.6, 2.0, "GNSS L1", 0.8, 0.15, "center")
+    t.titles.append("GNSS PREAMP")
+    t.info(["GPS L1"], near=(9.0, 2.0), reach=6.0)
     t.result = ("about 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1), 1.5 dB noise figure with the first SAW, "
                 "50 dB or more of rejection at 900 MHz and 2.4 GHz; 3.3 V for an active antenna on ANT")
     t.notes = ["SAW - LNA - SAW, the front end of every GNSS receiver.  Murata's SAFFB1G56 passes 1561, 1575 and 1602 MHz with 1.6 dB of",
@@ -516,6 +519,7 @@ def tile_x7():
     t.wire("GND", [(19.3, 9.6), (19.3, 10.07)], width=0.25)
     t.wire("OUT", [(rse, "2"), (16.4, 11.08), (15.25, 12.23), (jout, "1")], width=0.25)
     t.text(6.2, 12.4, "X7", 1.0, 0.18, "left")
+    t.titles.append("NOISE SOURCE")
     t.result = ("IO6 high: a flat noise spectrum from 50 MHz to 4 GHz, roughly 15-30 dB ENR at OUT (measure it); IO6 low: a 50 ohm load "
                 "at room temperature; 20 dB of pad keeps OUT matched in both states")
     t.notes = ["Avalanche noise: the MMBT3904's base-emitter junction breaks down near 8 V (6 V minimum), its base on -5 V and its emitter",
@@ -564,7 +568,8 @@ def tile_x11():
     t.gnd_stub(cv1, "1", (6.8, 17.4), sym=(0, 0), width=0.2, fine=True)
     t.gnd_stub(cv2, "1", (10.1, 15.62), sym=(0, 0), width=0.2, fine=True)
     t.text(1.2, 13.3, "X11", 1.0, 0.18, "left")
-    t.text(1.2, 14.6, "SPDT SKY13370", 0.8, 0.15, "left")
+    t.text(1.2, 14.6, "RF SWITCH, SPDT", 0.8, 0.15, "left")
+    t.info(["SKY13370 0.5-6 GHz", "LOSS 0.7 dB, < +30 dBm"], near=(1.2, 15.9))
     t.text(22.0, 11.0, "IO5: RFC-RF1", 0.8, 0.15, "left")
     t.text(22.0, 12.3, "IO8: RFC-RF2", 0.8, 0.15, "left")
     t.result = "0.7 dB through, 31 dB of isolation at 2.5 GHz (0.5-6 GHz); the off throw is a 50 ohm load; switches in about 100 ns"
@@ -618,6 +623,7 @@ def tile_x5():
     t.text(1.2, 14.6, "SPLITTER", 0.8, 0.15, "left")
     t.text(1.2, 15.9, "3 x 18R", 0.8, 0.15, "left")
     t.text(1.2, 17.2, "-6 dB", 0.8, 0.15, "left")
+    t.text(1.2, 18.5, "DC-6 GHz", 0.8, 0.15, "left")
     t.result = "6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz"
     t.notes = ["RF-MOD's R1: three 18 ohm resistors to one node, 6 dB per path, no isolation between the outputs beyond those 6 dB.",
                "Here it splits X3's OUT A into X1's and X2's LO inputs, so the transmitter and the receiver share one oscillator:",

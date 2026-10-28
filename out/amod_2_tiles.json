@@ -1123,16 +1123,26 @@
      0.15,
      "left",
      0
-    ],
-    [
-     22.0,
-     17.3,
-     "x12 OPA847",
-     0.8,
-     0.15,
-     "left",
-     0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "TX IN -> PROBE",
+      "VIA CROSSED DIODES"
+     ],
+     "near": [
+      1.2,
+      10.8
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "PREAMP x12",
+    "NMR DUPLEXER"
    ],
    "slots": [],
    "voids": []
@@ -1956,7 +1966,7 @@
     [
      1.2,
      17.2,
-     "1 W PULSE",
+     "PULSE AMP x10",
      0.8,
      0.15,
      "left",
@@ -1965,12 +1975,16 @@
     [
      1.2,
      18.5,
-     "IO1: ON",
+     "IO1 HIGH: ON",
      0.8,
      0.15,
      "left",
      0
     ]
+   ],
+   "infos": [],
+   "titles": [
+    "PULSE AMP"
    ],
    "slots": [],
    "voids": []
@@ -3109,6 +3123,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -4322,7 +4338,7 @@
     [
      4.1,
      9.4,
-     "BRIDGE",
+     "S11 BRIDGE",
      0.8,
      0.15,
      "left",
@@ -4337,6 +4353,23 @@
      "left",
      0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "DC - 30 MHz"
+     ],
+     "near": [
+      1.2,
+      10.8
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "REFLECTOMETER"
    ],
    "slots": [],
    "voids": []
@@ -6808,6 +6841,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -8409,13 +8444,15 @@
     [
      4.1,
      9.4,
-     "TANKS",
+     "2 x LC",
      0.8,
      0.15,
      "left",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -10143,6 +10180,23 @@
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "SET: 100 mA/V"
+     ],
+     "near": [
+      1.2,
+      10.8
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "LASER DRIVER"
+   ],
    "slots": [],
    "voids": []
   },
@@ -11705,22 +11759,30 @@
     [
      4.1,
      9.4,
-     "HF RX",
-     0.8,
-     0.15,
-     "left",
-     0
-    ],
-    [
-     22.0,
-     17.3,
-     "x9.9 EACH",
+     "HF PREAMPS",
      0.8,
      0.15,
      "left",
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "x9.9 (20 dB) EACH",
+      "5 kHz - 100 MHz",
+      "0.7 nV/rtHz"
+     ],
+     "near": [
+      22.0,
+      16.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -12566,12 +12628,29 @@
     [
      4.1,
      9.4,
-     "VLF",
+     "VLF LOOP",
      0.8,
      0.15,
      "left",
      0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "x101"
+     ],
+     "near": [
+      9.0,
+      2.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 8.0
+    }
+   ],
+   "titles": [
+    "VLF LOOP AMP"
    ],
    "slots": [],
    "voids": []
@@ -13891,13 +13970,24 @@
     [
      4.1,
      21.3,
-     "COIL",
+     "COIL DRIVER",
      0.8,
      0.15,
      "left",
      0
+    ],
+    [
+     19.4,
+     21.3,
+     "COIL >",
+     0.8,
+     0.15,
+     "right",
+     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   }
@@ -13919,7 +14009,18 @@
   "is the 1 W pulse amplifier: pulse it, do not leave it on."
  ],
  "slots": [],
- "front_text": [],
+ "front_text": [
+  [
+   96.1,
+   71.9,
+   "VM IN"
+  ],
+  [
+   96.1,
+   73.3,
+   "12-18 V"
+  ]
+ ],
  "rail_pours": [
   [
    "+5V",

@@ -2795,19 +2795,7 @@
 		)
 		(uuid "ff26d3e6-ca7c-590b-a391-2c38cbd5f844")
 	)
-	(text "EXPECT: Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
-		(exclude_from_sim no)
-		(at 408.94 268.94 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "01507cd9-bf8f-54ad-ad68-a0ff7d5123f8")
-	)
-	(text "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the"
+	(text "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  Harmonics: the"
 		(exclude_from_sim no)
 		(at 599.44 528.22 0)
 		(effects
@@ -2876,7 +2864,7 @@
 		)
 		(uuid "07c6116c-cd28-5d95-9b1d-2d0fb262d1ac")
 	)
-	(text "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
+	(text "the peak; a resonant plant for feedback control, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
 		(exclude_from_sim no)
 		(at 599.44 149.86 0)
 		(effects
@@ -2887,7 +2875,7 @@
 		)
 		(uuid "089c2dcf-d9bb-51f0-ac65-5367e091612e")
 	)
-	(text "50 ohm on OUT and nothing comes back (4.05).  The taps are 6.05's echo and 6.10's radar target; near 16 MHz the"
+	(text "50 ohm on OUT and nothing comes back (the quarter-wave and reflection experiments).  The taps are a channel's echo and a"
 		(exclude_from_sim no)
 		(at 218.44 398.58 0)
 		(effects
@@ -2942,17 +2930,6 @@
 			(justify right)
 		)
 		(uuid "0f6a69d1-557b-5d10-bf3e-c133c9eaa382")
-	)
-	(text "tutorial 4.03, 4.09, 4.10"
-		(exclude_from_sim no)
-		(at 599.44 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "113fe646-6a79-51be-a6cf-9d0c038576b6")
 	)
 	(text "cell (2,1)"
 		(exclude_from_sim no)
@@ -3021,17 +2998,6 @@
 		)
 		(uuid "16268412-2833-58c7-99e2-342955ecef18")
 	)
-	(text "tutorial 4.10"
-		(exclude_from_sim no)
-		(at 27.94 418.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "181ca882-3028-541d-80e1-7c455bd79bf8")
-	)
 	(text "cell (0,2)"
 		(exclude_from_sim no)
 		(at 208.28 287.78 0)
@@ -3077,7 +3043,7 @@
 		)
 		(uuid "1ef06e69-9f2b-5487-bf3f-178581d936b8")
 	)
-	(text "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  6.10's filtered chips in copper; the transmitter's harmonics and the"
+	(text "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  The tutorial's filtered chips in copper; it cleans a transmitter's"
 		(exclude_from_sim no)
 		(at 408.94 274.22 0)
 		(effects
@@ -3222,17 +3188,6 @@
 		)
 		(uuid "2fa70093-6e57-5546-9856-ed2dad57f0e6")
 	)
-	(text "tutorial 4.02, 4.03"
-		(exclude_from_sim no)
-		(at 27.94 291.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "33162cde-1b98-5e9b-9bbd-cfd10a7aa74f")
-	)
 	(text "slots for cable ties"
 		(exclude_from_sim no)
 		(at 137.16 553.72 0)
@@ -3311,16 +3266,16 @@
 		)
 		(uuid "3ab0cfd1-c663-5a7f-b310-52606e1c7694")
 	)
-	(text "Turns 7.05's one-bit stream into a tone; the slow plant of 7.06 with P2."
+	(text "radar target on a cable; near 16 MHz the phase velocity falls and a chirp spreads (below that, a pure-delay plant for control).  A tap through 470 ohm: x1 into a"
 		(exclude_from_sim no)
-		(at 218.44 276.86 0)
+		(at 218.44 401.22 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "3e2d65ee-82ba-5bc8-b9cd-c74c4eacf2c6")
+		(uuid "3b91ff5c-19de-526a-9aaf-fdbc4b2be8b3")
 	)
 	(text "cells (1,2), (2,2), (3,2)"
 		(exclude_from_sim no)
@@ -3377,7 +3332,7 @@
 		)
 		(uuid "43c930ef-6af7-5c6d-9069-986d6bc702eb")
 	)
-	(text "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant (4.10)."
+	(text "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant."
 		(exclude_from_sim no)
 		(at 27.94 525.58 0)
 		(effects
@@ -3387,17 +3342,6 @@
 			(justify left)
 		)
 		(uuid "4a44809c-e6d6-5f0c-bfe7-506b8da14876")
-	)
-	(text "tutorial 1.10"
-		(exclude_from_sim no)
-		(at 218.44 418.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "4c681aab-30e9-5246-9b42-f98029c9b4c7")
 	)
 	(text "P4   series RLC, 100uH 220pF"
 		(exclude_from_sim no)
@@ -3421,6 +3365,28 @@
 			(justify left)
 		)
 		(uuid "53542b8c-6627-57bd-bb2f-a9a052814da5")
+	)
+	(text "tutorial Harmonics: a diode clipper"
+		(exclude_from_sim no)
+		(at 599.44 418.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "5365fa62-3883-5f17-9ccc-8955642cf60c")
+	)
+	(text "tutorial Chirps, Zadoff-Chu and LoRa, A radio link, On the air"
+		(exclude_from_sim no)
+		(at 408.94 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "5485bccb-ca76-5f23-85a5-e8fb555326fa")
 	)
 	(text "OUT"
 		(exclude_from_sim no)
@@ -3456,7 +3422,7 @@
 		)
 		(uuid "5ce261cc-888e-5054-b3a5-31b9d149d23d")
 	)
-	(text "down toward f_s and leaves f_s alone: the pulling that 4.09 measures.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."
+	(text "down toward f_s and leaves f_s alone: the pulling the tutorial measures against a reference.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."
 		(exclude_from_sim no)
 		(at 599.44 276.86 0)
 		(effects
@@ -3466,6 +3432,18 @@
 			(justify left)
 		)
 		(uuid "5dac85ec-39f5-5fae-b0f2-1cce38e8532e")
+	)
+	(text "EXPECT: the digital-communications pages' band (a 6.25 MHz carrier): a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz"
+		(exclude_from_sim no)
+		(at 408.94 268.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "6001a99c-814a-5047-8512-4425a6349760")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -3532,17 +3510,6 @@
 			(justify left)
 		)
 		(uuid "6d7c2df3-d56c-54db-b5b3-1c6eebee7a3c")
-	)
-	(text "tutorial 1.06, 6.10, 4.02"
-		(exclude_from_sim no)
-		(at 27.94 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "6fffe4ad-560a-5a02-bbf5-d1ef7e824e6d")
 	)
 	(text "P9   ceramic res., 455 kHz"
 		(exclude_from_sim no)
@@ -3624,17 +3591,6 @@
 		)
 		(uuid "7b8a3df6-6930-5fa2-ae10-6a99c886f505")
 	)
-	(text "tutorial 4.02, 7.06"
-		(exclude_from_sim no)
-		(at 599.44 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "7daa8315-8580-5e3a-9991-47a8c21fb1d0")
-	)
 	(text "EXPECT: one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e"
 		(exclude_from_sim no)
 		(at 27.94 520.3 0)
@@ -3682,7 +3638,7 @@
 		)
 		(uuid "82888f92-e2b8-542e-8cbf-d341d725be44")
 	)
-	(text "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and 1.10's AM radio: a real station."
+	(text "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station."
 		(exclude_from_sim no)
 		(at 218.44 530.86 0)
 		(effects
@@ -3714,17 +3670,6 @@
 			(justify left)
 		)
 		(uuid "8878cf16-7428-5587-a6d5-315b4b39f92e")
-	)
-	(text "phase velocity falls and a chirp spreads (7.06's pure-delay plant below that).  A tap through 470 ohm: x1 into a"
-		(exclude_from_sim no)
-		(at 218.44 401.22 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "94753b8a-c1fb-5589-bbcd-bd0db8d9e8d5")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3760,7 +3705,7 @@
 		)
 		(uuid "95067242-596f-5f4c-9d20-40fe37518d7a")
 	)
-	(text "load would make a 1 k / 50 divider of it.  The lag plant of 4.08 and 7.06; the step response is 1 - exp(-t / 1 us)."
+	(text "load would make a 1 k / 50 divider of it.  The lag plant of the tutorial's feedback-control pages; the step response is 1 - exp(-t / 1 us)."
 		(exclude_from_sim no)
 		(at 218.44 149.86 0)
 		(effects
@@ -3816,28 +3761,6 @@
 		)
 		(uuid "a09706c4-a1ea-5e10-be0e-ac20c88c91af")
 	)
-	(text "receiver's front end of 5.07 and 6.12."
-		(exclude_from_sim no)
-		(at 408.94 276.86 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "a23a6aa7-159f-5b12-a4c1-aabe33714f71")
-	)
-	(text "tutorial 4.04"
-		(exclude_from_sim no)
-		(at 599.44 418.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "a856a69f-00f5-5d2e-bef9-c537317d7571")
-	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 223.52 184.96 0)
@@ -3883,27 +3806,16 @@
 		)
 		(uuid "af63d24f-89c6-5fdc-ac5a-0ea491b3c641")
 	)
-	(text "tutorial 4.05, 6.05, 6.10, 7.06"
+	(text "harmonics and is a radio link's receiver front end."
 		(exclude_from_sim no)
-		(at 218.44 291.08 0)
+		(at 408.94 276.86 0)
 		(effects
 			(font
-				(size 1.3 1.3)
+				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "aff13f83-4678-5f55-b7cf-bc8bdf1d8a96")
-	)
-	(text "tutorial 4.02, 4.08, 7.06"
-		(exclude_from_sim no)
-		(at 218.44 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "b00f9e45-8fcf-57b8-a12c-75722c99cd60")
+		(uuid "afb73d44-3563-5384-9d3c-641528f8efa6")
 	)
 	(text "0-5 V"
 		(exclude_from_sim no)
@@ -3994,16 +3906,16 @@
 		)
 		(uuid "b70c0ee3-54f3-5039-8556-32dada82ee40")
 	)
-	(text "tutorial 6.10, 5.07, 6.12"
+	(text "tutorial The Q of a quartz crystal, Your crystal against a reference, More ideas for one board"
 		(exclude_from_sim no)
-		(at 408.94 164.08 0)
+		(at 599.44 164.08 0)
 		(effects
 			(font
 				(size 1.3 1.3)
 			)
 			(justify left)
 		)
-		(uuid "c1321387-2a9c-5109-a17e-b6a0b77973ab")
+		(uuid "bf3e917d-f366-50a7-88f2-15dcc649a21f")
 	)
 	(text "1 coil end"
 		(exclude_from_sim no)
@@ -4015,6 +3927,17 @@
 			(justify right)
 		)
 		(uuid "c1774700-f595-5008-b11b-d53a5df389ed")
+	)
+	(text "tutorial More ideas for one board"
+		(exclude_from_sim no)
+		(at 27.94 418.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "c1bc7576-ac17-5c4a-a6b8-62343bcef4e6")
 	)
 	(text "P11   delay line, 400 ns, a tap every 100"
 		(exclude_from_sim no)
@@ -4028,7 +3951,29 @@
 		)
 		(uuid "c80f77cf-3112-5b97-9245-69389ea7da5e")
 	)
-	(text "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board)."
+	(text "tutorial RC and LC circuits"
+		(exclude_from_sim no)
+		(at 408.94 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "cc814ef5-3ed9-5e33-b198-db9a0c1daaa1")
+	)
+	(text "tutorial RC and LC circuits, Control at the speed of the cable"
+		(exclude_from_sim no)
+		(at 599.44 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "d066d7d5-5df6-5781-ab03-902c7026cb67")
+	)
+	(text "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (the tutorial's $10 SMA pad, on the board)."
 		(exclude_from_sim no)
 		(at 27.94 147.22 0)
 		(effects
@@ -4050,6 +3995,17 @@
 		)
 		(uuid "d4a9e259-ed50-57d8-b0e5-1b0f7f473259")
 	)
+	(text "tutorial On the air, The modem against noise"
+		(exclude_from_sim no)
+		(at 27.94 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "d9451287-37d9-5419-ab94-c2312b527d6e")
+	)
 	(text "IN"
 		(exclude_from_sim no)
 		(at 33.02 308.76 0)
@@ -4060,6 +4016,17 @@
 			(justify right)
 		)
 		(uuid "da26bb40-3355-5d20-bed0-e6aba546263e")
+	)
+	(text "tutorial An AM radio"
+		(exclude_from_sim no)
+		(at 218.44 418.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "da3ac8ca-44ad-501c-8644-388e2b69bf57")
 	)
 	(text "M3 mounting holes, one per corner"
 		(exclude_from_sim no)
@@ -4072,16 +4039,16 @@
 		)
 		(uuid "dc0d44d5-5eb3-567b-bef6-c87c6e351a7d")
 	)
-	(text "tutorial 7.05, 4.02"
+	(text "tutorial A quarter-wave stub, The channel, Chirps, Zadoff-Chu and LoRa, Control at the speed of the cable"
 		(exclude_from_sim no)
-		(at 218.44 164.08 0)
+		(at 218.44 291.08 0)
 		(effects
 			(font
 				(size 1.3 1.3)
 			)
 			(justify left)
 		)
-		(uuid "de19a5b8-07a8-54ea-848c-63fe5eea1782")
+		(uuid "df53d811-5381-5da9-900a-69bcfdde1525")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -4093,6 +4060,17 @@
 			(justify right)
 		)
 		(uuid "dffc6f2d-830c-5ee3-b048-1f6d0248a74b")
+	)
+	(text "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2."
+		(exclude_from_sim no)
+		(at 218.44 276.86 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "e1ccb87c-3985-57a3-9149-1636e84bcf65")
 	)
 	(text "the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p"
 		(exclude_from_sim no)
@@ -4116,7 +4094,7 @@
 		)
 		(uuid "e5049807-7c57-5baa-a5db-4cb98ba9fb64")
 	)
-	(text "Before the ADC it removes 6.10's ghost; after the DAC it smooths the steps."
+	(text "Before the ADC it removes the alias (the ghost image above Nyquist); after the DAC it smooths the steps."
 		(exclude_from_sim no)
 		(at 27.94 276.86 0)
 		(effects
@@ -4172,6 +4150,17 @@
 		)
 		(uuid "ee1bcd11-5df8-5bb5-a63d-9cca0a418a70")
 	)
+	(text "tutorial Trading speed for bits, RC and LC circuits"
+		(exclude_from_sim no)
+		(at 218.44 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "f1017ade-ad94-5911-93de-cf15fdc2a0c2")
+	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 220.98 306.88 0)
@@ -4206,17 +4195,6 @@
 		)
 		(uuid "f2bb9d1e-46f3-5245-b1e4-c64e67711dda")
 	)
-	(text "tutorial 4.02"
-		(exclude_from_sim no)
-		(at 408.94 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "f3287241-8ee4-5a98-9d3c-a4beacb7dfbf")
-	)
 	(text "cell (1,1)"
 		(exclude_from_sim no)
 		(at 398.78 160.78 0)
@@ -4238,6 +4216,28 @@
 			(justify left)
 		)
 		(uuid "f5e2c385-6411-50e2-8892-845404d2e7d1")
+	)
+	(text "tutorial Fast captures, Chirps, Zadoff-Chu and LoRa, RC and LC circuits"
+		(exclude_from_sim no)
+		(at 27.94 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "f687afff-a816-5f5f-a484-3bdf62ceb37f")
+	)
+	(text "tutorial RC and LC circuits, Feedback control of an RC plant, Control at the speed of the cable"
+		(exclude_from_sim no)
+		(at 218.44 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "f79a6337-0f74-53bb-82f7-852cc524c1ce")
 	)
 	(text "cell (3,1)"
 		(exclude_from_sim no)
@@ -4284,16 +4284,16 @@
 		)
 		(uuid "fb71c096-24ff-56c0-aaab-ba19fa7d265e")
 	)
-	(text "tutorial 6.12, 5.06"
+	(text "tutorial RC and LC circuits, The Q of a quartz crystal"
 		(exclude_from_sim no)
-		(at 27.94 37.08 0)
+		(at 27.94 291.08 0)
 		(effects
 			(font
 				(size 1.3 1.3)
 			)
 			(justify left)
 		)
-		(uuid "fc90eb4f-35ac-5cf7-a763-3bdb9ad3cf48")
+		(uuid "fd2a205d-a245-5ebe-b34d-09bee30471b4")
 	)
 	(text "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to"
 		(exclude_from_sim no)

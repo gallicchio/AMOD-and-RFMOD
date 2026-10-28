@@ -6,8 +6,8 @@
    "name": "x10",
    "subtitle": "14 MHz",
    "sections": [
-    "4.06",
-    "5.02"
+    "The speed of sound at 40 kHz",
+    "Warming a crystal"
    ],
    "cells": [
     [
@@ -754,7 +754,7 @@
     [
      19.0,
      1.65,
-     "4.06 5.02",
+     "GAIN x10",
      0.8,
      0.15,
      "right",
@@ -763,13 +763,15 @@
     [
      19.0,
      3.0,
-     "X10 14 MHZ",
+     "14 MHz",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -779,8 +781,8 @@
    "name": "x100",
    "subtitle": "1.4MHz",
    "sections": [
-    "4.06",
-    "5.02"
+    "The speed of sound at 40 kHz",
+    "Warming a crystal"
    ],
    "cells": [
     [
@@ -1528,7 +1530,7 @@
     [
      19.0,
      1.65,
-     "4.06 5.02",
+     "GAIN x100",
      0.8,
      0.15,
      "right",
@@ -1537,13 +1539,15 @@
     [
      19.0,
      3.0,
-     "X100 1.4MHZ",
+     "1.4 MHz",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -1553,8 +1557,8 @@
    "name": "LNA",
    "subtitle": "30 MHz",
    "sections": [
-    "4.06",
-    "5.03"
+    "The speed of sound at 40 kHz",
+    "What time is it over there?"
    ],
    "cells": [
     [
@@ -2307,7 +2311,7 @@
     [
      19.0,
      1.65,
-     "4.06 5.03",
+     "LNA x100",
      0.8,
      0.15,
      "right",
@@ -2316,13 +2320,15 @@
     [
      19.0,
      3.0,
-     "LNA 30 MHZ",
+     "1-30 MHz",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -2332,7 +2338,7 @@
    "name": "Doppler",
    "subtitle": "HB100",
    "sections": [
-    "5.08"
+    "With a little more hardware"
    ],
    "cells": [
     [
@@ -3171,20 +3177,20 @@
      0
     ],
     [
+     4.4,
+     3.7,
+     "IF",
+     0.8,
+     0.15,
+     "left",
+     0
+    ],
+    [
      7.6,
      1.8,
      "A5",
      1.2,
      0.24,
-     "center",
-     0
-    ],
-    [
-     7.6,
-     3.15,
-     "5.08",
-     0.8,
-     0.15,
      "center",
      0
     ],
@@ -3200,13 +3206,15 @@
     [
      19.0,
      3.0,
-     "HB100",
+     "HB100 MODULE",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -3216,7 +3224,7 @@
    "name": "1-bit ADC",
    "subtitle": "",
    "sections": [
-    "7.05"
+    "Trading speed for bits"
    ],
    "cells": [
     [
@@ -3980,17 +3988,10 @@
      0.15,
      "right",
      0
-    ],
-    [
-     10.0,
-     4.4,
-     "7.05",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -4000,7 +4001,7 @@
    "name": "PLL 4046",
    "subtitle": "",
    "sections": [
-    "4.01"
+    "A faster DAC: PLLs"
    ],
    "cells": [
     [
@@ -4733,15 +4734,6 @@
      0
     ],
     [
-     7.6,
-     14.0,
-     "4.01",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      19.0,
      3.0,
      "PLL 4046",
@@ -4751,6 +4743,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -4760,8 +4754,8 @@
    "name": "heat",
    "subtitle": "",
    "sections": [
-    "5.02",
-    "7.06"
+    "Warming a crystal",
+    "Control at the speed of the cable"
    ],
    "cells": [
     [
@@ -5285,24 +5279,6 @@
      0
     ],
     [
-     7.8,
-     12.9,
-     "5.02",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     7.8,
-     14.25,
-     "7.06",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      19.0,
      4.5,
      "HEAT",
@@ -5321,6 +5297,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -5330,8 +5308,8 @@
    "name": "mixer",
    "subtitle": "MC1496",
    "sections": [
-    "1.10",
-    "6.02"
+    "An AM radio",
+    "PSK and QPSK"
    ],
    "cells": [
     [
@@ -6482,33 +6460,30 @@
      0
     ],
     [
-     12.75,
-     4.4,
-     "1.10",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     12.75,
-     5.75,
-     "6.02",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      40.4,
      2.2,
-     "MIXER MC1496",
+     "GILBERT MIXER MC1496",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "RF, LO < 0.3 V PEAK"
+     ],
+     "near": [
+      22.0,
+      4.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -6518,8 +6493,8 @@
    "name": "impedance",
    "subtitle": "V and I",
    "sections": [
-    "4.02",
-    "4.10"
+    "RC and LC circuits",
+    "More ideas for one board"
    ],
    "cells": [
     [
@@ -7964,7 +7939,7 @@
     [
      19.0,
      1.65,
-     "4.02 4.10",
+     "IMPEDANCE",
      0.8,
      0.15,
      "right",
@@ -7973,13 +7948,15 @@
     [
      19.0,
      3.0,
-     "IMPEDANCE",
+     "AND I-V",
      0.8,
      0.15,
      "right",
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -7989,7 +7966,7 @@
    "name": "ultrasound",
    "subtitle": "",
    "sections": [
-    "4.06"
+    "The speed of sound at 40 kHz"
    ],
    "cells": [
     [
@@ -9428,15 +9405,6 @@
      0
     ],
     [
-     17.5,
-     7.4,
-     "4.06",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      21.6,
      16.5,
      "ULTRASOUND",
@@ -9446,6 +9414,45 @@
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "TX"
+     ],
+     "near": [
+      14.3,
+      2.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 2.5
+    },
+    {
+     "lines": [
+      "RX"
+     ],
+     "near": [
+      33.0,
+      2.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 2.5
+    },
+    {
+     "lines": [
+      "40 kHz"
+     ],
+     "near": [
+      15.5,
+      7.6
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 4.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -9455,8 +9462,8 @@
    "name": "audio",
    "subtitle": "",
    "sections": [
-    "1.05",
-    "6.04"
+    "ADC samples to Python",
+    "MSK and GMSK"
    ],
    "cells": [
     [
@@ -10960,7 +10967,7 @@
     [
      16.7,
      2.4,
-     "A12 1.05",
+     "A12",
      0.9,
      0.17,
      "center",
@@ -10985,6 +10992,21 @@
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "MIC x100"
+     ],
+     "near": [
+      33.0,
+      9.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -10994,7 +11016,7 @@
    "name": "power",
    "subtitle": "USB-C 5 V in: +5, -5, +3.3 out",
    "sections": [
-    "1.01"
+    "A counter on the LEDs"
    ],
    "cells": [
     [
@@ -12032,7 +12054,7 @@
    "texts": [
     [
      2.4,
-     -0.8,
+     0.15,
      "+5",
      0.8,
      0.15,
@@ -12041,7 +12063,7 @@
     ],
     [
      4.94,
-     -0.8,
+     0.15,
      "G",
      0.8,
      0.15,
@@ -12050,7 +12072,7 @@
     ],
     [
      7.48,
-     -0.8,
+     0.15,
      "-5",
      0.8,
      0.15,
@@ -12059,7 +12081,7 @@
     ],
     [
      10.02,
-     -0.8,
+     0.15,
      "G",
      0.8,
      0.15,
@@ -12068,7 +12090,7 @@
     ],
     [
      12.56,
-     -0.8,
+     0.15,
      "3V3",
      0.8,
      0.15,
@@ -12085,15 +12107,6 @@
      0
     ],
     [
-     17.4,
-     3.4,
-     "1.01",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      18.7,
      18.6,
      "POWER",
@@ -12103,6 +12116,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   }

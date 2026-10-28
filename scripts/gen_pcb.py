@@ -2,7 +2,7 @@
 """Build a board from its tiles: the outline and holes, every tile's parts where its layout puts
 them, the tiles' wires as copper AND as silkscreen (clipped round pads and bodies, so the picture
 is the netlist), hops on the back layer, a ground via at every ground stub with the schematic's
-ground symbol drawn at it, the planes, the tile frames and legends, the jack names in the gutters,
+ground symbol drawn at it, the planes, the tile frames and legends, the jack names on their tiles' frames,
 the identity, the QR code and the back text.  No autorouter: every track is a drawn wire.
 
 Runs under KiCad's bundled Python (it needs pcbnew):
@@ -66,6 +66,8 @@ FINE_BOARD_RULES = dict(m_MinClearance=0.127, m_TrackMinWidth=0.127, m_ViasMinSi
                         m_MinThroughDrill=0.20, m_HoleClearance=0.25)
 BOARD_RULES_BY_STEM = {s: FINE_BOARD_RULES for s, b in parts.BOARDS.items() if b.get("fine")}
 FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (96.5, 90.0)]
+JACK_SIZE, JACK_THICK = 0.9, 0.18      # the jacks' names, on their tiles' frames
+TITLE_SIZE, TITLE_THICK = 0.9, 0.18    # a tile's title in words, on its top frame
 QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under P12's switch, between its jack's legs and P13's: 14 mm with no hole
 BACK_Y, BACK_PITCH = 94.2, 1.4       # between the two rows of cable-tie slots
 
@@ -904,13 +906,109 @@ class Board:
             cx, cy = x + ux * s, y + uy * s
             self._line((cx - px * w / 2, cy - py * w / 2), (cx + px * w / 2, cy + py * w / 2), width=0.25)
 
+    def _hits(self, obst, box, clear):
+        """Whether a box (board mm) comes within `clear` of any obstacle: a box, or a segment with its half-width."""
+        rects, segs = obst
+        x0, y0, x1, y1 = box
+        for (a, b, c, d) in rects:
+            if a - clear < x1 and c + clear > x0 and b - clear < y1 and d + clear > y0:
+                return True
+        for (ax, ay, bx, by, hw) in segs:
+            r = hw + clear
+            if max(ax, bx) + r < x0 or min(ax, bx) - r > x1 or max(ay, by) + r < y0 or min(ay, by) - r > y1:
+                continue
+            n = max(1, int(math.hypot(bx - ax, by - ay) / 0.1))
+            for k in range(n + 1):
+                px, py = ax + (bx - ax) * k / n, ay + (by - ay) * k / n
+                if x0 - r < px < x1 + r and y0 - r < py < y1 + r:
+                    return True
+        return False
+
+    def frame_texts(self):
+        """Where every jack's name and every tile's title go: ON the tile's own frame line, the frame broken round them.
+        A jack's name stands beside its jack (clear of its legs), slid sideways if a drawn wire is under it; a title on the
+        top frame as far right as it fits, clear of pads, bodies, wires, the jack names (its own and the neighbours' across
+        the gutter, by 0.8 mm along and 0.5 mm across) and the other titles.  A name in a frame belongs to that frame; in
+        the gutter it read as the neighbour's (Prompt 14)."""
+        obst = self._obstacles()
+        out, taken = {}, []
+        for t in self.tiles:
+            h = t.h
+            names = []
+            for j in t.jacks:
+                if j.get("label_at"):
+                    continue
+                name = j.get("silk") or j["label"]
+                top = j["y"] < h / 2
+                b = self._text_box(name, JACK_SIZE, JACK_THICK, "center")
+                ay = t.y0 + j["y"] - 3.64 - 0.22 - b[3] if top else t.y0 + j["y"] + 3.64 + 0.22 - b[1]
+                ax = t.x0 + j["x"]
+                for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 13) for sgn in (1, -1)]:
+                    box = (ax + dx + b[0], ay + b[1], ax + dx + b[2], ay + b[3])
+                    if not self._hits(obst, box, 0.2):
+                        ax += dx
+                        break
+                else:
+                    self.problems.append("%s: the jack name %r has no clear place on the frame" % (t.id, name))
+                names.append((ax, ay, name, JACK_SIZE, JACK_THICK, (ax + b[0], ay + b[1], ax + b[2], ay + b[3])))
+            out[t.id] = names
+            taken += [n[5] for n in names]
+        for t in self.tiles:
+            inset = 0.3 if t.supply is None else 0.55
+            for title in getattr(t, "titles", None) or []:
+                b = self._text_box(title, TITLE_SIZE, TITLE_THICK, "left")
+                placed = False
+                for yc in (inset, 0.2):                        # centred on the frame line, else level with the jacks' names
+                    ay = t.y0 + yc - (b[1] + b[3]) / 2.0
+                    x = t.x0 + t.w - 0.9 - b[2]
+                    while x + b[0] > t.x0 + 1.0:
+                        box = (x + b[0], ay + b[1], x + b[2], ay + b[3])
+                        if not self._hits(obst, box, 0.2) and \
+                                not any(c - 0.8 < box[2] and a + 0.8 > box[0] and d - 0.5 < box[3] and bb + 0.5 > box[1] for (a, bb, c, d) in taken):
+                            placed = True
+                            break
+                        if t.id in os.environ.get("TITLE_DEBUG", "").split(","):
+                            hit = [tuple(round(v - o, 2) for v, o in zip(r, (t.x0, t.y0, t.x0, t.y0))) for r in obst[0]
+                                   if r[0] - 0.2 < box[2] and r[2] + 0.2 > box[0] and r[1] - 0.2 < box[3] and r[3] + 0.2 > box[1]]
+                            nm = [tuple(round(v - o, 2) for v, o in zip(r, (t.x0, t.y0, t.x0, t.y0))) for r in taken
+                                  if r[2] - 0.8 < box[2] and r[0] + 0.8 > box[0] and r[3] - 0.5 < box[3] and r[1] + 0.5 > box[1]]
+                            print("   title %s y %.2f x %.2f: rects %s names %s" % (t.id, yc, x - t.x0, hit[:3], nm[:2]))
+                        x -= 0.25
+                    if placed:
+                        break
+                if not placed:
+                    self.warnings.append("%s: no room on the frame for the title %r" % (t.id, title))
+                    continue
+                out[t.id].append((x, ay, title, TITLE_SIZE, TITLE_THICK, box, "left"))
+                taken.append(box)
+        return out
+
     def silk_tiles(self):
         """Frames, legends, value labels and jack names."""
+        self.warnings = []
+        on_frame = self.frame_texts()
         for t in self.tiles:
             x0, y0, w, h = t.x0, t.y0, t.w, t.h
             thick = 0.15 if t.supply is None else 0.6
             inset = 0.3 if t.supply is None else 0.55
+            # each jack's name sits ON its own tile's frame, beside the jack, the frame broken round it: a name in a frame
+            # belongs to that frame, where a name in the gutter read as the neighbour's (Prompt 14)
+            names = on_frame.get(t.id, [])
+            for n in names:
+                bx0, by0, bx1, by1 = n[5]
+                self.boxes.append((bx0 - 0.35, by0 - 0.1, bx1 + 0.35, by1 + 0.1))
+            # and any of the tile's own texts that sits on the frame line breaks it the same way (A1's socket pins)
+            for (lx, ly, s_, size, thk, just, ang) in t.texts:
+                if ang:
+                    continue
+                b = self._text_box(s_, size, thk, just)
+                bx0, by0, bx1, by1 = x0 + lx + b[0], y0 + ly + b[1], x0 + lx + b[2], y0 + ly + b[3]
+                for fy in (y0 + inset, y0 + h - inset):
+                    if by0 - 0.05 < fy < by1 + 0.05 and bx1 > x0 and bx0 < x0 + w:
+                        self.boxes.append((bx0 - 0.35, by0 - 0.1, bx1 + 0.35, by1 + 0.1))
             self._rect(x0 + inset, y0 + inset, x0 + w - inset, y0 + h - inset, width=thick)
+            for n in names:
+                self._text(n[0], n[1], n[2], n[3], n[4], justify=n[6] if len(n) > 6 else "center")
             for (lx, ly, s, size, thk, just, ang) in t.texts:
                 self._text(x0 + lx, y0 + ly, s, size, thk, justify=just, angle=ang)
             for ref, p in t.parts.items():
@@ -933,16 +1031,12 @@ class Board:
                 v.SetPosition(pt(x0 + p.x + dx, y0 + p.y + dy))
                 v.SetTextAngleDegrees(p.label[4] if len(p.label) > 4 else 0)
                 v.SetHorizJustify({"left": pcbnew.GR_TEXT_H_ALIGN_LEFT, "right": pcbnew.GR_TEXT_H_ALIGN_RIGHT, "center": pcbnew.GR_TEXT_H_ALIGN_CENTER}[just])
-            # the jack names in the gutter above (or below) each jack
+            # a jack's name where the tile puts it; the rest are placed inside the tile by place_labels()
             for j in t.jacks:
                 name = j.get("silk") or j["label"]
                 if j.get("label_at"):
                     dx, dy, just, size = j["label_at"]
                     self._text(x0 + j["x"] + dx, y0 + j["y"] + dy, name, size, 0.15, justify=just)
-                elif j["slot"] in ("TL", "TR", "TM", "TMr", "TLo") or j["slot"].startswith("TL"):
-                    self._text(x0 + j["x"], y0 - 0.8, name, 1.0, 0.18, justify="center")
-                else:
-                    self._text(x0 + j["x"], y0 + h + 0.8, name, 1.0, 0.18, justify="center")
             # the test loops: name where the tile says, else under the loop
             for ref, p in t.parts.items():
                 if p.key == "TP" and p.value:
@@ -953,6 +1047,158 @@ class Board:
                         self._text(x0 + p.x + dx, y0 + p.y + dy, p.value, size, 0.15, justify=just, angle=p.label[4] if len(p.label) > 4 else 0)
                     else:
                         self._text(x0 + p.x, y0 + p.y + (1.9 if p.rot in (0, 180) else 2.9), p.value, 0.8, 0.15, justify="center")
+
+    # ------------------------------------------------------- label placement --
+    def _text_box(self, txt, size, thickness, justify):
+        """KiCad's box for `txt` drawn at (0, 0) with this justification, in mm relative to the anchor."""
+        t = pcbnew.PCB_TEXT(self.board)
+        t.SetText(txt)
+        t.SetTextSize(pcbnew.VECTOR2I(mm(size), mm(size)))
+        t.SetTextThickness(mm(thickness))
+        t.SetLayer(pcbnew.F_SilkS)
+        t.SetHorizJustify({"center": pcbnew.GR_TEXT_H_ALIGN_CENTER, "left": pcbnew.GR_TEXT_H_ALIGN_LEFT, "right": pcbnew.GR_TEXT_H_ALIGN_RIGHT}[justify])
+        t.SetPosition(pt(0, 0))
+        b = t.GetBoundingBox()
+        return (tomm(b.GetLeft()), tomm(b.GetTop()), tomm(b.GetRight()), tomm(b.GetBottom()))
+
+    def _obstacles(self):
+        """Everything a label must not touch, in board mm: every front silk line (as a segment with its half-width), every
+        other front silk item, footprint text, pad and courtyard (as a box)."""
+        rects, segs = [], []
+        def box(b):
+            return (tomm(b.GetLeft()), tomm(b.GetTop()), tomm(b.GetRight()), tomm(b.GetBottom()))
+        for d in self.board.GetDrawings():
+            d = d.Cast() if hasattr(d, "Cast") else d
+            if d.GetLayer() != pcbnew.F_SilkS:
+                continue
+            if isinstance(d, pcbnew.PCB_SHAPE) and d.GetShape() == pcbnew.SHAPE_T_SEGMENT:
+                a, b = d.GetStart(), d.GetEnd()
+                segs.append((tomm(a.x), tomm(a.y), tomm(b.x), tomm(b.y), tomm(d.GetWidth()) / 2.0))
+            else:
+                rects.append(box(d.GetBoundingBox()))
+        for ref, fp in self.fps.items():
+            for item in fp.GraphicalItems():
+                if item.GetLayer() == pcbnew.F_SilkS:
+                    rects.append(box(item.GetBoundingBox()))
+            for f in (fp.Value(), fp.Reference()):
+                if f.IsVisible() and f.GetLayer() == pcbnew.F_SilkS:
+                    rects.append(box(f.GetBoundingBox()))
+            if ref[:1] == "J" and fp.GetFPID().GetLibItemName().wx_str().startswith("SMA"):
+                continue                                       # a jack: its pads (below) and its body (the pads' extent) only
+            poly = fp.GetCourtyard(pcbnew.F_CrtYd)
+            if poly.OutlineCount():
+                rects.append(box(poly.BBox()))
+        for p in self.pad_list:
+            rects.append((p["x0"], p["y0"], p["x1"], p["y1"]))
+        return rects, segs                                     # vias are tented: text may cross them
+
+    LBL_RES = 0.1                                              # the placement raster, mm
+    LBL_CLEAR = 0.22                                           # silk to anything (the rule is 0.15; KiCad's text box is not the glyphs)
+
+    def _raster(self, t, rects, segs):
+        """A tile's free area as rows of bytes (1 = taken) at LBL_RES, its frame and outside it taken."""
+        R, C = self.LBL_RES, self.LBL_CLEAR
+        nx, ny = int(round(t.w / R)), int(round(t.h / R))
+        grid = [bytearray(nx) for _ in range(ny)]
+        def mark(x0, y0, x1, y1):
+            i0, i1 = max(0, int(math.floor((x0 - t.x0) / R))), min(nx, int(math.ceil((x1 - t.x0) / R)))
+            j0, j1 = max(0, int(math.floor((y0 - t.y0) / R))), min(ny, int(math.ceil((y1 - t.y0) / R)))
+            if i0 >= i1:
+                return
+            ones = b"\x01" * (i1 - i0)
+            for j in range(j0, j1):
+                grid[j][i0:i1] = ones
+        for (x0, y0, x1, y1) in rects:
+            if x1 < t.x0 or x0 > t.x0 + t.w or y1 < t.y0 or y0 > t.y0 + t.h:
+                continue
+            mark(x0 - C, y0 - C, x1 + C, y1 + C)
+        for (ax, ay, bx, by, hw) in segs:
+            if max(ax, bx) < t.x0 or min(ax, bx) > t.x0 + t.w or max(ay, by) < t.y0 or min(ay, by) > t.y0 + t.h:
+                continue
+            r = hw + C
+            if abs(ax - bx) < 1e-6 or abs(ay - by) < 1e-6:
+                mark(min(ax, bx) - r, min(ay, by) - r, max(ax, bx) + r, max(ay, by) + r)
+            else:
+                n = int(math.hypot(bx - ax, by - ay) / 0.05) + 1
+                for k in range(n + 1):
+                    x, y = ax + (bx - ax) * k / n, ay + (by - ay) * k / n
+                    mark(x - r, y - r, x + r, y + r)
+        inset = (0.3 + 0.075 if t.supply is None else 0.55 + 0.3) + C   # the frame's inner edge
+        mark(t.x0, t.y0, t.x0 + t.w, t.y0 + inset)
+        mark(t.x0, t.y0 + t.h - inset, t.x0 + t.w, t.y0 + t.h)
+        mark(t.x0, t.y0, t.x0 + inset, t.y0 + t.h)
+        mark(t.x0 + t.w - inset, t.y0, t.x0 + t.w, t.y0 + t.h)
+        return grid, mark
+
+    def _free(self, t, grid, x0, y0, x1, y1):
+        R = self.LBL_RES
+        nx, ny = len(grid[0]), len(grid)
+        i0, i1 = int(math.floor((x0 - t.x0) / R)), int(math.ceil((x1 - t.x0) / R))
+        j0, j1 = int(math.floor((y0 - t.y0) / R)), int(math.ceil((y1 - t.y0) / R))
+        if i0 < 0 or j0 < 0 or i1 > nx or j1 > ny:
+            return False
+        for j in range(j0, j1):
+            if grid[j].find(1, i0, i1) != -1:
+                return False
+        return True
+
+    def _search(self, t, grid, boxes, prefer, reach, ok=None):
+        """The anchor nearest `prefer` (board mm), within `reach` of it, where every box (relative to the anchor) is free."""
+        px, py = prefer
+        step = 0.2
+        n = int(reach / step)
+        cands = []
+        for i in range(-n, n + 1):
+            for j in range(-n, n + 1):
+                d = math.hypot(i, j * 1.3)                     # a little more willing to slide sideways than up and down
+                if d * step <= reach:
+                    cands.append((d, px + i * step, py + j * step))
+        cands.sort()
+        for (_, ax, ay) in cands:
+            if ok and not ok(ax, ay):
+                continue
+            if all(self._free(t, grid, ax + b[0], ay + b[1], ax + b[2], ay + b[3]) for b in boxes):
+                return ax, ay
+        return None
+
+    def place_labels(self):
+        """Each tile's information lines (what it is, its ranges and levels) in the nearest free place to where the tile
+        asks: nothing touches a pad, a body or another silk item."""
+        rects, segs = self._obstacles()
+        placed = []
+        for t in self.tiles:
+            grid, mark = self._raster(t, rects, segs)
+            if t.id in os.environ.get("LABEL_DEBUG", "").split(","):         # the tile's free area as a picture, for a label that will not fit
+                with open(os.path.join(HW, "..", "out", "label_debug_%s.pbm" % t.id), "w") as fh:
+                    fh.write("P1\n%d %d\n" % (len(grid[0]), len(grid)))
+                    for row in grid:
+                        fh.write(" ".join(str(v) for v in row) + "\n")
+            for info in getattr(t, "infos", None) or []:
+                size = info.get("size", 0.8)
+                pitch = size * 1.75
+                just = info.get("justify", "left")
+                prefer = (t.x0 + info["near"][0], t.y0 + info["near"][1])
+                at, lines = None, list(info["lines"])
+                while lines:                                   # the whole block, else without its last lines (a warning)
+                    boxes = []
+                    for k, line in enumerate(lines):
+                        b = self._text_box(line, size, 0.15, just)
+                        boxes.append((b[0], b[1] + k * pitch, b[2], b[3] + k * pitch))
+                    at = self._search(t, grid, boxes, prefer, info.get("reach", 30.0))
+                    if at is not None:
+                        break
+                    lines.pop()
+                if at is None:
+                    self.warnings.append("%s: no room for any of %r" % (t.id, info["lines"]))
+                    continue
+                if len(lines) < len(info["lines"]):
+                    self.warnings.append("%s: dropped %r (no room)" % (t.id, info["lines"][len(lines):]))
+                for k, line in enumerate(lines):
+                    self._text(at[0], at[1] + k * pitch, line, size, 0.15, justify=just)
+                for b in boxes:
+                    mark(at[0] + b[0] - self.LBL_CLEAR, at[1] + b[1] - self.LBL_CLEAR, at[0] + b[2] + self.LBL_CLEAR, at[1] + b[3] + self.LBL_CLEAR)
+                placed.append((t.id, lines[0], round(at[0] - t.x0, 2), round(at[1] - t.y0, 2)))
+        self.label_places = placed
 
     def silk_board(self):
         """Identity along the top margin, the ground loops' names, the corners."""
@@ -1040,6 +1286,7 @@ class Board:
         self.silk_grounds()
         self.silk_tiles()
         self.silk_board()
+        self.place_labels()
         self.silk_back()
         self.fiducials()
         stabilise_uuids(self.board)
@@ -1095,6 +1342,8 @@ if __name__ == "__main__":
     b = Board(stem, netlist, out).build()
     ntr = sum(1 for t in b.board.GetTracks() if not isinstance(t, pcbnew.PCB_VIA))
     print("  wrote %s: %d footprints, %d tracks, %d vias, %d hops" % (os.path.relpath(out), len(b.fps), ntr, len(b.vias), len(b.hops)))
+    for w in getattr(b, "warnings", []):
+        print("  silk: " + w)
     if b.problems:
         print("  !! %d wiring problem(s):" % len(b.problems))
         for p in b.problems:

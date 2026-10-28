@@ -7425,6 +7425,17 @@
 		)
 		(uuid "02d81328-2a64-54b6-a2a0-9d90256d958c")
 	)
+	(text "tutorial The speed of sound at 40 kHz, Warming a crystal   (+-5 V)"
+		(exclude_from_sim no)
+		(at 27.94 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "0321da72-0caf-5719-b4f7-783a880e058c")
+	)
 	(text "per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches,"
 		(exclude_from_sim no)
 		(at 27.94 398.58 0)
@@ -7447,7 +7458,7 @@
 		)
 		(uuid "0530f015-8443-5f3d-aece-a4ef0d6b060c")
 	)
-	(text "tutorial 1.05, 6.04   (+-5 V)"
+	(text "tutorial ADC samples to Python, MSK and GMSK   (+-5 V)"
 		(exclude_from_sim no)
 		(at 408.94 418.08 0)
 		(effects
@@ -7456,18 +7467,7 @@
 			)
 			(justify left)
 		)
-		(uuid "06df8f0a-bd91-5350-9f46-b86f9d783c54")
-	)
-	(text "tutorial 4.06, 5.03   (+-5 V)"
-		(exclude_from_sim no)
-		(at 408.94 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "09471abd-b04b-5567-add5-5059a5803567")
+		(uuid "0a7df1c7-a930-5000-87a0-3f7b8e6f6b7e")
 	)
 	(text "OUT"
 		(exclude_from_sim no)
@@ -7479,6 +7479,17 @@
 			(justify left)
 		)
 		(uuid "0a8e9f83-6ac8-5a95-bcca-47115394e235")
+	)
+	(text "tutorial The speed of sound at 40 kHz, Warming a crystal   (+-5 V)"
+		(exclude_from_sim no)
+		(at 218.44 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "0ab5330d-990e-5e7a-8600-6333fb81fb31")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -7502,17 +7513,6 @@
 		)
 		(uuid "0b96e026-fa60-5ec0-86c9-f87c081ffb9a")
 	)
-	(text "tutorial 4.06, 5.02   (+-5 V)"
-		(exclude_from_sim no)
-		(at 218.44 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "0d1e607e-0464-5f5e-9c90-93dcd262a1a3")
-	)
 	(text "Gilbert cell on +-5 V: signal pair at ground (51 ohm), carrier pair at 2.5 V (51 ohm to the 10 k / 10 k bias), 1 mA"
 		(exclude_from_sim no)
 		(at 27.94 395.94 0)
@@ -7534,6 +7534,17 @@
 			(justify right)
 		)
 		(uuid "11579d54-56f7-5bed-8464-0ef7104c0f25")
+	)
+	(text "tutorial The speed of sound at 40 kHz, What time is it over there?   (+-5 V)"
+		(exclude_from_sim no)
+		(at 408.94 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "1b03925c-567d-5aa3-b0c6-9ad9cfa71580")
 	)
 	(text "S"
 		(exclude_from_sim no)
@@ -7825,7 +7836,7 @@
 		)
 		(uuid "4909dc82-ba6a-5b8e-9c78-d4defd71fd2d")
 	)
-	(text "tutorial 4.06   (+-5 V)"
+	(text "tutorial The speed of sound at 40 kHz   (+-5 V)"
 		(exclude_from_sim no)
 		(at 27.94 418.08 0)
 		(effects
@@ -7834,7 +7845,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4c1c6ff5-1703-5b10-bed9-fa634d25fb24")
+		(uuid "4f3f25e5-9e52-5f26-9d58-5ec221a95393")
 	)
 	(text "A6   1-bit ADC"
 		(exclude_from_sim no)
@@ -7882,17 +7893,6 @@
 		)
 		(uuid "5ca421bc-5d86-5054-8d2b-8467a773151d")
 	)
-	(text "tutorial 4.01   (+5 V)"
-		(exclude_from_sim no)
-		(at 218.44 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "5d81e70e-f9f7-5bb2-9c0c-27543ed88d08")
-	)
 	(text "A2   x10, 14 MHz"
 		(exclude_from_sim no)
 		(at 27.94 33.78 0)
@@ -7905,17 +7905,6 @@
 		)
 		(uuid "5da11440-284e-5b05-af00-48fa4295a8da")
 	)
-	(text "tutorial 4.02, 4.10   (+-5 V)"
-		(exclude_from_sim no)
-		(at 408.94 291.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "651740a1-3145-53b8-af5c-4a0e3de0032b")
-	)
 	(text "its colour (P12) gives Planck's constant; a crystal (P8) shows its series and parallel resonances."
 		(exclude_from_sim no)
 		(at 408.94 403.86 0)
@@ -7926,6 +7915,17 @@
 			(justify left)
 		)
 		(uuid "652be90e-9ab9-5968-b431-56d0f1290b50")
+	)
+	(text "tutorial A counter on the LEDs"
+		(exclude_from_sim no)
+		(at 599.44 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "65fe2e97-e0fc-582d-95e0-57583379d03c")
 	)
 	(text "cells (0,3), (1,3)"
 		(exclude_from_sim no)
@@ -8016,17 +8016,6 @@
 		)
 		(uuid "6e343b09-e308-5b26-94f0-52101f09f816")
 	)
-	(text "tutorial 1.01"
-		(exclude_from_sim no)
-		(at 599.44 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "7152e471-0a23-54ca-8dbc-debb86340539")
-	)
 	(text "no mounting holes: four stick-on rubber feet, marked on the back"
 		(exclude_from_sim no)
 		(at 86.36 543.56 0)
@@ -8094,17 +8083,6 @@
 			(justify left)
 		)
 		(uuid "7b839259-c16d-5901-8416-bf838e9b818a")
-	)
-	(text "tutorial 5.02, 7.06   (+5 V)"
-		(exclude_from_sim no)
-		(at 408.94 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "7e23dbd2-7af5-5e9b-9c32-91d63fe80687")
 	)
 	(text "A3   x100, 1.4MHz"
 		(exclude_from_sim no)
@@ -8253,6 +8231,17 @@
 		)
 		(uuid "95f40ba2-5412-5842-b2eb-087daf2413c5")
 	)
+	(text "tutorial RC and LC circuits, More ideas for one board   (+-5 V)"
+		(exclude_from_sim no)
+		(at 408.94 291.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "99eb15aa-551f-54f3-9eae-8e9aa1a60617")
+	)
 	(text "friendly x100 for everything slower.  (The plan's two stages of x10 did not fit the cell.)"
 		(exclude_from_sim no)
 		(at 218.44 149.86 0)
@@ -8299,6 +8288,17 @@
 		)
 		(uuid "a1dedfc2-2a7a-592c-8476-3d2f7f64b7bd")
 	)
+	(text "tutorial Trading speed for bits   (+3.3 V)"
+		(exclude_from_sim no)
+		(at 27.94 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "aa917e0f-b42f-5958-963e-1eaf57783aa2")
+	)
 	(text "Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod IO6 is high (10 k keeps it off otherwise)."
 		(exclude_from_sim no)
 		(at 408.94 271.58 0)
@@ -8309,17 +8309,6 @@
 			(justify left)
 		)
 		(uuid "b2c4f89d-8e83-5645-bbd3-b66b1db50a02")
-	)
-	(text "tutorial 7.05   (+3.3 V)"
-		(exclude_from_sim no)
-		(at 27.94 164.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "b38dffb3-b512-52d1-82c0-44ab6488429b")
 	)
 	(text "cell (0,0)"
 		(exclude_from_sim no)
@@ -8355,6 +8344,17 @@
 		)
 		(uuid "b89dbec7-0f0b-5a30-be18-0a7169c92cc3")
 	)
+	(text "tutorial Warming a crystal, Control at the speed of the cable   (+5 V)"
+		(exclude_from_sim no)
+		(at 408.94 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "bc437d79-065e-5cec-85b2-f2294ac38bb7")
+	)
 	(text "OUT"
 		(exclude_from_sim no)
 		(at 381 435.76 0)
@@ -8365,17 +8365,6 @@
 			(justify left)
 		)
 		(uuid "bd2ef987-bfd9-572f-8520-0eb12556012e")
-	)
-	(text "tutorial 1.10, 6.02   (+-5 V)"
-		(exclude_from_sim no)
-		(at 27.94 291.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "c0a871e9-8af7-53f8-b07e-67b4dc42924c")
 	)
 	(text "AIN"
 		(exclude_from_sim no)
@@ -8410,6 +8399,17 @@
 			(justify left)
 		)
 		(uuid "c8434e84-9b4e-51d7-9793-b42f9ba0f32a")
+	)
+	(text "tutorial An AM radio, PSK and QPSK   (+-5 V)"
+		(exclude_from_sim no)
+		(at 27.94 291.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "c9e35b89-76df-513d-985d-986f0d2be68c")
 	)
 	(text "in series with the output (a 50 ohm load halves it: x5).  Keep the input under 0.4 V peak: the output clips at 4 V."
 		(exclude_from_sim no)
@@ -8454,6 +8454,17 @@
 			(justify left)
 		)
 		(uuid "d07321b4-c47b-5aee-8749-c99a1b4f7841")
+	)
+	(text "tutorial A faster DAC: PLLs   (+5 V)"
+		(exclude_from_sim no)
+		(at 218.44 164.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "d1234fa9-f225-57ba-b02c-0ae510b4c136")
 	)
 	(text "cell (3,0)"
 		(exclude_from_sim no)
@@ -8534,17 +8545,6 @@
 		)
 		(uuid "e042df65-9b76-5b51-9594-8744f1938553")
 	)
-	(text "tutorial 4.06, 5.02   (+-5 V)"
-		(exclude_from_sim no)
-		(at 27.94 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "e1020c5e-0a30-5d4d-b753-b53515c2f113")
-	)
 	(text "EXPECT: x10 (20 dB) into a high impedance, x5 into 50 ohm, -3 dB near 14 MHz; clips at about +-4 V"
 		(exclude_from_sim no)
 		(at 27.94 144.58 0)
@@ -8613,6 +8613,17 @@
 		)
 		(uuid "e8f6fc13-daca-5ff6-bcd9-5cb5418d48bb")
 	)
+	(text "tutorial With a little more hardware   (+-5 V)"
+		(exclude_from_sim no)
+		(at 599.44 37.08 0)
+		(effects
+			(font
+				(size 1.3 1.3)
+			)
+			(justify left)
+		)
+		(uuid "ea5d6530-389a-54ed-ac4b-20573b7a4cc5")
+	)
 	(text "high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against"
 		(exclude_from_sim no)
 		(at 408.94 401.22 0)
@@ -8668,17 +8679,6 @@
 			(justify right)
 		)
 		(uuid "f4467f19-0f0b-5f7d-8478-20924f4626e0")
-	)
-	(text "tutorial 5.08   (+-5 V)"
-		(exclude_from_sim no)
-		(at 599.44 37.08 0)
-		(effects
-			(font
-				(size 1.3 1.3)
-			)
-			(justify left)
-		)
-		(uuid "f5256282-19fb-560b-b725-8daf25c62576")
 	)
 	(text "cell (3,1)"
 		(exclude_from_sim no)

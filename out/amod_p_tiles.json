@@ -6,8 +6,8 @@
    "name": "pi pad",
    "subtitle": "-20 dB",
    "sections": [
-    "6.12",
-    "5.06"
+    "On the air",
+    "The modem against noise"
    ],
    "cells": [
     [
@@ -22,7 +22,7 @@
    "h": 20.0,
    "result": "-20 dB flat, 50 ohm both ways",
    "notes": [
-    "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board).",
+    "A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (the tutorial's $10 SMA pad, on the board).",
     "Into a high-impedance load it is only -14 dB: the pad assumes 50 ohm on both sides."
    ],
    "top_pour": false,
@@ -375,26 +375,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "6.12",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     5.75,
-     "5.06",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -404,9 +388,9 @@
    "name": "RC low-pass",
    "subtitle": "159 kHz",
    "sections": [
-    "4.02",
-    "4.08",
-    "7.06"
+    "RC and LC circuits",
+    "Feedback control of an RC plant",
+    "Control at the speed of the cable"
    ],
    "cells": [
     [
@@ -422,7 +406,7 @@
    "result": "-3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance",
    "notes": [
     "1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm",
-    "load would make a 1 k / 50 divider of it.  The lag plant of 4.08 and 7.06; the step response is 1 - exp(-t / 1 us)."
+    "load would make a 1 k / 50 divider of it.  The lag plant of the tutorial's feedback-control pages; the step response is 1 - exp(-t / 1 us)."
    ],
    "top_pour": false,
    "fine": false,
@@ -721,35 +705,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     5.75,
-     "4.08",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     7.1000000000000005,
-     "7.06",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -759,7 +718,7 @@
    "name": "RC high-pass",
    "subtitle": "159 kHz",
    "sections": [
-    "4.02"
+    "RC and LC circuits"
    ],
    "cells": [
     [
@@ -1073,17 +1032,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -1093,8 +1045,8 @@
    "name": "series RLC",
    "subtitle": "100uH 220pF",
    "sections": [
-    "4.02",
-    "7.06"
+    "RC and LC circuits",
+    "Control at the speed of the cable"
    ],
    "cells": [
     [
@@ -1111,7 +1063,7 @@
    "notes": [
     "Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6",
     "(the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move",
-    "the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
+    "the peak; a resonant plant for feedback control, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
    ],
    "top_pour": false,
    "fine": false,
@@ -1488,24 +1440,6 @@
      0
     ],
     [
-     2.3,
-     13.9,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     2.3,
-     15.25,
-     "7.06",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      1.2,
      17.4,
      "SERIES RLC",
@@ -1524,6 +1458,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -1533,9 +1469,9 @@
    "name": "LC low-pass",
    "subtitle": "9 MHz",
    "sections": [
-    "1.06",
-    "6.10",
-    "4.02"
+    "Fast captures",
+    "Chirps, Zadoff-Chu and LoRa",
+    "RC and LC circuits"
    ],
    "cells": [
     [
@@ -1551,7 +1487,7 @@
    "result": "-3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC",
    "notes": [
     "5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF).",
-    "Before the ADC it removes 6.10's ghost; after the DAC it smooths the steps."
+    "Before the ADC it removes the alias (the ghost image above Nyquist); after the DAC it smooths the steps."
    ],
    "top_pour": false,
    "fine": false,
@@ -1992,35 +1928,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "1.06",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     5.75,
-     "6.10",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     7.1000000000000005,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -2030,8 +1941,8 @@
    "name": "LC low-pass",
    "subtitle": "100 kHz",
    "sections": [
-    "7.05",
-    "4.02"
+    "Trading speed for bits",
+    "RC and LC circuits"
    ],
    "cells": [
     [
@@ -2047,7 +1958,7 @@
    "result": "-3 dB at 118 kHz: the reconstruction filter after a one-bit DAC",
    "notes": [
     "3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206).",
-    "Turns 7.05's one-bit stream into a tone; the slow plant of 7.06 with P2."
+    "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2."
    ],
    "top_pour": false,
    "fine": false,
@@ -2499,26 +2410,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "7.05",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     5.75,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -2528,9 +2423,9 @@
    "name": "band-pass",
    "subtitle": "4.7-7.5 MHz",
    "sections": [
-    "6.10",
-    "5.07",
-    "6.12"
+    "Chirps, Zadoff-Chu and LoRa",
+    "A radio link",
+    "On the air"
    ],
    "cells": [
     [
@@ -2543,11 +2438,11 @@
    "y0": 29.25,
    "w": 20.0,
    "h": 20.0,
-   "result": "Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz",
+   "result": "the digital-communications pages' band (a 6.25 MHz carrier): a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz",
    "notes": [
     "3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF",
-    "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  6.10's filtered chips in copper; the transmitter's harmonics and the",
-    "receiver's front end of 5.07 and 6.12."
+    "(the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  The tutorial's filtered chips in copper; it cleans a transmitter's",
+    "harmonics and is a radio link's receiver front end."
    ],
    "top_pour": false,
    "fine": false,
@@ -3007,35 +2902,10 @@
      0.15,
      "left",
      0
-    ],
-    [
-     10.6,
-     4.4,
-     "6.10",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     5.75,
-     "5.07",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     10.6,
-     7.1000000000000005,
-     "6.12",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -3045,9 +2915,9 @@
    "name": "quartz crystal",
    "subtitle": "4 MHz",
    "sections": [
-    "4.03",
-    "4.09",
-    "4.10"
+    "The Q of a quartz crystal",
+    "Your crystal against a reference",
+    "More ideas for one board"
    ],
    "cells": [
     [
@@ -3064,7 +2934,7 @@
    "notes": [
     "The crystal in series between 50 ohm ports: it passes at its series resonance f_s (R_m about 50 ohm: -3.5 dB) and blocks at",
     "the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p",
-    "down toward f_s and leaves f_s alone: the pulling that 4.09 measures.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."
+    "down toward f_s and leaves f_s alone: the pulling the tutorial measures against a reference.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S)."
    ],
    "top_pour": false,
    "fine": false,
@@ -3266,15 +3136,6 @@
      0
     ],
     [
-     9.6,
-     -0.8,
-     "4.03 4.09",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      1.2,
      17.4,
      "QUARTZ",
@@ -3293,6 +3154,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -3302,8 +3165,8 @@
    "name": "ceramic res.",
    "subtitle": "455 kHz",
    "sections": [
-    "4.02",
-    "4.03"
+    "RC and LC circuits",
+    "The Q of a quartz crystal"
    ],
    "cells": [
     [
@@ -3516,24 +3379,6 @@
      0
     ],
     [
-     11.5,
-     4.0,
-     "4.02",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
-     11.5,
-     5.35,
-     "4.03",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      1.2,
      17.4,
      "CERAMIC RES.",
@@ -3552,6 +3397,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -3561,7 +3408,7 @@
    "name": "clipper",
    "subtitle": "1N4148 \u00b10.6 V",
    "sections": [
-    "4.04"
+    "Harmonics: a diode clipper"
    ],
    "cells": [
     [
@@ -3576,7 +3423,7 @@
    "h": 20.0,
    "result": "a sine of more than 1 V comes out flat-topped at about \u00b10.6 V; the ADC on high impedance",
    "notes": [
-    "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the",
+    "1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  Harmonics: the",
     "clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a \u00b14 V source."
    ],
    "top_pour": false,
@@ -3904,15 +3751,6 @@
      0
     ],
     [
-     9.7,
-     4.4,
-     "4.04",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      1.2,
      17.4,
      "CLIPPER",
@@ -3931,6 +3769,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -3940,10 +3780,10 @@
    "name": "delay line",
    "subtitle": "400 ns, a tap every 100",
    "sections": [
-    "4.05",
-    "6.05",
-    "6.10",
-    "7.06"
+    "A quarter-wave stub",
+    "The channel",
+    "Chirps, Zadoff-Chu and LoRa",
+    "Control at the speed of the cable"
    ],
    "cells": [
     [
@@ -3968,8 +3808,8 @@
    "notes": [
     "Twenty sections of 1.0 uH and 390 pF: Z0 = sqrt(L/C) = 51 ohm, 20 ns a section, cut-off 1 / (pi sqrt(LC)) = 16 MHz.",
     "400 ns is 260 ft of RG-58.  Leave OUT open and a pulse comes back the same way up; short it and it comes back inverted;",
-    "50 ohm on OUT and nothing comes back (4.05).  The taps are 6.05's echo and 6.10's radar target; near 16 MHz the",
-    "phase velocity falls and a chirp spreads (7.06's pure-delay plant below that).  A tap through 470 ohm: x1 into a",
+    "50 ohm on OUT and nothing comes back (the quarter-wave and reflection experiments).  The taps are a channel's echo and a",
+    "radar target on a cable; near 16 MHz the phase velocity falls and a chirp spreads (below that, a pure-delay plant for control).  A tap through 470 ohm: x1 into a",
     "high-impedance scope, /10 into 50 ohm."
    ],
    "top_pour": false,
@@ -5911,7 +5751,7 @@
     [
      57.0,
      5.6,
-     "4.05  6.05",
+     "AN ECHO",
      0.8,
      0.15,
      "center",
@@ -5920,7 +5760,7 @@
     [
      57.0,
      6.95,
-     "6.10  7.06",
+     "EVERY 100 ns",
      0.8,
      0.15,
      "center",
@@ -5945,6 +5785,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -5954,7 +5796,7 @@
    "name": "LEDs",
    "subtitle": "",
    "sections": [
-    "4.10"
+    "More ideas for one board"
    ],
    "cells": [
     [
@@ -5970,7 +5812,7 @@
    "result": "one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e",
    "notes": [
     "100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar",
-    "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant (4.10).",
+    "LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant.",
     "Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie",
     "above the line.  The LED loop is after the 100 ohm: the LED's own voltage.  The colours are not on the silk: light them."
    ],
@@ -6360,15 +6202,6 @@
      0
     ],
     [
-     10.5,
-     4.9,
-     "4.10",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      18.8,
      18.8,
      "LEDs",
@@ -6378,6 +6211,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -6387,7 +6222,7 @@
    "name": "AM loopstick",
    "subtitle": "0.5-1.7 MHz",
    "sections": [
-    "1.10"
+    "An AM radio"
    ],
    "cells": [
     [
@@ -6408,7 +6243,7 @@
    "notes": [
     "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns",
     "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to",
-    "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and 1.10's AM radio: a real station."
+    "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station."
    ],
    "top_pour": false,
    "fine": false,
@@ -6950,15 +6785,6 @@
      0
     ],
     [
-     11.5,
-     4.9,
-     "1.10",
-     0.8,
-     0.15,
-     "center",
-     0
-    ],
-    [
      40.3,
      18.6,
      "AM LOOPSTICK 0.5-1.7 MHz",
@@ -6968,6 +6794,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   }

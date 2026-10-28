@@ -74,6 +74,8 @@ class Tile:
         self.hops = []             # (net, a, b)
         self.gnd_stubs = []        # ((ref, pad), point or [points])
         self.texts = []            # (x, y, text, size, thickness, justify, angle)
+        self.infos = []            # dict(lines, near, size, justify, reach): silk lines the board generator places where they fit
+        self.titles = []           # what the tile is, in words ("LNA QPL9547"): on its top frame, as far right as fits
         self.notes = []            # schematic notes (strings)
         self.plot = None           # dict(kind, x, y, xlabel, ylabel, title) with x, y in 0..1
         self.result = ""           # the one-line expected result ("-3 dB at 8.9 MHz")
@@ -147,6 +149,12 @@ class Tile:
     def text(self, x, y, s, size=0.8, thick=0.15, justify="left", angle=0):
         self.texts.append((x, y, s, size, thick, justify, angle))
 
+    def info(self, lines, near=(1.2, 13.0), size=0.8, justify="left", reach=30.0):
+        """Silk lines saying what the tile is and its ranges and levels, which the board generator places as one block
+        (each line `justify`d at the anchor, 1.6 sizes apart) at the free spot nearest `near` (local mm, within `reach`),
+        clear of every pad, body and silk item.  The jack names are placed first, so they keep the places by their jacks."""
+        self.infos.append(dict(lines=list(lines), near=list(near), size=size, justify=justify, reach=reach))
+
     # --------------------------------------------------------------- frame --
     def to_board(self, pt):
         return (self.x0 + pt[0], self.y0 + pt[1])
@@ -172,6 +180,7 @@ class Tile:
         x = (w / 2 if not br else 10.6) if at is None else at
         size = 1.5 if len(self.id) <= 2 else 0.9           # three characters at 1.5 would reach the legs' pads
         self.text(x, ID_Y, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
+        # the tutorial's section numbers are not printed: they change as the tutorial grows (Jason, Prompt 14)
         if br:                              # OUT at the bottom-right: the name and the subtitle in two lines at the bottom-left
             self.text(1.2, 17.4, self.name.upper(), 0.8, 0.15, "left")
             if self.subtitle:
@@ -180,8 +189,6 @@ class Tile:
             self.text(w - 1.1, 18.2, (self.name + ((" " + self.subtitle) if self.subtitle else "")).upper(), 0.8, 0.15, "right")
         else:
             self.text(1.2, NAME_Y, self.name.upper() + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
-        for i, s in enumerate(self.sections[:3]):
-            self.text(x, SECT_Y0 + SECT_PITCH * i, s, 0.8, 0.15, "center")
 
 
 # ------------------------------------------------------------------------------------------------
@@ -516,7 +523,7 @@ def dump(tiles, mod, path):
             routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
             gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w, fine) for (pr, pt, sym, w, fine) in t.gnd_stubs],
-            texts=[list(x) for x in t.texts], slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
+            texts=[list(x) for x in t.texts], infos=list(t.infos), titles=list(t.titles), slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
     return path

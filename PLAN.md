@@ -100,8 +100,8 @@ reason is given below.
   function) takes its place** on A8.
 - **P9 is a 455 kHz ceramic resonator (two-terminal), not a three-terminal IF filter**: JLCPCB
   stocks no 455 kHz filter and several resonators.  In series between the jacks it passes at its
-  series resonance and blocks at its parallel one a few kHz above: the Q measurement of 4.02 and
-  4.03 on a part with a Q of a few hundred, between the LC (P4) and the quartz (P8).
+  series resonance and blocks at its parallel one a few kHz above: the tutorial's Q measurement
+  on a part with a Q of a few hundred, between the LC (P4) and the quartz (P8).
 - **P4's trimmer capacitor becomes switched capacitors** (JLCPCB's only SMD trimmers are 0.6 mm
   parts with no stock): 220 pF fixed with 47 pF and 100 pF on a 2-way DIP switch, so the
   resonance steps between about 0.85 and 1.0 MHz.

@@ -9,13 +9,15 @@ out/<stem>/, and what it costs), docs/DESIGN_NOTES.md (what was decided and why,
 Everything quoted here is read from out/<stem>_tiles.json, out/<stem>/*.csv, scripts/parts.py and the board
 modules, so a number in a document is the number on the board.  A claim the sources cannot back is not written.
 """
-import csv, datetime, importlib, json, os, sys
+import csv, datetime, html, importlib, json, os, re, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(HERE, "..")
 sys.path.insert(0, HERE); sys.path.insert(0, os.path.join(ROOT, "boards"))
 import parts
+import tile_docs
 
 DOCS = os.path.join(ROOT, "docs")
+THUMB_MARGIN = 0.9            # scripts/tile_thumbs.py's margin round each tile, mm
 BOARDS = {s: (b["name"], b["what"]) for s, b in parts.BOARDS.items()}
 
 
@@ -50,6 +52,63 @@ def pmod_pins(meta):
     return out
 
 
+def esc(text):
+    return html.escape(text, quote=False)
+
+
+def thumb_px(t):
+    """The picture's width in the handbook: 12 px a millimetre, at most 520 (a three-cell tile)."""
+    return min(520, int(round((t["w"] + 2 * THUMB_MARGIN) * 12)))
+
+
+def where(t, j):
+    """A jack's place on its tile in words: top left, bottom right, or the top or bottom of one of its cells."""
+    v = "top" if j["y"] < t["h"] / 2 else "bottom"
+    n = len(t["cells"])
+    if abs(j["x"] - (4.75 if v == "top" else t["w"] - 4.75)) < 1.0 or n == 1:
+        return "%s %s" % (v, "left" if j["x"] < t["w"] / 2 else "right")
+    if abs(j["x"] - t["w"] / 2) < 1.0:
+        return "%s middle" % v
+    k = int(j["x"] // 21.5)
+    cell = ["left", "right"][k] if n == 2 else ["left", "middle", "right"][k]
+    return "%s of the %s cell" % (v, cell)
+
+
+def readme_block(stem, meta):
+    """The README's table for one board: a row a tile, a summary of its handbook entry with a link to it."""
+    name, what = BOARDS[stem]
+    docs = tile_docs.DOCS.get(stem, {})
+    def cell(text):
+        return esc(text or "").replace("|", "\\|")
+    out = ["### [%s](docs/HANDBOOK_%s.md): %s" % (name, stem, what), "",
+           '<img src="docs/images/%s-render-top.png" width="95%%">' % stem, "",
+           "| tile | what it does | chip | specs | limits | experiments | how to use it | you need |",
+           "|---|---|---|---|---|---|---|---|"]
+    for t in tile_rows(meta):
+        d = docs.get(t["id"], {})
+        chips = ", ".join("[%s](%s)" % (c, tile_docs.CHIP_URL[c]) for c in d.get("chips", [])) or "passive"
+        out.append("| [**%s**](docs/HANDBOOK_%s.md#%s) %s | %s | %s | %s | %s | %s | %s | %s |" % (
+            t["id"], stem, t["id"].lower(), cell(t["name"]), cell(d.get("does")), chips, cell(d.get("specs")), cell(d.get("limits")),
+            cell(d.get("experiments")), cell(d.get("use")), cell(d.get("needs"))))
+    out += ["", "More on each tile, with its picture, in the [%s handbook](docs/HANDBOOK_%s.md); what to buy in [KIT.md](docs/KIT.md)." % (name, stem), ""]
+    return out
+
+
+def readme(stems):
+    """Rewrite the README's per-board blocks between their markers; everything else in it is written by hand."""
+    path = os.path.join(ROOT, "README.md")
+    text = open(path).read()
+    for stem in stems:
+        meta, mod = load(stem)
+        a, b = "<!-- board:%s -->" % stem, "<!-- /board:%s -->" % stem
+        if a not in text:
+            continue
+        i, j = text.index(a) + len(a), text.index(b)
+        text = text[:i] + "\n" + "\n".join(readme_block(stem, meta)) + "\n" + text[j:]
+    with open(path, "w") as fh:
+        fh.write(text)
+
+
 def handbook(stem, meta, mod):
     name, what = BOARDS[stem]
     lines = ["# %s handbook: %s" % (name, what), "",
@@ -60,8 +119,8 @@ def handbook(stem, meta, mod):
     if intro:
         lines += list(intro) + [""]
     else:
-        lines += ["Cells are 20 mm on a 21.5 mm pitch; a tile's number sits between its jacks, the tutorial sections it serves under",
-                  "the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and OUT to the ADC.", ""]
+        lines += ["Cells are 20 mm on a 21.5 mm pitch.  A tile's input is its top-left jack and its output its bottom-right jack;",
+                  "each jack's name is printed on its own tile's frame, beside it.  Cable the DAC to IN and OUT to the ADC.", ""]
     if getattr(mod, "PMOD_NAMES", None):
         pm = pmod_pins(meta)
         names = getattr(mod, "PMOD_NAMES", {})
@@ -85,30 +144,56 @@ def handbook(stem, meta, mod):
                 pin = k if k <= 4 else k + 2
                 lines.append("- Pmod pin %d (%s): %s" % (pin, net.lstrip("/"), ", ".join(sorted(pm[net]))))
             lines.append("")
-    lines += ["## The tiles", ""]
+    lines += ["## The tiles", "",
+              "Each tile in a table: its picture, then what it does, its jacks, what to expect, how to cable it, what to buy",
+              "(the links are in [KIT.md](KIT.md)), its numbers and limits, the experiments it is for and the circuit.", ""]
+    docs = tile_docs.DOCS.get(stem, {})
+    pm = pmod_pins(meta)
+    pnames = getattr(mod, "PMOD_NAMES", {}) or {}
     for t in tile_rows(meta):
-        cells = ", ".join("(%d,%d)" % tuple(c) for c in t["cells"])
-        title = "### %s  %s%s" % (t["id"], t["name"], (", " + t["subtitle"]) if t["subtitle"] else "")
-        lines += [title, ""]
-        lines.append("Cell%s %s%s%s." % ("s" if len(t["cells"]) > 1 else "", cells,
-                                        ("; tutorial " + ", ".join(t["sections"])) if t["sections"] else "",
-                                        ("; %s" % t["supply"]) if t.get("supply") else ""))
+        d = docs.get(t["id"], {})
+        title = "%s  %s%s" % (t["id"], t["name"], (", " + t["subtitle"]) if t["subtitle"] else "")
+        lines += ['<a id="%s"></a>' % t["id"].lower(), "", "### " + title, ""]
+        rows = []
+        def row(label, text, raw=False):
+            if text and text != "-":
+                rows.append("<b>%s</b> %s" % (label, text if raw else esc(text)))
+        if d.get("does"):
+            rows.append("<b>%s</b>" % esc(d["does"]))
         if t["jacks"]:
             js = []
             for j in t["jacks"]:
                 lim = (" (%s)" % j["limit"]) if j.get("limit") else ""
-                js.append("%s %s%s" % (j["slot"], j.get("silk") or j["label"], lim))
-            lines.append("Jacks: " + "; ".join(js) + ".")
-        if t.get("result"):
-            lines += ["", "**Expect:** " + t["result"]]
+                js.append("%s, %s%s" % (j.get("silk") or j["label"], where(t, j), lim))
+            row("Jacks:", "; ".join(js) + ".")
+        pins = []
+        for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
+            if t["id"] in pm[net]:
+                k = int(net.replace("/PMOD", ""))
+                pins.append("IO%d (Pmod pin %d)%s" % (k, k if k <= 4 else k + 2, (": " + pnames[net]) if pnames.get(net) else ""))
+        row("Pmod:", "; ".join(pins))
+        row("Supply:", t.get("supply") or "")
+        row("Expect:", t.get("result", ""))
+        row("How to use it:", d.get("use", ""))
+        if d.get("needs"):
+            row("You need:", esc(d["needs"]) + ' (<a href="KIT.md">KIT.md</a>)' if "kit" in d["needs"].lower() else esc(d["needs"]), raw=True)
+        row("Specs:", d.get("specs", ""))
+        row("Limits:", d.get("limits", ""))
+        row("Experiments:", d.get("experiments", ""))
+        if d.get("chips"):
+            row("Chip:", ", ".join('<a href="%s">%s</a>' % (tile_docs.CHIP_URL[c], esc(c)) for c in d["chips"]), raw=True)
+        if t["sections"]:
+            row("Tutorial pages:", "; ".join(t["sections"]) + ".")
         notes = t.get("notes") or []
-        if notes:
-            lines += [""] + [" ".join(notes)]
+        row("The circuit:", " ".join(notes))
         chips = sorted({p["key"] for p in t["parts"] if p["key"] in parts.PARTS and parts.PARTS[p["key"]].get("process", "SMT") == "SMT"
                         and p["key"] not in ("SMA", "TP", "SW_SLIDE", "PFET")})
         if chips:
-            lines += ["", "Parts: " + ", ".join("%s (%s)" % (parts.PARTS[k]["mpn"], parts.PARTS[k]["lcsc"]) for k in chips) + "."]
-        lines.append("")
+            row("Parts:", ", ".join("%s (%s)" % (parts.PARTS[k]["mpn"], parts.PARTS[k]["lcsc"]) for k in chips) + ".")
+        px = thumb_px(t)
+        lines += ['<table><tr>',
+                  '<td valign="top" width="%d"><img src="images/tiles/%s_%s.jpg" width="%d" alt="%s"></td>' % (px + 8, stem, t["id"], px, esc(title)),
+                  '<td valign="top">', "", "<br><br>\n".join(rows), "", "</td></tr></table>", ""]
     lines += ["## Ground, loops and probing", "",
               "%s ground loops stand in the margins; every tile's loops are on the signal they name.  The RH-5019" % (
                   ["No", "One", "Two", "Three", "Four", "Five", "Six"][min(len(meta.get("gnd_loops", [])), 6)]),
@@ -186,7 +271,8 @@ def main():
     built = [s for s in BOARDS if os.path.exists(os.path.join(ROOT, "out", s + "_tiles.json"))]
     manufacturing(built)
     design_notes(built)
-    print("  wrote docs/HANDBOOK_%s.md, docs/MANUFACTURING.md, docs/DESIGN_NOTES.md" % stem)
+    readme(built)
+    print("  wrote docs/HANDBOOK_%s.md, docs/MANUFACTURING.md, docs/DESIGN_NOTES.md, the README's tables" % stem)
 
 
 if __name__ == "__main__":

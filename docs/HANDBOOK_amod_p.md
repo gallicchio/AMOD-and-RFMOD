@@ -7,137 +7,291 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 
 ![front](images/amod_p-render-top.png)
 
-Cells are 20 mm on a 21.5 mm pitch; a tile's number sits between its jacks, the tutorial sections it serves under
-the number.  IN is the top-left jack, OUT the top-right; cable the DAC to IN and OUT to the ADC.
+Cells are 20 mm on a 21.5 mm pitch.  A tile's input is its top-left jack and its output its bottom-right jack;
+each jack's name is printed on its own tile's frame, beside it.  Cable the DAC to IN and OUT to the ADC.
 
 ## The tiles
 
+Each tile in a table: its picture, then what it does, its jacks, what to expect, how to cable it, what to buy
+(the links are in [KIT.md](KIT.md)), its numbers and limits, the experiments it is for and the circuit.
+
+<a id="p1"></a>
+
 ### P1  pi pad, -20 dB
 
-Cell (0,0); tutorial 6.12, 5.06.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P1.jpg" width="262" alt="P1  pi pad, -20 dB"></td>
+<td valign="top">
 
-**Expect:** -20 dB flat, 50 ohm both ways
+<b>Divides the voltage by 10 (-20 dB) and looks like 50 ohm from both ports.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> -20 dB flat, 50 ohm both ways<br><br>
+<b>How to use it:</b> DAC to IN, OUT to the ADC set to 50 ohm.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 61.9 / 249 / 61.9 ohm pi; -20.0 dB; DC to well past 30 MHz.<br><br>
+<b>Limits:</b> -20 dB only between 50 ohm on both sides (-14 dB into a high impedance); about 0.1 W (+-3 V) at IN.<br><br>
+<b>Experiments:</b> A known weak signal for a receiver or LNA; padding a mismatched cable; checking the ADC's 50 ohm setting.<br><br>
+<b>Tutorial pages:</b> On the air; The modem against noise.<br><br>
+<b>The circuit:</b> A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (the tutorial's $10 SMA pad, on the board). Into a high-impedance load it is only -14 dB: the pad assumes 50 ohm on both sides.
 
-A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (6.12's $10 pad, on the board). Into a high-impedance load it is only -14 dB: the pad assumes 50 ohm on both sides.
+</td></tr></table>
+
+<a id="p2"></a>
 
 ### P2  RC low-pass, 159 kHz
 
-Cell (1,0); tutorial 4.02, 4.08, 7.06.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P2.jpg" width="262" alt="P2  RC low-pass, 159 kHz"></td>
+<td valign="top">
 
-**Expect:** -3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance
+<b>A first-order RC low-pass: passes below 159 kHz and falls 20 dB per decade above.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> -3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance<br><br>
+<b>How to use it:</b> DAC to IN, OUT to the ADC on high impedance; sweep the frequency or send a step.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 1 k and 1 nF; -3 dB at 159 kHz; time constant 1 us.<br><br>
+<b>Limits:</b> OUT is a 1 k source: read it on the ADC's high-impedance setting (50 ohm divides it by 21).<br><br>
+<b>Experiments:</b> A Bode plot, 45 degrees at the corner, the step response, the lag plant for feedback control.<br><br>
+<b>Tutorial pages:</b> RC and LC circuits; Feedback control of an RC plant; Control at the speed of the cable.<br><br>
+<b>The circuit:</b> 1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm load would make a 1 k / 50 divider of it.  The lag plant of the tutorial's feedback-control pages; the step response is 1 - exp(-t / 1 us).
 
-1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm load would make a 1 k / 50 divider of it.  The lag plant of 4.08 and 7.06; the step response is 1 - exp(-t / 1 us).
+</td></tr></table>
+
+<a id="p3"></a>
 
 ### P3  RC high-pass, 159 kHz
 
-Cell (2,0); tutorial 4.02.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P3.jpg" width="262" alt="P3  RC high-pass, 159 kHz"></td>
+<td valign="top">
 
-**Expect:** -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance
+<b>A first-order RC high-pass, the mirror image of P2.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance<br><br>
+<b>How to use it:</b> DAC to IN, OUT to the ADC on high impedance.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 1 nF and 1 k; -3 dB at 159 kHz; +20 dB per decade below.<br><br>
+<b>Limits:</b> OUT is a 1 k source: read it on high impedance.<br><br>
+<b>Experiments:</b> A Bode plot, AC coupling, a differentiator (a step gives a 1 us spike).<br><br>
+<b>Tutorial pages:</b> RC and LC circuits.<br><br>
+<b>The circuit:</b> The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us.
 
-The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us.
+</td></tr></table>
+
+<a id="p4"></a>
 
 ### P4  series RLC, 100uH 220pF
 
-Cell (3,0); tutorial 4.02, 7.06.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P4.jpg" width="262" alt="P4  series RLC, 100uH 220pF"></td>
+<td valign="top">
 
-**Expect:** a peak at 1.07 MHz (switches off), 0.98 with 1, 0.89 with 2, 0.83 with both; Q about 6
+<b>A series 100 uH and 220 pF resonator between 50 ohm ports: a band-pass peak that the DIP switch moves.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> a peak at 1.07 MHz (switches off), 0.98 with 1, 0.89 with 2, 0.83 with both; Q about 6<br><br>
+<b>How to use it:</b> Sweep the DAC into IN, OUT to the ADC (50 ohm); set the DIP switch.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 1.07 MHz with both switches off, 0.98 (way 1, +47 pF), 0.89 (way 2, +100 pF), 0.83 (both); Q about 6.<br><br>
+<b>Limits:</b> The 50 ohm ports load it: Q is 6, where the coil alone would allow about 60.<br><br>
+<b>Experiments:</b> Resonance and Q, the phase through resonance, tracking a resonance with a lock-in or a PLL, a resonant plant to control.<br><br>
+<b>Tutorial pages:</b> RC and LC circuits; Control at the speed of the cable.<br><br>
+<b>The circuit:</b> Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6 (the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move the peak; a resonant plant for feedback control, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner).<br><br>
+<b>Parts:</b> DSHP02TSGET (C40735).
 
-Series L C between 50 ohm ports: a band-pass at f = 1 / (2 pi sqrt(L C)) whose Q = sqrt(L/C) / (100 + R_coil) is about 6 (the 10 ohm coil would give 60 by itself).  The DIP switch adds 47 pF (way 1) and 100 pF (way 2) across the 220 pF to move the peak; a resonant plant for 7.06, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner).
+</td></tr></table>
 
-Parts: DSHP02TSGET (C40735).
+<a id="p5"></a>
 
 ### P5  LC low-pass, 9 MHz
 
-Cell (0,1); tutorial 1.06, 6.10, 4.02.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P5.jpg" width="262" alt="P5  LC low-pass, 9 MHz"></td>
+<td valign="top">
 
-**Expect:** -3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC
+<b>A 5th-order Butterworth LC low-pass at 9 MHz: the anti-alias filter for a 25 MS/s ADC, or the smoothing filter after a DAC.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> -3 dB at 8.9 MHz, -30 dB at 18 MHz: the anti-alias filter in front of a 25 MS/s ADC<br><br>
+<b>How to use it:</b> Between the DAC and its load, or between a signal and the ADC (50 ohm).<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> -3 dB at 8.9 MHz, -30 dB at 18 MHz; 50 ohm in and out.<br><br>
+<b>Limits:</b> The response is as designed only with 50 ohm on both ports.<br><br>
+<b>Experiments:</b> Aliasing with and without it; a filter's magnitude, phase and group delay; cleaning a DAC's staircase.<br><br>
+<b>Tutorial pages:</b> Fast captures; Chirps, Zadoff-Chu and LoRa; RC and LC circuits.<br><br>
+<b>The circuit:</b> 5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF). Before the ADC it removes the alias (the ghost image above Nyquist); after the DAC it smooths the steps.
 
-5th-order Butterworth, 50 ohm: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF (the exact values are 219 pF, 1.43 uH, 707 pF). Before the ADC it removes 6.10's ghost; after the DAC it smooths the steps.
+</td></tr></table>
+
+<a id="p6"></a>
 
 ### P6  LC low-pass, 100 kHz
 
-Cell (1,1); tutorial 7.05, 4.02.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P6.jpg" width="262" alt="P6  LC low-pass, 100 kHz"></td>
+<td valign="top">
 
-**Expect:** -3 dB at 118 kHz: the reconstruction filter after a one-bit DAC
+<b>A 3rd-order LC low-pass near 120 kHz: turns a one-bit (delta-sigma or PWM) stream into a tone.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> -3 dB at 118 kHz: the reconstruction filter after a one-bit DAC<br><br>
+<b>How to use it:</b> DAC (or a one-bit stream through 50 ohm) to IN, OUT to the ADC.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 10 nF, 150 uH, 10 nF (C0G); -3 dB at 118 kHz; 50 ohm.<br><br>
+<b>Limits:</b> Designed for 50 ohm on both ports.<br><br>
+<b>Experiments:</b> One-bit DAC reconstruction, delta-sigma noise shaping seen at the output, a slow plant for control.<br><br>
+<b>Tutorial pages:</b> Trading speed for bits; RC and LC circuits.<br><br>
+<b>The circuit:</b> 3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206). Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2.
 
-3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206). Turns 7.05's one-bit stream into a tone; the slow plant of 7.06 with P2.
+</td></tr></table>
+
+<a id="p7"></a>
 
 ### P7  band-pass, 4.7-7.5 MHz
 
-Cell (2,1); tutorial 6.10, 5.07, 6.12.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P7.jpg" width="262" alt="P7  band-pass, 4.7-7.5 MHz"></td>
+<td valign="top">
 
-**Expect:** Chapter 6's band: a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz
+<b>A 3rd-order LC band-pass, 4.7-7.5 MHz: the band round the tutorial's 6.25 MHz digital-communications carrier.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> the digital-communications pages' band (a 6.25 MHz carrier): a peak at 6.3 MHz, 3 dB from 4.7 to 7.5 MHz<br><br>
+<b>How to use it:</b> In line between the DAC and the ADC, or ahead of a receiver.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> Peak at 6.3 MHz, -3 dB from 4.7 to 7.5 MHz; 50 ohm.<br><br>
+<b>Limits:</b> Only 3rd order: the skirts fall about 18 dB per octave.<br><br>
+<b>Experiments:</b> Band-limiting a modem's chips (spread spectrum, LoRa chirps); a transmitter's harmonics removed; a receiver's front end.<br><br>
+<b>Tutorial pages:</b> Chirps, Zadoff-Chu and LoRa; A radio link; On the air.<br><br>
+<b>The circuit:</b> 3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF (the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  The tutorial's filtered chips in copper; it cleans a transmitter's harmonics and is a radio link's receiver front end.
 
-3rd-order Butterworth band-pass, 6.05 MHz centre, 3.1 MHz wide: series 2.7 uH + 270 pF, shunt 330 nH || 2.2 nF, series 2.7 uH + 270 pF (the exact values: 2.57 uH, 269 pF, 337 nH, 2.05 nF).  6.10's filtered chips in copper; the transmitter's harmonics and the receiver's front end of 5.07 and 6.12.
+</td></tr></table>
+
+<a id="p8"></a>
 
 ### P8  quartz crystal, 4 MHz
 
-Cell (3,1); tutorial 4.03, 4.09, 4.10.
-Jacks: TLo IN (±4 V); BRo OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P8.jpg" width="262" alt="P8  quartz crystal, 4 MHz"></td>
+<td valign="top">
 
-**Expect:** a sharp pass at the series resonance near 4.000 MHz (-3.7 dB) and a notch 6.0 kHz above it, the parallel resonance
+<b>A 4 MHz quartz crystal in series between the jacks: a very sharp pass at its series resonance and a notch at its parallel resonance about 6 kHz above.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> a sharp pass at the series resonance near 4.000 MHz (-3.7 dB) and a notch 6.0 kHz above it, the parallel resonance<br><br>
+<b>How to use it:</b> Sweep the DAC slowly through 4.000 MHz into IN, OUT to the ADC, lock-in detection in the gateware.<br><br>
+<b>You need:</b> An SMA tee and a few capacitors (or open cable stubs) for the pulling experiment.<br><br>
+<b>Specs:</b> f_s near 4.000 MHz (-3.7 dB); f_p about 6 kHz higher; Q about 50,000 (C_m 15 fF, C_0 4 pF).<br><br>
+<b>Limits:</b> Needs frequency steps of a few hertz (the FPGA's NCO); keep the drive under about +-1 V (crystals have a drive-level limit near 100 uW).<br><br>
+<b>Experiments:</b> Q from the width and from the ring-down; series against parallel resonance; pulling f_p with a capacitor across OUT (an SMA tee); the temperature coefficient.<br><br>
+<b>Tutorial pages:</b> The Q of a quartz crystal; Your crystal against a reference; More ideas for one board.<br><br>
+<b>The circuit:</b> The crystal in series between 50 ohm ports: it passes at its series resonance f_s (R_m about 50 ohm: -3.5 dB) and blocks at the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p down toward f_s and leaves f_s alone: the pulling the tutorial measures against a reference.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S).<br><br>
+<b>Parts:</b> X49SM4MSD2SC (C13774).
 
-The crystal in series between 50 ohm ports: it passes at its series resonance f_s (R_m about 50 ohm: -3.5 dB) and blocks at the parallel resonance f_p = f_s (1 + C_m / 2 C_0) a few kHz above.  A capacitor across OUT (a tee at the ADC) pulls f_p down toward f_s and leaves f_s alone: the pulling that 4.09 measures.  Model: C_m 15 fF, Q 50 000, C_0 4 pF (typical HC-49S).
+</td></tr></table>
 
-Parts: X49SM4MSD2SC (C13774).
+<a id="p9"></a>
 
 ### P9  ceramic res., 455 kHz
 
-Cell (0,2); tutorial 4.02, 4.03.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P9.jpg" width="262" alt="P9  ceramic res., 455 kHz"></td>
+<td valign="top">
 
-**Expect:** a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz
+<b>A 455 kHz ceramic resonator in series: a pass at 455 kHz and a notch a few kHz above; the AM superhet's IF element.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz<br><br>
+<b>How to use it:</b> Sweep 440-480 kHz into IN, OUT to the ADC.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> Q of a few hundred: between P4's LC (6) and P8's quartz (50,000).<br><br>
+<b>Limits:</b> A two-terminal resonator, not a three-terminal IF filter: one peak, no flat passband.<br><br>
+<b>Experiments:</b> Q compared across LC, ceramic and quartz; an IF stage for a superhet built in gateware.<br><br>
+<b>Tutorial pages:</b> RC and LC circuits; The Q of a quartz crystal.<br><br>
+<b>The circuit:</b> A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF element, and here a resonance whose Q (hundreds) sits between the LC's and the crystal's.  Model: C_m 7 pF, Q 400, C_0 250 pF.
 
-A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF element, and here a resonance whose Q (hundreds) sits between the LC's and the crystal's.  Model: C_m 7 pF, Q 400, C_0 250 pF.
+</td></tr></table>
+
+<a id="p10"></a>
 
 ### P10  clipper, 1N4148 ±0.6 V
 
-Cell (3,3); tutorial 4.04.
-Jacks: TL IN (±4 V); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P10.jpg" width="262" alt="P10  clipper, 1N4148 ±0.6 V"></td>
+<td valign="top">
 
-**Expect:** a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance
+<b>1 k in series and a 1N4148 diode each way to ground: clips any signal to about +-0.6 V.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
+<b>Expect:</b> a sine of more than 1 V comes out flat-topped at about ±0.6 V; the ADC on high impedance<br><br>
+<b>How to use it:</b> DAC sine to IN, OUT to the ADC on high impedance, FFT in the gateware or Python.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> Clips at +-0.6 V; a 1 k source.<br><br>
+<b>Limits:</b> Read OUT on high impedance; up to +-4 V in (the 1 k holds the diode current to 4 mA).<br><br>
+<b>Experiments:</b> Harmonics of a clipped sine against amplitude; odd harmonics, and even ones with a DC offset added; distortion.<br><br>
+<b>Tutorial pages:</b> Harmonics: a diode clipper.<br><br>
+<b>The circuit:</b> 1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  Harmonics: the clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a ±4 V source.<br><br>
+<b>Parts:</b> 1N4148W (C81598).
 
-1 k in series, then a 1N4148W each way to ground: whatever goes in, OUT stays within a diode drop.  4.04's harmonics: the clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a ±4 V source.
+</td></tr></table>
 
-Parts: 1N4148W (C81598).
+<a id="p11"></a>
 
 ### P11  delay line, 400 ns, a tap every 100
 
-Cells (1,2), (2,2), (3,2); tutorial 4.05, 6.05, 6.10, 7.06.
-Jacks: TL IN (±4 V); TL1 100ns; TL2 200ns; BR2 300ns; BR0 OUT.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/amod_p_P11.jpg" width="520" alt="P11  delay line, 400 ns, a tap every 100"></td>
+<td valign="top">
 
-**Expect:** a pulse arrives at OUT 395 ns late, at the taps every 99 ns; flat to about 10 MHz, then it disperses
+<b>A 400 ns, 50 ohm delay line made of 20 LC sections, with taps every 100 ns: 260 feet of RG-58 on a board.</b><br><br>
+<b>Jacks:</b> IN, top left (±4 V); 100ns, top of the middle cell; 200ns, top of the right cell; 300ns, bottom right; OUT, bottom of the left cell.<br><br>
+<b>Expect:</b> a pulse arrives at OUT 395 ns late, at the taps every 99 ns; flat to about 10 MHz, then it disperses<br><br>
+<b>How to use it:</b> A pulse or chirp from the DAC into IN; OUT open, shorted or terminated; the taps and OUT to the ADCs.<br><br>
+<b>You need:</b> An SMA short and a 50 ohm terminator (the kit's ANNE-50+) for the reflection experiments. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> Z0 51 ohm, 20 ns a section, cut-off 16 MHz, flat to about 10 MHz; taps through 470 ohm.<br><br>
+<b>Limits:</b> Disperses near 16 MHz (a chirp spreads); a tap is x1 into a high impedance, /10 into 50 ohm.<br><br>
+<b>Experiments:</b> Reflections from an open, a short and a matched end; time-domain reflectometry; echoes for an equalizer; a radar target on a cable; a pure-delay plant for control.<br><br>
+<b>Tutorial pages:</b> A quarter-wave stub; The channel; Chirps, Zadoff-Chu and LoRa; Control at the speed of the cable.<br><br>
+<b>The circuit:</b> Twenty sections of 1.0 uH and 390 pF: Z0 = sqrt(L/C) = 51 ohm, 20 ns a section, cut-off 1 / (pi sqrt(LC)) = 16 MHz. 400 ns is 260 ft of RG-58.  Leave OUT open and a pulse comes back the same way up; short it and it comes back inverted; 50 ohm on OUT and nothing comes back (the quarter-wave and reflection experiments).  The taps are a channel's echo and a radar target on a cable; near 16 MHz the phase velocity falls and a chirp spreads (below that, a pure-delay plant for control).  A tap through 470 ohm: x1 into a high-impedance scope, /10 into 50 ohm.
 
-Twenty sections of 1.0 uH and 390 pF: Z0 = sqrt(L/C) = 51 ohm, 20 ns a section, cut-off 1 / (pi sqrt(LC)) = 16 MHz. 400 ns is 260 ft of RG-58.  Leave OUT open and a pulse comes back the same way up; short it and it comes back inverted; 50 ohm on OUT and nothing comes back (4.05).  The taps are 6.05's echo and 6.10's radar target; near 16 MHz the phase velocity falls and a chirp spreads (7.06's pure-delay plant below that).  A tap through 470 ohm: x1 into a high-impedance scope, /10 into 50 ohm.
+</td></tr></table>
+
+<a id="p12"></a>
 
 ### P12  LEDs
 
-Cell (0,3); tutorial 4.10.
-Jacks: TL IN (0-5 V).
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/amod_p_P12.jpg" width="262" alt="P12  LEDs"></td>
+<td valign="top">
 
-**Expect:** one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e
+<b>Four LEDs (red, yellow, green, blue) behind 100 ohm, one at a time from the DIP switch: Planck's constant from the voltage where each starts to glow.</b><br><br>
+<b>Jacks:</b> IN, top left (0-5 V).<br><br>
+<b>Expect:</b> one LED at a time; the voltage where it starts to glow against 1/wavelength is h/e<br><br>
+<b>How to use it:</b> Ramp the DAC (or the host's LED output) into IN and read the LED loop's voltage; one DIP way at a time.<br><br>
+<b>You need:</b> Nothing (a dark room helps).<br><br>
+<b>Specs:</b> 630, 596, 525 and 469 nm (DIP ways 1-4); 100 ohm in series; IN 0-5 V.<br><br>
+<b>Limits:</b> The InGaN green and blue sit above the line (their knee is not just hc / e lambda); the colours are not printed, so light them.<br><br>
+<b>Experiments:</b> Planck's constant; LED I-V curves (with AMOD-A's A10); light against current.<br><br>
+<b>Tutorial pages:</b> More ideas for one board.<br><br>
+<b>The circuit:</b> 100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant. Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie above the line.  The LED loop is after the 100 ohm: the LED's own voltage.  The colours are not on the silk: light them.<br><br>
+<b>Parts:</b> DSHP04TSGET (C40736), KT-0805B (C2293), KT-0805G (C2297), NCD0805R1 (C84256), KT-0805Y (C2296).
 
-100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant (4.10). Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie above the line.  The LED loop is after the 100 ohm: the LED's own voltage.  The colours are not on the silk: light them.
+</td></tr></table>
 
-Parts: DSHP04TSGET (C40736), KT-0805B (C2293), KT-0805G (C2297), NCD0805R1 (C84256), KT-0805Y (C2296).
+<a id="p13"></a>
 
 ### P13  AM loopstick, 0.5-1.7 MHz
 
-Cells (1,3), (2,3); tutorial 1.10.
-Jacks: TL OUT (to A4).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/amod_p_P13.jpg" width="520" alt="P13  AM loopstick, 0.5-1.7 MHz"></td>
+<td valign="top">
 
-**Expect:** with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)
+<b>An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors, its tap on the jack.</b><br><br>
+<b>Jacks:</b> OUT, top left (to A4).<br><br>
+<b>Expect:</b> with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)<br><br>
+<b>How to use it:</b> Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band.<br><br>
+<b>You need:</b> An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> With a 330 uH coil: 1.28 MHz (47 pF) down to 0.40 MHz (470 pF), and the sums between; the kit's 240 uH coil tunes about 17 % higher.<br><br>
+<b>Limits:</b> Stepped tuning (15 combinations), not a knob; a weak signal that needs A4's gain before the ADC.<br><br>
+<b>Experiments:</b> Real AM stations; the resonance and Q of a loopstick; the tutorial's AM radio gateware.<br><br>
+<b>Tutorial pages:</b> An AM radio.<br><br>
+<b>The circuit:</b> Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station.<br><br>
+<b>Parts:</b> DSHP04TSGET (C40736).
 
-Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and 1.10's AM radio: a real station.
-
-Parts: DSHP04TSGET (C40736).
+</td></tr></table>
 
 ## Ground, loops and probing
 

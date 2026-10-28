@@ -35,7 +35,7 @@ def tile_a1():
     a 1 x 5 socket with every rail along the top edge, its pins named in the gutter above.  The rails leave on the
     inner layer: +5 V through a via into the pour that covers the board, -5 V through vias into the strip in the
     gutter above, +3.3 V through a via into the strip in the gutter below."""
-    t = Tile("A1", "power", [(3, 1)], subtitle="USB-C 5 V in: +5, -5, +3.3 out", sections=["1.01"])
+    t = Tile("A1", "power", [(3, 1)], subtitle="USB-C 5 V in: +5, -5, +3.3 out", sections=["A counter on the LEDs"])
     t.pwr_flags = ["+5V"]
     ux = USB_X - t.x0
     j = t.add("J", "USBC", "USB-C", ux, 10.0, 90, {"A4": "VBUS", "A9": "VBUS", "B4": "VBUS", "B9": "VBUS", "A5": "CC1", "B5": "CC2",
@@ -102,7 +102,7 @@ def tile_a1():
     t.via("-5V", 7.48, -0.75)
     t.wire("-5V", [(h, "3"), (7.48, -0.75)], silk=False)
     for name, px in zip(["+5", "G", "-5", "G", "3V3"], [2.4, 4.94, 7.48, 10.02, 12.56]):
-        t.text(px, -0.8, name, 0.8, 0.15, "center")
+        t.text(px, 0.15, name, 0.8, 0.15, "center")                 # on the tile's frame, which breaks round them
     # the LEDs in the margin above the USB-C: red on -5 V (nearest the strip's end), green on +5 V, 1 k each to ground.
     # The -5 V strip stops at x 93.6 so the +5 V pour keeps a path down the right margin past these vias.
     dr = t.add("LED", "LED_R", "-5V", 20.6, 2.6, 270, {"1": "-5V", "2": "LEDR"}, label=None)       # rot 270: K (pad 1) at the top
@@ -118,7 +118,6 @@ def tile_a1():
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (26.6, 0.6), sym=(0, 0))
     t.text(17.4, 1.9, "A1", 1.5, 0.3, "center")
-    t.text(17.4, 3.4, "1.01", 0.8, 0.15, "center")
     t.text(18.7, 18.6, "POWER", 0.9, 0.17, "right")
     t.result = "+5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF.",
@@ -271,17 +270,18 @@ def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=
     t.gnd_stub(cp, "1", (X(6.4), 13.6), sym=(0, 0))
     if legend:
         t.text(X(9.6), 2.0, t.id, 1.2, 0.24, "center")
-        t.text(X(19.0), 1.65, " ".join(t.sections), 0.8, 0.15, "right")
-        t.text(X(19.0), 3.0, (t.name + ((" " + t.subtitle) if t.subtitle else "")).upper(), 0.8, 0.15, "right")
+        for k, line in enumerate(getattr(t, "title_lines", None) or [(t.name + ((" " + t.subtitle) if t.subtitle else "")).upper(), chip]):
+            t.text(X(19.0), 1.65 + 1.35 * k, line, 0.8, 0.15, "right")
     return u
 
 
 def tile_a2():
     """Gain x10: an OPA810 (140 MHz GBW) non-inverting, 1.1 k and 10 k, 50 ohm in, 49.9 ohm out (x10 into a high impedance,
     x5 into 50 ohm); 14 MHz."""
-    t = Tile("A2", "x10", [(0, 0)], supply="+-5 V", subtitle="14 MHz", sections=["4.06", "5.02"])
+    t = Tile("A2", "x10", [(0, 0)], supply="+-5 V", subtitle="14 MHz", sections=["The speed of sound at 40 kHz", "Warming a crystal"])
     t.jack("TL", "IN", "IN", "in", "±0.4 V", silk="IN 50R"); t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
+    t.title_lines = ["GAIN x10", "14 MHz"]
     opa_tile_br(t, "R0603 1.1k", "1.1k")
     t.result = "x10 (20 dB) into a high impedance, x5 into 50 ohm, -3 dB near 14 MHz; clips at about +-4 V"
     t.notes = ["Non-inverting OPA810: gain 1 + 10 k / 1.1 k = 10.1, bandwidth 140 MHz / 10 = 14 MHz.  50 ohm at the input, 49.9 ohm",
@@ -293,9 +293,10 @@ def tile_a2():
 def tile_a3():
     """Gain x100 in one OPA810 stage (100 ohm and 10 k): 1.4 MHz, x100 into a high impedance.  The plan's two stages of
     x10 (9 MHz) did not fit a 20 mm cell beside the switch with 0.2 mm clearances; A4 covers the HF case at x100."""
-    t = Tile("A3", "x100", [(1, 0)], supply="+-5 V", subtitle="1.4MHz", sections=["4.06", "5.02"])
+    t = Tile("A3", "x100", [(1, 0)], supply="+-5 V", subtitle="1.4MHz", sections=["The speed of sound at 40 kHz", "Warming a crystal"])
     t.jack("TL", "IN", "IN", "in", "±40 mV", silk="IN 50R"); t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
+    t.title_lines = ["GAIN x100", "1.4 MHz"]
     opa_tile_br(t, "R0603 100R", "100R")
     t.result = "x100 (40 dB) into a high impedance, -3 dB near 1.4 MHz; keep the input under 40 mV peak"
     t.notes = ["Non-inverting OPA810: gain 1 + 10 k / 100 = 101, bandwidth 140 MHz / 100 = 1.4 MHz.  50 ohm at the input, 49.9 ohm",
@@ -310,9 +311,10 @@ def tile_a4():
     """HF LNA: the OPA847 (SOT-23-6) at x101 (1 k / 10 ohm) in the shared checkerboard geometry (opa_tile_br), 50 ohm at
     the input, 49.9 ohm out.  DIS (pin 5) is tied to +VS beside it: enabled.  The feedback pair sits right at the pins,
     as a decompensated amplifier needs."""
-    t = Tile("A4", "LNA", [(2, 0)], supply="+-5 V", subtitle="30 MHz", sections=["4.06", "5.03"])
+    t = Tile("A4", "LNA", [(2, 0)], supply="+-5 V", subtitle="30 MHz", sections=["The speed of sound at 40 kHz", "What time is it over there?"])
     t.jack("TL", "IN", "IN", "in", "±30 mV", silk="IN 50R"); t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
+    t.title_lines = ["LNA x100", "1-30 MHz"]
     opa_tile_br(t, "R0603 10R", "10R", chip="OPA847", rf_key="R0603 1k")
     t.result = "x100 (40 dB) from 50 ohm, flat 1-30 MHz, about 3 dB noise figure from 50 ohm; keep the input under 30 mV peak"
     t.notes = ["Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its",
@@ -328,7 +330,7 @@ def tile_a5():
     ground), its IF through 1 uF (100 k to ground) into the A2 geometry at x101 (100 ohm / 10 k), 49.9 ohm out.  1 m/s
     toward the module is 70 Hz; walking, a fan's blades, a speaker cone and breathing are all within reach.  (Rev A's
     first A5 was a Johnson-noise amplifier: the ECP5-2ADC-2DAC board has that source and a x100 input of its own.)"""
-    t = Tile("A5", "Doppler", [(3, 0)], supply="+-5 V", subtitle="HB100", sections=["5.08"])
+    t = Tile("A5", "Doppler", [(3, 0)], supply="+-5 V", subtitle="HB100", sections=["With a little more hardware"])
     t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
     hb = t.add("J", "HDR3", "HB100", 3.0, 2.2, 0, {"1": "VS", "2": "IF", "3": "GND"}, hide_value=True)      # pins at y 2.2, 4.74, 7.28
@@ -345,10 +347,11 @@ def tile_a5():
     t.wire("VS", [(1.4, 2.2), (hb, "1")])
     t.text(4.5, 2.2, "+5", 0.8, 0.15, "left")
     t.text(4.5, 7.28, "G", 0.8, 0.15, "left")
+    t.text(4.4, 3.7, "IF", 0.8, 0.15, "left")
     t.text(7.6, 1.8, "A5", 1.2, 0.24, "center")
-    t.text(7.6, 3.15, "5.08", 0.8, 0.15, "center")
     t.text(19.0, 1.65, "DOPPLER 10.5G", 0.8, 0.15, "right")
-    t.text(19.0, 3.0, "HB100", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "HB100 MODULE", 0.8, 0.15, "right")
+
     t.result = "the Doppler beat of a target moving toward or away: 70 Hz per m/s (19.4 Hz per km/h), tens of mV after x101"
     t.notes = ["HB100: a 10.525 GHz oscillator and mixer on one board; its IF is the beat between what it sends and what comes",
                "back, 2v/lambda = 70 Hz per m/s.  Wire its +5, IF and GND pins to the header; point it at something that moves.",
@@ -362,7 +365,7 @@ def tile_a6():
     """Delta-sigma: a TLV3501 compares the integrator node (IN through 10 k, the FPGA's bit back through 10 k, 10 nF to
     ground) with a mid-rail reference (10 k / 10 k / 100 n from VS); its bit goes to Pmod IO7 and a loop; the FPGA's
     bit comes in on Pmod IO8.  +3.3 V so the bit is the FPGA's logic level."""
-    t = Tile("A6", "1-bit ADC", [(0, 1)], supply="+3.3 V", sections=["7.05"])
+    t = Tile("A6", "1-bit ADC", [(0, 1)], supply="+3.3 V", sections=["Trading speed for bits"])
     idx = t.idx
     t.jack("TL", "IN", "IN", "in", "±1.5 V", silk="IN 10K")
     power_header(t, rail="+3V3")
@@ -416,7 +419,7 @@ def tile_a8():
     """Heater and thermometer: two 15 ohm 2512 in series across VS (0.83 W at 5 V), stacked in the top-left, switched
     by an AO3400 beside them from Pmod IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) straight above the OUT jack,
     its output dropping into the jack's pin.  (The plan's NTC divider did not fit beside the two 2512s.)"""
-    t = Tile("A8", "heat", [(2, 1)], supply="+5 V", sections=["5.02", "7.06"])
+    t = Tile("A8", "heat", [(2, 1)], supply="+5 V", sections=["Warming a crystal", "Control at the speed of the cable"])
     idx = t.idx
     t.jack("BR", "OUT", "OUT", "out", "", silk="TEMP OUT")
     power_header(t)
@@ -444,8 +447,6 @@ def tile_a8():
     t.wire("VS", [(10.2, 11.0), (10.2, 3.6)], layer="B.Cu", silk=False)
     t.wire("VS", [(10.2, 3.6), (10.2, 2.75), (ra, "2")])
     t.text(7.8, 10.9, "A8", 1.5, 0.3, "center")
-    t.text(7.8, 12.9, "5.02", 0.8, 0.15, "center")
-    t.text(7.8, 14.25, "7.06", 0.8, 0.15, "center")
     t.text(19.0, 4.5, "HEAT", 0.8, 0.15, "right")
     t.text(19.0, 5.85, "0.8 W", 0.8, 0.15, "right")
     t.result = "0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
@@ -464,7 +465,7 @@ def tile_a11():
     socket, 10 nF into the A2 geometry at x100 (100 ohm / 10 k, 3.9 k to ground at +IN) and out to RX OUT at the
     right cell's bottom-right jack.
     +-5 V (the op amp), the bridge on the switched +5 V."""
-    t = Tile("A11", "ultrasound", [(0, 3), (1, 3)], supply="+-5 V", sections=["4.06"])
+    t = Tile("A11", "ultrasound", [(0, 3), (1, 3)], supply="+-5 V", sections=["The speed of sound at 40 kHz"])
     t.jack("BR1", "OUT", "OUT", "out", "", silk="RX OUT")
     power_header(t)
     # --- transmit: the bridge beside the socket's left end
@@ -494,7 +495,6 @@ def tile_a11():
     t.wire("/PMOD4", [(d, "5"), (11.6, 9.25)], width=W)
     t.via("/PMOD4", 11.6, 9.25)
     t.text(17.5, 6.0, "A11", 0.9, 0.17, "center")
-    t.text(17.5, 7.4, "4.06", 0.8, 0.15, "center")
     # --- receive: the socket in the right cell's top-left, 10 nF and 3.9 k into the A2 geometry
     jrx = t.add("J", "HDR5", "RX", 21.2, 2.6, 90, {"1": "RXA", "5": "GND"}, hide_value=True)             # pins at x 21.2 ... 31.36
     cin = t.add("C", "C0805 10nF", "10n", 26.0, 9.3, 0, {"1": "RXA", "2": "IN"}, label=None)
@@ -506,6 +506,9 @@ def tile_a11():
     u = opa_tile_br(t, "R0603 100R", "100R", jack_in=False, dx=21.5, neg="top", legend=False,
                     in_from=[(cin, "2"), (28.0, 9.3), (28.0, 4.75)])                                    # under the socket's right end
     t.text(21.6, 16.5, "ULTRASOUND", 0.8, 0.15, "left")
+    t.info(["TX"], near=(14.3, 2.0), reach=2.5)
+    t.info(["RX"], near=(33.0, 2.0), reach=2.5)
+    t.info(["40 kHz"], near=(15.5, 7.6), reach=4.0)
     # --- the Pmod plug, below the left cell in the bottom margin (global 15.4, 96.5), and the board's lines to it:
     # the upper row (even pads) straight down from feeds on the back; the lower row (odd pads) through the upper row's
     # gaps on the front with 0.2 mm tracks (pads 1, 3) or along the bottom edge (pads 5, 7)
@@ -541,7 +544,7 @@ def tile_a7():
     through 470 ohm (in the right strip, beside C1) to the OUT jack and back into COMPin; PC2's tri-state output up
     through the chip's middle to the 10 k / 100 n lag filter above it, into VCOin.  No loops: probe pin 9 (VCOin,
     the demodulated FM) and pin 13."""
-    t = Tile("A7", "PLL 4046", [(1, 1)], supply="+5 V", sections=["4.01"])
+    t = Tile("A7", "PLL 4046", [(1, 1)], supply="+5 V", sections=["A faster DAC: PLLs"])
     idx = t.idx
     t.jack("TL", "IN", "IN", "in", "±1 V", silk="IN 1K"); t.jack("BR", "OUT", "OUT", "out", "", silk="VCO OUT")
     power_header(t)
@@ -577,7 +580,6 @@ def tile_a7():
     t.wire("VS", [(cp, "1"), (10.738, 10.6), (u, "16")])
     t.gnd_stub(cp, "2", (12.3, 10.4), sym=(0, 0))
     t.text(7.6, 12.4, "A7", 1.2, 0.24, "center")
-    t.text(7.6, 14.0, "4.01", 0.8, 0.15, "center")
     t.text(19.0, 3.0, "PLL 4046", 0.8, 0.15, "right")
     t.result = "VCO OUT locks to a 50-200 kHz square or sine on IN; pin 9 is the demodulated FM, pin 13 the phase detector"
     t.notes = ["74HC4046A: R1 10 k, C1 1 nF put the VCO near 100 kHz (R2 open: it can go down to 0).  PC2 (the edge-triggered",
@@ -595,7 +597,7 @@ def tile_a9():
     100 n); 1 k between the gain pins, 3.9 k from BIAS to -5 V (1 mA), 1.5 k loads to the switched 5 V; OUT+ through
     100 n to IF OUT (high impedance: 1.5 k source).  The board's Pmod lines pass down the back of this tile's middle
     x 14 ... 16.5, which the layout keeps free there.  No carrier-null trimmer."""
-    t = Tile("A9", "mixer", [(0, 2), (1, 2)], supply="+-5 V", subtitle="MC1496", sections=["1.10", "6.02"])
+    t = Tile("A9", "mixer", [(0, 2), (1, 2)], supply="+-5 V", subtitle="MC1496", sections=["An AM radio", "PSK and QPSK"])
     idx = t.idx
     t.jack("TL", "RF", "RF", "in", "±0.3 V", silk="RF IN"); t.jack("TM", "LO", "LO", "in", "±0.3 V", silk="LO IN")
     t.jack("BR1", "IF", "IF", "out", "", silk="IF OUT")
@@ -659,9 +661,8 @@ def tile_a9():
     t.wire("VS", [(32.4, 18.95), (32.4, 8.4)], layer="B.Cu", silk=False)          # left of the IF jack's legs
     t.wire("VS", [(32.4, 8.4), (rb1, "1")])
     t.text(12.75, 2.4, "A9", 1.5, 0.3, "center")
-    t.text(12.75, 4.4, "1.10", 0.8, 0.15, "center")
-    t.text(12.75, 5.75, "6.02", 0.8, 0.15, "center")
-    t.text(t.w - 1.1, 2.2, "MIXER MC1496", 0.8, 0.15, "right")
+    t.text(t.w - 1.1, 2.2, "GILBERT MIXER MC1496", 0.8, 0.15, "right")
+    t.info(["RF, LO < 0.3 V PEAK"], near=(22.0, 4.0))
     t.result = "IF OUT = RF x LO (sum and difference frequencies, about 0.3 V peak per volt of RF at 0.3 V of LO); a balanced mixer, the carrier mostly cancels"
     t.notes = ["Gilbert cell on +-5 V: signal pair at ground (51 ohm), carrier pair at 2.5 V (51 ohm to the 10 k / 10 k bias), 1 mA",
                "per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches,",
@@ -680,7 +681,7 @@ def tile_a10():
     reads half), I = (S - X) / R and Z = R X / (S - X): an impedance analyzer from DC to a few MHz after an open-short
     calibration, and an I-V curve tracer to +-4 V and 40 mA.  (Rev A's first A10 was an LED driver and a photodiode
     amplifier: the ECP5-2ADC-2DAC board has both.)"""
-    t = Tile("A10", "impedance", [(2, 2), (3, 2)], supply="+-5 V", subtitle="V and I", sections=["4.02", "4.10"])
+    t = Tile("A10", "impedance", [(2, 2), (3, 2)], supply="+-5 V", subtitle="V and I", sections=["RC and LC circuits", "More ideas for one board"])
     idx = t.idx
     t.jack("TL", "DRIVE", "IN", "in", "+-1 V into 50 ohm", silk="DRIVE IN")
     t.jack("BR0", "S", "OUT", "out", "", silk="S OUT")
@@ -724,8 +725,8 @@ def tile_a10():
     t.wire("-5V", [(32.0, 6.0), (31.0, 6.0)])
     t.wire("-5V", [(31.0, 6.0), (31.0, 20.5)], layer="B.Cu", silk=False)
     t.text(10.4, 2.0, "A10", 1.2, 0.24, "center")
-    t.text(19.0, 1.65, "4.02 4.10", 0.8, 0.15, "right")
-    t.text(19.0, 3.0, "IMPEDANCE", 0.8, 0.15, "right")
+    t.text(19.0, 1.65, "IMPEDANCE", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "AND I-V", 0.8, 0.15, "right")
     t.result = "S OUT and X OUT (each half the node's voltage into 50 ohm): Z = R X / (S - X); +-4 V and up to 40 mA for an I-V curve"
     t.notes = ["DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for",
                "high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against",
@@ -741,7 +742,7 @@ def tile_a12():
     is AUDIO IN through 1 u and the one-bit stream from Pmod IO2 through 10 k into 10 n.  Right: an electret in the
     1 x 2 socket (2.2 k bias from VS), 1 u into the A2 geometry at x100 and out to MIC OUT.  +-5 V (the op amp; the
     class-D runs on the switched +5 V).  No 3.5 mm jack: the one-bit stream is heard on the speaker."""
-    t = Tile("A12", "audio", [(2, 3), (3, 3)], supply="+-5 V", sections=["1.05", "6.04"])
+    t = Tile("A12", "audio", [(2, 3), (3, 3)], supply="+-5 V", sections=["ADC samples to Python", "MSK and GMSK"])
     idx = t.idx
     t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="AUDIO IN"); t.jack("BR1", "OUT", "OUT", "out", "", silk="MIC OUT")
     power_header(t)
@@ -784,7 +785,8 @@ def tile_a12():
     t.wire("VOP", [(8.395, 16.7), (8.395, 17.3), (21.0, 17.3), (21.0, 9.1)], layer="B.Cu", silk=False)
     t.wire("VOP", [(21.0, 9.1), (spk, "1")])
     t.wire("VOM", [(pa, "8"), (14.6, 15.075), (14.6, 8.75), (20.4, 8.75), (20.4, 4.1), (spk, "2")])
-    t.text(16.7, 2.4, "A12 1.05", 0.9, 0.17, "center")
+    t.text(16.7, 2.4, "A12", 0.9, 0.17, "center")
+    t.info(["MIC x100"], near=(33.0, 9.0))
     t.text(26.5, 13.0, "SPK", 0.8, 0.15, "center")
     # --- the microphone amplifier (right cell): the electret's socket at the bottom, 2.2 k from VS beside it, the signal up
     # the back past the speaker terminal to 1 uF above it, into the A2 geometry at x100 and down to MIC OUT

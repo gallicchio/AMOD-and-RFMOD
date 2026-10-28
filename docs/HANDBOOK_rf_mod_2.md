@@ -52,121 +52,253 @@ than +20 dBm in); X6 reads -60 to 0 dBm; X9 is a through line rated for 1 W from
 
 ## The tiles
 
+Each tile in a table: its picture, then what it does, its jacks, what to expect, how to cable it, what to buy
+(the links are in [KIT.md](KIT.md)), its numbers and limits, the experiments it is for and the circuit.
+
+<a id="x1"></a>
+
 ### X1  I/Q modulator, ADL5375
 
-Cells (0,2), (1,2); +5 V.
-Jacks: TL0 I IN (+-1 V into 50 ohm); BR0 LO IN (0 dBm); TL1 RF OUT; BR1 Q IN (+-1 V into 50 ohm).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X1.jpg" width="520" alt="X1  I/Q modulator, ADL5375"></td>
+<td valign="top">
 
-**Expect:** about 0 dBm of single-sideband RF at full scale (I and Q +-1 V at 1 V p-p differential equivalent), 0.4-6 GHz, sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz, far past the DACs' 12 MHz
+<b>An I/Q modulator with an outside LO: the two DACs' I and Q onto a carrier from 0.4 to 6 GHz.  It shares its LO with X2, so the two work as a coherent pair.</b><br><br>
+<b>Jacks:</b> I IN, top left (+-1 V into 50 ohm); LO IN, bottom of the left cell (0 dBm); RF OUT, top of the right cell; Q IN, bottom right (+-1 V into 50 ohm).<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> about 0 dBm of single-sideband RF at full scale (I and Q +-1 V at 1 V p-p differential equivalent), 0.4-6 GHz, sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz, far past the DACs' 12 MHz<br><br>
+<b>How to use it:</b> DAC 1 to I IN, DAC 2 to Q IN, X5's P2 to LO IN; RF OUT to the antenna or the device under test.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> I and Q +-1 V into 50 ohm; LO 0 dBm (-6 to +6 dBm); about 0 dBm of RF; sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz.<br><br>
+<b>Limits:</b> Needs an LO (X3 through X5); trim the carrier with DC offsets and the sideband with the DACs' gain and phase.<br><br>
+<b>Experiments:</b> A QPSK, QAM or OFDM transmitter; the source of a network analyzer or a radar; ODMR sweeps.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/adl5375.html">ADL5375</a><br><br>
+<b>The circuit:</b> ADI ADL5375-05: two Gilbert-cell mixers and a quadrature LO splitter, 0.4-6 GHz, baseband bias 0.5 V.  Each input is single-ended from a DAC: 68 ohm at the jack, 150 ohm into 510 / 91 ohm from 5 V (0.50 V, gain 0.34); the other pin of each pair sits at 0.50 V on 510 / 56 ohm.  LO in single-ended through 100 pF (0 dBm; -6 to +6 dBm works); RF out is 50 ohm through 100 pF.  Trim the carrier with small DC offsets on I and Q, the sideband with the DACs' gain and phase.<br><br>
+<b>Parts:</b> ADL5375-05ACPZ-R7 (C579150).
 
-ADI ADL5375-05: two Gilbert-cell mixers and a quadrature LO splitter, 0.4-6 GHz, baseband bias 0.5 V.  Each input is single-ended from a DAC: 68 ohm at the jack, 150 ohm into 510 / 91 ohm from 5 V (0.50 V, gain 0.34); the other pin of each pair sits at 0.50 V on 510 / 56 ohm.  LO in single-ended through 100 pF (0 dBm; -6 to +6 dBm works); RF out is 50 ohm through 100 pF.  Trim the carrier with small DC offsets on I and Q, the sideband with the DACs' gain and phase.
+</td></tr></table>
 
-Parts: ADL5375-05ACPZ-R7 (C579150).
+<a id="x2"></a>
 
 ### X2  I/Q demodulator, ADL5380
 
-Cells (2,2), (3,2); +5 V.
-Jacks: TL0 I OUT (+-1 V); BR0 LO IN (0 dBm); TL1 RF IN (-10 dBm); BR1 Q OUT (+-1 V).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X2.jpg" width="520" alt="X2  I/Q demodulator, ADL5380"></td>
+<td valign="top">
 
-**Expect:** I and Q of the RF input against the LO, 0.4-6 GHz: about 7 dB of conversion gain from the chip, x2 in the amplifiers, +-1 V at the ADC for about -4 dBm of RF; flat from DC to beyond the ADCs' 23 MHz
+<b>An I/Q demodulator: brings RF from 0.4 to 6 GHz down to baseband I and Q for the two ADCs.</b><br><br>
+<b>Jacks:</b> I OUT, top left (+-1 V); LO IN, bottom of the left cell (0 dBm); RF IN, top of the right cell (-10 dBm); Q OUT, bottom right (+-1 V).<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> I and Q of the RF input against the LO, 0.4-6 GHz: about 7 dB of conversion gain from the chip, x2 in the amplifiers, +-1 V at the ADC for about -4 dBm of RF; flat from DC to beyond the ADCs' 23 MHz<br><br>
+<b>How to use it:</b> RF IN from X4, an antenna or the device under test; LO IN from X5's P3; I OUT to ADC 1, Q OUT to ADC 2.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> About -4 dBm of RF gives +-1 V at the ADCs; LO 0 dBm (-6 to +6 dBm); baseband from DC past the ADCs' bandwidth.<br><br>
+<b>Limits:</b> Zero-IF: DC offsets and I/Q imbalance to calibrate; a strong signal saturates it (use a pad).<br><br>
+<b>Experiments:</b> Constellations of a real link; a network analyzer's receiver; FMCW and stepped-frequency radar; GPS.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/adl5380.html">ADL5380</a>, <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
+<b>The circuit:</b> ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810 difference amplifiers (499 ohm in, 1 k feedback and to ground: gain 2) make each pair one output about 0 V from +5 / -5 V; 49.9 ohm out.  RF and LO single-ended through 100 pF, the other pin to ground through 100 pF (a balun would gain 1-3 dB and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3 through X5 on both LOs: one coherent radio.<br><br>
+<b>Parts:</b> ADL5380ACPZ-R7 (C579152), OPA810IDBVR (C2833513).
 
-ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810 difference amplifiers (499 ohm in, 1 k feedback and to ground: gain 2) make each pair one output about 0 V from +5 / -5 V; 49.9 ohm out.  RF and LO single-ended through 100 pF, the other pin to ground through 100 pF (a balun would gain 1-3 dB and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3 through X5 on both LOs: one coherent radio.
+</td></tr></table>
 
-Parts: ADL5380ACPZ-R7 (C579152), OPA810IDBVR (C2833513).
+<a id="x3"></a>
 
 ### X3  synthesizer, MAX2871
 
-Cells (0,3), (1,3); +5 V.
-Jacks: TL OUT A; BR1 REF IN (25 MHz, 3.3 V CMOS).
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X3.jpg" width="520" alt="X3  synthesizer, MAX2871"></td>
+<td valign="top">
 
-**Expect:** any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm), locked to the 25 MHz on REF IN (the ECP5 board's CLK OUT or RF-MOD's REF OUT); through X5 it is the LO of X1 and X2 at once
+<b>The synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to 25 MHz, set over SPI.  Through X5 it is the LO of X1 and X2 at once.</b><br><br>
+<b>Jacks:</b> OUT A, top left; REF IN, bottom right (25 MHz, 3.3 V CMOS).<br><br>
+<b>Pmod:</b> IO1 (Pmod pin 1): MUXOUT of X3; IO2 (Pmod pin 2): SDATA to X3; IO3 (Pmod pin 3): SCLK to X3; IO4 (Pmod pin 4): LE of X3<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm), locked to the 25 MHz on REF IN (the ECP5 board's CLK OUT or RF-MOD's REF OUT); through X5 it is the LO of X1 and X2 at once<br><br>
+<b>How to use it:</b> REF IN from the ECP5 board's CLK OUT (or RF-MOD's REF OUT); program it over the Pmod; OUT A to X5's P1.<br><br>
+<b>You need:</b> Nothing (the SPI gateware).<br><br>
+<b>Specs:</b> -4 to +5 dBm on OUT A (about -1 dBm at each of X5's outputs); 80-120 kHz loop; red LED when locked.<br><br>
+<b>Limits:</b> Divided-down outputs below 3 GHz have strong harmonics; fractional spurs; about a millisecond to relock.<br><br>
+<b>Experiments:</b> The coherent LO of the transceiver; stepped-frequency radar and network analysis; a signal generator.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/max2871.html">MAX2871</a><br><br>
+<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS from the ECP5 board's CLK OUT or RF-MOD's REF OUT). Split OUT A with X5 to drive X1's and X2's LO inputs (-1 dBm each at the top power setting).<br><br>
+<b>Parts:</b> NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 
-MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS from the ECP5 board's CLK OUT or RF-MOD's REF OUT). Split OUT A with X5 to drive X1's and X2's LO inputs (-1 dBm each at the top power setting).
+</td></tr></table>
 
-Parts: NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
+<a id="x4"></a>
 
 ### X4  LNA, QPL9547
 
-Cell (2,0); +5 V.
-Jacks: TL IN (-20 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X4.jpg" width="262" alt="X4  LNA, QPL9547"></td>
+<td valign="top">
 
-**Expect:** 19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V
+<b>A low-noise amplifier: +19.5 dB with a 0.3 dB noise figure (RF-MOD's R5).</b><br><br>
+<b>Jacks:</b> IN, top left (-20 dBm); OUT, bottom right.<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> 19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V<br><br>
+<b>How to use it:</b> Antenna to IN, OUT to X2's RF IN or X6.<br><br>
+<b>You need:</b> An SMA antenna for the band (kit: L-com LCANRBD1044 or LCANRBD1057). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> 0.1-6 GHz; 19.5 dB; NF 0.3-0.5 dB; OIP3 +39 dBm.<br><br>
+<b>Limits:</b> Linear below about -20 dBm in; +22 dBm absolute maximum at the input.<br><br>
+<b>Experiments:</b> The receiver's first stage; noise figure with X7; radiometry.<br><br>
+<b>Chip:</b> <a href="https://www.qorvo.com/products/p/QPL9547">QPL9547</a><br><br>
+<b>The circuit:</b> Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare. The 18 nH wire-wound choke (Qorvo's value) feeds 5 V into the output pin; 3.3 k from 5 V to Vbias sets 65 mA. Never cable a transmitter into it without 30 dB of attenuation (22 dBm absolute maximum at the input).<br><br>
+<b>Parts:</b> QPL9547TR7 (C5367093).
 
-Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare. The 18 nH wire-wound choke (Qorvo's value) feeds 5 V into the output pin; 3.3 k from 5 V to Vbias sets 65 mA. Never cable a transmitter into it without 30 dB of attenuation (22 dBm absolute maximum at the input).
+</td></tr></table>
 
-Parts: QPL9547TR7 (C5367093).
+<a id="x5"></a>
 
 ### X5  splitter, 3 x 18 ohm, 6 dB
 
-Cells (0,1), (1,1).
-Jacks: TL P1 (+20 dBm); BR0 P2; BR1 P3.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X5.jpg" width="520" alt="X5  splitter, 3 x 18 ohm, 6 dB"></td>
+<td valign="top">
 
-**Expect:** 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz
+<b>A resistive splitter: X3's single output becomes the LO of both X1 and X2, so the transmitter and receiver share one oscillator.</b><br><br>
+<b>Jacks:</b> P1, top left (+20 dBm); P2, bottom of the left cell; P3, bottom right.<br><br>
+<b>Expect:</b> 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz<br><br>
+<b>How to use it:</b> X3's OUT A to P1; P2 to X1's LO IN; P3 to X2's LO IN.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 6.2 dB from any port to any other, DC-6 GHz, every port 50 ohm.<br><br>
+<b>Limits:</b> 6 dB of loss to each output; no isolation between them beyond those 6 dB.<br><br>
+<b>Experiments:</b> The coherent pair that the radar, the network analyzer and the link need; any two tiles sharing one source.<br><br>
+<b>The circuit:</b> RF-MOD's R1: three 18 ohm resistors to one node, 6 dB per path, no isolation between the outputs beyond those 6 dB. Here it splits X3's OUT A into X1's and X2's LO inputs, so the transmitter and the receiver share one oscillator: the radar's and the network analyzer's phase reference.  Any two tiles can share a source through it.
 
-RF-MOD's R1: three 18 ohm resistors to one node, 6 dB per path, no isolation between the outputs beyond those 6 dB. Here it splits X3's OUT A into X1's and X2's LO inputs, so the transmitter and the receiver share one oscillator: the radar's and the network analyzer's phase reference.  Any two tiles can share a source through it.
+</td></tr></table>
+
+<a id="x6"></a>
 
 ### X6  log detector, AD8318
 
-Cell (1,0); +5 V.
-Jacks: TL IN (0 dBm); BR OUT (0.23-0.95 V open).
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X6.jpg" width="262" alt="X6  log detector, AD8318"></td>
+<td valign="top">
 
-**Expect:** VOUT falls 25 mV per dB of input from -60 to 0 dBm, 1 MHz-8 GHz (2.1 V at -60 dBm, 0.6 V at 0 dBm at the chip); at the jack 0.45 x that from 50 ohm: 0.27-0.95 V into the ADC's high impedance, half into 50 ohm; 10 ns response
+<b>A power meter: a logarithmic detector whose voltage falls 25 mV for every dB of RF from -60 to 0 dBm, 1 MHz to 8 GHz.</b><br><br>
+<b>Jacks:</b> IN, top left (0 dBm); OUT, bottom right (0.23-0.95 V open).<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> VOUT falls 25 mV per dB of input from -60 to 0 dBm, 1 MHz-8 GHz (2.1 V at -60 dBm, 0.6 V at 0 dBm at the chip); at the jack 0.45 x that from 50 ohm: 0.27-0.95 V into the ADC's high impedance, half into 50 ohm; 10 ns response<br><br>
+<b>How to use it:</b> RF to IN, OUT to an ADC on high impedance.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> -60 to 0 dBm; 25 mV/dB; 10 ns response; OUT 0.27-0.95 V into a high impedance (half into 50 ohm).<br><br>
+<b>Limits:</b> Power only, no phase; the slope and intercept move with frequency: calibrate at the frequency you use.<br><br>
+<b>Experiments:</b> Antenna patterns; a filter's response with X3 (a scalar network analyzer); pulse envelopes; path loss with distance.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/ad8318.html">AD8318</a><br><br>
+<b>The circuit:</b> ADI AD8318: a nine-stage log amplifier with detectors, 60 dB of range to 8 GHz, temperature-compensated (499 ohm on TADJ suits 0.9-2.2 GHz).  VSET = VOUT: -25 mV/dB with an intercept near +20 dBm.  CLPF is open, so it follows a pulse in 10 ns: a radar's or a pulsed experiment's envelope at the ADC's 65 MS/s.  The 110 / 91 ohm divider keeps the 0.5-2.1 V inside the ADC's +-1 V and makes the output a 50 ohm source.  A power meter, a scalar network analyzer with X3, antenna patterns.<br><br>
+<b>Parts:</b> AD8318ACPZ-REEL7 (C578694).
 
-ADI AD8318: a nine-stage log amplifier with detectors, 60 dB of range to 8 GHz, temperature-compensated (499 ohm on TADJ suits 0.9-2.2 GHz).  VSET = VOUT: -25 mV/dB with an intercept near +20 dBm.  CLPF is open, so it follows a pulse in 10 ns: a radar's or a pulsed experiment's envelope at the ADC's 65 MS/s.  The 110 / 91 ohm divider keeps the 0.5-2.1 V inside the ADC's +-1 V and makes the output a 50 ohm source.  A power meter, a scalar network analyzer with X3, antenna patterns.
+</td></tr></table>
 
-Parts: AD8318ACPZ-REEL7 (C578694).
+<a id="x7"></a>
 
 ### X7  noise source, ADL5611
 
-Cell (2,1); +5 V.
-Jacks: BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X7.jpg" width="262" alt="X7  noise source, ADL5611"></td>
+<td valign="top">
 
-**Expect:** IO6 high: a flat noise spectrum from 50 MHz to 4 GHz, roughly 15-30 dB ENR at OUT (measure it); IO6 low: a 50 ohm load at room temperature; 20 dB of pad keeps OUT matched in both states
+<b>A switched noise source: avalanche noise from a transistor junction, amplified, from 50 MHz to 4 GHz.  Pmod IO6 turns it on.</b><br><br>
+<b>Jacks:</b> OUT, bottom right.<br><br>
+<b>Pmod:</b> IO6 (Pmod pin 8): X7's noise on<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> IO6 high: a flat noise spectrum from 50 MHz to 4 GHz, roughly 15-30 dB ENR at OUT (measure it); IO6 low: a 50 ohm load at room temperature; 20 dB of pad keeps OUT matched in both states<br><br>
+<b>How to use it:</b> OUT to the amplifier or receiver under test; toggle IO6 and compare the powers.<br><br>
+<b>You need:</b> For calibration: a 50 ohm load in ice water and in boiling water, or in liquid nitrogen.<br><br>
+<b>Specs:</b> IO6 high: a flat floor about 15-30 dB above kT (measure its ENR); IO6 low: a 50 ohm load at room temperature (a 20 dB pad keeps OUT matched).<br><br>
+<b>Limits:</b> The ENR must be calibrated against a hot and a cold load before it gives absolute noise figures.<br><br>
+<b>Experiments:</b> The Y-factor noise figure of X4 or the whole receiver; a Dicke radiometer with X11; a filter's shape on a spectrum analyzer.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/adl5611.html">ADL5611</a>, <a href="https://www.ti.com/product/TPS22917">TPS22917</a><br><br>
+<b>The circuit:</b> Avalanche noise: the MMBT3904's base-emitter junction breaks down near 8 V (6 V minimum), its base on -5 V and its emitter fed from the switched 5 V through 680 ohm.  The ADL5611 (22 dB, 43 nH choke, ADI's values) lifts it; the 20 dB pad makes the output 50 ohm whether the amplifier is on or off, so the cold state is a room-temperature termination. Calibrate the ENR against a 50 ohm load in ice water and in boiling water (273 and 373 K) or in liquid nitrogen (77 K).<br><br>
+<b>Parts:</b> ADL5611ARKZ-R7 (C208262), MMBT3904(RANGE:100-300) (C20526), TPS22917DBVR (C2681320).
 
-Avalanche noise: the MMBT3904's base-emitter junction breaks down near 8 V (6 V minimum), its base on -5 V and its emitter fed from the switched 5 V through 680 ohm.  The ADL5611 (22 dB, 43 nH choke, ADI's values) lifts it; the 20 dB pad makes the output 50 ohm whether the amplifier is on or off, so the cold state is a room-temperature termination. Calibrate the ENR against a 50 ohm load in ice water and in boiling water (273 and 373 K) or in liquid nitrogen (77 K).
+</td></tr></table>
 
-Parts: ADL5611ARKZ-R7 (C208262), MMBT3904(RANGE:100-300) (C20526), TPS22917DBVR (C2681320).
+<a id="x8"></a>
 
 ### X8  GNSS front end, MAX2659
 
-Cell (3,0); +5 V.
-Jacks: TL ANT (3.3 V on the centre); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X8.jpg" width="262" alt="X8  GNSS front end, MAX2659"></td>
+<td valign="top">
 
-**Expect:** about 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1), 1.5 dB noise figure with the first SAW, 50 dB or more of rejection at 900 MHz and 2.4 GHz; 3.3 V for an active antenna on ANT
+<b>A GNSS (GPS L1) front end: SAW filter, low-noise amplifier, SAW filter, with 3.3 V on the antenna jack for an active antenna.</b><br><br>
+<b>Jacks:</b> ANT, top left (3.3 V on the centre); OUT, bottom right.<br><br>
+<b>Supply:</b> +5 V<br><br>
+<b>Expect:</b> about 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1), 1.5 dB noise figure with the first SAW, 50 dB or more of rejection at 900 MHz and 2.4 GHz; 3.3 V for an active antenna on ANT<br><br>
+<b>How to use it:</b> Active antenna on ANT; OUT to X2's RF IN with X3 near 1575.42 MHz; I and Q to the ADCs.<br><br>
+<b>You need:</b> An active GPS antenna with an SMA plug (kit: Adafruit 960) and a DC block for a passive one (BLK-89-S+). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> About 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1); 1.5 dB noise figure; 50 dB of rejection at 900 MHz and 2.4 GHz.<br><br>
+<b>Limits:</b> The L1 band only; a passive antenna sees the 3.3 V (put a DC block in line).<br><br>
+<b>Experiments:</b> GPS acquisition by correlation, Doppler and code phase, then a position fix in software.<br><br>
+<b>Chip:</b> <a href="https://www.analog.com/en/products/max2659.html">MAX2659</a>, <a href="https://www.murata.com/en-us/products/productdetail?partno=SAFFB1G56KB0F0AR1X">SAFFB1G56</a><br><br>
+<b>The circuit:</b> SAW - LNA - SAW, the front end of every GNSS receiver.  Murata's SAFFB1G56 passes 1561, 1575 and 1602 MHz with 1.6 dB of loss; Maxim's MAX2659 gives 20.5 dB with a 0.8 dB noise figure at 4 mA, its output matched and DC-blocked inside, its input matched by 470 pF and 6.8 nH (the datasheet's values).  The bias-T feeds 3.3 V through 10 ohm and 18 nH to an active antenna's LNA (10-30 mA).  OUT to X2's RF IN with X3 at 1575.42 MHz: the satellites' codes at the ADCs.<br><br>
+<b>Parts:</b> MAX2659ELT+T (C28043), SAFFB1G56KB0F0AR1X (C91647), TPS7A2033PDBVR (C2862740).
 
-SAW - LNA - SAW, the front end of every GNSS receiver.  Murata's SAFFB1G56 passes 1561, 1575 and 1602 MHz with 1.6 dB of loss; Maxim's MAX2659 gives 20.5 dB with a 0.8 dB noise figure at 4 mA, its output matched and DC-blocked inside, its input matched by 470 pF and 6.8 nH (the datasheet's values).  The bias-T feeds 3.3 V through 10 ohm and 18 nH to an active antenna's LNA (10-30 mA).  OUT to X2's RF IN with X3 at 1575.42 MHz: the satellites' codes at the ADCs.
+</td></tr></table>
 
-Parts: MAX2659ELT+T (C28043), SAFFB1G56KB0F0AR1X (C91647), TPS7A2033PDBVR (C2862740).
+<a id="x9"></a>
 
 ### X9  ODMR loop
 
-Cell (0,0).
-Jacks: TL IN (+30 dBm); BR OUT.
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X9.jpg" width="262" alt="X9  ODMR loop"></td>
+<td valign="top">
 
-**Expect:** a 50 ohm through line (the loop adds about 1.5 nH); at its centre about 50 uT (0.5 G) of microwave field for +20 dBm through it into 50 ohm, a Rabi frequency near 1 MHz for NV centres; twice that with OUT shorted
+<b>A one-turn, 1.6 mm loop in a 50 ohm through-line: the microwave field for optically detected magnetic resonance (ODMR) of NV centres in diamond.</b><br><br>
+<b>Jacks:</b> IN, top left (+30 dBm); OUT, bottom right.<br><br>
+<b>Expect:</b> a 50 ohm through line (the loop adds about 1.5 nH); at its centre about 50 uT (0.5 G) of microwave field for +20 dBm through it into 50 ohm, a Rabi frequency near 1 MHz for NV centres; twice that with OUT shorted<br><br>
+<b>How to use it:</b> X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (AMOD-2's Y10), red light to a photodiode on an ADC.<br><br>
+<b>You need:</b> An NV diamond (kit: Thorlabs DNVB14 or DNVB1, per lab), a 532 nm laser (CPS532), a 600 nm long-pass filter, a 0.7-3.5 GHz amplifier (ZRL-3500+), a 1 W 50 ohm load, a magnet, laser goggles. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> About 50 uT (0.5 G) at its centre for +20 dBm through it into 50 ohm; DC-6 GHz, no tuning; a Rabi frequency near 1 MHz.<br><br>
+<b>Limits:</b> Needs watts-level drive for fast Rabi oscillations; the NV diamond is expensive; copper is cleared round it on every layer.<br><br>
+<b>Experiments:</b> The ODMR dip at 2.87 GHz, its Zeeman splitting (a magnetometer), Rabi oscillations, a Ramsey sequence.<br><br>
+<b>The circuit:</b> A one-turn loop, 1.6 mm across (0.3 mm track), in series with a 50 ohm line between IN and OUT.  B at its centre is mu0 I / 2a: 63 mA peak (+20 dBm into 50 ohm) gives 50 uT.  No resonance, so no tuning: sweep 2.6-3.2 GHz for ODMR in any bias field.  Copper is cleared on every layer within 2 mm of the loop.  Lay the diamond on the loop, shine green on it from above and read the red with the ECP5 board's photodiode.
 
-A one-turn loop, 1.6 mm across (0.3 mm track), in series with a 50 ohm line between IN and OUT.  B at its centre is mu0 I / 2a: 63 mA peak (+20 dBm into 50 ohm) gives 50 uT.  No resonance, so no tuning: sweep 2.6-3.2 GHz for ODMR in any bias field.  Copper is cleared on every layer within 2 mm of the loop.  Lay the diamond on the loop, shine green on it from above and read the red with the ECP5 board's photodiode.
+</td></tr></table>
+
+<a id="x10"></a>
 
 ### X10  power, USB-C 5 V in: +5, -5 out
 
-Cell (3,1).
+<table><tr>
+<td valign="top" width="270"><img src="images/tiles/rf_mod_2_X10.jpg" width="262" alt="X10  power, USB-C 5 V in: +5, -5 out"></td>
+<td valign="top">
 
-**Expect:** +5 V from the USB-C (up to 1.5 A), -5 V at 40 mA; the green LED says 5 V is in, the red one that -5 V is up
+<b>Power: 5 V from USB-C and -5 V made from it.</b><br><br>
+<b>Expect:</b> +5 V from the USB-C (up to 1.5 A), -5 V at 40 mA; the green LED says 5 V is in, the red one that -5 V is up<br><br>
+<b>How to use it:</b> Plug in the USB-C; switch on each tile you use.<br><br>
+<b>You need:</b> A 5 V USB-C supply (kit: Raspberry Pi 5.1 V 3 A supply). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> +5 V up to 1.5 A; -5 V at 40 mA (25 used).<br><br>
+<b>Chip:</b> <a href="https://www.ti.com/product/LM2664">LM2664</a><br><br>
+<b>The circuit:</b> USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF. The LM2664 charge pump makes -5 V for X2's difference amplifiers and X7's noise junction (40 mA available, 25 used). Every powered tile switches its own +5 V with a slide switch and a P-FET, and regulates its own 3.3 V where it needs one.<br><br>
+<b>Parts:</b> KT-0805G (C2297), NCD0805R1 (C84256), LM2664M6X/NOPB (C108573), MF-MSMF200-2 (C210837), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
-USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF. The LM2664 charge pump makes -5 V for X2's difference amplifiers and X7's noise junction (40 mA available, 25 used). Every powered tile switches its own +5 V with a slide switch and a P-FET, and regulates its own 3.3 V where it needs one.
+</td></tr></table>
 
-Parts: KT-0805G (C2297), NCD0805R1 (C84256), LM2664M6X/NOPB (C108573), MF-MSMF200-2 (C210837), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
+<a id="x11"></a>
 
 ### X11  switch, SKY13370
 
-Cells (2,3), (3,3).
-Jacks: TL RFC (+30 dBm); BR0 RF2; BR1 RF1.
+<table><tr>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X11.jpg" width="520" alt="X11  switch, SKY13370"></td>
+<td valign="top">
 
-**Expect:** 0.7 dB through, 31 dB of isolation at 2.5 GHz (0.5-6 GHz); the off throw is a 50 ohm load; switches in about 100 ns
+<b>An RF switch (single pole, double throw): connects RFC to RF1 or to RF2 under FPGA control; the unused throw is terminated in 50 ohm.</b><br><br>
+<b>Jacks:</b> RFC, top left (+30 dBm); RF2, bottom of the left cell; RF1, bottom right.<br><br>
+<b>Pmod:</b> IO5 (Pmod pin 7): V1 of X11 (RF1 on); IO8 (Pmod pin 10): V2 of X11 (RF2 on)<br><br>
+<b>Expect:</b> 0.7 dB through, 31 dB of isolation at 2.5 GHz (0.5-6 GHz); the off throw is a 50 ohm load; switches in about 100 ns<br><br>
+<b>How to use it:</b> IO5 high and IO8 low: RFC to RF1; IO5 low and IO8 high: RFC to RF2.<br><br>
+<b>You need:</b> Nothing beyond SMA cables.<br><br>
+<b>Specs:</b> 0.5-6 GHz; 0.7 dB through; 31 dB isolation at 2.5 GHz; switches in about 100 ns; up to +30 dBm.<br><br>
+<b>Limits:</b> Pmod IO5 and IO8 must be opposite (one high, one low).<br><br>
+<b>Experiments:</b> A transmit/receive switch for one antenna; an antenna switch for direction finding; a Dicke radiometer (antenna against X7's load); pulse gating.<br><br>
+<b>Chip:</b> <a href="https://www.skyworksinc.com/Products/Switches/SKY13370-374LF">SKY13370</a><br><br>
+<b>The circuit:</b> Skyworks SKY13370: an absorptive SPDT, both throws matched in every state, so a Dicke radiometer's reference (X7 off: a room-temperature load) and its antenna see the same receiver.  V1 high and V2 low connects RFC to RF1; the reverse to RF2. Pmod IO5 drives V1 and IO8 V2 from the FPGA, so the switching is synchronous with the ADC's samples.  A T/R switch for one antenna, an antenna switch for two, a Dicke switch, a pulse gate.<br><br>
+<b>Parts:</b> SKY13370-374LF (C105628).
 
-Skyworks SKY13370: an absorptive SPDT, both throws matched in every state, so a Dicke radiometer's reference (X7 off: a room-temperature load) and its antenna see the same receiver.  V1 high and V2 low connects RFC to RF1; the reverse to RF2. Pmod IO5 drives V1 and IO8 V2 from the FPGA, so the switching is synchronous with the ADC's samples.  A T/R switch for one antenna, an antenna switch for two, a Dicke switch, a pulse gate.
-
-Parts: SKY13370-374LF (C105628).
+</td></tr></table>
 
 ## Ground, loops and probing
 

@@ -308,6 +308,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": [
     [
@@ -1397,6 +1399,10 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [
+    "POWER METER"
+   ],
    "slots": [],
    "voids": []
   },
@@ -2171,15 +2177,6 @@
      0
     ],
     [
-     19.0,
-     3.2,
-     "QPL9547",
-     0.8,
-     0.15,
-     "right",
-     0
-    ],
-    [
      5.6,
      11.3,
      "NF 0.3 dB",
@@ -2188,6 +2185,10 @@
      "left",
      0
     ]
+   ],
+   "infos": [],
+   "titles": [
+    "LNA QPL9547"
    ],
    "slots": [],
    "voids": []
@@ -3204,16 +3205,24 @@
      0.18,
      "left",
      0
-    ],
-    [
-     14.6,
-     2.0,
-     "GNSS L1",
-     0.8,
-     0.15,
-     "center",
-     0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "GPS L1"
+     ],
+     "near": [
+      9.0,
+      2.0
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 6.0
+    }
+   ],
+   "titles": [
+    "GNSS PREAMP"
    ],
    "slots": [],
    "voids": []
@@ -3510,8 +3519,19 @@
      0.15,
      "left",
      0
+    ],
+    [
+     1.2,
+     18.5,
+     "DC-6 GHz",
+     0.8,
+     0.15,
+     "left",
+     0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -4479,6 +4499,10 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [
+    "NOISE SOURCE"
+   ],
    "slots": [],
    "voids": []
   },
@@ -5261,6 +5285,8 @@
      0
     ]
    ],
+   "infos": [],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -6928,17 +6954,24 @@
      0.18,
      "left",
      0
-    ],
-    [
-     1.2,
-     10.7,
-     "ADL5375",
-     0.8,
-     0.15,
-     "left",
-     0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "I/Q MODULATOR",
+      "ADL5375 0.4-6 GHz"
+     ],
+     "near": [
+      1.2,
+      10.7
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   },
@@ -9035,16 +9068,24 @@
      0.18,
      "left",
      0
-    ],
-    [
-     1.2,
-     10.7,
-     "ADL5380",
-     0.8,
-     0.15,
-     "left",
-     0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "I/Q DEMODULATOR"
+     ],
+     "near": [
+      1.2,
+      10.7
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "ADL5380"
    ],
    "slots": [],
    "voids": []
@@ -11270,16 +11311,27 @@
      0.18,
      "left",
      0
-    ],
-    [
-     1.2,
-     14.6,
-     "MAX2871",
-     0.8,
-     0.15,
-     "left",
-     0
     ]
+   ],
+   "infos": [
+    {
+     "lines": [
+      "MAX2871",
+      "23.5 MHz - 6 GHz",
+      "OUT A -4 to +5 dBm",
+      "REF IN 25 MHz CMOS"
+     ],
+     "near": [
+      26.5,
+      1.6
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "SYNTHESIZER"
    ],
    "slots": [],
    "voids": []
@@ -11802,7 +11854,7 @@
     [
      1.2,
      14.6,
-     "SPDT SKY13370",
+     "RF SWITCH, SPDT",
      0.8,
      0.15,
      "left",
@@ -11827,6 +11879,22 @@
      0
     ]
    ],
+   "infos": [
+    {
+     "lines": [
+      "SKY13370 0.5-6 GHz",
+      "LOSS 0.7 dB, < +30 dBm"
+     ],
+     "near": [
+      1.2,
+      15.9
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    }
+   ],
+   "titles": [],
    "slots": [],
    "voids": []
   }
