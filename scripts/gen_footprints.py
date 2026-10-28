@@ -446,15 +446,15 @@ def adex10l():
 
 
 def hhm22137():
-    """TDK HHM22137A1 directional coupler (LCSC C415328), 1.6 x 0.8 mm: six 0.35 x 0.50 pads at x = -0.549, 0, +0.551, y = +-0.424,
+    """TDK HHM22137A1 directional coupler (LCSC C415328), 1.6 x 0.8 mm: six pads (JLCPCB's 0.35 x 0.50, drawn 0.29 wide) at x = -0.549, 0, +0.551, y = +-0.424,
     pins 1-3 along the bottom from the left and 4-6 along the top from the right (JLCPCB's drawing).  TDK's pinout: 1 output,
     2 ground, 3 input, 4 coupled (monitor) output, 5 ground, 6 the isolated port (to a 50 ohm termination)."""
     name = "Coupler_1608-6P_HHM22137A1"
     f = fp_header(name, "HHM22137A1 directional coupler, 1.6 x 0.8 mm, 6 pads: JLCPCB's land pattern for C415328", "coupler directional", "smd", 1.3)
-    for num, x in (("1", -0.549), ("2", -0.001), ("3", 0.551)):
-        f.add(smd_pad(num, x, 0.424, 0.35, 0.50, f"{name}/p{num}", shape="rect"))
+    for num, x in (("1", -0.549), ("2", -0.001), ("3", 0.551)):       # 0.29 wide where JLCPCB draws 0.35: TDK's terminals are 0.25,
+        f.add(smd_pad(num, x, 0.424, 0.29, 0.50, f"{name}/p{num}", shape="rect"))   # and 0.25 mm between pads is the RF class's clearance
     for num, x in (("6", -0.549), ("5", -0.001), ("4", 0.551)):
-        f.add(smd_pad(num, x, -0.424, 0.35, 0.50, f"{name}/p{num}", shape="rect"))
+        f.add(smd_pad(num, x, -0.424, 0.29, 0.50, f"{name}/p{num}", shape="rect"))
     rect_lines(f, -0.8, -0.4, 0.8, 0.4, "F.Fab", FAB_W, f"{name}/fab")
     rect_lines(f, -1.0, -0.9, 1.0, 0.9, "F.CrtYd", CRT_W, f"{name}/crt")
     f.add(circle(-0.95, 0.75, 0.06, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))

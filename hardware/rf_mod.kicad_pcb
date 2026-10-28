@@ -44041,9 +44041,9 @@
 		)
 	)
 	(gr_text "MAX2871"
-		(at 33.049999 74.25 0)
+		(at 34.25 74.85 0)
 		(layer "F.SilkS")
-		(uuid "5a418f35-b146-54a7-ace5-a542182c8278")
+		(uuid "502c7425-3234-5a54-bddf-409da351dfb4")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44052,10 +44052,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "23.5 MHz - 6 GHz"
-		(at 33.049999 75.65 0)
+	(gr_text "23.5 MHz"
+		(at 34.25 76.25 0)
 		(layer "F.SilkS")
-		(uuid "182f876f-b257-5284-af84-ce70644e0e38")
+		(uuid "53ea4c1d-f426-5f29-97fd-858b0416eae4")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44064,10 +44064,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "A+, A-: -4 to +5 dBm"
-		(at 33.049999 77.05 0)
+	(gr_text "TO 6 GHz"
+		(at 34.25 77.649999 0)
 		(layer "F.SilkS")
-		(uuid "f5a762e5-918e-58df-9d49-a05982605754")
+		(uuid "415ce018-0e5c-56d3-aec2-979065c274b3")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44076,10 +44076,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "REF IN 25 MHz CMOS"
-		(at 33.049999 78.45 0)
+	(gr_text "-4 to +5 dBm"
+		(at 34.25 79.05 0)
 		(layer "F.SilkS")
-		(uuid "459bd610-9d08-5c91-9f75-2e00aac69404")
+		(uuid "f00a9817-6b1a-5001-af0b-4f1492146137")
 		(effects
 			(font
 				(size 0.8 0.8)

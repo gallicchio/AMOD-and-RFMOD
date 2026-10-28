@@ -354,7 +354,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
     t.route("VS", [(ldo, "1"), (ldo, "3")])
     t.route("VS", [(ldo, "1"), (ci, "1")])
     t.gnd_stub(ldo, "2", (28.1, 14.0), sym=(0, 0))
-    t.gnd_stub(ci, "2", (28.45, 9.8), sym=(0, -1))
+    t.gnd_stub(ci, "2", (28.45, 9.8), sym=(0, 0) if ref_slot == "TL1" else (0, -1))      # no symbol under a jack's leg
     t.gnd_stub(co, "2", (cox + 1.9, coy), sym=(0, 0))
     t.wire("V33", [(ldo, "5"), (31.6375, 11.6), (cox - 0.95, 11.6), (co, "1")])
     t.via("V33", 30.65, 12.6)
@@ -493,7 +493,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
         t.wire(MUX, [(18.3, 10.55), (18.3, 21.0)], width=F, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
     t.titles.append("SYNTHESIZER")
-    t.info(["MAX2871", "23.5 MHz - 6 GHz", "A+, A-: -4 to +5 dBm", "REF IN 25 MHz CMOS"] if outb_slot else
+    t.info(["MAX2871", "23.5 MHz", "TO 6 GHz", "-4 to +5 dBm"] if outb_slot else      # narrow: X3's REF IN jack leaves 10 mm
            ["MAX2871", "23.5 MHz - 6 GHz", "OUT A -4 to +5 dBm", "REF IN 25 MHz CMOS"], near=(26.5, 1.6))
     t.result = ("any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm in steps, 180 degrees apart), locked to the "
                 "25 MHz on REF IN; the red LED says locked")

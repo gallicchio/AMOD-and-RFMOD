@@ -8801,9 +8801,9 @@
     {
      "lines": [
       "MAX2871",
-      "23.5 MHz - 6 GHz",
-      "A+, A-: -4 to +5 dBm",
-      "REF IN 25 MHz CMOS"
+      "23.5 MHz",
+      "TO 6 GHz",
+      "-4 to +5 dBm"
      ],
      "near": [
       26.5,

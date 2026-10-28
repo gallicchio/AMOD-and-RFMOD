@@ -1,7 +1,8 @@
 """RF-MOD-2: a coherent I/Q transceiver and microwave physics, rev A.  The second-level RF board, for the ECP5-2ADC-2DAC
-board: its two DACs drive the I/Q modulator, its two ADCs read the I/Q demodulator, and one synthesizer, split, is the LO of
-both, so the transmitter and the receiver share one phase.  Around them a low-noise amplifier, a log detector, an absorptive
-switch, a switched noise source, a GNSS front end and a loop for NV centres' magnetic resonance.
+board: its two DACs drive the I/Q modulator, its two ADCs read the I/Q demodulator, and one synthesizer's two complementary
+outputs are the LOs of both, so the transmitter and the receiver share one phase.  Around them a dual directional coupler, a
+low-noise amplifier, a log detector, an absorptive switch, a switched noise source, a GNSS front end and a loop for NV centres'
+magnetic resonance.
 
 Four layers as RF-MOD: L1 the parts, the drawn wires and a ground pour 0.25 mm from every 50 ohm line; L2 ground; L3 the
 rails (+5 V everywhere, -5 V in the gutter under row 1 and under X10, the synthesizer's 3.3 V island); L4 ground with the
@@ -262,7 +263,7 @@ def tile_x2():
     t.notes = ["ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810",
                "difference amplifiers (499 ohm in, 1 k feedback and to ground: gain 2) make each pair one output about 0 V from +5 / -5 V;",
                "49.9 ohm out.  RF and LO single-ended through 100 pF, the other pin to ground through 100 pF (a balun would gain 1-3 dB",
-               "and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3 through X5 on both LOs: one coherent radio."]
+               "and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3's two outputs on the LOs: one coherent radio."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -583,15 +584,16 @@ def tile_x11():
 
 # ------------------------------------------------------------------------------------------------------------ X3 --
 def tile_x3():
-    """The synthesizer: RF-MOD's MAX2871 tile (R10) with its own REF IN, moved to the right cell's bottom corner so the
-    modulator above can use all four of its corners.  It carries the Pmod plug; the switch's two lines (IO5, IO8), the noise
-    source's (IO6) and the modulator's output disable (IO7) leave its other pads along the bottom margin."""
-    t = rf_mod.synth_tile("X3", [(0, 3), (1, 3)], host=True, share_ref=False, ref_slot="BR1",
+    """The synthesizer: RF-MOD's MAX2871 tile (R10) with its own REF IN at the right cell's top-left (its line on the back) and
+    RFOUTA- on OUT A- at the right cell's bottom-right, so OUT A+ and OUT A- are the LOs of X1 and X2 without a splitter (Prompt 15).
+    It carries the Pmod plug; the switch's two lines (IO5, IO8), the noise source's (IO6) and the modulator's output disable (IO7)
+    leave its other pads along the bottom margin, below OUT A-'s line."""
+    t = rf_mod.synth_tile("X3", [(0, 3), (1, 3)], host=True, share_ref=False, ref_slot="TL1", outb_slot="BR1",
                           pmod_extra={"11": "/PMOD5", "9": "/PMOD6", "5": "/PMOD8"})
-    t.result = ("any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm), locked to the 25 MHz on REF IN (the ECP5 board's CLK OUT "
-                "or RF-MOD's REF OUT); through X5 it is the LO of X1 and X2 at once")
-    t.notes = t.notes[:-1] + ["tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS from the ECP5 board's CLK OUT or RF-MOD's REF OUT).",
-                              "Split OUT A with X5 to drive X1's and X2's LO inputs (-1 dBm each at the top power setting)."]
+    t.result = ("any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm, 180 degrees apart), locked to the 25 MHz on "
+                "REF IN (the ECP5 board's CLK OUT or RF-MOD's REF OUT): OUT A+ is X1's LO and OUT A- X2's, one phase for both")
+    t.notes = t.notes[:-1] + ["stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS): the ECP5",
+                              "board's CLK OUT or RF-MOD's REF OUT.  OUT A+ into X1's LO and OUT A- into X2's at -1 dBm (X1 wants 0, X2 -6 to +6)."]
     return t
 
 
@@ -603,31 +605,48 @@ def tile_x4():
 
 # ------------------------------------------------------------------------------------------------------------ X5 --
 def tile_x5():
-    """RF-MOD's resistive splitter with its jacks on the checkerboard: P1 top-left, P2 the left cell's bottom-right, P3 the
-    right cell's bottom-right.  Three 18 ohm resistors to one node: 6 dB from any port to any other, DC to 6 GHz.  Its job
-    here is X3's OUT A into the LO of X1 and of X2, one phase for both."""
-    t = Tile("X5", "splitter", [(0, 1), (1, 1)], subtitle="3 x 18 ohm, 6 dB", sections=[], kind="rf")
+    """A dual directional coupler in the splitter's place (Prompt 15): two TDK HHM22137A1 couplers back to back on one 50 ohm
+    line at y 10 from IN (top-left) to OUT (the right cell's bottom-right), each with its isolated port in 51 ohm.  The first
+    (rot 180 at x 15.8: its through row on top, input pad 3 toward IN) samples the wave travelling from IN to OUT on its pad 4,
+    straight down to FWD (the left cell's bottom-right jack); the second (rot 0 at x 25.7, input pad 3 toward OUT) samples the
+    wave coming back from OUT on its pad 4, straight up to REFL (the right cell's top-left jack).  The middle ground pads go to
+    vias above and below the line, the outer ones diagonally away from the coupled lines."""
+    t = Tile("X5", "coupler", [(0, 1), (1, 1)], subtitle="2 x HHM22137A1", sections=[], kind="rf")
     t.top_pour = True
-    j1 = t.jack("TL", "P1", "P1", "in", "+20 dBm", silk="P1")
-    j2 = t.jack("BR0", "P2", "P2", "out", "", silk="P2")
-    j3 = t.jack("BR1", "P3", "P3", "out", "", silk="P3")
-    r1 = t.add("R", "R0402 18R", "18R", 15.0, 9.0, 0, {"1": "P1", "2": "N"}, label=None)
-    r2 = t.add("R", "R0402 18R", "18R", 17.0, 9.0, 0, {"1": "N", "2": "P3"}, label=None)
-    r3 = t.add("R", "R0402 18R", "18R", 16.0, 10.6, 270, {"1": "N", "2": "P2"}, label=None)            # pad 1 up
-    t.rf("P1", [(j1, "1"), (4.75, 9.0), (r1, "1")])
-    t.rf("P3", [(r2, "2"), (36.75, 9.0), (j3, "1")])
-    t.rf("P2", [(r3, "2"), (16.0, 14.5), (j2, "1")])
-    t.wire("N", [(r1, "2"), (r2, "1")], width=0.25)
-    t.wire("N", [(16.0, 9.0), (r3, "1")], width=0.25)
-    t.text(1.2, 13.3, "X5", 1.0, 0.18, "left")
-    t.text(1.2, 14.6, "SPLITTER", 0.8, 0.15, "left")
-    t.text(1.2, 15.9, "3 x 18R", 0.8, 0.15, "left")
-    t.text(1.2, 17.2, "-6 dB", 0.8, 0.15, "left")
-    t.text(1.2, 18.5, "DC-6 GHz", 0.8, 0.15, "left")
-    t.result = "6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz"
-    t.notes = ["RF-MOD's R1: three 18 ohm resistors to one node, 6 dB per path, no isolation between the outputs beyond those 6 dB.",
-               "Here it splits X3's OUT A into X1's and X2's LO inputs, so the transmitter and the receiver share one oscillator:",
-               "the radar's and the network analyzer's phase reference.  Any two tiles can share a source through it."]
+    t.fine = True
+    jin = t.jack("TL", "IN", "IN", "in", "+30 dBm", silk="IN")
+    jfwd = t.jack("BR0", "FWD", "FWD", "out", "", silk="FWD")
+    jrefl = t.jack("TL1", "REFL", "REFL", "out", "", silk="REFL")
+    jout = t.jack("BR1", "OUT", "OUT", "out", "", silk="OUT")
+    ca = t.add("U", "HHM22137", "HHM22137A1", 15.801, 10.424, 180, {"3": "IN", "1": "MID", "4": "FWD", "6": "TA", "2": "GND", "5": "GND"},
+               hide_value=True, label=None)
+    cr = t.add("U", "HHM22137", "HHM22137A1", 25.699, 9.576, 0, {"3": "OUT", "1": "MID", "4": "REFL", "6": "TB", "2": "GND", "5": "GND"},
+               hide_value=True, label=None)
+    ra = t.add("R", "R0402 51R", "51R", 17.75, 10.848, 0, {"1": "TA", "2": "GND"}, label=None)
+    rb = t.add("R", "R0402 51R", "51R", 23.75, 9.152, 0, {"1": "GND", "2": "TB"}, label=None)
+    t.rf("IN", [(jin, "1"), (4.75, 10.0), (ca, "3")])
+    t.rf("MID", [(ca, "1"), (cr, "1")])
+    t.rf("OUT", [(cr, "3"), (36.75, 10.0), (jout, "1")])
+    t.rf("FWD", [(ca, "4"), (jfwd, "1")])
+    t.rf("REFL", [(cr, "4"), (jrefl, "1")])
+    t.wire("TA", [(ca, "6"), (ra, "1")], width=0.2)
+    t.wire("TB", [(cr, "6"), (rb, "2")], width=0.2)
+    t.gnd_stub(ca, "2", (15.802, 9.2), sym=(0, 0), width=0.15, fine=True)
+    t.gnd_stub(ca, "5", [(15.802, 11.5), (16.3, 12.0)], sym=(0, 0), width=0.15, fine=True)
+    t.gnd_stub(cr, "2", (25.698, 10.8), sym=(0, 0), width=0.15, fine=True)
+    t.gnd_stub(cr, "5", [(25.698, 8.5), (25.2, 8.0)], sym=(0, 0), width=0.15, fine=True)
+    t.gnd_stub(ra, "2", (18.95, 10.848), sym=(0, 0), width=0.2, fine=True)        # no symbols: the jacks' legs are beside them
+    t.gnd_stub(rb, "1", (22.5, 9.152), sym=(0, 0), width=0.2, fine=True)
+    t.text(1.2, 11.6, "X5", 1.0, 0.18, "left")
+    t.titles.append("COUPLER")
+    t.info(["FWD: IN > OUT", "REFL: OUT > IN", "-25 dB EACH"], near=(30.5, 1.6))
+    t.info(["DUAL DIRECTIONAL", "0.6-3.5 GHz", "DIRECTIVITY 20 dB"], near=(1.2, 13.2))
+    t.result = ("FWD 25 dB below the wave going from IN to OUT and REFL 25 dB below the wave coming back from OUT, 0.6-2.7 GHz (27 dB at 0.6, "
+                "14 dB at 3.5 GHz); 0.3 dB through; about 20 dB of directivity: with a device on OUT, REFL / FWD is its reflection coefficient")
+    t.notes = ["Two TDK HHM22137A1 directional couplers back to back, each with its isolated port in 51 ohm: the first samples the wave",
+               "going from IN to OUT (FWD), the second, turned round, the wave coming back from OUT (REFL).  X1 on IN, a device on OUT,",
+               "REFL into X2 (and FWD into X6 or through X11): the device's S11 in magnitude and phase.  Directivity (about 20 dB) limits",
+               "the smallest reflection it sees; calibrate with open, short and load.  +35 dBm through; terminate an unused port in 50 ohm."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -710,11 +729,11 @@ PMOD_NAMES = {"/PMOD1": "MUXOUT of X3", "/PMOD2": "SDATA to X3", "/PMOD3": "SCLK
               "/PMOD5": "V1 of X11 (RF1 on)", "/PMOD6": "X7's noise on", "/PMOD8": "V2 of X11 (RF2 on)"}
 HANDBOOK_INTRO = [
     "Eleven tiles on sixteen 20 mm cells, four layers, USB-C power on X10.  The board is built for the ECP5-2ADC-2DAC board: its two",
-    "DACs drive X1's I and Q, its two ADCs read X2's I and Q, and X3 split by X5 is the LO of both, so transmitter and receiver share",
+    "DACs drive X1's I and Q, its two ADCs read X2's I and Q, and X3's two outputs (OUT A+ and OUT A-) are the LOs of both, so transmitter and receiver share",
     "one phase.  Every 50 ohm line is coplanar waveguide with a via fence; every jack's centre pin has no plane under it."]
 HANDBOOK_SECTIONS = [
     ["## The tiles together", "",
-     "X3 (the MAX2871, locked to the 25 MHz on its REF IN: the ECP5 board's CLK OUT) split by X5 is the LO of both X1 and X2, so the",
+     "X3 (the MAX2871, locked to the 25 MHz on its REF IN: the ECP5 board's CLK OUT) drives X1's LO from OUT A+ and X2's from OUT A-, so the",
      "transmitter and the receiver share one phase.  The ECP5 board's DACs are X1's I and Q, its ADCs read X2's I and Q: a complete",
      "coherent I/Q transceiver from 0.4 to 6 GHz whose baseband is the ECP5 board's 30 MHz.",
      "",
@@ -734,7 +753,7 @@ HANDBOOK_SECTIONS = [
      "   filter's sweep); X7 (IO6) is a switched noise source for the Y-factor noise figure of X4 or the whole receiver, and with X11",
      "   switching between an antenna and a load, a Dicke radiometer (the Sun at 2.4 GHz).",
      "",
-     "Levels to remember: X3 gives -4 to +5 dBm and X5 loses 6 dB to each output; X1 wants 0 dBm of LO and gives about 0 dBm at",
+     "Levels to remember: X3 gives -4 to +5 dBm on each output; X5's FWD and REFL are 25 dB below the waves they sample; X1 wants 0 dBm of LO and gives about 0 dBm at",
      "full scale; X2's amplified I and Q reach the ADCs' full scale near -10 dBm of RF (measure it) and it wants -6 to +6 dBm of LO; X4 gives 19 dB (no more",
      "than +20 dBm in); X6 reads -60 to 0 dBm; X9 is a through line rated for 1 W from an external amplifier."],
 ]
@@ -769,14 +788,15 @@ def _pad(k):
 
 # IO6 (pad 9) up between pads 10 and 12, along the margin under X3 and up the gutter between columns 1 and 2 to X7's ON pin;
 # IO5 (pad 11) up right of pad 12, along the margin to X11's via; IO8 (pad 5) on the back along the bottom edge to X11's other via
-FRONT_WIRES = [("/PMOD6", [_pad(9), (_pad(9)[0] + 1.27, _PM[1]), (_pad(9)[0] + 1.27, 93.05), (50.0, 93.05), (50.0, _X7[1] + 3.95), (_X7[0] + 2.0625, _X7[1] + 3.95)]),
-               ("/PMOD5", [_pad(11), (_pad(11)[0] + 1.28, _PM[1]), (_pad(11)[0] + 1.28, 93.55), (_X11[0] + 9.4, 93.55), (_X11[0] + 9.4, _X11[1] + 17.4)])]
+# both below X3's OUT A- line (board y 93.5): IO6 at 94.05 (0.23 above pad 12's ring), IO5 at 94.65
+FRONT_WIRES = [("/PMOD6", [_pad(9), (_pad(9)[0] + 1.27, _PM[1]), (_pad(9)[0] + 1.27, 94.05), (50.0, 94.05), (50.0, _X7[1] + 3.95), (_X7[0] + 2.0625, _X7[1] + 3.95)]),
+               ("/PMOD5", [_pad(11), (_pad(11)[0] + 1.28, _PM[1]), (_pad(11)[0] + 1.28, 94.65), (_X11[0] + 9.4, 94.65), (_X11[0] + 9.4, _X11[1] + 17.4)])]
 BACK_WIRES = [("/PMOD8", [_pad(5), (_pad(5)[0], 99.15), (_X11[0] + 10.8, 99.15), (_X11[0] + 10.8, _X11[1] + 17.4)])]
 FRONT_TEXT = []
 BACK_TEXT_X = 50.0
 QR_AT = (80.0, 33.5)
 BACK_TEXT = ["RF-MOD-2: X1 and X2 put the ECP5 board's DACs and ADCs",
-             "at RF; X3 split by X5 is the LO of both.  Jacks at each",
+             "at RF; X3's OUT A+ and A- are their LOs.  Jacks at each",
              "cell's top-left and bottom-right; powered tiles have a",
              "slide switch (up: on).  USB-C on X10.  See the handbook."]
 
