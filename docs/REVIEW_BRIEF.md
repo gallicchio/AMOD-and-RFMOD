@@ -15,9 +15,9 @@ per tile: two gain blocks, an OPA847 LNA, a socket and amplifier for an HB100 Do
 heater with a TMP235, an MC1496 mixer, an impedance and I-V tile (V and I for the host's two ADCs), a 40 kHz ultrasound pair,
 a class-D speaker amplifier with an electret preamplifier; a 2 x 6 Pmod plug carries the FPGA's lines.
 
-RF-MOD (four layers) is ten RF tiles on 50 ohm coplanar waveguide: a resistive splitter, 2.45 GHz LTCC and 915 MHz
+RF-MOD (four layers) is ten RF tiles on 50 ohm coplanar waveguide: a diode-ring mixer (ADEX-10L+), 2.45 GHz LTCC and 915 MHz
 SAW filters, a QPL9547 LNA and a GALI-84+ gain block, power with a 7.8 V boost and a 25 MHz TCXO reference, two
-ADL5350 mixers, a MAX2871 synthesizer and a TRF3722 quadrature transmitter on a Pmod (one complete link on one
+ADL5350 mixers, a MAX2871 synthesizer with both of its complementary outputs on jacks and a TRF3722 quadrature transmitter on a Pmod (one complete link on one
 reference; `PLAN.md` section 6, `PLAN_LEVEL2.md` section 2).
 
 The second level is built for the ECP5-2ADC-2DAC board's two DACs and two ADCs (`PLAN_LEVEL2.md`).  AMOD-2 (four
@@ -25,8 +25,8 @@ layers, ten tiles, DC-30 MHz): a THS3491 1 W pulse amplifier on +-15 V from a TP
 OPA847 preamplifier, a DRV8876 coil driver, two LMH6629 receive channels, an OPA810 VLF loop amplifier, a 50 ohm
 reflection bridge, two passive coupled LC tanks with BB133 varactors, an avalanche-noise source and a laser driver with
 an RF bias-T.  RF-MOD-2 (four layers, eleven tiles, 0.4-6 GHz): an ADL5375 modulator and an ADL5380 demodulator sharing
-one split MAX2871, a QPL9547 LNA, an AD8318 log detector, an ADL5611 noise source, a MAX2659 GNSS front end, a SKY13370
-switch and a broadband ODMR loop.  Its tiles take IN at
+one MAX2871's two complementary outputs, a dual directional coupler (two HHM22137A1), a QPL9547 LNA, an AD8318 log
+detector, an ADL5611 noise source, a MAX2659 GNSS front end, a SKY13370 switch and a broadband ODMR loop.  Its tiles take IN at
 the top-left jack and OUT at the bottom-right too.  The fourth board, `icepi_adapter/`, is the tutorial's 2x12 Icepi Zero
 adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 

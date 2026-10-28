@@ -75,7 +75,7 @@ normal modes, EIT and parametric gain, noise figure and transfer functions from 
 
 ## 4. RF-MOD-2: quadrature, a coherent transceiver and microwave physics (as built, rev A)
 
-One MAX2871, split, drives both an I/Q modulator and an I/Q demodulator, referenced to the host's CLK OUT: a coherent
+One MAX2871's two complementary outputs drive an I/Q modulator and an I/Q demodulator, referenced to the host's CLK OUT: a coherent
 zero-IF transceiver from 400 MHz to 6 GHz whose four baseband ports are the host's four converter channels.  Around
 it the receiver's LNA, a log detector, an absorptive switch, a switched noise source, a GNSS front end and a loop for
 NV centres' resonance.  ERC 0, DRC 0, all fabrication checks; $98.61 of parts a board.
@@ -84,9 +84,9 @@ NV centres' resonance.  ERC 0, DRC 0, all fabrication checks; $98.61 of parts a 
 |---|---|---|---|---|---|
 | X1 | (0,2)-(1,2) | I/Q modulator | I IN, LO IN, RF OUT, Q IN | ADL5375-05, 0.4-6 GHz; the host's DACs through resistor networks to the chip's 0.5 V bias; DSOP grounded (always on) | ADL5375-05ACPZ C579150 (652) |
 | X2 | (2,2)-(3,2) | I/Q demodulator | I OUT, LO IN, RF IN, Q OUT | ADL5380; each differential output to single-ended about 0 V by an OPA810 difference amplifier on +-5 V | ADL5380ACPZ C579152 (14: accepted), OPA810 x2 |
-| X3 | (0,3)-(1,3) | synthesizer | OUT A, REF IN | RF-MOD's MAX2871 tile with REF IN (the host's CLK OUT) at the right cell's bottom corner; carries the Pmod plug | MAX2871 |
+| X3 | (0,3)-(1,3) | synthesizer | OUT A+, REF IN, OUT A- | RF-MOD's MAX2871 tile, REF IN (the host's CLK OUT) at the right cell's top-left, OUT A- (RFOUTA-) at its bottom-right; carries the Pmod plug | MAX2871 |
 | X4 | (2,0) | low-noise amplifier | IN, OUT | RF-MOD's QPL9547 tile | QPL9547TR7 C5367093 |
-| X5 | (0,1)-(1,1) | splitter | P1, P2, P3 | RF-MOD's 3 x 18 ohm splitter: X3's OUT A into both LOs | |
+| X5 | (0,1)-(1,1) | dual directional coupler | IN, OUT, FWD, REFL | two HHM22137A1 back to back, isolated ports in 51 ohm: FWD and REFL 25 dB down, 0.6-3.5 GHz (Prompt 15; it was a splitter) | HHM22137A1 C415328 |
 | X6 | (1,0) | log detector | IN, OUT | AD8318, 1 MHz-8 GHz, scaled to the host's input | AD8318ACPZ C578694 (152) |
 | X7 | (2,1) | noise source | OUT | MMBT3904 in avalanche, an ADL5611, a 20 dB pad; a TPS22917 switches it from IO6 | ADL5611ARKZ C208262 |
 | X8 | (3,0) | GNSS front end | ANT, OUT | a bias-T for an active antenna, a 1575 MHz SAW, a MAX2659, a second SAW | MAX2659ELT C28043, SAFFB1G56KB0F0AR1X C91647 |
@@ -94,9 +94,10 @@ NV centres' resonance.  ERC 0, DRC 0, all fabrication checks; $98.61 of parts a 
 | X10 | (3,1) | power | | USB-C, PTC, TVS, an LM2664 for -5 V | LM2664 |
 | X11 | (2,3)-(3,3) | absorptive SPDT | RFC, RF2, RF1 | SKY13370, 0.5-6 GHz, V1 and V2 from IO5 and IO8 | SKY13370-374LF C105628 |
 
-**Changes from the plan, and why.**  X3 has one output on a jack and X5 splits it: one VCO either way, and RF-MOD's
-proven tile.  The SPDT moved to X11 as the SKY13370 (in stock in the package the footprint wanted) and X5 became the
-splitter the shared LO needs.  X11's printed coupler and X9's split-ring resonator were dropped for the same reason
+**Changes from the plan, and why.**  X3 has two outputs on jacks, RFOUTA+ and RFOUTA- (until Prompt 15 one output and
+X5 split it): one VCO either way, and RF-MOD's proven tile.  The SPDT moved to X11 as the SKY13370 (in stock in the
+package the footprint wanted); X5 was the splitter the shared LO needed until RFOUTA- came out, and is now the
+directional coupler the plan wanted printed, made of two TDK parts.  X11's printed coupler and X9's split-ring resonator were dropped for the same reason
 as RF-MOD's printed antennas: both depend on a stack and a field solver the night did not have, and a resonator
 needs tuning on the bench.  X9's through-line loop works at any frequency with no tuning.
 

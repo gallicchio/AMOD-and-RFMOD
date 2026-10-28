@@ -27,6 +27,12 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
 7b. **TRF3722 (R13) and its TLV75733.** VQFN-48 7 x 7 and WSON-6 2 x 2, both rotation 0 (predicted).  Confirm both
    pin-1 dots.  The TRF3722's I and Q come from the host's DACs through the tile's bias networks; its LO output is the
    jack beside its RF output.
+7c. **ADEX-10L+ (R1).** Mini-Circuits case CD542 on JLCPCB's own land pattern for C118997 (pads 1-3 along the bottom from
+   the left, 4-6 along the top from the right), rotation 0 (predicted).  Mini-Circuits' pinout: 6 LO, 3 RF, 2 IF, 1 4 5
+   ground.  Confirm the pin-1 mark in the preview against Mini-Circuits' outline: a half turn puts LO on ground pin 1 and
+   RF on ground pin 4, and the tile does nothing (nothing burns: it is passive).
+7d. **R10's OUT A- line** runs 1.25 mm below the tile, in the bottom margin above the Pmod plug's pins, with the top
+   ground pour following it (`Tile.pour_below`).  Check in the preview that the plug's body does not cover it.
 
 8a. **The Pmod plug (J1003, on R10).**  JLCPCB's numbering: pads 1-2 3.3 V, 3-4 ground (Pmod pins 6/12 and 5/11), the
     lines on pads 5-12; `check_pmod` maps every pad to its standard pin.  IO1 MUXOUT of R10, IO2 SDATA and IO3 SCLK
@@ -53,10 +59,15 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
     registers over the same SDATA and SCLK); the red LED lights on lock.  Unprogrammed, a synthesizer may output
     anything from nothing to full power.
 14. R7 or R8: the LO at +4 dBm or more; a 6.25 MHz IF at 0 dBm gives about -8 dBm at RF on both sides of the LO.
+15. R10: OUT A+ and OUT A- at the same power within a dB (OUT A- has 30 mm more line: 0.2-0.4 dB at 2.4 GHz), 180
+    degrees apart on two channels of a fast scope at a low frequency.  A 50 ohm terminator on whichever is unused.
+16. R1: R10's OUT A+ at +5 dBm on LO, a -20 dBm tone 10 MHz away on RF: about -27 dBm at 10 MHz on IF (7 dB of loss);
+    the LO leaks to IF at about -25 dBm at 1 GHz (the datasheet's L-I isolation).
 
 ## What changed from the plan (scope, not faults)
 
 After Prompt 13 the QPL9547 LNA (R5, now in stock as the taped QPL9547TR7) and the TRF3722 quadrature transmitter (R13)
 are on rev A.  The LTC5510 mixers (35 in stock) and the RFX2401C front end are not; the ADL5350 (twice) takes the
-mixers' place.  The printed antennas are replaced by SMA whips; R1's cell holds a resistive splitter that the reference
-and the LO distribution need.
+mixers' place.  The printed antennas are replaced by SMA whips.  After Prompt 15 R1's cell holds a diode-ring mixer
+(ADEX-10L+) where a resistive splitter was: the reference reaches R13 by a back trace, and R10's second output (OUT A-,
+the MAX2871's RFOUTA-, which was terminated) is the second LO.

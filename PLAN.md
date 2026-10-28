@@ -92,7 +92,8 @@ reason is given below.
   (section 6):** R2 and R4 have a cell each (IN top-left, OUT bottom-right); R6, R13, the QPL9547
   LNA and the printed antennas are not on rev A.  Prompt 4 asked for the board to be filled with
   tiles that work together, so the cells went to a second gain block, two mixers, two synthesizers
-  and a splitter: one complete link, transmitter and receiver, on one reference.
+  and a splitter: one complete link, transmitter and receiver, on one reference.  (Prompt 15 made the splitter a diode-ring
+  mixer and brought the synthesizer's second output, RFOUTA-, to a jack.)
 - **The 74HC4046.** The CD74HC4046AM (C1519916) had 91 in stock; the CD4046BM (C7432285, 4,889)
   has the same SOIC-16 pinout and a 1.3 MHz VCO.  The tile is drawn for the HC part, with the
   CD4046 as the order-day alternate on the same footprint.
@@ -207,7 +208,7 @@ $57.19 of parts per board (after Prompt 13's QPL9547 and TRF3722).
 
 | cells | # | tile | supply | jacks | Pmod | the circuit as built |
 |---|---|---|---|---|---|---|
-| (0,0)-(1,0) | R1 | splitter | | P1, P2, P3 | | three 18 ohm 0402 to one node: 6 dB any port to any, DC-6 GHz.  The reference to both synthesizers, one LO to two mixers, two tones into a gain block |
+| (0,0)-(1,0) | R1 | diode mixer | | LO, RF, IF | | ADEX-10L+ double-balanced diode-ring mixer (10-1000 MHz, LO +4 dBm, 7 dB loss), its baluns and ring drawn on the silk; in the splitter's place after Prompt 15 ("Do the diode-ring mixer instead of the least useful passive splitter.  I have passive splitters.") |
 | (2,0) | R2 | 2.45 GHz filter | | IN, OUT | | Murata LFB212G45SG8A127 LTCC, 1.7 dB, 2.4-2.5 GHz |
 | (3,0) | R4 | 915 MHz filter | | IN, OUT | | RF360 B39921B2672P810 SAW, 1.1 dB, 902-928 MHz |
 | (0,1) | R5 | LNA | +5 | IN, OUT | | QPL9547 (Prompt 13; the taped QPL9547TR7 was in stock): Qorvo's 18 nH choke feeding 5 V into the output pin, 3.3 k to Vbias for 65 mA; 19.5 dB, 0.3-0.5 dB NF from 0.5 to 3 GHz, 22 dBm absolute maximum at the input |
@@ -215,7 +216,7 @@ $57.19 of parts per board (after Prompt 13's QPL9547 and TRF3722).
 | (2,1)-(3,1) | R9 | power and reference | | REF OUT | | USB-C (5.1 k CC, 2 A PTC, SMAJ5.0A, 2 x 10 uF); MT3608 boost to 7.8 V (22 uH, SS34, 12 k / 1 k) on the L3 strip under row 1; TPS7A2033 3.3 V for a TC32H4 25 MHz TCXO and a 74LVC1G17 driving REF OUT through 51 ohm; green (5 V) and yellow (7.8 V) LEDs |
 | (0,2)-(1,2) | R7 | TX mixer | +5 (3.3 V LDO) | RF, LO, IF | | ADL5350 with a 200 MHz crossover on its RF/IF node, 0 ohm + 100 pF LO input, 10 nH LO-buffer choke; its own TPS7A2033 behind the switch |
 | (2,2)-(3,2) | R8 | RX mixer | +5 (3.3 V LDO) | RF, LO, IF | | the same |
-| (0,3)-(1,3) | R10 | synthesizer | +5 (3.3 V LDO) | OUT A, REF IN | IO1-4 | MAX2871, CostasLink's circuit: RFOUTA+ through 27 nH / 100 pF to the jack, RFOUTA- into 51 ohm, RFOUTB open; loop filter C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p (80-120 kHz, 61 degrees for 915 MHz at VCO/4 and 2.4 GHz at VCO/2, ICP 2.56 mA); LD on a red LED; carries the Pmod plug |
+| (0,3)-(1,3) | R10 | synthesizer | +5 (3.3 V LDO) | OUT A+, REF IN, OUT A- | IO1-4 | MAX2871, CostasLink's circuit: RFOUTA+ and RFOUTA- each through 27 nH / 100 pF to a jack (RFOUTA- was in 51 ohm until Prompt 15), RFOUTB open; loop filter C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p (80-120 kHz, 61 degrees for 915 MHz at VCO/4 and 2.4 GHz at VCO/2, ICP 2.56 mA); LD on a red LED; carries the Pmod plug |
 | (2,3)-(3,3) | R13 | I/Q transmitter | +5 (3.3 V LDO) | I IN, Q IN, RF OUT | IO2, IO3, IO5, IO6 | TRF3722 (PLL, VCO, I/Q modulator, 0.4-4.2 GHz; Prompt 13, replacing rev A's second MAX2871) on SPI shared with R10 (LE IO6, readback IO5), referenced from R10's REF IN; each DAC through 56 ohm at the jack and 270 ohm to a node at 0.25 V; about -3 dBm, image-free (-42 dBc untrimmed); a TLV75733 for its 3.3 V |
 
 Pmod (the standard's IO numbers): IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE of R10, IO5 the TRF3722's readback,

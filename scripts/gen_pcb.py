@@ -951,8 +951,8 @@ class Board:
                 ax = t.x0 + j["x"]
                 for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 19) for sgn in (1, -1)]:     # up to 4.5 mm (R10's OUT A-)
                     box = (ax + dx + b[0], ay + b[1], ax + dx + b[2], ay + b[3])
-                    if box[0] < t.x0 + 0.6 or box[2] > t.x0 + t.w - 0.6:
-                        continue
+                    if abs(dx) > 3.0 and (box[0] < t.x0 + 0.6 or box[2] > t.x0 + t.w - 0.6):
+                        continue                               # the long slides stay inside the tile (the first 3 mm as before)
                     if not self._hits(obst, box, 0.2):
                         ax += dx
                         break

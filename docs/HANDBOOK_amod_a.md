@@ -284,12 +284,12 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Expect:</b> a 40 kHz burst from Pmod IO4/IO3 leaves the TX transducer; its echo arrives x100 on RX OUT (hold a reflector over the board)<br><br>
 <b>How to use it:</b> Transmitter in the TX socket, receiver in the RX socket (pins 1 and 5 of each); the gateware sends 8-20 cycles of 40 kHz on IO4 and IO3 in antiphase; RX OUT to an ADC; hold a reflector above the board.<br><br>
 <b>You need:</b> A pair of 40 kHz transducers (kit: PUI UT-1640K-TT-2-R and UR-1640K-TT-2-R). (<a href="KIT.md">KIT.md</a>)<br><br>
-<b>Specs:</b> TX gets 10 V p-p from Pmod IO4 / IO3 in antiphase; RX x100 behind a 4 kHz high-pass; 5.8 us per mm there and back.<br><br>
+<b>Specs:</b> TX gets 10 V p-p from Pmod IO4 / IO3 in antiphase; RX x100 behind a 4 kHz high-pass; 5.8 us per mm there and back.  The slide switch's 5 V powers the two amplifiers: the TX H-bridge (each end of the transducer swings 0-5 V, in antiphase) and the RX op amp's positive rail (its negative rail is the board's -5 V).<br><br>
 <b>Limits:</b> Only at the transducers' 40 kHz resonance; the receiver hears the transmitter directly for the first few hundred microseconds.<br><br>
 <b>Experiments:</b> The speed of sound, echo ranging (sonar), Doppler, beam patterns, an ultrasonic data link.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/DRV8837">DRV8837</a>, <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> The speed of sound at 40 kHz.<br><br>
-<b>The circuit:</b> Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).<br><br>
+<b>The circuit:</b> Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).  The slide switch's 5 V powers the bridge and the op amp's + rail.<br><br>
 <b>Parts:</b> DRV8837DSGR (C39159), OPA810IDBVR (C2833513).
 
 </td></tr></table>
@@ -303,18 +303,18 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <td valign="top">
 
 <b>Audio: a 2.5 W class-D amplifier into a speaker, fed from a DAC or a one-bit Pmod stream, and an electret microphone amplified x100.</b><br><br>
-<b>Jacks:</b> AUDIO IN, top left (±1 V); MIC OUT, bottom right.<br><br>
+<b>Jacks:</b> SPEAKER IN, top left (±1 V); MIC OUT, bottom right.<br><br>
 <b>Pmod:</b> IO2 (Pmod pin 2)<br><br>
 <b>Supply:</b> +-5 V<br><br>
-<b>Expect:</b> a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100<br><br>
-<b>How to use it:</b> Speaker wires in the SPK terminal, the electret in the MIC socket (+ to pin 1); DAC to AUDIO IN or a one-bit stream on IO2; MIC OUT to an ADC.<br><br>
+<b>Expect:</b> a speaker on SPK follows SPEAKER IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100<br><br>
+<b>How to use it:</b> Speaker wires in the SPK terminal, the electret in the MIC socket (+ to pin 1); DAC to SPEAKER IN or a one-bit stream on IO2; MIC OUT to an ADC.<br><br>
 <b>You need:</b> A small speaker and an electret capsule (kit: Adafruit 6486 36 mm 8 ohm speaker, SparkFun COM-08635 electret). (<a href="KIT.md">KIT.md</a>)<br><br>
-<b>Specs:</b> Up to 2.5 W into 4 ohm (about 1.5 W into 8); AUDIO IN +-1 V; the one-bit stream on Pmod IO2 through 10 k / 10 nF; MIC OUT x100.<br><br>
+<b>Specs:</b> Up to 2.5 W into 4 ohm (about 1.5 W into 8); SPEAKER IN +-1 V; the one-bit stream on Pmod IO2 through 10 k / 10 nF; MIC OUT x100.<br><br>
 <b>Limits:</b> Mono; the class-D output is unfiltered (the speaker is the filter); the microphone hears the speaker.<br><br>
 <b>Experiments:</b> An acoustic modem (FSK, MSK through the air); the speed of sound in air; a room's echoes and impulse response; one-bit (PDM) audio.<br><br>
 <b>Chip:</b> <a href="https://www.diodes.com/assets/Datasheets/PAM8302A.pdf">PAM8302A</a>, <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> ADC samples to Python; MSK and GMSK.<br><br>
-<b>The circuit:</b> PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.<br><br>
+<b>The circuit:</b> PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.<br><br>
 <b>Parts:</b> OPA810IDBVR (C2833513), PAM8302AASCR (C113367).
 
 </td></tr></table>

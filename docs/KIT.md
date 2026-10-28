@@ -189,6 +189,10 @@ Remington's from its store's options service.  Several items are per lab rather 
   cheaper ZX60-V62+ ($92.90) gives +17.9 dBm at 3 GHz.  It runs from the same 12 V supply as Y4.  X9's termination
   then takes 0.25 W: the kit's 1 W ANNE-50+ copes.
 - **The DC block** starts at 0.1 MHz: keep it out of the HF and VLF paths.  Put one between X8 and a passive antenna.
+- **X5's calibration** wants an open, a short and a load on its OUT jack: the load is the kit's ANNE-50+ and the open a
+  cable's bare end; only the short is missing.  NanoVNA SMA calibration sets (open, short, load; about $15) are sold on
+  the marketplaces, but no listing was verified.  The same two terminators load whichever of R10's (or X3's) OUT A+ and
+  OUT A- and of X5's FWD and REFL is unused.
 
 **Rough totals:** about $860 a bench for the per-bench items above, plus the per-lab DPPH, rubidium cell and green
 laser (about $940 together) and a diamond (DNVB14 $4,092, DNVB1 $1,898).

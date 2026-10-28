@@ -8,7 +8,7 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 ![front](images/rf_mod_2-render-top.png)
 
 Eleven tiles on sixteen 20 mm cells, four layers, USB-C power on X10.  The board is built for the ECP5-2ADC-2DAC board: its two
-DACs drive X1's I and Q, its two ADCs read X2's I and Q, and X3 split by X5 is the LO of both, so transmitter and receiver share
+DACs drive X1's I and Q, its two ADCs read X2's I and Q, and X3's two outputs (OUT A+ and OUT A-) are the LOs of both, so transmitter and receiver share
 one phase.  Every 50 ohm line is coplanar waveguide with a via fence; every jack's centre pin has no plane under it.
 
 ### Pmod lines
@@ -26,7 +26,7 @@ which the board does not use: every chip here runs from its own 3.3 V, so the li
 
 ## The tiles together
 
-X3 (the MAX2871, locked to the 25 MHz on its REF IN: the ECP5 board's CLK OUT) split by X5 is the LO of both X1 and X2, so the
+X3 (the MAX2871, locked to the 25 MHz on its REF IN: the ECP5 board's CLK OUT) drives X1's LO from OUT A+ and X2's from OUT A-, so the
 transmitter and the receiver share one phase.  The ECP5 board's DACs are X1's I and Q, its ADCs read X2's I and Q: a complete
 coherent I/Q transceiver from 0.4 to 6 GHz whose baseband is the ECP5 board's 30 MHz.
 
@@ -46,7 +46,7 @@ coherent I/Q transceiver from 0.4 to 6 GHz whose baseband is the ECP5 board's 30
    filter's sweep); X7 (IO6) is a switched noise source for the Y-factor noise figure of X4 or the whole receiver, and with X11
    switching between an antenna and a load, a Dicke radiometer (the Sun at 2.4 GHz).
 
-Levels to remember: X3 gives -4 to +5 dBm and X5 loses 6 dB to each output; X1 wants 0 dBm of LO and gives about 0 dBm at
+Levels to remember: X3 gives -4 to +5 dBm on each output; X5's FWD and REFL are 25 dB below the waves they sample; X1 wants 0 dBm of LO and gives about 0 dBm at
 full scale; X2's amplified I and Q reach the ADCs' full scale near -10 dBm of RF (measure it) and it wants -6 to +6 dBm of LO; X4 gives 19 dB (no more
 than +20 dBm in); X6 reads -60 to 0 dBm; X9 is a through line rated for 1 W from an external amplifier.
 
@@ -67,10 +67,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Jacks:</b> I IN, top left (+-1 V into 50 ohm); LO IN, bottom of the left cell (0 dBm); RF OUT, top of the right cell; Q IN, bottom right (+-1 V into 50 ohm).<br><br>
 <b>Supply:</b> +5 V<br><br>
 <b>Expect:</b> about 0 dBm of single-sideband RF at full scale (I and Q +-1 V at 1 V p-p differential equivalent), 0.4-6 GHz, sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz, far past the DACs' 12 MHz<br><br>
-<b>How to use it:</b> DAC 1 to I IN, DAC 2 to Q IN, X5's P2 to LO IN; RF OUT to the antenna or the device under test.<br><br>
+<b>How to use it:</b> DAC 1 to I IN, DAC 2 to Q IN, X3's OUT A+ to LO IN; RF OUT to the antenna, the device under test or X5's IN.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> I and Q +-1 V into 50 ohm; LO 0 dBm (-6 to +6 dBm); about 0 dBm of RF; sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz.<br><br>
-<b>Limits:</b> Needs an LO (X3 through X5); trim the carrier with DC offsets and the sideband with the DACs' gain and phase.<br><br>
+<b>Limits:</b> Needs an LO (X3's OUT A+); trim the carrier with DC offsets and the sideband with the DACs' gain and phase.<br><br>
 <b>Experiments:</b> A QPSK, QAM or OFDM transmitter; the source of a network analyzer or a radar; ODMR sweeps.<br><br>
 <b>Chip:</b> <a href="https://www.analog.com/en/products/adl5375.html">ADL5375</a><br><br>
 <b>The circuit:</b> ADI ADL5375-05: two Gilbert-cell mixers and a quadrature LO splitter, 0.4-6 GHz, baseband bias 0.5 V.  Each input is single-ended from a DAC: 68 ohm at the jack, 150 ohm into 510 / 91 ohm from 5 V (0.50 V, gain 0.34); the other pin of each pair sits at 0.50 V on 510 / 56 ohm.  LO in single-ended through 100 pF (0 dBm; -6 to +6 dBm works); RF out is 50 ohm through 100 pF.  Trim the carrier with small DC offsets on I and Q, the sideband with the DACs' gain and phase.<br><br>
@@ -90,13 +90,13 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Jacks:</b> I OUT, top left (+-1 V); LO IN, bottom of the left cell (0 dBm); RF IN, top of the right cell (-10 dBm); Q OUT, bottom right (+-1 V).<br><br>
 <b>Supply:</b> +5 V<br><br>
 <b>Expect:</b> I and Q of the RF input against the LO, 0.4-6 GHz: about 7 dB of conversion gain from the chip, x2 in the amplifiers, +-1 V at the ADC for about -4 dBm of RF; flat from DC to beyond the ADCs' 23 MHz<br><br>
-<b>How to use it:</b> RF IN from X4, an antenna or the device under test; LO IN from X5's P3; I OUT to ADC 1, Q OUT to ADC 2.<br><br>
+<b>How to use it:</b> RF IN from X4, an antenna, the device under test or X5's REFL; LO IN from X3's OUT A-; I OUT to ADC 1, Q OUT to ADC 2.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> About -4 dBm of RF gives +-1 V at the ADCs; LO 0 dBm (-6 to +6 dBm); baseband from DC past the ADCs' bandwidth.<br><br>
 <b>Limits:</b> Zero-IF: DC offsets and I/Q imbalance to calibrate; a strong signal saturates it (use a pad).<br><br>
 <b>Experiments:</b> Constellations of a real link; a network analyzer's receiver; FMCW and stepped-frequency radar; GPS.<br><br>
 <b>Chip:</b> <a href="https://www.analog.com/en/products/adl5380.html">ADL5380</a>, <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
-<b>The circuit:</b> ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810 difference amplifiers (499 ohm in, 1 k feedback and to ground: gain 2) make each pair one output about 0 V from +5 / -5 V; 49.9 ohm out.  RF and LO single-ended through 100 pF, the other pin to ground through 100 pF (a balun would gain 1-3 dB and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3 through X5 on both LOs: one coherent radio.<br><br>
+<b>The circuit:</b> ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810 difference amplifiers (499 ohm in, 1 k feedback and to ground: gain 2) make each pair one output about 0 V from +5 / -5 V; 49.9 ohm out.  RF and LO single-ended through 100 pF, the other pin to ground through 100 pF (a balun would gain 1-3 dB and IP2).  ADJ 1.5 k to 5 V suits 0.4-3 GHz (open it above 5 GHz).  With X3's two outputs on the LOs: one coherent radio.<br><br>
 <b>Parts:</b> ADL5380ACPZ-R7 (C579152), OPA810IDBVR (C2833513).
 
 </td></tr></table>
@@ -109,18 +109,18 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <td valign="top" width="528"><img src="images/tiles/rf_mod_2_X3.jpg" width="520" alt="X3  synthesizer, MAX2871"></td>
 <td valign="top">
 
-<b>The synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to 25 MHz, set over SPI.  Through X5 it is the LO of X1 and X2 at once.</b><br><br>
-<b>Jacks:</b> OUT A, top left; REF IN, bottom right (25 MHz, 3.3 V CMOS).<br><br>
+<b>The synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to 25 MHz, set over SPI.  Its two outputs (OUT A+ and OUT A-, 180 degrees apart) are the LOs of X1 and X2 at once.</b><br><br>
+<b>Jacks:</b> OUT A+, top left; REF IN, top of the right cell (25 MHz, 3.3 V CMOS); OUT A-, bottom right.<br><br>
 <b>Pmod:</b> IO1 (Pmod pin 1): MUXOUT of X3; IO2 (Pmod pin 2): SDATA to X3; IO3 (Pmod pin 3): SCLK to X3; IO4 (Pmod pin 4): LE of X3<br><br>
 <b>Supply:</b> +5 V<br><br>
-<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm), locked to the 25 MHz on REF IN (the ECP5 board's CLK OUT or RF-MOD's REF OUT); through X5 it is the LO of X1 and X2 at once<br><br>
-<b>How to use it:</b> REF IN from the ECP5 board's CLK OUT (or RF-MOD's REF OUT); program it over the Pmod; OUT A to X5's P1.<br><br>
+<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm, 180 degrees apart), locked to the 25 MHz on REF IN (the ECP5 board's CLK OUT or RF-MOD's REF OUT): OUT A+ is X1's LO and OUT A- X2's, one phase for both<br><br>
+<b>How to use it:</b> REF IN from the ECP5 board's CLK OUT (or RF-MOD's REF OUT); program it over the Pmod; OUT A+ to X1's LO IN, OUT A- to X2's LO IN.<br><br>
 <b>You need:</b> Nothing (the SPI gateware).<br><br>
-<b>Specs:</b> -4 to +5 dBm on OUT A (about -1 dBm at each of X5's outputs); 80-120 kHz loop; red LED when locked.<br><br>
+<b>Specs:</b> -4 to +5 dBm on each of OUT A+ and OUT A- (set -1 dBm: X1 wants 0, X2 -6 to +6); 80-120 kHz loop; red LED when locked.<br><br>
 <b>Limits:</b> Divided-down outputs below 3 GHz have strong harmonics; fractional spurs; about a millisecond to relock.<br><br>
 <b>Experiments:</b> The coherent LO of the transceiver; stepped-frequency radar and network analysis; a signal generator.<br><br>
 <b>Chip:</b> <a href="https://www.analog.com/en/products/max2871.html">MAX2871</a><br><br>
-<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS from the ECP5 board's CLK OUT or RF-MOD's REF OUT). Split OUT A with X5 to drive X1's and X2's LO inputs (-1 dBm each at the top power setting).<br><br>
+<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ and RFOUTA- each feed a jack through 27 nH to 3.3 V and 100 pF: two outputs, 180 degrees apart; put a 50 ohm terminator on one that is unused.  RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated (3.3 V CMOS): the ECP5 board's CLK OUT or RF-MOD's REF OUT.  OUT A+ into X1's LO and OUT A- into X2's at -1 dBm (X1 wants 0, X2 -6 to +6).<br><br>
 <b>Parts:</b> NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 
 </td></tr></table>
@@ -150,21 +150,23 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="x5"></a>
 
-### X5  splitter, 3 x 18 ohm, 6 dB
+### X5  coupler, 2 x HHM22137A1
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X5.jpg" width="520" alt="X5  splitter, 3 x 18 ohm, 6 dB"></td>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_2_X5.jpg" width="520" alt="X5  coupler, 2 x HHM22137A1"></td>
 <td valign="top">
 
-<b>A resistive splitter: X3's single output becomes the LO of both X1 and X2, so the transmitter and receiver share one oscillator.</b><br><br>
-<b>Jacks:</b> P1, top left (+20 dBm); P2, bottom of the left cell; P3, bottom right.<br><br>
-<b>Expect:</b> 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz<br><br>
-<b>How to use it:</b> X3's OUT A to P1; P2 to X1's LO IN; P3 to X2's LO IN.<br><br>
-<b>You need:</b> Nothing beyond SMA cables.<br><br>
-<b>Specs:</b> 6.2 dB from any port to any other, DC-6 GHz, every port 50 ohm.<br><br>
-<b>Limits:</b> 6 dB of loss to each output; no isolation between them beyond those 6 dB.<br><br>
-<b>Experiments:</b> The coherent pair that the radar, the network analyzer and the link need; any two tiles sharing one source.<br><br>
-<b>The circuit:</b> RF-MOD's R1: three 18 ohm resistors to one node, 6 dB per path, no isolation between the outputs beyond those 6 dB. Here it splits X3's OUT A into X1's and X2's LO inputs, so the transmitter and the receiver share one oscillator: the radar's and the network analyzer's phase reference.  Any two tiles can share a source through it.
+<b>A dual directional coupler: a 50 ohm line from IN to OUT that hands a sample of the wave going forward to FWD and of the wave coming back from OUT to REFL.  With X1 and X2, a vector network analyzer that measures reflection (S11) as well as transmission.</b><br><br>
+<b>Jacks:</b> IN, top left (+30 dBm); FWD, bottom of the left cell; REFL, top of the right cell; OUT, bottom right.<br><br>
+<b>Expect:</b> FWD 25 dB below the wave going from IN to OUT and REFL 25 dB below the wave coming back from OUT, 0.6-2.7 GHz (27 dB at 0.6, 14 dB at 3.5 GHz); 0.3 dB through; about 20 dB of directivity: with a device on OUT, REFL / FWD is its reflection coefficient<br><br>
+<b>How to use it:</b> X1's RF OUT to IN, the device under test on OUT, REFL to X2's RF IN (or X6 for power alone), FWD to X6 or through X11 to X2 for the ratio; terminate whichever coupled port is unused.<br><br>
+<b>You need:</b> The kit's 50 ohm terminators (the load, and on an unused port); for calibration an open (a cable's bare end) and an SMA short (a NanoVNA calibration set: see KIT.md). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> Two couplers back to back; FWD and REFL 25 dB below their waves from 0.67 to 2.7 GHz (27 dB at 0.6 GHz, 14 dB at 3.5 GHz); about 20 dB of directivity; 0.3 dB through; +35 dBm through.<br><br>
+<b>Limits:</b> 0.6 to 3.5 GHz only (above 2.7 GHz the coupling rises and the directivity falls); uncalibrated, about 20 dB of directivity hides reflections under about 0.1 (|S11| of -20 dB); calibrating with an open, a short and a load removes most of that; an unused coupled port wants 50 ohm.<br><br>
+<b>Experiments:</b> An antenna's match (S11 and its resonance) at 915 MHz, 2.4 GHz and GPS; a filter's return loss; the ODMR loop's match at 2.87 GHz; standing waves on a cable; a time-domain reflectometer by stepping X3.<br><br>
+<b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C415328.html">HHM22137A1</a><br><br>
+<b>The circuit:</b> Two TDK HHM22137A1 directional couplers back to back, each with its isolated port in 51 ohm: the first samples the wave going from IN to OUT (FWD), the second, turned round, the wave coming back from OUT (REFL).  X1 on IN, a device on OUT, REFL into X2 (and FWD into X6 or through X11): the device's S11 in magnitude and phase.  Directivity (about 20 dB) limits the smallest reflection it sees; calibrate with open, short and load.  +35 dBm through; terminate an unused port in 50 ohm.<br><br>
+<b>Parts:</b> HHM22137A1 (C415328).
 
 </td></tr></table>
 

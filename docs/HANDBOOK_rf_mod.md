@@ -32,20 +32,22 @@ The board is one end of a radio link, or both ends on a cable.  One 25 MHz refer
 frequency on the board is locked to every other and phase means something.
 
 1. **Reference.**  R9's REF OUT into R10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it
-   on to R13's TRF3722, so both synthesizers share it.  R1 splits it to a second board.
+   on to R13's TRF3722, so both synthesizers share it.
 2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into R13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); R13's
    RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  The digital-communications waveforms with
    no image: the sideband suppression is about 42 dB untrimmed, better after the DACs' gain and phase are trimmed.
 3. **Receiver.**  The antenna or cable into R5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then R4 or R2, then
-   R8's RF; R10 into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's output through R1 it is a
-   second coherent receive channel (direction finding), or a transmit mixer for a real IF.
+   R8's RF; R10's OUT A+ into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's OUT A- it is a
+   second coherent receive channel (direction finding), or a transmit mixer for a real IF.  R1, the diode ring, does R8's
+   job passively (R10 at its top power is its +4 dBm LO): compare the two mixers' loss, isolation and intermodulation.
 4. **Instruments.**  R10 or R13 alone is a signal generator; R13 at f (a DC on I) and R10 at f - IF into R8 is a network
    analyzer and a stepped-frequency radar on one reference; R10 swept into R8 behind R5 is a spectrum analyzer that sees
    Wi-Fi, Bluetooth and LoRa; two tones from R13's I and Q into R12 show its intermodulation.
 
 Levels to remember: a synthesizer gives -4 to +5 dBm; R13 gives about -3 dBm at full scale; an ADL5350 wants +4 dBm of LO
 and loses 7-9 dB; a GALI-84+ gives 20 dB and compresses at +20 dBm out; the QPL9547 takes no more than +22 dBm at its input
-(put 30 dB of attenuation before it on any cable from a transmitter); the filters lose 1-2 dB; the splitter 6 dB.
+(put 30 dB of attenuation before it on any cable from a transmitter); the filters lose 1-2 dB; R1 wants +4 dBm of LO
+and loses about 7 dB.
 
 ## Antennas
 
@@ -61,21 +63,23 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="r1"></a>
 
-### R1  splitter, 3 x 18 ohm, 6 dB
+### R1  diode mixer, ADEX-10L+
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/rf_mod_R1.jpg" width="520" alt="R1  splitter, 3 x 18 ohm, 6 dB"></td>
+<td valign="top" width="528"><img src="images/tiles/rf_mod_R1.jpg" width="520" alt="R1  diode mixer, ADEX-10L+"></td>
 <td valign="top">
 
-<b>A resistive splitter / combiner: three 18 ohm resistors to one node, every port 50 ohm.</b><br><br>
-<b>Jacks:</b> P1, top left (+20 dBm); P2, top middle; P3, bottom right.<br><br>
-<b>Expect:</b> 6.2 dB from any port to either other port, every port within 2 ohm of 50, DC to 6 GHz (the resistors' parasitics set the top)<br><br>
-<b>How to use it:</b> Feed any port; the other two are the outputs (or combine two signals into one).<br><br>
-<b>You need:</b> Nothing beyond SMA cables.<br><br>
-<b>Specs:</b> 6.2 dB from any port to any other, DC-6 GHz.<br><br>
-<b>Limits:</b> 6 dB of loss each way and only 6 dB between the two outputs (no isolation).<br><br>
-<b>Experiments:</b> One LO to both mixers (two coherent receive channels: direction finding); two tones into R12 (intermodulation); watching a signal while you use it.<br><br>
-<b>The circuit:</b> Three 18 ohm resistors to one node: the textbook resistive divider, 6 dB per path and no isolation between the two outputs beyond those 6 dB (a Wilkinson would give 3 dB and 20 dB of isolation, at one band).  Feed R9's REF OUT to both synthesizers' REF IN, one synthesizer's OUT A to both mixers, or two tones into one gain block.
+<b>A double-balanced diode-ring mixer: two baluns and four Schottky diodes (drawn on the silk) multiply RF by a +-1 square wave at the LO rate.  Passive: no power.</b><br><br>
+<b>Jacks:</b> LO, top left (+4 dBm); RF, top of the right cell (-5 dBm); IF, bottom of the left cell.<br><br>
+<b>Expect:</b> about 7 dB of conversion loss from 10 MHz to 1 GHz with +4 dBm of LO (R10 at its top power), IF from DC to 800 MHz, 60 dB L-R isolation<br><br>
+<b>How to use it:</b> LO from R10's OUT A+ at its top power (+5 dBm) or a DAC (+4 dBm is 1 V peak into 50 ohm); RF from an antenna, a filter or a DAC; IF to an ADC, or through a filter to anything.<br><br>
+<b>You need:</b> Nothing beyond SMA cables (a 50 ohm terminator on an unused output of R10).<br><br>
+<b>Specs:</b> RF and LO 10-1000 MHz; IF DC-800 MHz (DC-coupled); LO +4 dBm (+1 to +7); 7.2 dB conversion loss; 60 dB LO-RF isolation; 1 dB compression at +1 dBm RF, IP3 +16 dBm.<br><br>
+<b>Limits:</b> Needs +4 dBm of LO (R10 at its top setting); keep RF under -5 dBm for clean products; spec'd from 10 MHz (more loss below); every port wants 50 ohm (an unterminated IF spoils the intermodulation); the LO's odd harmonics mix too.<br><br>
+<b>Experiments:</b> The diode ring against the Gilbert cell (AMOD-A's A9, at 10-30 MHz) and against the ADL5350 (R8, at 915 MHz): conversion loss, LO leakage, intermodulation; a phase detector (RF and LO at one frequency, DC at IF); a DSB modulator (audio into IF, out at RF).<br><br>
+<b>Chip:</b> <a href="https://www.minicircuits.com/WebStore/dashboard.html?model=ADEX-10L%2B">ADEX-10L+</a><br><br>
+<b>The circuit:</b> Mini-Circuits ADEX-10L+: two wideband baluns and a ring of four Schottky diodes (drawn beside it on the silk).  The LO (+4 dBm, +1 to +7) turns the diodes on in pairs, so the RF is multiplied by +-1 at the LO rate: the IF is RF x square wave, the sum and difference plus odd LO harmonics.  Passive and DC-coupled at IF (a phase detector when RF and LO share a frequency); 1 dB compression at +1 dBm of RF, IP3 +16 dBm.  Compare R7/R8 (ADL5350) and AMOD-A's A9 (MC1496).<br><br>
+<b>Parts:</b> ADEX-10L+ (C118997).
 
 </td></tr></table>
 
@@ -206,10 +210,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>How to use it:</b> Plug in the USB-C; REF OUT to R10's REF IN (R13 takes it from there on the back).<br><br>
 <b>You need:</b> A 5 V USB-C supply (kit: Raspberry Pi 5.1 V 3 A supply). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> TCXO +-2 ppm; REF OUT a 25 MHz square wave, 1.6 V p-p into 50 ohm (3.3 V into a high impedance).<br><br>
-<b>Limits:</b> One REF OUT: R1 splits it.<br><br>
+<b>Limits:</b> One REF OUT (R10's REF IN passes it on to R13 by a back trace); a second board needs a splitter.<br><br>
 <b>Experiments:</b> Everything on one reference (the ECP5 board too), so phase means something; the TCXO against GPS.<br><br>
 <b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C5119013.html">TC32H4 TCXO</a>, <a href="https://www.lcsc.com/product-detail/C84817.html">MT3608</a>, <a href="https://www.ti.com/product/TPS7A20">TPS7A20</a>, <a href="https://www.ti.com/product/SN74LVC1G17">SN74LVC1G17</a><br><br>
-<b>The circuit:</b> USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R1 feeds both synthesizers). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.<br><br>
+<b>The circuit:</b> USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V (0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R10's REF IN passes it to R13). The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled.<br><br>
 <b>Parts:</b> XRNR4030-22uH/M (C5289362), KT-0805G (C2297), KT-0805Y (C2296), SN74LVC1G17DBVR (C7836), MT3608 (C84817), MF-MSMF200-2 (C210837), SS34 (C8678), TC32H4-25.000-33GNDTNL (C5119013), TPS7A2033PDBVR (C2862740), SMAJ5.0A (C78401), TYPE-C-31-M-12 (C165948).
 
 </td></tr></table>
@@ -222,18 +226,18 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <td valign="top" width="528"><img src="images/tiles/rf_mod_R10.jpg" width="520" alt="R10  synthesizer, MAX2871"></td>
 <td valign="top">
 
-<b>A frequency synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to a 25 MHz reference and set over SPI from the FPGA.</b><br><br>
-<b>Jacks:</b> OUT A, top left; REF IN, top middle (25 MHz, 3.3 V CMOS).<br><br>
+<b>A frequency synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to a 25 MHz reference and set over SPI from the FPGA.  Two outputs, OUT A+ and OUT A-, the same frequency and power 180 degrees apart: two mixers' LOs at once.</b><br><br>
+<b>Jacks:</b> OUT A+, top left; REF IN, top middle (25 MHz, 3.3 V CMOS); OUT A-, bottom right.<br><br>
 <b>Pmod:</b> IO1 (Pmod pin 1): MUXOUT of R10; IO2 (Pmod pin 2): SDATA to R10 and R13; IO3 (Pmod pin 3): SCLK to R10 and R13; IO4 (Pmod pin 4): LE of R10<br><br>
 <b>Supply:</b> +5 V<br><br>
-<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A (-4 to +5 dBm in steps), locked to the 25 MHz on REF IN; the red LED says locked<br><br>
-<b>How to use it:</b> REF IN from R9's REF OUT; program it over the Pmod (SPI); OUT A to a mixer's LO or a filter.<br><br>
-<b>You need:</b> Nothing (the SPI gateware or driver).<br><br>
-<b>Specs:</b> -4 to +5 dBm on OUT A; fractional-N; 80-120 kHz loop; a red LED when locked.<br><br>
+<b>Expect:</b> any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm in steps, 180 degrees apart), locked to the 25 MHz on REF IN; the red LED says locked<br><br>
+<b>How to use it:</b> REF IN from R9's REF OUT; program it over the Pmod (SPI); OUT A+ and OUT A- to two mixers' LOs (R7 and R8, or R8 and R1) or a filter; a 50 ohm terminator on an output left unused.<br><br>
+<b>You need:</b> Nothing (the SPI gateware or driver); the kit's 50 ohm terminator for an unused output. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Specs:</b> -4 to +5 dBm on each of OUT A+ and OUT A-; fractional-N; 80-120 kHz loop; a red LED when locked.<br><br>
 <b>Limits:</b> Below 3 GHz the output is divided down: a square-ish wave with strong harmonics (filter it); fractional spurs; about a millisecond to relock.<br><br>
 <b>Experiments:</b> The mixers' LO; a signal generator; a swept source for filters; FSK and chirps by reprogramming; phase noise.<br><br>
 <b>Chip:</b> <a href="https://www.analog.com/en/products/max2871.html">MAX2871</a><br><br>
-<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ feeds the jack through 27 nH to 3.3 V and 100 pF; RFOUTA- is terminated in 51 ohm the same way; RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated: one REF OUT drives both synthesizers through R1.<br><br>
+<b>The circuit:</b> MAX2871 as CostasLink built it: fractional-N PLL with four VCOs, programmed over SPI from the Pmod (SCLK, SDATA, LE; MUXOUT back).  The loop filter is third order, 80-120 kHz with 61 degrees of margin for both 915 MHz (VCO / 4) and 2.4 GHz (VCO / 2) at ICP 2.56 mA (RSET 5.1 k, CP = 7).  RFOUTA+ and RFOUTA- each feed a jack through 27 nH to 3.3 V and 100 pF: two outputs, 180 degrees apart; put a 50 ohm terminator on one that is unused.  RFOUTB is open and must stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated; a back trace takes it on to R13.<br><br>
 <b>Parts:</b> NCD0805R1 (C84256), MAX2871ETJ+T (C7458627), TPS7A2033PDBVR (C2862740).
 
 </td></tr></table>

@@ -279,16 +279,16 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <td valign="top" width="528"><img src="images/tiles/amod_p_P13.jpg" width="520" alt="P13  AM loopstick, 0.5-1.7 MHz"></td>
 <td valign="top">
 
-<b>An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors, its tap on the jack.</b><br><br>
+<b>An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors or an external tuning capacitor on VAR C, its tap on the jack.</b><br><br>
 <b>Jacks:</b> OUT, top left (to A4).<br><br>
-<b>Expect:</b> with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)<br><br>
-<b>How to use it:</b> Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band.<br><br>
-<b>You need:</b> An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C). (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>Expect:</b> with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band); a variable capacitor on VAR C tunes between them<br><br>
+<b>How to use it:</b> Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.<br><br>
+<b>You need:</b> An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C); optionally a 365 pF tuning capacitor with a knob (kit: Amplified Parts single-section 365 pF). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> With a 330 uH coil: 1.28 MHz (47 pF) down to 0.40 MHz (470 pF), and the sums between; the kit's 240 uH coil tunes about 17 % higher.<br><br>
-<b>Limits:</b> Stepped tuning (15 combinations), not a knob; a weak signal that needs A4's gain before the ADC.<br><br>
+<b>Limits:</b> The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs A4's gain before the ADC.<br><br>
 <b>Experiments:</b> Real AM stations; the resonance and Q of a loopstick; the tutorial's AM radio gateware.<br><br>
 <b>Tutorial pages:</b> An AM radio.<br><br>
-<b>The circuit:</b> Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station.<br><br>
+<b>The circuit:</b> Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware.<br><br>
 <b>Parts:</b> DSHP04TSGET (C40736).
 
 </td></tr></table>

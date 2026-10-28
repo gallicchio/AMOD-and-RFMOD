@@ -772,6 +772,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -1548,6 +1550,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -2329,6 +2333,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -3215,6 +3221,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -3992,6 +4000,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -4745,6 +4755,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -5299,6 +5311,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -6484,6 +6498,8 @@
     }
    ],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -7957,6 +7973,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -9453,6 +9471,8 @@
     }
    ],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -11007,6 +11027,8 @@
     }
    ],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   },
@@ -12118,6 +12140,8 @@
    ],
    "infos": [],
    "titles": [],
+   "draws": [],
+   "pour_below": null,
    "slots": [],
    "voids": []
   }
