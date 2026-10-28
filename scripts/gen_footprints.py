@@ -462,7 +462,55 @@ def hhm22137():
     return name, f
 
 
-MAKERS = [sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
+def adp2_1():
+    """Mini-Circuits ADP-2-1+ 2-way splitter (LCSC C2683460), case CD636, 7.87 x 5.59 x 4.11 mm: the CD542's land (JLCPCB's
+    drawing XFMR-SMD_6P-L7.9-W5.6, pin 1 bottom-left, 1-3 along the bottom, 4-6 along the top from the right).  Pinout: 1 SUM,
+    3 port 1, 4 port 2, 6 ground; 2 and 5 joined outside and kept off ground (Mini-Circuits' PL-116 joins them under the body)."""
+    name = "MiniCircuits_CD636_ADP-2-1"
+    f = fp_header(name, "ADP-2-1+ 2-way splitter, Mini-Circuits case CD636: JLCPCB's land pattern for C2683460", "splitter transformer", "smd", 4.6)
+    for i, x in enumerate((-2.54, 0.0, 2.54)):
+        f.add(smd_pad(str(i + 1), x, 2.539, 1.65, 2.54, f"{name}/p{i + 1}", shape="rect"))
+        f.add(smd_pad(str(6 - i), x, -2.539, 1.65, 2.54, f"{name}/p{6 - i}", shape="rect"))
+    rect_lines(f, -3.94, -2.80, 3.94, 2.80, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -4.2, -4.1, 4.2, 4.1, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sx in (-1, 1):
+        f.add(line(sx * 3.94, -1.0, sx * 3.94, 1.0, "F.SilkS", SILK_W, f"{name}/silk/{sx}"))
+    f.add(circle(-3.95, 2.0, 0.1, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "MiniCircuits_CD636.wrl")
+    return name, f
+
+
+def at224():
+    """Mini-Circuits case AT224 (TC1-1TG2+ C3305009, TC4-1W+ C879855), 3.81 x 3.81 mm: five pads 0.80 x 1.65 on 1.27 mm,
+    the rows 3.18 apart, as JLCPCB draws both: 1, 2, 3 along the top from the left, 4 bottom-right, 6 bottom-left (no 5).
+    Both parts: 6 primary dot, 4 primary, 1 secondary dot, 3 secondary, 2 the secondary's centre tap."""
+    name = "MiniCircuits_AT224_5P"
+    f = fp_header(name, "Mini-Circuits case AT224 RF transformer, 5 pads: JLCPCB's land pattern for C3305009 and C879855", "transformer RF balun", "smd", 2.9)
+    for num, x, y in (("1", -1.27, -1.59), ("2", 0.0, -1.59), ("3", 1.27, -1.59), ("4", 1.27, 1.59), ("6", -1.27, 1.59)):
+        f.add(smd_pad(num, x, y, 0.80, 1.65, f"{name}/p{num}", shape="rect"))
+    rect_lines(f, -1.905, -1.905, 1.905, 1.905, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -2.2, -2.7, 2.2, 2.7, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sx in (-1, 1):
+        f.add(line(sx * 2.05, -0.5, sx * 2.05, 0.5, "F.SilkS", SILK_W, f"{name}/silk/{sx}"))
+    f.add(circle(-1.95, -2.55, 0.1, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "MiniCircuits_AT224.wrl")
+    return name, f
+
+
+def lfcn():
+    """Mini-Circuits LFCN-1000+ LTCC low-pass (LCSC C879868), case FV1206, 3.2 x 1.6 mm: RF pads 1 (in) and 3 (out) 1.04 x 1.80
+    at x = -+1.626, ground pads 2 and 4 0.61 x 1.25 at y = +-0.927, as JLCPCB and Mini-Circuits draw it."""
+    name = "Filter_LTCC_1206_LFCN"
+    f = fp_header(name, "LFCN-series LTCC low-pass filter, case FV1206: JLCPCB's land pattern for C879868", "LTCC filter low-pass", "smd", 1.9)
+    f.add(smd_pad("1", -1.626, 0, 1.04, 1.80, f"{name}/p1", shape="rect"), smd_pad("3", 1.626, 0, 1.04, 1.80, f"{name}/p3", shape="rect"),
+          smd_pad("2", 0, 0.927, 0.61, 1.25, f"{name}/p2", shape="rect"), smd_pad("4", 0, -0.927, 0.61, 1.25, f"{name}/p4", shape="rect"))
+    rect_lines(f, -1.6, -0.8, 1.6, 0.8, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -2.4, -1.8, 2.4, 1.8, "F.CrtYd", CRT_W, f"{name}/crt")
+    model(f, "Filter_1206.wrl")
+    return name, f
+
+
+MAKERS = [adp2_1, at224, lfcn, sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
           pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot,
           max2659, saw_1109, sky13370, adex10l, hhm22137]
 

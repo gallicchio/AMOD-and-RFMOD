@@ -293,10 +293,14 @@ class Board:
             return (pad["x"], pad["y"])
         return t.to_board((float(p[0]), float(p[1])))
 
-    def track(self, a, b, width, net, layer=pcbnew.F_Cu):
+    def track(self, a, b, width, net, layer=pcbnew.F_Cu, shape=False):
         if abs(a[0] - b[0]) < 1e-6 and abs(a[1] - b[1]) < 1e-6:
             return
-        tr = pcbnew.PCB_TRACK(self.board)
+        if shape:                     # copper that ends in the open on purpose (a stub): a graphic line with a net, not a track
+            tr = pcbnew.PCB_SHAPE(self.board)
+            tr.SetShape(pcbnew.SHAPE_T_SEGMENT)
+        else:
+            tr = pcbnew.PCB_TRACK(self.board)
         tr.SetStart(pt(*a)); tr.SetEnd(pt(*b))
         tr.SetWidth(mm(width)); tr.SetLayer(layer)
         tr.SetNet(self.netmap[net])
@@ -348,9 +352,13 @@ class Board:
                         self.track(a, b, width, net, pcbnew.B_Cu)
                         self.back.append((net, a, b))
                     continue
+                shape = layer == "F.Cu:shape"
                 for a, b in zip(pts, pts[1:]):
                     if abs(width - RF_W) < 1e-6:
                         self.rf_segs.append((net, a, b))
+                    if shape:
+                        self.track(a, b, width, net, shape=True)
+                        continue
                     key = (net, (round(a[0], 3), round(a[1], 3), round(b[0], 3), round(b[1], 3)))
                     key = (net, (round(a[0], 3), round(a[1], 3)), (round(b[0], 3), round(b[1], 3)))
                     if key in hops:
@@ -630,6 +638,8 @@ class Board:
             if not t.top_pour:
                 continue
             for j in t.jacks:
+                if j.get("launch", True) is False:             # a short at the pin: the pour and the planes come to it
+                    continue
                 cx, cy = t.to_board((j["x"], j["y"]))
                 for layers, r in (((pcbnew.In1_Cu, pcbnew.In2_Cu, pcbnew.B_Cu) if self.B["layers"] == 4 else (pcbnew.B_Cu,), LAUNCH_R_INNER),
                                   ((pcbnew.F_Cu,), LAUNCH_R_TOP)):

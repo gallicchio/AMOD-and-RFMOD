@@ -20,6 +20,9 @@ LIB = "amod"
 BOARDS = {
     "amod_p": dict(stem="amod_p", name="AMOD-P", title="AMOD-P: passive building blocks for the converters", layers=2,
                    subtitle="pads, RC and LC filters, resonators, a crystal, a clipper, a tapped delay line, LEDs, an AM loopstick"),
+    "amod_p2": dict(stem="amod_p2", name="AMOD-P2", title="AMOD-P2: passive RF and analog blocks", layers=4,
+                    subtitle="calibration standards, two splitters, a detector, a bias-T, a stub, a low-pass, transformers, a step attenuator, an oscillator",
+                    fine=True, rf=True, what="the second passive board", power_nets=["GND", "/PMOD_VCC"]),
     "amod_a": dict(stem="amod_a", name="AMOD-A", title="AMOD-A: active building blocks on USB-C power", layers=4,
                    subtitle="gain blocks, an HF LNA, a 10.5 GHz Doppler radar, a one-pin ADC, a 74HC4046 PLL, heat, a mixer, impedance, ultrasound, audio"),
     "rf_mod": dict(stem="rf_mod", name="RF-MOD", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
@@ -216,6 +219,31 @@ PARTS = {
     "ADEX10L": dict(value="ADEX-10L+", mpn="ADEX-10L+", lcsc="C118997", jlc_type="extended", process="SMT", stock=861, price=8.9286,
                     footprint="amod:MiniCircuits_CD542_ADEX-10L", symbol="amod:ADEX10L", match=["ADEX-10L"],
                     desc="Mini-Circuits double-balanced (diode-ring) mixer, LO/RF 10-1000 MHz, IF DC-800 MHz, LO +4 dBm, 7.2 dB loss, IP3 +16 dBm"),
+    # ---- AMOD-P2 (Prompt 17; stock 2026-10-28) ----
+    "PE43711": dict(value="PE43711", mpn="PE43711B-Z", lcsc="C470929", jlc_type="extended", process="SMT", stock=1673, price=3.9108,
+                    footprint="Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm", symbol="amod:PE43711", match=["PE43711"],
+                    desc="pSemi 7-bit RF step attenuator, 9 kHz-6 GHz, 0-31.75 dB in 0.25 dB, serial (SI, CLK, LE) at 1.8-3.3 V logic, 2.3-5.5 V at 150 uA"),
+    "ADP2_1": dict(value="ADP-2-1+", mpn="ADP-2-1+", lcsc="C2683460", jlc_type="extended", process="SMT", stock=41, price=11.7995,
+                   footprint="amod:MiniCircuits_CD636_ADP-2-1", symbol="amod:ADP2_1", match=["ADP-2-1"],
+                   desc="Mini-Circuits 2-way 0 degree transformer splitter, 0.5-400 MHz, 0.3 dB over 3 dB, 25 dB isolation; pins 2 and 5 joined, off ground",
+                    stock_exception="41 in stock on 2026-10-28, above what Jason's rule from Prompt 13 (\"14 and 21 in stock isn't great, but I would not consider that level too low to proceed\")"),
+    "TC1_1TG2": dict(value="TC1-1TG2+", mpn="TC1-1TG2+", lcsc="C3305009", jlc_type="extended", process="SMT", stock=85, price=4.1745,
+                     footprint="amod:MiniCircuits_AT224_5P", symbol="amod:XFMR_CT", match=["TC1-1TG2"],
+                     desc="Mini-Circuits 1:1 RF transformer, 0.4-500 MHz, separate windings (DC-isolated), centre-tapped secondary, 0.25 W, 30 mA DC",
+                    stock_exception="85 in stock on 2026-10-28, above what Jason's rule from Prompt 13 (\"14 and 21 in stock isn't great, but I would not consider that level too low to proceed\")"),
+    "TC4_1W": dict(value="TC4-1W+", mpn="TC4-1W+", lcsc="C879855", jlc_type="extended", process="SMT", stock=2227, price=1.7065,
+                   footprint="amod:MiniCircuits_AT224_5P", symbol="amod:XFMR_CT", match=["TC4-1W"],
+                   desc="Mini-Circuits 1:4 (impedance) RF transformer, 3-800 MHz, separate windings, centre-tapped secondary, 0.8 dB mid-band"),
+    "SMS7630": dict(value="SMS7630-006LF", mpn="SMS7630-006LF", lcsc="C6489012", jlc_type="extended", process="SMT", stock=83, price=6.2248,
+                    footprint="Package_TO_SOT_SMD:SOT-23", symbol="amod:SMS7630_006", match=["SMS7630"],
+                    desc="Skyworks zero-bias Schottky detector diodes, a reverse series pair (2 anode -> 3 -> 1 cathode), Cj 0.14 pF, Is 5 uA, video resistance about 5 k",
+                    stock_exception="83 in stock on 2026-10-28, above what Jason's rule from Prompt 13 (\"14 and 21 in stock isn't great, but I would not consider that level too low to proceed\")"),
+    "LFCN1000": dict(value="LFCN-1000+", mpn="LFCN-1000+", lcsc="C879868", jlc_type="extended", process="SMT", stock=1339, price=2.0717,
+                     footprint="amod:Filter_LTCC_1206_LFCN", symbol="amod:LFCN", match=["LFCN-1000"],
+                     desc="Mini-Circuits LTCC low-pass, DC-1000 MHz (0.8 dB at 1 GHz), 3 dB at 1.3 GHz, 26 dB at 1.5 GHz, 30 dB to 5 GHz, 1206"),
+    "XTAL10M": dict(value="10MHz", mpn="7U10000E12UCG", lcsc="C2889142", jlc_type="extended", process="SMT", stock=2135, price=0.1971,
+                    footprint="Crystal:Crystal_SMD_3225-4Pin_3.2x2.5mm", symbol="Device:Crystal_GND24", match=["7U10000E12UCG"],
+                    desc="TXC 10 MHz quartz crystal, 3225, 12 pF load, +-10 ppm; pads 1 and 3 the crystal, 2 and 4 the lid (ground)"),
     "HHM22137": dict(value="HHM22137A1", mpn="HHM22137A1", lcsc="C415328", jlc_type="extended", process="SMT", stock=196, price=0.1162,
                      footprint="amod:Coupler_1608-6P_HHM22137A1", symbol="amod:HHM22137", match=["HHM22137A1"],
                      desc="TDK directional coupler, 25 dB at 0.67-2.7 GHz (27 at 0.6, 14 at 3.5), 0.13 dB through, 47 dB isolation, 1608, port 6 to 50 ohm"),
@@ -423,6 +451,10 @@ PASSIVES = {
     "C0402 470pF": dict(lcsc="C75274", mpn="0402CG471J500NT", jlc_type="extended", stock=94240, price=0.0051, note="C0G: the MAX2659's input block (Maxim's value)"),
     "C0402 33nF": dict(lcsc="C7419416", mpn="FCC0402B333K500AT", jlc_type="extended", stock=316963, price=0.0024, note="X7R: the MAX2659's VCC bypass (Maxim's value)"),
     "L0402 6.8nH": dict(lcsc="C82919", mpn="LQW15AN6N8G00D", jlc_type="extended", stock=17630, price=0.0730, note="Murata LQW15: the MAX2659's input match (Maxim's 6.8 nH)"),
+    # --- AMOD-P2 (Prompt 17, stock 2026-10-28) ---
+    "R0402 16.9R": dict(lcsc="C82287", mpn="0402WGF169JTCE", jlc_type="extended", stock=10017, price=0.0007, note="the resistive splitter's star: 50 / 3 = 16.7 ohm"),
+    "C0402 150pF": dict(lcsc="C12220", mpn="0402CG151J500NT", jlc_type="extended", stock=56573, price=0.0062, note="C0G: the oscillator's feedback pair and the 9.2 MHz L-match"),
+    "L0603 1.5uH": dict(lcsc="C87514", mpn="MLF1608A1R5JT000", jlc_type="extended", stock=7400, price=0.0408, note="TDK multilayer, Q 35 at 10 MHz, 5 %: the L-match"),
     "L0603 43nH": dict(lcsc="C113126", mpn="LQW18AN43NG00D", jlc_type="extended", stock=27130, price=0.0537, note="Murata LQW18, 0603 wire-wound: the ADL5611's bias choke (ADI's 43 nH)"),
 }
 
@@ -548,6 +580,14 @@ JLC_ROTATION = {
     "C2937625": (270, "predicted", "1x3 header PZ254V-11-03P: read +270 in CostasLink's preview, with the datum below"),
     "C2894928": (270, "predicted", "1x5 socket: as the headers"),
     "C2894925": (270, "predicted", "1x2 socket: as the headers"),
+    # AMOD-P2's parts (Prompt 17): checked by scripts/check_rotations.py after the first build
+    "C470929": (270, "predicted", "PE43711 on KiCad's QFN-24: JLCPCB's drawing has pin 1 bottom-left ('-BL'), KiCad's turned +90; CostasLink read +270 for the same part"),
+    "C2683460": (0, "predicted", "ADP-2-1+: the footprint IS JLCPCB's drawing (pin 1 bottom-left), as the ADEX-10L+"),
+    "C3305009": (0, "predicted", "TC1-1TG2+: the footprint IS JLCPCB's drawing (pin 1 top-left)"),
+    "C879855": (0, "predicted", "TC4-1W+: the footprint IS JLCPCB's drawing (pin 1 top-left)"),
+    "C6489012": (180, "predicted", "SMS7630-006LF SOT-23, '-BR'"),
+    "C879868": (0, "predicted", "LFCN-1000+: the footprint IS JLCPCB's drawing"),
+    "C2889142": (0, "predicted", "TXC 7U 3225 crystal on KiCad's Crystal_SMD_3225: JLCPCB's drawing has pad 1 bottom-left as KiCad's"),
 }
 
 # Where JLCPCB's origin for a part sits in our footprint's own frame (mm, y down), when it is not ours: the JLCPCB CPL

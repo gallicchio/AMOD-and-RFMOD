@@ -195,6 +195,28 @@ SYMBOLS = [
     box("HHM22137", "U", [("3", "IN", "passive"), ("6", "ISO", "passive")],
         [("1", "OUT", "passive"), ("4", "CPL", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in", "stack")],
         "amod:Coupler_1608-6P_HHM22137A1", "HHM22137A1 directional coupler, 0.6-3.5 GHz, about 25 dB, 1.6 x 0.8 mm", width=10.16),
+    # PE43711 (pSemi DOC-84940-2 Table 9): 1 C0.25, 2 VDD, 3 P/S, 4 6-13 15 GND, 5 RF1, 14 RF2, 16 LE, 17 CLK, 18 SI, 19 C16, 20 C8,
+    # 21 C4, 22 C2, 23 C1, 24 C0.5, 25 the exposed pad (ground)
+    box("PE43711", "U", [("5", "RF1", "passive"), ("18", "SI", "input"), ("17", "CLK", "input"), ("16", "LE", "input"), ("3", "P/S", "input"),
+                         ("2", "VDD", "power_in"), ("1", "C0.25", "input"), ("24", "C0.5", "input"), ("23", "C1", "input")],
+        [("14", "RF2", "passive"), ("22", "C2", "input"), ("21", "C4", "input"), ("20", "C8", "input"), ("19", "C16", "input"),
+         ("4", "GND", "power_in"), ("6", "GND", "power_in", "stack"), ("7", "GND", "power_in", "stack"), ("8", "GND", "power_in", "stack"),
+         ("9", "GND", "power_in", "stack"), ("10", "GND", "power_in", "stack"), ("11", "GND", "power_in", "stack"), ("12", "GND", "power_in", "stack"),
+         ("13", "GND", "power_in", "stack"), ("15", "GND", "power_in", "stack"), ("25", "GND", "power_in", "stack")],
+        "Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm", "PE43711 7-bit RF digital step attenuator, 9 kHz-6 GHz, 31.75 dB in 0.25 dB", width=12.7),
+    # ADP-2-1+ (Mini-Circuits, case CD636; "Pin Connections"): 1 SUM, 3 port 1, 4 port 2, 6 ground; 2 and 5 joined outside, not grounded
+    box("ADP2_1", "U", [("1", "S", "passive"), ("2", "TIE", "passive"), ("6", "GND", "power_in")],
+        [("3", "1", "passive"), ("4", "2", "passive"), ("5", "TIE", "passive")],
+        "amod:MiniCircuits_CD636_ADP-2-1", "ADP-2-1+ 2-way 0 degree splitter, 0.5-400 MHz", width=10.16),
+    # Mini-Circuits AT224 transformers (TC1-1TG2+, TC4-1W+; "Pin Connections"): 6 primary dot, 4 primary, 1 secondary dot, 3 secondary, 2 centre tap
+    box("XFMR_CT", "T", [("6", "P.", "passive"), ("4", "P", "passive")], [("1", "S.", "passive"), ("2", "CT", "passive"), ("3", "S", "passive")],
+        "amod:MiniCircuits_AT224_5P", "RF transformer with a centre-tapped secondary, Mini-Circuits case AT224", width=7.62),
+    # SMS7630-006LF (Skyworks, SOT-23 "reverse series pair"): pin 2 anode -> pin 3 (the joint) -> pin 1 cathode
+    box("SMS7630_006", "D", [("2", "A", "passive"), ("3", "AK", "passive")], [("1", "K", "passive")],
+        "Package_TO_SOT_SMD:SOT-23", "SMS7630-006LF zero-bias Schottky pair in series: 2 A, 3 the joint, 1 K", width=7.62),
+    # LFCN-1000+ (Mini-Circuits, FV1206): 1 RF in, 3 RF out, 2 and 4 ground
+    box("LFCN", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in")], [("3", "OUT", "passive"), ("4", "GND", "power_in")],
+        "amod:Filter_LTCC_1206_LFCN", "LFCN-series LTCC low-pass filter, 1206", width=10.16),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

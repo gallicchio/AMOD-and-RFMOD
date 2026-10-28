@@ -1,0 +1,176 @@
+(footprint "Filter_LTCC_1206_LFCN"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "LFCN-series LTCC low-pass filter, case FV1206: JLCPCB's land pattern for C879868")
+	(tags "LTCC filter low-pass")
+	(property "Reference" "REF**"
+		(at 0 1.9 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "59f1779c-644e-5f1e-82b7-92993cec873f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Filter_LTCC_1206_LFCN"
+		(at 0 -1.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "75016094-cd85-591d-9902-7f0e0c2fd238")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -1.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "c54217eb-2216-5047-a309-1ef9ceb5d985")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "LFCN-series LTCC low-pass filter, case FV1206: JLCPCB's land pattern for C879868"
+		(at 0 -1.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "6da81d72-79c0-54b9-a0b8-9cd06be5fc1f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.4 -1.8)
+		(end 2.4 -1.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "9d5a5f3b-76dc-5d62-9e9d-b2497cd78e36")
+	)
+	(fp_line
+		(start -2.4 1.8)
+		(end -2.4 -1.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "238eeb0c-a883-5220-9853-7edf7f6c544d")
+	)
+	(fp_line
+		(start 2.4 -1.8)
+		(end 2.4 1.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "39fd24e9-5a0c-502a-9e86-060e63a0334f")
+	)
+	(fp_line
+		(start 2.4 1.8)
+		(end -2.4 1.8)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "71a33fc0-078b-5809-8ad4-a01d7d629f28")
+	)
+	(fp_line
+		(start -1.6 -0.8)
+		(end 1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "eab6cc89-f4c8-5d1b-b8a5-a81b04722ee1")
+	)
+	(fp_line
+		(start -1.6 0.8)
+		(end -1.6 -0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "d6c68018-05ab-5318-9268-336f0d9b4e99")
+	)
+	(fp_line
+		(start 1.6 -0.8)
+		(end 1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "52df8d4e-8fe7-5b5e-a461-a4e04bd88783")
+	)
+	(fp_line
+		(start 1.6 0.8)
+		(end -1.6 0.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0cad3f9b-3203-5da1-8b9b-f72e7c7ff1b9")
+	)
+	(pad "1" smd rect
+		(at -1.626 0)
+		(size 1.04 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "5c5da7fc-c46f-5f87-a6e1-57f0fcce1e24")
+	)
+	(pad "2" smd rect
+		(at 0 0.927)
+		(size 0.61 1.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "cc62454d-7989-50b6-aead-2d505dd87930")
+	)
+	(pad "3" smd rect
+		(at 1.626 0)
+		(size 1.04 1.8)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "4aa30276-7adb-5106-b593-698881a5d793")
+	)
+	(pad "4" smd rect
+		(at 0 -0.927)
+		(size 0.61 1.25)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "2a8a5b08-645f-58fc-a392-3a0d1563b4a1")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/Filter_1206.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

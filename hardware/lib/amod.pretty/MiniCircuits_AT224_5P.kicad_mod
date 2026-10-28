@@ -1,0 +1,213 @@
+(footprint "MiniCircuits_AT224_5P"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Mini-Circuits case AT224 RF transformer, 5 pads: JLCPCB's land pattern for C3305009 and C879855")
+	(tags "transformer RF balun")
+	(property "Reference" "REF**"
+		(at 0 2.9 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "8a41c6b2-3c81-503e-931f-3aabf1afd94f")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MiniCircuits_AT224_5P"
+		(at 0 -2.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "a234d5d4-d90b-5d81-a230-0db1ce9c2519")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -2.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "642e52fe-6ce1-58c7-896a-26e665d582d4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Mini-Circuits case AT224 RF transformer, 5 pads: JLCPCB's land pattern for C3305009 and C879855"
+		(at 0 -2.9 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "704e5d47-a009-5ad4-a138-482e58ff2b0b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -2.05 -0.5)
+		(end -2.05 0.5)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f9dc0072-f0ea-5ebd-ba22-0e78d990caa6")
+	)
+	(fp_line
+		(start 2.05 -0.5)
+		(end 2.05 0.5)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f4578ce8-8887-5728-8d90-8cb9186d280f")
+	)
+	(fp_circle
+		(center -1.95 -2.55)
+		(end -1.85 -2.55)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "5eae869a-a67f-56cb-b8f6-7cf9cb0e03dd")
+	)
+	(fp_line
+		(start -2.2 -2.7)
+		(end 2.2 -2.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f4c5b61e-0093-5815-87fd-d19470a2cd0a")
+	)
+	(fp_line
+		(start -2.2 2.7)
+		(end -2.2 -2.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "af8f74af-81ba-5093-96ef-3449a148b01a")
+	)
+	(fp_line
+		(start 2.2 -2.7)
+		(end 2.2 2.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "aa2f9a66-8234-521b-8959-c3d13799e60d")
+	)
+	(fp_line
+		(start 2.2 2.7)
+		(end -2.2 2.7)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "660a79ab-b2fd-5170-a9f8-97baa4eabef0")
+	)
+	(fp_line
+		(start -1.905 -1.905)
+		(end 1.905 -1.905)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "33a577ce-515f-5f05-9f2b-1c17d361c994")
+	)
+	(fp_line
+		(start -1.905 1.905)
+		(end -1.905 -1.905)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a0a33210-728b-5896-a670-479bceb7a02c")
+	)
+	(fp_line
+		(start 1.905 -1.905)
+		(end 1.905 1.905)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "a36ead98-ebdf-53a4-8497-5e27f133d162")
+	)
+	(fp_line
+		(start 1.905 1.905)
+		(end -1.905 1.905)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "bbf0a066-1235-59d1-93f2-c93d302c5bd2")
+	)
+	(pad "1" smd rect
+		(at -1.27 -1.59)
+		(size 0.8 1.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "4d7f683d-7c9f-5239-8bbe-5c68a1da478a")
+	)
+	(pad "2" smd rect
+		(at 0 -1.59)
+		(size 0.8 1.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "f43965ab-7381-5b7e-a8f0-7ef547dd3dbb")
+	)
+	(pad "3" smd rect
+		(at 1.27 -1.59)
+		(size 0.8 1.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "35adeaf9-327c-5f4e-9ea2-a73f780807c6")
+	)
+	(pad "4" smd rect
+		(at 1.27 1.59)
+		(size 0.8 1.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "51538ade-7ba8-528d-9d21-b43bf4154afb")
+	)
+	(pad "6" smd rect
+		(at -1.27 1.59)
+		(size 0.8 1.65)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "074f97ab-d3ad-5fd0-9a0b-631f6ba68362")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/MiniCircuits_AT224.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

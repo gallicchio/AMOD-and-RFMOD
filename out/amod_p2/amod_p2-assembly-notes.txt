@@ -1,0 +1,16 @@
+AMOD-P2 -- notes for the assembler
+=====================================================
+
+PLACEMENTS
+  Use amod_p2_cpl_jlcpcb_upload.csv for JLCPCB.  It is amod_p2_cpl_kicad_native.csv
+  with JLCPCB's own per-part rotations applied, and the parts whose JLCPCB drawing has its
+  origin away from KiCad's (the USB-C, the SOT-89s, the slide switches, the pin headers)
+  moved to put that origin where it belongs; use the native file anywhere else.  Check in
+  the preview that every SOT-23 sits pin 1 where the silkscreen's dot is: JLCPCB draws them
+  turned 180 degrees from KiCad, and the upload file turns them back.
+
+SMA jacks (J*) -- straight, through-hole, 5 pins: a square of four legs and a centre pin.  Any quarter turn fits.
+DIP switches (SW*) -- the sliders should move toward the side the silkscreen marks ON.
+Terminal blocks -- the wire openings face the board's edge.
+Diodes and LEDs -- polarised; the cathode is pad 1, at the end the silkscreen bar marks.
+Test loops (TP*) -- one pad each; the loop lies along the pad's long axis.

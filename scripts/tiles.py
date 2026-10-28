@@ -107,12 +107,15 @@ class Tile:
         self.parts[ref] = p
         return ref
 
-    def jack(self, slot, label, net, role="in", limit="", ref=None, label_at=None, silk=None):
+    def jack(self, slot, label, net, role="in", limit="", ref=None, label_at=None, silk=None, shield="GND", launch=True):
         """A jack in a slot; its name goes in the gutter above (top slots) or below (bottom slots) unless label_at =
-        (dx, dy, justify, size) puts it elsewhere relative to the jack's centre."""
+        (dx, dy, justify, size) puts it elsewhere relative to the jack's centre.  `shield` is the net of its four legs (an
+        isolated ground for a floating output); `launch` False leaves the planes and the top pour up to its centre pin (a
+        short to ground at the pin)."""
         x, y = G.slot(self.cells, slot)
-        ref = self.add("J", "SMA", label, x, y, 0, {"1": net, "2": "GND"}, ref=ref, hide_value=True)
-        self.jacks.append(dict(slot=slot, label=label, net=self.net(net), role=role, limit=limit, ref=ref, x=x, y=y, label_at=label_at, silk=silk or label))
+        ref = self.add("J", "SMA", label, x, y, 0, {"1": net, "2": shield}, ref=ref, hide_value=True)
+        self.jacks.append(dict(slot=slot, label=label, net=self.net(net), role=role, limit=limit, ref=ref, x=x, y=y, label_at=label_at, silk=silk or label,
+                               launch=launch))
         return ref
 
     def loop(self, net, x, y, rot=0, label=None, label_at=None):
@@ -129,6 +132,11 @@ class Tile:
     def rf(self, net, pts):
         """A 50 ohm line between pads or points: RF_W wide, the top pour 0.25 away each side, ground vias along it (gen_pcb)."""
         self.wire(net, pts, width=RF_W)
+
+    def stub(self, net, pts):
+        """A 50 ohm line that ends in the open (a resonant stub): drawn as copper graphics with the net, which KiCad joins
+        to the line it starts on but does not call a dangling track."""
+        self.wire(net, pts, width=RF_W, layer="F.Cu:shape")
 
     def via(self, net, x, y, fine=False):
         """A via on `net` at (x, y): a tile's connection to a rail pour on the inner layer (`fine`: 0.45 / 0.25 mm)."""

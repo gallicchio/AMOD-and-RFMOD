@@ -193,11 +193,26 @@ def coupler1608():
     return "Coupler_1608.wrl", HEAD + box(0, 0, 0.3, 1.6, 0.8, 0.6, WHITE)
 
 
+def cd636():
+    """Mini-Circuits case CD636 (the ADP-2-1+), 7.87 x 5.59 x 4.11 mm, white."""
+    return "MiniCircuits_CD636.wrl", HEAD + box(0, 0, 2.05, 7.87, 5.59, 4.11, WHITE)
+
+
+def at224():
+    """Mini-Circuits case AT224 (TC1-1TG2+, TC4-1W+), 3.81 mm cube, white."""
+    return "MiniCircuits_AT224.wrl", HEAD + box(0, 0, 1.9, 3.81, 3.81, 3.81, WHITE)
+
+
+def filt1206():
+    """An LTCC filter in a 1206 body, 3.2 x 1.6 x 0.94 mm."""
+    return "Filter_1206.wrl", HEAD + box(0, 0, 0.47, 3.2, 1.6, 0.94, WHITE)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
               kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3,
-              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608]
+              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608, cd636, at224, filt1206]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

@@ -98,8 +98,12 @@ class SchCtx:
         self.s.place(d["symbol"], ref, "SMA", x, y, mirror=mirror, footprint=d["footprint"], fields=fields,
                      ref_off=ro, val_off=vo, ref_justify=j, val_justify=j, hide_value=True)
         pin1, pin2 = self.s.pin(ref, 1, "1"), self.s.pin(ref, 1, "2")
-        self.gnd(pin2[0], pin2[1] + 2.54)
+        shield = p.pins.get("2", "GND")
         self.s.wire(pin2, (pin2[0], pin2[1] + 2.54))
+        if shield == "GND":
+            self.gnd(pin2[0], pin2[1] + 2.54)
+        else:                                          # a floating jack: its shell on its own net
+            self.label(shield.lstrip("/"), pin2[0], pin2[1] + 2.54)
         tx = x - 5.08 if role == "in" else x + 5.08
         self.s.text(label, tx, y - 6.2, size=2.5, justify="right" if role == "in" else "left")
         if limit:
@@ -377,7 +381,10 @@ class SchCtx:
             p = t.parts[r]
             self.loop(r, x + 2.54, y, p.value, dx=0.8, justify="left")
             self.wire([(x + 2.54, y), (x + 2.54, y + 2.54)])
-            self.label(p.pins["1"].lstrip("/"), x + 2.54, y + 2.54)
+            if p.pins["1"] == "GND":                      # a ground loop: the ground symbol, not a label named GND
+                self.gnd(x + 2.54, y + 2.54)
+            else:
+                self.label(p.pins["1"].lstrip("/"), x + 2.54, y + 2.54)
             x += 30.48
         self.result_note(t, above=y + 10.16)
 

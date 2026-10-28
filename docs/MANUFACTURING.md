@@ -23,6 +23,25 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 3. Check the placement preview against `docs/images/amod_p-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
 
+## AMOD-P2: the second passive board
+
+- Gerbers and drills: `out/amod_p2/amod_p2-gerbers.zip` (upload as the PCB file).
+- Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
+- BOM: `out/amod_p2/amod_p2_bom_jlcpcb_upload.csv`; placements: `out/amod_p2/amod_p2_cpl_jlcpcb_upload.csv` (rotations already turned
+  for JLCPCB's conventions; the native KiCad file is beside it).
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  34 BOM lines, 22 of them
+  extended parts (each adds JLCPCB's loading fee).
+- Parts per board: $43.91.  Read `out/amod_p2/amod_p2-assembly-notes.txt` before confirming the order.
+
+### Order steps
+
+1. Order now > PCB: upload the gerber zip; 100 x 100 mm, 4 layers, 1.6 mm, any colour, HASL or ENIG, 5 pieces.
+2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
+   every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
+   through-hole and must be selected for assembly).
+3. Check the placement preview against `docs/images/amod_p2-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+4. Pay; keep the order number in the chat log.
+
 ## AMOD-A: the active board
 
 - Gerbers and drills: `out/amod_a/amod_a-gerbers.zip` (upload as the PCB file).
