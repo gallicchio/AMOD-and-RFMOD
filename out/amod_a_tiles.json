@@ -38,7 +38,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN 50R"
+     "silk": "IN 50R",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -50,7 +51,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -816,7 +818,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN 50R"
+     "silk": "IN 50R",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -828,7 +831,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1594,7 +1598,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN 50R"
+     "silk": "IN 50R",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1606,7 +1611,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2376,7 +2382,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3203,7 +3210,7 @@
     [
      19.0,
      1.65,
-     "DOPPLER 10.5G",
+     "HB100 module",
      0.8,
      0.15,
      "right",
@@ -3212,7 +3219,7 @@
     [
      19.0,
      3.0,
-     "HB100 MODULE",
+     "Doppler 10.5G",
      0.8,
      0.15,
      "right",
@@ -3264,7 +3271,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN 10K"
+     "silk": "IN 10K",
+     "launch": true
     }
    ],
    "parts": [
@@ -3991,7 +3999,7 @@
     [
      18.9,
      18.2,
-     "1-BIT ADC",
+     "1-bit ADC",
      0.8,
      0.15,
      "right",
@@ -4043,7 +4051,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN 1K"
+     "silk": "IN 1K",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -4055,7 +4064,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "VCO OUT"
+     "silk": "VCO OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -4799,7 +4809,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "TEMP OUT"
+     "silk": "TEMP OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -5293,7 +5304,7 @@
     [
      19.0,
      4.5,
-     "HEAT",
+     "Heat",
      0.8,
      0.15,
      "right",
@@ -5360,7 +5371,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF IN"
+     "silk": "RF IN",
+     "launch": true
     },
     {
      "slot": "TM",
@@ -5372,7 +5384,8 @@
      "x": 20.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "LO IN"
+     "silk": "LO IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -5384,7 +5397,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "IF OUT"
+     "silk": "IF OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -6476,7 +6490,7 @@
     [
      40.4,
      2.2,
-     "GILBERT MIXER MC1496",
+     "Gilbert mixer MC1496",
      0.8,
      0.15,
      "right",
@@ -6486,7 +6500,7 @@
    "infos": [
     {
      "lines": [
-      "RF, LO < 0.3 V PEAK"
+      "RF, LO < 0.3 V peak"
      ],
      "near": [
       22.0,
@@ -6546,7 +6560,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "DRIVE IN"
+     "silk": "DRIVE IN",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -6558,7 +6573,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "S OUT"
+     "silk": "S OUT",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -6570,7 +6586,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "DUT"
+     "silk": "DUT",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -6582,7 +6599,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "X OUT"
+     "silk": "X OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -7955,7 +7973,7 @@
     [
      19.0,
      1.65,
-     "IMPEDANCE",
+     "Impedance",
      0.8,
      0.15,
      "right",
@@ -7964,7 +7982,7 @@
     [
      19.0,
      3.0,
-     "AND I-V",
+     "and I-V",
      0.8,
      0.15,
      "right",
@@ -8021,7 +8039,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "RX OUT"
+     "silk": "RX OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -9425,7 +9444,7 @@
     [
      21.6,
      16.5,
-     "ULTRASOUND",
+     "Ultrasound",
      0.8,
      0.15,
      "left",
@@ -9519,7 +9538,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "SPEAKER IN"
+     "silk": "SPEAKER IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -9531,7 +9551,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "MIC OUT"
+     "silk": "MIC OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -12131,7 +12152,7 @@
     [
      18.7,
      18.6,
-     "POWER",
+     "Power",
      0.9,
      0.17,
      "right",

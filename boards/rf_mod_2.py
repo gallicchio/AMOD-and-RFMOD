@@ -124,7 +124,8 @@ def tile_x1():
     t.wire("JQ", [(28.5, 11.7), (rtq, "1")], width=0.25)
     t.gnd_stub(rtq, "2", (28.5, 14.1), sym=(0, 0), width=0.25, fine=True)
     t.text(1.2, 9.4, "X1", 1.0, 0.18, "left")
-    t.info(["I/Q MODULATOR", "ADL5375 0.4-6 GHz"], near=(1.2, 10.7))
+    t.titles.append("I/Q modulator")
+    t.info(["ADL5375 0.4-6 GHz"], near=(1.2, 10.7))
     t.result = ("about 0 dBm of single-sideband RF at full scale (I and Q +-1 V at 1 V p-p differential equivalent), 0.4-6 GHz, sideband "
                 "and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz, far past the DACs' 12 MHz")
     t.notes = ["ADI ADL5375-05: two Gilbert-cell mixers and a quadrature LO splitter, 0.4-6 GHz, baseband bias 0.5 V.  Each input is",
@@ -256,8 +257,8 @@ def tile_x2():
     t.wire("QOA", [(31.6, 11.86), (rfq, "2")], width=0.2)
     t.wire("JQO", [(roq, "2"), (32.6, 9.0), (36.75, 9.0), (jQ, "1")], width=0.25)
     t.text(1.2, 9.4, "X2", 1.0, 0.18, "left")
-    t.info(["I/Q DEMODULATOR"], near=(1.2, 10.7))
-    t.titles.append("ADL5380")
+    t.info(["ADL5380 0.4-6 GHz"], near=(1.2, 10.7))
+    t.titles.append("I/Q demodulator")
     t.result = ("I and Q of the RF input against the LO, 0.4-6 GHz: about 7 dB of conversion gain from the chip, x2 in the amplifiers, "
                 "+-1 V at the ADC for about -4 dBm of RF; flat from DC to beyond the ADCs' 23 MHz")
     t.notes = ["ADI ADL5380: a quadrature demodulator, 0.4-6 GHz, 390 MHz of baseband, I and Q as differential pairs at 2.5 V.  Two OPA810",
@@ -288,11 +289,11 @@ def tile_x9():
     t.rf("LOOP", [(11.6, 11.0), (14.0, 11.0), (15.25, 12.25), (jout, "1")])
     t.voids.append((cx, cy, 2.0, "all"))
     t.text(14.6, 2.4, "X9", 1.2, 0.2, "center")
-    t.text(19.0, 4.3, "NV ODMR LOOP", 0.8, 0.15, "right")
+    t.text(19.0, 4.3, "NV ODMR loop", 0.8, 0.15, "right")
     t.text(19.0, 5.6, "DC - 6 GHz", 0.8, 0.15, "right")
-    t.text(1.2, 14.7, "DIAMOND ON", 0.8, 0.15, "left")
-    t.text(1.2, 16.0, "THE LOOP", 0.8, 0.15, "left")
-    t.text(1.2, 17.3, "50 uT AT", 0.8, 0.15, "left")
+    t.text(1.2, 14.7, "diamond on", 0.8, 0.15, "left")
+    t.text(1.2, 16.0, "the loop", 0.8, 0.15, "left")
+    t.text(1.2, 17.3, "50 uT at", 0.8, 0.15, "left")
     t.text(1.2, 18.6, "+20 dBm", 0.8, 0.15, "left")
     t.result = ("a 50 ohm through line (the loop adds about 1.5 nH); at its centre about 50 uT (0.5 G) of microwave field for +20 dBm "
                 "through it into 50 ohm, a Rabi frequency near 1 MHz for NV centres; twice that with OUT shorted")
@@ -369,7 +370,7 @@ def tile_x6():
     t.wire("OUT", [(17.2, 9.9), (17.2, 10.6), (15.25, 12.55), (jout, "1")], width=0.25)
     t.text(1.2, 9.6, "X6", 1.0, 0.18, "left")
     t.text(1.2, 10.9, "AD8318", 0.8, 0.15, "left")
-    t.titles.append("POWER METER")
+    t.titles.append("Power meter")
     t.result = ("VOUT falls 25 mV per dB of input from -60 to 0 dBm, 1 MHz-8 GHz (2.1 V at -60 dBm, 0.6 V at 0 dBm at the chip); at the jack "
                 "0.45 x that from 50 ohm: 0.27-0.95 V into the ADC's high impedance, half into 50 ohm; 10 ns response")
     t.notes = ["ADI AD8318: a nine-stage log amplifier with detectors, 60 dB of range to 8 GHz, temperature-compensated (499 ohm on TADJ",
@@ -442,7 +443,7 @@ def tile_x8():
     t.gnd_stub(ci, "1", (9.2, 11.1), sym=(0, 0))
     t.wire("VS", [HDR_VS, (8.54, 11.9), (10.98, 11.9), (ci, "2")], width=0.25)
     t.text(5.9, 13.4, "X8", 1.0, 0.18, "left")
-    t.titles.append("GNSS PREAMP")
+    t.titles.append("GNSS preamp")
     t.info(["GPS L1"], near=(9.0, 2.0), reach=6.0)
     t.result = ("about 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1), 1.5 dB noise figure with the first SAW, "
                 "50 dB or more of rejection at 900 MHz and 2.4 GHz; 3.3 V for an active antenna on ANT")
@@ -520,7 +521,7 @@ def tile_x7():
     t.wire("GND", [(19.3, 9.6), (19.3, 10.07)], width=0.25)
     t.wire("OUT", [(rse, "2"), (16.4, 11.08), (15.25, 12.23), (jout, "1")], width=0.25)
     t.text(6.2, 12.4, "X7", 1.0, 0.18, "left")
-    t.titles.append("NOISE SOURCE")
+    t.titles.append("Noise source")
     t.result = ("IO6 high: a flat noise spectrum from 50 MHz to 4 GHz, roughly 15-30 dB ENR at OUT (measure it); IO6 low: a 50 ohm load "
                 "at room temperature; 20 dB of pad keeps OUT matched in both states")
     t.notes = ["Avalanche noise: the MMBT3904's base-emitter junction breaks down near 8 V (6 V minimum), its base on -5 V and its emitter",
@@ -569,8 +570,8 @@ def tile_x11():
     t.gnd_stub(cv1, "1", (6.8, 17.4), sym=(0, 0), width=0.2, fine=True)
     t.gnd_stub(cv2, "1", (10.1, 15.62), sym=(0, 0), width=0.2, fine=True)
     t.text(1.2, 13.3, "X11", 1.0, 0.18, "left")
-    t.text(1.2, 14.6, "RF SWITCH, SPDT", 0.8, 0.15, "left")
-    t.info(["SKY13370 0.5-6 GHz", "LOSS 0.7 dB, < +30 dBm"], near=(1.2, 15.9))
+    t.text(1.2, 14.6, "RF switch, SPDT", 0.8, 0.15, "left")
+    t.info(["SKY13370 0.5-6 GHz", "loss 0.7 dB, < +30 dBm"], near=(1.2, 15.9))
     t.text(22.0, 11.0, "IO5: RFC-RF1", 0.8, 0.15, "left")
     t.text(22.0, 12.3, "IO8: RFC-RF2", 0.8, 0.15, "left")
     t.result = "0.7 dB through, 31 dB of isolation at 2.5 GHz (0.5-6 GHz); the off throw is a 50 ohm load; switches in about 100 ns"
@@ -638,9 +639,9 @@ def tile_x5():
     t.gnd_stub(ra, "2", (18.95, 10.848), sym=(0, 0), width=0.2, fine=True)        # no symbols: the jacks' legs are beside them
     t.gnd_stub(rb, "1", (22.5, 9.152), sym=(0, 0), width=0.2, fine=True)
     t.text(1.2, 11.6, "X5", 1.0, 0.18, "left")
-    t.titles.append("COUPLER")
-    t.info(["FWD: IN > OUT", "REFL: OUT > IN", "-25 dB EACH"], near=(30.5, 1.6))
-    t.info(["DUAL DIRECTIONAL", "0.6-3.5 GHz", "DIRECTIVITY 20 dB"], near=(1.2, 13.2))
+    t.titles.append("Coupler")
+    t.info(["FWD: IN > OUT", "REFL: OUT > IN", "-25 dB each"], near=(30.5, 1.6))
+    t.info(["dual directional", "0.6-3.5 GHz", "directivity 20 dB"], near=(1.2, 13.2))
     t.result = ("FWD 25 dB below the wave going from IN to OUT and REFL 25 dB below the wave coming back from OUT, 0.6-2.7 GHz (27 dB at 0.6, "
                 "14 dB at 3.5 GHz); 0.3 dB through; about 20 dB of directivity: with a device on OUT, REFL / FWD is its reflection coefficient")
     t.notes = ["Two TDK HHM22137A1 directional couplers back to back, each with its isolated port in 51 ohm: the first samples the wave",
@@ -711,7 +712,7 @@ def tile_x10():
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (26.6, 0.6), sym=(0, 0))
     t.text(17.4, 1.9, "X10", 1.2, 0.2, "center")
-    t.text(18.7, 18.6, "POWER", 0.9, 0.17, "right")
+    t.text(18.7, 18.6, "Power", 0.9, 0.17, "right")
     t.result = "+5 V from the USB-C (up to 1.5 A), -5 V at 40 mA; the green LED says 5 V is in, the red one that -5 V is up"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF.",
                "The LM2664 charge pump makes -5 V for X2's difference amplifiers and X7's noise junction (40 mA available, 25 used).",

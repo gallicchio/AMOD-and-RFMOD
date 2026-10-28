@@ -41,7 +41,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "LO"
+     "silk": "LO",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -53,7 +54,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF"
+     "silk": "RF",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -65,7 +67,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "IF"
+     "silk": "IF",
+     "launch": true
     }
    ],
    "parts": [
@@ -309,7 +312,7 @@
      "lines": [
       "RF < -5 dBm",
       "IF DC-800 MHz",
-      "LOSS 7 dB"
+      "loss 7 dB"
      ],
      "near": [
       1.2,
@@ -321,7 +324,7 @@
     }
    ],
    "titles": [
-    "DIODE MIXER"
+    "Diode mixer"
    ],
    "draws": [
     [
@@ -962,7 +965,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -974,7 +978,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1126,7 +1131,7 @@
     [
      12.6,
      5.6,
-     "BAND-PASS",
+     "band-pass",
      0.8,
      0.15,
      "center",
@@ -1144,7 +1149,7 @@
     [
      1.2,
      17.2,
-     "LOSS 1.7 dB",
+     "loss 1.7 dB",
      0.8,
      0.15,
      "left",
@@ -1202,7 +1207,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1214,7 +1220,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1409,7 +1416,7 @@
     [
      12.6,
      5.6,
-     "BAND-PASS",
+     "band-pass",
      0.8,
      0.15,
      "center",
@@ -1427,7 +1434,7 @@
     [
      1.2,
      17.2,
-     "LOSS 1.1 dB",
+     "loss 1.1 dB",
      0.8,
      0.15,
      "left",
@@ -1487,7 +1494,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1499,7 +1507,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2232,7 +2241,7 @@
    ],
    "infos": [],
    "titles": [
-    "LNA QPL9547"
+    "Preamp"
    ],
    "draws": [],
    "pour_below": null,
@@ -2276,7 +2285,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -2288,7 +2298,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2862,7 +2873,7 @@
    ],
    "infos": [],
    "titles": [
-    "GAIN"
+    "Gain"
    ],
    "draws": [],
    "pour_below": null,
@@ -2911,7 +2922,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "REF OUT"
+     "silk": "REF OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -4376,7 +4388,7 @@
     [
      19.2,
      4.4,
-     "REF 25 MHz",
+     "25 MHz ref.",
      0.8,
      0.15,
      "right",
@@ -4385,7 +4397,7 @@
     [
      41.0,
      18.6,
-     "POWER",
+     "Power",
      0.8,
      0.15,
      "right",
@@ -4394,7 +4406,7 @@
     [
      23.5,
      5.0,
-     "BOOST",
+     "boost",
      0.8,
      0.15,
      "center",
@@ -4460,7 +4472,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF"
+     "silk": "RF",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -4472,7 +4485,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "LO"
+     "silk": "LO",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -4484,7 +4498,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "IF"
+     "silk": "IF",
+     "launch": true
     }
    ],
    "parts": [
@@ -5483,7 +5498,7 @@
      "lines": [
       "LO 0 to +6 dBm",
       "IF DC-200 MHz",
-      "LOSS 7-9 dB"
+      "loss 7-9 dB"
      ],
      "near": [
       29.5,
@@ -5495,7 +5510,7 @@
     }
    ],
    "titles": [
-    "TX MIXER ADL5350"
+    "TX mixer ADL5350"
    ],
    "draws": [],
    "pour_below": null,
@@ -5545,7 +5560,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF"
+     "silk": "RF",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -5557,7 +5573,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "LO"
+     "silk": "LO",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -5569,7 +5586,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "IF"
+     "silk": "IF",
+     "launch": true
     }
    ],
    "parts": [
@@ -6568,7 +6586,7 @@
      "lines": [
       "LO 0 to +6 dBm",
       "IF DC-200 MHz",
-      "LOSS 7-9 dB"
+      "loss 7-9 dB"
      ],
      "near": [
       29.5,
@@ -6580,7 +6598,7 @@
     }
    ],
    "titles": [
-    "RX MIXER ADL5350"
+    "RX mixer ADL5350"
    ],
    "draws": [],
    "pour_below": null,
@@ -6629,7 +6647,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "OUT A+"
+     "silk": "OUT A+",
+     "launch": true
     },
     {
      "slot": "TM",
@@ -6641,7 +6660,8 @@
      "x": 20.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "REF IN"
+     "silk": "REF IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -6653,7 +6673,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT A-"
+     "silk": "OUT A-",
+     "launch": true
     }
    ],
    "parts": [
@@ -8802,7 +8823,7 @@
      "lines": [
       "MAX2871",
       "23.5 MHz",
-      "TO 6 GHz",
+      "to 6 GHz",
       "-4 to +5 dBm"
      ],
      "near": [
@@ -8815,7 +8836,7 @@
     }
    ],
    "titles": [
-    "SYNTHESIZER"
+    "Synthesizer"
    ],
    "draws": [],
    "pour_below": [
@@ -8865,7 +8886,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "I IN"
+     "silk": "I IN",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -8877,7 +8899,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "Q IN"
+     "silk": "Q IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -8889,7 +8912,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "RF OUT"
+     "silk": "RF OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -11418,7 +11442,7 @@
     [
      35.2,
      5.65,
-     "I/Q MODULATOR",
+     "I/Q modulator",
      0.8,
      0.15,
      "center",

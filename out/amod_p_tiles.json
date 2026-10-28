@@ -38,7 +38,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -50,7 +51,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -360,8 +362,8 @@
     ],
     [
      1.2,
-     17.4,
-     "PI PAD",
+     17.2,
+     "Pi pad",
      0.8,
      0.15,
      "left",
@@ -423,7 +425,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -435,7 +438,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -692,8 +696,8 @@
     ],
     [
      1.2,
-     17.4,
-     "RC LOW-PASS",
+     17.2,
+     "RC low-pass",
      0.8,
      0.15,
      "left",
@@ -752,7 +756,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -764,7 +769,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1021,8 +1027,8 @@
     ],
     [
      1.2,
-     17.4,
-     "RC HIGH-PASS",
+     17.2,
+     "RC high-pass",
      0.8,
      0.15,
      "left",
@@ -1084,7 +1090,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1096,7 +1103,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1447,8 +1455,8 @@
     ],
     [
      1.2,
-     17.4,
-     "SERIES RLC",
+     17.2,
+     "Series RLC",
      0.8,
      0.15,
      "left",
@@ -1510,7 +1518,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1522,7 +1531,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1921,8 +1931,8 @@
     ],
     [
      1.2,
-     17.4,
-     "LC LOW-PASS",
+     17.2,
+     "LC low-pass",
      0.8,
      0.15,
      "left",
@@ -1983,7 +1993,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1995,7 +2006,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2405,8 +2417,8 @@
     ],
     [
      1.2,
-     17.4,
-     "LC LOW-PASS",
+     17.2,
+     "LC low-pass",
      0.8,
      0.15,
      "left",
@@ -2469,7 +2481,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -2481,7 +2494,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2899,8 +2913,8 @@
     ],
     [
      1.2,
-     17.4,
-     "BAND-PASS",
+     17.2,
+     "Band-pass",
      0.8,
      0.15,
      "left",
@@ -2963,7 +2977,8 @@
      "x": 4.25,
      "y": 4.25,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BRo",
@@ -2975,7 +2990,8 @@
      "x": 15.75,
      "y": 15.75,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3151,8 +3167,8 @@
     ],
     [
      1.2,
-     17.4,
-     "QUARTZ",
+     17.2,
+     "Quartz",
      0.8,
      0.15,
      "left",
@@ -3161,7 +3177,7 @@
     [
      1.2,
      18.7,
-     "CRYSTAL",
+     "crystal",
      0.8,
      0.15,
      "left",
@@ -3213,7 +3229,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -3225,7 +3242,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3396,8 +3414,8 @@
     ],
     [
      1.2,
-     17.4,
-     "CERAMIC RES.",
+     17.2,
+     "Ceramic res.",
      0.8,
      0.15,
      "left",
@@ -3457,7 +3475,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -3469,7 +3488,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3770,8 +3790,8 @@
     ],
     [
      1.2,
-     17.4,
-     "CLIPPER",
+     17.2,
+     "Clipper",
      0.8,
      0.15,
      "left",
@@ -3845,7 +3865,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -3857,7 +3878,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "100ns"
+     "silk": "100ns",
+     "launch": true
     },
     {
      "slot": "TL2",
@@ -3869,7 +3891,8 @@
      "x": 47.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "200ns"
+     "silk": "200ns",
+     "launch": true
     },
     {
      "slot": "BR2",
@@ -3881,7 +3904,8 @@
      "x": 58.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "300ns"
+     "silk": "300ns",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -3893,7 +3917,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -5762,7 +5787,7 @@
     [
      57.0,
      4.0,
-     "DELAY LINE",
+     "Delay line",
      0.9,
      0.17,
      "center",
@@ -5771,7 +5796,7 @@
     [
      57.0,
      5.6,
-     "AN ECHO",
+     "an echo",
      0.8,
      0.15,
      "center",
@@ -5780,7 +5805,7 @@
     [
      57.0,
      6.95,
-     "EVERY 100 ns",
+     "every 100 ns",
      0.8,
      0.15,
      "center",
@@ -5851,7 +5876,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     }
    ],
    "parts": [
@@ -6283,7 +6309,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -6878,7 +6905,7 @@
     {
      "lines": [
       "VAR C",
-      "OPTIONAL"
+      "optional"
      ],
      "near": [
       35.0,
@@ -6902,7 +6929,7 @@
     }
    ],
    "titles": [
-    "AM LOOPSTICK"
+    "AM loopstick"
    ],
    "draws": [],
    "pour_below": null,

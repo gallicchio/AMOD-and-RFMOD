@@ -41,7 +41,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "TX IN"
+     "silk": "TX IN",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -53,7 +54,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "PROBE"
+     "silk": "PROBE",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -65,7 +67,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "LINE"
+     "silk": "LINE",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -77,7 +80,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "RX OUT"
+     "silk": "RX OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1118,7 +1122,7 @@
     [
      4.1,
      9.4,
-     "DUPLEXER",
+     "Duplexer",
      0.8,
      0.15,
      "left",
@@ -1129,7 +1133,7 @@
     {
      "lines": [
       "TX IN -> PROBE",
-      "VIA CROSSED DIODES"
+      "via crossed diodes"
      ],
      "near": [
       1.2,
@@ -1185,7 +1189,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1197,7 +1202,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1958,7 +1964,7 @@
    "texts": [
     [
      1.2,
-     15.6,
+     15.4,
      "Y2",
      1.2,
      0.2,
@@ -1967,8 +1973,8 @@
     ],
     [
      1.2,
-     17.2,
-     "PULSE AMP x10",
+     16.9,
+     "Pulse amp x10",
      0.8,
      0.15,
      "left",
@@ -1976,8 +1982,8 @@
     ],
     [
      1.2,
-     18.5,
-     "IO1 HIGH: ON",
+     18.25,
+     "IO1 high: on",
      0.8,
      0.15,
      "left",
@@ -1986,7 +1992,7 @@
    ],
    "infos": [],
    "titles": [
-    "PULSE AMP"
+    "Pulse amp"
    ],
    "draws": [],
    "pour_below": null,
@@ -2030,7 +2036,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3120,7 +3127,7 @@
     [
      1.0,
      7.8,
-     "NOISE",
+     "Noise",
      0.8,
      0.15,
      "left",
@@ -3175,7 +3182,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "DRIVE"
+     "silk": "DRIVE",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -3187,7 +3195,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "INC"
+     "silk": "INC",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -3199,7 +3208,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "DUT"
+     "silk": "DUT",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -3211,7 +3221,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "REFL"
+     "silk": "REFL",
+     "launch": true
     }
    ],
    "parts": [
@@ -4344,7 +4355,7 @@
     [
      4.1,
      9.4,
-     "S11 BRIDGE",
+     "S11 bridge",
      0.8,
      0.15,
      "left",
@@ -4375,7 +4386,7 @@
     }
    ],
    "titles": [
-    "REFLECTOMETER"
+    "Reflectometer"
    ],
    "draws": [],
    "pour_below": null,
@@ -6833,7 +6844,7 @@
     [
      34.5,
      18.6,
-     "Y1 POWER",
+     "Y1 power",
      0.9,
      0.17,
      "center",
@@ -6897,7 +6908,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "SIG"
+     "silk": "SIG",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -6909,7 +6921,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT 1"
+     "silk": "OUT 1",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -6921,7 +6934,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "TUNE/PUMP"
+     "silk": "TUNE/PUMP",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -6933,7 +6947,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT 2"
+     "silk": "OUT 2",
+     "launch": true
     }
    ],
    "parts": [
@@ -8509,7 +8524,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "SET"
+     "silk": "SET",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -8521,7 +8537,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "MON"
+     "silk": "MON",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -8533,7 +8550,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF IN"
+     "silk": "RF IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -8545,7 +8563,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "LD"
+     "silk": "LD",
+     "launch": true
     }
    ],
    "parts": [
@@ -10185,7 +10204,7 @@
     [
      4.9,
      9.4,
-     "LASER",
+     "Laser",
      0.8,
      0.15,
      "left",
@@ -10207,7 +10226,7 @@
     }
    ],
    "titles": [
-    "LASER DRIVER"
+    "Laser driver"
    ],
    "draws": [],
    "pour_below": null,
@@ -10254,7 +10273,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN A"
+     "silk": "IN A",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -10266,7 +10286,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT A"
+     "silk": "OUT A",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -10278,7 +10299,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN B"
+     "silk": "IN B",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -10290,7 +10312,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT B"
+     "silk": "OUT B",
+     "launch": true
     }
    ],
    "parts": [
@@ -11773,7 +11796,7 @@
     [
      4.1,
      9.4,
-     "HF PREAMPS",
+     "HF preamps",
      0.8,
      0.15,
      "left",
@@ -11783,7 +11806,7 @@
    "infos": [
     {
      "lines": [
-      "x9.9 (20 dB) EACH",
+      "x9.9 (20 dB) each",
       "5 kHz - 100 MHz",
       "0.7 nV/rtHz"
      ],
@@ -11839,7 +11862,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "LOOP"
+     "silk": "LOOP",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -11851,7 +11875,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -12644,7 +12669,7 @@
     [
      4.1,
      9.4,
-     "VLF LOOP",
+     "VLF loop",
      0.8,
      0.15,
      "left",
@@ -12666,7 +12691,7 @@
     }
    ],
    "titles": [
-    "VLF LOOP AMP"
+    "VLF loop amp"
    ],
    "draws": [],
    "pour_below": null,
@@ -12707,7 +12732,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "MON"
+     "silk": "MON",
+     "launch": true
     }
    ],
    "parts": [
@@ -13988,7 +14014,7 @@
     [
      4.1,
      21.3,
-     "COIL DRIVER",
+     "Coil driver",
      0.8,
      0.15,
      "left",

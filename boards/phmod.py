@@ -86,10 +86,10 @@ def tile_y2():
     t.wire("PD", [(11.25, 5.6), (rs, "1")], width=F)
     gnd(t, rpd, "1", (8.3, 5.6), w=0.2)
     t.wire("/PMOD1", [(-0.75, 0.6), (11.25, 0.6), (rs, "2")], width=F, silk=False)
-    t.text(1.2, 15.6, "Y2", 1.2, 0.2, "left")
-    t.text(1.2, 17.2, "PULSE AMP x10", 0.8, 0.15, "left")
-    t.text(1.2, 18.5, "IO1 HIGH: ON", 0.8, 0.15, "left")
-    t.titles.append("PULSE AMP")
+    t.text(1.2, 15.4, "Y2", 1.2, 0.2, "left")
+    t.text(1.2, 16.90, "Pulse amp x10", 0.8, 0.15, "left")
+    t.text(1.2, 18.25, "IO1 high: on", 0.8, 0.15, "left")
+    t.titles.append("Pulse amp")
     t.result = "gain 10.3 to 30 MHz: a DAC's +-1 V to +-10 V into 50 ohm (1 W); off (PD low) unless Pmod IO1 is high"
     t.notes = ["TI THS3491, current feedback, 900 MHz and 420 mA from +-15 V.  698 ohm from the FB pin (the output, inside) to -IN and",
                "75 ohm to ground set gain 10.3.  The 49.9 ohm input termination makes the DAC's +-1 V into 50 ohm the full +-10 V output.",
@@ -139,9 +139,9 @@ def tile_y3():
     amod_a.opa_tile_br(t, "R0603 100R", "100R", chip="OPA847", rf_key="R0603 1.1k", jack_in=False, dx=21.5, neg="bottom",
                        in_from=[(27.4, 9.0), (30.5, 9.0), (30.5, 4.75)], legend=False, loop=False, vs_from_header=False)
     t.text(1.2, 9.4, "Y3", 1.2, 0.2, "left")
-    t.text(4.1, 9.4, "DUPLEXER", 0.8, 0.15, "left")
+    t.text(4.1, 9.4, "Duplexer", 0.8, 0.15, "left")
     t.titles += ["PREAMP x12", "NMR DUPLEXER"]
-    t.info(["TX IN -> PROBE", "VIA CROSSED DIODES"], near=(1.2, 10.8))
+    t.info(["TX IN -> PROBE", "via crossed diodes"], near=(1.2, 10.8))
     t.result = ("TX IN passes to PROBE through 1.4 V of diodes; the echo at LINE gains 12 (OPA847, 0.85 nV/rtHz) to RX OUT, about 200 MHz "
                 "wide; LINE is clamped to +-0.7 V and terminated in 50 ohm")
     t.notes = ["The classic pulsed-NMR duplexer, broadband except for its one cable: crossed diodes in series with the transmitter, and a",
@@ -238,8 +238,8 @@ def tile_y5():
     pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, pins, hide_value=True)
     t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
     t.text(1.2, 9.4, "Y5", 1.2, 0.2, "left")
-    t.text(4.1, 9.4, "HF PREAMPS", 0.8, 0.15, "left")
-    t.info(["x9.9 (20 dB) EACH", "5 kHz - 100 MHz", "0.7 nV/rtHz"], near=(22.0, 16.0))
+    t.text(4.1, 9.4, "HF preamps", 0.8, 0.15, "left")
+    t.info(["x9.9 (20 dB) each", "5 kHz - 100 MHz", "0.7 nV/rtHz"], near=(22.0, 16.0))
     t.result = "gain 9.9 (20 dB) on each channel, 50 ohm in and out, about 5 kHz to 100 MHz; 0.7 nV/rtHz at the input (NF about 2.5 dB)"
     t.notes = ["Two TI LMH6629 (0.69 nV/rtHz, 4 GHz at gain 10) on one 5 V: 49.9 ohm terminates each input, 1 uF couples it to +IN at half",
                "the supply, 240 / 27 ohm (the 27 ohm to ground through 1 uF) set the gain, 1 uF and 49.9 ohm feed the output jack.  Two",
@@ -287,7 +287,7 @@ def tile_y9():
     gnd(t, cb2, "2", (6.4, 12.0), w=0.25)
     lmh_amp(t, 0.0, jack_in=False, in_from=[(7.54, 4.9), (8.0, 4.75)], term=False)
     t.text(1.0, 6.3, "Y9", 1.2, 0.2, "left")
-    t.text(1.0, 7.8, "NOISE", 0.8, 0.15, "left")
+    t.text(1.0, 7.8, "Noise", 0.8, 0.15, "left")
     t.result = "off: the amplifier's own noise (about 6 nV/rtHz at OUT); on: tens to hundreds of nV/rtHz from 10 kHz to 50 MHz, flat to about 1 dB"
     t.notes = ["An MMBT3904's emitter-base junction breaks down near 8 V; between -5 V and the switched 5 V through 680 ohm it carries",
                "2-3 mA and its avalanche noise, many times kT's, goes straight into an LMH6629 at gain 9.9 and out through 49.9 ohm.  IO8",
@@ -369,9 +369,9 @@ def tile_y7():
     t.wire("VS", [(22.8, 12.4), (cp2, "1")], width=0.25)
     gnd(t, cp2, "2", (22.8, 15.0), w=0.25)
     t.text(1.2, 9.4, "Y7", 1.2, 0.2, "left")
-    t.text(4.1, 9.4, "S11 BRIDGE", 0.8, 0.15, "left")
+    t.text(4.1, 9.4, "S11 bridge", 0.8, 0.15, "left")
     t.text(21.6, 17.6, "REFL/INC=S11", 0.8, 0.15, "left")
-    t.titles.append("REFLECTOMETER")
+    t.titles.append("Reflectometer")
     t.info(["DC - 30 MHz"], near=(1.2, 10.8))
     t.result = "REFL / INC = Gamma (S11) from DC to about 30 MHz: 0 for 50 ohm, +1 open, -1 short; after open-short-load calibration, better than -35 dB"
     t.notes = ["A 50 ohm resistive bridge: D from DRIVE, 49.9 ohm to A (the DUT jack) and 49.9 + 49.9 ohm from D to ground with B between.",
@@ -605,8 +605,8 @@ def tile_y10():
     t.wire("VS", [(21.0, 12.0), (cpa, "1")], width=0.2)
     gnd(t, cpa, "2", (23.4, 12.0), w=0.2)
     t.text(1.2, 9.4, "Y10", 1.2, 0.2, "left")
-    t.text(4.9, 9.4, "LASER", 0.8, 0.15, "left")
-    t.titles.append("LASER DRIVER")
+    t.text(4.9, 9.4, "Laser", 0.8, 0.15, "left")
+    t.titles.append("Laser driver")
     t.info(["SET: 100 mA/V"], near=(1.2, 10.8))
     t.result = "0-100 mA from 0-1 V on SET, about 10 kHz of loop bandwidth; IO5 blanks it in about 1 us; RF from about 20 MHz to 3 GHz rides on the current"
     t.notes = ["A high-side current source: REF = VS - SET (OPA810 and a 2N7002 through 1 k / 1 k), OPA810 holds the AO3401's source at",
@@ -631,8 +631,8 @@ def tile_y6():
     lmh_amp(t, 0.0, term=False, chip="OPA810", rf=("R0402 10k", "10k"), rg=("R0402 100R", "100"), rb=("R0402 100k", "100k"),
             cf=("C0402 100pF", "100p"))
     t.text(1.2, 9.4, "Y6", 1.2, 0.2, "left")
-    t.text(4.1, 9.4, "VLF LOOP", 0.8, 0.15, "left")
-    t.titles.append("VLF LOOP AMP")
+    t.text(4.1, 9.4, "VLF loop", 0.8, 0.15, "left")
+    t.titles.append("VLF loop amp")
     t.info(["x101"], near=(9.0, 2.0), reach=8.0)
     t.result = "gain 101 from 1.6 kHz to 160 kHz (the loop's EMF rises with frequency on top): sferics, the Navy's MSK stations near 24 kHz, WWVB at 60 kHz"
     t.notes = ["A loop's EMF is N A dB/dt: a 1 m square of 10 turns gives about 1 uV for 1 pT at 20 kHz.  1 uF into an OPA810 at half",
@@ -730,7 +730,7 @@ def tile_y4():
     t.wire("VS", [(dint, "2"), (15.9, 2.4)], width=0.3)
     t.wire("VS", [(9.0, 17.3), (19.6, 17.3), (19.6, 2.4), (15.9, 2.4)], width=0.3, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 21.3, "Y4", 1.2, 0.2, "left")
-    t.text(4.1, 21.3, "COIL DRIVER", 0.8, 0.15, "left")
+    t.text(4.1, 21.3, "Coil driver", 0.8, 0.15, "left")
     t.text(19.4, 21.3, "COIL >", 0.8, 0.15, "right")
     t.result = "about 1.3 A either way into a coil, PWM on IO6; MON about 1.5 V per amp"
     t.notes = ["DRV8876 in PH/EN mode: IO6 enables (PWM), IO7 the direction; VM = USB or 12-18 V (two B5819W); IPROPI buffered to MON."]
@@ -898,7 +898,7 @@ def tile_y1():
     t.wire("+5V", [(dg, "2"), (X(24.6), 0.6)], silk=False)
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (X(26.6), 0.6), sym=(0, 0))
-    t.text(X(13.0), 18.6, "Y1 POWER", 0.9, 0.17, "center")
+    t.text(X(13.0), 18.6, "Y1 power", 0.9, 0.17, "center")
     t.text(1.2, 18.6, "+-15 V", 0.8, 0.15, "left")
     t.result = ("+5 V from the USB-C (up to 2 A), -5 V at 40 mA, +15 V and -15 V at about 150 mA each for the pulse amplifier; green: "
                 "5 V in, red: -5 V up, yellow: +15 V up")

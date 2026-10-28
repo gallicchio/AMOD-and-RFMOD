@@ -44,6 +44,13 @@ CHIP_URL = {
     "MT3608": "https://www.lcsc.com/product-detail/C84817.html",
     "BB133": "https://www.lcsc.com/product-detail/C5334579.html",
     "HB100 (module)": "https://www.amazon.com/dp/B07YY6FD4T",
+    "PE43711": "https://www.lcsc.com/product-detail/C470929.html",
+    "ADP-2-1+": "https://www.minicircuits.com/WebStore/dashboard.html?model=ADP-2-1%2B",
+    "TC1-1TG2+": "https://www.minicircuits.com/WebStore/dashboard.html?model=TC1-1TG2%2B",
+    "TC4-1W+": "https://www.minicircuits.com/WebStore/dashboard.html?model=TC4-1W%2B",
+    "LFCN-1000+": "https://www.minicircuits.com/WebStore/dashboard.html?model=LFCN-1000%2B",
+    "SMS7630": "https://www.skyworksinc.com/Products/Diodes/SMS7630-Series",
+    "MMBT3904": "https://www.lcsc.com/product-detail/C20526.html",
 }
 
 NOTHING = "Nothing beyond SMA cables."
@@ -319,7 +326,7 @@ DOCS["rf_mod_2"] = {
         limits="0.6 to 3.5 GHz only (above 2.7 GHz the coupling rises and the directivity falls); uncalibrated, about 20 dB of directivity hides reflections under about 0.1 (|S11| of -20 dB); calibrating with an open, a short and a load removes most of that; an unused coupled port wants 50 ohm.",
         experiments="An antenna's match (S11 and its resonance) at 915 MHz, 2.4 GHz and GPS; a filter's return loss; the ODMR loop's match at 2.87 GHz; standing waves on a cable; a time-domain reflectometer by stepping X3.",
         use="X1's RF OUT to IN, the device under test on OUT, REFL to X2's RF IN (or X6 for power alone), FWD to X6 or through X11 to X2 for the ratio; terminate whichever coupled port is unused.",
-        needs="The kit's 50 ohm terminators (the load, and on an unused port); for calibration an open (a cable's bare end) and an SMA short (a NanoVNA calibration set: see KIT.md)."),
+        needs="The kit's 50 ohm terminators (the load, and on an unused port); for calibration AMOD-P2's P14 (SHORT, OPEN, LOAD and THRU at the board's surface)."),
     "X6": dict(
         does="A power meter: a logarithmic detector whose voltage falls 25 mV for every dB of RF from -60 to 0 dBm, 1 MHz to 8 GHz.",
         chips=["AD8318"], specs="-60 to 0 dBm; 25 mV/dB; 10 ns response; OUT 0.27-0.95 V into a high impedance (half into 50 ohm).",
@@ -428,4 +435,93 @@ DOCS["phmod"] = {
         experiments="L-I-V curves and threshold; coherent population trapping in rubidium (3.417 GHz on a 795 nm VCSEL: an atomic clock); pulsed ODMR with RF-MOD-2's X9.",
         use="DAC 1 to SET (through 30 dB for a VCSEL); the laser on LD; RF IN from a synthesizer; MON to an ADC.",
         needs="A laser diode or VCSEL (kit: Thorlabs L650P007, L795VH1) with a socket (S7060R) or soldered to an SMA plug; 10 and 20 dB SMA attenuators; laser goggles."),
+}
+
+
+# ----------------------------------------------------------------------------------------------------------- AMOD-P2 --
+DOCS["amod_p2"] = {
+    "P14": dict(
+        does="Calibration standards for a network analyzer, on the board: a short and an open at the jacks' pins, a 50 ohm load, a 25 ohm check standard and a thru.",
+        chips=[], specs="SHORT: the centre pin poured to ground all round.  OPEN: the bare pin.  LOAD: 2 x 100 ohm at the end of 4 mm of 50 ohm line.  25 OHM: 2 x 49.9 ohm (VSWR 2, |Gamma| 1/3, 9.5 dB return loss).  THRU: 19.8 mm of 50 ohm coplanar line, about 115 ps.",
+        limits="The standards are modelled, not measured: the open's fringing (tens of fF) and the short's inductance (tens of pH) count above about 3 GHz, and the 0402 load is a 20 dB return loss at 3 GHz.  Check them once against the NanoVNA's SMA standards.",
+        experiments="A full SOLT calibration of RF-MOD-2's reflectometer (X1, X2, X5) or of a NanoVNA at the board's surface; the 25 ohm standard as its check; every other tile then measured from its pads with its jacks taken out (they are all the same part).",
+        use="The analyzer's port to SHORT, OPEN and LOAD in turn; its two ports to THRU A and THRU B for the two-port step; then any tile.",
+        needs=NOTHING),
+    "P15": dict(
+        does="Two loads to read on a Smith chart: 200 ohm alone, and the same 200 ohm matched to 50 ohm at 9.2 MHz by an L-network.",
+        chips=[], specs="200 OHM: Gamma +0.6 (VSWR 4) to about 100 MHz.  MATCHED: 1.5 uH in series, 150 pF and 200 ohm to ground: Gamma 0 at 9.2 MHz, |Gamma| 0.5 near 5 and 14 MHz.",
+        limits="HF only: above about 100 MHz the parts and the line move both points; the inductor's Q (about 35) leaves an ohm or two of loss at the match.",
+        experiments="Both on the Smith chart with PhMOD's reflection bridge (Y7) or a VNA; the matched load passing through the chart's centre as the sweep crosses 9.2 MHz; the network designed back from the measured 200 ohm.",
+        use="A DAC into PhMOD's Y7 DRIVE and its DUT jack to 200 OHM or MATCHED, the two ADCs on INC and REFL; or a VNA's port.",
+        needs=NOTHING),
+    "P16": dict(
+        does="A resistive power splitter: three 16.9 ohm in a star, every port 50 ohm, 6 dB from any port to either other, from DC to 6 GHz.",
+        chips=[], specs="3 x 16.9 ohm (50 / 3); -6.0 dB each way; DC-6 GHz; OUT 1 and OUT 2 on lines of equal length.",
+        limits="No isolation (OUT 1 to OUT 2 is also -6 dB); 6 dB of loss where a transformer splitter loses 3; about +20 dBm at IN (1/16 W resistors).",
+        experiments="One DAC into both ADCs to measure the converters' own gain and skew; the reference and test paths of a scalar network analyzer; its isolation against P17's.",
+        use="IN from the source; OUT 1 and OUT 2 to two 50 ohm loads.  Symmetric: any port can be IN.",
+        needs=NOTHING),
+    "P17": dict(
+        does="A transformer power splitter (and combiner): half the power to each port, 3 dB, with the two ports isolated from each other, 0.5-400 MHz.",
+        chips=["ADP-2-1+"], specs="3.1-3.4 dB from SUM to each port; 25-34 dB between port 1 and port 2; 0.5-400 MHz (the datasheet).",
+        limits="A transformer: nothing below 0.5 MHz; the isolation holds only with 50 ohm on all three ports; pins 2 and 5 are joined and must not be grounded.",
+        experiments="Two DACs combined into one amplifier for a two-tone intermodulation test (AMOD-A's A4, PhMOD's Y5); one reference split to two boards; isolation measured against P16's.",
+        use="SUM from the source (or to the load when combining); PORT 1 and PORT 2 to two loads (or from two sources).",
+        needs=NOTHING),
+    "P18": dict(
+        does="A quarter-wave open stub hanging off a 50 ohm line: at 2.45 GHz it is a short circuit at the junction, so the line has a notch there.",
+        chips=[], specs="17.3 mm of 50 ohm coplanar waveguide, open at its end; a notch near 2.45 GHz and 7.35 GHz; the line passes at DC and 4.9 GHz.",
+        limits="The notch sits where the line's effective permittivity puts it (3.1 was assumed): within a few percent of 2.45 GHz.  Its depth is set by the line's loss.",
+        experiments="Sweep it with RF-MOD's synthesizer into RF-MOD-2's log detector, or with a VNA; read the line's effective permittivity from the notch; a Wi-Fi notch ahead of a receiver; the tutorial's coaxial quarter-wave stub at microwave frequencies.",
+        use="IN from a source, OUT to a detector or a VNA's second port.",
+        needs=NOTHING),
+    "P19": dict(
+        does="A low-pass filter: passes DC to 1 GHz, stops 1.9-5 GHz, so a 915 MHz synthesizer's harmonics are gone.",
+        chips=["LFCN-1000+"], specs="0.3 dB at 500 MHz, 0.8 dB at 1 GHz, 3 dB at 1.3 GHz, 26 dB at 1.5 GHz, 30 dB from 1.9 to 5 GHz (the datasheet).",
+        limits="50 ohm on both sides; the stopband rises again above about 5 GHz (20 dB at 5.5 GHz).",
+        experiments="A MAX2871's square-ish 915 MHz made a sine (its harmonics before and after on a spectrum analyzer); an image filter ahead of a receiver below 1 GHz.",
+        use="IN from the source, OUT to the load.",
+        needs=NOTHING),
+    "P20": dict(
+        does="A diode detector: RF power in, DC out.  Two zero-bias Schottky diodes as a voltage doubler, square-law at low power and linear at high.",
+        chips=["SMS7630"], specs="51 ohm across IN; 10 nF in; a SMS7630 pair as a doubler; 100 pF and 100 k on OUT (about 1 us); 10 MHz-6 GHz; square law below about -20 dBm.",
+        limits="OUT must go to a high impedance (the ADC's high-Z setting): 50 ohm shorts it.  Microvolts at the bottom (the x100 input below -40 dBm); temperature moves its zero; +10 dBm at most (the diodes' 1 V breakdown).",
+        experiments="Square law against the AD8318's log law (RF-MOD-2); an AM envelope detector after AMOD-P's loopstick and AMOD-A's LNA; a radiometer's power detector; the shape of PhMOD's transmit pulses.",
+        use="IN from the RF; OUT to an ADC on its high-impedance setting.",
+        needs=NOTHING),
+    "P21": dict(
+        does="A bias-T: puts DC from a bench supply onto an RF line and keeps it off the RF side.",
+        chips=[], specs="100 nF in series; 27 nH + 330 nH + 10 uH from the DC loop to RF+DC; 100 nF across the DC; about 2 MHz-3 GHz; up to 100 mA and 16 V.",
+        limits="Below about 2 MHz the 10 uH stops blocking; 100 mA (the 330 nH) and 16 V (the capacitors); never put RF+DC into a jack that cannot take the DC.",
+        experiments="An active GPS antenna or an LNA at the end of a cable powered through the coax; a varactor or a detector diode biased through its own signal line; the bias-T's own leakage of RF into the supply.",
+        use="RF to the instrument, RF+DC to the device, the bench supply's clips on the DC and GND loops.",
+        needs="A bench supply with clip leads."),
+    "P22": dict(
+        does="A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by the FPGA over three Pmod lines.",
+        chips=["PE43711"], specs="7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB; serial: SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first; 3.3 V and 150 uA from the Pmod; 31.75 dB at power-up.",
+        limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; needs the board plugged into the host's Pmod.",
+        experiments="The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.",
+        use="Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device; write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
+        needs=NOTHING),
+    "P23": dict(
+        does="An oscillator made of one transistor and a tank, tunable by a voltage and lockable to an outside tone.",
+        chips=["MMBT3904", "BB133"], specs="A Clapp (series-tuned Colpitts) on an MMBT3904 at about 1.5 mA; 10 uH and a BB133 varactor; 9.6-11.5 MHz for TUNE from -2 to +2 V (10.5 MHz at 0 V); about -22 dBm into 50 ohm; the Pmod's 3.3 V, switched.",
+        limits="Free-running LC: it drifts with temperature; the frequencies are calculated to within about 10 %; the output is small (22 pF from the emitter) so the load does not pull it.",
+        experiments="Injection locking: a DAC tone near its frequency on TUNE pulls it in over a range that grows with the tone's amplitude (Adler's equation); FM from a DAC; its phase noise against the MAX2871's and a crystal's; a phase-locked loop closed in the FPGA (phase from an ADC, control on TUNE).",
+        use="Plug the board into the Pmod and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.",
+        needs=NOTHING),
+    "P24": dict(
+        does="A 1:1 transformer whose OUT jack floats: a balun for a dipole, and a break in a ground loop.",
+        chips=["TC1-1TG2+"], specs="0.4-500 MHz; 0.3 dB of loss at 10 MHz, 0.5 dB at 100 MHz, 1.8 dB at 500 MHz (the datasheet); OUT's four legs on an island with no ground within 5.6 mm on any layer.",
+        limits="0.25 W and 30 mA DC (the datasheet); nothing below 0.4 MHz; the island's few pF to the board limit the common-mode isolation as the frequency rises.",
+        experiments="The tutorial's HF dipole fed balanced (OUT's pin and shell to its two halves); a ground loop between the host and a mains-powered instrument broken (watch the hum go); a floating measurement.",
+        use="IN from the source; OUT through an SMA-to-clips lead to the dipole or the floating load.",
+        needs="An SMA-to-two-clips lead (KIT.md) for a dipole."),
+    "P25": dict(
+        does="A 1:4 transformer: OUT's impedance is four times IN's and its voltage twice; a DIP switch puts a known load on OUT.",
+        chips=["TC4-1W+"], specs="3-800 MHz; 0.8 dB mid-band, 1.1 dB at 3 MHz, 2.2 dB at 800 MHz (the datasheet); switch 1: 200 ohm across OUT (IN reads 50); switch 2: 49.9 ohm (IN reads 12.5).",
+        limits="Nothing below 3 MHz; OUT is referenced to ground (the secondary's low end is grounded), so it is a step-up transformer here, not a balun.",
+        experiments="The turns ratio squared measured: IN's impedance with each load (PhMOD's Y7 or a VNA); a 200 ohm source or load matched to 50 ohm; twice the voltage at OUT.",
+        use="IN from the source or the analyzer; OUT open, to a load, or loaded by the switch.",
+        needs=NOTHING),
 }

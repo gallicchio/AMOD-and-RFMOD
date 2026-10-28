@@ -46,9 +46,9 @@ def tile_r2():
     t.gnd_stub(fl, "3", (10.0, 11.6), sym=(0, 1))
     t.text(12.6, 2.4, "R2", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "2.45 GHz", 0.8, 0.15, "center")
-    t.text(12.6, 5.6, "BAND-PASS", 0.8, 0.15, "center")
+    t.text(12.6, 5.6, "band-pass", 0.8, 0.15, "center")
     t.text(1.2, 18.6, "2.4-2.5 GHz", 0.8, 0.15, "left")
-    t.text(1.2, 17.2, "LOSS 1.7 dB", 0.8, 0.15, "left")
+    t.text(1.2, 17.2, "loss 1.7 dB", 0.8, 0.15, "left")
     t.text(1.2, 15.8, "LTCC LFB212", 0.8, 0.15, "left")
     t.result = "1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out"
     t.notes = ["Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm",
@@ -70,9 +70,9 @@ def tile_r4():
     t.gnd_stub(fl, "2", (10.0, 11.5), sym=(0, 1), width=0.2)
     t.text(12.6, 2.4, "R4", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "915 MHz", 0.8, 0.15, "center")
-    t.text(12.6, 5.6, "BAND-PASS", 0.8, 0.15, "center")
+    t.text(12.6, 5.6, "band-pass", 0.8, 0.15, "center")
     t.text(1.2, 18.6, "902-928 MHz", 0.8, 0.15, "left")
-    t.text(1.2, 17.2, "LOSS 1.1 dB", 0.8, 0.15, "left")
+    t.text(1.2, 17.2, "loss 1.1 dB", 0.8, 0.15, "left")
     t.text(1.2, 15.8, "SAW B39921", 0.8, 0.15, "left")
     t.result = "1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out"
     t.notes = ["RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package;",
@@ -116,7 +116,7 @@ def gali_tile(id, cell):
     t.wire("VS", [(11.54, 1.3), (rb, "1")])
     t.gnd_stub(c10, "1", [(10.0, 13.45), (10.0, 12.9)], sym=(0, 0))
     t.text(17.0, 8.3, id, 1.2, 0.2, "center")
-    t.titles.append("GAIN")
+    t.titles.append("Gain")
     t.text(5.9, 11.85, "GALI-84+", 0.8, 0.15, "left")
     t.text(7.6, 13.1, "20 dB", 0.8, 0.15, "center")
     t.result = "20 dB of gain from 50 MHz to 2.5 GHz (datasheet: 21.9 dB at 1 GHz, 1 dB compression at +20 dBm out); 97 mA from 7.8 V"
@@ -176,7 +176,7 @@ def qpl_tile(id, cell):
     t.wire("VS", [(10.7, 6.4), (11.588, 6.4)], width=0.25)
     t.gnd_stub(c10, "1", [(10.0, 13.45), (10.0, 12.9)], sym=(0, 0))
     t.text(11.6, 3.2, id, 1.2, 0.2, "center")
-    t.titles.append("LNA QPL9547")
+    t.titles.append("Preamp")
     t.text(5.6, 11.3, "NF 0.3 dB", 0.8, 0.15, "left")
     t.result = "19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V"
     t.notes = ["Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver",
@@ -303,9 +303,9 @@ def tile_r9():
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (48.1, 0.6), sym=(0, 0))
     t.text(10.5, 2.4, "R9", 1.5, 0.3, "center")
-    t.text(19.2, 4.4, "REF 25 MHz", 0.8, 0.15, "right")
-    t.text(41.0, 18.6, "POWER", 0.8, 0.15, "right")
-    t.text(23.5, 5.0, "BOOST", 0.8, 0.15, "center")
+    t.text(19.2, 4.4, "25 MHz ref.", 0.8, 0.15, "right")
+    t.text(41.0, 18.6, "Power", 0.8, 0.15, "right")
+    t.text(23.5, 5.0, "boost", 0.8, 0.15, "center")
     t.text(23.5, 6.4, "7.8 V", 0.8, 0.15, "center")
     t.result = "+5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
@@ -492,8 +492,8 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
         t.via(MUX, 18.3, 21.0)                                                   # down the back, then the front along the bottom edge
         t.wire(MUX, [(18.3, 10.55), (18.3, 21.0)], width=F, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
-    t.titles.append("SYNTHESIZER")
-    t.info(["MAX2871", "23.5 MHz", "TO 6 GHz", "-4 to +5 dBm"] if outb_slot else      # narrow: X3's REF IN jack leaves 10 mm
+    t.titles.append("Synthesizer")
+    t.info(["MAX2871", "23.5 MHz", "to 6 GHz", "-4 to +5 dBm"] if outb_slot else      # narrow: X3's REF IN jack leaves 10 mm
            ["MAX2871", "23.5 MHz - 6 GHz", "OUT A -4 to +5 dBm", "REF IN 25 MHz CMOS"], near=(26.5, 1.6))
     t.result = ("any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm in steps, 180 degrees apart), locked to the "
                 "25 MHz on REF IN; the red LED says locked")
@@ -672,7 +672,7 @@ def trf_tile(id, cells):
     t.gnd_stub(co, "1", (27.6, 15.5), sym=(0, 0))
     t.text(35.2, 2.6, id, 1.2, 0.2, "center")
     t.text(35.2, 4.3, "TRF3722", 0.8, 0.15, "center")
-    t.text(35.2, 5.65, "I/Q MODULATOR", 0.8, 0.15, "center")
+    t.text(35.2, 5.65, "I/Q modulator", 0.8, 0.15, "center")
     t.text(35.2, 7.0, "0.4-4.2 GHz", 0.8, 0.15, "center")
     t.result = "I + jQ from two DACs on 0.4-4.2 GHz, about -3 dBm, image-free (-42 dBc untrimmed)"
     t.notes = ["TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from R10's REF IN.  Each DAC:",
@@ -756,9 +756,9 @@ def mixer_tile(id, cells, name):
     t.wire("V33", [(l4, "2"), (12.75, 13.6), (13.3, 13.6)], width=F)
     t.wire("V33", [(30.55, 12.6), (14.0, 12.6), (13.3, 13.3), (13.3, 13.6)], width=0.2, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
-    t.titles.append(name.upper() + " ADL5350")
+    t.titles.append(T.label_case(name) + " ADL5350")
     t.info(["RF 0.4-2.5 GHz", "RF, IF < +10 dBm"], near=(1.2, 14.8))
-    t.info(["LO 0 to +6 dBm", "IF DC-200 MHz", "LOSS 7-9 dB"], near=(29.5, 1.6))
+    t.info(["LO 0 to +6 dBm", "IF DC-200 MHz", "loss 7-9 dB"], near=(29.5, 1.6))
     t.result = "RF x LO to IF (or IF x LO to RF) with 7-9 dB of loss from 400 MHz to 2.5 GHz and an IF of 0.1-30 MHz; +4 dBm of LO is enough"
     t.notes = ["ADL5350: a GaAs FET switch mixer with its own LO buffer; the RF and IF pins are one node, split by a crossover",
                "(series 15 pF + shunt 47 nH toward RF, series 47 nH + shunt 15 pF toward IF, corner 200 MHz) in place of the",
@@ -829,9 +829,9 @@ def tile_r1():
     t.gnd_stub(u, "5", (15.25, 0.95), sym=(0, 0))
     t.gnd_stub(u, "4", (17.79, 0.95), sym=(0, 0))
     t.text(1.2, 10.6, "R1", 1.0, 0.18, "left")
-    t.titles.append("DIODE MIXER")
+    t.titles.append("Diode mixer")
     t.info(["ADEX-10L+", "10-1000 MHz", "LO +4 dBm"], near=(30.0, 2.0))
-    t.info(["RF < -5 dBm", "IF DC-800 MHz", "LOSS 7 dB"], near=(1.2, 12.6))
+    t.info(["RF < -5 dBm", "IF DC-800 MHz", "loss 7 dB"], near=(1.2, 12.6))
     # what is inside: LO balun, the ring, RF balun (its centre tap the IF)
     ox, oy = 28.6, 10.2
     _coil(t, ox, oy + 1.5, 4, True)                          # LO primary

@@ -91,7 +91,7 @@ def tile_p4():
     tp = t.loop("IN", 6.6, 14.2, 0, "IN", label_at="hide")
     t.wire("IN", [(4.75, LY), (4.75, 14.2), (tp, "1")])
     t.text(2.3, 12.0, t.id, 1.5, 0.3, "center")
-    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 17.2, T.label_case(t.name), 0.8, 0.15, "left")
     t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
     # the responses for the four switch states
     f = P.logspace(1e5, 1e7, 1200)
@@ -185,8 +185,8 @@ def tile_p8():
     t.wire("OUT", [(15.75, 9.8), (b, "1")])
     t.text(17.4, 2.0, t.id, 1.5, 0.3, "center")
     t.text(17.4, 3.75, t.subtitle, 0.8, 0.15, "center")
-    t.text(1.2, 17.4, "QUARTZ", 0.8, 0.15, "left")
-    t.text(1.2, 18.7, "CRYSTAL", 0.8, 0.15, "left")
+    t.text(1.2, 17.2, "Quartz", 0.8, 0.15, "left")
+    t.text(1.2, 18.7, "crystal", 0.8, 0.15, "left")
     import numpy as np
     fx = np.linspace(3.994e6, 4.006e6, 6001)
     g = P.db(P.response([("series", P.crystal(4.0e6, 15e-15, 50000, 4e-12))], fx))
@@ -216,7 +216,7 @@ def tile_p9():
     b = t.loop("OUT", 15.25, 4.6, 90, "OUT", label_at="hide")
     t.wire("OUT", [(15.25, 8.23), (b, "1")])
     t.text(11.5, 2.2, t.id, 1.5, 0.3, "center")
-    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 17.2, T.label_case(t.name), 0.8, 0.15, "left")
     t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
     import numpy as np
     fx = np.linspace(4.0e5, 5.2e5, 3001)
@@ -237,7 +237,7 @@ def tile_p10():
     t = Tile("P10", "clipper", [(3, 3)], subtitle="1N4148 ±0.6 V", sections=["Harmonics: a diode clipper"])
     ladder(t, [("series", "R0805", 1000)], hiz_out=True, xs=[8.0], out_slot="BR", legend=False)
     t.text(10.7, 2.1, t.id, 1.2, 0.24, "center")
-    t.text(1.2, 17.4, t.name.upper(), 0.8, 0.15, "left")
+    t.text(1.2, 17.2, T.label_case(t.name), 0.8, 0.15, "left")
     t.text(1.2, 18.7, t.subtitle, 0.8, 0.15, "left")
     LY = LINE_Y
     d1 = t.add("D", "D1N4148", "1N4148W", 12.0, 8.4, 270, {"1": "GND", "2": "OUT"}, label=None)      # rot 270: pad 1 (K) up, to ground
@@ -307,9 +307,9 @@ def tile_p11():
     t.wire("IN", [(4.75, yA), (tp, "1")])
     tx = 57.0
     t.text(tx, 2.2, t.id, 1.5, 0.3, "center")
-    t.text(tx, 4.0, "DELAY LINE", 0.9, 0.17, "center")
-    t.text(tx, 5.6, "AN ECHO", 0.8, 0.15, "center")
-    t.text(tx, 6.95, "EVERY 100 ns", 0.8, 0.15, "center")
+    t.text(tx, 4.0, "Delay line", 0.9, 0.17, "center")
+    t.text(tx, 5.6, "an echo", 0.8, 0.15, "center")
+    t.text(tx, 6.95, "every 100 ns", 0.8, 0.15, "center")
     t.text(30.5, 17.35, "400 ns, 50 ohm: 20 x 1uH + 390pF", 0.8, 0.15, "center")
     t.text(30.5, 18.7, "20 ns a section, taps via 470 ohm", 0.8, 0.15, "center")
     import numpy as np
@@ -406,8 +406,8 @@ def tile_p13():
     for x, s in ((5.5, "GND"), (10.5, "TAP"), (15.5, "HOT"), (25.5, "GND"), (30.5, "HOT")):
         t.text(x, 20.8, s, 0.8, 0.15, "center")                    # in the margin below, where the wires come in
     t.text(11.5, T.ID_Y, t.id, 1.5, 0.3, "center")
-    t.titles.append("AM LOOPSTICK")
-    t.info(["VAR C", "OPTIONAL"], near=(35.0, 15.8))
+    t.titles.append("AM loopstick")
+    t.info(["VAR C", "optional"], near=(35.0, 15.8))
     t.info(["0.5-1.7 MHz"], near=(41.0, 18.6), justify="right")
     import numpy as np
     L = 330e-6

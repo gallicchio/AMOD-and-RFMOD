@@ -118,7 +118,7 @@ def tile_a1():
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (26.6, 0.6), sym=(0, 0))
     t.text(17.4, 1.9, "A1", 1.5, 0.3, "center")
-    t.text(18.7, 18.6, "POWER", 0.9, 0.17, "right")
+    t.text(18.7, 18.6, "Power", 0.9, 0.17, "right")
     t.result = "+5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF.",
                "The LM2664 charge pump makes -5 V for the op-amp tiles (40 mA: four tiles at 10 mA); it is not switched per tile, an op",
@@ -192,7 +192,7 @@ def opa_tile(t, rg_key, rg_label, chip="OPA810", rf_key="R0805 10k", jack_in=Tru
     if jack_in:
         t.legend()
     else:
-        t.text(t.w - 1.1, 18.2, (t.name + ((" " + t.subtitle) if t.subtitle else "")).upper(), 0.8, 0.15, "right")
+        t.text(t.w - 1.1, 18.2, T.label_case(t.name + ((" " + t.subtitle) if t.subtitle else "")), 0.8, 0.15, "right")
     return u
 
 
@@ -270,7 +270,7 @@ def opa_tile_br(t, rg_key, rg_label, chip="OPA810", rf_key="R0603 10k", jack_in=
     t.gnd_stub(cp, "1", (X(6.4), 13.6), sym=(0, 0))
     if legend:
         t.text(X(9.6), 2.0, t.id, 1.2, 0.24, "center")
-        for k, line in enumerate(getattr(t, "title_lines", None) or [(t.name + ((" " + t.subtitle) if t.subtitle else "")).upper(), chip]):
+        for k, line in enumerate(getattr(t, "title_lines", None) or [T.label_case(t.name + ((" " + t.subtitle) if t.subtitle else "")), chip]):
             t.text(X(19.0), 1.65 + 1.35 * k, line, 0.8, 0.15, "right")
     return u
 
@@ -349,8 +349,8 @@ def tile_a5():
     t.text(4.5, 7.28, "G", 0.8, 0.15, "left")
     t.text(4.4, 3.7, "IF", 0.8, 0.15, "left")
     t.text(7.6, 1.8, "A5", 1.2, 0.24, "center")
-    t.text(19.0, 1.65, "DOPPLER 10.5G", 0.8, 0.15, "right")
-    t.text(19.0, 3.0, "HB100 MODULE", 0.8, 0.15, "right")
+    t.text(19.0, 1.65, "HB100 module", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "Doppler 10.5G", 0.8, 0.15, "right")
 
     t.result = "the Doppler beat of a target moving toward or away: 70 Hz per m/s (19.4 Hz per km/h), tens of mV after x101"
     t.notes = ["HB100: a 10.525 GHz oscillator and mixer on one board; its IF is the beat between what it sends and what comes",
@@ -447,7 +447,7 @@ def tile_a8():
     t.wire("VS", [(10.2, 11.0), (10.2, 3.6)], layer="B.Cu", silk=False)
     t.wire("VS", [(10.2, 3.6), (10.2, 2.75), (ra, "2")])
     t.text(7.8, 10.9, "A8", 1.5, 0.3, "center")
-    t.text(19.0, 4.5, "HEAT", 0.8, 0.15, "right")
+    t.text(19.0, 4.5, "Heat", 0.8, 0.15, "right")
     t.text(19.0, 5.85, "0.8 W", 0.8, 0.15, "right")
     t.result = "0.83 W into the board when Pmod IO6 is high (the FET's drain), 10 mV/K + 500 mV on OUT"
     t.notes = ["Two 15 ohm in series: 30 ohm, 170 mA, 0.83 W from the switched 5 V when Pmod IO6 is high (10 k keeps it off otherwise).",
@@ -505,7 +505,7 @@ def tile_a11():
     t.wire("VS", [HDR_VS, (8.54, 18.5), (31.7, 18.5), (31.7, 18.1)], silk=False)                       # to the helper's back column
     u = opa_tile_br(t, "R0603 100R", "100R", jack_in=False, dx=21.5, neg="top", legend=False,
                     in_from=[(cin, "2"), (28.0, 9.3), (28.0, 4.75)])                                    # under the socket's right end
-    t.text(21.6, 16.5, "ULTRASOUND", 0.8, 0.15, "left")
+    t.text(21.6, 16.5, "Ultrasound", 0.8, 0.15, "left")
     t.info(["TX"], near=(14.3, 2.0), reach=2.5)
     t.info(["RX"], near=(33.0, 2.0), reach=2.5)
     t.info(["40 kHz"], near=(15.5, 7.6), reach=4.0)
@@ -661,8 +661,8 @@ def tile_a9():
     t.wire("VS", [(32.4, 18.95), (32.4, 8.4)], layer="B.Cu", silk=False)          # left of the IF jack's legs
     t.wire("VS", [(32.4, 8.4), (rb1, "1")])
     t.text(12.75, 2.4, "A9", 1.5, 0.3, "center")
-    t.text(t.w - 1.1, 2.2, "GILBERT MIXER MC1496", 0.8, 0.15, "right")
-    t.info(["RF, LO < 0.3 V PEAK"], near=(22.0, 4.0))
+    t.text(t.w - 1.1, 2.2, "Gilbert mixer MC1496", 0.8, 0.15, "right")
+    t.info(["RF, LO < 0.3 V peak"], near=(22.0, 4.0))
     t.result = "IF OUT = RF x LO (sum and difference frequencies, about 0.3 V peak per volt of RF at 0.3 V of LO); a balanced mixer, the carrier mostly cancels"
     t.notes = ["Gilbert cell on +-5 V: signal pair at ground (51 ohm), carrier pair at 2.5 V (51 ohm to the 10 k / 10 k bias), 1 mA",
                "per side (3.9 k), 1.5 k loads.  Keep RF under 0.3 V and LO near 0.3 V peak (above that the carrier pair just switches,",
@@ -725,8 +725,8 @@ def tile_a10():
     t.wire("-5V", [(32.0, 6.0), (31.0, 6.0)])
     t.wire("-5V", [(31.0, 6.0), (31.0, 20.5)], layer="B.Cu", silk=False)
     t.text(10.4, 2.0, "A10", 1.2, 0.24, "center")
-    t.text(19.0, 1.65, "IMPEDANCE", 0.8, 0.15, "right")
-    t.text(19.0, 3.0, "AND I-V", 0.8, 0.15, "right")
+    t.text(19.0, 1.65, "Impedance", 0.8, 0.15, "right")
+    t.text(19.0, 3.0, "and I-V", 0.8, 0.15, "right")
     t.result = "S OUT and X OUT (each half the node's voltage into 50 ohm): Z = R X / (S - X); +-4 V and up to 40 mA for an I-V curve"
     t.notes = ["DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for",
                "high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against",

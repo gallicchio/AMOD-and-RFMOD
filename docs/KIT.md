@@ -1,7 +1,7 @@
 # The student kit: what the boards need that is on none of them
 
 Everything machine-placed is on the boards.  This is what one bench needs beside the ECP5-2ADC-2DAC board and one
-each of AMOD-P, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (PhMOD and
+each of AMOD-P, AMOD-P2, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (PhMOD and
 RF-MOD-2) add is in its own section at the end.  Every product was chosen in stock and
 shipping to a US address on **2026-10-25**.  "Page" means the price and stock were read on the vendor's product page
 that day.  "Snippet" means the vendor's page would not load for a script (Digi-Key and Mouser block them) and the
@@ -111,6 +111,19 @@ These are for the RH-5019 test loops, straight into a scope input.  A 10x probe 
 Pomona's 3788 is BNC **female** and needs a BNC cable.  The long-cable experiments' coax is in the tutorial's
 Appendix D, "Long cables".
 
+## AMOD-P2 (the second passive board)
+
+Nothing new to buy: its tiles use what is above and below.
+
+- **P22 and P23** run on the host's 3.3 V through AMOD-P2's own Pmod plug.  Plug the board into the host's Pmod; when
+  another board holds it, the 2 x 6 cable above with a 2 x 6 male-male changer does the job (the Icepi adapter's
+  arrangement).
+- **P21's DC** comes from a bench supply's clip leads on its DC and GND loops: PhMOD's adjustable supply below, with
+  its 2.1 mm jack-to-terminals adapter, does it.
+- **P24's dipole:** the SMA-to-BNC adapter and the BNC-to-minigrabber lead above put the dipole's two halves on OUT's pin
+  and shell.
+- **P14** is the calibration set for board-level work with a NanoVNA or RF-MOD-2's reflectometer.
+
 ## For the second-level boards (PhMOD and RF-MOD-2)
 
 Read on 2026-10-25 as above.  Thorlabs' prices and US-warehouse stock came from its store's own product data;
@@ -189,9 +202,9 @@ Remington's from its store's options service.  Several items are per lab rather 
   cheaper ZX60-V62+ ($92.90) gives +17.9 dBm at 3 GHz.  It runs from the same 12 V supply as Y4.  X9's termination
   then takes 0.25 W: the kit's 1 W ANNE-50+ copes.
 - **The DC block** starts at 0.1 MHz: keep it out of the HF and VLF paths.  Put one between X8 and a passive antenna.
-- **X5's calibration** wants an open, a short and a load on its OUT jack: the load is the kit's ANNE-50+ and the open a
-  cable's bare end; only the short is missing.  NanoVNA SMA calibration sets (open, short, load; about $15) are sold on
-  the marketplaces, but no listing was verified.  The same two terminators load whichever of R10's (or X3's) OUT A+ and
+- **X5's calibration** wants an open, a short and a load: AMOD-P2's P14 has all three and a thru (Prompt 17), and a
+  calibration through a cable to it puts the reference plane at the board's surface, where every tile's pads are.  The
+  same two terminators load whichever of R10's (or X3's) OUT A+ and
   OUT A- and of X5's FWD and REFL is unused.
 
 **Rough totals:** about $860 a bench for the per-bench items above, plus the per-lab DPPH, rubidium cell and green

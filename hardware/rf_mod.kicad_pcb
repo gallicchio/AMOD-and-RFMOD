@@ -38457,7 +38457,7 @@
 	)
 	(gr_line
 		(start 13.715714 29.8)
-		(end 17.011429 29.8)
+		(end 21.082856 29.8)
 		(stroke
 			(width 0.6)
 			(type default)
@@ -38477,7 +38477,7 @@
 	)
 	(gr_line
 		(start 13.865715 51.3)
-		(end 16.618572 51.3)
+		(end 16.961429 51.3)
 		(stroke
 			(width 0.6)
 			(type default)
@@ -39204,7 +39204,7 @@
 	)
 	(gr_line
 		(start 31.301429 72.8)
-		(end 38.768571 72.8)
+		(end 39.968571 72.8)
 		(stroke
 			(width 0.6)
 			(type default)
@@ -39304,7 +39304,7 @@
 	)
 	(gr_line
 		(start 35.215714 29.8)
-		(end 44.597143 29.8)
+		(end 44.682857 29.8)
 		(stroke
 			(width 0.6)
 			(type default)
@@ -39324,7 +39324,7 @@
 	)
 	(gr_line
 		(start 35.365715 8.05)
-		(end 38.940001 8.05)
+		(end 39.54 8.05)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -40382,7 +40382,7 @@
 	)
 	(gr_line
 		(start 56.865715 51.3)
-		(end 59.404285 51.3)
+		(end 59.747142 51.3)
 		(stroke
 			(width 0.6)
 			(type default)
@@ -43956,10 +43956,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LOSS 7 dB"
+	(gr_text "loss 7 dB"
 		(at 8.95 23.15 0)
 		(layer "F.SilkS")
-		(uuid "05fc055a-1440-59ad-9dba-560063b1eab6")
+		(uuid "0c43c63f-4aa4-536e-8b84-57b8cf6f24bb")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44028,10 +44028,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LOSS 7-9 dB"
+	(gr_text "loss 7-9 dB"
 		(at 19.849999 57.949999 0)
 		(layer "F.SilkS")
-		(uuid "5b5847f3-75bb-571a-b370-4316e3748a7f")
+		(uuid "1b756a8d-1159-55f4-bcda-fb1843ef0fbf")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44041,9 +44041,9 @@
 		)
 	)
 	(gr_text "MAX2871"
-		(at 34.25 74.85 0)
+		(at 34.25 74.25 0)
 		(layer "F.SilkS")
-		(uuid "502c7425-3234-5a54-bddf-409da351dfb4")
+		(uuid "6e15d865-4bca-505a-b344-7ec1890b5fb3")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44053,9 +44053,9 @@
 		)
 	)
 	(gr_text "23.5 MHz"
-		(at 34.25 76.25 0)
+		(at 34.25 75.65 0)
 		(layer "F.SilkS")
-		(uuid "53ea4c1d-f426-5f29-97fd-858b0416eae4")
+		(uuid "956b1ef5-af7e-5254-ace9-6318f1f57079")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44064,10 +44064,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "TO 6 GHz"
-		(at 34.25 77.649999 0)
+	(gr_text "to 6 GHz"
+		(at 34.25 77.05 0)
 		(layer "F.SilkS")
-		(uuid "415ce018-0e5c-56d3-aec2-979065c274b3")
+		(uuid "c2f86923-84a8-5f0c-865a-44e65106e8d1")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44077,9 +44077,9 @@
 		)
 	)
 	(gr_text "-4 to +5 dBm"
-		(at 34.25 79.05 0)
+		(at 34.25 78.45 0)
 		(layer "F.SilkS")
-		(uuid "f00a9817-6b1a-5001-af0b-4f1492146137")
+		(uuid "bc9eeab7-765d-5968-b38c-e82f08dcedcf")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44160,10 +44160,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LOSS 1.7 dB"
+	(gr_text "loss 1.7 dB"
 		(at 51.95 24.95 0)
 		(layer "F.SilkS")
-		(uuid "d1c7ba13-f52b-5d48-982e-fcb0b143ee0c")
+		(uuid "3fa4bc74-cc96-5655-8714-714dd13574b1")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44232,10 +44232,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LOSS 7-9 dB"
+	(gr_text "loss 7-9 dB"
 		(at 62.849999 57.949999 0)
 		(layer "F.SilkS")
-		(uuid "3897a765-5061-53d8-8604-5d6801d4dbfd")
+		(uuid "871f29ef-3fac-5040-ba05-64210d11bfb2")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44256,10 +44256,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LOSS 1.1 dB"
+	(gr_text "loss 1.1 dB"
 		(at 73.45 24.95 0)
 		(layer "F.SilkS")
-		(uuid "5c7b60bf-ca0e-5e89-9d58-79c14e21c761")
+		(uuid "cf873aca-b5de-55b2-9c6a-422797b8e7f8")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44324,10 +44324,10 @@
 			)
 		)
 	)
-	(gr_text "BAND-PASS"
+	(gr_text "band-pass"
 		(at 63.35 13.35 0)
 		(layer "F.SilkS")
-		(uuid "f1f3641f-878f-587e-a4ba-bcf3cceb528e")
+		(uuid "d350b692-f30f-5436-8697-19edce6fb3ee")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44335,10 +44335,10 @@
 			)
 		)
 	)
-	(gr_text "BOOST"
+	(gr_text "boost"
 		(at 74.25 34.25 0)
 		(layer "F.SilkS")
-		(uuid "62228d38-4c2d-547b-ba0e-d66a8cc91e0f")
+		(uuid "8b9747b0-a222-5657-bed3-b5c9ba9e5da9")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44368,10 +44368,10 @@
 			)
 		)
 	)
-	(gr_text "BAND-PASS"
+	(gr_text "band-pass"
 		(at 84.85 13.35 0)
 		(layer "F.SilkS")
-		(uuid "ded4daca-8809-5cf6-a4cb-66fc4d676422")
+		(uuid "487ca45f-808c-5dff-b283-3eef10e55ddf")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44390,10 +44390,10 @@
 			)
 		)
 	)
-	(gr_text "I/Q MODULATOR"
+	(gr_text "I/Q modulator"
 		(at 85.95 77.9 0)
 		(layer "F.SilkS")
-		(uuid "a6d78adc-580a-542b-8e96-d83645000709")
+		(uuid "91085f7e-4880-5b40-ad47-8737dee610de")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44424,10 +44424,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "REF 25 MHz"
+	(gr_text "25 MHz ref."
 		(at 69.95 33.65 0)
 		(layer "F.SilkS")
-		(uuid "2f48fe71-87ab-5426-a9ac-a8aacd0b8d2f")
+		(uuid "9660dcd3-bfc4-5ab5-ae80-0ff5abbc3652")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44436,10 +44436,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "POWER"
+	(gr_text "Power"
 		(at 91.75 47.85 0)
 		(layer "F.SilkS")
-		(uuid "e5a8f72a-e000-51ae-888b-7b6cfa8aeecc")
+		(uuid "8fb7074c-0ae9-5c8f-82ea-108cfffb93c7")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -44503,10 +44503,10 @@
 			)
 		)
 	)
-	(gr_text "TX MIXER ADL5350"
-		(at 16.968572 51.3 0)
+	(gr_text "TX mixer ADL5350"
+		(at 17.311429 51.3 0)
 		(layer "F.SilkS")
-		(uuid "909e58a5-e574-5d3a-b009-00c4c4fbe35a")
+		(uuid "a6ac333f-0b41-574b-b4a3-0645dbf6a73a")
 		(effects
 			(font
 				(size 0.9 0.9)
@@ -44515,10 +44515,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "LNA QPL9547"
-		(at 17.361429 29.8 0)
+	(gr_text "Preamp"
+		(at 21.432856 29.8 0)
 		(layer "F.SilkS")
-		(uuid "5fbad994-75de-5df9-80a5-6c7d231f42b1")
+		(uuid "ac01afb3-673f-59b0-8d2b-3be095754f9b")
 		(effects
 			(font
 				(size 0.9 0.9)
@@ -44527,10 +44527,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "SYNTHESIZER"
-		(at 39.118571 72.8 0)
+	(gr_text "Diode mixer"
+		(at 39.89 8.05 0)
 		(layer "F.SilkS")
-		(uuid "97882a05-4fbf-54ff-b185-c0f85e2bf1ab")
+		(uuid "53ad3df2-8e67-5a23-84e1-72d676b160f6")
 		(effects
 			(font
 				(size 0.9 0.9)
@@ -44539,10 +44539,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "DIODE MIXER"
-		(at 39.290001 8.05 0)
+	(gr_text "Synthesizer"
+		(at 40.318571 72.8 0)
 		(layer "F.SilkS")
-		(uuid "83ea35ba-0674-548f-ae1c-20a07b0abddd")
+		(uuid "58c109e4-5d08-59c2-a7a5-70c0b0908925")
 		(effects
 			(font
 				(size 0.9 0.9)
@@ -44551,10 +44551,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "GAIN"
-		(at 44.947143 29.45 0)
+	(gr_text "Gain"
+		(at 45.032857 29.45 0)
 		(layer "F.SilkS")
-		(uuid "8e835a10-23ca-5828-bb5e-99972d721cfe")
+		(uuid "2f2d93f4-1c7a-5257-b35c-bd0f8faf7ddc")
 		(effects
 			(font
 				(size 0.9 0.9)
@@ -44563,10 +44563,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "RX MIXER ADL5350"
-		(at 59.754285 51.3 0)
+	(gr_text "RX mixer ADL5350"
+		(at 60.097142 51.3 0)
 		(layer "F.SilkS")
-		(uuid "682c30d0-e997-5d7e-b54e-07acc428c7e5")
+		(uuid "fa5551d8-fe34-5e73-93d6-2ff517a8bce7")
 		(effects
 			(font
 				(size 0.9 0.9)

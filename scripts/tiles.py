@@ -41,6 +41,15 @@ HX = {"0805": 1.45, "0603": 1.25, "0402": 0.8, "1206": 1.9, "1210": 2.05, "2512"
 CRT = {"0805": (1.68, 0.98), "0603": (1.48, 0.73), "0402": (0.91, 0.46), "1206": (2.28, 1.25), "1210": (2.28, 1.58), "2512": (3.60, 1.90)}
 
 
+def label_case(s):
+    """A tile's name as its label on the board: the first letter capitalised and the rest as written ("RC low-pass", "Pi pad",
+    "x10"), so the tiles' labels stand apart from the ports' names, which are upper case (Jason, Prompt 17: "To distinguish
+    whole-tile labels from SMA or port labels, use different cases")."""
+    if s[:1].islower() and not (s[:1] == "x" and s[1:2].isdigit()):
+        return s[:1].upper() + s[1:]
+    return s
+
+
 def text_w(s, size=0.8):
     """About how wide KiCad's DRC box for `s` is (an em a character plus a little; the glyphs themselves are narrower)."""
     return len(s) * size + 0.3
@@ -200,13 +209,13 @@ class Tile:
         self.text(x, ID_Y, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
         # the tutorial's section numbers are not printed: they change as the tutorial grows (Jason, Prompt 14)
         if br:                              # OUT at the bottom-right: the name and the subtitle in two lines at the bottom-left
-            self.text(1.2, 17.4, self.name.upper(), 0.8, 0.15, "left")
+            self.text(1.2, 17.2, label_case(self.name), 0.8, 0.15, "left")
             if self.subtitle:
                 self.text(1.2, 18.7, self.subtitle, 0.8, 0.15, "left")
         elif self.supply:                   # a powered tile: the switch and FET own the bottom-left; a short name at the bottom right
-            self.text(w - 1.1, 18.2, (self.name + ((" " + self.subtitle) if self.subtitle else "")).upper(), 0.8, 0.15, "right")
+            self.text(w - 1.1, 18.2, label_case(self.name + ((" " + self.subtitle) if self.subtitle else "")), 0.8, 0.15, "right")
         else:
-            self.text(1.2, NAME_Y, self.name.upper() + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
+            self.text(1.2, NAME_Y, label_case(self.name) + ((" " + self.subtitle) if self.subtitle else ""), 0.9, 0.17, "left")
 
 
 # ------------------------------------------------------------------------------------------------

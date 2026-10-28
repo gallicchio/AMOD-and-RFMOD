@@ -49683,10 +49683,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "ULTRASOUND"
+	(gr_text "Ultrasound"
 		(at 29.35 88.75 0)
 		(layer "F.SilkS")
-		(uuid "513d5f02-c201-5ec6-b7af-e23656de9573")
+		(uuid "42b7a2bd-122a-5f5b-becb-0ced6e0f51dd")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -49695,10 +49695,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "RF, LO < 0.3 V PEAK"
+	(gr_text "RF, LO < 0.3 V peak"
 		(at 34.75 54.75 0)
 		(layer "F.SilkS")
-		(uuid "a758f651-ae2b-55e2-bc49-fd2735082338")
+		(uuid "dab52e8a-fbdb-5aea-8008-034ae196db7c")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -49868,10 +49868,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "1-BIT ADC"
+	(gr_text "1-bit ADC"
 		(at 26.65 47.45 0)
 		(layer "F.SilkS")
-		(uuid "a06af915-e9c1-5188-a7f2-744518177ef6")
+		(uuid "dea6ac80-52d1-56d7-ae92-4b2060584b22")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -49904,10 +49904,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "GILBERT MIXER MC1496"
+	(gr_text "Gilbert mixer MC1496"
 		(at 48.15 52.95 0)
 		(layer "F.SilkS")
-		(uuid "e645bbf3-d474-5db8-89c6-c988581fc914")
+		(uuid "c3a11424-bc81-58ce-86c3-6a2b242ee4d0")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -49976,10 +49976,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "HEAT"
+	(gr_text "Heat"
 		(at 69.75 33.75 0)
 		(layer "F.SilkS")
-		(uuid "95c9e0ff-0f27-5d5f-ac95-af79786ae897")
+		(uuid "3e3b0e8f-39d7-5eae-bc6d-89b47b93dfaf")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -50000,10 +50000,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "IMPEDANCE"
+	(gr_text "Impedance"
 		(at 69.75 52.4 0)
 		(layer "F.SilkS")
-		(uuid "af660994-4007-5588-82e1-bd06b7badbca")
+		(uuid "7d234fe5-f8d7-5484-80c0-1b135a4069b9")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -50012,10 +50012,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "AND I-V"
+	(gr_text "and I-V"
 		(at 69.75 53.75 0)
 		(layer "F.SilkS")
-		(uuid "9e1b0a6a-a007-531a-b284-d75ae9808d0e")
+		(uuid "f2e0a28b-cb68-5c4c-8097-b2ebe2d30946")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -50024,10 +50024,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "DOPPLER 10.5G"
+	(gr_text "HB100 module"
 		(at 91.25 9.4 0)
 		(layer "F.SilkS")
-		(uuid "2695dbb3-44ad-5ce6-813f-26ce53053676")
+		(uuid "28f88b66-fce7-5a1c-89ef-87419f096ccd")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -50036,10 +50036,10 @@
 			(justify right)
 		)
 	)
-	(gr_text "HB100 MODULE"
+	(gr_text "Doppler 10.5G"
 		(at 91.25 10.75 0)
 		(layer "F.SilkS")
-		(uuid "39349575-ea7c-5d5f-911c-18be6d61b3ee")
+		(uuid "87eb696e-4b52-5fe8-bd52-51e5f96b384f")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -50125,10 +50125,10 @@
 			)
 		)
 	)
-	(gr_text "POWER"
+	(gr_text "Power"
 		(at 90.95 47.85 0)
 		(layer "F.SilkS")
-		(uuid "d68b00da-6d32-5c5f-8ec9-7f2960633a00")
+		(uuid "35e6bac0-dbe8-56b2-9c68-4c2b1057fd57")
 		(effects
 			(font
 				(size 0.9 0.9)

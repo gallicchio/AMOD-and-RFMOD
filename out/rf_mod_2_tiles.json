@@ -37,7 +37,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -49,7 +50,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -256,7 +258,7 @@
     [
      19.0,
      4.3,
-     "NV ODMR LOOP",
+     "NV ODMR loop",
      0.8,
      0.15,
      "right",
@@ -274,7 +276,7 @@
     [
      1.2,
      14.7,
-     "DIAMOND ON",
+     "diamond on",
      0.8,
      0.15,
      "left",
@@ -283,7 +285,7 @@
     [
      1.2,
      16.0,
-     "THE LOOP",
+     "the loop",
      0.8,
      0.15,
      "left",
@@ -292,7 +294,7 @@
     [
      1.2,
      17.3,
-     "50 uT AT",
+     "50 uT at",
      0.8,
      0.15,
      "left",
@@ -359,7 +361,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -371,7 +374,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -1403,7 +1407,7 @@
    ],
    "infos": [],
    "titles": [
-    "POWER METER"
+    "Power meter"
    ],
    "draws": [],
    "pour_below": null,
@@ -1447,7 +1451,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -1459,7 +1464,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -2192,7 +2198,7 @@
    ],
    "infos": [],
    "titles": [
-    "LNA QPL9547"
+    "Preamp"
    ],
    "draws": [],
    "pour_below": null,
@@ -2236,7 +2242,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "ANT"
+     "silk": "ANT",
+     "launch": true
     },
     {
      "slot": "BR",
@@ -2248,7 +2255,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3228,7 +3236,7 @@
     }
    ],
    "titles": [
-    "GNSS PREAMP"
+    "GNSS preamp"
    ],
    "draws": [],
    "pour_below": null,
@@ -3276,7 +3284,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "IN"
+     "silk": "IN",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -3288,7 +3297,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "FWD"
+     "silk": "FWD",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -3300,7 +3310,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "REFL"
+     "silk": "REFL",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -3312,7 +3323,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -3695,7 +3707,7 @@
      "lines": [
       "FWD: IN > OUT",
       "REFL: OUT > IN",
-      "-25 dB EACH"
+      "-25 dB each"
      ],
      "near": [
       30.5,
@@ -3707,9 +3719,9 @@
     },
     {
      "lines": [
-      "DUAL DIRECTIONAL",
+      "dual directional",
       "0.6-3.5 GHz",
-      "DIRECTIVITY 20 dB"
+      "directivity 20 dB"
      ],
      "near": [
       1.2,
@@ -3721,7 +3733,7 @@
     }
    ],
    "titles": [
-    "COUPLER"
+    "Coupler"
    ],
    "draws": [],
    "pour_below": null,
@@ -3765,7 +3777,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT"
+     "silk": "OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -4694,7 +4707,7 @@
    ],
    "infos": [],
    "titles": [
-    "NOISE SOURCE"
+    "Noise source"
    ],
    "draws": [],
    "pour_below": null,
@@ -5473,7 +5486,7 @@
     [
      18.7,
      18.6,
-     "POWER",
+     "Power",
      0.9,
      0.17,
      "right",
@@ -5528,7 +5541,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "I IN"
+     "silk": "I IN",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -5540,7 +5554,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "LO IN"
+     "silk": "LO IN",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -5552,7 +5567,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF OUT"
+     "silk": "RF OUT",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -5564,7 +5580,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "Q IN"
+     "silk": "Q IN",
+     "launch": true
     }
    ],
    "parts": [
@@ -7156,7 +7173,6 @@
    "infos": [
     {
      "lines": [
-      "I/Q MODULATOR",
       "ADL5375 0.4-6 GHz"
      ],
      "near": [
@@ -7168,7 +7184,9 @@
      "reach": 30.0
     }
    ],
-   "titles": [],
+   "titles": [
+    "I/Q modulator"
+   ],
    "draws": [],
    "pour_below": null,
    "slots": [],
@@ -7215,7 +7233,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "I OUT"
+     "silk": "I OUT",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -7227,7 +7246,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "LO IN"
+     "silk": "LO IN",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -7239,7 +7259,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "RF IN"
+     "silk": "RF IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -7251,7 +7272,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "Q OUT"
+     "silk": "Q OUT",
+     "launch": true
     }
    ],
    "parts": [
@@ -9272,7 +9294,7 @@
    "infos": [
     {
      "lines": [
-      "I/Q DEMODULATOR"
+      "ADL5380 0.4-6 GHz"
      ],
      "near": [
       1.2,
@@ -9284,7 +9306,7 @@
     }
    ],
    "titles": [
-    "ADL5380"
+    "I/Q demodulator"
    ],
    "draws": [],
    "pour_below": null,
@@ -9334,7 +9356,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "OUT A+"
+     "silk": "OUT A+",
+     "launch": true
     },
     {
      "slot": "TL1",
@@ -9346,7 +9369,8 @@
      "x": 26.25,
      "y": 4.75,
      "label_at": null,
-     "silk": "REF IN"
+     "silk": "REF IN",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -9358,7 +9382,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "OUT A-"
+     "silk": "OUT A-",
+     "launch": true
     }
    ],
    "parts": [
@@ -11527,7 +11552,7 @@
      "lines": [
       "MAX2871",
       "23.5 MHz",
-      "TO 6 GHz",
+      "to 6 GHz",
       "-4 to +5 dBm"
      ],
      "near": [
@@ -11540,7 +11565,7 @@
     }
    ],
    "titles": [
-    "SYNTHESIZER"
+    "Synthesizer"
    ],
    "draws": [],
    "pour_below": [
@@ -11592,7 +11617,8 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "RFC"
+     "silk": "RFC",
+     "launch": true
     },
     {
      "slot": "BR0",
@@ -11604,7 +11630,8 @@
      "x": 15.25,
      "y": 15.25,
      "label_at": null,
-     "silk": "RF2"
+     "silk": "RF2",
+     "launch": true
     },
     {
      "slot": "BR1",
@@ -11616,7 +11643,8 @@
      "x": 36.75,
      "y": 15.25,
      "label_at": null,
-     "silk": "RF1"
+     "silk": "RF1",
+     "launch": true
     }
    ],
    "parts": [
@@ -12069,7 +12097,7 @@
     [
      1.2,
      14.6,
-     "RF SWITCH, SPDT",
+     "RF switch, SPDT",
      0.8,
      0.15,
      "left",
@@ -12098,7 +12126,7 @@
     {
      "lines": [
       "SKY13370 0.5-6 GHz",
-      "LOSS 0.7 dB, < +30 dBm"
+      "loss 0.7 dB, < +30 dBm"
      ],
      "near": [
       1.2,
