@@ -17,21 +17,29 @@ URL = "github.com/gallicchio/AMOD-and-RFMOD"
 AUTHORS = "Jason Gallicchio and Claude"
 LIB = "amod"
 
+# One letter per board, and a tile is its board's letter and a number (Prompt 19, Jason: "If we can have a nice, well
+# justified single-letter designator for each board, it would make everything much more clear").  The letter is the
+# initial of what the board is about; a letter never moves to another board and a retired name is never reused (P14-P25,
+# X and Y were AMOD-N's, IQ-MOD's and PhMOD's), so a stale reference points at nothing rather than at the wrong tile.
+# The order is every list's: the analog family (AMOD-x) first, then the RF and physics boards.
 BOARDS = {
-    "amod_p": dict(stem="amod_p", name="AMOD-P", title="AMOD-P: passive building blocks for the converters", layers=2,
+    "amod_p": dict(stem="amod_p", name="AMOD-P", letter="P", why="passive", title="AMOD-P: passive building blocks for the converters", layers=2,
                    subtitle="pads, RC and LC filters, resonators, a crystal, a clipper, a tapped delay line, LEDs, an AM loopstick"),
-    "amod_p2": dict(stem="amod_p2", name="AMOD-P2", title="AMOD-P2: passive RF and analog blocks", layers=4,
-                    subtitle="calibration standards, two splitters, a detector, a bias-T, a stub, a low-pass, transformers, a step attenuator, an oscillator",
-                    fine=True, rf=True, what="the second passive board", power_nets=["GND", "/PMOD_VCC"]),
-    "amod_a": dict(stem="amod_a", name="AMOD-A", title="AMOD-A: active building blocks on USB-C power", layers=4,
+    "amod_n": dict(stem="amod_n", name="AMOD-N", letter="N", why="networks: the pieces of a network analyzer and the networks it measures",
+                   title="AMOD-N: passive RF and analog blocks", layers=4,
+                   subtitle="calibration standards, two splitters, a detector, a bias-T, a stub, a low-pass, transformers, a step attenuator, an oscillator",
+                   fine=True, rf=True, what="the second passive board", power_nets=["GND", "/PMOD_VCC"]),
+    "amod_a": dict(stem="amod_a", name="AMOD-A", letter="A", why="active", title="AMOD-A: active building blocks on USB-C power", layers=4,
                    subtitle="gain blocks, an HF LNA, a 10.5 GHz Doppler radar, a one-pin ADC, a 74HC4046 PLL, heat, a mixer, impedance, ultrasound, audio"),
-    "rf_mod": dict(stem="rf_mod", name="RF-MOD", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
+    "rf_mod": dict(stem="rf_mod", name="RF-MOD", letter="R", why="radio", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
                    subtitle="a quadrature transmitter, a synthesizer, three mixers (one a diode ring), an LNA and a gain block, two filters, power and a 25 MHz reference",
                    fine=True, rf=True, what="the RF board", power_nets=["GND", "+5V", "+3V3", "+8V"]),
-    "phmod": dict(stem="phmod", name="PhMOD", title="PhMOD: magnetic resonance, the ionosphere and light", layers=4,
-                   subtitle="a pulse amplifier and duplexer, an HF receiver, VLF loops, a bridge, coupled resonators, a coil driver, noise, a laser driver",
-                   fine=True, rf=False, what="the physics board", power_nets=["GND", "+5V", "-5V", "+15V", "-15V", "+3V3"]),
-    "rf_mod_2": dict(stem="rf_mod_2", name="RF-MOD-2", title="RF-MOD-2: coherent I/Q and microwave physics", layers=4,
+    "phmod": dict(stem="phmod", name="PhMOD", letter="H", why="the h of Ph (P is the passive board's) and HF, where it works",
+                  title="PhMOD: magnetic resonance, the ionosphere and light", layers=4,
+                  subtitle="a pulse amplifier and duplexer, an HF receiver, VLF loops, a bridge, coupled resonators, a coil driver, noise, a laser driver",
+                  fine=True, rf=False, what="the physics board", power_nets=["GND", "+5V", "-5V", "+15V", "-15V", "+3V3"]),
+    "iq_mod": dict(stem="iq_mod", name="IQ-MOD", letter="Q", why="quadrature: its I/Q modulator and demodulator share one LO",
+                   title="IQ-MOD: coherent I/Q and microwave physics", layers=4,
                    subtitle="an I/Q modulator and demodulator on one synthesizer, a directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop",
                    fine=True, rf=True, what="the second-level RF board", power_nets=["GND", "+5V", "-5V"]),
 }
@@ -58,7 +66,7 @@ PARTS = {
                  desc="6-way SMD DIP switch, 1.27 mm half pitch"),
     "DIP8": dict(value="SW_DIP_x08", mpn="DSHP08TSGET", lcsc="C40738", jlc_type="extended", process="SMT", stock=4520, price=0.7517,
                  footprint="amod:SW_DIP_SPSTx08_Slide_1.27mm_DSHP08", symbol="Switch:SW_DIP_x08", match=["DSHP08TSGET"],
-                 desc="8-way SMD DIP switch, 1.27 mm half pitch: P22's manual attenuation and its SPI switch"),
+                 desc="8-way SMD DIP switch, 1.27 mm half pitch: n8's manual attenuation and its SPI switch"),
     "TERM2": dict(value="Screw_Terminal_01x02", mpn="KF301-5.0-2P", lcsc="C474881", jlc_type="extended", process="THT", stock=84342, price=0.1017,
                   footprint="amod:TerminalBlock_KF301_1x02_P5.00mm", symbol="Connector:Screw_Terminal_01x02", match=["KF301-5.0-2P"],
                   desc="2-way 5.0 mm screw terminal, blue"),
@@ -141,7 +149,7 @@ PARTS = {
                      footprint="amod:LED_SideView_3.2x1.0mm_E6C1204", symbol="Device:LED", match=["E6C1204"], desc="side-view red LED at the board's edge: the light source"),
     "MIC": dict(value="electret", mpn="GMI6050-2C38DB", lcsc="C233921", jlc_type="extended", process="SMT", stock=985, price=0.3265,
                 footprint="amod:TerminalBlock_KF301_1x02_P5.00mm", symbol="Device:Microphone_Condenser", match=["GMI6050"], in_bom=False,
-                desc="(not fitted) the electret is wired into A12's MIC terminal; JLCPCB has no land pattern for the SMD part"),
+                desc="(not fitted) the electret is wired into a12's MIC terminal; JLCPCB has no land pattern for the SMD part"),
     "JACK35": dict(value="3.5 mm", mpn="PJ-320A", lcsc="C2884926", jlc_type="extended", process="SMT", stock=9322, price=0.1402,
                    footprint="amod:Jack_3.5mm_PJ-320A", symbol="amod:JACK35", match=["PJ-320A"], desc="3.5 mm stereo jack: the one-bit DAC's audio out"),
     "NTC10K": dict(value="10k NTC", mpn="HNTC0805-103F3380FB", lcsc="C49247661", jlc_type="extended", process="SMT", stock=4464, price=0.0531,
@@ -150,7 +158,7 @@ PARTS = {
                       footprint="Resistor_SMD:R_2512_6332Metric", symbol="Device:R_US", match=["15Ω", "2512"], desc="15 ohm 1 W: the heater (two in series, 0.83 W at 5 V)"),
     "HDR2": dict(value="1x2", mpn="PZ254-1-02-Z-8.5", lcsc="C2894925", jlc_type="extended", process="THT", stock=118004, price=0.0266,
                  footprint="Connector_PinSocket_2.54mm:PinSocket_1x02_P2.54mm_Vertical", symbol="Connector_Generic:Conn_01x02", match=["1x2P", "2.54mm"],
-                 desc="1 x 2 socket: a resistor of your own plugs in (A5's noise source)"),
+                 desc="1 x 2 socket: a resistor of your own plugs in (a5's noise source)"),
     "HDR5": dict(value="1x5", mpn="PZ254-1-05-Z-8.5", lcsc="C2894928", jlc_type="extended", process="THT", stock=2846, price=0.0588,
                  footprint="Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical", symbol="Connector_Generic:Conn_01x05", match=["1x5P", "2.54mm"],
                  desc="1 x 5 socket: a 40 kHz transducer plugs into pins 1 and 5 (10.16 mm; its leads are 10.0 apart)"),
@@ -199,7 +207,7 @@ PARTS = {
     "ADL5350": dict(value="ADL5350", mpn="ADL5350ACPZ-R7", lcsc="C206667", jlc_type="extended", process="SMT", stock=2036, price=5.6410,
                     footprint="amod:LFCSP-8_2x3mm_P0.5mm_ADL5350", symbol="amod:ADL5350", match=["ADL5350ACPZ"],
                     desc="LF to 4 GHz passive Y-mixer, 6.8 dB loss, IIP3 +25 dBm, LO buffer (4 dBm), 3 V 19 mA, 2 x 3 mm LFCSP: the up- and down-converters"),
-    # ---- RF-MOD-2 (stock 2026-10-25 14:30) ----
+    # ---- IQ-MOD (stock 2026-10-25 14:30) ----
     "ADL5375": dict(value="ADL5375-05", mpn="ADL5375-05ACPZ-R7", lcsc="C579150", jlc_type="extended", process="SMT", stock=652, price=16.4468,
                     footprint="Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.5x2.5mm", symbol="amod:ADL5375", match=["ADL5375-05"],
                     desc="ADI I/Q modulator, 0.4-6 GHz, baseband 0.5 V bias, 1 V p-p differential for about 0 dBm, 194 mA at 5 V, LFCSP-24 4 x 4"),
@@ -222,7 +230,7 @@ PARTS = {
     "ADEX10L": dict(value="ADEX-10L+", mpn="ADEX-10L+", lcsc="C118997", jlc_type="extended", process="SMT", stock=861, price=8.9286,
                     footprint="amod:MiniCircuits_CD542_ADEX-10L", symbol="amod:ADEX10L", match=["ADEX-10L"],
                     desc="Mini-Circuits double-balanced (diode-ring) mixer, LO/RF 10-1000 MHz, IF DC-800 MHz, LO +4 dBm, 7.2 dB loss, IP3 +16 dBm"),
-    # ---- AMOD-P2 (Prompt 17; stock 2026-10-28) ----
+    # ---- AMOD-N (Prompt 17; stock 2026-10-28) ----
     "PE43711": dict(value="PE43711", mpn="PE43711B-Z", lcsc="C470929", jlc_type="extended", process="SMT", stock=1673, price=3.9108,
                     footprint="Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm", symbol="amod:PE43711", match=["PE43711"],
                     desc="pSemi 7-bit RF step attenuator, 9 kHz-6 GHz, 0-31.75 dB in 0.25 dB, serial (SI, CLK, LE) at 1.8-3.3 V logic, 2.3-5.5 V at 150 uA"),
@@ -414,11 +422,11 @@ PASSIVES = {
     "R0402 75R": dict(lcsc="C25133", mpn="0402WGF750JTCE", jlc_type="extended", stock=1170071, price=0.0013, note="the TRF3722's negative baseband bias (100 || 270)"),
     "C0402 10nF": dict(lcsc="C15195", mpn="CL05B103KB5NNNC", jlc_type="basic", stock=6830429, price=0.0039, note="X7R: the TRF3722's loop-filter zero"),
     # --- AMOD-A rev A after Prompt 13: the impedance tile's reference resistors ---
-    "R0402 47R": dict(lcsc="C25118", mpn="0402WGF470JTCE", jlc_type="basic", stock=1838822, price=0.0012, note="A10's 47 ohm range"),
-    "R0402 4.7k": dict(lcsc="C25900", mpn="0402WGF4701TCE", jlc_type="basic", stock=14689108, price=0.0021, note="A10's 4.7 k range"),
-    "R0402 47k": dict(lcsc="C25792", mpn="0402WGF4702TCE", jlc_type="basic", stock=6700528, price=0.0020, note="A10's 47 k range"),
+    "R0402 47R": dict(lcsc="C25118", mpn="0402WGF470JTCE", jlc_type="basic", stock=1838822, price=0.0012, note="a10's 47 ohm range"),
+    "R0402 4.7k": dict(lcsc="C25900", mpn="0402WGF4701TCE", jlc_type="basic", stock=14689108, price=0.0021, note="a10's 4.7 k range"),
+    "R0402 47k": dict(lcsc="C25792", mpn="0402WGF4702TCE", jlc_type="basic", stock=6700528, price=0.0020, note="a10's 47 k range"),
     "R0402 100k": dict(lcsc="C25741", mpn="0402WGF1003TCE", jlc_type="basic", stock=7850595, price=0.0015),
-    # --- RF-MOD-2 (stock 2026-10-25 14:30) ---
+    # --- IQ-MOD (stock 2026-10-25 14:30) ---
     "R0402 510R": dict(lcsc="C25123", mpn="0402WGF5100TCE", jlc_type="basic", stock=1594087, price=0.0014, note="the ADL5375's baseband bias from 5 V"),
     "R0402 91R": dict(lcsc="C270574", mpn="0402WGF910JTCE", jlc_type="extended", stock=53914, price=0.0016, note="the ADL5375's baseband bias to ground"),
     "R0402 150R": dict(lcsc="C25082", mpn="0402WGF1500TCE", jlc_type="basic", stock=995053, price=0.0012, note="the ADL5375's baseband input"),
@@ -454,7 +462,7 @@ PASSIVES = {
     "C0402 470pF": dict(lcsc="C75274", mpn="0402CG471J500NT", jlc_type="extended", stock=94240, price=0.0051, note="C0G: the MAX2659's input block (Maxim's value)"),
     "C0402 33nF": dict(lcsc="C7419416", mpn="FCC0402B333K500AT", jlc_type="extended", stock=316963, price=0.0024, note="X7R: the MAX2659's VCC bypass (Maxim's value)"),
     "L0402 6.8nH": dict(lcsc="C82919", mpn="LQW15AN6N8G00D", jlc_type="extended", stock=17630, price=0.0730, note="Murata LQW15: the MAX2659's input match (Maxim's 6.8 nH)"),
-    # --- AMOD-P2 (Prompt 17, stock 2026-10-28) ---
+    # --- AMOD-N (Prompt 17, stock 2026-10-28) ---
     "R0402 16.9R": dict(lcsc="C82287", mpn="0402WGF169JTCE", jlc_type="extended", stock=10017, price=0.0007, note="the resistive splitter's star: 50 / 3 = 16.7 ohm"),
     "C0402 150pF": dict(lcsc="C12220", mpn="0402CG151J500NT", jlc_type="extended", stock=56573, price=0.0062, note="C0G: the oscillator's feedback pair and the 9.2 MHz L-match"),
     "L0603 1.5uH": dict(lcsc="C87514", mpn="MLF1608A1R5JT000", jlc_type="extended", stock=7400, price=0.0408, note="TDK multilayer, Q 35 at 10 MHz, 5 %: the L-match"),
@@ -584,7 +592,7 @@ JLC_ROTATION = {
     "C2937625": (270, "predicted", "1x3 header PZ254V-11-03P: read +270 in CostasLink's preview, with the datum below"),
     "C2894928": (270, "predicted", "1x5 socket: as the headers"),
     "C2894925": (270, "predicted", "1x2 socket: as the headers"),
-    # AMOD-P2's parts (Prompt 17): checked by scripts/check_rotations.py after the first build
+    # AMOD-N's parts (Prompt 17): checked by scripts/check_rotations.py after the first build
     "C470929": (270, "predicted", "PE43711 on KiCad's QFN-24: JLCPCB's drawing has pin 1 bottom-left ('-BL'), KiCad's turned +90; CostasLink read +270 for the same part"),
     "C2683460": (0, "predicted", "ADP-2-1+: the footprint IS JLCPCB's drawing (pin 1 bottom-left), as the ADEX-10L+"),
     "C3305009": (0, "predicted", "TC1-1TG2+: the footprint IS JLCPCB's drawing (pin 1 top-left)"),

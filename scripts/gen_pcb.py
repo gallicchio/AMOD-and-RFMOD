@@ -69,7 +69,7 @@ BOARD_RULES_BY_STEM = {s: FINE_BOARD_RULES for s, b in parts.BOARDS.items() if b
 FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (96.5, 90.0)]
 JACK_SIZE, JACK_THICK = 0.9, 0.18      # the jacks' names, on their tiles' frames
 TITLE_SIZE, TITLE_THICK = 0.9, 0.18    # a tile's title in words, on its top frame
-QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under P12's switch, between its jack's legs and P13's: 14 mm with no hole
+QR_AT, QR_MODULE = (23.2, 80.0), 0.42       # under p12's switch, between its jack's legs and p13's: 14 mm with no hole
 BACK_Y, BACK_PITCH = 94.2, 1.4       # between the two rows of cable-tie slots
 
 
@@ -182,7 +182,7 @@ class Board:
                 self.pad_net[node] = name
         self.fps, self.pads, self.problems = {}, {}, []
         self.back_plots = 0
-        # the tiles name their nets ("/P5_N1"); KiCad names an unlabelled net after a pad ("Net-(R501-Pad2)").
+        # the tiles name their nets ("/p5_N1"); KiCad names an unlabelled net after a pad ("Net-(R501-Pad2)").
         # Map each declared net to KiCad's name through any pad on it.
         self.kname = {}
         for t in self.tiles:
@@ -961,7 +961,7 @@ class Board:
                 b = self._text_box(name, JACK_SIZE, JACK_THICK, "center")
                 ay = t.y0 + j["y"] - 3.64 - 0.22 - b[3] if top else t.y0 + j["y"] + 3.64 + 0.22 - b[1]
                 ax = t.x0 + j["x"]
-                for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 19) for sgn in (1, -1)]:     # up to 4.5 mm (R10's OUT A-)
+                for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 19) for sgn in (1, -1)]:     # up to 4.5 mm (r10's OUT A-)
                     box = (ax + dx + b[0], ay + b[1], ax + dx + b[2], ay + b[3])
                     if abs(dx) > 3.0 and (box[0] < t.x0 + 0.6 or box[2] > t.x0 + t.w - 0.6):
                         continue                               # the long slides stay inside the tile (the first 3 mm as before)
@@ -1024,7 +1024,7 @@ class Board:
             for n in names:
                 bx0, by0, bx1, by1 = n[5]
                 self.boxes.append((bx0 - 0.35, by0 - 0.1, bx1 + 0.35, by1 + 0.1))
-            # and any of the tile's own texts that sits on the frame line breaks it the same way (A1's socket pins)
+            # and any of the tile's own texts that sits on the frame line breaks it the same way (a1's socket pins)
             for (lx, ly, s_, size, thk, just, ang) in t.texts:
                 if ang:
                     continue

@@ -11,19 +11,19 @@ Cells are 20 mm on a 21.5 mm pitch.  A tile's input is its top-left jack and its
 each jack's name is printed on its own tile's frame, beside it.  Cable the DAC to IN and OUT to the ADC.
 
 Every powered tile has a slide switch along its left edge (slider up: on) feeding a P-FET, so a tile's own rail is
-dead until you switch it on; -5 V is not switched (an op amp with no +5 V draws nothing).  The power tile (A1)
+dead until you switch it on; -5 V is not switched (an op amp with no +5 V draws nothing).  The power tile (a1)
 takes 5 V from its USB-C; its socket along the top edge carries +5, ground, -5, ground, +3.3 V for a breadboard.
 
 ### Pmod lines
 
 The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V):
 
-- Pmod pin 2 (PMOD2): A12
-- Pmod pin 3 (PMOD3): A11
-- Pmod pin 4 (PMOD4): A11
-- Pmod pin 8 (PMOD6): A8
-- Pmod pin 9 (PMOD7): A6
-- Pmod pin 10 (PMOD8): A6
+- Pmod pin 2 (PMOD2): a12
+- Pmod pin 3 (PMOD3): a11
+- Pmod pin 4 (PMOD4): a11
+- Pmod pin 8 (PMOD6): a8
+- Pmod pin 9 (PMOD7): a6
+- Pmod pin 10 (PMOD8): a6
 
 ## The tiles
 
@@ -32,10 +32,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a1"></a>
 
-### A1  power, USB-C 5 V in: +5, -5, +3.3 out
+### a1  power, USB-C 5 V in: +5, -5, +3.3 out
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A1.jpg" width="262" alt="A1  power, USB-C 5 V in: +5, -5, +3.3 out"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a1.jpg" width="262" alt="a1  power, USB-C 5 V in: +5, -5, +3.3 out"></td>
 <td valign="top">
 
 <b>Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard.</b><br><br>
@@ -53,10 +53,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a2"></a>
 
-### A2  x10, 14 MHz
+### a2  x10, 14 MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A2.jpg" width="262" alt="A2  x10, 14 MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a2.jpg" width="262" alt="a2  x10, 14 MHz"></td>
 <td valign="top">
 
 <b>An op-amp gain block: x10 (20 dB) to 14 MHz, with a 50 ohm input.</b><br><br>
@@ -67,7 +67,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> x10 into a high impedance (x5 into 50 ohm); -3 dB at 14 MHz; IN up to +-0.4 V for +-4 V out.<br><br>
 <b>Limits:</b> 140 MHz gain-bandwidth sets the bandwidth; clips at +-4 V.<br><br>
-<b>Experiments:</b> The gain-bandwidth trade (compare A3); slew rate and clipping; amplifying a photodiode, a noise source or a weak tone.<br><br>
+<b>Experiments:</b> The gain-bandwidth trade (compare a3); slew rate and clipping; amplifying a photodiode, a noise source or a weak tone.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> The speed of sound at 40 kHz; Warming a crystal.<br><br>
 <b>The circuit:</b> Non-inverting OPA810: gain 1 + 10 k / 1.1 k = 10.1, bandwidth 140 MHz / 10 = 14 MHz.  50 ohm at the input, 49.9 ohm in series with the output (a 50 ohm load halves it: x5).  Keep the input under 0.4 V peak: the output clips at 4 V.<br><br>
@@ -77,10 +77,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a3"></a>
 
-### A3  x100, 1.4MHz
+### a3  x100, 1.4MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A3.jpg" width="262" alt="A3  x100, 1.4MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a3.jpg" width="262" alt="a3  x100, 1.4MHz"></td>
 <td valign="top">
 
 <b>The same op-amp stage at x100 (40 dB), to 1.4 MHz.</b><br><br>
@@ -90,32 +90,32 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>How to use it:</b> Signal to IN, OUT to the ADC.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> x100; -3 dB at 1.4 MHz; IN up to +-40 mV.<br><br>
-<b>Limits:</b> Only 1.4 MHz wide (gain-bandwidth); for 40 dB at HF use A4.<br><br>
-<b>Experiments:</b> Gain-bandwidth against A2 and A4; small audio and ultrasonic signals.<br><br>
+<b>Limits:</b> Only 1.4 MHz wide (gain-bandwidth); for 40 dB at HF use a4.<br><br>
+<b>Experiments:</b> Gain-bandwidth against a2 and a4; small audio and ultrasonic signals.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> The speed of sound at 40 kHz; Warming a crystal.<br><br>
-<b>The circuit:</b> Non-inverting OPA810: gain 1 + 10 k / 100 = 101, bandwidth 140 MHz / 100 = 1.4 MHz.  50 ohm at the input, 49.9 ohm in series with the output.  For 40 dB out to 30 MHz use A4 (the OPA847 LNA); this tile is the FET-input, high-impedance friendly x100 for everything slower.  (The plan's two stages of x10 did not fit the cell.)<br><br>
+<b>The circuit:</b> Non-inverting OPA810: gain 1 + 10 k / 100 = 101, bandwidth 140 MHz / 100 = 1.4 MHz.  50 ohm at the input, 49.9 ohm in series with the output.  For 40 dB out to 30 MHz use a4 (the OPA847 LNA); this tile is the FET-input, high-impedance friendly x100 for everything slower.  (The plan's two stages of x10 did not fit the cell.)<br><br>
 <b>Parts:</b> OPA810IDBVR (C2833513).
 
 </td></tr></table>
 
 <a id="a4"></a>
 
-### A4  LNA, 30 MHz
+### a4  LNA, 30 MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A4.jpg" width="262" alt="A4  LNA, 30 MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a4.jpg" width="262" alt="a4  LNA, 30 MHz"></td>
 <td valign="top">
 
 <b>An HF low-noise amplifier: x100 (40 dB) flat from 1 to 30 MHz, about 3 dB noise figure from 50 ohm.</b><br><br>
 <b>Jacks:</b> IN 50R, top left (±30 mV); OUT, bottom right.<br><br>
 <b>Supply:</b> +-5 V<br><br>
 <b>Expect:</b> x100 (40 dB) from 50 ohm, flat 1-30 MHz, about 3 dB noise figure from 50 ohm; keep the input under 30 mV peak<br><br>
-<b>How to use it:</b> Antenna (or P13's OUT) to IN, OUT to the ADC.<br><br>
-<b>You need:</b> An antenna for over-the-air use: a few metres of wire on an SMA, or AMOD-P's P13.<br><br>
+<b>How to use it:</b> Antenna (or p13's OUT) to IN, OUT to the ADC.<br><br>
+<b>You need:</b> An antenna for over-the-air use: a few metres of wire on an SMA, or AMOD-P's p13.<br><br>
 <b>Specs:</b> x101; flat 1-30 MHz (-3 dB near 39 MHz); 0.85 nV/rtHz.<br><br>
 <b>Limits:</b> IN under +-30 mV; the OPA847 is stable only at gains above 12 (do not lower the gain).<br><br>
-<b>Experiments:</b> AM and shortwave reception with a wire antenna or P13's loopstick; noise figure; weak-signal work.<br><br>
+<b>Experiments:</b> AM and shortwave reception with a wire antenna or p13's loopstick; noise figure; weak-signal work.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA847">OPA847</a><br><br>
 <b>Tutorial pages:</b> The speed of sound at 40 kHz; What time is it over there?.<br><br>
 <b>The circuit:</b> Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at gains above 12 (it is decompensated): do not change Rg upward.  SOT-23-6, DIS tied to +VS (enabled).<br><br>
@@ -125,10 +125,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a5"></a>
 
-### A5  Doppler, HB100
+### a5  Doppler, HB100
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A5.jpg" width="262" alt="A5  Doppler, HB100"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a5.jpg" width="262" alt="a5  Doppler, HB100"></td>
 <td valign="top">
 
 <b>A socket and amplifier for an HB100 10.525 GHz Doppler radar module: the beat between what it sends and what comes back, x101.</b><br><br>
@@ -149,10 +149,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a6"></a>
 
-### A6  1-bit ADC
+### a6  1-bit ADC
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A6.jpg" width="262" alt="A6  1-bit ADC"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a6.jpg" width="262" alt="a6  1-bit ADC"></td>
 <td valign="top">
 
 <b>A one-bit (delta-sigma) ADC made of a comparator and an RC integrator, with the FPGA as the flip-flop: an ADC from one Pmod input and one Pmod output.</b><br><br>
@@ -174,10 +174,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a7"></a>
 
-### A7  PLL 4046
+### a7  PLL 4046
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A7.jpg" width="262" alt="A7  PLL 4046"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a7.jpg" width="262" alt="a7  PLL 4046"></td>
 <td valign="top">
 
 <b>A 74HC4046 phase-locked loop: its VCO locks to a 50-200 kHz signal on IN.</b><br><br>
@@ -198,10 +198,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a8"></a>
 
-### A8  heat
+### a8  heat
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_a_A8.jpg" width="262" alt="A8  heat"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_a_a8.jpg" width="262" alt="a8  heat"></td>
 <td valign="top">
 
 <b>A 0.83 W heater (two 15 ohm resistors) switched from a Pmod line, with a temperature sensor beside it: a thermal plant to control.</b><br><br>
@@ -212,7 +212,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>How to use it:</b> PWM from the FPGA on Pmod IO6; TEMP OUT to an ADC.<br><br>
 <b>You need:</b> Nothing (Kapton tape to hold a part on the heater, if you like).<br><br>
 <b>Specs:</b> 30 ohm, 170 mA, 0.83 W while Pmod IO6 is high; TEMP OUT 10 mV/K + 500 mV (750 mV at 25 C).<br><br>
-<b>Limits:</b> On or off from IO6 (PWM it for proportional power); it heats a few square centimetres, with a time constant of tens of seconds.  The heater has no jack: DRIVE IN beside it belongs to A10.<br><br>
+<b>Limits:</b> On or off from IO6 (PWM it for proportional power); it heats a few square centimetres, with a time constant of tens of seconds.  The heater has no jack: DRIVE IN beside it belongs to a10.<br><br>
 <b>Experiments:</b> A thermal time constant; bang-bang against PID control; warming a part taped to the heater.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/TMP235">TMP235</a><br><br>
 <b>Tutorial pages:</b> Warming a crystal; Control at the speed of the cable.<br><br>
@@ -223,17 +223,17 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a9"></a>
 
-### A9  mixer, MC1496
+### a9  mixer, MC1496
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_a_A9.jpg" width="520" alt="A9  mixer, MC1496"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_a_a9.jpg" width="520" alt="a9  mixer, MC1496"></td>
 <td valign="top">
 
 <b>A Gilbert-cell double-balanced mixer (MC1496): IF OUT is RF times LO, the sum and difference frequencies.</b><br><br>
 <b>Jacks:</b> RF IN, top left (±0.3 V); LO IN, top middle (±0.3 V); IF OUT, bottom right.<br><br>
 <b>Supply:</b> +-5 V<br><br>
 <b>Expect:</b> IF OUT = RF x LO (sum and difference frequencies, about 0.3 V peak per volt of RF at 0.3 V of LO); a balanced mixer, the carrier mostly cancels<br><br>
-<b>How to use it:</b> RF and LO from the two DACs (or an antenna through A4 on RF); IF OUT to an ADC on high impedance.<br><br>
+<b>How to use it:</b> RF and LO from the two DACs (or an antenna through a4 on RF); IF OUT to an ADC on high impedance.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> RF and LO +-0.3 V into 51 ohm; 1 k emitter degeneration, 1 mA a side; IF OUT single-ended from a 1.5 k load; about 0.3 V of IF per volt of RF at 0.3 V of LO.<br><br>
 <b>Limits:</b> IF OUT is a 1.5 k source: a metre of coax (100 pF) rolls it off near 1 MHz, so keep the IF low or the cable short and use high impedance.  LO feedthrough about -40 dB (no null trimmer).  RF and LO are good to a few tens of MHz.<br><br>
@@ -247,10 +247,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a10"></a>
 
-### A10  impedance, V and I
+### a10  impedance, V and I
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_a_A10.jpg" width="520" alt="A10  impedance, V and I"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_a_a10.jpg" width="520" alt="a10  impedance, V and I"></td>
 <td valign="top">
 
 <b>Measures a part's impedance and I-V curve: drives it through a known resistor and reads the voltage on both sides.</b><br><br>
@@ -261,20 +261,20 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>You need:</b> A way to put a part on the DUT jack: an SMA-to-minigrabber lead or a part soldered to an SMA plug.<br><br>
 <b>Specs:</b> DRIVE IN x2 is node S; the DIP picks R = 47, 470, 4.7 k or 47 k from S to X; the part goes from X (the DUT jack) to ground; S OUT and X OUT give half of each node into 50 ohm; Z = R X / (S - X); +-4 V, up to 40 mA.<br><br>
 <b>Limits:</b> DC to a few MHz; most accurate when Z is near the chosen R; calibrate with the DUT open and shorted.<br><br>
-<b>Experiments:</b> Impedance spectra of resistors, capacitors, inductors, a crystal and a speaker; LED and diode I-V curves (Planck with P12's colours); a low-frequency Smith chart.<br><br>
+<b>Experiments:</b> Impedance spectra of resistors, capacitors, inductors, a crystal and a speaker; LED and diode I-V curves (Planck with p12's colours); a low-frequency Smith chart.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> RC and LC circuits; More ideas for one board.<br><br>
-<b>The circuit:</b> DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against its colour (P12) gives Planck's constant; a crystal (P8) shows its series and parallel resonances.<br><br>
+<b>The circuit:</b> DRIVE IN x2 is S.  The DIP picks R between S and X (47 ohm for LEDs and diodes, 470 for most parts, 4.7 k and 47 k for high impedances); the part goes on the DUT jack.  Calibrate with the DUT open and shorted.  An LED's knee against its colour (p12) gives Planck's constant; a crystal (p8) shows its series and parallel resonances.<br><br>
 <b>Parts:</b> DSHP04TSGET (C40736), OPA810IDBVR (C2833513).
 
 </td></tr></table>
 
 <a id="a11"></a>
 
-### A11  ultrasound
+### a11  ultrasound
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_a_A11.jpg" width="520" alt="A11  ultrasound"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_a_a11.jpg" width="520" alt="a11  ultrasound"></td>
 <td valign="top">
 
 <b>40 kHz ultrasound: an H-bridge drives the transmitter from two Pmod lines, and the receiver's signal comes out x100.</b><br><br>
@@ -296,10 +296,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="a12"></a>
 
-### A12  audio
+### a12  audio
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_a_A12.jpg" width="520" alt="A12  audio"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_a_a12.jpg" width="520" alt="a12  audio"></td>
 <td valign="top">
 
 <b>Audio: a 2.5 W class-D amplifier into a speaker, fed from a DAC or a one-bit Pmod stream, and an electret microphone amplified x100.</b><br><br>

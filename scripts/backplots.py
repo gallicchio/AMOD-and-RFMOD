@@ -50,7 +50,7 @@ def open_stub(f0, f1=0.1e9, f2=6e9, loss_db_per_wave=0.3):
 
 
 def clapp(L=10e-6, C1=220e-12, C2=220e-12, Cb=1e-9):
-    """P23's frequency against TUNE: the varactor's cathode at (3.3 V + TUNE) / 2, its capacitance off the BB133's typical
+    """n9's frequency against TUNE: the varactor's cathode at (3.3 V + TUNE) / 2, its capacitance off the BB133's typical
     curve (digitised: 40 pF at 0.5 V, 35 at 1, 27 at 2, 22 at 3, 15.5 at 5 V), in series with the feedback pair."""
     cv = [(0.5, 40e-12), (1.0, 35e-12), (2.0, 27e-12), (3.0, 22e-12), (5.0, 15.5e-12)]
 
@@ -68,7 +68,7 @@ def clapp(L=10e-6, C1=220e-12, C2=220e-12, Cb=1e-9):
 
 
 def clipper(R=1000.0, Is=2.52e-9, n=1.752, vmax=4.0):
-    """P10's OUT against IN: R in series, two 1N4148s antiparallel to ground, OUT at high impedance.  Vin = Vout + R I(Vout)
+    """p10's OUT against IN: R in series, two 1N4148s antiparallel to ground, OUT at high impedance.  Vin = Vout + R I(Vout)
     with the diode's SPICE model (Is 2.52 nA, n 1.752), solved by bisection."""
     vt = 0.02585 * n
 

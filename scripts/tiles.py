@@ -7,7 +7,7 @@ coordinates plus the wires) both have to reproduce it, and the build checks both
 the exported KiCad netlist against `netlist()`, and every wire endpoint against the pad's net.
 
 Local coordinates are millimetres from the tile's top-left corner, y down.  Reference designators
-are the tile's number times 100 plus a counter: P5's parts are R501, C502, J501 ...
+are the tile's number times 100 plus a counter: p5's parts are R501, C502, J501 ...
 
 The standard two-port layout (see PLAN.md section 2):
 
@@ -208,7 +208,8 @@ class Tile:
         w = self.w
         x = (w / 2 if not br else 10.6) if at is None else at
         size = 1.5 if len(self.id) <= 2 else 0.9           # three characters at 1.5 would reach the legs' pads
-        self.text(x, ID_Y, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
+        lift = 0.15 * size if self.id[:1] in "pq" else 0.0      # a lower-case p or q hangs below the line (Prompt 19's names)
+        self.text(x, ID_Y - lift, self.id, size, 0.3 if size > 1.3 else 0.17, "center")
         # the tutorial's section numbers are not printed: they change as the tutorial grows (Jason, Prompt 14)
         if br:                              # OUT at the bottom-right: the name and the subtitle in two lines at the bottom-left
             self.text(1.2, 17.2, label_case(self.name), 0.8, 0.15, "left")
@@ -233,7 +234,7 @@ def power_header(tile, rail="+5V", local="VS", dx=0.0, pour=None):
     is either grounded (on) or at the source (off); the AO3401A at the switch's foot with its source on the rail
     through the via beside it and its drain the tile's own `local` rail, which the tile routes on from HDR_VS.
     `dx` moves the whole header right (a two-cell tile whose left cell is busy); `pour` says the rail is a pour under the
-    tile (the +5 V boards' L3; AMOD-P2's Pmod 3.3 V), reached by the via beside the FET.  Returns dict(sw, q)."""
+    tile (the +5 V boards' L3; AMOD-N's Pmod 3.3 V), reached by the via beside the FET.  Returns dict(sw, q)."""
     sx, sy = HDR_SW[0] + dx, HDR_SW[1]
     qx, qy = HDR_Q[0] + dx, HDR_Q[1]
     via = (HDR_VIA[0] + dx, HDR_VIA[1])
@@ -272,7 +273,7 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
     The board layout, the netlist, the schematic drawing and the simulated response are all made here.
 
     The row of series parts is centred between the stubs, their courtyards apart by what leaves the node between
-    them (a wire, one shunt, two side by side); `xs` places them by hand instead.  A row wider than the jacks (P7)
+    them (a wire, one shunt, two side by side); `xs` places them by hand instead.  A row wider than the jacks (p7)
     gets an L-shaped entry round each end.  An end node's single shunt hangs outside the stub (at x_in - 1.9), a
     double shunt's second part inside the row.  Values sit above the line (LABEL_Y), slid off the stubs' columns,
     a middle shunt's beside it, a 1210's below; `labels` = {part index: (dx, dy, justify, size)} overrides them.
@@ -544,6 +545,18 @@ def dump(tiles, mod, path):
            "qr_at": getattr(mod, "QR_AT", None), "fiducials": getattr(mod, "FIDUCIALS", None),
            "holes": [list(h) for h in getattr(mod, "HOLES", G.HOLES)], "feet": [list(f) for f in getattr(mod, "FEET", [])],
            "stem": getattr(mod, "STEM", "")}
+    # one letter per board (Prompt 19): every tile is its board's letter, in lower case so it does not read as a part's
+    # reference ("q11", not "Q11"), and a number, each number once; the BACK and BACK_PLOTS dicts name only tiles that
+    # exist (a stale key from a renamed tile would silently drop its panel)
+    stem = os.path.splitext(os.path.basename(path))[0].replace("_tiles", "")
+    letter = PARTS.BOARDS.get(stem, {}).get("letter")
+    if letter:
+        bad = [t.id for t in tiles if t.id[:1] != letter.lower() or not t.id[1:].isdigit()]
+        assert not bad, "%s: tiles not named %s<n>: %s" % (stem, letter.lower(), bad)
+        assert len({t.idx for t in tiles}) == len(tiles), "%s: a tile number twice" % stem
+    ids = {t.id for t in tiles}
+    stale = [k for k in list(getattr(mod, "BACK", {})) + list(getattr(mod, "BACK_PLOTS", {})) if k not in ids]
+    assert not stale, "%s: BACK or BACK_PLOTS names tiles that do not exist: %s" % (stem, stale)
     for t in tiles:
         out["tiles"].append(dict(
             id=t.id, idx=t.idx, name=t.name, subtitle=t.subtitle, sections=t.sections, cells=t.cells, supply=t.supply,

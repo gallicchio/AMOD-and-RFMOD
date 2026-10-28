@@ -42,7 +42,7 @@ def pad2(pkg, x, y, r, pad):
 
 
 def tile_p1():
-    t = Tile("P1", "pi pad", [(0, 0)], subtitle="-20 dB", sections=["On the air", "The modem against noise"])
+    t = Tile("p1", "pi pad", [(0, 0)], subtitle="-20 dB", sections=["On the air", "The modem against noise"])
     ladder(t, [("shunt", [("R0805", 61.9)]), ("series", "R0805", 249), ("shunt", [("R0805", 61.9)])], out_slot="BR")
     t.result = "-20 dB flat, 50 ohm both ways"
     t.notes = ["A pi attenuator: 61.9 / 249 / 61.9 ohm is -20.0 dB and 50.0 ohm in a 50 ohm system (the tutorial's $10 SMA pad, on the board).",
@@ -51,7 +51,7 @@ def tile_p1():
 
 
 def tile_p2():
-    t = Tile("P2", "RC low-pass", [(1, 0)], subtitle="159 kHz", sections=["RC and LC circuits", "Feedback control of an RC plant", "Control at the speed of the cable"])
+    t = Tile("p2", "RC low-pass", [(1, 0)], subtitle="159 kHz", sections=["RC and LC circuits", "Feedback control of an RC plant", "Control at the speed of the cable"])
     ladder(t, [("series", "R0805", 1000), ("shunt", [("C0805", 1e-9)])], hiz_out=True, fspan=(1e3, 1e8), out_slot="BR")
     t.result = "-3 dB at 159 kHz, then -20 dB/decade; OUT into the ADC's high impedance"
     t.notes = ["1 k and 1 nF: f = 1 / (2 pi R C) = 159 kHz.  Measure OUT with the ADC on its high-impedance setting: a 50 ohm",
@@ -60,10 +60,10 @@ def tile_p2():
 
 
 def tile_p3():
-    t = Tile("P3", "RC high-pass", [(2, 0)], subtitle="159 kHz", sections=["RC and LC circuits"])
+    t = Tile("p3", "RC high-pass", [(2, 0)], subtitle="159 kHz", sections=["RC and LC circuits"])
     ladder(t, [("series", "C0805", 1e-9), ("shunt", [("R0805", 1000)])], hiz_out=True, fspan=(1e3, 1e8), out_slot="BR")
     t.result = "-3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance"
-    t.notes = ["The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us."]
+    t.notes = ["The mirror image of p2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us."]
     return t
 
 
@@ -73,7 +73,7 @@ def tile_p4():
     the OUT jack left (its ways as columns), its left column on the L-C node through the gap between the two parts, its
     right column to the two capacitors standing under it, whose other ends are on the OUT line.  The number, the
     sections and the IN loop take the bottom-left; no OUT loop (the switch has its corner: OUT is the jack)."""
-    t = Tile("P4", "series RLC", [(3, 0)], subtitle="100uH 220pF", sections=["RC and LC circuits", "Control at the speed of the cable"])
+    t = Tile("p4", "series RLC", [(3, 0)], subtitle="100uH 220pF", sections=["RC and LC circuits", "Control at the speed of the cable"])
     LY = 9.95
     ladder(t, [("series", "L1210", 100e-6), ("series", "C0805", 220e-12)], fspan=(1e5, 1e7), xs=[9.0, 13.2], loops=False,
            labels={0: None, 1: None}, out_slot="BR", line_y=LY, legend=False)
@@ -118,7 +118,7 @@ def draw_p4(ctx, t):
 
 
 def tile_p5():
-    t = Tile("P5", "LC low-pass", [(0, 1)], subtitle="9 MHz", sections=["Fast captures", "Chirps, Zadoff-Chu and LoRa", "RC and LC circuits"])
+    t = Tile("p5", "LC low-pass", [(0, 1)], subtitle="9 MHz", sections=["Fast captures", "Chirps, Zadoff-Chu and LoRa", "RC and LC circuits"])
     ladder(t, [("shunt", [("C0805", 220e-12)]), ("series", "L0805", 1.5e-6), ("shunt", [("C0805", 680e-12)]),
                ("series", "L0805", 1.5e-6), ("shunt", [("C0805", 220e-12)])], fspan=(1e5, 1e8), out_slot="BR",
            labels={2: (-1.13, 0, "right", 0.8)})                  # the middle capacitor's value on its left, off the OUT jack
@@ -129,7 +129,7 @@ def tile_p5():
 
 
 def tile_p6():
-    t = Tile("P6", "LC low-pass", [(1, 1)], subtitle="100 kHz", sections=["Trading speed for bits", "RC and LC circuits"])
+    t = Tile("p6", "LC low-pass", [(1, 1)], subtitle="100 kHz", sections=["Trading speed for bits", "RC and LC circuits"])
     ladder(t, [("shunt", [("C0805", 10e-9), ("C0805", 10e-9)]), ("series", "L1210", 150e-6), ("shunt", [("C0805", 10e-9), ("C0805", 10e-9)])],
            fspan=(1e3, 1e7), labels={1: None, 2: (0.6, -2.3, "center", 0.8), 3: None}, out_slot="BR", line_y=9.95,   # the inner pair unlabelled
            loop_at={"IN": (8.9, 14.6, 90, [(7.4, 9.95), (7.4, 13.0), (8.9, 13.0)])})       # the line up 0.65: the 1210 clears both jacks
@@ -137,14 +137,14 @@ def tile_p6():
     # two cells of 10 nF (20 nF) give 125 kHz: use the simulated number
     t.result = "-3 dB at %.0f kHz: the reconstruction filter after a one-bit DAC" % (t.sim["f3"] / 1e3)
     t.notes = ["3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206).",
-               "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2."]
+               "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with p2."]
     return t
 
 
 def tile_p7():
     """Four 0603 series parts cannot fit between the stubs (10.5 mm): the row is laid by hand from x 2.3 to 17.7 and the
     stubs enter round its ends; the outer parts' values go under them, out of the entries' way."""
-    t = Tile("P7", "band-pass", [(2, 1)], subtitle="4.7-7.5 MHz", sections=["Chirps, Zadoff-Chu and LoRa", "A radio link", "On the air"])
+    t = Tile("p7", "band-pass", [(2, 1)], subtitle="4.7-7.5 MHz", sections=["Chirps, Zadoff-Chu and LoRa", "A radio link", "On the air"])
     ladder(t, [("series", "L0603", 2.7e-6), ("series", "C0603", 270e-12), ("shunt", [("L0603", 330e-9), ("C0603", 2.2e-9)]),
                ("series", "L0603", 2.7e-6), ("series", "C0603", 270e-12)], fspan=(1e6, 3e7),
            xs=[2.3, 6.6, 13.4, 17.7], labels={0: (-0.35, 2.2, "left", 0.8), 1: None, 2: None, 3: None,
@@ -173,7 +173,7 @@ def tile_p8():
     top-right, and the two jacks sit 0.5 mm further out along the other diagonal (TLo, BRo) so its courtyard clears
     theirs.  Each jack's stub runs straight to the crystal's near pad; the loops stand on the stubs, the number in the
     top-right corner, the name in the bottom-left, the sections in the gutter above."""
-    t = Tile("P8", "quartz crystal", [(3, 1)], subtitle="4 MHz", sections=["The Q of a quartz crystal", "Your crystal against a reference", "More ideas for one board"])
+    t = Tile("p8", "quartz crystal", [(3, 1)], subtitle="4 MHz", sections=["The Q of a quartz crystal", "Your crystal against a reference", "More ideas for one board"])
     jin = t.jack("TLo", "IN", "IN", "in", "±4 V")
     jout = t.jack("BRo", "OUT", "OUT", "out", "")
     y1 = t.add("Y", "XTAL4M", "4 MHz", 10.0, 10.0, 45, {"1": "IN", "2": "OUT"}, label=None)   # pad 1 at (6.78, 13.22), pad 2 at (13.22, 6.78)
@@ -205,7 +205,7 @@ def tile_p8():
 def tile_p9():
     """A 455 kHz ceramic resonator in series between the jacks, at 45 degrees across the cell (bottom-left to top-right)
     between the IN jack (top-left) and the OUT jack (bottom-right); each stub runs to the resonator's near lead."""
-    t = Tile("P9", "ceramic res.", [(0, 2)], subtitle="455 kHz", sections=["RC and LC circuits", "The Q of a quartz crystal"])
+    t = Tile("p9", "ceramic res.", [(0, 2)], subtitle="455 kHz", sections=["RC and LC circuits", "The Q of a quartz crystal"])
     jin = t.jack("TL", "IN", "IN", "in", "±4 V")
     jout = t.jack("BR", "OUT", "OUT", "out", "")
     y1 = t.add("Y", "RES455", "455 kHz", 10.0, 10.0, 45, {"1": "IN", "2": "OUT"}, label=None)   # pad 1 at (8.23, 11.77), pad 2 at (11.77, 8.23)
@@ -224,7 +224,7 @@ def tile_p9():
     fp, gp = P.peak(fx, g)
     t.sim["res"] = (fp, gp, float(fx[int(np.argmin(g))]))
     t.plot = dict(kind="bode", x=fx, y=g)
-    t.result = "a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz"
+    t.result = "a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between p4's LC and p8's quartz"
     t.notes = ["A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF",
                "element, and here a resonance whose Q (hundreds) sits between the LC's and the crystal's.  Model: C_m 7 pF, Q 400, C_0 250 pF."]
     t.sch_draw = lambda ctx, tt: ctx.generic_series(tt)
@@ -234,7 +234,7 @@ def tile_p9():
 def tile_p10():
     """A 1 k series resistor and two 1N4148W antiparallel to ground: the tutorial's clipper.  The diodes stand up from the OUT line
     into the top-right quarter, either side of the OUT loop's lead, each to its own ground via above it."""
-    t = Tile("P10", "clipper", [(3, 3)], subtitle="1N4148 ±0.6 V", sections=["Harmonics: a diode clipper"])
+    t = Tile("p10", "clipper", [(3, 3)], subtitle="1N4148 ±0.6 V", sections=["Harmonics: a diode clipper"])
     ladder(t, [("series", "R0805", 1000)], hiz_out=True, xs=[8.0], out_slot="BR", legend=False)
     t.text(10.7, 2.1, t.id, 1.2, 0.24, "center")
     t.text(1.2, 17.2, T.label_case(t.name), 0.8, 0.15, "left")
@@ -262,7 +262,7 @@ def tile_p11():
     into OUT; row B's capacitors stand up, between row A's.  Each tap leaves its node through 470 ohm: nodes 5 and 10
     up past row A to a resistor beside their jack, node 15 down under row B and along the bottom edge into its jack
     from below."""
-    t = Tile("P11", "delay line", [(1, 2), (2, 2), (3, 2)], subtitle="400 ns, a tap every 100", sections=["A quarter-wave stub", "The channel", "Chirps, Zadoff-Chu and LoRa", "Control at the speed of the cable"])
+    t = Tile("p11", "delay line", [(1, 2), (2, 2), (3, 2)], subtitle="400 ns, a tap every 100", sections=["A quarter-wave stub", "The channel", "Chirps, Zadoff-Chu and LoRa", "Control at the speed of the cable"])
     jin = t.jack("TL", "IN", "IN", "in", "±4 V")
     j1 = t.jack("TL1", "100ns", "T1J", "out", "")
     j2 = t.jack("TL2", "200ns", "T2J", "out", "")
@@ -306,7 +306,7 @@ def tile_p11():
     tp = t.loop("IN", 4.75, 15.5, 90, "IN", label_at=(1.6, 0, "left", 0.8))
     t.wire("IN", [(4.75, yA), (tp, "1")])
     tx = 57.0
-    t.text(tx, 2.2, t.id, 1.5, 0.3, "center")
+    t.text(tx, 2.0, t.id, 1.5, 0.3, "center")
     t.text(tx, 4.0, "Delay line", 0.9, 0.17, "center")
     t.text(tx, 5.6, "an echo", 0.8, 0.15, "center")
     t.text(tx, 6.95, "every 100 ns", 0.8, 0.15, "center")
@@ -334,7 +334,7 @@ def tile_p12():
     """Four LEDs on a 4-way DIP from one jack through 100 ohm: V_f against wavelength is Planck's constant.  The switch
     stands with its ways as rows (pins 1-4 down its left column), the LEDs in a column to its left at the ways' order,
     each to its own ground via at the tile's edge; the LED loop sits in the empty top-right slot."""
-    t = Tile("P12", "LEDs", [(0, 3)], subtitle="", sections=["More ideas for one board"])
+    t = Tile("p12", "LEDs", [(0, 3)], subtitle="", sections=["More ideas for one board"])
     idx = t.idx
     jin = t.jack("TL", "IN", "IN", "in", "0-5 V")
     LY = LINE_Y
@@ -375,9 +375,9 @@ def tile_p13():
     their wires from the bottom edge, and their pins are named in the margin below them.  The DIP and its capacitors fill
     the right cell's top half: each capacitor's wire leaves its switch pad and turns up or down to its row (the top pad's
     wire outermost, so none cross)."""
-    t = Tile("P13", "AM loopstick", [(1, 3), (2, 3)], subtitle="0.5-1.7 MHz", sections=["An AM radio"])
+    t = Tile("p13", "AM loopstick", [(1, 3), (2, 3)], subtitle="0.5-1.7 MHz", sections=["An AM radio"])
     idx = t.idx
-    jack = t.jack("TL", "OUT", "TAP", "out", "to A4")
+    jack = t.jack("TL", "OUT", "TAP", "out", "to a4")
     j = t.add("J", "TERM3", "coil", 10.5, 15.2, 180, {"1": "HOT", "2": "TAP", "3": "GND"}, hide_value=True)     # wires enter from the bottom edge
     jv = t.add("J", "TERM2", "VAR C", 28.0, 15.2, 180, {"1": "HOT", "2": "GND"}, hide_value=True)              # pad 1 at x 30.5, pad 2 at 25.5
     sw = t.add("SW", "DIP4", "DIP4", 25.0, 5.4, 270, {"1": "HOT", "2": "HOT", "3": "HOT", "4": "HOT", "5": "C4", "6": "C3", "7": "C2", "8": "C1"}, hide_value=True)
@@ -416,7 +416,7 @@ def tile_p13():
     t.notes = ["Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns",
                "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to",
                "0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air",
-               "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware."]
+               "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into a4's LNA and the AM radio gateware."]
     t.sch_draw = lambda ctx, tt: ctx.loopstick(tt)
     return t
 
@@ -427,38 +427,38 @@ def tiles():
 
 
 # Board-level items that are not tiles: the holes, the identity, the ground loops in the side margins, and the
-# cable-tie slots in the bottom margin that hold P13's ferrite rod along the board's edge (3.4 mm along x, a tie's
+# cable-tie slots in the bottom margin that hold p13's ferrite rod along the board's edge (3.4 mm along x, a tie's
 # width; two rows 5 mm apart so the tie goes down through one and up through the other, round the rod).
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 30.0), (97.0, 70.0)]       # board mm, one per scope channel
 SLOTS = [(30.0, 92.9), (30.0, 98.6), (70.0, 92.9), (70.0, 98.6)]
 FRONT_TEXT = [(50.0, 96.0, "ferrite rod along this edge, cable ties through the slots")]
 BACK_TEXT = ["AMOD-P: passive building blocks for the FPGA tutorial's converters.  Each tile is one circuit with its own SMA jacks:",
              "cable DAC OUT to a tile's IN and its OUT to ADC IN.  Every jack takes +-4 V.  No power.  The handbook has each tile's",
-             "expected response.  P13: a 330 uH ferrite-rod coil along this edge, under cable ties; a tuning capacitor on VAR C."]
+             "expected response.  p13: a 330 uH ferrite-rod coil along this edge, under cable ties; a tuning capacitor on VAR C."]
 
 
 
 # The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.  The ladder
 # tiles add their simulated response as a plot.
 BACK = {
-    "P1": ["-20 dB, 50 ohm", "-14 dB if high-Z", "IN max +-3 V"],
-    "P2": ["OUT: 1 k source", "ADC on high-Z", "tau 1 us"],
-    "P3": ["OUT: 1 k source", "ADC on high-Z"],
-    "P4": ["Q about 6", "1: +47 pF", "2: +100 pF", "1.07-0.83 MHz"],
-    "P5": ["50 ohm both", "ends", "-30 dB 18 MHz"],
-    "P6": ["50 ohm both", "ends"],
-    "P7": ["50 ohm both", "ends"],
-    "P8": ["fs 4.000 MHz", "Q about 50,000", "drive < +-1 V", "step a few Hz"],
-    "P9": ["455 kHz series", "Q a few 100", "one peak, no", "flat passband"],
-    "P10": ["IN max +-4 V", "OUT: high-Z"],
-    "P11": ["50 ohm both ends", "20 ns a section", "taps x1 high-Z", "taps /10 50 ohm", "cut-off 16 MHz"],
-    "P12": ["IN 0-5 V", "1: 630 nm", "2: 596 nm", "3: 525 nm", "4: 469 nm"],
-    "P13": ["330 uH coil", "0.4-1.3 MHz", "VAR C: outside", "tuning cap", "then A4's LNA"],
+    "p1": ["-20 dB, 50 ohm", "-14 dB if high-Z", "IN max +-3 V"],
+    "p2": ["OUT: 1 k source", "ADC on high-Z", "tau 1 us"],
+    "p3": ["OUT: 1 k source", "ADC on high-Z"],
+    "p4": ["Q about 6", "1: +47 pF", "2: +100 pF", "1.07-0.83 MHz"],
+    "p5": ["50 ohm both", "ends", "-30 dB 18 MHz"],
+    "p6": ["50 ohm both", "ends"],
+    "p7": ["50 ohm both", "ends"],
+    "p8": ["fs 4.000 MHz", "Q about 50,000", "drive < +-1 V", "step a few Hz"],
+    "p9": ["455 kHz series", "Q a few 100", "one peak, no", "flat passband"],
+    "p10": ["IN max +-4 V", "OUT: high-Z"],
+    "p11": ["50 ohm both ends", "20 ns a section", "taps x1 high-Z", "taps /10 50 ohm", "cut-off 16 MHz"],
+    "p12": ["IN 0-5 V", "1: 630 nm", "2: 596 nm", "3: 525 nm", "4: 469 nm"],
+    "p13": ["330 uH coil", "0.4-1.3 MHz", "VAR C: outside", "tuning cap", "then a4's LNA"],
 }
 
-# P10's response is a transfer curve, not a frequency response (its ladder is 1 k into high-Z: flat)
+# p10's response is a transfer curve, not a frequency response (its ladder is 1 k into high-Z: flat)
 import backplots as BP                                 # noqa: E402
-BACK_PLOTS = {"P10": BP.clipper()}
+BACK_PLOTS = {"p10": BP.clipper()}
 
 
 if __name__ == "__main__":

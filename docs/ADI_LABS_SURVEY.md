@@ -27,10 +27,10 @@ C = already covered, B = breadboard-only, T = candidate tile
 | Differential pair | BJT/MOS pair, transresistance input, triangle-to-sine, full amplifier | T (C9). The full amplifier is B |
 | CMOS analog | Inverter amplifier with chopper, analog switches, switched-capacitor circuits | Switches and switched-capacitor circuits are T (C4, C6). The inverter amplifier is B |
 | Conversion | Flash/VFC/SAR/dual-slope ADCs, R-2R DAC, first-order ΔΣ | First-order ΔΣ is C on AMOD-A. The rest is T (C5, C7, C11) |
-| Oscillators | CMOS LC, Hartley, Colpitts, Clapp, Peltz, pulsed, Wien, LDR, multivibrators | C on AMOD-P and AMOD-P2. Wien is a weaker T. LDR and multivibrators are B |
+| Oscillators | CMOS LC, Hartley, Colpitts, Clapp, Peltz, pulsed, Wien, LDR, multivibrators | C on AMOD-P and AMOD-N. Wien is a weaker T. LDR and multivibrators are B |
 | Misc devices | Optocoupler isolation amplifier, SCR, ideal-diode rectifier | The isolation amplifier is a weaker T. SCR is B |
 | Logic | TTL, CD4007 gates, XOR, latch, level shifting, LFSR | B: wiring the gates is the lesson, and the LFSR belongs in the FPGA |
-| Comms | PLL, diode ring, active mixer, envelope and FM detectors, PWM, VGA, tuned amplifiers, self-resonance, transformers, transmission lines | C on AMOD-A, RF-MOD, AMOD-P2, AMOD-P and PhMOD. VGA is B |
+| Comms | PLL, diode ring, active mixer, envelope and FM detectors, PWM, VGA, tuned amplifiers, self-resonance, transformers, transmission lines | C on AMOD-A, RF-MOD, AMOD-N, AMOD-P and PhMOD. VGA is B |
 | Filters | Sallen-Key/MFB active filters, RC polyphase | Weaker T |
 | Sensors | LED sensor, PV cell, speaker, heartbeat, TMP01, magnetic, tilt, IC temperature, electret, piezo | Mostly C. The rest is B: they need a body, a magnet, light or motion |
 | **Power** | Switched-capacitor supplies (LT1054), buck basics, efficiency, open-loop buck/boost (LTC6992 + LTC7001), closed-loop buck and boost, negative reference, DC-DC I and II | **The real gap**: T (C1 to C3) |

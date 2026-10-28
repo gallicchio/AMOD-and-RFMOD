@@ -6,9 +6,9 @@ gutter under row 1); L4 ground with the back-side text.  Every jack of an RF til
 Every tile keeps IN at the top-left slot and takes OUT at the bottom-right slot (not top-right as the AMOD boards do):
 the jacks then form a checkerboard whose closest pair is 14.85 mm apart instead of 10.5, room for fingers and a wrench.
 
-Rev A builds what JLCPCB had in stock on 2026-10-25: a diode-ring mixer (R1, in the splitter's place since Prompt 15), the two filters (R2, R4), the QPL9547 LNA (R5)
-and a GALI-84+ gain block (R12), the power and reference tile (R9), two ADL5350 mixers (R7, R8), a MAX2871 synthesizer
-(R10, which carries the Pmod plug) and the TRF3722 quadrature transmitter (R13: Jason's "Yes. Add that tile.", Prompt 13).
+Rev A builds what JLCPCB had in stock on 2026-10-25: a diode-ring mixer (r1, in the splitter's place since Prompt 15), the two filters (r2, r4), the QPL9547 LNA (r5)
+and a GALI-84+ gain block (r12), the power and reference tile (r9), two ADL5350 mixers (r7, r8), a MAX2871 synthesizer
+(r10, which carries the Pmod plug) and the TRF3722 quadrature transmitter (r13: Jason's "Yes. Add that tile.", Prompt 13).
 The printed antennas, the RFX2401C front end and the LTC5510 mixers stayed out.
 """
 import os, sys
@@ -24,7 +24,7 @@ LAYERS = 4
 USB_X = 100.0 - 2.45           # the USB-C's centre: its face 1.2 mm past the right edge (AMOD-A's placement, rot 90)
 
 
-# -------------------------------------------------------------------------------------------------------- R2, R4 --
+# -------------------------------------------------------------------------------------------------------- r2, r4 --
 def filter_tile(id, cell, key, value, pins, name, lines):
     """A filter between the IN jack (top-left) and the OUT jack (bottom-right): the part at the cell's centre on a line
     at y 10, the jacks' stubs down and up to it between their legs; both ground pads to vias (the top pour carries them too)."""
@@ -39,12 +39,12 @@ def filter_tile(id, cell, key, value, pins, name, lines):
 def tile_r2():
     """2.45 GHz band-pass: Murata LFB212G45SG8A127 LTCC (2.0 x 1.25 mm), 1.7 dB loss, 2.4-2.5 GHz, 50 ohm both sides;
     pads 4 in, 2 out, 1 and 3 ground (as JLCPCB numbers them)."""
-    t, jin, jout, fl = filter_tile("R2", (2, 0), "LTCC2G4", "LFB212", {"4": "IN", "2": "OUT", "1": "GND", "3": "GND"}, "2.45 GHz filter", [])
+    t, jin, jout, fl = filter_tile("r2", (2, 0), "LTCC2G4", "LFB212", {"4": "IN", "2": "OUT", "1": "GND", "3": "GND"}, "2.45 GHz filter", [])
     t.rf("IN", [(jin, "1"), (4.75, 10.0), (fl, "4")])
     t.rf("OUT", [(fl, "2"), (15.25, 10.0), (jout, "1")])
     t.gnd_stub(fl, "1", (10.0, 8.4), sym=(0, -1))
     t.gnd_stub(fl, "3", (10.0, 11.6), sym=(0, 1))
-    t.text(12.6, 2.4, "R2", 1.5, 0.3, "center")
+    t.text(12.6, 2.4, "r2", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "2.45 GHz", 0.8, 0.15, "center")
     t.text(12.6, 5.6, "band-pass", 0.8, 0.15, "center")
     t.text(1.2, 18.6, "2.4-2.5 GHz", 0.8, 0.15, "left")
@@ -53,7 +53,7 @@ def tile_r2():
     t.result = "1.7 dB of loss from 2.4 to 2.5 GHz, 30 dB or more below 2.2 GHz and above 2.7 GHz (the datasheet); 50 ohm in and out"
     t.notes = ["Murata LFB212G45SG8A127, a 2012-size LTCC band-pass.  The line to each jack is 50 ohm coplanar waveguide (0.29 mm",
                "wide, 0.25 to the ground pour) with a via fence; the jack's centre pin has no plane under it (a 2.2 mm void).",
-               "Sweep it with R10 or R13 into a power meter, or with a DAC harmonic comb and the ADC."]
+               "Sweep it with r10 or r13 into a power meter, or with a DAC harmonic comb and the ADC."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -61,14 +61,14 @@ def tile_r2():
 def tile_r4():
     """915 MHz band-pass: RF360 B39921B2672P810 SAW (1.4 x 1.1 mm, 5 pads), 902-928 MHz, 1.1 dB loss; pad 1 in, 3 out,
     2, 4 and 5 ground.  The output pad sits 0.29 mm above the line: a short 45 degree jog brings it back."""
-    t, jin, jout, fl = filter_tile("R4", (3, 0), "SAW915", "B39921", {"1": "IN", "3": "OUT", "2": "GND", "4": "GND", "5": "GND"}, "915 MHz filter", [])
+    t, jin, jout, fl = filter_tile("r4", (3, 0), "SAW915", "B39921", {"1": "IN", "3": "OUT", "2": "GND", "4": "GND", "5": "GND"}, "915 MHz filter", [])
     t.rf("IN", [(jin, "1"), (4.75, 10.0), (9.2, 10.0)])
     t.wire("IN", [(9.2, 10.0), (fl, "1")], width=0.2)                     # the last 0.3 mm narrower: ground pads 0.25 away
     t.wire("OUT", [(fl, "3"), (10.75, 10.287)], width=0.2)
     t.rf("OUT", [(10.75, 10.287), (10.9, 10.287), (11.19, 10.0), (15.25, 10.0), (jout, "1")])
     t.gnd_stub(fl, "5", (10.0, 8.5), sym=(0, -1), width=0.2)
     t.gnd_stub(fl, "2", (10.0, 11.5), sym=(0, 1), width=0.2)
-    t.text(12.6, 2.4, "R4", 1.5, 0.3, "center")
+    t.text(12.6, 2.4, "r4", 1.5, 0.3, "center")
     t.text(12.6, 4.3, "915 MHz", 0.8, 0.15, "center")
     t.text(12.6, 5.6, "band-pass", 0.8, 0.15, "center")
     t.text(1.2, 18.6, "902-928 MHz", 0.8, 0.15, "left")
@@ -76,12 +76,12 @@ def tile_r4():
     t.text(1.2, 15.8, "SAW B39921", 0.8, 0.15, "left")
     t.result = "1.1 dB of loss from 902 to 928 MHz, 40 dB or more 30 MHz outside the band (the datasheet); 50 ohm in and out"
     t.notes = ["RF360 B39921B2672P810: a surface-acoustic-wave filter for the 915 MHz ISM band, 26 MHz wide, in a 1411 package;",
-               "its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on R2."]
+               "its skirts are much steeper than the LTCC's.  Lines, fences and launch voids as on r2."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
-# ------------------------------------------------------------------------------------------------------- R5, R12 --
+# ------------------------------------------------------------------------------------------------------- r5, r12 --
 def gali_tile(id, cell):
     """A GALI-84+ gain block (SOT-89, rot 90: IN left, OUT right on y 10.5, the tab up).  100 pF blocks at both ports;
     the output pin carries the DC: a 27 nH choke up to the 100 pF-bypassed node VD, 22 ohm (2512, 0.2 W) from the tile's
@@ -188,24 +188,24 @@ def qpl_tile(id, cell):
 
 
 def tile_r5():
-    return qpl_tile("R5", (0, 1))
+    return qpl_tile("r5", (0, 1))
 
 
 def tile_r12():
-    return gali_tile("R12", (1, 1))
+    return gali_tile("r12", (1, 1))
 
 
-# ------------------------------------------------------------------------------------------------------------ R9 --
+# ------------------------------------------------------------------------------------------------------------ r9 --
 def tile_r9():
     """Power and reference, two cells.  Right cell: AMOD-A's USB-C input (CC pull-downs, 2 A PTC, 5 V TVS, 2 x 10 uF) and
     an MT3608 boost (22 uH, SS34, 12 k / 1 k: 7.8 V) with 10 uF out, feeding the +8V strip in the gutter below through
     two vias (its own and the divider's); a yellow LED says 7.8 V is up, a green one that 5 V is in.  Left cell: a
     TPS7A2033 makes 3.3 V for a TC32H4 25 MHz TCXO whose output a 74LVC1G17 buffers through 51 ohm to the REF OUT jack
-    (top-left); the synthesizers' REF IN jacks are unterminated: REF OUT into R10's REF IN, and a back trace takes it on to R13."""
-    t = Tile("R9", "power", [(2, 1), (3, 1)], subtitle="USB-C 5 V in: +5, +7.8 V; 25 MHz reference", sections=[])
+    (top-left); the synthesizers' REF IN jacks are unterminated: REF OUT into r10's REF IN, and a back trace takes it on to r13."""
+    t = Tile("r9", "power", [(2, 1), (3, 1)], subtitle="USB-C 5 V in: +5, +7.8 V; 25 MHz reference", sections=[])
     t.pwr_flags = ["+5V", "+8V"]
     ux = USB_X - t.x0
-    # ---- the USB-C input, AMOD-A's A1 geometry moved into the right cell (+21.5)
+    # ---- the USB-C input, AMOD-A's a1 geometry moved into the right cell (+21.5)
     j = t.add("J", "USBC", "USB-C", ux, 10.0, 90, {"A4": "VBUS", "A9": "VBUS", "B4": "VBUS", "B9": "VBUS", "A5": "CC1", "B5": "CC2",
                                                    "A1": "GND", "A12": "GND", "B1": "GND", "B12": "GND", "SH": "GND"}, hide_value=True)
     t.wire("GND", [(j, "A1"), (ux - 3.13, 14.32)])
@@ -302,22 +302,22 @@ def tile_r9():
     t.wire("+5V", [(dg, "2"), (46.1, 0.6)], silk=False)
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (48.1, 0.6), sym=(0, 0))
-    t.text(10.5, 2.4, "R9", 1.5, 0.3, "center")
+    t.text(10.5, 2.4, "r9", 1.5, 0.3, "center")
     t.text(19.2, 4.4, "25 MHz ref.", 0.8, 0.15, "right")
     t.text(41.0, 18.6, "Power", 0.8, 0.15, "right")
     t.text(23.5, 5.0, "boost", 0.8, 0.15, "center")
     t.text(23.5, 6.4, "7.8 V", 0.8, 0.15, "center")
     t.result = "+5 V from the USB-C (up to 1.5 A), +7.8 V at 250 mA for the gain blocks (yellow LED), a 25 MHz square wave on REF OUT"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V; a 2 A PTC, a 5 V TVS and 20 uF.  The MT3608 boosts to 7.8 V",
-               "(0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, R12 (100 mA); the +8V rail is a strip under row 1 that their",
+               "(0.6 V x 13 from 12 k / 1 k) for the GALI-84+ tile, r12 (100 mA); the +8V rail is a strip under row 1 that their",
                "headers reach with a via.  The TPS7A2033 makes 3.3 V for the TC32H4 TCXO (+-2 ppm) and the 74LVC1G17 that drives",
-               "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; R10's REF IN passes it to R13).",
+               "REF OUT (51 ohm: 1.6 Vpp into 50 ohm, 3.3 Vpp into a synthesizer's unterminated REF IN; r10's REF IN passes it to r13).",
                "The TCXO's pad 1 (enable or no connection on the drawing) floats, as CostasLink's review settled."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
-# ------------------------------------------------------------------------------------------------------ R10, R13 --
+# ------------------------------------------------------------------------------------------------------ r10, r13 --
 def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", outb_slot=None):
     """A MAX2871 synthesizer on two cells: OUT A at the top-left jack, REF IN at the top-middle one, the switch and
     P-FET header in the right cell with a TPS7A2033 making the tile's 3.3 V (V33, an island on L3 under the chip).
@@ -327,7 +327,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
     50 ohm line; RFOUTA- is terminated the same way into 51 ohm; RFOUTB is left open (disable it in software).  The
     loop filter (C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p: 80-120 kHz, 61 deg across both bands) sits above the
     chip at CP_OUT; its output hops to TUNE on the back.  CE and RFOUT_EN are tied to V33; LE has 100 k to ground;
-    LD lights a red LED.  The host (R10) carries the 2 x 6 Pmod plug in the bottom margin; R13's SPI lines reach it
+    LD lights a red LED.  The host (r10) carries the 2 x 6 Pmod plug in the bottom margin; r13's SPI lines reach it
     on the back (gutter above the tiles, bottom margin).  `share_ref` (default: the host) puts REF IN on the board-wide
     /REF25 net with a via for a back wire; `pmod_extra` adds the plug's other pads (pad: net); `ref_slot` "BR1" moves
     REF IN to the right cell's bottom corner (the tile above may then use its BR0), its line on the back; "TL1" to the right cell's
@@ -340,7 +340,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
     t.top_pour = True
     t.fine = True
     jout = t.jack("TL", "OUT A+", "OUTA", "out", "", silk="OUT A+")
-    REFN = "/REF25" if share_ref else "REF"                             # the host's REF IN also feeds R13's TRF3722 (a back wire)
+    REFN = "/REF25" if share_ref else "REF"                             # the host's REF IN also feeds r13's TRF3722 (a back wire)
     jref = t.jack(ref_slot, "REF IN", REFN, "in", "25 MHz, 3.3 V CMOS", silk="REF IN")
     power_header(t, rail="+5V", dx=20.0)
     SCLK, SDATA = "/PMOD3", "/PMOD2"
@@ -424,7 +424,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
         t.wire(REFN, [(jref, "1"), (36.4, 15.6), (20.75, 15.6), (20.75, 11.3)], width=0.25, layer="B.Cu", silk=False)
         t.wire(REFN, [(20.75, 11.3), (cref, "2")], width=0.25)
     if share_ref:
-        t.via(REFN, 20.75, 11.3, fine=True)                             # down the back and along the bottom margin to R13
+        t.via(REFN, 20.75, 11.3, fine=True)                             # down the back and along the bottom margin to r13
     c28 = t.add("C", "C0402 100nF", "100n", 19.5, 12.9, 90, {"1": "V33", "2": "GND"}, label=None)             # pad 1 down
     t.wire("V33", [(u, "28"), (16.6, 10.75), (19.2, 13.35), (c28, "1")], width=F)
     t.via("V33", 19.5, 14.3, fine=True)
@@ -493,7 +493,7 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
         t.wire(MUX, [(18.3, 10.55), (18.3, 21.0)], width=F, layer="B.Cu", silk=False, fine=True)
     t.text(1.2, 13.3, id, 1.0, 0.18, "left")
     t.titles.append("Synthesizer")
-    t.info(["MAX2871", "23.5 MHz", "to 6 GHz", "-4 to +5 dBm"] if outb_slot else      # narrow: X3's REF IN jack leaves 10 mm
+    t.info(["MAX2871", "23.5 MHz", "to 6 GHz", "-4 to +5 dBm"] if outb_slot else      # narrow: q3's REF IN jack leaves 10 mm
            ["MAX2871", "23.5 MHz - 6 GHz", "OUT A -4 to +5 dBm", "REF IN 25 MHz CMOS"], near=(26.5, 1.6))
     t.result = ("any frequency from 23.5 MHz to 6 GHz on OUT A+ and OUT A- (each -4 to +5 dBm in steps, 180 degrees apart), locked to the "
                 "25 MHz on REF IN; the red LED says locked")
@@ -507,8 +507,8 @@ def synth_tile(id, cells, host, share_ref=None, pmod_extra=None, ref_slot="TM", 
 
 
 def tile_r10():
-    t = synth_tile("R10", [(0, 3), (1, 3)], host=True, outb_slot="BR1")
-    t.notes[-1] = "stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated; a back trace takes it on to R13."
+    t = synth_tile("r10", [(0, 3), (1, 3)], host=True, outb_slot="BR1")
+    t.notes[-1] = "stay disabled.  CE and RFOUT_EN are tied high, LE has 100 k down.  REF IN is unterminated; a back trace takes it on to r13."
     return t
 
 
@@ -521,8 +521,8 @@ def trf_tile(id, cells):
     jack, the chip's 0.25 V common mode and 0.5 Vpp differential; the negative input sits at the same 0.25 V through
     910 / 75 ohm.  Loop filter (TI's fractional one, its third pole dropped): 1 nF, 1.1 k + 10 nF, 1.1 k / 330 pF, its
     output on the back to VTUNE.  3.3 V from a TLV75733 in the right cell onto an island on L3 under everything; every
-    supply pin has a via to it and the modulator's four a 100 nF and a 100 pF.  The 25 MHz reference comes from R10's
-    REF IN on the back; the serial lines share R10's SCLK and SDATA (Pmod IO3, IO2) with LE on IO6 and readback on IO5.
+    supply pin has a via to it and the modulator's four a 100 nF and a 100 pF.  The 25 MHz reference comes from r10's
+    REF IN on the back; the serial lines share r10's SCLK and SDATA (Pmod IO3, IO2) with LE on IO6 and readback on IO5.
     The LO outputs and EXT_VCO are unused."""
     t = Tile(id, "I/Q transmitter", cells, supply="+5 V", subtitle="TRF3722", sections=[], kind="rf")
     t.top_pour = True
@@ -675,17 +675,17 @@ def trf_tile(id, cells):
     t.text(35.2, 5.65, "I/Q modulator", 0.8, 0.15, "center")
     t.text(35.2, 7.0, "0.4-4.2 GHz", 0.8, 0.15, "center")
     t.result = "I + jQ from two DACs on 0.4-4.2 GHz, about -3 dBm, image-free (-42 dBc untrimmed)"
-    t.notes = ["TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from R10's REF IN.  Each DAC:",
+    t.notes = ["TRF3722 (PLL, VCO, I/Q modulator) on SPI from the Pmod (LE IO6, readback IO5); reference from r10's REF IN.  Each DAC:",
                "56 ohm at the jack, 270 ohm to a node held at 0.25 V (+-0.25 V for +-1 V).  DC on I alone is a CW carrier."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
 def tile_r13():
-    return trf_tile("R13", [(2, 3), (3, 3)])
+    return trf_tile("r13", [(2, 3), (3, 3)])
 
 
-# -------------------------------------------------------------------------------------------------------- R7, R8 --
+# -------------------------------------------------------------------------------------------------------- r7, r8 --
 def mixer_tile(id, cells, name):
     """An ADL5350 passive mixer on two cells, used either way: RF at the top-left jack, LO at the right cell's top-left one, IF at
     the bottom-right (the checkerboard: every jack 14.85 mm or more from every other).  The chip's RF and IF pins are one node; a crossover separates them (the datasheet's Figure 63 scaled to
@@ -765,20 +765,20 @@ def mixer_tile(id, cells, name):
                "datasheet's band-tuned tanks: a few dB more loss, every band at once.  The LO's series element is 0 ohm (fit the",
                "datasheet's 3-8 nH for one band); the LO bias choke is 10 nH (the datasheet: 24 nH at 780 MHz, 2 nH at 2 GHz).",
                "Passive, so the same tile up-converts a DAC tone (IF in, RF out) or down-converts an antenna's signal (RF in, IF out).",
-               "Both images appear: filter the RF side with R2 or R4."]
+               "Both images appear: filter the RF side with r2 or r4."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
 def tile_r7():
-    return mixer_tile("R7", [(0, 2), (1, 2)], "TX mixer")
+    return mixer_tile("r7", [(0, 2), (1, 2)], "TX mixer")
 
 
 def tile_r8():
-    return mixer_tile("R8", [(2, 2), (3, 2)], "RX mixer")
+    return mixer_tile("r8", [(2, 2), (3, 2)], "RX mixer")
 
 
-# ------------------------------------------------------------------------------------------------------------ R1 --
+# ------------------------------------------------------------------------------------------------------------ r1 --
 def _coil(t, x, y0, n, right):
     """A winding on the silk: n bumps of 0.8 mm down from y0 at x, facing right (or left)."""
     for k in range(n):
@@ -813,9 +813,9 @@ def tile_r1():
     top-left jack along y 4.75 between its legs and up into pin 6, RF from pin 3 to the right cell's top-left jack, IF
     straight down to the left cell's bottom-right jack.  The right cell's bottom half draws what is inside the package: the
     LO balun, the ring of four Schottky diodes (two of them crossed), the RF balun whose centre tap is the IF.  Passive, no
-    power: the comparison with R7/R8's ADL5350 at 915 MHz and with AMOD-A's A9 Gilbert cell at 10-30 MHz (Jason, Prompt 15:
+    power: the comparison with r7/r8's ADL5350 at 915 MHz and with AMOD-A's a9 Gilbert cell at 10-30 MHz (Jason, Prompt 15:
     "Do the diode-ring mixer instead of the least useful passive splitter")."""
-    t = Tile("R1", "diode mixer", [(0, 0), (1, 0)], subtitle="ADEX-10L+", sections=[], kind="rf")
+    t = Tile("r1", "diode mixer", [(0, 0), (1, 0)], subtitle="ADEX-10L+", sections=[], kind="rf")
     t.top_pour = True
     jlo = t.jack("TL", "LO", "LO", "in", "+4 dBm", silk="LO")
     jrf = t.jack("TL1", "RF", "RF", "in", "-5 dBm", silk="RF")
@@ -828,7 +828,7 @@ def tile_r1():
     t.gnd_stub(u, "1", (10.9, 8.04), sym=(0, 1))
     t.gnd_stub(u, "5", (15.25, 0.95), sym=(0, 0))
     t.gnd_stub(u, "4", (17.79, 0.95), sym=(0, 0))
-    t.text(1.2, 10.6, "R1", 1.0, 0.18, "left")
+    t.text(1.2, 10.6, "r1", 1.0, 0.18, "left")
     t.titles.append("Diode mixer")
     t.info(["ADEX-10L+", "10-1000 MHz", "LO +4 dBm"], near=(30.0, 2.0))
     t.info(["RF < -5 dBm", "IF DC-800 MHz", "loss 7 dB"], near=(1.2, 12.6))
@@ -859,11 +859,11 @@ def tile_r1():
     t.text(ox - 1.2, oy + 1.5, "LO", 0.8, 0.15, "right")
     t.text(ox + 10.5, oy + 1.5, "RF", 0.8, 0.15, "left")
     t.text(ox + 7.4, oy + 7.4, "IF", 0.8, 0.15, "center")
-    t.result = "about 7 dB of conversion loss from 10 MHz to 1 GHz with +4 dBm of LO (R10 at its top power), IF from DC to 800 MHz, 60 dB L-R isolation"
+    t.result = "about 7 dB of conversion loss from 10 MHz to 1 GHz with +4 dBm of LO (r10 at its top power), IF from DC to 800 MHz, 60 dB L-R isolation"
     t.notes = ["Mini-Circuits ADEX-10L+: two wideband baluns and a ring of four Schottky diodes (drawn beside it on the silk).  The LO",
                "(+4 dBm, +1 to +7) turns the diodes on in pairs, so the RF is multiplied by +-1 at the LO rate: the IF is RF x square",
                "wave, the sum and difference plus odd LO harmonics.  Passive and DC-coupled at IF (a phase detector when RF and LO share",
-               "a frequency); 1 dB compression at +1 dBm of RF, IP3 +16 dBm.  Compare R7/R8 (ADL5350) and AMOD-A's A9 (MC1496)."]
+               "a frequency); 1 dB compression at +1 dBm of RF, IP3 +16 dBm.  Compare r7/r8 (ADL5350) and AMOD-A's a9 (MC1496)."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -872,10 +872,10 @@ def tiles():
     return [tile_r1(), tile_r2(), tile_r4(), tile_r5(), tile_r12(), tile_r9(), tile_r7(), tile_r8(), tile_r10(), tile_r13()]
 
 
-PMOD_NAMES = {"/PMOD6": "LE of R13 (TRF3722)", "/PMOD5": "readback of R13", "/PMOD4": "LE of R10", "/PMOD3": "SCLK to R10 and R13",
-              "/PMOD2": "SDATA to R10 and R13", "/PMOD1": "MUXOUT of R10"}
+PMOD_NAMES = {"/PMOD6": "LE of r13 (TRF3722)", "/PMOD5": "readback of r13", "/PMOD4": "LE of r10", "/PMOD3": "SCLK to r10 and r13",
+              "/PMOD2": "SDATA to r10 and r13", "/PMOD1": "MUXOUT of r10"}
 HANDBOOK_INTRO = [
-    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on R9.  Every tile's input is its top-left jack and its output its",
+    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on r9.  Every tile's input is its top-left jack and its output its",
     "bottom-right jack, so neighbouring jacks are at least 14.85 mm apart.  Every 50 ohm line is coplanar waveguide (0.29 mm on",
     "0.21 mm of prepreg over ground, 0.25 mm gaps, a via fence) and every jack's centre pin has no plane under it.  The powered",
     "tiles have the AMOD-A slide switch (up: on) and P-FET.  Rev A built what JLCPCB stocked on 2026-10-25: a QPL9547 LNA and a",
@@ -886,27 +886,27 @@ HANDBOOK_SECTIONS = [
      "The board is one end of a radio link, or both ends on a cable.  One 25 MHz reference drives everything, so every",
      "frequency on the board is locked to every other and phase means something.",
      "",
-     "1. **Reference.**  R9's REF OUT into R10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it",
-     "   on to R13's TRF3722, so both synthesizers share it.",
-     "2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into R13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); R13's",
-     "   RF OUT through R2 (2.45 GHz) or R4 (915 MHz), then R12 for 20 dB if a cable needs it.  The digital-communications waveforms with",
+     "1. **Reference.**  r9's REF OUT into r10's REF IN (the ECP5 board's CLK OUT works as well); a trace on the back takes it",
+     "   on to r13's TRF3722, so both synthesizers share it.",
+     "2. **Transmitter, image-free.**  The ECP5 board's DAC 1 into r13's I IN and DAC 2 into Q IN (+-1 V into 50 ohm each); r13's",
+     "   RF OUT through r2 (2.45 GHz) or r4 (915 MHz), then r12 for 20 dB if a cable needs it.  The digital-communications waveforms with",
      "   no image: the sideband suppression is about 42 dB untrimmed, better after the DACs' gain and phase are trimmed.",
-     "3. **Receiver.**  The antenna or cable into R5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then R4 or R2, then",
-     "   R8's RF; R10's OUT A+ into R8's LO; R8's IF into an ADC.  R7 is a second, identical mixer: on R10's OUT A- it is a",
-     "   second coherent receive channel (direction finding), or a transmit mixer for a real IF.  R1, the diode ring, does R8's",
-     "   job passively (R10 at its top power is its +4 dBm LO): compare the two mixers' loss, isolation and intermodulation.",
-     "4. **Instruments.**  R10 or R13 alone is a signal generator; R13 at f (a DC on I) and R10 at f - IF into R8 is a network",
-     "   analyzer and a stepped-frequency radar on one reference; R10 swept into R8 behind R5 is a spectrum analyzer that sees",
-     "   Wi-Fi, Bluetooth and LoRa; two tones from R13's I and Q into R12 show its intermodulation.",
+     "3. **Receiver.**  The antenna or cable into r5 (the QPL9547: 0.3 dB of noise figure, 19.5 dB of gain), then r4 or r2, then",
+     "   r8's RF; r10's OUT A+ into r8's LO; r8's IF into an ADC.  r7 is a second, identical mixer: on r10's OUT A- it is a",
+     "   second coherent receive channel (direction finding), or a transmit mixer for a real IF.  r1, the diode ring, does r8's",
+     "   job passively (r10 at its top power is its +4 dBm LO): compare the two mixers' loss, isolation and intermodulation.",
+     "4. **Instruments.**  r10 or r13 alone is a signal generator; r13 at f (a DC on I) and r10 at f - IF into r8 is a network",
+     "   analyzer and a stepped-frequency radar on one reference; r10 swept into r8 behind r5 is a spectrum analyzer that sees",
+     "   Wi-Fi, Bluetooth and LoRa; two tones from r13's I and Q into r12 show its intermodulation.",
      "",
-     "Levels to remember: a synthesizer gives -4 to +5 dBm; R13 gives about -3 dBm at full scale; an ADL5350 wants +4 dBm of LO",
+     "Levels to remember: a synthesizer gives -4 to +5 dBm; r13 gives about -3 dBm at full scale; an ADL5350 wants +4 dBm of LO",
      "and loses 7-9 dB; a GALI-84+ gives 20 dB and compresses at +20 dBm out; the QPL9547 takes no more than +22 dBm at its input",
-     "(put 30 dB of attenuation before it on any cable from a transmitter); the filters lose 1-2 dB; R1 wants +4 dBm of LO",
+     "(put 30 dB of attenuation before it on any cable from a transmitter); the filters lose 1-2 dB; r1 wants +4 dBm of LO",
      "and loses about 7 dB."],
     ["## Antennas", "",
      "The plan's printed inverted-F antennas (TI DN023 at 915 MHz, AN043 at 2.4 GHz) need bare board on every layer for a",
      "quarter of the board and a pi network tuned on the bench, and TI's dimensions are for their stack, not this one.  Use",
-     "SMA whip antennas on R12's OUT and R5's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make",
+     "SMA whip antennas on r12's OUT and r5's IN instead (a 2.4 GHz 'rubber duck' is $2; 915 MHz ones are as cheap), or make",
      "a monopole from a jack and 31 mm (2.4 GHz) or 78 mm (915 MHz) of wire."],
 ]
 
@@ -917,7 +917,7 @@ GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 50.0), (97.0, 84.0)]
 HOLES = []
 FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 95.0), (5.0, 85.0)]
 SLOTS = []
-# the rails on L3: +5 V under the whole board; +7.8 V in the gutter under row 1, from R9's vias to the gain blocks' headers
+# the rails on L3: +5 V under the whole board; +7.8 V in the gutter under row 1, from r9's vias to the gain blocks' headers
 def _island(c0):
     """A synthesizer's V33 island on L3: under its chip and LDO, inside the tile at column c0 of row 3."""
     x0, y0 = G.cell_origin(c0, 3)
@@ -925,14 +925,14 @@ def _island(c0):
 
 
 RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
-              ("+8V", 30.0, 49.25, 93.0, 50.75, 1),              # R12 only: R5 is the 5 V QPL9547
-              ("/R10_V33", *_island(0), 2),
-              ("/R13_V33", G.cell_origin(2, 3)[0] + 8.5, G.cell_origin(2, 3)[1] + 1.6, G.cell_origin(2, 3)[0] + 33.0, G.cell_origin(2, 3)[1] + 18.4, 2)]
+              ("+8V", 30.0, 49.25, 93.0, 50.75, 1),              # r12 only: r5 is the 5 V QPL9547
+              ("/r10_V33", *_island(0), 2),
+              ("/r13_V33", G.cell_origin(2, 3)[0] + 8.5, G.cell_origin(2, 3)[1] + 1.6, G.cell_origin(2, 3)[0] + 33.0, G.cell_origin(2, 3)[1] + 18.4, 2)]
 _R10, _R13 = G.cell_origin(0, 3), G.cell_origin(2, 3)
-# R13's SDATA and SCLK up the gutter between R10 and R13 and along the gutter above row 3 into R10's vias (the
+# r13's SDATA and SCLK up the gutter between r10 and r13 and along the gutter above row 3 into r10's vias (the
 # outer line turns last: no crossing); its LE down to the bottom edge and into the plug's pad 9 on the back, its
-# readback the same way on the front into pad 11; the 25 MHz from a via on R10's REF IN trace down R10's middle gutter
-# and along the bottom margin to R13
+# readback the same way on the front into pad 11; the 25 MHz from a via on r10's REF IN trace down r10's middle gutter
+# and along the bottom margin to r13
 BACK_WIRES = [("/PMOD3", [(_R13[0] - 0.45, _R13[1] + 13.2), (_R13[0] - 0.45, 71.1), (_R10[0] + 16.1, 71.1), (_R10[0] + 16.1, _R10[1] + 5.6)]),
               ("/PMOD2", [(_R13[0] - 1.05, _R13[1] + 12.7), (_R13[0] - 1.05, 71.5), (_R10[0] + 16.6, 71.5), (_R10[0] + 16.6, _R10[1] + 2.4)]),
               ("/PMOD6", [(_R13[0] + 8.6, _R13[1] + 12.2), (_R13[0] + 8.6, 99.25), (_R10[0] + 6.78, 99.25), (_R10[0] + 6.78, _R10[1] + 25.52)]),
@@ -940,26 +940,26 @@ BACK_WIRES = [("/PMOD3", [(_R13[0] - 0.45, _R13[1] + 13.2), (_R13[0] - 0.45, 71.
 FRONT_WIRES = [("/PMOD5", [(_R13[0] + 7.0, _R13[1] + 20.6), (_R13[0] + 7.0, 99.05), (_R10[0] + 9.32, 99.05), (_R10[0] + 9.32, _R10[1] + 25.52)])]
 FRONT_TEXT = []
 BACK_TEXT_X = 50.0
-QR_AT = (80.0, 40.5)              # under R9's right cell: the boost and the USB-C input, no jack within 10 mm
+QR_AT = (80.0, 40.5)              # under r9's right cell: the boost and the USB-C input, no jack within 10 mm
 BACK_TEXT = ["RF-MOD: 915 MHz and 2.4 GHz.  IN is each tile's top-left",
              "jack, OUT its bottom-right; the powered tiles have a slide",
-             "switch (up: on).  Power: USB-C on R9.  The handbook has",
+             "switch (up: on).  Power: USB-C on r9.  The handbook has",
              "the rest."]
 
 
 
 # The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
 BACK = {
-    "R1": ["LO +4 dBm", "RF below -5 dBm", "IF DC-800 MHz", "50 ohm on every port", "10-1000 MHz"],
-    "R2": ["2.4-2.5 GHz", "loss 1.7 dB", "50 ohm"],
-    "R4": ["902-928 MHz", "loss 1.1 dB", "IN max +10 dBm"],
-    "R5": ["IN < -20 dBm", "+22 dBm BURNS", "30 dB pad", "from a TX"],
-    "R12": ["slide up: on", "IN max 0 dBm", "+20 dB, OUT", "max +20 dBm"],
-    "R9": ["USB-C 5 V only", "REF OUT 25 MHz, 1.6 V p-p", "into 50 ohm, to R10 REF IN"],
-    "R7": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with R2, R4"],
-    "R8": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with R2, R4"],
-    "R10": ["OUT A+, A-: -4 to +5 dBm,", "180 degrees apart", "50 ohm on an unused one", "harmonics below 3 GHz"],
-    "R13": ["I, Q +-1 V into 50 ohm", "RF about -3 dBm", "REF: 25 MHz via R10"],
+    "r1": ["LO +4 dBm", "RF below -5 dBm", "IF DC-800 MHz", "50 ohm on every port", "10-1000 MHz"],
+    "r2": ["2.4-2.5 GHz", "loss 1.7 dB", "50 ohm"],
+    "r4": ["902-928 MHz", "loss 1.1 dB", "IN max +10 dBm"],
+    "r5": ["IN < -20 dBm", "+22 dBm BURNS", "30 dB pad", "from a TX"],
+    "r12": ["slide up: on", "IN max 0 dBm", "+20 dB, OUT", "max +20 dBm"],
+    "r9": ["USB-C 5 V only", "REF OUT 25 MHz, 1.6 V p-p", "into 50 ohm, to r10 REF IN"],
+    "r7": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with r2, r4"],
+    "r8": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with r2, r4"],
+    "r10": ["OUT A+, A-: -4 to +5 dBm,", "180 degrees apart", "50 ohm on an unused one", "harmonics below 3 GHz"],
+    "r13": ["I, Q +-1 V into 50 ohm", "RF about -3 dBm", "REF: 25 MHz via r10"],
 }
 
 

@@ -9,7 +9,7 @@ decision record; `CLAUDE_CODE_CHAT.md` is the conversation; the generators under
 | board | what | layers | cells | jacks |
 |---|---|---|---|---|
 | **AMOD-P** | passive blocks: pads, RC and LC filters, resonators, a crystal, a clipper, a tapped delay line, LEDs, an AM loopstick | 2 | 16 | 27 |
-| **AMOD-P2** | the second passive board (section 11, Prompt 17): calibration standards, two splitters, a stub, a low-pass, a detector, a bias-T, a balun and a 1:4 transformer; a step attenuator (by hand or the FPGA) and an oscillator on the Pmod's 3.3 V | 4 | 16 | 28 |
+| **AMOD-N** | the second passive board (section 11, Prompt 17): calibration standards, two splitters, a stub, a low-pass, a detector, a bias-T, a balun and a 1:4 transformer; a step attenuator (by hand or the FPGA) and an oscillator on the Pmod's 3.3 V | 4 | 16 | 28 |
 | **AMOD-A** | active blocks on USB-C power: gain blocks, an HF LNA, Johnson noise, a one-pin delta-sigma ADC, a 74HC4046 PLL, a heater, a mixer, light, 40 kHz ultrasound, audio | 4 | 16 | 21 |
 | **RF-MOD** | 915 MHz, 2.4 GHz and a stretch to 5.8 GHz: printed antennas, filters, an LNA, a 2.4 GHz front end, two mixers, two synthesizers, a gain block, a TRF3722 quadrature transmitter | 4 | 16 | 26 |
 
@@ -58,9 +58,9 @@ reason is given below.
   top-left.  Two jacks in one cell are then 14.85 mm apart and two across a gutter 15.2 mm, against 10.5 and 11.0
   for adjacent slots.  `scripts/geometry.py` asserts 14.3 mm for every pair on each board.  The signal runs on the
   cell's anti-diagonal: the parts fill the top-right and bottom-left quarters the jacks leave, with the power
-  header in the bottom-left.  Two parts changed so that they fit: A4's OPA847 went from the SOIC-8 to the
-  SOT-23-6, and A7's 4046 from TI's SOIC-16 to Nexperia's TSSOP-16.  P8's crystal and P9's resonator stand at 45
-  degrees between their jacks, and P8's jacks sit 0.5 mm further out (slots TLo, BRo).
+  header in the bottom-left.  Two parts changed so that they fit: a4's OPA847 went from the SOIC-8 to the
+  SOT-23-6, and a7's 4046 from TI's SOIC-16 to Nexperia's TSSOP-16.  p8's crystal and p9's resonator stand at 45
+  degrees between their jacks, and p8's jacks sit 0.5 mm further out (slots TLo, BRo).
 - **Rev A's first layout (until Prompt 12) had IN at the top-left slot and OUT at the top-right slot**, the signal
   flowing left to right along a line under the jacks.  It kept every row's jacks in one line but put them 10.5 mm
   apart, too close for two cables and fingers.
@@ -81,16 +81,16 @@ reason is given below.
   does 40 dB from 1 to 30 MHz with a 3 dB noise figure in a single stage).  One of each costs
   $2.70 of feeder loading; an OPA2810 at x100 would be a 1.4 MHz amplifier and an OPA1612 x100 a
   400 kHz one.
-- **The mixers.** The LTC5510 (R7, R8) had 35 in stock on 2026-10-25 and its fallback, the AD8342,
+- **The mixers.** The LTC5510 (r7, r8) had 35 in stock on 2026-10-25 and its fallback, the AD8342,
   36.  **As built: the ADL5350** (C206667, 2,036 in stock, $5.64), a passive GaAs mixer with its own LO
   buffer, LF to 4 GHz, 6.8 dB of loss, +25 dBm IIP3, 3 V at 19 mA.  Its RF and IF pins are one node; a
   200 MHz crossover (15 pF / 47 nH each way) splits them, so one tile serves 915 MHz and 2.4 GHz with
   any IF the ADC reaches, in either direction.
-- **R2 and R4 (the 2.45 GHz LTCC and the 915 MHz SAW filters) share one cell** with four jacks at
+- **r2 and r4 (the 2.45 GHz LTCC and the 915 MHz SAW filters) share one cell** with four jacks at
   its four corners; the parts are 2 x 1.2 mm and 1.4 x 1.1 mm.  **R6 (RFX2401C) is one cell** with
-  three jacks (TL, TR, BR).  That frees the two cells the **TRF3722 tile (R13)** needs: a PLL, VCO
-  and I/Q modulator to 4.2 GHz with I, Q and RF OUT jacks and its own 25 MHz from R9.  **As built
-  (section 6):** R2 and R4 have a cell each (IN top-left, OUT bottom-right); R6, R13, the QPL9547
+  three jacks (TL, TR, BR).  That frees the two cells the **TRF3722 tile (r13)** needs: a PLL, VCO
+  and I/Q modulator to 4.2 GHz with I, Q and RF OUT jacks and its own 25 MHz from r9.  **As built
+  (section 6):** r2 and r4 have a cell each (IN top-left, OUT bottom-right); R6, r13, the QPL9547
   LNA and the printed antennas are not on rev A.  Prompt 4 asked for the board to be filled with
   tiles that work together, so the cells went to a second gain block, two mixers, two synthesizers
   and a splitter: one complete link, transmitter and receiver, on one reference.  (Prompt 15 made the splitter a diode-ring
@@ -99,19 +99,19 @@ reason is given below.
   has the same SOIC-16 pinout and a 1.3 MHz VCO.  The tile is drawn for the HC part, with the
   CD4046 as the order-day alternate on the same footprint.
 - **The TMP36 is out of stock; the TMP235A4 (C2868809, SOT-23, 10 mV/K + 500 mV, the same transfer
-  function) takes its place** on A8.
-- **P9 is a 455 kHz ceramic resonator (two-terminal), not a three-terminal IF filter**: JLCPCB
+  function) takes its place** on a8.
+- **p9 is a 455 kHz ceramic resonator (two-terminal), not a three-terminal IF filter**: JLCPCB
   stocks no 455 kHz filter and several resonators.  In series between the jacks it passes at its
   series resonance and blocks at its parallel one a few kHz above: the tutorial's Q measurement
-  on a part with a Q of a few hundred, between the LC (P4) and the quartz (P8).
-- **P4's trimmer capacitor becomes switched capacitors** (JLCPCB's only SMD trimmers are 0.6 mm
+  on a part with a Q of a few hundred, between the LC (p4) and the quartz (p8).
+- **p4's trimmer capacitor becomes switched capacitors** (JLCPCB's only SMD trimmers are 0.6 mm
   parts with no stock): 220 pF fixed with 47 pF and 100 pF on a 2-way DIP switch, so the
   resonance steps between about 0.85 and 1.0 MHz.
-- **Hand-fitted parts plug in; nothing is soldered by hand.**  P13's ferrite-rod coil goes in a
+- **Hand-fitted parts plug in; nothing is soldered by hand.**  p13's ferrite-rod coil goes in a
   3-way screw terminal (coil ends and tap) with its tuning capacitors on a 4-way DIP switch and
-  two slots for a cable tie to hold the rod; A11's 40 kHz transducers plug into 1 x 5 pin sockets
-  (pins 1 and 5 are 10.16 mm apart, the transducers' 10.0 mm leads flex the rest); A12's 20 mm
-  speaker and A10's external laser module go in 2-way screw terminals, the electret microphone in a
+  two slots for a cable tie to hold the rod; a11's 40 kHz transducers plug into 1 x 5 pin sockets
+  (pins 1 and 5 are 10.16 mm apart, the transducers' 10.0 mm leads flex the rest); a12's 20 mm
+  speaker and a10's external laser module go in 2-way screw terminals, the electret microphone in a
   2-way socket.  JLCPCB stocks none of these transducers; the lab has them.
 - **The Pmod plug is the PZ254R-12-12P (C492434), a 2 x 6 right-angle male header** at the left
   end of the bottom edge, its pins past the edge, so the host's second socket 0.9 inch to the
@@ -141,14 +141,14 @@ reason is given below.
   jack slots in a cell (local mm):  TL (4.75, 4.75)  TR (15.25, 4.75)  BL (4.75, 15.25)  BR (15.25, 15.25)
   in a two-cell tile also:          TM (20.75, 4.75)  BM (20.75, 15.25)
   in a tile of several cells:       TLk, BRk = cell k's TL and BR (TL1 = (26.25, 4.75), BR1 = (36.75, 15.25))
-  P8 only:                          TLo (4.25, 4.25), BRo (15.75, 15.75): 0.5 mm further out, for the 45-degree crystal
+  p8 only:                          TLo (4.25, 4.25), BRo (15.75, 15.75): 0.5 mm further out, for the 45-degree crystal
   M3 holes at (4, 4), (96, 4), (4, 96), (96, 96) on AMOD-P; rubber feet at (5, 5), (95, 5), (95, 95),
   (5, 85) on AMOD-A and RF-MOD; identity text in the top margin; Pmod plug pads at x = 4.4 .. 17.1
   in the bottom margin (its body past y = 100); USB-C on the right edge.
 ```
 
-As built, nearly every jack is at a cell's TL or BR (TLk or BRk in a tile of several cells).  The exceptions: P8's
-TLo and BRo; TM on A9 (LO), R1 (P2), R10 and R11 (REF IN); TR on A5, A10 and A12, whose neighbours already leave
+As built, nearly every jack is at a cell's TL or BR (TLk or BRk in a tile of several cells).  The exceptions: p8's
+TLo and BRo; TM on a9 (LO), R1 (P2), r10 and R11 (REF IN); TR on a5, a10 and a12, whose neighbours already leave
 those jacks 14.3 mm or more from every other.  `scripts/geometry.py` asserts 14.3 mm between every pair of jacks on
 each board; the closest pair on each board is 14.85 mm, the diagonal of one cell.
 
@@ -156,19 +156,19 @@ each board; the closest pair on each board is 14.85 mm, the diagonal of one cell
 
 | cell | # | tile | jacks | the circuit (50 ohm unless said) | expected |
 |---|---|---|---|---|---|
-| (0,0) | P1 | pi attenuator, -20 dB | IN, OUT | 61.9 / 249 / 61.9 ohm | flat -20 dB |
-| (1,0) | P2 | RC low-pass | IN, OUT (hi-Z) | 1 k series, 1 nF shunt: 159 kHz | -3 dB at 159 kHz, -20 dB/decade |
-| (2,0) | P3 | RC high-pass | IN, OUT (hi-Z) | 1 nF series, 1 k shunt: 159 kHz | the mirror image |
-| (3,0) | P4 | series RLC | IN, OUT | 100 uH, 220 pF + 47 / 100 pF on a 2-way DIP: 1.07 / 0.97 / 0.90 / 0.83 MHz, Q about 6 between 50 ohm ports | a peak you can move |
-| (0,1) | P5 | LC low-pass 9 MHz | IN, OUT | 5th-order Butterworth pi: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF | -3 dB at 9 MHz, -30 dB at 18 |
-| (1,1) | P6 | LC low-pass 100 kHz | IN, OUT | 5th-order pi: 22 nF, 120 uH, 3 x 22 nF, 120 uH, 22 nF (C0G 1206) | -3 dB at 100 kHz |
-| (2,1) | P7 | LC band-pass 4.7-7.8 MHz | IN, OUT | 3rd-order Butterworth: series 2.7 uH + 270 pF, shunt 2.2 nF + 330 nH, series 2.7 uH + 270 pF | Chapter 6's band |
-| (3,1) | P8 | 4 MHz crystal | IN, OUT | the crystal in series, with 33 pF in series shorted by DIP 1 and 10 pF across it by DIP 2 | a spike at 4.000 MHz that moves 1 kHz |
-| (0,2) | P9 | 455 kHz ceramic resonator | IN, OUT | the resonator in series | pass at 455, block a few kHz up |
-| (1,2) | P10 | diode clipper | IN, OUT (hi-Z) | 1 k series, 1N4148W pairs to ground; DIP 1 shorts the second diode of each leg (0.7 V) else 1.4 V | flat tops |
-| (2,2)-(3,2) | P11 | delay line, 400 ns | IN, 100 ns, 200 ns, 300 ns, OUT | 20 sections of 1.0 uH and 390 pF (Z0 50 ohm, 20 ns each, cut-off 16 MHz); taps through 470 ohm | an echo every 100 ns; dispersion near 16 MHz |
-| (0,3) | P12 | LEDs, four colours | IN | 100 ohm, then red 630 / yellow 596 / green 525 / blue 469 nm on a 4-way DIP | V_f against wavelength: Planck |
-| (1,3)-(3,3) | P13 | AM loopstick | OUT | 3-way terminal for the rod's coil and tap, 47 / 100 / 220 / 470 pF on a 4-way DIP across the coil, the jack on the tap; cable-tie slots | a station, with A4 |
+| (0,0) | p1 | pi attenuator, -20 dB | IN, OUT | 61.9 / 249 / 61.9 ohm | flat -20 dB |
+| (1,0) | p2 | RC low-pass | IN, OUT (hi-Z) | 1 k series, 1 nF shunt: 159 kHz | -3 dB at 159 kHz, -20 dB/decade |
+| (2,0) | p3 | RC high-pass | IN, OUT (hi-Z) | 1 nF series, 1 k shunt: 159 kHz | the mirror image |
+| (3,0) | p4 | series RLC | IN, OUT | 100 uH, 220 pF + 47 / 100 pF on a 2-way DIP: 1.07 / 0.97 / 0.90 / 0.83 MHz, Q about 6 between 50 ohm ports | a peak you can move |
+| (0,1) | p5 | LC low-pass 9 MHz | IN, OUT | 5th-order Butterworth pi: 220 pF, 1.5 uH, 680 pF, 1.5 uH, 220 pF | -3 dB at 9 MHz, -30 dB at 18 |
+| (1,1) | p6 | LC low-pass 100 kHz | IN, OUT | 5th-order pi: 22 nF, 120 uH, 3 x 22 nF, 120 uH, 22 nF (C0G 1206) | -3 dB at 100 kHz |
+| (2,1) | p7 | LC band-pass 4.7-7.8 MHz | IN, OUT | 3rd-order Butterworth: series 2.7 uH + 270 pF, shunt 2.2 nF + 330 nH, series 2.7 uH + 270 pF | Chapter 6's band |
+| (3,1) | p8 | 4 MHz crystal | IN, OUT | the crystal in series, with 33 pF in series shorted by DIP 1 and 10 pF across it by DIP 2 | a spike at 4.000 MHz that moves 1 kHz |
+| (0,2) | p9 | 455 kHz ceramic resonator | IN, OUT | the resonator in series | pass at 455, block a few kHz up |
+| (1,2) | p10 | diode clipper | IN, OUT (hi-Z) | 1 k series, 1N4148W pairs to ground; DIP 1 shorts the second diode of each leg (0.7 V) else 1.4 V | flat tops |
+| (2,2)-(3,2) | p11 | delay line, 400 ns | IN, 100 ns, 200 ns, 300 ns, OUT | 20 sections of 1.0 uH and 390 pF (Z0 50 ohm, 20 ns each, cut-off 16 MHz); taps through 470 ohm | an echo every 100 ns; dispersion near 16 MHz |
+| (0,3) | p12 | LEDs, four colours | IN | 100 ohm, then red 630 / yellow 596 / green 525 / blue 469 nm on a 4-way DIP | V_f against wavelength: Planck |
+| (1,3)-(3,3) | p13 | AM loopstick | OUT | 3-way terminal for the rod's coil and tap, 47 / 100 / 220 / 470 pF on a 4-way DIP across the coil, the jack on the tap; cable-tie slots | a station, with a4 |
 
 Every jack carries a test loop (RH-5019) on its node beside it, and four ground loops stand in the
 margins.  27 SMA jacks, 5 DIP switches, one terminal block.  Section 7 has the parts.
@@ -182,46 +182,46 @@ P-FET and green LED; the -5 V rail is not switched (an op amp with V+ open draws
 
 | cell | # | tile | supply | jacks | Pmod | the circuit as built (rev A, 2026-10-25) |
 |---|---|---|---|---|---|---|
-| (0,0) | A2 | gain x10, 14 MHz | +-5 | IN (50 ohm), OUT | | one OPA810 non-inverting, 1.1 k / 10 k, 49.9 ohm out: x10 into a high impedance, x5 into 50 ohm (the plan's two-stage x3.16 did not fit a cell beside the switch) |
-| (1,0) | A3 | gain x100, 1.4 MHz | +-5 | IN (50 ohm), OUT | | the same stage with 100 ohm / 10 k |
-| (2,0) | A4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 (SOT-23-6, DIS tied to +VS) at x101 (1 k / 10 ohm) in the A2 geometry; no loop |
-| (3,0) | A5 | Doppler | +-5 | OUT | | a 1 x 3 socket (+5 V, IF, ground) for an HB100 10.525 GHz module on jumper wires; the IF through 1 uF (100 k to ground) into the A2 geometry at x101, 49.9 ohm out: 70 Hz per m/s (Prompt 13: the host has the Johnson-noise source this tile was) |
-| (0,1) | A6 | delta-sigma ADC | +3.3 | IN (10 k) | IO8, IO7 | TLV3501 against a 1.65 V reference; 10 k / 10 k / 10 nF integrator; the FPGA's bit in on IO8, the comparator's bit out on IO7 and a loop |
-| (1,1) | A7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | 74HC4046A (Nexperia, TSSOP-16): 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
-| (2,1) | A8 | heat | +5 | TEMP OUT | IO6 | two 15 ohm 2512 in series (0.83 W) in the top-left, switched by an AO3400 from IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) straight above the jack (the NTC divider did not fit) |
-| (3,1) | A1 | power | | | | USB-C on the right edge, 5.1 k CC pull-downs, 2 A PTC, SMAJ5.0A, 2 x 10 uF, LM2664 for -5 V, TPS7A2033 for +3.3 V, green +5 V and red -5 V LEDs in the margin, a 1 x 5 socket along the top edge (+5, G, -5, G, 3.3) |
-| (0,2)-(1,2) | A9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell on +-5 V: 51 ohm inputs, carrier pair at 2.5 V, 1 mA per side, 1.5 k loads, IF single-ended through 100 n (1.5 k source: a high-impedance input); no null trimmer |
-| (2,2)-(3,2) | A10 | impedance and I-V | +-5 | DRIVE IN, S OUT, DUT, X OUT | | DRIVE IN into the A2 geometry at x2: the driven node S (also out through 49.9 ohm on S OUT); a 4-way DIP picks 47, 470, 4.7 k or 47 k from S to X, the part under test from X to ground on DUT, an OPA810 follower to X OUT: Z = R X / (S - X), DC to a few MHz, and I-V curves to +-4 V and 40 mA (Prompt 13: the host has the LED driver and photodiode amplifier this tile was) |
-| (0,3)-(1,3) | A11 | 40 kHz ultrasound | +-5 | RX OUT | IO4, IO3 | DRV8837 H-bridge from IO4 and IO3 into a transducer in pins 1 and 5 of a 1 x 5 socket; the second transducer through 10 n / 3.9 k into the A2 geometry at x100; the Pmod plug hangs off this tile's bottom edge |
-| (2,3)-(3,3) | A12 | audio | +-5 | SPEAKER IN, MIC OUT | IO2 | PAM8302A into a speaker on a screw terminal, fed by SPEAKER IN through 1 u and by the one-bit stream on IO2 through 10 k / 10 n; an electret in a 1 x 2 socket (2.2 k bias) through 1 u into the A2 geometry at x100 (no 3.5 mm jack) |
+| (0,0) | a2 | gain x10, 14 MHz | +-5 | IN (50 ohm), OUT | | one OPA810 non-inverting, 1.1 k / 10 k, 49.9 ohm out: x10 into a high impedance, x5 into 50 ohm (the plan's two-stage x3.16 did not fit a cell beside the switch) |
+| (1,0) | a3 | gain x100, 1.4 MHz | +-5 | IN (50 ohm), OUT | | the same stage with 100 ohm / 10 k |
+| (2,0) | a4 | HF LNA, 30 MHz | +-5 | IN (50 ohm), OUT | | OPA847 (SOT-23-6, DIS tied to +VS) at x101 (1 k / 10 ohm) in the a2 geometry; no loop |
+| (3,0) | a5 | Doppler | +-5 | OUT | | a 1 x 3 socket (+5 V, IF, ground) for an HB100 10.525 GHz module on jumper wires; the IF through 1 uF (100 k to ground) into the a2 geometry at x101, 49.9 ohm out: 70 Hz per m/s (Prompt 13: the host has the Johnson-noise source this tile was) |
+| (0,1) | a6 | delta-sigma ADC | +3.3 | IN (10 k) | IO8, IO7 | TLV3501 against a 1.65 V reference; 10 k / 10 k / 10 nF integrator; the FPGA's bit in on IO8, the comparator's bit out on IO7 and a loop |
+| (1,1) | a7 | PLL 4046 | +5 | IN (1 k), VCO OUT | | 74HC4046A (Nexperia, TSSOP-16): 100 n / 1 k into SIGin, R1 10 k, C1 1 nF (about 100 kHz), PC2 through 10 k / 100 n into VCOin, VCO OUT through 470 ohm (fixed values, no DIP; no loops: probe pins 9 and 13) |
+| (2,1) | a8 | heat | +5 | TEMP OUT | IO6 | two 15 ohm 2512 in series (0.83 W) in the top-left, switched by an AO3400 from IO6 (10 k pull-down); a TMP235 (10 mV/K + 500 mV) straight above the jack (the NTC divider did not fit) |
+| (3,1) | a1 | power | | | | USB-C on the right edge, 5.1 k CC pull-downs, 2 A PTC, SMAJ5.0A, 2 x 10 uF, LM2664 for -5 V, TPS7A2033 for +3.3 V, green +5 V and red -5 V LEDs in the margin, a 1 x 5 socket along the top edge (+5, G, -5, G, 3.3) |
+| (0,2)-(1,2) | a9 | mixer MC1496 | +-5 | RF IN, LO IN, IF OUT | | the Gilbert cell on +-5 V: 51 ohm inputs, carrier pair at 2.5 V, 1 mA per side, 1.5 k loads, IF single-ended through 100 n (1.5 k source: a high-impedance input); no null trimmer |
+| (2,2)-(3,2) | a10 | impedance and I-V | +-5 | DRIVE IN, S OUT, DUT, X OUT | | DRIVE IN into the a2 geometry at x2: the driven node S (also out through 49.9 ohm on S OUT); a 4-way DIP picks 47, 470, 4.7 k or 47 k from S to X, the part under test from X to ground on DUT, an OPA810 follower to X OUT: Z = R X / (S - X), DC to a few MHz, and I-V curves to +-4 V and 40 mA (Prompt 13: the host has the LED driver and photodiode amplifier this tile was) |
+| (0,3)-(1,3) | a11 | 40 kHz ultrasound | +-5 | RX OUT | IO4, IO3 | DRV8837 H-bridge from IO4 and IO3 into a transducer in pins 1 and 5 of a 1 x 5 socket; the second transducer through 10 n / 3.9 k into the a2 geometry at x100; the Pmod plug hangs off this tile's bottom edge |
+| (2,3)-(3,3) | a12 | audio | +-5 | SPEAKER IN, MIC OUT | IO2 | PAM8302A into a speaker on a screw terminal, fed by SPEAKER IN through 1 u and by the one-bit stream on IO2 through 10 k / 10 n; an electret in a 1 x 2 socket (2.2 k bias) through 1 u into the a2 geometry at x100 (no 3.5 mm jack) |
 
-The Pmod lines (the standard's IO numbers: IO1-4 on pins 1-4, IO5-8 on pins 7-10): A6 IO8 and IO7, A8 IO6,
-A11 IO4 and IO3, A12 IO2; IO1 and IO5 are unused (A10 needs no line since Prompt 13).  (Renumbered 2026-10-25 when the plug's mirrored pinout was fixed.)
+The Pmod lines (the standard's IO numbers: IO1-4 on pins 1-4, IO5-8 on pins 7-10): a6 IO8 and IO7, a8 IO6,
+a11 IO4 and IO3, a12 IO2; IO1 and IO5 are unused (a10 needs no line since Prompt 13).  (Renumbered 2026-10-25 when the plug's mirrored pinout was fixed.)
 The switched rail of every tile comes from its own slide switch and P-FET; -5 V (40 mA from the
 LM2664) is shared and unswitched.
 
 ## 6. RF-MOD: 915 MHz, 2.4 GHz, a stretch to 5.8 GHz
 
 As built (rev A, 2026-10-25): ten tiles on sixteen cells, four layers, every tile's IN top-left and OUT bottom-right
-(a third jack at the top middle on R1, R10 and R11, at the right cell's top-left on the mixers), CPWG lines (0.29 mm, 0.25 mm gaps over 0.21 mm of 7628) with via fences, a launch
+(a third jack at the top middle on r1, r10 and R11, at the right cell's top-left on the mixers), CPWG lines (0.29 mm, 0.25 mm gaps over 0.21 mm of 7628) with via fences, a launch
 void under every jack's centre pin, a top-side ground pour on every RF tile.  ERC 0, DRC 0, the fab checks pass,
 $57.19 of parts per board (after Prompt 13's QPL9547 and TRF3722).
 
 | cells | # | tile | supply | jacks | Pmod | the circuit as built |
 |---|---|---|---|---|---|---|
-| (0,0)-(1,0) | R1 | diode mixer | | LO, RF, IF | | ADEX-10L+ double-balanced diode-ring mixer (10-1000 MHz, LO +4 dBm, 7 dB loss), its baluns and ring drawn on the silk; in the splitter's place after Prompt 15 ("Do the diode-ring mixer instead of the least useful passive splitter.  I have passive splitters.") |
-| (2,0) | R2 | 2.45 GHz filter | | IN, OUT | | Murata LFB212G45SG8A127 LTCC, 1.7 dB, 2.4-2.5 GHz |
-| (3,0) | R4 | 915 MHz filter | | IN, OUT | | RF360 B39921B2672P810 SAW, 1.1 dB, 902-928 MHz |
-| (0,1) | R5 | LNA | +5 | IN, OUT | | QPL9547 (Prompt 13; the taped QPL9547TR7 was in stock): Qorvo's 18 nH choke feeding 5 V into the output pin, 3.3 k to Vbias for 65 mA; 19.5 dB, 0.3-0.5 dB NF from 0.5 to 3 GHz, 22 dBm absolute maximum at the input |
-| (1,1) | R12 | gain block | +7.8 | IN, OUT | | GALI-84+: 100 pF in and out, 27 nH and 22 ohm (2512) from the switched 7.8 V; 20 dB, +20 dBm P1dB |
-| (2,1)-(3,1) | R9 | power and reference | | REF OUT | | USB-C (5.1 k CC, 2 A PTC, SMAJ5.0A, 2 x 10 uF); MT3608 boost to 7.8 V (22 uH, SS34, 12 k / 1 k) on the L3 strip under row 1; TPS7A2033 3.3 V for a TC32H4 25 MHz TCXO and a 74LVC1G17 driving REF OUT through 51 ohm; green (5 V) and yellow (7.8 V) LEDs |
-| (0,2)-(1,2) | R7 | TX mixer | +5 (3.3 V LDO) | RF, LO, IF | | ADL5350 with a 200 MHz crossover on its RF/IF node, 0 ohm + 100 pF LO input, 10 nH LO-buffer choke; its own TPS7A2033 behind the switch |
-| (2,2)-(3,2) | R8 | RX mixer | +5 (3.3 V LDO) | RF, LO, IF | | the same |
-| (0,3)-(1,3) | R10 | synthesizer | +5 (3.3 V LDO) | OUT A+, REF IN, OUT A- | IO1-4 | MAX2871, CostasLink's circuit: RFOUTA+ and RFOUTA- each through 27 nH / 100 pF to a jack (RFOUTA- was in 51 ohm until Prompt 15), RFOUTB open; loop filter C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p (80-120 kHz, 61 degrees for 915 MHz at VCO/4 and 2.4 GHz at VCO/2, ICP 2.56 mA); LD on a red LED; carries the Pmod plug |
-| (2,3)-(3,3) | R13 | I/Q transmitter | +5 (3.3 V LDO) | I IN, Q IN, RF OUT | IO2, IO3, IO5, IO6 | TRF3722 (PLL, VCO, I/Q modulator, 0.4-4.2 GHz; Prompt 13, replacing rev A's second MAX2871) on SPI shared with R10 (LE IO6, readback IO5), referenced from R10's REF IN; each DAC through 56 ohm at the jack and 270 ohm to a node at 0.25 V; about -3 dBm, image-free (-42 dBc untrimmed); a TLV75733 for its 3.3 V |
+| (0,0)-(1,0) | r1 | diode mixer | | LO, RF, IF | | ADEX-10L+ double-balanced diode-ring mixer (10-1000 MHz, LO +4 dBm, 7 dB loss), its baluns and ring drawn on the silk; in the splitter's place after Prompt 15 ("Do the diode-ring mixer instead of the least useful passive splitter.  I have passive splitters.") |
+| (2,0) | r2 | 2.45 GHz filter | | IN, OUT | | Murata LFB212G45SG8A127 LTCC, 1.7 dB, 2.4-2.5 GHz |
+| (3,0) | r4 | 915 MHz filter | | IN, OUT | | RF360 B39921B2672P810 SAW, 1.1 dB, 902-928 MHz |
+| (0,1) | r5 | LNA | +5 | IN, OUT | | QPL9547 (Prompt 13; the taped QPL9547TR7 was in stock): Qorvo's 18 nH choke feeding 5 V into the output pin, 3.3 k to Vbias for 65 mA; 19.5 dB, 0.3-0.5 dB NF from 0.5 to 3 GHz, 22 dBm absolute maximum at the input |
+| (1,1) | r12 | gain block | +7.8 | IN, OUT | | GALI-84+: 100 pF in and out, 27 nH and 22 ohm (2512) from the switched 7.8 V; 20 dB, +20 dBm P1dB |
+| (2,1)-(3,1) | r9 | power and reference | | REF OUT | | USB-C (5.1 k CC, 2 A PTC, SMAJ5.0A, 2 x 10 uF); MT3608 boost to 7.8 V (22 uH, SS34, 12 k / 1 k) on the L3 strip under row 1; TPS7A2033 3.3 V for a TC32H4 25 MHz TCXO and a 74LVC1G17 driving REF OUT through 51 ohm; green (5 V) and yellow (7.8 V) LEDs |
+| (0,2)-(1,2) | r7 | TX mixer | +5 (3.3 V LDO) | RF, LO, IF | | ADL5350 with a 200 MHz crossover on its RF/IF node, 0 ohm + 100 pF LO input, 10 nH LO-buffer choke; its own TPS7A2033 behind the switch |
+| (2,2)-(3,2) | r8 | RX mixer | +5 (3.3 V LDO) | RF, LO, IF | | the same |
+| (0,3)-(1,3) | r10 | synthesizer | +5 (3.3 V LDO) | OUT A+, REF IN, OUT A- | IO1-4 | MAX2871, CostasLink's circuit: RFOUTA+ and RFOUTA- each through 27 nH / 100 pF to a jack (RFOUTA- was in 51 ohm until Prompt 15), RFOUTB open; loop filter C1 470 p, R2 820 + C2 6.8 n, R3 470, C3 100 p (80-120 kHz, 61 degrees for 915 MHz at VCO/4 and 2.4 GHz at VCO/2, ICP 2.56 mA); LD on a red LED; carries the Pmod plug |
+| (2,3)-(3,3) | r13 | I/Q transmitter | +5 (3.3 V LDO) | I IN, Q IN, RF OUT | IO2, IO3, IO5, IO6 | TRF3722 (PLL, VCO, I/Q modulator, 0.4-4.2 GHz; Prompt 13, replacing rev A's second MAX2871) on SPI shared with r10 (LE IO6, readback IO5), referenced from r10's REF IN; each DAC through 56 ohm at the jack and 270 ohm to a node at 0.25 V; about -3 dBm, image-free (-42 dBc untrimmed); a TLV75733 for its 3.3 V |
 
-Pmod (the standard's IO numbers): IO1 MUXOUT of R10, IO2 SDATA, IO3 SCLK, IO4 LE of R10, IO5 the TRF3722's readback,
-IO6 LE of R13; IO7 and IO8 unused.  The synthesizers' and mixers' nets use a "Fine" class (0.127 mm, 0.15 mm tracks, 0.45 / 0.25
+Pmod (the standard's IO numbers): IO1 MUXOUT of r10, IO2 SDATA, IO3 SCLK, IO4 LE of r10, IO5 the TRF3722's readback,
+IO6 LE of r13; IO7 and IO8 unused.  The synthesizers' and mixers' nets use a "Fine" class (0.127 mm, 0.15 mm tracks, 0.45 / 0.25
 vias) for the QFN fan-out; everything else keeps 0.2 mm.
 
 Not on rev A, with the reason: the RFX2401C front end (its cells went to a complete second chain), the LTC5510 mixers
@@ -232,8 +232,8 @@ Prompt 13 (`PLAN_LEVEL2.md` section 2).
 ## 7. Parts and sourcing
 
 The table below is the plan's list (2026-10-25 01:00).  The boards as built use what `scripts/parts.py` lists; the
-differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, OPA847IDBVR (C160422, SOT-23-6) for A4, 74HC4046APW-Q100J
-(C546981, TSSOP-16, 234 in stock on 2026-10-25) for A7, no LT6230, NTC or 3.5 mm jack, and on RF-MOD one GALI-84+, the
+differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, OPA847IDBVR (C160422, SOT-23-6) for a4, 74HC4046APW-Q100J
+(C546981, TSSOP-16, 234 in stock on 2026-10-25) for a7, no LT6230, NTC or 3.5 mm jack, and on RF-MOD one GALI-84+, the
 QPL9547TR7, the TRF3722, the ADL5350 twice and no LTC5510 or RFX2401C.
 
 JLCPCB's shelf for everything machine-placed, queried through `scripts/jlc_api.py` on
@@ -249,43 +249,43 @@ The chips, with stock that day:
 | KingTek DSIC02 / 04 / 06 DIP switches | C54949 / C54950 / C54952 | 0.39 / 0.49 / 0.57 | 12,716 / 2,973 / 2,562 | the variants |
 | MSK12C02 slide switch | C431540 | 0.05 | 194,123 | each powered tile's switch |
 | AO3401A (P, Basic) / AO3400A (N, Basic) / 2N7002 (Basic) | C15127 / C20917 / C8545 | 0.10 / 0.09 / 0.02 | plenty | power gating, the heater, the laser gate |
-| OPA2810IDR | C1849413 | 2.54 | 3,707 | A2, A3, A10, A11 |
-| OPA1612AIDR | C94590 | 1.34 | 26,345 | A5, A12 |
-| OPA847IDR | C2870028 | 5.65 | 1,466 | A4 |
-| TLV3501AIDBVR | C193413 | 1.92 | 5,079 | A6 (and A11's TX comparator) |
-| CD74HC4046AM (alt. CD4046BM/TR C7432285, 4,889) | C1519916 | 1.37 | 91 | A7 |
-| MC1496DR2G | C7295 | 0.25 | 14,255 | A9 |
-| TMP235A4DBZR | C2868809 | 0.32 | 13,806 | A8 |
-| DRV8837DSGR | C39159 | 0.26 | 85,042 | A11 |
-| PAM8302AASCR | C113367 | 0.31 | 12,021 | A12 |
-| PD70-01C/TR7 | C131196 | 0.21 | 77,545 | A10 |
-| LM2664M6X/NOPB | C108573 | 0.33 | 164,185 | A1 (-5 V) |
-| TPS7A2033PDBVR | C2862740 | 0.21 | 155,681 | A1, R9, R10, R11, R13 |
-| LP5907MFX-3.3 | C23380874 | 0.14 | 12,279 | R9 (the TCXO) |
-| MT3608 | C84817 | 0.10 | 91,494 | R9 (8 V for the GALI-84+) |
-| TYPE-C-31-M-12 USB-C | C165948 | 0.19 | 324,740 | A1, R9 |
-| MF-MSMF200-2 PTC, SMAJ5.0A TVS | C210837, C113952 | 0.07, - | 9,923 | A1, R9 |
+| OPA2810IDR | C1849413 | 2.54 | 3,707 | a2, a3, a10, a11 |
+| OPA1612AIDR | C94590 | 1.34 | 26,345 | a5, a12 |
+| OPA847IDR | C2870028 | 5.65 | 1,466 | a4 |
+| TLV3501AIDBVR | C193413 | 1.92 | 5,079 | a6 (and a11's TX comparator) |
+| CD74HC4046AM (alt. CD4046BM/TR C7432285, 4,889) | C1519916 | 1.37 | 91 | a7 |
+| MC1496DR2G | C7295 | 0.25 | 14,255 | a9 |
+| TMP235A4DBZR | C2868809 | 0.32 | 13,806 | a8 |
+| DRV8837DSGR | C39159 | 0.26 | 85,042 | a11 |
+| PAM8302AASCR | C113367 | 0.31 | 12,021 | a12 |
+| PD70-01C/TR7 | C131196 | 0.21 | 77,545 | a10 |
+| LM2664M6X/NOPB | C108573 | 0.33 | 164,185 | a1 (-5 V) |
+| TPS7A2033PDBVR | C2862740 | 0.21 | 155,681 | a1, r9, r10, R11, r13 |
+| LP5907MFX-3.3 | C23380874 | 0.14 | 12,279 | r9 (the TCXO) |
+| MT3608 | C84817 | 0.10 | 91,494 | r9 (8 V for the GALI-84+) |
+| TYPE-C-31-M-12 USB-C | C165948 | 0.19 | 324,740 | a1, r9 |
+| MF-MSMF200-2 PTC, SMAJ5.0A TVS | C210837, C113952 | 0.07, - | 9,923 | a1, r9 |
 | PZ254R-12-12P Pmod plug | C492434 | 0.10 | 4,327 | AMOD-A, RF-MOD |
-| KF301-5.0-2P / -3P terminals | C474881 / C474882 | 0.10 / 0.14 | 84,342 / 27,437 | P13, A10, A12 |
-| PZ254V-11-05P 1 x 5 header (the transducer sockets are the female of it: see section 10) | C492404 | 0.03 | 168,994 | A11 |
-| MAX2871ETJ+T | C7458627 | 9.97 | 3,120 | R10, R11 |
-| QPL9547TR7 | C5367093 | 6.70 | 5,070 | R5 |
-| LTC5510IUF#TRPBF (fallback: Digi-Key; design alternative AD8342 C182567, 36) | C688646 | 14.98 | 35 | R7, R8 |
+| KF301-5.0-2P / -3P terminals | C474881 / C474882 | 0.10 / 0.14 | 84,342 / 27,437 | p13, a10, a12 |
+| PZ254V-11-05P 1 x 5 header (the transducer sockets are the female of it: see section 10) | C492404 | 0.03 | 168,994 | a11 |
+| MAX2871ETJ+T | C7458627 | 9.97 | 3,120 | r10, R11 |
+| QPL9547TR7 | C5367093 | 6.70 | 5,070 | r5 |
+| LTC5510IUF#TRPBF (fallback: Digi-Key; design alternative AD8342 C182567, 36) | C688646 | 14.98 | 35 | r7, r8 |
 | RFX2401C | C19213 | 0.97 | 58,226 | R6 |
-| GALI-84+ | C3193261 | 4.22 | 144 | R12 |
-| TRF3722IRGZR | C1850395 | 8.63 | 2,218 | R13 |
-| B39921B2672P810 SAW 915 MHz | C1518004 | 0.56 | 6,411 | R4 |
-| LFB212G45SG8A127 2.45 GHz | C341536 | 0.19 | 3,940 | R2 |
-| TC32H4-25.000-33GNDTNL TCXO | C5119013 | 1.58 | 1,240 | R9 |
-| X49SM4MSD2SC 4 MHz crystal | C13774 | 0.11 | 33,932 | P8 |
-| KCR455E 455 kHz resonator | C366989 | 0.11 | 504 | P9 |
-| 1N4148W (Basic) | C81598 | 0.01 | 4.1 M | P10, clamps |
-| LEDs 0805: NCD0805R1 red (Basic), KT-0805Y yellow (Basic), KT-0805G green (Basic), KT-0805B blue | C84256, C2296, C2297, C2293 | 0.01-0.02 | plenty | P12, the rail and tile LEDs |
-| E6C1204URAC1UDA side-view red LED | C375479 | 0.02 | 12,614 | A10 |
-| GMI6050-2C38DB electret (SMD, 6 mm) | C233921 | 0.33 | 985 | A12 (fitted; the socket is the alternative) |
-| PJ-320A 3.5 mm jack | C2884926 | 0.14 | 9,322 | A12 |
-| HNTC0805-103F3380FB 10 k NTC | C49247661 | 0.05 | 4,464 | A8 |
-| 2512 15 ohm 1 W | (see parts.py) | 0.03 | | A8 |
+| GALI-84+ | C3193261 | 4.22 | 144 | r12 |
+| TRF3722IRGZR | C1850395 | 8.63 | 2,218 | r13 |
+| B39921B2672P810 SAW 915 MHz | C1518004 | 0.56 | 6,411 | r4 |
+| LFB212G45SG8A127 2.45 GHz | C341536 | 0.19 | 3,940 | r2 |
+| TC32H4-25.000-33GNDTNL TCXO | C5119013 | 1.58 | 1,240 | r9 |
+| X49SM4MSD2SC 4 MHz crystal | C13774 | 0.11 | 33,932 | p8 |
+| KCR455E 455 kHz resonator | C366989 | 0.11 | 504 | p9 |
+| 1N4148W (Basic) | C81598 | 0.01 | 4.1 M | p10, clamps |
+| LEDs 0805: NCD0805R1 red (Basic), KT-0805Y yellow (Basic), KT-0805G green (Basic), KT-0805B blue | C84256, C2296, C2297, C2293 | 0.01-0.02 | plenty | p12, the rail and tile LEDs |
+| E6C1204URAC1UDA side-view red LED | C375479 | 0.02 | 12,614 | a10 |
+| GMI6050-2C38DB electret (SMD, 6 mm) | C233921 | 0.33 | 985 | a12 (fitted; the socket is the alternative) |
+| PJ-320A 3.5 mm jack | C2884926 | 0.14 | 9,322 | a12 |
+| HNTC0805-103F3380FB 10 k NTC | C49247661 | 0.05 | 4,464 | a8 |
+| 2512 15 ohm 1 W | (see parts.py) | 0.03 | | a8 |
 
 Passives: 0805 on AMOD-P and AMOD-A (a student can probe and rework them), 0603 on the delay line
 (forty parts in two cells) and on RF-MOD, 0402 only where an RF chip's land pattern asks.  C0G
@@ -346,14 +346,14 @@ SLEWRATE=SLOW, so no series resistors.  Hand-soldered like the original (three t
 6. The Icepi adapter: done 10:20 (section 9).
 7. The design-review brief (`docs/REVIEW_BRIEF.md`), the DOA lists (`docs/DOA_*.md`); the review rounds are next.
 8. The jacks spread into the checkerboard on every board (Prompt 12): done 12:40.  AMOD-P's thirteen tiles and
-   AMOD-A's A2-A4, A7, A8, A9 and A11 re-laid, RF-MOD's mixers' LO moved to the right cell's top-left; every pair of
-   jacks 14.85 mm or more apart.  A4 now uses the OPA847's SOT-23-6 and A7 Nexperia's TSSOP-16 4046, so AMOD-A's
+   AMOD-A's a2-a4, a7, a8, a9 and a11 re-laid, RF-MOD's mixers' LO moved to the right cell's top-left; every pair of
+   jacks 14.85 mm or more apart.  a4 now uses the OPA847's SOT-23-6 and a7 Nexperia's TSSOP-16 4046, so AMOD-A's
    parts are $50.90 a board.  All three boards: ERC 0, DRC 0, every fab check passed.
 
 Open items that are not Jason's to answer are decided in this file as they come up and logged in
 the chat; the ones that are his go in `QUESTIONS.md`.
 
-## 11. AMOD-P2: the second passive board (Prompt 17, 2026-10-28)
+## 11. AMOD-N: the second passive board (Prompt 17, 2026-10-28)
 
 Jason: "It seems like there is enough pressure that I should make another analog board.  We should really call this the
 2nd board because it's so much simpler than even the active board.  The board with the laser stuff and NV center stuff
@@ -365,45 +365,45 @@ input", and "To distinguish whole-tile labels from SMA or port labels, use diffe
 
 **Decided.**
 
-- **The name is AMOD-P2, and it is the second board in every list** (after AMOD-P, before AMOD-A).  The name AMOD-2 is
+- **The name is AMOD-N, and it is the second board in every list** (after AMOD-P, before AMOD-A).  The name AMOD-2 is
   not reused: the commits, Appendix D and the chat log mean the physics board by it.  The tiles continue AMOD-P's
-  numbers, P14-P25.
+  numbers, n1-n11.
 - **AMOD-2 is PhMOD** (physics: magnetic resonance, the ionosphere and light), not OMOD: one of its ten tiles is optical.
-  The optics board of PLAN_LEVEL2 section 6 keeps the name OMOD for later.  Its tiles keep Y1-Y10.
+  The optics board of PLAN_LEVEL2 section 6 keeps the name OMOD for later.  Its tiles keep h1-h10.
 - **Passive, with two tiles on the Pmod's 3.3 V and no USB.**  The step attenuator (150 uA) and the oscillator (about
-  2 mA) run from the host's 3.3 V through AMOD-P2's own plug, carried by P22 at the bottom-left as on every other board.
+  2 mA) run from the host's 3.3 V through AMOD-N's own plug, carried by n8 at the bottom-left as on every other board.
   Everything else works unplugged.  The plug's IO2-IO4 are RF-MOD's SDATA, SCLK and LE, so one SPI peripheral in the
   gateware drives every SPI tile on every board.
 - **Four layers, RF-MOD's stack (JLC04161H-7628) and launch,** because half the tiles are GHz parts: L2 ground, L3 the
   Pmod's 3.3 V, L4 ground.  Feet, no holes (the board sits on a Pmod).
 - **The diode-ring mixer stays on RF-MOD.**  The tiles asked for, suggested in Prompt 16 and dropped before filled the
-  sixteen cells exactly once the two powered tiles came onto this board (Jason's mid-turn message), and moving R1 would
-  have left two cells on RF-MOD with nothing waiting for them; R1 also wants R10's LO beside it.
+  sixteen cells exactly once the two powered tiles came onto this board (Jason's mid-turn message), and moving r1 would
+  have left two cells on RF-MOD with nothing waiting for them; r1 also wants r10's LO beside it.
 - **Silk case.**  Ports in capitals, a tile's label in mixed case (its first letter capitalised, the rest as written:
   `tiles.label_case`), notes and ranges in lower case except units, acronyms and part numbers.  Applied to all six
   boards.  Titles that no longer fit a cell's frame were shortened (Attenuator, Balun, Transformer; RF-MOD's and
-  RF-MOD-2's LNA tiles are "Preamp").
+  IQ-MOD's LNA tiles are "Preamp").
 
 **As built** (ERC 0, DRC 0, all fab checks; $43.91 of parts a board; 30 jacks):
 
 | # | cells | tile | jacks | as built | chips (JLCPCB 2026-10-28) |
 |---|---|---|---|---|---|
-| P14 | (0,0)-(2,0) | calibration | SHORT, OPEN, LOAD, 25 OHM, THRU, THRU | SHORT: the pin poured to ground (no launch void); OPEN: the bare pin; LOAD: 2 x 100 ohm after 4 mm of line; 25 ohm: 2 x 49.9 ohm (VSWR 2); THRU: 19.8 mm, about 115 ps | resistors |
-| P16 | (0,1)-(1,1) | resistive splitter | IN, OUT 1, OUT 2 | 3 x 16.9 ohm star, DC-6 GHz, -6 dB | 0402WGF169JTCE C82287 |
-| P17 | (2,1)-(3,1) | transformer splitter | SUM, PORT 1, PORT 2 | ADP-2-1+ turned 270, pins 2 and 5 joined off ground | ADP-2-1+ C2683460 (41: accepted under Prompt 13's rule) |
-| P18 | (0,2) | quarter-wave stub | IN, OUT | a 17.3 mm open stub (copper graphics, not a track) on the line: a notch near 2.45 GHz | copper |
-| P19 | (1,2) | low-pass | IN, OUT | LFCN-1000+, DC-1 GHz | LFCN-1000+ C879868 |
-| P20 | (2,2) | detector | IN, OUT | 51 ohm, 10 nF, a zero-bias SMS7630 pair as a doubler, 100 pF / 100 k | SMS7630-006LF C6489012 (83: accepted) |
-| P21 | (3,2) | bias-T | RF, RF+DC | 100 nF; 27 nH + 330 nH + 10 uH; DC and GND test loops | (the board's passives) |
-| P22 | (0,3)-(1,3) | step attenuator | IN, OUT | PE43711; an 8-way DIP switch (way 1 SPI, ways 2-8 the bits, 100 k pull-downs, LE pulled high): by hand in direct parallel mode, or serial on IO2-IO4; 100 nF blocks; carries the Pmod plug | PE43711B-Z C470929 (1,673); DSHP08TSGET C40738 (4,520) |
-| P23 | (3,0) | oscillator | TUNE, OUT | Clapp on an MMBT3904, 10 uH + BB133, 220 / 220 pF, 9.6-11.5 MHz; switch and FET | MMBT3904, BB133 |
-| P24 | (2,3) | 1:1 balun | IN, OUT | TC1-1TG2+ in the top-right quarter; OUT's legs an island 5.6 mm clear of every plane | TC1-1TG2+ C3305009 (85: accepted) |
-| P25 | (3,3) | 1:4 transformer | IN, OUT | TC4-1W+, the secondary grounded at one end; DIP: 200 or 49.9 ohm on OUT | TC4-1W+ C879855 (2,227) |
+| n1 | (0,0)-(2,0) | calibration | SHORT, OPEN, LOAD, 25 OHM, THRU, THRU | SHORT: the pin poured to ground (no launch void); OPEN: the bare pin; LOAD: 2 x 100 ohm after 4 mm of line; 25 ohm: 2 x 49.9 ohm (VSWR 2); THRU: 19.8 mm, about 115 ps | resistors |
+| n2 | (0,1)-(1,1) | resistive splitter | IN, OUT 1, OUT 2 | 3 x 16.9 ohm star, DC-6 GHz, -6 dB | 0402WGF169JTCE C82287 |
+| n3 | (2,1)-(3,1) | transformer splitter | SUM, PORT 1, PORT 2 | ADP-2-1+ turned 270, pins 2 and 5 joined off ground | ADP-2-1+ C2683460 (41: accepted under Prompt 13's rule) |
+| n4 | (0,2) | quarter-wave stub | IN, OUT | a 17.3 mm open stub (copper graphics, not a track) on the line: a notch near 2.45 GHz | copper |
+| n5 | (1,2) | low-pass | IN, OUT | LFCN-1000+, DC-1 GHz | LFCN-1000+ C879868 |
+| n6 | (2,2) | detector | IN, OUT | 51 ohm, 10 nF, a zero-bias SMS7630 pair as a doubler, 100 pF / 100 k | SMS7630-006LF C6489012 (83: accepted) |
+| n7 | (3,2) | bias-T | RF, RF+DC | 100 nF; 27 nH + 330 nH + 10 uH; DC and GND test loops | (the board's passives) |
+| n8 | (0,3)-(1,3) | step attenuator | IN, OUT | PE43711; an 8-way DIP switch (way 1 SPI, ways 2-8 the bits, 100 k pull-downs, LE pulled high): by hand in direct parallel mode, or serial on IO2-IO4; 100 nF blocks; carries the Pmod plug | PE43711B-Z C470929 (1,673); DSHP08TSGET C40738 (4,520) |
+| n9 | (3,0) | oscillator | TUNE, OUT | Clapp on an MMBT3904, 10 uH + BB133, 220 / 220 pF, 9.6-11.5 MHz; switch and FET | MMBT3904, BB133 |
+| n10 | (2,3) | 1:1 balun | IN, OUT | TC1-1TG2+ in the top-right quarter; OUT's legs an island 5.6 mm clear of every plane | TC1-1TG2+ C3305009 (85: accepted) |
+| n11 | (3,3) | 1:4 transformer | IN, OUT | TC4-1W+, the secondary grounded at one end; DIP: 200 or 49.9 ohm on OUT | TC4-1W+ C879855 (2,227) |
 
 **Left out, and why.**  The oscillator's crystal and DIP switch (a VCXO, which Appendix D's first AMOD-2 had): no room
 in one cell beside the switch and the jacks.  A 30 MHz anti-alias low-pass: the host's front end has its own filters.
 A crystal ladder filter: with 50 ohm ends it needs matching transformers, and its crystals' motional parameters are not
-published.  A 10.7 MHz ceramic filter: none in stock.  A quadrature hybrid: the I/Q chips on RF-MOD and RF-MOD-2 make
+published.  A 10.7 MHz ceramic filter: none in stock.  A quadrature hybrid: the I/Q chips on RF-MOD and IQ-MOD make
 their own quadrature.  Printed antennas, a printed coupler, a split-ring resonator: as before, they need a field solver
 and tuning.
 
@@ -414,7 +414,7 @@ footprint on our board.  Rev A's table had every SOT-23, SOT-23-5 and SOT-23-6 a
 3225 TCXO 0 rather than 180.  `parts.JLC_DATUM` now moves the USB-C (1.572 mm), the SOT-89s, the slide switch and the
 headers to JLCPCB's origin in the upload CPL.  CLAUDE_PCB.md's readings from earlier orders agree with every one.
 
-## 12. Prompt 18: the back of every board, P22 by hand, and what is still missing (2026-10-28)
+## 12. Prompt 18: the back of every board, n8 by hand, and what is still missing (2026-10-28)
 
 Jason, Prompt 18: "Can the P22 Attenuator (PE43711) also still be controlled with switches?  Does this part need the
 3.3V power? ... I hope that the silkscreen (including on the back) is appropriately used to document anything that a
@@ -431,21 +431,21 @@ things into the board, it's far easier to read the silkscreen in front of them t
   ink sits on the mask).  Lines are 13 characters or fewer on a one-cell tile, about 22 on a wider one: the free space
   on a cell's back is the 10 mm between its two diagonal jacks.
 - **A plot of the expected response** where there is room: the ladder tiles of AMOD-P their own simulation; the others
-  from `scripts/backplots.py` (amplifiers' gain against frequency, datasheet tables, P18's open stub, P23's frequency
-  against TUNE, P10's OUT against IN).  The axis drawn mirrored so it reads left to right from the back; its range in
+  from `scripts/backplots.py` (amplifiers' gain against frequency, datasheet tables, n4's open stub, n9's frequency
+  against TUNE, p10's OUT against IN).  The axis drawn mirrored so it reads left to right from the back; its range in
   the line above it, its ends below.  All plots placed on all six boards.
-- **The front** carries the few that must be seen while cabling: Y2 PULSES ONLY, Y10 "start at mV", R5 and X4 "IN -20
-  dBm", P22's switch rule.
-- **P22 by hand.**  The PE43711 has a direct parallel mode (P/S low, LE high) that pSemi calls "ideal for manual
+- **The front** carries the few that must be seen while cabling: h2 PULSES ONLY, h10 "start at mV", r5 and q4 "IN -20
+  dBm", n8's switch rule.
+- **n8 by hand.**  The PE43711 has a direct parallel mode (P/S low, LE high) that pSemi calls "ideal for manual
   control": an 8-way DIP switch, way 1 SPI (on: serial, P/S high), ways 2-8 the seven bits, 100 k pull-downs, LE pulled
   up by 100 k so a floating FPGA pin leaves the switches in charge.  In SPI mode the bits must be off.  The chip needs
   the Pmod's 3.3 V either way: it is an active switch array (its digital inputs are 3.6 V absolute maximum).  It took a
-  second cell; P15 (two Smith-chart loads) gave it up, P23 moved to (3,0).  P14's 25 ohm standard and P25's 200 and
+  second cell; P15 (two Smith-chart loads) gave it up, n9 moved to (3,0).  n1's 25 ohm standard and n11's 200 and
   49.9 ohm loads still put points on a Smith chart.
 
-**Swaps considered, not made.**  X4 (RF-MOD-2's preamp) is R5 again; it stays so RF-MOD-2 receives on its own, but it
-is the first cell to give up.  R1 (the passive diode mixer) would suit AMOD-P2 but wants R10's LO beside it, and AMOD-P2
-is full.  A6 (one-bit ADC) and A7 (4046 PLL) would run on the Pmod's 3.3 V, but AMOD-A needs USB for its other tiles
+**Swaps considered, not made.**  q4 (IQ-MOD's preamp) is r5 again; it stays so IQ-MOD receives on its own, but it
+is the first cell to give up.  r1 (the passive diode mixer) would suit AMOD-N but wants r10's LO beside it, and AMOD-N
+is full.  a6 (one-bit ADC) and a7 (4046 PLL) would run on the Pmod's 3.3 V, but AMOD-A needs USB for its other tiles
 anyway, so moving them saves nothing.
 
 **Still missing: Analog Devices' labs** (`docs/ADI_LABS_SURVEY.md`).  Power regulation is the one whole area none of
@@ -455,7 +455,7 @@ and transistor-level stages are the others that fit.  The six boards are full, s
 
 | tile | cells | what | parts (JLCPCB stock 2026-10-28) |
 |---|---|---|---|
-| power | 1 | USB-C 5 V, +-5 V for the op amps | as AMOD-A's A1 |
+| power | 1 | USB-C 5 V, +-5 V for the op amps | as AMOD-A's a1 |
 | LDO and buck | 2 | a buck then an LDO, an electronic load from a DAC: ripple before and after, load steps, Zout(f), dropout, pulse-skipping | TLV62568 C163219, LP5907-3.3 C80670 or XC6206 C5446, OPA2810, AO3400A |
 | charge pump | 1 | the FPGA clocks it: Rout = 1/(fC) + switches, ripple against load | ICL7660A C7881; LM2664 C108573 |
 | FPGA buck | 2 | two half-bridges into two inductors, the duty from the FPGA: two-phase ripple cancellation, a digital loop's Bode plot | DRV8837 C39159 (about 250 kHz) |
@@ -469,3 +469,48 @@ and transistor-level stages are the others that fit.  The six boards are full, s
 
 Sixteen cells.  Not checked yet: a 5 V clock buffer for the filter chip, 0.1 % resistors in stock, whether each fits its
 cell.  Jason to decide.
+
+## 13. Prompt 19: one letter per board, tiles in lower case (2026-10-28)
+
+Jason, Prompt 19: "We need a better naming system for the boards and tiles ... If we can have a nice, well justified
+single-letter designator for each board, it would make everything much more clear", and mid-turn: "Maybe you want to
+make the tiles lower case, because D11, Q11, C11, etc look like a reference designators for diodes, transistors, and
+capacitors.  d11, q11, and c11 don't look like obvious electronics or PCB things."
+
+**The rule.**  Every board has one letter, the initial of what it is about.  A tile is that letter in lower case and a
+number (`n8`, `q3`), numbered from 1 on each board.  Board names keep their capitals (AMOD-N), ports are capitals (IN,
+OUT), a tile's title is mixed case (Step attenuator), everything else lower case: Prompt 17's convention, extended.
+
+| letter | board (stem) | the letter says | tiles | was |
+|---|---|---|---|---|
+| p | AMOD-P (`amod_p`) | passive | p1-p13 | P1-P13 |
+| n | AMOD-N (`amod_n`) | networks: the pieces of a network analyzer (standards, splitters, a detector, an attenuator, a source) and the networks it measures | n1-n11 | AMOD-P2's P14, P16-P25 |
+| a | AMOD-A (`amod_a`) | active | a1-a12 | A1-A12 |
+| c | AMOD-C (`amod_c`) | conversion: power (linear, switched, charge pump) and data (delta-sigma, sample-and-hold, SAR), and the switched capacitors both use | c1-... | new (section 12's AMOD-A2) |
+| m | AMOD-M (`amod_m`) | motors: brushed DC, stepper, servo, solenoid, voice coil, and their sensors | m1-... | new |
+| b | AMOD-B (`amod_b`) | brushless: a gimbal motor on its magnetic encoder, the drone's sensorless six-step, an IMU | b1-... | new |
+| r | RF-MOD (`rf_mod`) | radio | r1, r2, r4, r5, r7-r10, r12, r13 | R1-R13 |
+| h | PhMOD (`phmod`) | the h of Ph (p is the passive board's), and HF, where all its tiles work | h1-h10 | Y1-Y10 |
+| q | IQ-MOD (`iq_mod`) | quadrature: its I/Q modulator and demodulator share one LO | q1-q11 | RF-MOD-2's X1-X11 |
+
+**Why these and not others.**
+
+- *A letter never moves to another board, and a retired name is never reused.*  Then a reference missed in an update
+  points at nothing instead of at the wrong tile.  That is why the passive board keeps p and the active board a (Jason
+  offered a for the passive board and b or c for the active one: every existing "a4", the LNA, would have become a
+  different tile), and why RF-MOD keeps r3, r6 and r11 unused (dropped in planning; renumbering would have moved r4-r13
+  onto other tiles).  P14-P25, X1-X11 and Y1-Y10 are retired.
+- *Not s for the second RF board* (Jason asked about S11 and T11): s11 is the reflection coefficient that IQ-MOD's coupler
+  and AMOD-N's standards exist to measure.  t says nothing about the board.  Not c for comms either: the radio boards are
+  r and q, and c went to conversion.
+- *Not i, l or o*: they read as 1 and 0.  Lower case also stops q, c and r reading as a transistor, a capacitor and a
+  resistor; the boards' part references stay upper case (U801, R501) and never print on the silk.
+- *Board names follow their letter where they did not*: AMOD-P2 became AMOD-N (a "P" in its name promised p tiles) and
+  RF-MOD-2 became IQ-MOD (an "RF-MOD" in its name promised r tiles).  PhMOD keeps Jason's name; its h is the h in it.
+- *Motors take two boards, not one with two Pmods* (Jason: "If it makes more sense to do 2 boards rather than one board
+  with two Pmods, stick with an extra board").  A DC motor with its encoder needs 4 FPGA lines, a stepper 4, a
+  three-phase bridge 3 and its encoder and IMU 5 more: AMOD-M (brushed, stepper and the slow actuators, 8 lines) and AMOD-B
+  (brushless, 8 lines).  Neither fits the conversion board, whose sixteen cells and eight lines are full.
+
+`scripts/tiles.dump` refuses a tile whose name is not its board's letter and a number, a number used twice, and a `BACK`
+or `BACK_PLOTS` entry for a tile that does not exist.

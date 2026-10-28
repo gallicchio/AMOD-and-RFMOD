@@ -17,10 +17,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p1"></a>
 
-### P1  pi pad, -20 dB
+### p1  pi pad, -20 dB
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P1.jpg" width="262" alt="P1  pi pad, -20 dB"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p1.jpg" width="262" alt="p1  pi pad, -20 dB"></td>
 <td valign="top">
 
 <b>Divides the voltage by 10 (-20 dB) and looks like 50 ohm from both ports.</b><br><br>
@@ -38,10 +38,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p2"></a>
 
-### P2  RC low-pass, 159 kHz
+### p2  RC low-pass, 159 kHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P2.jpg" width="262" alt="P2  RC low-pass, 159 kHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p2.jpg" width="262" alt="p2  RC low-pass, 159 kHz"></td>
 <td valign="top">
 
 <b>A first-order RC low-pass: passes below 159 kHz and falls 20 dB per decade above.</b><br><br>
@@ -59,13 +59,13 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p3"></a>
 
-### P3  RC high-pass, 159 kHz
+### p3  RC high-pass, 159 kHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P3.jpg" width="262" alt="P3  RC high-pass, 159 kHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p3.jpg" width="262" alt="p3  RC high-pass, 159 kHz"></td>
 <td valign="top">
 
-<b>A first-order RC high-pass, the mirror image of P2.</b><br><br>
+<b>A first-order RC high-pass, the mirror image of p2.</b><br><br>
 <b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
 <b>Expect:</b> -3 dB at 159 kHz, +20 dB/decade below; OUT into high impedance<br><br>
 <b>How to use it:</b> DAC to IN, OUT to the ADC on high impedance.<br><br>
@@ -74,16 +74,16 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Limits:</b> OUT is a 1 k source: read it on high impedance.<br><br>
 <b>Experiments:</b> A Bode plot, AC coupling, a differentiator (a step gives a 1 us spike).<br><br>
 <b>Tutorial pages:</b> RC and LC circuits.<br><br>
-<b>The circuit:</b> The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us.
+<b>The circuit:</b> The mirror image of p2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us.
 
 </td></tr></table>
 
 <a id="p4"></a>
 
-### P4  series RLC, 100uH 220pF
+### p4  series RLC, 100uH 220pF
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P4.jpg" width="262" alt="P4  series RLC, 100uH 220pF"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p4.jpg" width="262" alt="p4  series RLC, 100uH 220pF"></td>
 <td valign="top">
 
 <b>A series 100 uH and 220 pF resonator between 50 ohm ports: a band-pass peak that the DIP switch moves.</b><br><br>
@@ -102,10 +102,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p5"></a>
 
-### P5  LC low-pass, 9 MHz
+### p5  LC low-pass, 9 MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P5.jpg" width="262" alt="P5  LC low-pass, 9 MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p5.jpg" width="262" alt="p5  LC low-pass, 9 MHz"></td>
 <td valign="top">
 
 <b>A 5th-order Butterworth LC low-pass at 9 MHz: the anti-alias filter for a 25 MS/s ADC, or the smoothing filter after a DAC.</b><br><br>
@@ -123,10 +123,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p6"></a>
 
-### P6  LC low-pass, 100 kHz
+### p6  LC low-pass, 100 kHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P6.jpg" width="262" alt="P6  LC low-pass, 100 kHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p6.jpg" width="262" alt="p6  LC low-pass, 100 kHz"></td>
 <td valign="top">
 
 <b>A 3rd-order LC low-pass near 120 kHz: turns a one-bit (delta-sigma or PWM) stream into a tone.</b><br><br>
@@ -138,16 +138,16 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Limits:</b> Designed for 50 ohm on both ports.<br><br>
 <b>Experiments:</b> One-bit DAC reconstruction, delta-sigma noise shaping seen at the output, a slow plant for control.<br><br>
 <b>Tutorial pages:</b> Trading speed for bits; RC and LC circuits.<br><br>
-<b>The circuit:</b> 3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206). Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2.
+<b>The circuit:</b> 3rd-order pi, 50 ohm: 2 x 10 nF, 150 uH, 2 x 10 nF, all C0G (JLCPCB stocks no 22 nF C0G in 0805 or 1206). Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with p2.
 
 </td></tr></table>
 
 <a id="p7"></a>
 
-### P7  band-pass, 4.7-7.5 MHz
+### p7  band-pass, 4.7-7.5 MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P7.jpg" width="262" alt="P7  band-pass, 4.7-7.5 MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p7.jpg" width="262" alt="p7  band-pass, 4.7-7.5 MHz"></td>
 <td valign="top">
 
 <b>A 3rd-order LC band-pass, 4.7-7.5 MHz: the band round the tutorial's 6.25 MHz digital-communications carrier.</b><br><br>
@@ -165,10 +165,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p8"></a>
 
-### P8  quartz crystal, 4 MHz
+### p8  quartz crystal, 4 MHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P8.jpg" width="262" alt="P8  quartz crystal, 4 MHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p8.jpg" width="262" alt="p8  quartz crystal, 4 MHz"></td>
 <td valign="top">
 
 <b>A 4 MHz quartz crystal in series between the jacks: a very sharp pass at its series resonance and a notch at its parallel resonance about 6 kHz above.</b><br><br>
@@ -187,18 +187,18 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p9"></a>
 
-### P9  ceramic res., 455 kHz
+### p9  ceramic res., 455 kHz
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P9.jpg" width="262" alt="P9  ceramic res., 455 kHz"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p9.jpg" width="262" alt="p9  ceramic res., 455 kHz"></td>
 <td valign="top">
 
 <b>A 455 kHz ceramic resonator in series: a pass at 455 kHz and a notch a few kHz above; the AM superhet's IF element.</b><br><br>
 <b>Jacks:</b> IN, top left (±4 V); OUT, bottom right.<br><br>
-<b>Expect:</b> a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz<br><br>
+<b>Expect:</b> a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between p4's LC and p8's quartz<br><br>
 <b>How to use it:</b> Sweep 440-480 kHz into IN, OUT to the ADC.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
-<b>Specs:</b> Q of a few hundred: between P4's LC (6) and P8's quartz (50,000).<br><br>
+<b>Specs:</b> Q of a few hundred: between p4's LC (6) and p8's quartz (50,000).<br><br>
 <b>Limits:</b> A two-terminal resonator, not a three-terminal IF filter: one peak, no flat passband.<br><br>
 <b>Experiments:</b> Q compared across LC, ceramic and quartz; an IF stage for a superhet built in gateware.<br><br>
 <b>Tutorial pages:</b> RC and LC circuits; The Q of a quartz crystal.<br><br>
@@ -208,10 +208,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p10"></a>
 
-### P10  clipper, 1N4148 ±0.6 V
+### p10  clipper, 1N4148 ±0.6 V
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P10.jpg" width="262" alt="P10  clipper, 1N4148 ±0.6 V"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p10.jpg" width="262" alt="p10  clipper, 1N4148 ±0.6 V"></td>
 <td valign="top">
 
 <b>1 k in series and a 1N4148 diode each way to ground: clips any signal to about +-0.6 V.</b><br><br>
@@ -230,10 +230,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p11"></a>
 
-### P11  delay line, 400 ns, a tap every 100
+### p11  delay line, 400 ns, a tap every 100
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_p_P11.jpg" width="520" alt="P11  delay line, 400 ns, a tap every 100"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_p_p11.jpg" width="520" alt="p11  delay line, 400 ns, a tap every 100"></td>
 <td valign="top">
 
 <b>A 400 ns, 50 ohm delay line made of 20 LC sections, with taps every 100 ns: 260 feet of RG-58 on a board.</b><br><br>
@@ -251,10 +251,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p12"></a>
 
-### P12  LEDs
+### p12  LEDs
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p_P12.jpg" width="262" alt="P12  LEDs"></td>
+<td valign="top" width="270"><img src="images/tiles/amod_p_p12.jpg" width="262" alt="p12  LEDs"></td>
 <td valign="top">
 
 <b>Four LEDs (red, yellow, green, blue) behind 100 ohm, one at a time from the DIP switch: Planck's constant from the voltage where each starts to glow.</b><br><br>
@@ -264,7 +264,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>You need:</b> Nothing (a dark room helps).<br><br>
 <b>Specs:</b> 630, 596, 525 and 469 nm (DIP ways 1-4); 100 ohm in series; IN 0-5 V.<br><br>
 <b>Limits:</b> The InGaN green and blue sit above the line (their knee is not just hc / e lambda); the colours are not printed, so light them.<br><br>
-<b>Experiments:</b> Planck's constant; LED I-V curves (with AMOD-A's A10); light against current.<br><br>
+<b>Experiments:</b> Planck's constant; LED I-V curves (with AMOD-A's a10); light against current.<br><br>
 <b>Tutorial pages:</b> More ideas for one board.<br><br>
 <b>The circuit:</b> 100 ohm from the jack to the four LEDs; the 4-way switch picks one.  Drive from the DAC through the ECP5 board's unipolar LED output or a bench supply: the knee voltage of each colour against c / lambda gives Planck's constant. Way 1 red 630 nm (AlGaInP), 2 yellow 596 (AlGaInP), 3 green 525 (InGaN), 4 blue 469 nm (InGaN): the InGaN pair lie above the line.  The LED loop is after the 100 ohm: the LED's own voltage.  The colours are not on the silk: light them.<br><br>
 <b>Parts:</b> DSHP04TSGET (C40736), KT-0805B (C2293), KT-0805G (C2297), NCD0805R1 (C84256), KT-0805Y (C2296).
@@ -273,22 +273,22 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <a id="p13"></a>
 
-### P13  AM loopstick, 0.5-1.7 MHz
+### p13  AM loopstick, 0.5-1.7 MHz
 
 <table><tr>
-<td valign="top" width="528"><img src="images/tiles/amod_p_P13.jpg" width="520" alt="P13  AM loopstick, 0.5-1.7 MHz"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_p_p13.jpg" width="520" alt="p13  AM loopstick, 0.5-1.7 MHz"></td>
 <td valign="top">
 
 <b>An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors or an external tuning capacitor on VAR C, its tap on the jack.</b><br><br>
-<b>Jacks:</b> OUT, top left (to A4).<br><br>
+<b>Jacks:</b> OUT, top left (to a4).<br><br>
 <b>Expect:</b> with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band); a variable capacitor on VAR C tunes between them<br><br>
-<b>How to use it:</b> Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.<br><br>
+<b>How to use it:</b> Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's a4, a4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.<br><br>
 <b>You need:</b> An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C); optionally a 365 pF tuning capacitor with a knob (kit: Amplified Parts single-section 365 pF). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> With a 330 uH coil: 1.28 MHz (47 pF) down to 0.40 MHz (470 pF), and the sums between; the kit's 240 uH coil tunes about 17 % higher.<br><br>
-<b>Limits:</b> The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs A4's gain before the ADC.<br><br>
+<b>Limits:</b> The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs a4's gain before the ADC.<br><br>
 <b>Experiments:</b> Real AM stations; the resonance and Q of a loopstick; the tutorial's AM radio gateware.<br><br>
 <b>Tutorial pages:</b> An AM radio.<br><br>
-<b>The circuit:</b> Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware.<br><br>
+<b>The circuit:</b> Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to 0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into a4's LNA and the AM radio gateware.<br><br>
 <b>Parts:</b> DSHP04TSGET (C40736).
 
 </td></tr></table>

@@ -124,7 +124,7 @@ def handbook(stem, meta, mod):
     if getattr(mod, "PMOD_NAMES", None):
         pm = pmod_pins(meta)
         names = getattr(mod, "PMOD_NAMES", {})
-        lines += ["### Pmod lines", "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "R10's bottom edge"),
+        lines += ["### Pmod lines", "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "r10's bottom edge"),
                   getattr(mod, "PMOD_VCC_TEXT", "which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):"), ""]
         for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
             k = int(net.replace("/PMOD", ""))
@@ -134,7 +134,7 @@ def handbook(stem, meta, mod):
         lines += list(block) + [""]
     if stem == "amod_a":
         lines += ["Every powered tile has a slide switch along its left edge (slider up: on) feeding a P-FET, so a tile's own rail is",
-                  "dead until you switch it on; -5 V is not switched (an op amp with no +5 V draws nothing).  The power tile (A1)",
+                  "dead until you switch it on; -5 V is not switched (an op amp with no +5 V draws nothing).  The power tile (a1)",
                   "takes 5 V from its USB-C; its socket along the top edge carries +5, ground, -5, ground, +3.3 V for a breadboard.", ""]
         pm = pmod_pins(meta)
         if pm:

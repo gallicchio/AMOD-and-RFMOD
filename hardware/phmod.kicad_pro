@@ -263,13 +263,13 @@
       "+3V3": [
         "Power"
       ],
-      "/Y4_MON": [
+      "/h4_MON": [
         "Fine"
       ],
-      "/Y4_G": [
+      "/h4_G": [
         "Fine"
       ],
-      "/Y4_VS": [
+      "/h4_VS": [
         "Fine"
       ],
       "/PMOD6": [
@@ -278,34 +278,34 @@
       "/PMOD7": [
         "Fine"
       ],
-      "/Y4_VREF": [
+      "/h4_VREF": [
         "Fine"
       ],
-      "/Y4_IP": [
+      "/h4_IP": [
         "Fine"
       ],
-      "/Y4_OUT1": [
+      "/h4_OUT1": [
         "Fine"
       ],
-      "/Y4_OUT2": [
+      "/h4_OUT2": [
         "Fine"
       ],
-      "/Y4_VM": [
+      "/h4_VM": [
         "Fine"
       ],
-      "/Y4_VCP": [
+      "/h4_VCP": [
         "Fine"
       ],
-      "/Y4_CPH": [
+      "/h4_CPH": [
         "Fine"
       ],
-      "/Y4_CPL": [
+      "/h4_CPL": [
         "Fine"
       ],
-      "/Y4_MO": [
+      "/h4_MO": [
         "Fine"
       ],
-      "/Y4_VEXT": [
+      "/h4_VEXT": [
         "Fine"
       ]
     },

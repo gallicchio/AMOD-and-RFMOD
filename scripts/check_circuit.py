@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """The exported KiCad netlist against the netlist the tiles declared: every (ref, pad, net) the
 tiles say must be one connection in KiCad's netlist, no tile part may be missing, and no net may
-join two tiles.  Net names differ in spelling (KiCad names a label net "/P5_IN", an unlabelled one
+join two tiles.  Net names differ in spelling (KiCad names a label net "/p5_IN", an unlabelled one
 "Net-(R501-Pad2)"), so the comparison is by connectivity: the set of (ref, pad) groups.
 
     python3 scripts/check_circuit.py amod_p out/amod_p.net

@@ -1,4 +1,4 @@
-# Design-review brief: AMOD-P, AMOD-P2, AMOD-A, RF-MOD, PhMOD (was AMOD-2), RF-MOD-2 and the Icepi Pmod adapter, rev A (2026-10-25; AMOD-P2 2026-10-28)
+# Design-review brief: AMOD-P, AMOD-N, AMOD-A, RF-MOD, PhMOD (was AMOD-2), IQ-MOD and the Icepi Pmod adapter, rev A (2026-10-25; AMOD-N 2026-10-28)
 
 For a reviewer (a person or another model) who has not seen the night's work.  Read in this order, then answer the
 questions at the end with evidence (a datasheet page, a rule, a measurement), not opinion.
@@ -10,7 +10,7 @@ tutorial at `~/mudd/133electronics/icepi-zero-dac-adc/tutorial/`, Appendix D is 
 cell between two vertical SMA jacks (IN top-left, OUT bottom-right, so every jack is 14.85 mm or more from every
 other on the board), the circuit drawn on the silkscreen as it is
 wired.  AMOD-P (two layers) is thirteen passive tiles: attenuators, RC and LC filters, resonators, a delay line, a
-clipper, an AM loopstick.  AMOD-P2 (four layers, `PLAN.md` sections 11 and 12) is eleven tiles, nine passive: calibration
+clipper, an AM loopstick.  AMOD-N (four layers, `PLAN.md` sections 11 and 12) is eleven tiles, nine passive: calibration
 standards at the jacks' pins, a resistive and a transformer splitter, a quarter-wave stub, an
 LTCC low-pass, a zero-bias diode detector, a bias-T, a 1:1 balun with a floating output and a 1:4 transformer; and two on
 the Pmod's 3.3 V with no USB: a PE43711 step attenuator set by an 8-way switch or the Pmod's SPI lines, and a
@@ -30,7 +30,7 @@ The second level is built for the ECP5-2ADC-2DAC board's two DACs and two ADCs (
 layers, ten tiles, DC-30 MHz): a THS3491 1 W pulse amplifier on +-15 V from a TPS65131, NMR's passive duplexer with an
 OPA847 preamplifier, a DRV8876 coil driver, two LMH6629 receive channels, an OPA810 VLF loop amplifier, a 50 ohm
 reflection bridge, two passive coupled LC tanks with BB133 varactors, an avalanche-noise source and a laser driver with
-an RF bias-T.  RF-MOD-2 (four layers, eleven tiles, 0.4-6 GHz): an ADL5375 modulator and an ADL5380 demodulator sharing
+an RF bias-T.  IQ-MOD (four layers, eleven tiles, 0.4-6 GHz): an ADL5375 modulator and an ADL5380 demodulator sharing
 one MAX2871's two complementary outputs, a dual directional coupler (two HHM22137A1), a QPL9547 LNA, an AD8318 log
 detector, an ADL5611 noise source, a MAX2659 GNSS front end, a SKY13370 switch and a broadband ODMR loop.  Its tiles take IN at
 the top-left jack and OUT at the bottom-right too.  The fourth board, `icepi_adapter/`, is the tutorial's 2x12 Icepi Zero
@@ -39,8 +39,8 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 ## Where everything is
 
 - `PLAN.md`: the decisions with their reasons, the tile tables as built, the parts and the stock on the day.
-- `PLAN_LEVEL2.md`: the same for PhMOD and RF-MOD-2, with every change from their plan and its reason.
-- `boards/amod_p.py`, `boards/amod_p2.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/rf_mod_2.py`: each tile's netlist, placement and wires in one place (the source of
+- `PLAN_LEVEL2.md`: the same for PhMOD and IQ-MOD, with every change from their plan and its reason.
+- `boards/amod_p.py`, `boards/amod_n.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/iq_mod.py`: each tile's netlist, placement and wires in one place (the source of
   truth; the schematic and the board are generated from it and checked against it).
 - `scripts/parts.py`: every part with its LCSC code, checked against JLCPCB's API (`scripts/jlc_cache.json`
   keeps the answers and their times).
@@ -69,22 +69,22 @@ stock above 100 for every part on the day, except the ADL5380 (14), which Jason 
 6. **RF-MOD's RF:** the CPWG geometry against the JLC04161H-7628 stack, the launch voids, the MAX2871 loop filter
    (`PLAN.md` section 6: 80-120 kHz, 61 degrees, from CostasLink's `sim/budget.py` method), the ADL5350's crossover
    in place of the datasheet's tuned tanks, the GALI-84+ bias (22 ohm from 7.8 V).
-7. **The two parts placed at 45 degrees on AMOD-P** (P8's HC-49S crystal, P9's ceramic resonator): their placement
+7. **The two parts placed at 45 degrees on AMOD-P** (p8's HC-49S crystal, p9's ceramic resonator): their placement
    rotation in `out/amod_p/` against JLCPCB's preview.
-8. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A, RF-MOD, PhMOD and RF-MOD-2, the ECP5 board's and the adapter's
+8. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A, RF-MOD, PhMOD and IQ-MOD, the ECP5 board's and the adapter's
    sockets), by pad position against the body, not by pad number: rev A's first layout got this wrong once.
 9. **PhMOD's power and pulse path:** the TPS65131's dividers and inductor choice, the THS3491's RGT pin table and
-   thermal pad (on ground), the +-15 V back tracks' width for Y2's peaks, Y3's crossed diodes against a 1 W pulse.
-10. **PhMOD's analog tiles:** Y7's REFL = 2A - 2B with the OPA810 (bandwidth at 30 MHz), Y8's tank frequencies with the
-    BB133's C-V curve (`docs/DOA_phmod.md` 5), Y10's loop stability (1 k / 10 nF integrator, 100 ohm into the AO3401's
-    gate) and its 100 mA/V scale, Y4's DRV8876 mode pins and IPROPI gain.
-11. **RF-MOD-2's front ends:** the ADL5375 baseband networks (0.5 V common mode, +-0.34 V swing), the ADL5380's output
+   thermal pad (on ground), the +-15 V back tracks' width for h2's peaks, h3's crossed diodes against a 1 W pulse.
+10. **PhMOD's analog tiles:** h7's REFL = 2A - 2B with the OPA810 (bandwidth at 30 MHz), h8's tank frequencies with the
+    BB133's C-V curve (`docs/DOA_phmod.md` 5), h10's loop stability (1 k / 10 nF integrator, 100 ohm into the AO3401's
+    gate) and its 100 mA/V scale, h4's DRV8876 mode pins and IPROPI gain.
+11. **IQ-MOD's front ends:** the ADL5375 baseband networks (0.5 V common mode, +-0.34 V swing), the ADL5380's output
     difference amplifiers, the three footprints drawn from JLCPCB's drawings (MAX2659, the 1109 SAW, SKY13370),
-    and X9's loop and its keep-out.
+    and q9's loop and its keep-out.
 12. **The back panels** (each board module's `BACK` and `BACK_PLOTS`, drawn by `gen_pcb.back_panels`; the bottom-side
     renders in `docs/images/`): is every number the tile's own limit (input level, load, supply, duty), is anything a
     user could damage a tile with missing, and does each plot's shape match the handbook's "expect" line?
-13. **P22's hand mode:** the PE43711's direct parallel mode with P/S and the seven bits on the DIP switch (100 k
+13. **n8's hand mode:** the PE43711's direct parallel mode with P/S and the seven bits on the DIP switch (100 k
     pull-downs) and LE pulled up by 100 k, against pSemi's Table 9 and its power-up rules.
 
 Answer as a numbered list of findings, each with the file and line (or the tile and part), the evidence, and the

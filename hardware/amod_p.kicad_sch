@@ -3012,18 +3012,6 @@
 		)
 		(uuid "01c3e50d-c49c-5ef5-bc5e-ce7cb7add38b")
 	)
-	(text "P1   pi pad, -20 dB"
-		(exclude_from_sim no)
-		(at 27.94 33.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "024744e0-d572-5078-99cd-a585213e8ef8")
-	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 604.52 57.96 0)
@@ -3046,18 +3034,6 @@
 		)
 		(uuid "0570ccbf-9d53-5c6c-a43a-30197ed93472")
 	)
-	(text "P3   RC high-pass, 159 kHz"
-		(exclude_from_sim no)
-		(at 408.94 33.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "07c6116c-cd28-5d95-9b1d-2d0fb262d1ac")
-	)
 	(text "the peak; a resonant plant for feedback control, a lockbox's cavity before the real one.  No OUT loop (the switch took its corner)."
 		(exclude_from_sim no)
 		(at 599.44 149.86 0)
@@ -3079,6 +3055,18 @@
 			(justify left)
 		)
 		(uuid "09269fb0-9e9a-55e2-87d6-f212d6c391cb")
+	)
+	(text "p10   clipper, 1N4148 ±0.6 V"
+		(exclude_from_sim no)
+		(at 599.44 414.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "09a9c328-c47c-5d45-856a-ad73e1a7a19d")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3113,6 +3101,18 @@
 			(justify left)
 		)
 		(uuid "0d27d2cb-9405-55e7-a187-4b9c4a367e4d")
+	)
+	(text "p8   quartz crystal, 4 MHz"
+		(exclude_from_sim no)
+		(at 599.44 160.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "0f384af4-df38-5b8b-b0b1-f5aed8de7418")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -3227,6 +3227,17 @@
 		)
 		(uuid "1bc526d9-3ce0-5f22-ba70-8dde3f4c5fef")
 	)
+	(text "The mirror image of p2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us."
+		(exclude_from_sim no)
+		(at 408.94 149.86 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "1ca47930-d986-50c4-a67d-19ff8f82fbc7")
+	)
 	(text "clipped sine's spectrum against the amplitude; the 1 k limits the diode current to a few milliamps from a ±4 V source."
 		(exclude_from_sim no)
 		(at 599.44 530.86 0)
@@ -3260,6 +3271,18 @@
 		)
 		(uuid "1f2e1c9b-f780-52f9-b1ec-9b0da64b8312")
 	)
+	(text "p11   delay line, 400 ns, a tap every 100"
+		(exclude_from_sim no)
+		(at 218.44 287.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "20e75288-1aba-57a8-b086-f9b031a9e3f0")
+	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 33.02 184.96 0)
@@ -3270,6 +3293,18 @@
 			(justify right)
 		)
 		(uuid "21151c76-3277-5719-9934-3b943237edb2")
+	)
+	(text "p13   AM loopstick, 0.5-1.7 MHz"
+		(exclude_from_sim no)
+		(at 218.44 414.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "214e65ee-3c08-58b8-ba22-9aac5836aecf")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3314,6 +3349,18 @@
 			(justify right)
 		)
 		(uuid "2600221a-4146-5a5e-98d6-5208f7eecbcd")
+	)
+	(text "p4   series RLC, 100uH 220pF"
+		(exclude_from_sim no)
+		(at 599.44 33.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "265ee52a-6061-5371-8fb2-eb433c543f25")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3360,6 +3407,18 @@
 		)
 		(uuid "2ab31de1-4d9d-5f60-80a7-e6754fb3f325")
 	)
+	(text "p9   ceramic res., 455 kHz"
+		(exclude_from_sim no)
+		(at 27.94 287.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "2caf5578-d673-5b8b-be81-5f11aa219d53")
+	)
 	(text "±4 V"
 		(exclude_from_sim no)
 		(at 414.02 184.96 0)
@@ -3371,9 +3430,9 @@
 		)
 		(uuid "2ef827a9-2f59-5241-9131-60005a8e7a68")
 	)
-	(text "P13   AM loopstick, 0.5-1.7 MHz"
+	(text "p12   LEDs"
 		(exclude_from_sim no)
-		(at 218.44 414.78 0)
+		(at 27.94 414.78 0)
 		(effects
 			(font
 				(size 2.2 2.2)
@@ -3381,18 +3440,19 @@
 			)
 			(justify left)
 		)
-		(uuid "2effb023-9ee0-5cf4-aa63-3c9cc520eca7")
+		(uuid "2fcacf08-08d6-5f96-8104-a195877726e9")
 	)
-	(text "The mirror image of P2: the same 1 k and 1 nF the other way round.  A step in gives a spike that decays in 1 us."
+	(text "p6   LC low-pass, 100 kHz"
 		(exclude_from_sim no)
-		(at 408.94 149.86 0)
+		(at 218.44 160.78 0)
 		(effects
 			(font
-				(size 1.2 1.2)
+				(size 2.2 2.2)
+				(bold yes)
 			)
 			(justify left)
 		)
-		(uuid "2fa70093-6e57-5546-9856-ed2dad57f0e6")
+		(uuid "3004ab0f-3db4-50f2-aeb3-1c0a3a16579a")
 	)
 	(text "slots for cable ties"
 		(exclude_from_sim no)
@@ -3404,6 +3464,18 @@
 			(justify left)
 		)
 		(uuid "341dd49b-4b3c-509f-bedb-7e982d4b5c27")
+	)
+	(text "p2   RC low-pass, 159 kHz"
+		(exclude_from_sim no)
+		(at 218.44 33.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "3498f22a-31a4-5792-9d6d-881ad50f416e")
 	)
 	(text "200ns"
 		(exclude_from_sim no)
@@ -3549,18 +3621,6 @@
 		)
 		(uuid "4a44809c-e6d6-5f0c-bfe7-506b8da14876")
 	)
-	(text "P4   series RLC, 100uH 220pF"
-		(exclude_from_sim no)
-		(at 599.44 33.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "4df67f4c-124f-591c-b6f7-16e6abea9dc8")
-	)
 	(text "OUT"
 		(exclude_from_sim no)
 		(at 668.02 435.76 0)
@@ -3605,9 +3665,9 @@
 		)
 		(uuid "5607c3bc-62fc-57de-9bc3-9bd0dff30ad5")
 	)
-	(text "P2   RC low-pass, 159 kHz"
+	(text "p5   LC low-pass, 9 MHz"
 		(exclude_from_sim no)
-		(at 218.44 33.78 0)
+		(at 27.94 160.78 0)
 		(effects
 			(font
 				(size 2.2 2.2)
@@ -3615,7 +3675,7 @@
 			)
 			(justify left)
 		)
-		(uuid "570bc54d-a3a9-5121-9d4b-86e5997cfb22")
+		(uuid "56aec034-2ccf-5aa3-9ef9-59f2ea7d30d3")
 	)
 	(text "the DIP switch and its two capacitors are drawn on the right: way 1 adds 47 pF, way 2 adds 100 pF across C"
 		(exclude_from_sim no)
@@ -3706,9 +3766,9 @@
 		)
 		(uuid "6d7c2df3-d56c-54db-b5b3-1c6eebee7a3c")
 	)
-	(text "P9   ceramic res., 455 kHz"
+	(text "p1   pi pad, -20 dB"
 		(exclude_from_sim no)
-		(at 27.94 287.78 0)
+		(at 27.94 33.78 0)
 		(effects
 			(font
 				(size 2.2 2.2)
@@ -3716,7 +3776,7 @@
 			)
 			(justify left)
 		)
-		(uuid "716a2556-226b-547f-a064-ab3eba0a6b59")
+		(uuid "7361b7e3-00a6-5a63-a38a-3dd072e57a80")
 	)
 	(text "3 coil end"
 		(exclude_from_sim no)
@@ -3729,19 +3789,7 @@
 		)
 		(uuid "738e2972-5cd1-5ec7-bcef-46b2771ae7ae")
 	)
-	(text "P8   quartz crystal, 4 MHz"
-		(exclude_from_sim no)
-		(at 599.44 160.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "75b85994-559f-5dd4-8540-c57659f7295c")
-	)
-	(text "EXPECT: a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between P4's LC and P8's quartz"
+	(text "EXPECT: a pass near 455 kHz and a notch a few kHz above: a resonator with a Q of a few hundred, between p4's LC and p8's quartz"
 		(exclude_from_sim no)
 		(at 27.94 398.58 0)
 		(effects
@@ -3752,17 +3800,6 @@
 			(justify left)
 		)
 		(uuid "75e51415-6c10-5423-a75e-dc21c17c36c9")
-	)
-	(text "to A4"
-		(exclude_from_sim no)
-		(at 363.22 474.52 0)
-		(effects
-			(font
-				(size 1.1 1.1)
-			)
-			(justify left)
-		)
-		(uuid "7805995e-925f-51f0-9974-04591c9855b5")
 	)
 	(text "A two-terminal 455 kHz ceramic resonator in series (JLCPCB stocks no three-terminal 455 kHz filter).  It is the superhet's IF"
 		(exclude_from_sim no)
@@ -3820,18 +3857,6 @@
 			(justify left)
 		)
 		(uuid "801e6786-cba2-5e9c-bf78-5d154dac1a83")
-	)
-	(text "P12   LEDs"
-		(exclude_from_sim no)
-		(at 27.94 414.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "82888f92-e2b8-542e-8cbf-d341d725be44")
 	)
 	(text "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns"
 		(exclude_from_sim no)
@@ -3910,9 +3935,9 @@
 		)
 		(uuid "94fef076-16ac-5d27-bccc-7e77b3433be2")
 	)
-	(text "P6   LC low-pass, 100 kHz"
+	(text "p7   band-pass, 4.7-7.5 MHz"
 		(exclude_from_sim no)
-		(at 218.44 160.78 0)
+		(at 408.94 160.78 0)
 		(effects
 			(font
 				(size 2.2 2.2)
@@ -3920,7 +3945,7 @@
 			)
 			(justify left)
 		)
-		(uuid "95067242-596f-5f4c-9d20-40fe37518d7a")
+		(uuid "95a8e7d2-0ed3-5bb5-86b3-0d123422e3b1")
 	)
 	(text "load would make a 1 k / 50 divider of it.  The lag plant of the tutorial's feedback-control pages; the step response is 1 - exp(-t / 1 us)."
 		(exclude_from_sim no)
@@ -3965,18 +3990,6 @@
 			(justify left)
 		)
 		(uuid "9c8030f1-998f-583a-a71b-3d951ee5dde4")
-	)
-	(text "P5   LC low-pass, 9 MHz"
-		(exclude_from_sim no)
-		(at 27.94 160.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "a09706c4-a1ea-5e10-be0e-ac20c88c91af")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -4111,17 +4124,16 @@
 		)
 		(uuid "b6d63a28-b769-51b2-b767-4cf833c5e606")
 	)
-	(text "P7   band-pass, 4.7-7.5 MHz"
+	(text "to a4"
 		(exclude_from_sim no)
-		(at 408.94 160.78 0)
+		(at 363.22 474.52 0)
 		(effects
 			(font
-				(size 2.2 2.2)
-				(bold yes)
+				(size 1.1 1.1)
 			)
 			(justify left)
 		)
-		(uuid "b70c0ee3-54f3-5039-8556-32dada82ee40")
+		(uuid "b78bfe97-e5cb-55fe-8675-f05e950dbdfb")
 	)
 	(text "tutorial The Q of a quartz crystal, Your crystal against a reference, More ideas for one board"
 		(exclude_from_sim no)
@@ -4155,18 +4167,6 @@
 			(justify left)
 		)
 		(uuid "c1bc7576-ac17-5c4a-a6b8-62343bcef4e6")
-	)
-	(text "P11   delay line, 400 ns, a tap every 100"
-		(exclude_from_sim no)
-		(at 218.44 287.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "c80f77cf-3112-5b97-9245-69389ea7da5e")
 	)
 	(text "tutorial RC and LC circuits"
 		(exclude_from_sim no)
@@ -4267,6 +4267,18 @@
 		)
 		(uuid "dc0d44d5-5eb3-567b-bef6-c87c6e351a7d")
 	)
+	(text "p3   RC high-pass, 159 kHz"
+		(exclude_from_sim no)
+		(at 408.94 33.78 0)
+		(effects
+			(font
+				(size 2.2 2.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "dcc9ea48-96b7-5e55-9217-ca8c4b3435bb")
+	)
 	(text "tutorial A quarter-wave stub, The channel, Chirps, Zadoff-Chu and LoRa, Control at the speed of the cable"
 		(exclude_from_sim no)
 		(at 218.44 291.08 0)
@@ -4278,7 +4290,7 @@
 		)
 		(uuid "df53d811-5381-5da9-900a-69bcfdde1525")
 	)
-	(text "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware."
+	(text "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into a4's LNA and the AM radio gateware."
 		(exclude_from_sim no)
 		(at 218.44 530.86 0)
 		(effects
@@ -4300,7 +4312,7 @@
 		)
 		(uuid "dffc6f2d-830c-5ee3-b048-1f6d0248a74b")
 	)
-	(text "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with P2."
+	(text "Turns a one-bit (delta-sigma) DAC stream into a tone; a slow plant for feedback control, with p2."
 		(exclude_from_sim no)
 		(at 218.44 276.86 0)
 		(effects
@@ -4376,18 +4388,6 @@
 			(justify left)
 		)
 		(uuid "ecee8171-426b-5794-8af9-05336b9c44f8")
-	)
-	(text "P10   clipper, 1N4148 ±0.6 V"
-		(exclude_from_sim no)
-		(at 599.44 414.78 0)
-		(effects
-			(font
-				(size 2.2 2.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "ee1bcd11-5df8-5bb5-a63d-9cca0a418a70")
 	)
 	(text "tutorial Trading speed for bits, RC and LC circuits"
 		(exclude_from_sim no)
@@ -7640,217 +7640,7 @@
 		)
 		(uuid "ff9a0fe1-3d0a-5fdd-9f68-679767acf18c")
 	)
-	(label "P4_OUT"
-		(at 626.11 83.82 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "0ef911bc-9605-541c-b6ec-591745c78481")
-	)
-	(label "P6_IN"
-		(at 238.76 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "13cf5d3f-e933-5340-a6e5-9570d5889ad7")
-	)
-	(label "P2_OUT"
-		(at 254 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "1f293ef9-7e5b-501c-8d51-6fc3e4f27b6f")
-	)
-	(label "P4_OUT"
-		(at 626.11 86.36 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "1f969819-8c54-5874-8c58-022bcfca9693")
-	)
-	(label "P7_IN"
-		(at 429.26 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "2cddb2df-b72a-5a42-a06a-675ff98fb289")
-	)
-	(label "P6_OUT"
-		(at 274.32 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "32e1a80d-7c3a-5d2d-a230-1f33b2756670")
-	)
-	(label "P1_IN"
-		(at 48.26 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "34f74dd6-9511-5f9a-8ae0-ce415add34c5")
-	)
-	(label "P10_IN"
-		(at 619.76 441.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3a50ec09-bd41-5778-be78-9d2308ca65d3")
-	)
-	(label "P10_OUT"
-		(at 655.32 441.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "3f660c78-740e-5333-b185-4feafe904dce")
-	)
-	(label "P7_N2"
-		(at 449.58 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4ca49f5c-3463-55a5-9bf1-f91d2ae0a4a0")
-	)
-	(label "P11_T3"
-		(at 283.21 335.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "4eccfb1e-b959-56b9-b188-cc87b5da9a32")
-	)
-	(label "P11_OUT"
-		(at 334.01 335.28 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "51423376-7acb-557e-aa09-af9dbcc580ea")
-	)
-	(label "P9_IN"
-		(at 48.26 314.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "53aefda3-8f94-5d89-a7b3-eb0c655363b9")
-	)
-	(label "P3_OUT"
-		(at 444.5 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "54c322ef-e2f0-51fc-bb19-4af3b9096640")
-	)
-	(label "P13_TAP"
-		(at 248.92 477.52 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5f0b584d-6dc7-5509-ad51-846527647112")
-	)
-	(label "P7_N3"
-		(at 472.44 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "5f7cb8b5-793c-5c5c-bdba-3ac9aa1727c6")
-	)
-	(label "P5_OUT"
-		(at 83.82 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "65525937-f078-5d26-b712-c3c59dd5c12d")
-	)
-	(label "P11_OUT"
-		(at 353.06 368.3 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6596ec28-0d60-545d-90f4-5749c96aa588")
-	)
-	(label "P4_N1"
-		(at 629.92 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "6effdca9-2827-5dde-b715-141cfe5acb7a")
-	)
-	(label "P13_HOT"
-		(at 246.38 459.74 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "7869297d-a582-516b-8ff9-f31fd2ebeb39")
-	)
-	(label "P4_IN"
-		(at 619.76 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "82035831-03b5-5ca2-83de-f1e2df1f7039")
-	)
-	(label "P11_T3"
+	(label "p11_T3"
 		(at 306.07 368.3 0)
 		(effects
 			(font
@@ -7858,149 +7648,29 @@
 			)
 			(justify left)
 		)
-		(uuid "8496cd11-0a39-54b6-85d1-0dfc1eb2d36f")
+		(uuid "02e8c9e7-0bc3-5c19-85e7-ad1eb57b17ef")
 	)
-	(label "P2_IN"
-		(at 238.76 60.96 0)
+	(label "p9_IN"
+		(at 48.26 314.96 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "85c18b5d-efb8-5b4e-9dd2-aeb58464475e")
+		(uuid "06dc135a-ec44-5a47-a582-6194147b4171")
 	)
-	(label "P7_N1"
-		(at 439.42 187.96 0)
+	(label "p11_T3"
+		(at 283.21 335.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "8643b0e5-24d0-5af9-bda1-fcf8e2847294")
+		(uuid "074e17a3-4bdc-5ce0-a16d-d5de4714193f")
 	)
-	(label "P9_OUT"
-		(at 58.42 314.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "99c82fb3-9e7a-56ec-a924-8d6e96a12e40")
-	)
-	(label "P12_BUS"
-		(at 58.42 441.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "9c78805f-35d5-5b68-9e6a-d4e36e905722")
-	)
-	(label "P13_HOT"
-		(at 246.38 431.8 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "a95628fd-22fe-5f3b-9453-78b2d3f0b024")
-	)
-	(label "P5_N1"
-		(at 63.5 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "aabd1833-32d3-5070-976b-276501dd890f")
-	)
-	(label "P11_T2"
-		(at 334.01 309.88 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "c3b4393c-a974-5982-a8a9-ea4a148b2a5c")
-	)
-	(label "P3_IN"
-		(at 429.26 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "cbcf2c59-f079-53f0-84a3-caa770874c32")
-	)
-	(label "P1_OUT"
-		(at 68.58 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "ccf06f21-c9cf-54c6-9712-4532c557889b")
-	)
-	(label "P11_T1"
-		(at 224.79 368.3 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d2a9bcce-7ec0-54fd-9ecf-ba36af59fa3d")
-	)
-	(label "P11_T2"
-		(at 265.43 368.3 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "d56fb91f-ec75-592a-b8d0-a95777c8ad33")
-	)
-	(label "P7_OUT"
-		(at 482.6 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "dc2dbf0e-dd08-52fe-9ac1-bf87435eb6ac")
-	)
-	(label "P5_IN"
-		(at 48.26 187.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "e4d2c6a1-7e8c-5fb8-a2a2-d39a725ebfab")
-	)
-	(label "P4_OUT"
-		(at 640.08 60.96 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "eb11b2ff-1ff2-5268-9f89-f8d2368ccf35")
-	)
-	(label "P4_N1"
+	(label "p4_N1"
 		(at 660.4 86.36 0)
 		(effects
 			(font
@@ -8008,19 +7678,69 @@
 			)
 			(justify left)
 		)
-		(uuid "ee0fac9e-de68-593a-bf53-28f816886e71")
+		(uuid "1c4bd570-52ac-54a0-9e1e-251f848f1f73")
 	)
-	(label "P4_N1"
-		(at 660.4 83.82 0)
+	(label "p13_TAP"
+		(at 248.92 477.52 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify left)
 		)
-		(uuid "efcfa4db-d6f0-5bfb-a210-87f5a0026e6b")
+		(uuid "1db81790-8cca-56d5-89aa-b3c0e5d5da59")
 	)
-	(label "P11_T1"
+	(label "p10_OUT"
+		(at 655.32 441.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1f10e08e-de44-5183-8b2a-011a20ee5c30")
+	)
+	(label "p7_OUT"
+		(at 482.6 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2ce4d909-2c59-5347-8bfc-556c11e54e77")
+	)
+	(label "p9_OUT"
+		(at 58.42 314.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2d891563-5ff6-5e7c-be39-0d7b0ab70afc")
+	)
+	(label "p5_N1"
+		(at 63.5 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2ef3264d-f2cb-5bc0-bc56-e2654e828b09")
+	)
+	(label "p5_OUT"
+		(at 83.82 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3bb6d49a-dc53-5ff4-8978-d5c971cde2f2")
+	)
+	(label "p11_T1"
 		(at 283.21 309.88 0)
 		(effects
 			(font
@@ -8028,9 +7748,149 @@
 			)
 			(justify left)
 		)
-		(uuid "f38f8d9d-c819-558a-85dc-e715e8bf1e22")
+		(uuid "401159df-62d2-517f-9f6e-ef4a9b5d6809")
 	)
-	(label "P8_OUT"
+	(label "p4_N1"
+		(at 629.92 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4a693a8c-46cf-5701-9051-fbf939eaaddc")
+	)
+	(label "p6_OUT"
+		(at 274.32 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5667c515-65d2-5c4d-8ba2-fbc9d936da7f")
+	)
+	(label "p3_OUT"
+		(at 444.5 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "63f8b1a6-89fe-5b07-8bf9-fdca443e0557")
+	)
+	(label "p3_IN"
+		(at 429.26 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "64babc7c-e5f2-5d98-9d46-852c8fe277ac")
+	)
+	(label "p4_OUT"
+		(at 626.11 83.82 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "68e5c80b-51a4-5ff3-9eed-886f1bdd186a")
+	)
+	(label "p2_OUT"
+		(at 254 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6903de7c-aa73-543b-8510-ac23c2c1fb13")
+	)
+	(label "p11_T2"
+		(at 334.01 309.88 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6b479013-b98c-5f45-81e3-1f2a408c574a")
+	)
+	(label "p5_IN"
+		(at 48.26 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "6fec9f63-81ba-571e-b301-a5ff73abb44b")
+	)
+	(label "p1_OUT"
+		(at 68.58 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "767eb729-f4d5-5d08-81f4-e6b797126df1")
+	)
+	(label "p4_N1"
+		(at 660.4 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "78355626-a7dd-5ef1-aaae-5e65a184e73c")
+	)
+	(label "p11_T1"
+		(at 224.79 368.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7957840c-c860-5c09-9944-b7e4fe47b3be")
+	)
+	(label "p11_OUT"
+		(at 334.01 335.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7ee3d1cc-8cfb-50c2-835a-089bace07102")
+	)
+	(label "p12_BUS"
+		(at 58.42 441.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8263a1ed-da30-5c10-a0c9-1ed9401d653e")
+	)
+	(label "p7_N1"
+		(at 439.42 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "859b2341-e8fb-5e20-adf7-94ee9da99225")
+	)
+	(label "p8_OUT"
 		(at 629.92 187.96 0)
 		(effects
 			(font
@@ -8038,9 +7898,119 @@
 			)
 			(justify left)
 		)
-		(uuid "f97a12a8-72bf-5001-8c81-270a3dea0e6d")
+		(uuid "96ff870c-70e5-53e9-a517-a85e5bc2ae8c")
 	)
-	(label "P8_IN"
+	(label "p10_IN"
+		(at 619.76 441.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "990e0cf0-f231-50d9-a151-eef9237a44a3")
+	)
+	(label "p4_OUT"
+		(at 640.08 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a0a981b2-6751-5af4-a265-3903a827113d")
+	)
+	(label "p7_IN"
+		(at 429.26 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a75a1f59-7899-5f45-bfec-26317352528c")
+	)
+	(label "p4_IN"
+		(at 619.76 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b790191c-7473-5e2f-94ea-00a416e04278")
+	)
+	(label "p7_N3"
+		(at 472.44 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "bd92e829-7e6b-5879-bf1b-2266caf02cf2")
+	)
+	(label "p2_IN"
+		(at 238.76 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c43b75f0-66ab-5d46-a217-42d552c1925e")
+	)
+	(label "p13_HOT"
+		(at 246.38 431.8 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c46803a1-8a00-509b-b66b-7a7d55fc641d")
+	)
+	(label "p4_OUT"
+		(at 626.11 86.36 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "c4afb28e-dd6b-5de0-a37e-93daa3231ca0")
+	)
+	(label "p7_N2"
+		(at 449.58 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c7cad652-9570-52be-a5ee-4e2b3b22d9ff")
+	)
+	(label "p1_IN"
+		(at 48.26 60.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e2d0c6b7-449b-566c-b3b3-54d8329b7309")
+	)
+	(label "p11_OUT"
+		(at 353.06 368.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e867ae58-ce92-5982-a87b-2e8fd3ff0a5a")
+	)
+	(label "p8_IN"
 		(at 619.76 187.96 0)
 		(effects
 			(font
@@ -8048,7 +8018,37 @@
 			)
 			(justify left)
 		)
-		(uuid "ff8e8a85-0a9a-55a1-a5e5-4af5921062d4")
+		(uuid "eb311245-9703-5205-9f87-9b0552d29e2c")
+	)
+	(label "p11_T2"
+		(at 265.43 368.3 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ef195a51-590b-5775-9789-cd696f5e8417")
+	)
+	(label "p13_HOT"
+		(at 246.38 459.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f4e9c65f-1ff7-5a9e-a52d-adc9b1396560")
+	)
+	(label "p6_IN"
+		(at 238.76 187.96 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fa3b02e6-d209-5a86-9cd9-12fa0af67344")
 	)
 	(symbol
 		(lib_id "Connector:TestPoint")

@@ -1,7 +1,7 @@
 {
  "tiles": [
   {
-   "id": "Y3",
+   "id": "h3",
    "idx": 3,
    "name": "duplexer and preamp",
    "subtitle": "OPA847",
@@ -34,7 +34,7 @@
     {
      "slot": "TL0",
      "label": "TX IN",
-     "net": "/Y3_TX",
+     "net": "/h3_TX",
      "role": "in",
      "limit": "+-15 V",
      "ref": "J301",
@@ -47,7 +47,7 @@
     {
      "slot": "BR0",
      "label": "PROBE",
-     "net": "/Y3_PRB",
+     "net": "/h3_PRB",
      "role": "out",
      "limit": "",
      "ref": "J302",
@@ -60,7 +60,7 @@
     {
      "slot": "TL1",
      "label": "LINE",
-     "net": "/Y3_IN",
+     "net": "/h3_IN",
      "role": "in",
      "limit": "",
      "ref": "J303",
@@ -73,7 +73,7 @@
     {
      "slot": "BR1",
      "label": "RX OUT",
-     "net": "/Y3_OUT",
+     "net": "/h3_OUT",
      "role": "out",
      "limit": "",
      "ref": "J304",
@@ -93,7 +93,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y3_TX",
+      "1": "/h3_TX",
       "2": "GND"
      },
      "label": null,
@@ -107,7 +107,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y3_PRB",
+      "1": "/h3_PRB",
       "2": "GND"
      },
      "label": null,
@@ -121,7 +121,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y3_IN",
+      "1": "/h3_IN",
       "2": "GND"
      },
      "label": null,
@@ -135,7 +135,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y3_OUT",
+      "1": "/h3_OUT",
       "2": "GND"
      },
      "label": null,
@@ -150,7 +150,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y3_G",
+      "2": "/h3_G",
       "3": "+5V"
      },
      "label": null,
@@ -164,9 +164,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y3_G",
+      "1": "/h3_G",
       "2": "+5V",
-      "3": "/Y3_VS"
+      "3": "/h3_VS"
      },
      "label": null,
      "hide_value": true
@@ -179,8 +179,8 @@
      "y": 2.9,
      "rot": 180,
      "pins": {
-      "1": "/Y3_M",
-      "2": "/Y3_TX"
+      "1": "/h3_M",
+      "2": "/h3_TX"
      },
      "label": null,
      "hide_value": false
@@ -193,8 +193,8 @@
      "y": 5.4,
      "rot": 0,
      "pins": {
-      "1": "/Y3_TX",
-      "2": "/Y3_M"
+      "1": "/h3_TX",
+      "2": "/h3_M"
      },
      "label": null,
      "hide_value": false
@@ -207,8 +207,8 @@
      "y": 9.0,
      "rot": 90,
      "pins": {
-      "1": "/Y3_PRB",
-      "2": "/Y3_M"
+      "1": "/h3_PRB",
+      "2": "/h3_M"
      },
      "label": null,
      "hide_value": false
@@ -221,8 +221,8 @@
      "y": 9.0,
      "rot": 270,
      "pins": {
-      "1": "/Y3_M",
-      "2": "/Y3_PRB"
+      "1": "/h3_M",
+      "2": "/h3_PRB"
      },
      "label": null,
      "hide_value": false
@@ -236,7 +236,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y3_IN"
+      "2": "/h3_IN"
      },
      "label": null,
      "hide_value": false
@@ -249,7 +249,7 @@
      "y": 12.1,
      "rot": 180,
      "pins": {
-      "1": "/Y3_IN",
+      "1": "/h3_IN",
       "2": "GND"
      },
      "label": null,
@@ -263,7 +263,7 @@
      "y": 12.1,
      "rot": 0,
      "pins": {
-      "1": "/Y3_IN",
+      "1": "/h3_IN",
       "2": "GND"
      },
      "label": null,
@@ -277,12 +277,12 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y3_OUT_A",
+      "1": "/h3_OUT_A",
       "2": "-5V",
-      "3": "/Y3_IN",
-      "4": "/Y3_FB",
-      "5": "/Y3_VS",
-      "6": "/Y3_VS"
+      "3": "/h3_IN",
+      "4": "/h3_FB",
+      "5": "/h3_VS",
+      "6": "/h3_VS"
      },
      "label": null,
      "hide_value": false
@@ -309,8 +309,8 @@
      "y": 10.5,
      "rot": 0,
      "pins": {
-      "1": "/Y3_FB",
-      "2": "/Y3_OUT_A"
+      "1": "/h3_FB",
+      "2": "/h3_OUT_A"
      },
      "label": null,
      "hide_value": false
@@ -323,8 +323,8 @@
      "y": 7.6,
      "rot": 270,
      "pins": {
-      "1": "/Y3_OUT_A",
-      "2": "/Y3_OUT"
+      "1": "/h3_OUT_A",
+      "2": "/h3_OUT"
      },
      "label": null,
      "hide_value": false
@@ -337,7 +337,7 @@
      "y": 10.6,
      "rot": 270,
      "pins": {
-      "1": "/Y3_FB",
+      "1": "/h3_FB",
       "2": "GND"
      },
      "label": null,
@@ -352,7 +352,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y3_VS"
+      "2": "/h3_VS"
      },
      "label": null,
      "hide_value": false
@@ -398,7 +398,7 @@
      false
     ],
     [
-     "/Y3_TX",
+     "/h3_TX",
      [
       [
        "J301",
@@ -415,7 +415,7 @@
      false
     ],
     [
-     "/Y3_TX",
+     "/h3_TX",
      [
       [
        8.75,
@@ -432,7 +432,7 @@
      false
     ],
     [
-     "/Y3_TX",
+     "/h3_TX",
      [
       [
        8.75,
@@ -449,7 +449,7 @@
      false
     ],
     [
-     "/Y3_TX",
+     "/h3_TX",
      [
       [
        8.75,
@@ -466,7 +466,7 @@
      false
     ],
     [
-     "/Y3_M",
+     "/h3_M",
      [
       [
        "D301",
@@ -491,7 +491,7 @@
      false
     ],
     [
-     "/Y3_M",
+     "/h3_M",
      [
       [
        "D302",
@@ -508,7 +508,7 @@
      false
     ],
     [
-     "/Y3_M",
+     "/h3_M",
      [
       [
        13.3,
@@ -529,7 +529,7 @@
      false
     ],
     [
-     "/Y3_PRB",
+     "/h3_PRB",
      [
       [
        "D303",
@@ -554,7 +554,7 @@
      false
     ],
     [
-     "/Y3_PRB",
+     "/h3_PRB",
      [
       [
        15.25,
@@ -571,7 +571,7 @@
      false
     ],
     [
-     "/Y3_IN",
+     "/h3_IN",
      [
       [
        "J303",
@@ -600,7 +600,7 @@
      false
     ],
     [
-     "/Y3_IN",
+     "/h3_IN",
      [
       [
        27.4,
@@ -617,7 +617,7 @@
      false
     ],
     [
-     "/Y3_IN",
+     "/h3_IN",
      [
       [
        27.4,
@@ -634,7 +634,7 @@
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      [
       [
        8.54,
@@ -659,7 +659,7 @@
      false
     ],
     [
-     "/Y3_IN",
+     "/h3_IN",
      [
       [
        27.4,
@@ -684,7 +684,7 @@
      false
     ],
     [
-     "/Y3_IN",
+     "/h3_IN",
      [
       [
        32.75,
@@ -760,7 +760,7 @@
      false
     ],
     [
-     "/Y3_OUT_A",
+     "/h3_OUT_A",
      [
       [
        "U301",
@@ -789,7 +789,7 @@
      false
     ],
     [
-     "/Y3_OUT_A",
+     "/h3_OUT_A",
      [
       [
        35.6,
@@ -810,7 +810,7 @@
      false
     ],
     [
-     "/Y3_OUT",
+     "/h3_OUT",
      [
       [
        "R303",
@@ -827,7 +827,7 @@
      false
     ],
     [
-     "/Y3_FB",
+     "/h3_FB",
      [
       [
        "R302",
@@ -848,7 +848,7 @@
      false
     ],
     [
-     "/Y3_FB",
+     "/h3_FB",
      [
       [
        32.75,
@@ -869,7 +869,7 @@
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      [
       [
        31.7,
@@ -890,7 +890,7 @@
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      [
       [
        34.65,
@@ -911,7 +911,7 @@
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      [
       [
        "C302",
@@ -954,13 +954,13 @@
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      34.65,
      9.36,
      false
     ],
     [
-     "/Y3_VS",
+     "/h3_VS",
      31.7,
      13.6,
      false
@@ -968,7 +968,7 @@
    ],
    "routes": [
     [
-     "/Y3_G",
+     "/h3_G",
      [
       [
        "SW301",
@@ -1113,7 +1113,7 @@
     [
      1.2,
      9.4,
-     "Y3",
+     "h3",
      1.2,
      0.2,
      "left",
@@ -1153,7 +1153,7 @@
    "slots": [],
    "voids": [],
    "back": [
-    "TX IN: from Y2",
+    "TX IN: from h2",
     "LINE: lambda/4",
     "cable to probe",
     "RX OUT x12"
@@ -1161,7 +1161,7 @@
    "back_plot": null
   },
   {
-   "id": "Y2",
+   "id": "h2",
    "idx": 2,
    "name": "pulse amplifier",
    "subtitle": "THS3491",
@@ -1189,7 +1189,7 @@
     {
      "slot": "TL",
      "label": "IN",
-     "net": "/Y2_IN",
+     "net": "/h2_IN",
      "role": "in",
      "limit": "+-1 V",
      "ref": "J201",
@@ -1202,7 +1202,7 @@
     {
      "slot": "BR",
      "label": "OUT",
-     "net": "/Y2_OUT",
+     "net": "/h2_OUT",
      "role": "out",
      "limit": "+-10 V into 50 ohm",
      "ref": "J202",
@@ -1222,7 +1222,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y2_IN",
+      "1": "/h2_IN",
       "2": "GND"
      },
      "label": null,
@@ -1236,7 +1236,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y2_OUT",
+      "1": "/h2_OUT",
       "2": "GND"
      },
      "label": null,
@@ -1250,17 +1250,17 @@
      "y": 8.5,
      "rot": 0,
      "pins": {
-      "1": "/Y2_FBO",
-      "3": "/Y2_INN",
-      "4": "/Y2_IN",
+      "1": "/h2_FBO",
+      "3": "/h2_INN",
+      "4": "/h2_IN",
       "5": "GND",
       "7": "-15V",
       "8": "-15V",
-      "10": "/Y2_OUT",
-      "11": "/Y2_OUT",
+      "10": "/h2_OUT",
+      "11": "/h2_OUT",
       "13": "+15V",
       "14": "+15V",
-      "16": "/Y2_PD",
+      "16": "/h2_PD",
       "17": "GND"
      },
      "label": null,
@@ -1274,8 +1274,8 @@
      "y": 8.25,
      "rot": 90,
      "pins": {
-      "1": "/Y2_INN",
-      "2": "/Y2_FBO"
+      "1": "/h2_INN",
+      "2": "/h2_FBO"
      },
      "label": null,
      "hide_value": false
@@ -1289,7 +1289,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y2_INN"
+      "2": "/h2_INN"
      },
      "label": null,
      "hide_value": false
@@ -1303,7 +1303,7 @@
      "rot": 90,
      "pins": {
       "1": "GND",
-      "2": "/Y2_IN"
+      "2": "/h2_IN"
      },
      "label": null,
      "hide_value": false
@@ -1373,7 +1373,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y2_PD"
+      "2": "/h2_PD"
      },
      "label": null,
      "hide_value": false
@@ -1386,7 +1386,7 @@
      "y": 4.3,
      "rot": 90,
      "pins": {
-      "1": "/Y2_PD",
+      "1": "/h2_PD",
       "2": "/PMOD1"
      },
      "label": null,
@@ -1412,7 +1412,7 @@
      false
     ],
     [
-     "/Y2_FBO",
+     "/h2_FBO",
      [
       [
        "U201",
@@ -1429,7 +1429,7 @@
      false
     ],
     [
-     "/Y2_INN",
+     "/h2_INN",
      [
       [
        "U201",
@@ -1446,7 +1446,7 @@
      false
     ],
     [
-     "/Y2_INN",
+     "/h2_INN",
      [
       [
        "R202",
@@ -1463,7 +1463,7 @@
      false
     ],
     [
-     "/Y2_IN",
+     "/h2_IN",
      [
       [
        "J201",
@@ -1492,7 +1492,7 @@
      false
     ],
     [
-     "/Y2_IN",
+     "/h2_IN",
      [
       [
        6.0,
@@ -1509,7 +1509,7 @@
      false
     ],
     [
-     "/Y2_OUT",
+     "/h2_OUT",
      [
       [
        "U201",
@@ -1534,7 +1534,7 @@
      false
     ],
     [
-     "/Y2_OUT",
+     "/h2_OUT",
      [
       [
        13.875,
@@ -1715,7 +1715,7 @@
      false
     ],
     [
-     "/Y2_PD",
+     "/h2_PD",
      [
       [
        "U201",
@@ -1736,7 +1736,7 @@
      false
     ],
     [
-     "/Y2_PD",
+     "/h2_PD",
      [
       [
        11.25,
@@ -1972,7 +1972,7 @@
     [
      1.2,
      15.4,
-     "Y2",
+     "h2",
      1.2,
      0.2,
      "left",
@@ -2016,7 +2016,7 @@
    "back_plot": null
   },
   {
-   "id": "Y9",
+   "id": "h9",
    "idx": 9,
    "name": "noise source",
    "subtitle": "MMBT3904 + LMH6629",
@@ -2045,7 +2045,7 @@
     {
      "slot": "BR",
      "label": "OUT",
-     "net": "/Y9_OUT",
+     "net": "/h9_OUT",
      "role": "out",
      "limit": "",
      "ref": "J901",
@@ -2065,7 +2065,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y9_OUT",
+      "1": "/h9_OUT",
       "2": "GND"
      },
      "label": null,
@@ -2080,7 +2080,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y9_G",
+      "2": "/h9_G",
       "3": "+5V"
      },
      "label": null,
@@ -2094,9 +2094,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y9_G",
+      "1": "/h9_G",
       "2": "+5V",
-      "3": "/Y9_VS"
+      "3": "/h9_VS"
      },
      "label": null,
      "hide_value": true
@@ -2109,10 +2109,10 @@
      "y": 3.0,
      "rot": 0,
      "pins": {
-      "1": "/Y9_VS",
+      "1": "/h9_VS",
       "2": "GND",
       "3": "/PMOD8",
-      "6": "/Y9_VN"
+      "6": "/h9_VN"
      },
      "label": null,
      "hide_value": false
@@ -2125,7 +2125,7 @@
      "y": 0.6,
      "rot": 180,
      "pins": {
-      "1": "/Y9_VS",
+      "1": "/h9_VS",
       "2": "GND"
      },
      "label": null,
@@ -2139,7 +2139,7 @@
      "y": 3.3,
      "rot": 0,
      "pins": {
-      "1": "/Y9_VN",
+      "1": "/h9_VN",
       "2": "GND"
      },
      "label": null,
@@ -2153,8 +2153,8 @@
      "y": 4.9,
      "rot": 0,
      "pins": {
-      "1": "/Y9_VN",
-      "2": "/Y9_IN"
+      "1": "/h9_VN",
+      "2": "/h9_IN"
      },
      "label": null,
      "hide_value": false
@@ -2168,7 +2168,7 @@
      "rot": 180,
      "pins": {
       "1": "-5V",
-      "2": "/Y9_IN"
+      "2": "/h9_IN"
      },
      "label": null,
      "hide_value": false
@@ -2209,8 +2209,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y9_IN",
-      "2": "/Y9_IN2"
+      "1": "/h9_IN",
+      "2": "/h9_IN2"
      },
      "label": null,
      "hide_value": false
@@ -2223,11 +2223,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y9_OA",
+      "1": "/h9_OA",
       "2": "GND",
-      "3": "/Y9_IN2",
-      "4": "/Y9_FB",
-      "5": "/Y9_VS"
+      "3": "/h9_IN2",
+      "4": "/h9_FB",
+      "5": "/h9_VS"
      },
      "label": null,
      "hide_value": false
@@ -2240,8 +2240,8 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y9_IN2",
-      "2": "/Y9_VS"
+      "1": "/h9_IN2",
+      "2": "/h9_VS"
      },
      "label": null,
      "hide_value": false
@@ -2255,7 +2255,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y9_IN2"
+      "2": "/h9_IN2"
      },
      "label": null,
      "hide_value": false
@@ -2268,8 +2268,8 @@
      "y": 10.2,
      "rot": 0,
      "pins": {
-      "1": "/Y9_FB",
-      "2": "/Y9_OA"
+      "1": "/h9_FB",
+      "2": "/h9_OA"
      },
      "label": null,
      "hide_value": false
@@ -2282,8 +2282,8 @@
      "y": 10.9,
      "rot": 270,
      "pins": {
-      "1": "/Y9_FB",
-      "2": "/Y9_CG"
+      "1": "/h9_FB",
+      "2": "/h9_CG"
      },
      "label": null,
      "hide_value": false
@@ -2296,7 +2296,7 @@
      "y": 12.9,
      "rot": 270,
      "pins": {
-      "1": "/Y9_CG",
+      "1": "/h9_CG",
       "2": "GND"
      },
      "label": null,
@@ -2310,8 +2310,8 @@
      "y": 5.6,
      "rot": 270,
      "pins": {
-      "1": "/Y9_OA",
-      "2": "/Y9_OC"
+      "1": "/h9_OA",
+      "2": "/h9_OC"
      },
      "label": null,
      "hide_value": false
@@ -2324,8 +2324,8 @@
      "y": 7.6,
      "rot": 270,
      "pins": {
-      "1": "/Y9_OC",
-      "2": "/Y9_OUT"
+      "1": "/h9_OC",
+      "2": "/h9_OUT"
      },
      "label": null,
      "hide_value": false
@@ -2338,7 +2338,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y9_VS",
+      "1": "/h9_VS",
       "2": "GND"
      },
      "label": null,
@@ -2385,7 +2385,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        8.54,
@@ -2402,7 +2402,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        "U901",
@@ -2427,7 +2427,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        3.68,
@@ -2448,7 +2448,7 @@
      false
     ],
     [
-     "/Y9_VN",
+     "/h9_VN",
      [
       [
        "U901",
@@ -2473,7 +2473,7 @@
      false
     ],
     [
-     "/Y9_VN",
+     "/h9_VN",
      [
       [
        5.45,
@@ -2490,7 +2490,7 @@
      false
     ],
     [
-     "/Y9_IN",
+     "/h9_IN",
      [
       [
        "R901",
@@ -2507,7 +2507,7 @@
      false
     ],
     [
-     "/Y9_IN",
+     "/h9_IN",
      [
       [
        "Q902",
@@ -2579,7 +2579,7 @@
      false
     ],
     [
-     "/Y9_IN",
+     "/h9_IN",
      [
       [
        7.54,
@@ -2600,7 +2600,7 @@
      false
     ],
     [
-     "/Y9_IN2",
+     "/h9_IN2",
      [
       [
        "C905",
@@ -2621,7 +2621,7 @@
      false
     ],
     [
-     "/Y9_IN2",
+     "/h9_IN2",
      [
       [
        11.6,
@@ -2638,7 +2638,7 @@
      false
     ],
     [
-     "/Y9_IN2",
+     "/h9_IN2",
      [
       [
        "R903",
@@ -2659,7 +2659,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        "R902",
@@ -2676,7 +2676,7 @@
      false
     ],
     [
-     "/Y9_OA",
+     "/h9_OA",
      [
       [
        "U902",
@@ -2705,7 +2705,7 @@
      false
     ],
     [
-     "/Y9_FB",
+     "/h9_FB",
      [
       [
        "U902",
@@ -2726,7 +2726,7 @@
      false
     ],
     [
-     "/Y9_FB",
+     "/h9_FB",
      [
       [
        12.25,
@@ -2747,7 +2747,7 @@
      false
     ],
     [
-     "/Y9_CG",
+     "/h9_CG",
      [
       [
        "R905",
@@ -2764,7 +2764,7 @@
      false
     ],
     [
-     "/Y9_OA",
+     "/h9_OA",
      [
       [
        15.1,
@@ -2785,7 +2785,7 @@
      false
     ],
     [
-     "/Y9_OC",
+     "/h9_OC",
      [
       [
        "C907",
@@ -2802,7 +2802,7 @@
      false
     ],
     [
-     "/Y9_OUT",
+     "/h9_OUT",
      [
       [
        "R906",
@@ -2827,7 +2827,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        "U902",
@@ -2844,7 +2844,7 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        10.2,
@@ -2869,7 +2869,7 @@
      true
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        14.15,
@@ -2898,7 +2898,7 @@
      true
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      [
       [
        "C908",
@@ -2933,19 +2933,19 @@
      false
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      11.6,
      1.6,
      true
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      14.15,
      9.15,
      true
     ],
     [
-     "/Y9_VS",
+     "/h9_VS",
      10.2,
      11.0,
      true
@@ -2953,7 +2953,7 @@
    ],
    "routes": [
     [
-     "/Y9_G",
+     "/h9_G",
      [
       [
        "SW901",
@@ -3134,7 +3134,7 @@
     [
      1.0,
      6.3,
-     "Y9",
+     "h9",
      1.2,
      0.2,
      "left",
@@ -3164,7 +3164,7 @@
    "back_plot": null
   },
   {
-   "id": "Y7",
+   "id": "h7",
    "idx": 7,
    "name": "reflection bridge",
    "subtitle": "2 x OPA810",
@@ -3197,7 +3197,7 @@
     {
      "slot": "TL0",
      "label": "DRIVE",
-     "net": "/Y7_DRV",
+     "net": "/h7_DRV",
      "role": "in",
      "limit": "+-1 V into 50 ohm",
      "ref": "J701",
@@ -3210,7 +3210,7 @@
     {
      "slot": "BR0",
      "label": "INC",
-     "net": "/Y7_INC",
+     "net": "/h7_INC",
      "role": "out",
      "limit": "",
      "ref": "J702",
@@ -3223,7 +3223,7 @@
     {
      "slot": "TL1",
      "label": "DUT",
-     "net": "/Y7_A",
+     "net": "/h7_A",
      "role": "out",
      "limit": "",
      "ref": "J703",
@@ -3236,7 +3236,7 @@
     {
      "slot": "BR1",
      "label": "REFL",
-     "net": "/Y7_REFL",
+     "net": "/h7_REFL",
      "role": "out",
      "limit": "",
      "ref": "J704",
@@ -3256,7 +3256,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y7_DRV",
+      "1": "/h7_DRV",
       "2": "GND"
      },
      "label": null,
@@ -3270,7 +3270,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y7_INC",
+      "1": "/h7_INC",
       "2": "GND"
      },
      "label": null,
@@ -3284,7 +3284,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y7_A",
+      "1": "/h7_A",
       "2": "GND"
      },
      "label": null,
@@ -3298,7 +3298,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y7_REFL",
+      "1": "/h7_REFL",
       "2": "GND"
      },
      "label": null,
@@ -3313,7 +3313,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y7_G",
+      "2": "/h7_G",
       "3": "+5V"
      },
      "label": null,
@@ -3327,9 +3327,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y7_G",
+      "1": "/h7_G",
       "2": "+5V",
-      "3": "/Y7_VS"
+      "3": "/h7_VS"
      },
      "label": null,
      "hide_value": true
@@ -3342,8 +3342,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y7_DRV",
-      "2": "/Y7_A"
+      "1": "/h7_DRV",
+      "2": "/h7_A"
      },
      "label": null,
      "hide_value": false
@@ -3356,8 +3356,8 @@
      "y": 6.3,
      "rot": 270,
      "pins": {
-      "1": "/Y7_DRV",
-      "2": "/Y7_B"
+      "1": "/h7_DRV",
+      "2": "/h7_B"
      },
      "label": null,
      "hide_value": false
@@ -3370,7 +3370,7 @@
      "y": 8.2,
      "rot": 270,
      "pins": {
-      "1": "/Y7_B",
+      "1": "/h7_B",
       "2": "GND"
      },
      "label": null,
@@ -3384,11 +3384,11 @@
      "y": 8.4,
      "rot": 270,
      "pins": {
-      "1": "/Y7_O1",
+      "1": "/h7_O1",
       "2": "-5V",
-      "3": "/Y7_B",
-      "4": "/Y7_N1",
-      "5": "/Y7_VS"
+      "3": "/h7_B",
+      "4": "/h7_N1",
+      "5": "/h7_VS"
      },
      "label": null,
      "hide_value": false
@@ -3401,8 +3401,8 @@
      "y": 11.1,
      "rot": 0,
      "pins": {
-      "1": "/Y7_N1",
-      "2": "/Y7_O1"
+      "1": "/h7_N1",
+      "2": "/h7_O1"
      },
      "label": null,
      "hide_value": false
@@ -3416,7 +3416,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y7_N1"
+      "2": "/h7_N1"
      },
      "label": null,
      "hide_value": false
@@ -3429,8 +3429,8 @@
      "y": 10.6,
      "rot": 270,
      "pins": {
-      "1": "/Y7_O1",
-      "2": "/Y7_INC"
+      "1": "/h7_O1",
+      "2": "/h7_INC"
      },
      "label": null,
      "hide_value": false
@@ -3443,11 +3443,11 @@
      "y": 8.4,
      "rot": 270,
      "pins": {
-      "1": "/Y7_O2",
+      "1": "/h7_O2",
       "2": "-5V",
-      "3": "/Y7_A",
-      "4": "/Y7_N2",
-      "5": "/Y7_VS"
+      "3": "/h7_A",
+      "4": "/h7_N2",
+      "5": "/h7_VS"
      },
      "label": null,
      "hide_value": false
@@ -3460,8 +3460,8 @@
      "y": 8.4,
      "rot": 270,
      "pins": {
-      "1": "/Y7_O1",
-      "2": "/Y7_N2"
+      "1": "/h7_O1",
+      "2": "/h7_N2"
      },
      "label": null,
      "hide_value": false
@@ -3474,8 +3474,8 @@
      "y": 11.1,
      "rot": 0,
      "pins": {
-      "1": "/Y7_N2",
-      "2": "/Y7_O2"
+      "1": "/h7_N2",
+      "2": "/h7_O2"
      },
      "label": null,
      "hide_value": false
@@ -3488,8 +3488,8 @@
      "y": 10.0,
      "rot": 0,
      "pins": {
-      "1": "/Y7_O2",
-      "2": "/Y7_REFL"
+      "1": "/h7_O2",
+      "2": "/h7_REFL"
      },
      "label": null,
      "hide_value": false
@@ -3530,7 +3530,7 @@
      "y": 11.6,
      "rot": 270,
      "pins": {
-      "1": "/Y7_VS",
+      "1": "/h7_VS",
       "2": "GND"
      },
      "label": null,
@@ -3544,7 +3544,7 @@
      "y": 13.5,
      "rot": 270,
      "pins": {
-      "1": "/Y7_VS",
+      "1": "/h7_VS",
       "2": "GND"
      },
      "label": null,
@@ -3591,7 +3591,7 @@
      false
     ],
     [
-     "/Y7_DRV",
+     "/h7_DRV",
      [
       [
        "J701",
@@ -3608,7 +3608,7 @@
      false
     ],
     [
-     "/Y7_DRV",
+     "/h7_DRV",
      [
       [
        12.1,
@@ -3625,7 +3625,7 @@
      false
     ],
     [
-     "/Y7_DRV",
+     "/h7_DRV",
      [
       [
        12.1,
@@ -3642,7 +3642,7 @@
      false
     ],
     [
-     "/Y7_B",
+     "/h7_B",
      [
       [
        "R702",
@@ -3659,7 +3659,7 @@
      false
     ],
     [
-     "/Y7_A",
+     "/h7_A",
      [
       [
        "R701",
@@ -3676,7 +3676,7 @@
      false
     ],
     [
-     "/Y7_B",
+     "/h7_B",
      [
       [
        12.1,
@@ -3693,7 +3693,7 @@
      false
     ],
     [
-     "/Y7_N1",
+     "/h7_N1",
      [
       [
        "U701",
@@ -3710,7 +3710,7 @@
      false
     ],
     [
-     "/Y7_N1",
+     "/h7_N1",
      [
       [
        "R705",
@@ -3727,7 +3727,7 @@
      false
     ],
     [
-     "/Y7_O1",
+     "/h7_O1",
      [
       [
        "U701",
@@ -3752,7 +3752,7 @@
      false
     ],
     [
-     "/Y7_O1",
+     "/h7_O1",
      [
       [
        16.2,
@@ -3777,7 +3777,7 @@
      false
     ],
     [
-     "/Y7_INC",
+     "/h7_INC",
      [
       [
        "R706",
@@ -3798,7 +3798,7 @@
      false
     ],
     [
-     "/Y7_A",
+     "/h7_A",
      [
       [
        18.85,
@@ -3815,7 +3815,7 @@
      false
     ],
     [
-     "/Y7_O1",
+     "/h7_O1",
      [
       [
        16.2,
@@ -3832,7 +3832,7 @@
      false
     ],
     [
-     "/Y7_N2",
+     "/h7_N2",
      [
       [
        "R707",
@@ -3853,7 +3853,7 @@
      false
     ],
     [
-     "/Y7_N2",
+     "/h7_N2",
      [
       [
        "U702",
@@ -3874,7 +3874,7 @@
      false
     ],
     [
-     "/Y7_O2",
+     "/h7_O2",
      [
       [
        "U702",
@@ -3899,7 +3899,7 @@
      false
     ],
     [
-     "/Y7_O2",
+     "/h7_O2",
      [
       [
        21.8,
@@ -3920,7 +3920,7 @@
      false
     ],
     [
-     "/Y7_REFL",
+     "/h7_REFL",
      [
       [
        "R709",
@@ -4043,7 +4043,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        8.54,
@@ -4060,7 +4060,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        "U701",
@@ -4077,7 +4077,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        "U702",
@@ -4094,7 +4094,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        10.2,
@@ -4119,7 +4119,7 @@
      true
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        15.55,
@@ -4144,7 +4144,7 @@
      true
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        20.75,
@@ -4169,7 +4169,7 @@
      true
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        10.2,
@@ -4190,7 +4190,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      [
       [
        22.8,
@@ -4227,7 +4227,7 @@
      false
     ],
     [
-     "/Y7_VS",
+     "/h7_VS",
      10.2,
      10.9,
      true
@@ -4235,7 +4235,7 @@
    ],
    "routes": [
     [
-     "/Y7_G",
+     "/h7_G",
      [
       [
        "SW701",
@@ -4368,7 +4368,7 @@
     [
      1.2,
      9.4,
-     "Y7",
+     "h7",
      1.2,
      0.2,
      "left",
@@ -4422,7 +4422,7 @@
    "back_plot": null
   },
   {
-   "id": "Y1",
+   "id": "h1",
    "idx": 1,
    "name": "power",
    "subtitle": "USB-C 5 V in: +5, -5, +15, -15 out",
@@ -4445,8 +4445,8 @@
    "result": "+5 V from the USB-C (up to 2 A), -5 V at 40 mA, +15 V and -15 V at about 150 mA each for the pulse amplifier; green: 5 V in, red: -5 V up, yellow: +15 V up",
    "notes": [
     "USB-C power only (5.1 k on each CC).  The TPS65131 runs both converters at 1.25 MHz with power-save off (quieter);",
-    "+15 V = 1.213 V x (1 + 1 M / 88.7 k) = 14.9 V, -15 V = -1.213 V x 1.3 M / 105 k = -15.0 V.  Only Y2 draws them, through",
-    "two back-side tracks; everything else runs from +5 V and the LM2664's -5 V (40 mA: Y3, Y7 and Y9 draw about 30)."
+    "+15 V = 1.213 V x (1 + 1 M / 88.7 k) = 14.9 V, -15 V = -1.213 V x 1.3 M / 105 k = -15.0 V.  Only h2 draws them, through",
+    "two back-side tracks; everything else runs from +5 V and the LM2664's -5 V (40 mA: h3, h7 and h9 draw about 30)."
    ],
    "top_pour": false,
    "fine": false,
@@ -4460,26 +4460,26 @@
      "y": 9.5,
      "rot": 180,
      "pins": {
-      "1": "/Y1_SWP",
-      "24": "/Y1_SWP",
+      "1": "/h1_SWP",
+      "24": "/h1_SWP",
       "2": "GND",
       "3": "GND",
-      "4": "/Y1_VINF",
+      "4": "/h1_VINF",
       "5": "+5V",
       "6": "+5V",
-      "8": "/Y1_VINF",
-      "10": "/Y1_VINF",
+      "8": "/h1_VINF",
+      "10": "/h1_VINF",
       "9": "GND",
       "11": "GND",
-      "13": "/Y1_SWN",
-      "14": "/Y1_SWN",
+      "13": "/h1_SWN",
+      "14": "/h1_SWN",
       "15": "-15V",
-      "16": "/Y1_FBN",
-      "17": "/Y1_VREF",
-      "18": "/Y1_CN",
+      "16": "/h1_FBN",
+      "17": "/h1_VREF",
+      "18": "/h1_CN",
       "19": "GND",
-      "21": "/Y1_CP",
-      "22": "/Y1_FBP",
+      "21": "/h1_CP",
+      "22": "/h1_FBP",
       "23": "+15V",
       "25": "GND"
      },
@@ -4495,7 +4495,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_SWN"
+      "2": "/h1_SWN"
      },
      "label": null,
      "hide_value": false
@@ -4508,7 +4508,7 @@
      "y": 4.6,
      "rot": 0,
      "pins": {
-      "1": "/Y1_SWN",
+      "1": "/h1_SWN",
       "2": "-15V"
      },
      "label": null,
@@ -4565,7 +4565,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_VREF"
+      "2": "/h1_VREF"
      },
      "label": null,
      "hide_value": false
@@ -4579,7 +4579,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_CN"
+      "2": "/h1_CN"
      },
      "label": null,
      "hide_value": false
@@ -4592,8 +4592,8 @@
      "y": 10.0,
      "rot": 90,
      "pins": {
-      "1": "/Y1_VREF",
-      "2": "/Y1_FBN"
+      "1": "/h1_VREF",
+      "2": "/h1_FBN"
      },
      "label": null,
      "hide_value": false
@@ -4607,7 +4607,7 @@
      "rot": 0,
      "pins": {
       "1": "-15V",
-      "2": "/Y1_FBN"
+      "2": "/h1_FBN"
      },
      "label": null,
      "hide_value": false
@@ -4621,7 +4621,7 @@
      "rot": 0,
      "pins": {
       "1": "-15V",
-      "2": "/Y1_FBN"
+      "2": "/h1_FBN"
      },
      "label": null,
      "hide_value": false
@@ -4634,7 +4634,7 @@
      "y": 6.6,
      "rot": 0,
      "pins": {
-      "1": "/Y1_VINF",
+      "1": "/h1_VINF",
       "2": "+5V"
      },
      "label": null,
@@ -4648,7 +4648,7 @@
      "y": 5.5,
      "rot": 0,
      "pins": {
-      "1": "/Y1_VINF",
+      "1": "/h1_VINF",
       "2": "GND"
      },
      "label": null,
@@ -4677,7 +4677,7 @@
      "rot": 90,
      "pins": {
       "1": "+5V",
-      "2": "/Y1_SWP"
+      "2": "/h1_SWP"
      },
      "label": null,
      "hide_value": false
@@ -4691,7 +4691,7 @@
      "rot": 180,
      "pins": {
       "1": "+15V",
-      "2": "/Y1_SWP"
+      "2": "/h1_SWP"
      },
      "label": null,
      "hide_value": false
@@ -4747,7 +4747,7 @@
      "rot": 90,
      "pins": {
       "1": "GND",
-      "2": "/Y1_CP"
+      "2": "/h1_CP"
      },
      "label": null,
      "hide_value": false
@@ -4761,7 +4761,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_FBP"
+      "2": "/h1_FBP"
      },
      "label": null,
      "hide_value": false
@@ -4774,7 +4774,7 @@
      "y": 15.6,
      "rot": 0,
      "pins": {
-      "1": "/Y1_FBP",
+      "1": "/h1_FBP",
       "2": "+15V"
      },
      "label": null,
@@ -4788,7 +4788,7 @@
      "y": 16.7,
      "rot": 0,
      "pins": {
-      "1": "/Y1_FBP",
+      "1": "/h1_FBP",
       "2": "+15V"
      },
      "label": null,
@@ -4803,7 +4803,7 @@
      "rot": 0,
      "pins": {
       "1": "+15V",
-      "2": "/Y1_LEDY"
+      "2": "/h1_LEDY"
      },
      "label": null,
      "hide_value": false
@@ -4817,7 +4817,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_LEDY"
+      "2": "/h1_LEDY"
      },
      "label": null,
      "hide_value": false
@@ -4830,12 +4830,12 @@
      "y": 10.0,
      "rot": 90,
      "pins": {
-      "A4": "/Y1_VBUS",
-      "A9": "/Y1_VBUS",
-      "B4": "/Y1_VBUS",
-      "B9": "/Y1_VBUS",
-      "A5": "/Y1_CC1",
-      "B5": "/Y1_CC2",
+      "A4": "/h1_VBUS",
+      "A9": "/h1_VBUS",
+      "B4": "/h1_VBUS",
+      "B9": "/h1_VBUS",
+      "A5": "/h1_CC1",
+      "B5": "/h1_CC2",
       "A1": "GND",
       "A12": "GND",
       "B1": "GND",
@@ -4854,7 +4854,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_CC1"
+      "2": "/h1_CC1"
      },
      "label": null,
      "hide_value": false
@@ -4868,7 +4868,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y1_CC2"
+      "2": "/h1_CC2"
      },
      "label": null,
      "hide_value": false
@@ -4882,7 +4882,7 @@
      "rot": 0,
      "pins": {
       "1": "+5V",
-      "2": "/Y1_VBUS"
+      "2": "/h1_VBUS"
      },
      "label": null,
      "hide_value": false
@@ -4939,10 +4939,10 @@
      "pins": {
       "1": "GND",
       "2": "-5V",
-      "3": "/Y1_CAPN",
+      "3": "/h1_CAPN",
       "4": "+5V",
       "5": "+5V",
-      "6": "/Y1_CAPP"
+      "6": "/h1_CAPP"
      },
      "label": null,
      "hide_value": false
@@ -4955,8 +4955,8 @@
      "y": 15.4,
      "rot": 0,
      "pins": {
-      "1": "/Y1_CAPN",
-      "2": "/Y1_CAPP"
+      "1": "/h1_CAPN",
+      "2": "/h1_CAPP"
      },
      "label": null,
      "hide_value": false
@@ -4984,7 +4984,7 @@
      "rot": 270,
      "pins": {
       "1": "-5V",
-      "2": "/Y1_LEDR"
+      "2": "/h1_LEDR"
      },
      "label": null,
      "hide_value": false
@@ -4997,7 +4997,7 @@
      "y": 2.6,
      "rot": 90,
      "pins": {
-      "1": "/Y1_LEDR",
+      "1": "/h1_LEDR",
       "2": "GND"
      },
      "label": null,
@@ -5011,7 +5011,7 @@
      "y": 2.6,
      "rot": 90,
      "pins": {
-      "1": "/Y1_LEDG",
+      "1": "/h1_LEDG",
       "2": "+5V"
      },
      "label": null,
@@ -5025,7 +5025,7 @@
      "y": 2.6,
      "rot": 90,
      "pins": {
-      "1": "/Y1_LEDG",
+      "1": "/h1_LEDG",
       "2": "GND"
      },
      "label": null,
@@ -5119,7 +5119,7 @@
      false
     ],
     [
-     "/Y1_SWN",
+     "/h1_SWN",
      [
       [
        "U101",
@@ -5144,7 +5144,7 @@
      false
     ],
     [
-     "/Y1_SWN",
+     "/h1_SWN",
      [
       [
        7.75,
@@ -5169,7 +5169,7 @@
      false
     ],
     [
-     "/Y1_SWN",
+     "/h1_SWN",
      [
       [
        6.4,
@@ -5241,7 +5241,7 @@
      false
     ],
     [
-     "/Y1_VREF",
+     "/h1_VREF",
      [
       [
        "U101",
@@ -5258,7 +5258,7 @@
      false
     ],
     [
-     "/Y1_CN",
+     "/h1_CN",
      [
       [
        "U101",
@@ -5279,7 +5279,7 @@
      false
     ],
     [
-     "/Y1_FBN",
+     "/h1_FBN",
      [
       [
        "U101",
@@ -5300,7 +5300,7 @@
      false
     ],
     [
-     "/Y1_FBN",
+     "/h1_FBN",
      [
       [
        "R102",
@@ -5321,7 +5321,7 @@
      false
     ],
     [
-     "/Y1_FBN",
+     "/h1_FBN",
      [
       [
        "C106",
@@ -5459,7 +5459,7 @@
      false
     ],
     [
-     "/Y1_VINF",
+     "/h1_VINF",
      [
       [
        "U101",
@@ -5484,7 +5484,7 @@
      false
     ],
     [
-     "/Y1_VINF",
+     "/h1_VINF",
      [
       [
        13.5,
@@ -5505,7 +5505,7 @@
      false
     ],
     [
-     "/Y1_VINF",
+     "/h1_VINF",
      [
       [
        "U101",
@@ -5526,7 +5526,7 @@
      false
     ],
     [
-     "/Y1_VINF",
+     "/h1_VINF",
      [
       [
        "U101",
@@ -5581,7 +5581,7 @@
      false
     ],
     [
-     "/Y1_SWP",
+     "/h1_SWP",
      [
       [
        "U101",
@@ -5606,7 +5606,7 @@
      false
     ],
     [
-     "/Y1_SWP",
+     "/h1_SWP",
      [
       [
        "U101",
@@ -5623,7 +5623,7 @@
      false
     ],
     [
-     "/Y1_SWP",
+     "/h1_SWP",
      [
       [
        12.6,
@@ -5644,7 +5644,7 @@
      false
     ],
     [
-     "/Y1_SWP",
+     "/h1_SWP",
      [
       [
        14.75,
@@ -5720,7 +5720,7 @@
      false
     ],
     [
-     "/Y1_CP",
+     "/h1_CP",
      [
       [
        "U101",
@@ -5745,7 +5745,7 @@
      false
     ],
     [
-     "/Y1_FBP",
+     "/h1_FBP",
      [
       [
        "U101",
@@ -5766,7 +5766,7 @@
      false
     ],
     [
-     "/Y1_FBP",
+     "/h1_FBP",
      [
       [
        10.25,
@@ -5783,7 +5783,7 @@
      false
     ],
     [
-     "/Y1_FBP",
+     "/h1_FBP",
      [
       [
        10.25,
@@ -5934,7 +5934,7 @@
      false
     ],
     [
-     "/Y1_LEDY",
+     "/h1_LEDY",
      [
       [
        "R106",
@@ -5993,7 +5993,7 @@
      false
     ],
     [
-     "/Y1_CC1",
+     "/h1_CC1",
      [
       [
        "J101",
@@ -6018,7 +6018,7 @@
      false
     ],
     [
-     "/Y1_CC2",
+     "/h1_CC2",
      [
       [
        "J101",
@@ -6043,7 +6043,7 @@
      false
     ],
     [
-     "/Y1_VBUS",
+     "/h1_VBUS",
      [
       [
        "J101",
@@ -6060,7 +6060,7 @@
      false
     ],
     [
-     "/Y1_VBUS",
+     "/h1_VBUS",
      [
       [
        "J101",
@@ -6077,7 +6077,7 @@
      false
     ],
     [
-     "/Y1_VBUS",
+     "/h1_VBUS",
      [
       [
        41.4,
@@ -6094,7 +6094,7 @@
      false
     ],
     [
-     "/Y1_VBUS",
+     "/h1_VBUS",
      [
       [
        41.4,
@@ -6246,7 +6246,7 @@
      false
     ],
     [
-     "/Y1_LEDR",
+     "/h1_LEDR",
      [
       [
        "LED102",
@@ -6280,7 +6280,7 @@
      false
     ],
     [
-     "/Y1_LEDG",
+     "/h1_LEDG",
      [
       [
        "LED103",
@@ -6405,7 +6405,7 @@
      0.35
     ],
     [
-     "/Y1_CAPN",
+     "/h1_CAPN",
      [
       [
        "U102",
@@ -6419,7 +6419,7 @@
      0.35
     ],
     [
-     "/Y1_CAPP",
+     "/h1_CAPP",
      [
       [
        "U102",
@@ -6872,7 +6872,7 @@
     [
      34.5,
      18.6,
-     "Y1 power",
+     "h1 power",
      0.9,
      0.17,
      "center",
@@ -6896,13 +6896,13 @@
    "voids": [],
    "back": [
     "USB-C 5 V only",
-    "+-15 V reach Y2 only",
+    "+-15 V reach h2 only",
     "-5 V 40 mA"
    ],
    "back_plot": null
   },
   {
-   "id": "Y8",
+   "id": "h8",
    "idx": 8,
    "name": "coupled resonators",
    "subtitle": "2 x LC + BB133",
@@ -6935,7 +6935,7 @@
     {
      "slot": "TL0",
      "label": "SIG",
-     "net": "/Y8_SIG",
+     "net": "/h8_SIG",
      "role": "in",
      "limit": "+-1 V into 50 ohm",
      "ref": "J801",
@@ -6948,7 +6948,7 @@
     {
      "slot": "BR0",
      "label": "OUT 1",
-     "net": "/Y8_OUT1",
+     "net": "/h8_OUT1",
      "role": "out",
      "limit": "",
      "ref": "J802",
@@ -6961,7 +6961,7 @@
     {
      "slot": "TL1",
      "label": "TUNE / PUMP",
-     "net": "/Y8_TP",
+     "net": "/h8_TP",
      "role": "in",
      "limit": "+-2 V open",
      "ref": "J803",
@@ -6974,7 +6974,7 @@
     {
      "slot": "BR1",
      "label": "OUT 2",
-     "net": "/Y8_OUT2",
+     "net": "/h8_OUT2",
      "role": "out",
      "limit": "",
      "ref": "J804",
@@ -6994,7 +6994,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y8_SIG",
+      "1": "/h8_SIG",
       "2": "GND"
      },
      "label": null,
@@ -7008,7 +7008,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y8_OUT1",
+      "1": "/h8_OUT1",
       "2": "GND"
      },
      "label": null,
@@ -7022,7 +7022,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y8_TP",
+      "1": "/h8_TP",
       "2": "GND"
      },
      "label": null,
@@ -7036,7 +7036,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y8_OUT2",
+      "1": "/h8_OUT2",
       "2": "GND"
      },
      "label": null,
@@ -7051,7 +7051,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y8_G",
+      "2": "/h8_G",
       "3": "+5V"
      },
      "label": null,
@@ -7065,9 +7065,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y8_G",
+      "1": "/h8_G",
       "2": "+5V",
-      "3": "/Y8_VS"
+      "3": "/h8_VS"
      },
      "label": null,
      "hide_value": true
@@ -7080,7 +7080,7 @@
      "y": 6.1,
      "rot": 270,
      "pins": {
-      "1": "/Y8_SIG",
+      "1": "/h8_SIG",
       "2": "GND"
      },
      "label": null,
@@ -7094,8 +7094,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y8_SIG",
-      "2": "/Y8_T1"
+      "1": "/h8_SIG",
+      "2": "/h8_T1"
      },
      "label": null,
      "hide_value": false
@@ -7108,7 +7108,7 @@
      "y": 2.7,
      "rot": 90,
      "pins": {
-      "1": "/Y8_T1",
+      "1": "/h8_T1",
       "2": "GND"
      },
      "label": null,
@@ -7122,7 +7122,7 @@
      "y": 1.9,
      "rot": 0,
      "pins": {
-      "1": "/Y8_T1",
+      "1": "/h8_T1",
       "2": "GND"
      },
      "label": null,
@@ -7136,8 +7136,8 @@
      "y": 2.8,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K1",
-      "2": "/Y8_T1"
+      "1": "/h8_K1",
+      "2": "/h8_T1"
      },
      "label": null,
      "hide_value": true
@@ -7150,7 +7150,7 @@
      "y": 2.8,
      "rot": 90,
      "pins": {
-      "1": "/Y8_K1",
+      "1": "/h8_K1",
       "2": "GND"
      },
      "label": null,
@@ -7164,8 +7164,8 @@
      "y": 2.4,
      "rot": 270,
      "pins": {
-      "1": "/Y8_VS",
-      "2": "/Y8_K1"
+      "1": "/h8_VS",
+      "2": "/h8_K1"
      },
      "label": null,
      "hide_value": false
@@ -7178,7 +7178,7 @@
      "y": 4.4,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K1",
+      "1": "/h8_K1",
       "2": "GND"
      },
      "label": null,
@@ -7192,8 +7192,8 @@
      "y": 10.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T1",
-      "2": "/Y8_OUT1"
+      "1": "/h8_T1",
+      "2": "/h8_OUT1"
      },
      "label": null,
      "hide_value": false
@@ -7206,8 +7206,8 @@
      "y": 6.4,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T1",
-      "2": "/Y8_CA"
+      "1": "/h8_T1",
+      "2": "/h8_CA"
      },
      "label": null,
      "hide_value": false
@@ -7220,8 +7220,8 @@
      "y": 6.4,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T1",
-      "2": "/Y8_CB"
+      "1": "/h8_T1",
+      "2": "/h8_CB"
      },
      "label": null,
      "hide_value": false
@@ -7234,8 +7234,8 @@
      "y": 6.4,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T1",
-      "2": "/Y8_RDA"
+      "1": "/h8_T1",
+      "2": "/h8_RDA"
      },
      "label": null,
      "hide_value": false
@@ -7248,12 +7248,12 @@
      "y": 14.3,
      "rot": 0,
      "pins": {
-      "8": "/Y8_CA",
-      "7": "/Y8_CB",
-      "6": "/Y8_RDA",
-      "5": "/Y8_RDB",
-      "1": "/Y8_T2",
-      "2": "/Y8_T2",
+      "8": "/h8_CA",
+      "7": "/h8_CB",
+      "6": "/h8_RDA",
+      "5": "/h8_RDB",
+      "1": "/h8_T2",
+      "2": "/h8_T2",
       "3": "GND",
       "4": "GND"
      },
@@ -7268,8 +7268,8 @@
      "y": 2.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K2",
-      "2": "/Y8_TP"
+      "1": "/h8_K2",
+      "2": "/h8_TP"
      },
      "label": null,
      "hide_value": false
@@ -7282,8 +7282,8 @@
      "y": 2.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K2",
-      "2": "/Y8_TP"
+      "1": "/h8_K2",
+      "2": "/h8_TP"
      },
      "label": null,
      "hide_value": false
@@ -7296,8 +7296,8 @@
      "y": 2.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K2",
-      "2": "/Y8_VS"
+      "1": "/h8_K2",
+      "2": "/h8_VS"
      },
      "label": null,
      "hide_value": false
@@ -7310,8 +7310,8 @@
      "y": 2.8,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K2",
-      "2": "/Y8_T2"
+      "1": "/h8_K2",
+      "2": "/h8_T2"
      },
      "label": null,
      "hide_value": true
@@ -7324,7 +7324,7 @@
      "y": 2.8,
      "rot": 270,
      "pins": {
-      "1": "/Y8_K2",
+      "1": "/h8_K2",
       "2": "GND"
      },
      "label": null,
@@ -7338,7 +7338,7 @@
      "y": 2.6,
      "rot": 90,
      "pins": {
-      "1": "/Y8_T2",
+      "1": "/h8_T2",
       "2": "GND"
      },
      "label": null,
@@ -7352,7 +7352,7 @@
      "y": 6.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T2",
+      "1": "/h8_T2",
       "2": "GND"
      },
      "label": null,
@@ -7366,8 +7366,8 @@
      "y": 10.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T2",
-      "2": "/Y8_OUT2"
+      "1": "/h8_T2",
+      "2": "/h8_OUT2"
      },
      "label": null,
      "hide_value": false
@@ -7380,8 +7380,8 @@
      "y": 6.6,
      "rot": 270,
      "pins": {
-      "1": "/Y8_T2",
-      "2": "/Y8_RDB"
+      "1": "/h8_T2",
+      "2": "/h8_RDB"
      },
      "label": null,
      "hide_value": false
@@ -7394,7 +7394,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y8_VS",
+      "1": "/h8_VS",
       "2": "GND"
      },
      "label": null,
@@ -7441,7 +7441,7 @@
      false
     ],
     [
-     "/Y8_SIG",
+     "/h8_SIG",
      [
       [
        "J801",
@@ -7458,7 +7458,7 @@
      false
     ],
     [
-     "/Y8_SIG",
+     "/h8_SIG",
      [
       [
        8.9,
@@ -7475,7 +7475,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        "C801",
@@ -7492,7 +7492,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        15.25,
@@ -7509,7 +7509,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        "C802",
@@ -7526,7 +7526,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        "L801",
@@ -7543,7 +7543,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        "D801",
@@ -7560,7 +7560,7 @@
      false
     ],
     [
-     "/Y8_K1",
+     "/h8_K1",
      [
       [
        "D801",
@@ -7585,7 +7585,7 @@
      false
     ],
     [
-     "/Y8_K1",
+     "/h8_K1",
      [
       [
        "D802",
@@ -7610,7 +7610,7 @@
      false
     ],
     [
-     "/Y8_K1",
+     "/h8_K1",
      [
       [
        21.0,
@@ -7627,7 +7627,7 @@
      false
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        "R802",
@@ -7644,7 +7644,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        15.25,
@@ -7661,7 +7661,7 @@
      false
     ],
     [
-     "/Y8_OUT1",
+     "/h8_OUT1",
      [
       [
        "C803",
@@ -7678,7 +7678,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        17.6,
@@ -7695,7 +7695,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        18.8,
@@ -7712,7 +7712,7 @@
      false
     ],
     [
-     "/Y8_T1",
+     "/h8_T1",
      [
       [
        20.0,
@@ -7729,7 +7729,7 @@
      false
     ],
     [
-     "/Y8_CA",
+     "/h8_CA",
      [
       [
        "C804",
@@ -7754,7 +7754,7 @@
      false
     ],
     [
-     "/Y8_CB",
+     "/h8_CB",
      [
       [
        "C805",
@@ -7779,7 +7779,7 @@
      false
     ],
     [
-     "/Y8_RDA",
+     "/h8_RDA",
      [
       [
        "R804",
@@ -7804,7 +7804,7 @@
      false
     ],
     [
-     "/Y8_TP",
+     "/h8_TP",
      [
       [
        "J803",
@@ -7829,7 +7829,7 @@
      false
     ],
     [
-     "/Y8_TP",
+     "/h8_TP",
      [
       [
        30.7,
@@ -7846,7 +7846,7 @@
      false
     ],
     [
-     "/Y8_TP",
+     "/h8_TP",
      [
       [
        31.9,
@@ -7863,7 +7863,7 @@
      false
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        "R806",
@@ -7880,7 +7880,7 @@
      false
     ],
     [
-     "/Y8_K2",
+     "/h8_K2",
      [
       [
        "C806",
@@ -7905,7 +7905,7 @@
      false
     ],
     [
-     "/Y8_K2",
+     "/h8_K2",
      [
       [
        31.9,
@@ -7922,7 +7922,7 @@
      false
     ],
     [
-     "/Y8_K2",
+     "/h8_K2",
      [
       [
        33.1,
@@ -7939,7 +7939,7 @@
      false
     ],
     [
-     "/Y8_K2",
+     "/h8_K2",
      [
       [
        34.85,
@@ -7956,7 +7956,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        31.2,
@@ -7977,7 +7977,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        "D803",
@@ -7994,7 +7994,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        38.0,
@@ -8011,7 +8011,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        36.75,
@@ -8028,7 +8028,7 @@
      false
     ],
     [
-     "/Y8_OUT2",
+     "/h8_OUT2",
      [
       [
        "C808",
@@ -8045,7 +8045,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        31.2,
@@ -8062,7 +8062,7 @@
      false
     ],
     [
-     "/Y8_RDB",
+     "/h8_RDB",
      [
       [
        "R807",
@@ -8087,7 +8087,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        32.6,
@@ -8112,7 +8112,7 @@
      false
     ],
     [
-     "/Y8_T2",
+     "/h8_T2",
      [
       [
        25.365,
@@ -8129,7 +8129,7 @@
      false
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        8.54,
@@ -8146,7 +8146,7 @@
      false
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        10.2,
@@ -8175,7 +8175,7 @@
      true
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        33.1,
@@ -8200,7 +8200,7 @@
      true
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      [
       [
        "C809",
@@ -8229,19 +8229,19 @@
      false
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      21.0,
      0.85,
      true
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      33.1,
      4.1,
      true
     ],
     [
-     "/Y8_VS",
+     "/h8_VS",
      10.2,
      11.0,
      true
@@ -8249,7 +8249,7 @@
    ],
    "routes": [
     [
-     "/Y8_G",
+     "/h8_G",
      [
       [
        "SW801",
@@ -8494,7 +8494,7 @@
     [
      1.2,
      9.4,
-     "Y8",
+     "h8",
      1.2,
      0.2,
      "left",
@@ -8525,7 +8525,7 @@
    "back_plot": null
   },
   {
-   "id": "Y10",
+   "id": "h10",
    "idx": 10,
    "name": "laser driver",
    "subtitle": "current source + bias-T",
@@ -8558,7 +8558,7 @@
     {
      "slot": "TL0",
      "label": "SET",
-     "net": "/Y10_SET",
+     "net": "/h10_SET",
      "role": "in",
      "limit": "0-1 V: 0-100 mA",
      "ref": "J1001",
@@ -8571,7 +8571,7 @@
     {
      "slot": "BR0",
      "label": "MON",
-     "net": "/Y10_MON",
+     "net": "/h10_MON",
      "role": "out",
      "limit": "",
      "ref": "J1002",
@@ -8584,7 +8584,7 @@
     {
      "slot": "TL1",
      "label": "RF IN",
-     "net": "/Y10_RF",
+     "net": "/h10_RF",
      "role": "in",
      "limit": "+10 dBm max",
      "ref": "J1003",
@@ -8597,7 +8597,7 @@
     {
      "slot": "BR1",
      "label": "LD",
-     "net": "/Y10_LDN",
+     "net": "/h10_LDN",
      "role": "out",
      "limit": "100 mA max",
      "ref": "J1004",
@@ -8617,7 +8617,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y10_SET",
+      "1": "/h10_SET",
       "2": "GND"
      },
      "label": null,
@@ -8631,7 +8631,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y10_MON",
+      "1": "/h10_MON",
       "2": "GND"
      },
      "label": null,
@@ -8645,7 +8645,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y10_RF",
+      "1": "/h10_RF",
       "2": "GND"
      },
      "label": null,
@@ -8659,7 +8659,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y10_LDN",
+      "1": "/h10_LDN",
       "2": "GND"
      },
      "label": null,
@@ -8674,7 +8674,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y10_G",
+      "2": "/h10_G",
       "3": "+5V"
      },
      "label": null,
@@ -8688,9 +8688,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y10_G",
+      "1": "/h10_G",
       "2": "+5V",
-      "3": "/Y10_VS"
+      "3": "/h10_VS"
      },
      "label": null,
      "hide_value": true
@@ -8703,7 +8703,7 @@
      "y": 6.1,
      "rot": 270,
      "pins": {
-      "1": "/Y10_SET",
+      "1": "/h10_SET",
       "2": "GND"
      },
      "label": null,
@@ -8717,8 +8717,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y10_SET",
-      "2": "/Y10_SETF"
+      "1": "/h10_SET",
+      "2": "/h10_SETF"
      },
      "label": null,
      "hide_value": false
@@ -8731,7 +8731,7 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y10_SETF",
+      "1": "/h10_SETF",
       "2": "GND"
      },
      "label": null,
@@ -8745,11 +8745,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y10_GB",
+      "1": "/h10_GB",
       "2": "GND",
-      "3": "/Y10_SETF",
-      "4": "/Y10_NS",
-      "5": "/Y10_VS"
+      "3": "/h10_SETF",
+      "4": "/h10_NS",
+      "5": "/h10_VS"
      },
      "label": null,
      "hide_value": false
@@ -8762,9 +8762,9 @@
      "y": 7.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_GB",
-      "2": "/Y10_NS",
-      "3": "/Y10_REF"
+      "1": "/h10_GB",
+      "2": "/h10_NS",
+      "3": "/h10_REF"
      },
      "label": null,
      "hide_value": false
@@ -8777,7 +8777,7 @@
      "y": 11.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_NS",
+      "1": "/h10_NS",
       "2": "GND"
      },
      "label": null,
@@ -8791,8 +8791,8 @@
      "y": 6.4,
      "rot": 270,
      "pins": {
-      "1": "/Y10_VS",
-      "2": "/Y10_REF"
+      "1": "/h10_VS",
+      "2": "/h10_REF"
      },
      "label": null,
      "hide_value": false
@@ -8805,7 +8805,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y10_VS",
+      "1": "/h10_VS",
       "2": "GND"
      },
      "label": null,
@@ -8819,11 +8819,11 @@
      "y": 12.4,
      "rot": 270,
      "pins": {
-      "1": "/Y10_GA",
+      "1": "/h10_GA",
       "2": "GND",
-      "3": "/Y10_REF",
-      "4": "/Y10_NA",
-      "5": "/Y10_VS"
+      "3": "/h10_REF",
+      "4": "/h10_NA",
+      "5": "/h10_VS"
      },
      "label": null,
      "hide_value": false
@@ -8836,8 +8836,8 @@
      "y": 11.26,
      "rot": 0,
      "pins": {
-      "1": "/Y10_GA",
-      "2": "/Y10_GQ"
+      "1": "/h10_GA",
+      "2": "/h10_GQ"
      },
      "label": null,
      "hide_value": false
@@ -8850,8 +8850,8 @@
      "y": 15.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_NA",
-      "2": "/Y10_GA"
+      "1": "/h10_NA",
+      "2": "/h10_GA"
      },
      "label": null,
      "hide_value": false
@@ -8864,8 +8864,8 @@
      "y": 15.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_SQ",
-      "2": "/Y10_NA"
+      "1": "/h10_SQ",
+      "2": "/h10_NA"
      },
      "label": null,
      "hide_value": false
@@ -8878,9 +8878,9 @@
      "y": 3.2,
      "rot": 0,
      "pins": {
-      "1": "/Y10_GQ",
-      "2": "/Y10_SQ",
-      "3": "/Y10_ID"
+      "1": "/h10_GQ",
+      "2": "/h10_SQ",
+      "3": "/h10_ID"
      },
      "label": null,
      "hide_value": false
@@ -8893,8 +8893,8 @@
      "y": 6.6,
      "rot": 90,
      "pins": {
-      "1": "/Y10_VS",
-      "2": "/Y10_SQ"
+      "1": "/h10_VS",
+      "2": "/h10_SQ"
      },
      "label": null,
      "hide_value": false
@@ -8908,7 +8908,7 @@
      "rot": 90,
      "pins": {
       "1": "GND",
-      "2": "/Y10_VS"
+      "2": "/h10_VS"
      },
      "label": null,
      "hide_value": false
@@ -8923,7 +8923,7 @@
      "pins": {
       "1": "/PMOD5",
       "2": "GND",
-      "3": "/Y10_ID"
+      "3": "/h10_ID"
      },
      "label": null,
      "hide_value": false
@@ -8936,8 +8936,8 @@
      "y": 8.0,
      "rot": 270,
      "pins": {
-      "1": "/Y10_ID",
-      "2": "/Y10_LM"
+      "1": "/h10_ID",
+      "2": "/h10_LM"
      },
      "label": null,
      "hide_value": false
@@ -8950,8 +8950,8 @@
      "y": 10.75,
      "rot": 270,
      "pins": {
-      "1": "/Y10_LM",
-      "2": "/Y10_LDN"
+      "1": "/h10_LM",
+      "2": "/h10_LDN"
      },
      "label": null,
      "hide_value": false
@@ -8964,7 +8964,7 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y10_ID",
+      "1": "/h10_ID",
       "2": "GND"
      },
      "label": null,
@@ -8978,8 +8978,8 @@
      "y": 9.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_RF",
-      "2": "/Y10_RFC"
+      "1": "/h10_RF",
+      "2": "/h10_RFC"
      },
      "label": null,
      "hide_value": false
@@ -8992,8 +8992,8 @@
      "y": 9.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_RFC",
-      "2": "/Y10_LDN"
+      "1": "/h10_RFC",
+      "2": "/h10_LDN"
      },
      "label": null,
      "hide_value": false
@@ -9006,8 +9006,8 @@
      "y": 12.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_MON",
-      "2": "/Y10_LDN"
+      "1": "/h10_MON",
+      "2": "/h10_LDN"
      },
      "label": null,
      "hide_value": false
@@ -9034,7 +9034,7 @@
      "y": 12.0,
      "rot": 0,
      "pins": {
-      "1": "/Y10_VS",
+      "1": "/h10_VS",
       "2": "GND"
      },
      "label": null,
@@ -9081,7 +9081,7 @@
      false
     ],
     [
-     "/Y10_SET",
+     "/h10_SET",
      [
       [
        "J1001",
@@ -9098,7 +9098,7 @@
      false
     ],
     [
-     "/Y10_SET",
+     "/h10_SET",
      [
       [
        8.9,
@@ -9115,7 +9115,7 @@
      false
     ],
     [
-     "/Y10_SETF",
+     "/h10_SETF",
      [
       [
        11.6,
@@ -9132,7 +9132,7 @@
      false
     ],
     [
-     "/Y10_SETF",
+     "/h10_SETF",
      [
       [
        "R1002",
@@ -9153,7 +9153,7 @@
      false
     ],
     [
-     "/Y10_GB",
+     "/h10_GB",
      [
       [
        "U1001",
@@ -9170,7 +9170,7 @@
      false
     ],
     [
-     "/Y10_NS",
+     "/h10_NS",
      [
       [
        "Q1002",
@@ -9195,7 +9195,7 @@
      false
     ],
     [
-     "/Y10_NS",
+     "/h10_NS",
      [
       [
        14.77,
@@ -9212,7 +9212,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        "R1004",
@@ -9229,7 +9229,7 @@
      false
     ],
     [
-     "/Y10_REF",
+     "/h10_REF",
      [
       [
        "Q1002",
@@ -9246,7 +9246,7 @@
      false
     ],
     [
-     "/Y10_REF",
+     "/h10_REF",
      [
       [
        "R1004",
@@ -9271,7 +9271,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        "U1001",
@@ -9288,7 +9288,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        "C1002",
@@ -9309,7 +9309,7 @@
      false
     ],
     [
-     "/Y10_GA",
+     "/h10_GA",
      [
       [
        "U1002",
@@ -9326,7 +9326,7 @@
      false
     ],
     [
-     "/Y10_GA",
+     "/h10_GA",
      [
       [
        27.2,
@@ -9347,7 +9347,7 @@
      false
     ],
     [
-     "/Y10_NA",
+     "/h10_NA",
      [
       [
        "U1002",
@@ -9368,7 +9368,7 @@
      false
     ],
     [
-     "/Y10_NA",
+     "/h10_NA",
      [
       [
        "R1006",
@@ -9385,7 +9385,7 @@
      false
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      [
       [
        "R1006",
@@ -9402,7 +9402,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        "U1002",
@@ -9419,7 +9419,7 @@
      false
     ],
     [
-     "/Y10_GQ",
+     "/h10_GQ",
      [
       [
        "R1005",
@@ -9436,7 +9436,7 @@
      false
     ],
     [
-     "/Y10_GQ",
+     "/h10_GQ",
      [
       [
        "Q1003",
@@ -9453,7 +9453,7 @@
      false
     ],
     [
-     "/Y10_GQ",
+     "/h10_GQ",
      [
       [
        29.6,
@@ -9478,7 +9478,7 @@
      true
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      [
       [
        "Q1003",
@@ -9495,7 +9495,7 @@
      false
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      [
       [
        "R1007",
@@ -9512,7 +9512,7 @@
      false
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      [
       [
        22.4,
@@ -9541,7 +9541,7 @@
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        "R1007",
@@ -9558,7 +9558,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        32.3,
@@ -9575,7 +9575,7 @@
      false
     ],
     [
-     "/Y10_ID",
+     "/h10_ID",
      [
       [
        "Q1003",
@@ -9604,7 +9604,7 @@
      false
     ],
     [
-     "/Y10_ID",
+     "/h10_ID",
      [
       [
        36.75,
@@ -9621,7 +9621,7 @@
      false
     ],
     [
-     "/Y10_LM",
+     "/h10_LM",
      [
       [
        "L1001",
@@ -9638,7 +9638,7 @@
      false
     ],
     [
-     "/Y10_LDN",
+     "/h10_LDN",
      [
       [
        "L1002",
@@ -9655,7 +9655,7 @@
      false
     ],
     [
-     "/Y10_ID",
+     "/h10_ID",
      [
       [
        "D1001",
@@ -9672,7 +9672,7 @@
      false
     ],
     [
-     "/Y10_RF",
+     "/h10_RF",
      [
       [
        "J1003",
@@ -9693,7 +9693,7 @@
      false
     ],
     [
-     "/Y10_RFC",
+     "/h10_RFC",
      [
       [
        "C1005",
@@ -9710,7 +9710,7 @@
      false
     ],
     [
-     "/Y10_LDN",
+     "/h10_LDN",
      [
       [
        "R1008",
@@ -9735,7 +9735,7 @@
      false
     ],
     [
-     "/Y10_LDN",
+     "/h10_LDN",
      [
       [
        "R1009",
@@ -9752,7 +9752,7 @@
      false
     ],
     [
-     "/Y10_MON",
+     "/h10_MON",
      [
       [
        "R1009",
@@ -9823,7 +9823,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        8.54,
@@ -9840,7 +9840,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        10.2,
@@ -9865,7 +9865,7 @@
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        14.15,
@@ -9886,7 +9886,7 @@
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        19.4,
@@ -9911,7 +9911,7 @@
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        10.2,
@@ -9936,7 +9936,7 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      [
       [
        21.0,
@@ -9961,61 +9961,61 @@
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      19.4,
      4.9,
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      14.15,
      9.25,
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      10.2,
      11.0,
      true
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      22.4,
      15.0,
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      26.55,
      14.2,
      true
     ],
     [
-     "/Y10_GQ",
+     "/h10_GQ",
      29.6,
      11.26,
      true
     ],
     [
-     "/Y10_GQ",
+     "/h10_GQ",
      31.0625,
      1.4,
      true
     ],
     [
-     "/Y10_SQ",
+     "/h10_SQ",
      32.2,
      6.09,
      true
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      32.3,
      7.9,
      false
     ],
     [
-     "/Y10_VS",
+     "/h10_VS",
      21.0,
      12.0,
      true
@@ -10023,7 +10023,7 @@
    ],
    "routes": [
     [
-     "/Y10_G",
+     "/h10_G",
      [
       [
        "SW1001",
@@ -10236,7 +10236,7 @@
     [
      1.2,
      9.4,
-     "Y10",
+     "h10",
      1.2,
      0.2,
      "left",
@@ -10286,7 +10286,7 @@
    "back_plot": null
   },
   {
-   "id": "Y5",
+   "id": "h5",
    "idx": 5,
    "name": "HF receiver",
    "subtitle": "2 x LMH6629",
@@ -10318,7 +10318,7 @@
     {
      "slot": "TL0",
      "label": "IN A",
-     "net": "/Y5_IN",
+     "net": "/h5_IN",
      "role": "in",
      "limit": "-10 dBm",
      "ref": "J501",
@@ -10331,7 +10331,7 @@
     {
      "slot": "BR0",
      "label": "OUT A",
-     "net": "/Y5_OUT",
+     "net": "/h5_OUT",
      "role": "out",
      "limit": "",
      "ref": "J502",
@@ -10344,7 +10344,7 @@
     {
      "slot": "TL1",
      "label": "IN B",
-     "net": "/Y5_INB",
+     "net": "/h5_INB",
      "role": "in",
      "limit": "-10 dBm",
      "ref": "J503",
@@ -10357,7 +10357,7 @@
     {
      "slot": "BR1",
      "label": "OUT B",
-     "net": "/Y5_OUTB",
+     "net": "/h5_OUTB",
      "role": "out",
      "limit": "",
      "ref": "J504",
@@ -10377,7 +10377,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y5_IN",
+      "1": "/h5_IN",
       "2": "GND"
      },
      "label": null,
@@ -10391,7 +10391,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y5_OUT",
+      "1": "/h5_OUT",
       "2": "GND"
      },
      "label": null,
@@ -10405,7 +10405,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y5_INB",
+      "1": "/h5_INB",
       "2": "GND"
      },
      "label": null,
@@ -10419,7 +10419,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y5_OUTB",
+      "1": "/h5_OUTB",
       "2": "GND"
      },
      "label": null,
@@ -10434,7 +10434,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y5_G",
+      "2": "/h5_G",
       "3": "+5V"
      },
      "label": null,
@@ -10448,9 +10448,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y5_G",
+      "1": "/h5_G",
       "2": "+5V",
-      "3": "/Y5_VS"
+      "3": "/h5_VS"
      },
      "label": null,
      "hide_value": true
@@ -10463,7 +10463,7 @@
      "y": 6.1,
      "rot": 270,
      "pins": {
-      "1": "/Y5_IN",
+      "1": "/h5_IN",
       "2": "GND"
      },
      "label": null,
@@ -10477,8 +10477,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y5_IN",
-      "2": "/Y5_IN2"
+      "1": "/h5_IN",
+      "2": "/h5_IN2"
      },
      "label": null,
      "hide_value": false
@@ -10491,11 +10491,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OA",
+      "1": "/h5_OA",
       "2": "GND",
-      "3": "/Y5_IN2",
-      "4": "/Y5_FB",
-      "5": "/Y5_VS"
+      "3": "/h5_IN2",
+      "4": "/h5_FB",
+      "5": "/h5_VS"
      },
      "label": null,
      "hide_value": false
@@ -10508,8 +10508,8 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y5_IN2",
-      "2": "/Y5_VS"
+      "1": "/h5_IN2",
+      "2": "/h5_VS"
      },
      "label": null,
      "hide_value": false
@@ -10523,7 +10523,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y5_IN2"
+      "2": "/h5_IN2"
      },
      "label": null,
      "hide_value": false
@@ -10536,8 +10536,8 @@
      "y": 10.2,
      "rot": 0,
      "pins": {
-      "1": "/Y5_FB",
-      "2": "/Y5_OA"
+      "1": "/h5_FB",
+      "2": "/h5_OA"
      },
      "label": null,
      "hide_value": false
@@ -10550,8 +10550,8 @@
      "y": 10.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_FB",
-      "2": "/Y5_CG"
+      "1": "/h5_FB",
+      "2": "/h5_CG"
      },
      "label": null,
      "hide_value": false
@@ -10564,7 +10564,7 @@
      "y": 12.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_CG",
+      "1": "/h5_CG",
       "2": "GND"
      },
      "label": null,
@@ -10578,8 +10578,8 @@
      "y": 5.6,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OA",
-      "2": "/Y5_OC"
+      "1": "/h5_OA",
+      "2": "/h5_OC"
      },
      "label": null,
      "hide_value": false
@@ -10592,8 +10592,8 @@
      "y": 7.6,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OC",
-      "2": "/Y5_OUT"
+      "1": "/h5_OC",
+      "2": "/h5_OUT"
      },
      "label": null,
      "hide_value": false
@@ -10606,7 +10606,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y5_VS",
+      "1": "/h5_VS",
       "2": "GND"
      },
      "label": null,
@@ -10620,7 +10620,7 @@
      "y": 6.1,
      "rot": 270,
      "pins": {
-      "1": "/Y5_INB",
+      "1": "/h5_INB",
       "2": "GND"
      },
      "label": null,
@@ -10634,8 +10634,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y5_INB",
-      "2": "/Y5_IN2B"
+      "1": "/h5_INB",
+      "2": "/h5_IN2B"
      },
      "label": null,
      "hide_value": false
@@ -10648,11 +10648,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OAB",
+      "1": "/h5_OAB",
       "2": "GND",
-      "3": "/Y5_IN2B",
-      "4": "/Y5_FBB",
-      "5": "/Y5_VS"
+      "3": "/h5_IN2B",
+      "4": "/h5_FBB",
+      "5": "/h5_VS"
      },
      "label": null,
      "hide_value": false
@@ -10665,8 +10665,8 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y5_IN2B",
-      "2": "/Y5_VS"
+      "1": "/h5_IN2B",
+      "2": "/h5_VS"
      },
      "label": null,
      "hide_value": false
@@ -10680,7 +10680,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y5_IN2B"
+      "2": "/h5_IN2B"
      },
      "label": null,
      "hide_value": false
@@ -10693,8 +10693,8 @@
      "y": 10.2,
      "rot": 0,
      "pins": {
-      "1": "/Y5_FBB",
-      "2": "/Y5_OAB"
+      "1": "/h5_FBB",
+      "2": "/h5_OAB"
      },
      "label": null,
      "hide_value": false
@@ -10707,8 +10707,8 @@
      "y": 10.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_FBB",
-      "2": "/Y5_CGB"
+      "1": "/h5_FBB",
+      "2": "/h5_CGB"
      },
      "label": null,
      "hide_value": false
@@ -10721,7 +10721,7 @@
      "y": 12.9,
      "rot": 270,
      "pins": {
-      "1": "/Y5_CGB",
+      "1": "/h5_CGB",
       "2": "GND"
      },
      "label": null,
@@ -10735,8 +10735,8 @@
      "y": 5.6,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OAB",
-      "2": "/Y5_OCB"
+      "1": "/h5_OAB",
+      "2": "/h5_OCB"
      },
      "label": null,
      "hide_value": false
@@ -10749,8 +10749,8 @@
      "y": 7.6,
      "rot": 270,
      "pins": {
-      "1": "/Y5_OCB",
-      "2": "/Y5_OUTB"
+      "1": "/h5_OCB",
+      "2": "/h5_OUTB"
      },
      "label": null,
      "hide_value": false
@@ -10763,7 +10763,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y5_VS",
+      "1": "/h5_VS",
       "2": "GND"
      },
      "label": null,
@@ -10831,7 +10831,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        8.54,
@@ -10848,7 +10848,7 @@
      false
     ],
     [
-     "/Y5_IN",
+     "/h5_IN",
      [
       [
        "J501",
@@ -10865,7 +10865,7 @@
      false
     ],
     [
-     "/Y5_IN",
+     "/h5_IN",
      [
       [
        8.9,
@@ -10882,7 +10882,7 @@
      false
     ],
     [
-     "/Y5_IN2",
+     "/h5_IN2",
      [
       [
        "C501",
@@ -10903,7 +10903,7 @@
      false
     ],
     [
-     "/Y5_IN2",
+     "/h5_IN2",
      [
       [
        11.6,
@@ -10920,7 +10920,7 @@
      false
     ],
     [
-     "/Y5_IN2",
+     "/h5_IN2",
      [
       [
        "R503",
@@ -10941,7 +10941,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "R502",
@@ -10958,7 +10958,7 @@
      false
     ],
     [
-     "/Y5_OA",
+     "/h5_OA",
      [
       [
        "U501",
@@ -10987,7 +10987,7 @@
      false
     ],
     [
-     "/Y5_FB",
+     "/h5_FB",
      [
       [
        "U501",
@@ -11008,7 +11008,7 @@
      false
     ],
     [
-     "/Y5_FB",
+     "/h5_FB",
      [
       [
        12.25,
@@ -11029,7 +11029,7 @@
      false
     ],
     [
-     "/Y5_CG",
+     "/h5_CG",
      [
       [
        "R505",
@@ -11046,7 +11046,7 @@
      false
     ],
     [
-     "/Y5_OA",
+     "/h5_OA",
      [
       [
        15.1,
@@ -11067,7 +11067,7 @@
      false
     ],
     [
-     "/Y5_OC",
+     "/h5_OC",
      [
       [
        "C503",
@@ -11084,7 +11084,7 @@
      false
     ],
     [
-     "/Y5_OUT",
+     "/h5_OUT",
      [
       [
        "R506",
@@ -11109,7 +11109,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "U501",
@@ -11126,7 +11126,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        10.2,
@@ -11151,7 +11151,7 @@
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        14.15,
@@ -11180,7 +11180,7 @@
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "C504",
@@ -11201,7 +11201,7 @@
      false
     ],
     [
-     "/Y5_INB",
+     "/h5_INB",
      [
       [
        "J503",
@@ -11218,7 +11218,7 @@
      false
     ],
     [
-     "/Y5_INB",
+     "/h5_INB",
      [
       [
        30.4,
@@ -11235,7 +11235,7 @@
      false
     ],
     [
-     "/Y5_IN2B",
+     "/h5_IN2B",
      [
       [
        "C505",
@@ -11256,7 +11256,7 @@
      false
     ],
     [
-     "/Y5_IN2B",
+     "/h5_IN2B",
      [
       [
        33.1,
@@ -11273,7 +11273,7 @@
      false
     ],
     [
-     "/Y5_IN2B",
+     "/h5_IN2B",
      [
       [
        "R509",
@@ -11294,7 +11294,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "R508",
@@ -11311,7 +11311,7 @@
      false
     ],
     [
-     "/Y5_OAB",
+     "/h5_OAB",
      [
       [
        "U502",
@@ -11340,7 +11340,7 @@
      false
     ],
     [
-     "/Y5_FBB",
+     "/h5_FBB",
      [
       [
        "U502",
@@ -11361,7 +11361,7 @@
      false
     ],
     [
-     "/Y5_FBB",
+     "/h5_FBB",
      [
       [
        33.75,
@@ -11382,7 +11382,7 @@
      false
     ],
     [
-     "/Y5_CGB",
+     "/h5_CGB",
      [
       [
        "R511",
@@ -11399,7 +11399,7 @@
      false
     ],
     [
-     "/Y5_OAB",
+     "/h5_OAB",
      [
       [
        36.6,
@@ -11420,7 +11420,7 @@
      false
     ],
     [
-     "/Y5_OCB",
+     "/h5_OCB",
      [
       [
        "C507",
@@ -11437,7 +11437,7 @@
      false
     ],
     [
-     "/Y5_OUTB",
+     "/h5_OUTB",
      [
       [
        "R512",
@@ -11462,7 +11462,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "U502",
@@ -11479,7 +11479,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        31.7,
@@ -11504,7 +11504,7 @@
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        35.65,
@@ -11533,7 +11533,7 @@
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        "C508",
@@ -11554,7 +11554,7 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      [
       [
        10.2,
@@ -11604,37 +11604,37 @@
      false
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      11.6,
      1.6,
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      14.15,
      9.15,
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      10.2,
      11.0,
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      33.1,
      1.6,
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      35.65,
      9.15,
      true
     ],
     [
-     "/Y5_VS",
+     "/h5_VS",
      31.7,
      11.0,
      true
@@ -11642,7 +11642,7 @@
    ],
    "routes": [
     [
-     "/Y5_G",
+     "/h5_G",
      [
       [
        "SW501",
@@ -11839,7 +11839,7 @@
     [
      1.2,
      9.4,
-     "Y5",
+     "h5",
      1.2,
      0.2,
      "left",
@@ -12067,7 +12067,7 @@
    }
   },
   {
-   "id": "Y6",
+   "id": "h6",
    "idx": 6,
    "name": "VLF loop amplifier",
    "subtitle": "OPA810 x101",
@@ -12088,7 +12088,7 @@
     "A loop's EMF is N A dB/dt: a 1 m square of 10 turns gives about 1 uV for 1 pT at 20 kHz.  1 uF into an OPA810 at half",
     "the supply (100 k / 100 k), gain 101 (10 k / 100 ohm to ground through 1 uF), 100 pF across 10 k: 1.6 - 160 kHz.  Sferics",
     "(lightning, thousands of kilometres away), NAA's 24 kHz MSK, WWVB's 60 kHz time code.  Two loops at right angles (this and",
-    "Y5's IN A, or two boards) give a lightning stroke's bearing from the ratio of the two signals."
+    "h5's IN A, or two boards) give a lightning stroke's bearing from the ratio of the two signals."
    ],
    "top_pour": false,
    "fine": false,
@@ -12096,7 +12096,7 @@
     {
      "slot": "TL",
      "label": "LOOP",
-     "net": "/Y6_IN",
+     "net": "/h6_IN",
      "role": "in",
      "limit": "mV",
      "ref": "J601",
@@ -12109,7 +12109,7 @@
     {
      "slot": "BR",
      "label": "OUT",
-     "net": "/Y6_OUT",
+     "net": "/h6_OUT",
      "role": "out",
      "limit": "",
      "ref": "J602",
@@ -12129,7 +12129,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y6_IN",
+      "1": "/h6_IN",
       "2": "GND"
      },
      "label": null,
@@ -12143,7 +12143,7 @@
      "y": 15.25,
      "rot": 0,
      "pins": {
-      "1": "/Y6_OUT",
+      "1": "/h6_OUT",
       "2": "GND"
      },
      "label": null,
@@ -12158,7 +12158,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y6_G",
+      "2": "/h6_G",
       "3": "+5V"
      },
      "label": null,
@@ -12172,9 +12172,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y6_G",
+      "1": "/h6_G",
       "2": "+5V",
-      "3": "/Y6_VS"
+      "3": "/h6_VS"
      },
      "label": null,
      "hide_value": true
@@ -12187,8 +12187,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y6_IN",
-      "2": "/Y6_IN2"
+      "1": "/h6_IN",
+      "2": "/h6_IN2"
      },
      "label": null,
      "hide_value": false
@@ -12201,11 +12201,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y6_OA",
+      "1": "/h6_OA",
       "2": "GND",
-      "3": "/Y6_IN2",
-      "4": "/Y6_FB",
-      "5": "/Y6_VS"
+      "3": "/h6_IN2",
+      "4": "/h6_FB",
+      "5": "/h6_VS"
      },
      "label": null,
      "hide_value": false
@@ -12218,8 +12218,8 @@
      "y": 3.3,
      "rot": 90,
      "pins": {
-      "1": "/Y6_IN2",
-      "2": "/Y6_VS"
+      "1": "/h6_IN2",
+      "2": "/h6_VS"
      },
      "label": null,
      "hide_value": false
@@ -12233,7 +12233,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y6_IN2"
+      "2": "/h6_IN2"
      },
      "label": null,
      "hide_value": false
@@ -12246,8 +12246,8 @@
      "y": 10.2,
      "rot": 0,
      "pins": {
-      "1": "/Y6_FB",
-      "2": "/Y6_OA"
+      "1": "/h6_FB",
+      "2": "/h6_OA"
      },
      "label": null,
      "hide_value": false
@@ -12260,8 +12260,8 @@
      "y": 10.9,
      "rot": 270,
      "pins": {
-      "1": "/Y6_FB",
-      "2": "/Y6_CG"
+      "1": "/h6_FB",
+      "2": "/h6_CG"
      },
      "label": null,
      "hide_value": false
@@ -12274,7 +12274,7 @@
      "y": 12.9,
      "rot": 270,
      "pins": {
-      "1": "/Y6_CG",
+      "1": "/h6_CG",
       "2": "GND"
      },
      "label": null,
@@ -12288,8 +12288,8 @@
      "y": 11.23,
      "rot": 0,
      "pins": {
-      "1": "/Y6_FB",
-      "2": "/Y6_OA"
+      "1": "/h6_FB",
+      "2": "/h6_OA"
      },
      "label": null,
      "hide_value": false
@@ -12302,8 +12302,8 @@
      "y": 5.6,
      "rot": 270,
      "pins": {
-      "1": "/Y6_OA",
-      "2": "/Y6_OC"
+      "1": "/h6_OA",
+      "2": "/h6_OC"
      },
      "label": null,
      "hide_value": false
@@ -12316,8 +12316,8 @@
      "y": 7.6,
      "rot": 270,
      "pins": {
-      "1": "/Y6_OC",
-      "2": "/Y6_OUT"
+      "1": "/h6_OC",
+      "2": "/h6_OUT"
      },
      "label": null,
      "hide_value": false
@@ -12330,7 +12330,7 @@
      "y": 12.3,
      "rot": 270,
      "pins": {
-      "1": "/Y6_VS",
+      "1": "/h6_VS",
       "2": "GND"
      },
      "label": null,
@@ -12377,7 +12377,7 @@
      false
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        8.54,
@@ -12394,7 +12394,7 @@
      false
     ],
     [
-     "/Y6_IN",
+     "/h6_IN",
      [
       [
        "J601",
@@ -12411,7 +12411,7 @@
      false
     ],
     [
-     "/Y6_IN2",
+     "/h6_IN2",
      [
       [
        "C601",
@@ -12432,7 +12432,7 @@
      false
     ],
     [
-     "/Y6_IN2",
+     "/h6_IN2",
      [
       [
        11.6,
@@ -12449,7 +12449,7 @@
      false
     ],
     [
-     "/Y6_IN2",
+     "/h6_IN2",
      [
       [
        "R602",
@@ -12470,7 +12470,7 @@
      false
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        "R601",
@@ -12487,7 +12487,7 @@
      false
     ],
     [
-     "/Y6_OA",
+     "/h6_OA",
      [
       [
        "U601",
@@ -12516,7 +12516,7 @@
      false
     ],
     [
-     "/Y6_FB",
+     "/h6_FB",
      [
       [
        "U601",
@@ -12537,7 +12537,7 @@
      false
     ],
     [
-     "/Y6_FB",
+     "/h6_FB",
      [
       [
        12.25,
@@ -12558,7 +12558,7 @@
      false
     ],
     [
-     "/Y6_CG",
+     "/h6_CG",
      [
       [
        "R604",
@@ -12575,7 +12575,7 @@
      false
     ],
     [
-     "/Y6_FB",
+     "/h6_FB",
      [
       [
        13.12,
@@ -12596,7 +12596,7 @@
      false
     ],
     [
-     "/Y6_OA",
+     "/h6_OA",
      [
       [
        14.08,
@@ -12617,7 +12617,7 @@
      false
     ],
     [
-     "/Y6_OA",
+     "/h6_OA",
      [
       [
        15.1,
@@ -12638,7 +12638,7 @@
      false
     ],
     [
-     "/Y6_OC",
+     "/h6_OC",
      [
       [
        "C604",
@@ -12655,7 +12655,7 @@
      false
     ],
     [
-     "/Y6_OUT",
+     "/h6_OUT",
      [
       [
        "R605",
@@ -12680,7 +12680,7 @@
      false
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        "U601",
@@ -12697,7 +12697,7 @@
      false
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        10.2,
@@ -12722,7 +12722,7 @@
      true
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        14.15,
@@ -12751,7 +12751,7 @@
      true
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      [
       [
        "C605",
@@ -12780,19 +12780,19 @@
      false
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      11.6,
      1.6,
      true
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      14.15,
      9.15,
      true
     ],
     [
-     "/Y6_VS",
+     "/h6_VS",
      10.2,
      11.0,
      true
@@ -12800,7 +12800,7 @@
    ],
    "routes": [
     [
-     "/Y6_G",
+     "/h6_G",
      [
       [
        "SW601",
@@ -12901,7 +12901,7 @@
     [
      1.2,
      9.4,
-     "Y6",
+     "h6",
      1.2,
      0.2,
      "left",
@@ -13129,7 +13129,7 @@
    }
   },
   {
-   "id": "Y4",
+   "id": "h4",
    "idx": 4,
    "name": "coil driver",
    "subtitle": "DRV8876",
@@ -13155,7 +13155,7 @@
     {
      "slot": "TL",
      "label": "MON",
-     "net": "/Y4_MON",
+     "net": "/h4_MON",
      "role": "out",
      "limit": "IPROPI",
      "ref": "J401",
@@ -13175,7 +13175,7 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y4_MON",
+      "1": "/h4_MON",
       "2": "GND"
      },
      "label": null,
@@ -13190,7 +13190,7 @@
      "rot": 270,
      "pins": {
       "1": "GND",
-      "2": "/Y4_G",
+      "2": "/h4_G",
       "3": "+5V"
      },
      "label": null,
@@ -13204,9 +13204,9 @@
      "y": 18.1,
      "rot": 0,
      "pins": {
-      "1": "/Y4_G",
+      "1": "/h4_G",
       "2": "+5V",
-      "3": "/Y4_VS"
+      "3": "/h4_VS"
      },
      "label": null,
      "hide_value": true
@@ -13221,17 +13221,17 @@
      "pins": {
       "1": "/PMOD6",
       "2": "/PMOD7",
-      "3": "/Y4_VS",
-      "5": "/Y4_VREF",
-      "6": "/Y4_IP",
+      "3": "/h4_VS",
+      "5": "/h4_VREF",
+      "6": "/h4_IP",
       "7": "GND",
-      "8": "/Y4_OUT1",
+      "8": "/h4_OUT1",
       "9": "GND",
-      "10": "/Y4_OUT2",
-      "11": "/Y4_VM",
-      "12": "/Y4_VCP",
-      "13": "/Y4_CPH",
-      "14": "/Y4_CPL",
+      "10": "/h4_OUT2",
+      "11": "/h4_VM",
+      "12": "/h4_VCP",
+      "13": "/h4_CPH",
+      "14": "/h4_CPL",
       "15": "GND",
       "16": "GND",
       "17": "GND"
@@ -13275,8 +13275,8 @@
      "y": 12.0,
      "rot": 270,
      "pins": {
-      "1": "/Y4_VS",
-      "2": "/Y4_VREF"
+      "1": "/h4_VS",
+      "2": "/h4_VREF"
      },
      "label": null,
      "hide_value": false
@@ -13289,7 +13289,7 @@
      "y": 13.95,
      "rot": 270,
      "pins": {
-      "1": "/Y4_VREF",
+      "1": "/h4_VREF",
       "2": "GND"
      },
      "label": null,
@@ -13304,7 +13304,7 @@
      "rot": 90,
      "pins": {
       "1": "GND",
-      "2": "/Y4_IP"
+      "2": "/h4_IP"
      },
      "label": null,
      "hide_value": false
@@ -13317,11 +13317,11 @@
      "y": 6.9,
      "rot": 270,
      "pins": {
-      "1": "/Y4_MO",
+      "1": "/h4_MO",
       "2": "GND",
-      "3": "/Y4_IP",
-      "4": "/Y4_MO",
-      "5": "/Y4_VM"
+      "3": "/h4_IP",
+      "4": "/h4_MO",
+      "5": "/h4_VM"
      },
      "label": null,
      "hide_value": false
@@ -13334,8 +13334,8 @@
      "y": 4.75,
      "rot": 0,
      "pins": {
-      "1": "/Y4_MON",
-      "2": "/Y4_MO"
+      "1": "/h4_MON",
+      "2": "/h4_MO"
      },
      "label": null,
      "hide_value": false
@@ -13348,8 +13348,8 @@
      "y": 5.0,
      "rot": 90,
      "pins": {
-      "1": "/Y4_VM",
-      "2": "/Y4_VS"
+      "1": "/h4_VM",
+      "2": "/h4_VS"
      },
      "label": null,
      "hide_value": false
@@ -13362,8 +13362,8 @@
      "y": 4.2,
      "rot": 90,
      "pins": {
-      "1": "/Y4_VM",
-      "2": "/Y4_VEXT"
+      "1": "/h4_VM",
+      "2": "/h4_VEXT"
      },
      "label": null,
      "hide_value": false
@@ -13377,7 +13377,7 @@
      "rot": 0,
      "pins": {
       "1": "GND",
-      "2": "/Y4_VM"
+      "2": "/h4_VM"
      },
      "label": null,
      "hide_value": false
@@ -13390,8 +13390,8 @@
      "y": 11.85,
      "rot": 90,
      "pins": {
-      "1": "/Y4_CPH",
-      "2": "/Y4_CPL"
+      "1": "/h4_CPH",
+      "2": "/h4_CPL"
      },
      "label": null,
      "hide_value": false
@@ -13404,8 +13404,8 @@
      "y": 12.75,
      "rot": 90,
      "pins": {
-      "1": "/Y4_VM",
-      "2": "/Y4_VCP"
+      "1": "/h4_VM",
+      "2": "/h4_VCP"
      },
      "label": null,
      "hide_value": false
@@ -13418,7 +13418,7 @@
      "y": 9.0,
      "rot": 270,
      "pins": {
-      "1": "/Y4_VEXT",
+      "1": "/h4_VEXT",
       "2": "GND"
      },
      "label": null,
@@ -13432,8 +13432,8 @@
      "y": 21.0,
      "rot": 270,
      "pins": {
-      "1": "/Y4_OUT2",
-      "2": "/Y4_OUT1"
+      "1": "/h4_OUT2",
+      "2": "/h4_OUT1"
      },
      "label": null,
      "hide_value": true
@@ -13640,7 +13640,7 @@
      false
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        8.54,
@@ -13657,7 +13657,7 @@
      false
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        9.0,
@@ -13682,7 +13682,7 @@
      true
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        5.9,
@@ -13699,7 +13699,7 @@
      false
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        "R403",
@@ -13716,7 +13716,7 @@
      false
     ],
     [
-     "/Y4_VREF",
+     "/h4_VREF",
      [
       [
        "R403",
@@ -13733,7 +13733,7 @@
      false
     ],
     [
-     "/Y4_VREF",
+     "/h4_VREF",
      [
       [
        6.2,
@@ -13750,7 +13750,7 @@
      false
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      [
       [
        "U401",
@@ -13771,7 +13771,7 @@
      false
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      [
       [
        8.55,
@@ -13788,7 +13788,7 @@
      false
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      [
       [
        7.9,
@@ -13809,7 +13809,7 @@
      true
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      [
       [
        11.65,
@@ -13826,7 +13826,7 @@
      false
     ],
     [
-     "/Y4_MO",
+     "/h4_MO",
      [
       [
        "U402",
@@ -13855,7 +13855,7 @@
      false
     ],
     [
-     "/Y4_MO",
+     "/h4_MO",
      [
       [
        10.9,
@@ -13872,7 +13872,7 @@
      false
     ],
     [
-     "/Y4_MON",
+     "/h4_MON",
      [
       [
        "R406",
@@ -13889,7 +13889,7 @@
      false
     ],
     [
-     "/Y4_VM",
+     "/h4_VM",
      [
       [
        "D401",
@@ -13918,7 +13918,7 @@
      false
     ],
     [
-     "/Y4_VM",
+     "/h4_VM",
      [
       [
        "D402",
@@ -13935,7 +13935,7 @@
      false
     ],
     [
-     "/Y4_VM",
+     "/h4_VM",
      [
       [
        15.9,
@@ -13952,7 +13952,7 @@
      false
     ],
     [
-     "/Y4_VM",
+     "/h4_VM",
      [
       [
        "C401",
@@ -13969,7 +13969,7 @@
      false
     ],
     [
-     "/Y4_CPH",
+     "/h4_CPH",
      [
       [
        "U401",
@@ -13990,7 +13990,7 @@
      false
     ],
     [
-     "/Y4_CPL",
+     "/h4_CPL",
      [
       [
        "U401",
@@ -14011,7 +14011,7 @@
      false
     ],
     [
-     "/Y4_VCP",
+     "/h4_VCP",
      [
       [
        "U401",
@@ -14032,7 +14032,7 @@
      false
     ],
     [
-     "/Y4_VM",
+     "/h4_VM",
      [
       [
        "C403",
@@ -14049,7 +14049,7 @@
      false
     ],
     [
-     "/Y4_VEXT",
+     "/h4_VEXT",
      [
       [
        "J402",
@@ -14070,7 +14070,7 @@
      false
     ],
     [
-     "/Y4_OUT2",
+     "/h4_OUT2",
      [
       [
        "U401",
@@ -14095,7 +14095,7 @@
      false
     ],
     [
-     "/Y4_OUT1",
+     "/h4_OUT1",
      [
       [
        "U401",
@@ -14128,7 +14128,7 @@
      false
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        "D401",
@@ -14145,7 +14145,7 @@
      false
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      [
       [
        9.0,
@@ -14190,31 +14190,31 @@
      true
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      9.0,
      17.3,
      true
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      5.9,
      11.3,
      true
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      7.9,
      13.9,
      true
     ],
     [
-     "/Y4_IP",
+     "/h4_IP",
      11.65,
      6.9,
      true
     ],
     [
-     "/Y4_VS",
+     "/h4_VS",
      15.9,
      2.4,
      true
@@ -14222,7 +14222,7 @@
    ],
    "routes": [
     [
-     "/Y4_G",
+     "/h4_G",
      [
       [
        "SW401",
@@ -14435,7 +14435,7 @@
     [
      1.2,
      21.3,
-     "Y4",
+     "h4",
      1.2,
      0.2,
      "left",
@@ -14488,7 +14488,7 @@
  "back_text": [
   "PhMOD: magnetic resonance, the ionosphere and light.",
   "Jacks at each cell's top-left and bottom-right; powered",
-  "tiles have a slide switch (up: on).  USB-C on Y1.  Y2",
+  "tiles have a slide switch (up: on).  USB-C on h1.  h2",
   "is the 1 W pulse amplifier: pulse it, do not leave it on."
  ],
  "slots": [],

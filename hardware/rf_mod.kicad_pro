@@ -275,145 +275,145 @@
       "+8V": [
         "Power"
       ],
-      "/R1_LO": [
+      "/r1_LO": [
         "RF"
       ],
-      "/R1_RF": [
+      "/r1_RF": [
         "RF"
       ],
-      "/R1_IF": [
+      "/r1_IF": [
         "RF"
       ],
-      "/R2_IN": [
+      "/r2_IN": [
         "RF"
       ],
-      "/R2_OUT": [
+      "/r2_OUT": [
         "RF"
       ],
-      "/R4_IN": [
+      "/r4_IN": [
         "RF"
       ],
-      "/R4_OUT": [
+      "/r4_OUT": [
         "RF"
       ],
-      "/R5_IN": [
+      "/r5_IN": [
         "RF"
       ],
-      "/R5_OUT": [
+      "/r5_OUT": [
         "RF"
       ],
-      "/R12_IN": [
+      "/r12_IN": [
         "RF"
       ],
-      "/R12_IN_A": [
+      "/r12_IN_A": [
         "RF"
       ],
-      "/R12_OUT_A": [
+      "/r12_OUT_A": [
         "RF"
       ],
-      "/R12_OUT": [
+      "/r12_OUT": [
         "RF"
       ],
-      "/R7_RFN": [
+      "/r7_RFN": [
         "RF"
       ],
-      "/R7_LOJ": [
+      "/r7_LOJ": [
         "RF"
       ],
-      "/R8_RFN": [
+      "/r8_RFN": [
         "RF"
       ],
-      "/R8_LOJ": [
+      "/r8_LOJ": [
         "RF"
       ],
-      "/R10_OUTA": [
+      "/r10_OUTA": [
         "RF"
       ],
-      "/R10_OUTAN": [
+      "/r10_OUTAN": [
         "RF"
       ],
-      "/R13_RFOUT": [
+      "/r13_RFOUT": [
         "RF"
       ],
-      "/R5_G": [
+      "/r5_G": [
         "Fine"
       ],
-      "/R5_VS": [
+      "/r5_VS": [
         "Fine"
       ],
-      "/R5_VB": [
+      "/r5_VB": [
         "Fine"
       ],
-      "/R5_IN_A": [
+      "/r5_IN_A": [
         "Fine"
       ],
-      "/R5_OUT_A": [
+      "/r5_OUT_A": [
         "Fine"
       ],
-      "/R7_IF": [
+      "/r7_IF": [
         "Fine"
       ],
-      "/R7_G": [
+      "/r7_G": [
         "Fine"
       ],
-      "/R7_VS": [
+      "/r7_VS": [
         "Fine"
       ],
-      "/R7_V33": [
+      "/r7_V33": [
         "Fine"
       ],
-      "/R7_RFIF": [
+      "/r7_RFIF": [
         "Fine"
       ],
-      "/R7_LON": [
+      "/r7_LON": [
         "Fine"
       ],
-      "/R7_VPOS": [
+      "/r7_VPOS": [
         "Fine"
       ],
-      "/R7_IFN": [
+      "/r7_IFN": [
         "Fine"
       ],
-      "/R7_LOC": [
+      "/r7_LOC": [
         "Fine"
       ],
-      "/R8_IF": [
+      "/r8_IF": [
         "Fine"
       ],
-      "/R8_G": [
+      "/r8_G": [
         "Fine"
       ],
-      "/R8_VS": [
+      "/r8_VS": [
         "Fine"
       ],
-      "/R8_V33": [
+      "/r8_V33": [
         "Fine"
       ],
-      "/R8_RFIF": [
+      "/r8_RFIF": [
         "Fine"
       ],
-      "/R8_LON": [
+      "/r8_LON": [
         "Fine"
       ],
-      "/R8_VPOS": [
+      "/r8_VPOS": [
         "Fine"
       ],
-      "/R8_IFN": [
+      "/r8_IFN": [
         "Fine"
       ],
-      "/R8_LOC": [
+      "/r8_LOC": [
         "Fine"
       ],
       "/REF25": [
         "Fine"
       ],
-      "/R10_G": [
+      "/r10_G": [
         "Fine"
       ],
-      "/R10_VS": [
+      "/r10_VS": [
         "Fine"
       ],
-      "/R10_V33": [
+      "/r10_V33": [
         "Fine"
       ],
       "/PMOD3": [
@@ -425,43 +425,43 @@
       "/PMOD4": [
         "Fine"
       ],
-      "/R10_CP": [
+      "/r10_CP": [
         "Fine"
       ],
-      "/R10_AP": [
+      "/r10_AP": [
         "Fine"
       ],
-      "/R10_AN": [
+      "/r10_AN": [
         "Fine"
       ],
-      "/R10_NF": [
+      "/r10_NF": [
         "Fine"
       ],
-      "/R10_TN": [
+      "/r10_TN": [
         "Fine"
       ],
-      "/R10_RS": [
+      "/r10_RS": [
         "Fine"
       ],
-      "/R10_BF": [
+      "/r10_BF": [
         "Fine"
       ],
-      "/R10_REG": [
+      "/r10_REG": [
         "Fine"
       ],
-      "/R10_LD": [
+      "/r10_LD": [
         "Fine"
       ],
-      "/R10_REFI": [
+      "/r10_REFI": [
         "Fine"
       ],
       "/PMOD1": [
         "Fine"
       ],
-      "/R10_N2": [
+      "/r10_N2": [
         "Fine"
       ],
-      "/R10_LEDA": [
+      "/r10_LEDA": [
         "Fine"
       ],
       "/PMOD6": [
@@ -473,52 +473,52 @@
       "/PMOD_VCC": [
         "Fine"
       ],
-      "/R13_BBI": [
+      "/r13_BBI": [
         "Fine"
       ],
-      "/R13_BBQ": [
+      "/r13_BBQ": [
         "Fine"
       ],
-      "/R13_G": [
+      "/r13_G": [
         "Fine"
       ],
-      "/R13_VS": [
+      "/r13_VS": [
         "Fine"
       ],
-      "/R13_LD": [
+      "/r13_LD": [
         "Fine"
       ],
-      "/R13_V33": [
+      "/r13_V33": [
         "Fine"
       ],
-      "/R13_BQN": [
+      "/r13_BQN": [
         "Fine"
       ],
-      "/R13_BQP": [
+      "/r13_BQP": [
         "Fine"
       ],
-      "/R13_RFO": [
+      "/r13_RFO": [
         "Fine"
       ],
-      "/R13_BIP": [
+      "/r13_BIP": [
         "Fine"
       ],
-      "/R13_BIN": [
+      "/r13_BIN": [
         "Fine"
       ],
-      "/R13_VT": [
+      "/r13_VT": [
         "Fine"
       ],
-      "/R13_CP": [
+      "/r13_CP": [
         "Fine"
       ],
-      "/R13_REFI": [
+      "/r13_REFI": [
         "Fine"
       ],
-      "/R13_N2": [
+      "/r13_N2": [
         "Fine"
       ],
-      "/R13_LEDA": [
+      "/r13_LEDA": [
         "Fine"
       ]
     },

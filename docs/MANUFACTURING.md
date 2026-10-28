@@ -23,15 +23,15 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 3. Check the placement preview against `docs/images/amod_p-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
 
-## AMOD-P2: the second passive board
+## AMOD-N: the second passive board
 
-- Gerbers and drills: `out/amod_p2/amod_p2-gerbers.zip` (upload as the PCB file).
+- Gerbers and drills: `out/amod_n/amod_n-gerbers.zip` (upload as the PCB file).
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
-- BOM: `out/amod_p2/amod_p2_bom_jlcpcb_upload.csv`; placements: `out/amod_p2/amod_p2_cpl_jlcpcb_upload.csv` (rotations already turned
+- BOM: `out/amod_n/amod_n_bom_jlcpcb_upload.csv`; placements: `out/amod_n/amod_n_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
 - Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  33 BOM lines, 21 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $43.82.  Read `out/amod_p2/amod_p2-assembly-notes.txt` before confirming the order.
+- Parts per board: $43.82.  Read `out/amod_n/amod_n-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -39,7 +39,7 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
    every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
    through-hole and must be selected for assembly).
-3. Check the placement preview against `docs/images/amod_p2-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+3. Check the placement preview against `docs/images/amod_n-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
 
 ## AMOD-A: the active board
@@ -99,15 +99,15 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 3. Check the placement preview against `docs/images/phmod-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
 
-## RF-MOD-2: the second-level RF board
+## IQ-MOD: the second-level RF board
 
-- Gerbers and drills: `out/rf_mod_2/rf_mod_2-gerbers.zip` (upload as the PCB file).
+- Gerbers and drills: `out/iq_mod/iq_mod-gerbers.zip` (upload as the PCB file).
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
-- BOM: `out/rf_mod_2/rf_mod_2_bom_jlcpcb_upload.csv`; placements: `out/rf_mod_2/rf_mod_2_cpl_jlcpcb_upload.csv` (rotations already turned
+- BOM: `out/iq_mod/iq_mod_bom_jlcpcb_upload.csv`; placements: `out/iq_mod/iq_mod_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
 - Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  63 BOM lines, 38 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $99.65.  Read `out/rf_mod_2/rf_mod_2-assembly-notes.txt` before confirming the order.
+- Parts per board: $99.65.  Read `out/iq_mod/iq_mod-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -115,5 +115,5 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
    every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
    through-hole and must be selected for assembly).
-3. Check the placement preview against `docs/images/rf_mod_2-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+3. Check the placement preview against `docs/images/iq_mod-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.

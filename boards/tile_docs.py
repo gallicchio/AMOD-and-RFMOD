@@ -59,165 +59,165 @@ DOCS = {}
 
 # ------------------------------------------------------------------------------------------------------------ AMOD-P --
 DOCS["amod_p"] = {
-    "P1": dict(
+    "p1": dict(
         does="Divides the voltage by 10 (-20 dB) and looks like 50 ohm from both ports.",
         chips=[], specs="61.9 / 249 / 61.9 ohm pi; -20.0 dB; DC to well past 30 MHz.",
         limits="-20 dB only between 50 ohm on both sides (-14 dB into a high impedance); about 0.1 W (+-3 V) at IN.",
         experiments="A known weak signal for a receiver or LNA; padding a mismatched cable; checking the ADC's 50 ohm setting.",
         use="DAC to IN, OUT to the ADC set to 50 ohm.", needs=NOTHING),
-    "P2": dict(
+    "p2": dict(
         does="A first-order RC low-pass: passes below 159 kHz and falls 20 dB per decade above.",
         chips=[], specs="1 k and 1 nF; -3 dB at 159 kHz; time constant 1 us.",
         limits="OUT is a 1 k source: read it on the ADC's high-impedance setting (50 ohm divides it by 21).",
         experiments="A Bode plot, 45 degrees at the corner, the step response, the lag plant for feedback control.",
         use="DAC to IN, OUT to the ADC on high impedance; sweep the frequency or send a step.", needs=NOTHING),
-    "P3": dict(
-        does="A first-order RC high-pass, the mirror image of P2.",
+    "p3": dict(
+        does="A first-order RC high-pass, the mirror image of p2.",
         chips=[], specs="1 nF and 1 k; -3 dB at 159 kHz; +20 dB per decade below.",
         limits="OUT is a 1 k source: read it on high impedance.",
         experiments="A Bode plot, AC coupling, a differentiator (a step gives a 1 us spike).",
         use="DAC to IN, OUT to the ADC on high impedance.", needs=NOTHING),
-    "P4": dict(
+    "p4": dict(
         does="A series 100 uH and 220 pF resonator between 50 ohm ports: a band-pass peak that the DIP switch moves.",
         chips=[], specs="1.07 MHz with both switches off, 0.98 (way 1, +47 pF), 0.89 (way 2, +100 pF), 0.83 (both); Q about 6.",
         limits="The 50 ohm ports load it: Q is 6, where the coil alone would allow about 60.",
         experiments="Resonance and Q, the phase through resonance, tracking a resonance with a lock-in or a PLL, a resonant plant to control.",
         use="Sweep the DAC into IN, OUT to the ADC (50 ohm); set the DIP switch.", needs=NOTHING),
-    "P5": dict(
+    "p5": dict(
         does="A 5th-order Butterworth LC low-pass at 9 MHz: the anti-alias filter for a 25 MS/s ADC, or the smoothing filter after a DAC.",
         chips=[], specs="-3 dB at 8.9 MHz, -30 dB at 18 MHz; 50 ohm in and out.",
         limits="The response is as designed only with 50 ohm on both ports.",
         experiments="Aliasing with and without it; a filter's magnitude, phase and group delay; cleaning a DAC's staircase.",
         use="Between the DAC and its load, or between a signal and the ADC (50 ohm).", needs=NOTHING),
-    "P6": dict(
+    "p6": dict(
         does="A 3rd-order LC low-pass near 120 kHz: turns a one-bit (delta-sigma or PWM) stream into a tone.",
         chips=[], specs="10 nF, 150 uH, 10 nF (C0G); -3 dB at 118 kHz; 50 ohm.",
         limits="Designed for 50 ohm on both ports.",
         experiments="One-bit DAC reconstruction, delta-sigma noise shaping seen at the output, a slow plant for control.",
         use="DAC (or a one-bit stream through 50 ohm) to IN, OUT to the ADC.", needs=NOTHING),
-    "P7": dict(
+    "p7": dict(
         does="A 3rd-order LC band-pass, 4.7-7.5 MHz: the band round the tutorial's 6.25 MHz digital-communications carrier.",
         chips=[], specs="Peak at 6.3 MHz, -3 dB from 4.7 to 7.5 MHz; 50 ohm.",
         limits="Only 3rd order: the skirts fall about 18 dB per octave.",
         experiments="Band-limiting a modem's chips (spread spectrum, LoRa chirps); a transmitter's harmonics removed; a receiver's front end.",
         use="In line between the DAC and the ADC, or ahead of a receiver.", needs=NOTHING),
-    "P8": dict(
+    "p8": dict(
         does="A 4 MHz quartz crystal in series between the jacks: a very sharp pass at its series resonance and a notch at its parallel resonance about 6 kHz above.",
         chips=[], specs="f_s near 4.000 MHz (-3.7 dB); f_p about 6 kHz higher; Q about 50,000 (C_m 15 fF, C_0 4 pF).",
         limits="Needs frequency steps of a few hertz (the FPGA's NCO); keep the drive under about +-1 V (crystals have a drive-level limit near 100 uW).",
         experiments="Q from the width and from the ring-down; series against parallel resonance; pulling f_p with a capacitor across OUT (an SMA tee); the temperature coefficient.",
         use="Sweep the DAC slowly through 4.000 MHz into IN, OUT to the ADC, lock-in detection in the gateware.",
         needs="An SMA tee and a few capacitors (or open cable stubs) for the pulling experiment."),
-    "P9": dict(
+    "p9": dict(
         does="A 455 kHz ceramic resonator in series: a pass at 455 kHz and a notch a few kHz above; the AM superhet's IF element.",
-        chips=[], specs="Q of a few hundred: between P4's LC (6) and P8's quartz (50,000).",
+        chips=[], specs="Q of a few hundred: between p4's LC (6) and p8's quartz (50,000).",
         limits="A two-terminal resonator, not a three-terminal IF filter: one peak, no flat passband.",
         experiments="Q compared across LC, ceramic and quartz; an IF stage for a superhet built in gateware.",
         use="Sweep 440-480 kHz into IN, OUT to the ADC.", needs=NOTHING),
-    "P10": dict(
+    "p10": dict(
         does="1 k in series and a 1N4148 diode each way to ground: clips any signal to about +-0.6 V.",
         chips=[], specs="Clips at +-0.6 V; a 1 k source.",
         limits="Read OUT on high impedance; up to +-4 V in (the 1 k holds the diode current to 4 mA).",
         experiments="Harmonics of a clipped sine against amplitude; odd harmonics, and even ones with a DC offset added; distortion.",
         use="DAC sine to IN, OUT to the ADC on high impedance, FFT in the gateware or Python.", needs=NOTHING),
-    "P11": dict(
+    "p11": dict(
         does="A 400 ns, 50 ohm delay line made of 20 LC sections, with taps every 100 ns: 260 feet of RG-58 on a board.",
         chips=[], specs="Z0 51 ohm, 20 ns a section, cut-off 16 MHz, flat to about 10 MHz; taps through 470 ohm.",
         limits="Disperses near 16 MHz (a chirp spreads); a tap is x1 into a high impedance, /10 into 50 ohm.",
         experiments="Reflections from an open, a short and a matched end; time-domain reflectometry; echoes for an equalizer; a radar target on a cable; a pure-delay plant for control.",
         use="A pulse or chirp from the DAC into IN; OUT open, shorted or terminated; the taps and OUT to the ADCs.",
         needs="An SMA short and a 50 ohm terminator (the kit's ANNE-50+) for the reflection experiments."),
-    "P12": dict(
+    "p12": dict(
         does="Four LEDs (red, yellow, green, blue) behind 100 ohm, one at a time from the DIP switch: Planck's constant from the voltage where each starts to glow.",
         chips=[], specs="630, 596, 525 and 469 nm (DIP ways 1-4); 100 ohm in series; IN 0-5 V.",
         limits="The InGaN green and blue sit above the line (their knee is not just hc / e lambda); the colours are not printed, so light them.",
-        experiments="Planck's constant; LED I-V curves (with AMOD-A's A10); light against current.",
+        experiments="Planck's constant; LED I-V curves (with AMOD-A's a10); light against current.",
         use="Ramp the DAC (or the host's LED output) into IN and read the LED loop's voltage; one DIP way at a time.",
         needs="Nothing (a dark room helps)."),
-    "P13": dict(
+    "p13": dict(
         does="An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors or an external tuning capacitor on VAR C, its tap on the jack.",
         chips=[], specs="With a 330 uH coil: 1.28 MHz (47 pF) down to 0.40 MHz (470 pF), and the sums between; the kit's 240 uH coil tunes about 17 % higher.",
-        limits="The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs A4's gain before the ADC.",
+        limits="The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs a4's gain before the ADC.",
         experiments="Real AM stations; the resonance and Q of a loopstick; the tutorial's AM radio gateware.",
-        use="Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.",
+        use="Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's a4, a4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.",
         needs="An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C); optionally a 365 pF tuning capacitor with a knob (kit: Amplified Parts single-section 365 pF)."),
 }
 
 # ------------------------------------------------------------------------------------------------------------ AMOD-A --
 DOCS["amod_a"] = {
-    "A1": dict(
+    "a1": dict(
         does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard.",
         chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
         limits="-5 V is 40 mA: about four op-amp tiles at once.  The board negotiates nothing: use a plain 5 V supply.",
         experiments="-", use="Plug in the USB-C; then switch on each tile you use (slider up).",
         needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
-    "A2": dict(
+    "a2": dict(
         does="An op-amp gain block: x10 (20 dB) to 14 MHz, with a 50 ohm input.",
         chips=["OPA810"], specs="x10 into a high impedance (x5 into 50 ohm); -3 dB at 14 MHz; IN up to +-0.4 V for +-4 V out.",
         limits="140 MHz gain-bandwidth sets the bandwidth; clips at +-4 V.",
-        experiments="The gain-bandwidth trade (compare A3); slew rate and clipping; amplifying a photodiode, a noise source or a weak tone.",
+        experiments="The gain-bandwidth trade (compare a3); slew rate and clipping; amplifying a photodiode, a noise source or a weak tone.",
         use="Signal to IN, OUT to the ADC (high impedance for the full x10).", needs=NOTHING),
-    "A3": dict(
+    "a3": dict(
         does="The same op-amp stage at x100 (40 dB), to 1.4 MHz.",
         chips=["OPA810"], specs="x100; -3 dB at 1.4 MHz; IN up to +-40 mV.",
-        limits="Only 1.4 MHz wide (gain-bandwidth); for 40 dB at HF use A4.",
-        experiments="Gain-bandwidth against A2 and A4; small audio and ultrasonic signals.",
+        limits="Only 1.4 MHz wide (gain-bandwidth); for 40 dB at HF use a4.",
+        experiments="Gain-bandwidth against a2 and a4; small audio and ultrasonic signals.",
         use="Signal to IN, OUT to the ADC.", needs=NOTHING),
-    "A4": dict(
+    "a4": dict(
         does="An HF low-noise amplifier: x100 (40 dB) flat from 1 to 30 MHz, about 3 dB noise figure from 50 ohm.",
         chips=["OPA847"], specs="x101; flat 1-30 MHz (-3 dB near 39 MHz); 0.85 nV/rtHz.",
         limits="IN under +-30 mV; the OPA847 is stable only at gains above 12 (do not lower the gain).",
-        experiments="AM and shortwave reception with a wire antenna or P13's loopstick; noise figure; weak-signal work.",
-        use="Antenna (or P13's OUT) to IN, OUT to the ADC.",
-        needs="An antenna for over-the-air use: a few metres of wire on an SMA, or AMOD-P's P13."),
-    "A5": dict(
+        experiments="AM and shortwave reception with a wire antenna or p13's loopstick; noise figure; weak-signal work.",
+        use="Antenna (or p13's OUT) to IN, OUT to the ADC.",
+        needs="An antenna for over-the-air use: a few metres of wire on an SMA, or AMOD-P's p13."),
+    "a5": dict(
         does="A socket and amplifier for an HB100 10.525 GHz Doppler radar module: the beat between what it sends and what comes back, x101.",
         chips=["HB100 (module)", "OPA810"], specs="70 Hz per m/s of speed toward or away (19.4 Hz per km/h); x101 to OUT.",
         limits="The HB100 has one mixer, not I and Q: it measures speed but not direction, and gives no range (it is a CW radar).",
         experiments="The speed of a hand, a pendulum, a fan's blades, breathing; Doppler spectra (micro-Doppler).",
         use="Wire the module's +5 V, IF and GND pins to the +5 / IF / G header with jumper wires (the pin order differs between modules: follow its print); OUT to an ADC (the host's x10 input helps); point it at something moving.",
         needs="An HB100 module and three female-female jumper wires (kit: MH-ET Live HB100 X, about $14)."),
-    "A6": dict(
+    "a6": dict(
         does="A one-bit (delta-sigma) ADC made of a comparator and an RC integrator, with the FPGA as the flip-flop: an ADC from one Pmod input and one Pmod output.",
         chips=["TLV3501"], specs="IN 0-3.3 V (or +-1.5 V AC-coupled), 10 k input; integrator 10 k / 10 nF; clock the loop at 1-10 MHz.",
         limits="First order: about 9 dB more resolution per doubling of the oversampling ratio; works only with its gateware.",
         experiments="Delta-sigma conversion, oversampling and noise shaping, decimation (CIC) filters, trading speed for bits.",
         use="The gateware reads the comparator on Pmod IO7 every clock, registers it, and drives the registered bit back out on IO8; low-pass and decimate that bit stream.  Signal to IN.",
         needs="Nothing (the gateware)."),
-    "A7": dict(
+    "a7": dict(
         does="A 74HC4046 phase-locked loop: its VCO locks to a 50-200 kHz signal on IN.",
         chips=["74HC4046A"], specs="VCO near 100 kHz (10 k, 1 nF); phase comparator 2 with a 10 k / 100 nF lag filter; VCO OUT 5 V CMOS through 470 ohm.",
         limits="Fixed loop filter and VCO range (no switches); locks at x1 (no divider); no test loops: probe pins 9 and 13.",
         experiments="Lock and capture range; FM demodulation (pin 9 is the VCO's control voltage); loop dynamics and ringing; an analog PLL against the FPGA's.",
         use="DAC sine or square (more than 0.4 V peak) to IN, VCO OUT to an ADC; sweep or frequency-modulate the DAC.",
         needs="A scope probe for pins 9 and 13."),
-    "A8": dict(
+    "a8": dict(
         does="A 0.83 W heater (two 15 ohm resistors) switched from a Pmod line, with a temperature sensor beside it: a thermal plant to control.",
         chips=["TMP235"], specs="30 ohm, 170 mA, 0.83 W while Pmod IO6 is high; TEMP OUT 10 mV/K + 500 mV (750 mV at 25 C).",
-        limits="On or off from IO6 (PWM it for proportional power); it heats a few square centimetres, with a time constant of tens of seconds.  The heater has no jack: DRIVE IN beside it belongs to A10.",
+        limits="On or off from IO6 (PWM it for proportional power); it heats a few square centimetres, with a time constant of tens of seconds.  The heater has no jack: DRIVE IN beside it belongs to a10.",
         experiments="A thermal time constant; bang-bang against PID control; warming a part taped to the heater.",
         use="PWM from the FPGA on Pmod IO6; TEMP OUT to an ADC.", needs="Nothing (Kapton tape to hold a part on the heater, if you like)."),
-    "A9": dict(
+    "a9": dict(
         does="A Gilbert-cell double-balanced mixer (MC1496): IF OUT is RF times LO, the sum and difference frequencies.",
         chips=["MC1496"], specs="RF and LO +-0.3 V into 51 ohm; 1 k emitter degeneration, 1 mA a side; IF OUT single-ended from a 1.5 k load; about 0.3 V of IF per volt of RF at 0.3 V of LO.",
         limits="IF OUT is a 1.5 k source: a metre of coax (100 pF) rolls it off near 1 MHz, so keep the IF low or the cable short and use high impedance.  LO feedthrough about -40 dB (no null trimmer).  RF and LO are good to a few tens of MHz.",
         experiments="Mixing and images; AM demodulation as a product detector; the AM radio; PSK demodulation with a recovered carrier.",
-        use="RF and LO from the two DACs (or an antenna through A4 on RF); IF OUT to an ADC on high impedance.", needs=NOTHING),
-    "A10": dict(
+        use="RF and LO from the two DACs (or an antenna through a4 on RF); IF OUT to an ADC on high impedance.", needs=NOTHING),
+    "a10": dict(
         does="Measures a part's impedance and I-V curve: drives it through a known resistor and reads the voltage on both sides.",
         chips=["OPA810"], specs="DRIVE IN x2 is node S; the DIP picks R = 47, 470, 4.7 k or 47 k from S to X; the part goes from X (the DUT jack) to ground; S OUT and X OUT give half of each node into 50 ohm; Z = R X / (S - X); +-4 V, up to 40 mA.",
         limits="DC to a few MHz; most accurate when Z is near the chosen R; calibrate with the DUT open and shorted.",
-        experiments="Impedance spectra of resistors, capacitors, inductors, a crystal and a speaker; LED and diode I-V curves (Planck with P12's colours); a low-frequency Smith chart.",
+        experiments="Impedance spectra of resistors, capacitors, inductors, a crystal and a speaker; LED and diode I-V curves (Planck with p12's colours); a low-frequency Smith chart.",
         use="DAC to DRIVE IN; S OUT to ADC 1 and X OUT to ADC 2; the part on the DUT jack; one DIP way on (the reference R); the gateware takes the complex ratio at each frequency.",
         needs="A way to put a part on the DUT jack: an SMA-to-minigrabber lead or a part soldered to an SMA plug."),
-    "A11": dict(
+    "a11": dict(
         does="40 kHz ultrasound: an H-bridge drives the transmitter from two Pmod lines, and the receiver's signal comes out x100.",
         chips=["DRV8837", "OPA810"], specs="TX gets 10 V p-p from Pmod IO4 / IO3 in antiphase; RX x100 behind a 4 kHz high-pass; 5.8 us per mm there and back.  The slide switch's 5 V powers the two amplifiers: the TX H-bridge (each end of the transducer swings 0-5 V, in antiphase) and the RX op amp's positive rail (its negative rail is the board's -5 V).",
         limits="Only at the transducers' 40 kHz resonance; the receiver hears the transmitter directly for the first few hundred microseconds.",
         experiments="The speed of sound, echo ranging (sonar), Doppler, beam patterns, an ultrasonic data link.",
         use="Transmitter in the TX socket, receiver in the RX socket (pins 1 and 5 of each); the gateware sends 8-20 cycles of 40 kHz on IO4 and IO3 in antiphase; RX OUT to an ADC; hold a reflector above the board.",
         needs="A pair of 40 kHz transducers (kit: PUI UT-1640K-TT-2-R and UR-1640K-TT-2-R)."),
-    "A12": dict(
+    "a12": dict(
         does="Audio: a 2.5 W class-D amplifier into a speaker, fed from a DAC or a one-bit Pmod stream, and an electret microphone amplified x100.",
         chips=["PAM8302A", "OPA810"], specs="Up to 2.5 W into 4 ohm (about 1.5 W into 8); SPEAKER IN +-1 V; the one-bit stream on Pmod IO2 through 10 k / 10 nF; MIC OUT x100.",
         limits="Mono; the class-D output is unfiltered (the speaker is the filter); the microphone hears the speaker.",
@@ -230,291 +230,291 @@ DOCS["amod_a"] = {
 _mixer = dict(
     does="A passive mixer: moves a signal between RF and IF with an LO, up or down (the same tile does both).",
     chips=["ADL5350"], specs="RF 0.4-2.5 GHz (to 4 GHz with more loss); IF DC-200 MHz; LO 0 to +6 dBm (+4 dBm best); conversion loss 7-9 dB; IIP3 +25 dBm; RF and IF up to about +10 dBm.",
-    limits="Makes both sidebands (an image): filter the RF side with R2 or R4.  The LO leaks to RF and IF.",
+    limits="Makes both sidebands (an image): filter the RF side with r2 or r4.  The LO leaks to RF and IF.",
     experiments="A DAC's 5-10 MHz moved to 915 MHz or 2.4 GHz and back; a heterodyne receiver whose I and Q are made in the gateware; a link on a cable or over the air.",
-    use="Transmit: DAC to IF, R10 to LO, RF through a filter to the antenna.  Receive: antenna through R5 and a filter to RF, R10 (at the carrier minus the IF) to LO, IF to an ADC.",
-    needs="An LO: R10 (or R13's output used as a CW source).")
+    use="Transmit: DAC to IF, r10 to LO, RF through a filter to the antenna.  Receive: antenna through r5 and a filter to RF, r10 (at the carrier minus the IF) to LO, IF to an ADC.",
+    needs="An LO: r10 (or r13's output used as a CW source).")
 DOCS["rf_mod"] = {
-    "R1": dict(
+    "r1": dict(
         does="A double-balanced diode-ring mixer: two baluns and four Schottky diodes (drawn on the silk) multiply RF by a +-1 square wave at the LO rate.  Passive: no power.",
         chips=["ADEX-10L+"], specs="RF and LO 10-1000 MHz; IF DC-800 MHz (DC-coupled); LO +4 dBm (+1 to +7); 7.2 dB conversion loss; 60 dB LO-RF isolation; 1 dB compression at +1 dBm RF, IP3 +16 dBm.",
-        limits="Needs +4 dBm of LO (R10 at its top setting); keep RF under -5 dBm for clean products; spec'd from 10 MHz (more loss below); every port wants 50 ohm (an unterminated IF spoils the intermodulation); the LO's odd harmonics mix too.",
-        experiments="The diode ring against the Gilbert cell (AMOD-A's A9, at 10-30 MHz) and against the ADL5350 (R8, at 915 MHz): conversion loss, LO leakage, intermodulation; a phase detector (RF and LO at one frequency, DC at IF); a DSB modulator (audio into IF, out at RF).",
-        use="LO from R10's OUT A+ at its top power (+5 dBm) or a DAC (+4 dBm is 1 V peak into 50 ohm); RF from an antenna, a filter or a DAC; IF to an ADC, or through a filter to anything.",
-        needs="Nothing beyond SMA cables (a 50 ohm terminator on an unused output of R10)."),
-    "R2": dict(
+        limits="Needs +4 dBm of LO (r10 at its top setting); keep RF under -5 dBm for clean products; spec'd from 10 MHz (more loss below); every port wants 50 ohm (an unterminated IF spoils the intermodulation); the LO's odd harmonics mix too.",
+        experiments="The diode ring against the Gilbert cell (AMOD-A's a9, at 10-30 MHz) and against the ADL5350 (r8, at 915 MHz): conversion loss, LO leakage, intermodulation; a phase detector (RF and LO at one frequency, DC at IF); a DSB modulator (audio into IF, out at RF).",
+        use="LO from r10's OUT A+ at its top power (+5 dBm) or a DAC (+4 dBm is 1 V peak into 50 ohm); RF from an antenna, a filter or a DAC; IF to an ADC, or through a filter to anything.",
+        needs="Nothing beyond SMA cables (a 50 ohm terminator on an unused output of r10)."),
+    "r2": dict(
         does="A 2.4-2.5 GHz band-pass filter (the Wi-Fi and Bluetooth band).",
         chips=["LFB212G45"], specs="1.7 dB of loss in the band; 30 dB or more below 2.2 GHz and above 2.7 GHz.",
         limits="A fixed band, about 100 MHz wide: it does not reject an image 20 MHz away.",
         experiments="A transmitter's image and harmonics removed; a receiver preselected; a filter measured with a swept synthesizer.",
         use="In line, either direction.", needs=NOTHING),
-    "R4": dict(
+    "r4": dict(
         does="A 902-928 MHz SAW band-pass filter (the 915 MHz ISM band: LoRa, RFID).",
         chips=["B39921B2672"], specs="1.1 dB of loss in the band; 40 dB or more 30 MHz outside it.",
         limits="Keep the input under about +10 dBm; a fixed 26 MHz band.",
-        experiments="A transmitter cleaned up; a receiver preselected; steep SAW skirts against R2's LTCC.",
+        experiments="A transmitter cleaned up; a receiver preselected; steep SAW skirts against r2's LTCC.",
         use="In line, either direction.", needs=NOTHING),
-    "R5": dict(
+    "r5": dict(
         does="A low-noise amplifier: +19.5 dB with a 0.3 dB noise figure, the first stage of any receiver here.",
         chips=["QPL9547"], specs="0.1-6 GHz; 19.5 dB; NF 0.3-0.5 dB from 0.5 to 3 GHz; OIP3 +39 dBm; 65 mA.",
         limits="Linear below about -20 dBm in; +22 dBm at the input is the absolute maximum: never cable a transmitter into it without 30 dB of attenuation.",
         experiments="Receiver sensitivity; a noise figure with a noise source; Wi-Fi, LoRa, ADS-B and GPS heard over the air.",
         use="Antenna to IN, OUT to a filter or a mixer's RF.",
         needs="An SMA (not RP-SMA) antenna for the band (kit: L-com LCANRBD1044 at 2.4 GHz, LCANRBD1057 at 915 MHz)."),
-    "R12": dict(
+    "r12": dict(
         does="A gain block: +20 dB from DC to 6 GHz, up to +20 dBm out.",
         chips=["GALI-84+"], specs="20 dB (21.9 dB at 1 GHz); 1 dB compression at +20 dBm out; 97 mA from 7.8 V.",
         limits="Keep the input under 0 dBm; its noise figure (about 4 dB) makes it a driver, not an LNA.",
         experiments="Driving an antenna or a mixer's LO; two-tone intermodulation; the compression curve.",
         use="Signal to IN, OUT to the load; 10 dB of attenuation after a synthesizer.",
         needs="A 10 dB SMA attenuator after a synthesizer (kit: VAT-10A+)."),
-    "R9": dict(
-        does="Power from USB-C (+5 V, and +7.8 V boosted for R12) and the board's 25 MHz reference oscillator.",
+    "r9": dict(
+        does="Power from USB-C (+5 V, and +7.8 V boosted for r12) and the board's 25 MHz reference oscillator.",
         chips=["TC32H4 TCXO", "MT3608", "TPS7A20", "SN74LVC1G17"], specs="TCXO +-2 ppm; REF OUT a 25 MHz square wave, 1.6 V p-p into 50 ohm (3.3 V into a high impedance).",
-        limits="One REF OUT (R10's REF IN passes it on to R13 by a back trace); a second board needs a splitter.",
+        limits="One REF OUT (r10's REF IN passes it on to r13 by a back trace); a second board needs a splitter.",
         experiments="Everything on one reference (the ECP5 board too), so phase means something; the TCXO against GPS.",
-        use="Plug in the USB-C; REF OUT to R10's REF IN (R13 takes it from there on the back).",
+        use="Plug in the USB-C; REF OUT to r10's REF IN (r13 takes it from there on the back).",
         needs="A 5 V USB-C supply (kit: Raspberry Pi 5.1 V 3 A supply)."),
-    "R7": dict(_mixer), "R8": dict(_mixer),
-    "R10": dict(
+    "r7": dict(_mixer), "r8": dict(_mixer),
+    "r10": dict(
         does="A frequency synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to a 25 MHz reference and set over SPI from the FPGA.  Two outputs, OUT A+ and OUT A-, the same frequency and power 180 degrees apart: two mixers' LOs at once.",
         chips=["MAX2871"], specs="-4 to +5 dBm on each of OUT A+ and OUT A-; fractional-N; 80-120 kHz loop; a red LED when locked.",
         limits="Below 3 GHz the output is divided down: a square-ish wave with strong harmonics (filter it); fractional spurs; about a millisecond to relock.",
         experiments="The mixers' LO; a signal generator; a swept source for filters; FSK and chirps by reprogramming; phase noise.",
-        use="REF IN from R9's REF OUT; program it over the Pmod (SPI); OUT A+ and OUT A- to two mixers' LOs (R7 and R8, or R8 and R1) or a filter; a 50 ohm terminator on an output left unused.",
+        use="REF IN from r9's REF OUT; program it over the Pmod (SPI); OUT A+ and OUT A- to two mixers' LOs (r7 and r8, or r8 and r1) or a filter; a 50 ohm terminator on an output left unused.",
         needs="Nothing (the SPI gateware or driver); the kit's 50 ohm terminator for an unused output."),
-    "R13": dict(
+    "r13": dict(
         does="A quadrature (I/Q) transmitter with its own synthesizer: two DAC signals, I and Q, become RF anywhere from 0.4 to 4.2 GHz with no image.",
-        chips=["TRF3722"], specs="I and Q +-1 V into 50 ohm; RF about -3 dBm; sideband suppression about 42 dB untrimmed; referenced to the 25 MHz on R10's REF IN.",
+        chips=["TRF3722"], specs="I and Q +-1 V into 50 ohm; RF about -3 dBm; sideband suppression about 42 dB untrimmed; referenced to the 25 MHz on r10's REF IN.",
         limits="Its LO is inside the chip, so it cannot feed a demodulator; the carrier leak and the image depend on trimming the DACs' offset, gain and phase.",
-        experiments="SSB, QPSK, QAM, OFDM and chirps on a real carrier; image rejection; a coherent link with R8 and R10 as the receiver.",
-        use="DAC 1 to I IN, DAC 2 to Q IN; program it over SPI (it shares the bus with R10); RF OUT through R2 or R4.",
+        experiments="SSB, QPSK, QAM, OFDM and chirps on a real carrier; image rejection; a coherent link with r8 and r10 as the receiver.",
+        use="DAC 1 to I IN, DAC 2 to Q IN; program it over SPI (it shares the bus with r10); RF OUT through r2 or r4.",
         needs=NOTHING),
 }
 
-# ---------------------------------------------------------------------------------------------------------- RF-MOD-2 --
-DOCS["rf_mod_2"] = {
-    "X1": dict(
-        does="An I/Q modulator with an outside LO: the two DACs' I and Q onto a carrier from 0.4 to 6 GHz.  It shares its LO with X2, so the two work as a coherent pair.",
+# ---------------------------------------------------------------------------------------------------------- IQ-MOD --
+DOCS["iq_mod"] = {
+    "q1": dict(
+        does="An I/Q modulator with an outside LO: the two DACs' I and Q onto a carrier from 0.4 to 6 GHz.  It shares its LO with q2, so the two work as a coherent pair.",
         chips=["ADL5375"], specs="I and Q +-1 V into 50 ohm; LO 0 dBm (-6 to +6 dBm); about 0 dBm of RF; sideband and carrier suppression near 40 dB untrimmed; baseband flat to 95 MHz.",
-        limits="Needs an LO (X3's OUT A+); trim the carrier with DC offsets and the sideband with the DACs' gain and phase.",
+        limits="Needs an LO (q3's OUT A+); trim the carrier with DC offsets and the sideband with the DACs' gain and phase.",
         experiments="A QPSK, QAM or OFDM transmitter; the source of a network analyzer or a radar; ODMR sweeps.",
-        use="DAC 1 to I IN, DAC 2 to Q IN, X3's OUT A+ to LO IN; RF OUT to the antenna, the device under test or X5's IN.", needs=NOTHING),
-    "X2": dict(
+        use="DAC 1 to I IN, DAC 2 to Q IN, q3's OUT A+ to LO IN; RF OUT to the antenna, the device under test or q5's IN.", needs=NOTHING),
+    "q2": dict(
         does="An I/Q demodulator: brings RF from 0.4 to 6 GHz down to baseband I and Q for the two ADCs.",
         chips=["ADL5380", "OPA810"], specs="About -4 dBm of RF gives +-1 V at the ADCs; LO 0 dBm (-6 to +6 dBm); baseband from DC past the ADCs' bandwidth.",
         limits="Zero-IF: DC offsets and I/Q imbalance to calibrate; a strong signal saturates it (use a pad).",
         experiments="Constellations of a real link; a network analyzer's receiver; FMCW and stepped-frequency radar; GPS.",
-        use="RF IN from X4, an antenna, the device under test or X5's REFL; LO IN from X3's OUT A-; I OUT to ADC 1, Q OUT to ADC 2.", needs=NOTHING),
-    "X3": dict(
-        does="The synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to 25 MHz, set over SPI.  Its two outputs (OUT A+ and OUT A-, 180 degrees apart) are the LOs of X1 and X2 at once.",
-        chips=["MAX2871"], specs="-4 to +5 dBm on each of OUT A+ and OUT A- (set -1 dBm: X1 wants 0, X2 -6 to +6); 80-120 kHz loop; red LED when locked.",
+        use="RF IN from q4, an antenna, the device under test or q5's REFL; LO IN from q3's OUT A-; I OUT to ADC 1, Q OUT to ADC 2.", needs=NOTHING),
+    "q3": dict(
+        does="The synthesizer: any frequency from 23.5 MHz to 6 GHz, locked to 25 MHz, set over SPI.  Its two outputs (OUT A+ and OUT A-, 180 degrees apart) are the LOs of q1 and q2 at once.",
+        chips=["MAX2871"], specs="-4 to +5 dBm on each of OUT A+ and OUT A- (set -1 dBm: q1 wants 0, q2 -6 to +6); 80-120 kHz loop; red LED when locked.",
         limits="Divided-down outputs below 3 GHz have strong harmonics; fractional spurs; about a millisecond to relock.",
         experiments="The coherent LO of the transceiver; stepped-frequency radar and network analysis; a signal generator.",
-        use="REF IN from the ECP5 board's CLK OUT (or RF-MOD's REF OUT); program it over the Pmod; OUT A+ to X1's LO IN, OUT A- to X2's LO IN.",
+        use="REF IN from the ECP5 board's CLK OUT (or RF-MOD's REF OUT); program it over the Pmod; OUT A+ to q1's LO IN, OUT A- to q2's LO IN.",
         needs="Nothing (the SPI gateware)."),
-    "X4": dict(
-        does="A low-noise amplifier: +19.5 dB with a 0.3 dB noise figure (RF-MOD's R5).",
+    "q4": dict(
+        does="A low-noise amplifier: +19.5 dB with a 0.3 dB noise figure (RF-MOD's r5).",
         chips=["QPL9547"], specs="0.1-6 GHz; 19.5 dB; NF 0.3-0.5 dB; OIP3 +39 dBm.",
         limits="Linear below about -20 dBm in; +22 dBm absolute maximum at the input.",
-        experiments="The receiver's first stage; noise figure with X7; radiometry.",
-        use="Antenna to IN, OUT to X2's RF IN or X6.",
+        experiments="The receiver's first stage; noise figure with q7; radiometry.",
+        use="Antenna to IN, OUT to q2's RF IN or q6.",
         needs="An SMA antenna for the band (kit: L-com LCANRBD1044 or LCANRBD1057)."),
-    "X5": dict(
-        does="A dual directional coupler: a 50 ohm line from IN to OUT that hands a sample of the wave going forward to FWD and of the wave coming back from OUT to REFL.  With X1 and X2, a vector network analyzer that measures reflection (S11) as well as transmission.",
+    "q5": dict(
+        does="A dual directional coupler: a 50 ohm line from IN to OUT that hands a sample of the wave going forward to FWD and of the wave coming back from OUT to REFL.  With q1 and q2, a vector network analyzer that measures reflection (S11) as well as transmission.",
         chips=["HHM22137A1"], specs="Two couplers back to back; FWD and REFL 25 dB below their waves from 0.67 to 2.7 GHz (27 dB at 0.6 GHz, 14 dB at 3.5 GHz); about 20 dB of directivity; 0.3 dB through; +35 dBm through.",
         limits="0.6 to 3.5 GHz only (above 2.7 GHz the coupling rises and the directivity falls); uncalibrated, about 20 dB of directivity hides reflections under about 0.1 (|S11| of -20 dB); calibrating with an open, a short and a load removes most of that; an unused coupled port wants 50 ohm.",
-        experiments="An antenna's match (S11 and its resonance) at 915 MHz, 2.4 GHz and GPS; a filter's return loss; the ODMR loop's match at 2.87 GHz; standing waves on a cable; a time-domain reflectometer by stepping X3.",
-        use="X1's RF OUT to IN, the device under test on OUT, REFL to X2's RF IN (or X6 for power alone), FWD to X6 or through X11 to X2 for the ratio; terminate whichever coupled port is unused.",
-        needs="The kit's 50 ohm terminators (the load, and on an unused port); for calibration AMOD-P2's P14 (SHORT, OPEN, LOAD and THRU at the board's surface)."),
-    "X6": dict(
+        experiments="An antenna's match (S11 and its resonance) at 915 MHz, 2.4 GHz and GPS; a filter's return loss; the ODMR loop's match at 2.87 GHz; standing waves on a cable; a time-domain reflectometer by stepping q3.",
+        use="q1's RF OUT to IN, the device under test on OUT, REFL to q2's RF IN (or q6 for power alone), FWD to q6 or through q11 to q2 for the ratio; terminate whichever coupled port is unused.",
+        needs="The kit's 50 ohm terminators (the load, and on an unused port); for calibration AMOD-N's n1 (SHORT, OPEN, LOAD and THRU at the board's surface)."),
+    "q6": dict(
         does="A power meter: a logarithmic detector whose voltage falls 25 mV for every dB of RF from -60 to 0 dBm, 1 MHz to 8 GHz.",
         chips=["AD8318"], specs="-60 to 0 dBm; 25 mV/dB; 10 ns response; OUT 0.27-0.95 V into a high impedance (half into 50 ohm).",
         limits="Power only, no phase; the slope and intercept move with frequency: calibrate at the frequency you use.",
-        experiments="Antenna patterns; a filter's response with X3 (a scalar network analyzer); pulse envelopes; path loss with distance.",
+        experiments="Antenna patterns; a filter's response with q3 (a scalar network analyzer); pulse envelopes; path loss with distance.",
         use="RF to IN, OUT to an ADC on high impedance.", needs=NOTHING),
-    "X7": dict(
+    "q7": dict(
         does="A switched noise source: avalanche noise from a transistor junction, amplified, from 50 MHz to 4 GHz.  Pmod IO6 turns it on.",
         chips=["ADL5611", "TPS22917"], specs="IO6 high: a flat floor about 15-30 dB above kT (measure its ENR); IO6 low: a 50 ohm load at room temperature (a 20 dB pad keeps OUT matched).",
         limits="The ENR must be calibrated against a hot and a cold load before it gives absolute noise figures.",
-        experiments="The Y-factor noise figure of X4 or the whole receiver; a Dicke radiometer with X11; a filter's shape on a spectrum analyzer.",
+        experiments="The Y-factor noise figure of q4 or the whole receiver; a Dicke radiometer with q11; a filter's shape on a spectrum analyzer.",
         use="OUT to the amplifier or receiver under test; toggle IO6 and compare the powers.",
         needs="For calibration: a 50 ohm load in ice water and in boiling water, or in liquid nitrogen."),
-    "X8": dict(
+    "q8": dict(
         does="A GNSS (GPS L1) front end: SAW filter, low-noise amplifier, SAW filter, with 3.3 V on the antenna jack for an active antenna.",
         chips=["MAX2659", "SAFFB1G56"], specs="About 19 dB of gain from 1559 to 1606 MHz (GPS L1, Galileo E1, BeiDou B1, GLONASS L1); 1.5 dB noise figure; 50 dB of rejection at 900 MHz and 2.4 GHz.",
         limits="The L1 band only; a passive antenna sees the 3.3 V (put a DC block in line).",
         experiments="GPS acquisition by correlation, Doppler and code phase, then a position fix in software.",
-        use="Active antenna on ANT; OUT to X2's RF IN with X3 near 1575.42 MHz; I and Q to the ADCs.",
+        use="Active antenna on ANT; OUT to q2's RF IN with q3 near 1575.42 MHz; I and Q to the ADCs.",
         needs="An active GPS antenna with an SMA plug (kit: Adafruit 960) and a DC block for a passive one (BLK-89-S+)."),
-    "X9": dict(
+    "q9": dict(
         does="A one-turn, 1.6 mm loop in a 50 ohm through-line: the microwave field for optically detected magnetic resonance (ODMR) of NV centres in diamond.",
         chips=[], specs="About 50 uT (0.5 G) at its centre for +20 dBm through it into 50 ohm; DC-6 GHz, no tuning; a Rabi frequency near 1 MHz.",
         limits="Needs watts-level drive for fast Rabi oscillations; the NV diamond is expensive; copper is cleared round it on every layer.",
         experiments="The ODMR dip at 2.87 GHz, its Zeeman splitting (a magnetometer), Rabi oscillations, a Ramsey sequence.",
-        use="X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (PhMOD's Y10), red light to a photodiode on an ADC.",
+        use="q3 through q1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (PhMOD's h10), red light to a photodiode on an ADC.",
         needs="An NV diamond (kit: Thorlabs DNVB14 or DNVB1, per lab), a 532 nm laser (CPS532), a 600 nm long-pass filter, a 0.7-3.5 GHz amplifier (ZRL-3500+), a 1 W 50 ohm load, a magnet, laser goggles."),
-    "X10": dict(
+    "q10": dict(
         does="Power: 5 V from USB-C and -5 V made from it.",
         chips=["LM2664"], specs="+5 V up to 1.5 A; -5 V at 40 mA (25 used).", limits="-", experiments="-",
         use="Plug in the USB-C; switch on each tile you use.", needs="A 5 V USB-C supply (kit: Raspberry Pi 5.1 V 3 A supply)."),
-    "X11": dict(
+    "q11": dict(
         does="An RF switch (single pole, double throw): connects RFC to RF1 or to RF2 under FPGA control; the unused throw is terminated in 50 ohm.",
         chips=["SKY13370"], specs="0.5-6 GHz; 0.7 dB through; 31 dB isolation at 2.5 GHz; switches in about 100 ns; up to +30 dBm.",
         limits="Pmod IO5 and IO8 must be opposite (one high, one low).",
-        experiments="A transmit/receive switch for one antenna; an antenna switch for direction finding; a Dicke radiometer (antenna against X7's load); pulse gating.",
+        experiments="A transmit/receive switch for one antenna; an antenna switch for direction finding; a Dicke radiometer (antenna against q7's load); pulse gating.",
         use="IO5 high and IO8 low: RFC to RF1; IO5 low and IO8 high: RFC to RF2.", needs=NOTHING),
 }
 
 # ------------------------------------------------------------------------------------------------------------- PhMOD --
 DOCS["phmod"] = {
-    "Y1": dict(
+    "h1": dict(
         does="Power: 5 V from USB-C, and -5 V and +-15 V made from it (the +-15 V for the pulse amplifier).",
         chips=["TPS65131", "LM2664"], specs="+5 V up to 2 A; -5 V at 40 mA; +15 V and -15 V at about 150 mA each; LEDs: green 5 V, red -5 V, yellow +15 V.",
-        limits="+-15 V reaches only Y2.", experiments="-",
+        limits="+-15 V reaches only h2.", experiments="-",
         use="Plug in the USB-C; switch on each tile you use.", needs="A 5 V USB-C supply, 2 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
-    "Y2": dict(
+    "h2": dict(
         does="A pulse amplifier: a DAC's +-1 V becomes +-10 V into 50 ohm (1 W), for NMR and ESR transmit pulses.  Pmod IO1 turns it on.",
         chips=["THS3491"], specs="Gain 10.3, DC to 30 MHz (a 900 MHz part); +-10 V into 50 ohm; IO1 high: on.",
         limits="Pulses only: keep the duty cycle under 10 % (1 W continuous overheats it); never into an open or a short for long.",
         experiments="NMR and ESR excitation pulses; a 1 W HF source for antenna and coil experiments.",
-        use="DAC 1 to IN; IO1 high only during the pulse; OUT to Y3's TX IN (or a 50 ohm load).",
+        use="DAC 1 to IN; IO1 high only during the pulse; OUT to h3's TX IN (or a 50 ohm load).",
         needs="A 2 W 50 ohm termination for tests (kit: TERM-2W-183S+)."),
-    "Y3": dict(
+    "h3": dict(
         does="The pulsed-NMR duplexer and preamplifier: the transmitter reaches the probe through crossed diodes, and the echo, through a quarter-wave cable, reaches a x12 low-noise amplifier.",
         chips=["OPA847"], specs="TX IN to PROBE through 1.4 V of diodes; LINE clamped to +-0.7 V and terminated in 50 ohm; RX OUT = x12 (0.85 nV/rtHz), about 200 MHz wide.",
         limits="Needs the quarter-wave cable cut for your frequency (2.6 m of RG-316 at 20 MHz); without it, a short cable and a 6 dB pad work at a few dB of loss.",
-        experiments="The FID, spin echoes, CPMG, T1 by inversion recovery, T2; a one-dimensional image with Y4 on a gradient coil.",
-        use="Y2's OUT to TX IN; PROBE to the NMR probe; a quarter-wave cable from a tee at the probe back to LINE; RX OUT to ADC 1.",
+        experiments="The FID, spin echoes, CPMG, T1 by inversion recovery, T2; a one-dimensional image with h4 on a gradient coil.",
+        use="h2's OUT to TX IN; PROBE to the NMR probe; a quarter-wave cable from a tee at the probe back to LINE; RX OUT to ADC 1.",
         needs="An NMR probe (a coil and trimmer capacitors: kit's magnet wire and BFC280811229 trimmers), a quarter-wave of coax and an SMA tee, a magnet (kit: N52 cubes for a Halbach ring)."),
-    "Y4": dict(
+    "h4": dict(
         does="A coil driver (H-bridge): up to about 1.3 A either way into a coil, PWM from Pmod IO6, direction from IO7, current measured on MON.",
         chips=["DRV8876", "OPA810"], specs="About 1.3 A (cycle-by-cycle limit); MON about 1.5 V per amp; VM from USB (4.6 V) or 12-18 V on the upper terminal; the coil on the lower terminal.",
         limits="Keep the outside supply at 18 V or less (the 25 V capacitor); USB's 4.6 V is just above the DRV8876's minimum.",
         experiments="Gradient coils for imaging, a Helmholtz sweep for ESR, the Earth's-field NMR polarizing pulse, magnetic field mapping.",
         use="The coil in the lower terminal; optionally 12-18 V in the upper; PWM on IO6 and the direction on IO7; MON to an ADC.",
         needs="The coil (kit's magnet wire); a 12 V supply for more current (kit: Adafruit 4880 and 368)."),
-    "Y5": dict(
+    "h5": dict(
         does="A two-channel HF preamplifier: x9.9 (20 dB) on each channel with 0.7 nV/rtHz input noise, 50 ohm in and out.",
         chips=["LMH6629"], specs="x9.9 each; about 5 kHz to 100 MHz; NF about 2.5 dB; inputs up to about -10 dBm.",
         limits="Wideband: strong broadcast stations and anything above the ADC's Nyquist fold in unless you filter (the kit's 30 MHz low-pass).",
         experiments="WWV's carrier Doppler (the ionosphere), the phase between two antennas (direction finding), FT8 and WSPR decoded in software.",
         use="Two antennas to IN A and IN B; OUT A and OUT B through low-pass filters to the two ADCs.",
         needs="HF antennas (kit: HAON MLA-30 active loop) and 30 MHz low-pass filters (kit: SLP-30+)."),
-    "Y6": dict(
+    "h6": dict(
         does="A VLF loop amplifier: x101 from 1.6 to 160 kHz for a loop antenna.",
         chips=["OPA810"], specs="Gain 101; 1.6-160 kHz.",
         limits="Mains hum and its harmonics: work outdoors, away from wiring; the loop sets the sensitivity.",
         experiments="Sferics from lightning thousands of kilometres away; the Navy's MSK stations near 24 kHz and their phase at sunrise; WWVB's 60 kHz time code; solar-flare ionospheric disturbances.",
         use="The loop to LOOP; OUT to an ADC.",
         needs="A loop antenna: about 10 turns of wire on a 1 m square frame, or the kit's 60 kHz ferrite rod."),
-    "Y7": dict(
+    "h7": dict(
         does="A reflection bridge: REFL / INC is the reflection coefficient (S11) of whatever is on the DUT jack, magnitude and phase, DC to 30 MHz.",
         chips=["OPA810"], specs="REFL / INC = Gamma: 0 for 50 ohm, +1 open, -1 short; better than -35 dB after open-short-load calibration.",
         limits="DC to about 30 MHz; calibrate at each frequency (three complex numbers).",
         experiments="Impedance and the Smith chart; matching an NMR probe or an antenna; a crystal's motional arm; a cable's length by time-domain reflectometry; ESR as a dip in a loop's S11.",
         use="DAC 1 to DRIVE; INC to ADC 1, REFL to ADC 2; the device on DUT.",
         needs="An SMA open, short and 50 ohm load for calibration (kit: ANNE-50+ and a short)."),
-    "Y8": dict(
+    "h8": dict(
         does="Two coupled 10 MHz LC resonators with varactor tuning: normal modes, the avoided crossing, an EIT analogue and parametric gain on one tile.",
         chips=["BB133"], specs="Two tanks near 10 MHz, Q about 30; coupling 1, 2.2 or 3.2 pF (DIP) splits them by 0.4-1.2 MHz; TUNE moves tank 2 by +-5 %; a 20 MHz pump on TUNE / PUMP gives parametric gain.",
         limits="The ports couple through 2.2 pF: -43 dB into 50 ohm, so the ADCs see small signals.",
         experiments="Normal-mode splitting and the avoided crossing; a lossy tank coupled to a sharp one (EIT analogue); phase-sensitive parametric gain and oscillation.",
         use="DAC 1 to SIG, DAC 2 to TUNE / PUMP (a slow ramp, a 20 MHz pump, or both); OUT 1 and OUT 2 to the ADCs; the DIP sets coupling and loss.",
         needs=NOTHING),
-    "Y9": dict(
+    "h9": dict(
         does="A switched noise source: avalanche noise from a transistor junction, amplified, from 10 kHz to 50 MHz.  Pmod IO8 turns it on.",
         chips=["LMH6629", "TPS22917"], specs="On: tens to hundreds of nV/rtHz, flat to about 1 dB; off: the amplifier's own 6 nV/rtHz.",
         limits="Its level must be calibrated for absolute noise figures.",
-        experiments="Y-factor noise figure of Y5 or Y3's preamp; a transfer function from the cross-spectrum of a filter's input and output.",
+        experiments="Y-factor noise figure of h5 or h3's preamp; a transfer function from the cross-spectrum of a filter's input and output.",
         use="OUT to the amplifier or filter under test; toggle IO8.", needs=NOTHING),
-    "Y10": dict(
+    "h10": dict(
         does="A laser-diode driver: 0-100 mA set by a voltage, with an RF input (bias-T) to modulate the current at 20 MHz-3 GHz and a Pmod line to blank it.",
         chips=["OPA810"], specs="100 mA per volt on SET (0-1 V); about 10 kHz loop bandwidth; RF IN 20 MHz-3 GHz, +10 dBm max; IO5 high blanks it in about 1 us; MON = the diode's voltage / 200.",
         limits="No current limit beyond SET: a VCSEL (about 1.5 mA) needs 30 dB of attenuation on SET; start every laser at a few millivolts.",
-        experiments="L-I-V curves and threshold; coherent population trapping in rubidium (3.417 GHz on a 795 nm VCSEL: an atomic clock); pulsed ODMR with RF-MOD-2's X9.",
+        experiments="L-I-V curves and threshold; coherent population trapping in rubidium (3.417 GHz on a 795 nm VCSEL: an atomic clock); pulsed ODMR with IQ-MOD's q9.",
         use="DAC 1 to SET (through 30 dB for a VCSEL); the laser on LD; RF IN from a synthesizer; MON to an ADC.",
         needs="A laser diode or VCSEL (kit: Thorlabs L650P007, L795VH1) with a socket (S7060R) or soldered to an SMA plug; 10 and 20 dB SMA attenuators; laser goggles."),
 }
 
 
-# ----------------------------------------------------------------------------------------------------------- AMOD-P2 --
-DOCS["amod_p2"] = {
-    "P14": dict(
+# ----------------------------------------------------------------------------------------------------------- AMOD-N --
+DOCS["amod_n"] = {
+    "n1": dict(
         does="Calibration standards for a network analyzer, on the board: a short and an open at the jacks' pins, a 50 ohm load, a 25 ohm check standard and a thru.",
         chips=[], specs="SHORT: the centre pin poured to ground all round.  OPEN: the bare pin.  LOAD: 2 x 100 ohm at the end of 4 mm of 50 ohm line.  25 OHM: 2 x 49.9 ohm (VSWR 2, |Gamma| 1/3, 9.5 dB return loss).  THRU: 19.8 mm of 50 ohm coplanar line, about 115 ps.",
         limits="The standards are modelled, not measured: the open's fringing (tens of fF) and the short's inductance (tens of pH) count above about 3 GHz, and the 0402 load is a 20 dB return loss at 3 GHz.  Check them once against the NanoVNA's SMA standards.",
-        experiments="A full SOLT calibration of RF-MOD-2's reflectometer (X1, X2, X5) or of a NanoVNA at the board's surface; the 25 ohm standard as its check; every other tile then measured from its pads with its jacks taken out (they are all the same part).",
+        experiments="A full SOLT calibration of IQ-MOD's reflectometer (q1, q2, q5) or of a NanoVNA at the board's surface; the 25 ohm standard as its check; every other tile then measured from its pads with its jacks taken out (they are all the same part).",
         use="The analyzer's port to SHORT, OPEN and LOAD in turn; its two ports to THRU A and THRU B for the two-port step; then any tile.",
         needs=NOTHING),
-    "P16": dict(
+    "n2": dict(
         does="A resistive power splitter: three 16.9 ohm in a star, every port 50 ohm, 6 dB from any port to either other, from DC to 6 GHz.",
         chips=[], specs="3 x 16.9 ohm (50 / 3); -6.0 dB each way; DC-6 GHz; OUT 1 and OUT 2 on lines of equal length.",
         limits="No isolation (OUT 1 to OUT 2 is also -6 dB); 6 dB of loss where a transformer splitter loses 3; about +20 dBm at IN (1/16 W resistors).",
-        experiments="One DAC into both ADCs to measure the converters' own gain and skew; the reference and test paths of a scalar network analyzer; its isolation against P17's.",
+        experiments="One DAC into both ADCs to measure the converters' own gain and skew; the reference and test paths of a scalar network analyzer; its isolation against n3's.",
         use="IN from the source; OUT 1 and OUT 2 to two 50 ohm loads.  Symmetric: any port can be IN.",
         needs=NOTHING),
-    "P17": dict(
+    "n3": dict(
         does="A transformer power splitter (and combiner): half the power to each port, 3 dB, with the two ports isolated from each other, 0.5-400 MHz.",
         chips=["ADP-2-1+"], specs="3.1-3.4 dB from SUM to each port; 25-34 dB between port 1 and port 2; 0.5-400 MHz (the datasheet).",
         limits="A transformer: nothing below 0.5 MHz; the isolation holds only with 50 ohm on all three ports; pins 2 and 5 are joined and must not be grounded.",
-        experiments="Two DACs combined into one amplifier for a two-tone intermodulation test (AMOD-A's A4, PhMOD's Y5); one reference split to two boards; isolation measured against P16's.",
+        experiments="Two DACs combined into one amplifier for a two-tone intermodulation test (AMOD-A's a4, PhMOD's h5); one reference split to two boards; isolation measured against n2's.",
         use="SUM from the source (or to the load when combining); PORT 1 and PORT 2 to two loads (or from two sources).",
         needs=NOTHING),
-    "P18": dict(
+    "n4": dict(
         does="A quarter-wave open stub hanging off a 50 ohm line: at 2.45 GHz it is a short circuit at the junction, so the line has a notch there.",
         chips=[], specs="17.3 mm of 50 ohm coplanar waveguide, open at its end; a notch near 2.45 GHz and 7.35 GHz; the line passes at DC and 4.9 GHz.",
         limits="The notch sits where the line's effective permittivity puts it (3.1 was assumed): within a few percent of 2.45 GHz.  Its depth is set by the line's loss.",
-        experiments="Sweep it with RF-MOD's synthesizer into RF-MOD-2's log detector, or with a VNA; read the line's effective permittivity from the notch; a Wi-Fi notch ahead of a receiver; the tutorial's coaxial quarter-wave stub at microwave frequencies.",
+        experiments="Sweep it with RF-MOD's synthesizer into IQ-MOD's log detector, or with a VNA; read the line's effective permittivity from the notch; a Wi-Fi notch ahead of a receiver; the tutorial's coaxial quarter-wave stub at microwave frequencies.",
         use="IN from a source, OUT to a detector or a VNA's second port.",
         needs=NOTHING),
-    "P19": dict(
+    "n5": dict(
         does="A low-pass filter: passes DC to 1 GHz, stops 1.9-5 GHz, so a 915 MHz synthesizer's harmonics are gone.",
         chips=["LFCN-1000+"], specs="0.3 dB at 500 MHz, 0.8 dB at 1 GHz, 3 dB at 1.3 GHz, 26 dB at 1.5 GHz, 30 dB from 1.9 to 5 GHz (the datasheet).",
         limits="50 ohm on both sides; the stopband rises again above about 5 GHz (20 dB at 5.5 GHz).",
         experiments="A MAX2871's square-ish 915 MHz made a sine (its harmonics before and after on a spectrum analyzer); an image filter ahead of a receiver below 1 GHz.",
         use="IN from the source, OUT to the load.",
         needs=NOTHING),
-    "P20": dict(
+    "n6": dict(
         does="A diode detector: RF power in, DC out.  Two zero-bias Schottky diodes as a voltage doubler, square-law at low power and linear at high.",
         chips=["SMS7630"], specs="51 ohm across IN; 10 nF in; a SMS7630 pair as a doubler; 100 pF and 100 k on OUT (about 1 us); 10 MHz-6 GHz; square law below about -20 dBm.",
         limits="OUT must go to a high impedance (the ADC's high-Z setting): 50 ohm shorts it.  Microvolts at the bottom (the x100 input below -40 dBm); temperature moves its zero; +10 dBm at most (the diodes' 1 V breakdown).",
-        experiments="Square law against the AD8318's log law (RF-MOD-2); an AM envelope detector after AMOD-P's loopstick and AMOD-A's LNA; a radiometer's power detector; the shape of PhMOD's transmit pulses.",
+        experiments="Square law against the AD8318's log law (IQ-MOD); an AM envelope detector after AMOD-P's loopstick and AMOD-A's LNA; a radiometer's power detector; the shape of PhMOD's transmit pulses.",
         use="IN from the RF; OUT to an ADC on its high-impedance setting.",
         needs=NOTHING),
-    "P21": dict(
+    "n7": dict(
         does="A bias-T: puts DC from a bench supply onto an RF line and keeps it off the RF side.",
         chips=[], specs="100 nF in series; 27 nH + 330 nH + 10 uH from the DC loop to RF+DC; 100 nF across the DC; about 2 MHz-3 GHz; up to 100 mA and 16 V.",
         limits="Below about 2 MHz the 10 uH stops blocking; 100 mA (the 330 nH) and 16 V (the capacitors); never put RF+DC into a jack that cannot take the DC.",
         experiments="An active GPS antenna or an LNA at the end of a cable powered through the coax; a varactor or a detector diode biased through its own signal line; the bias-T's own leakage of RF into the supply.",
         use="RF to the instrument, RF+DC to the device, the bench supply's clips on the DC and GND loops.",
         needs="A bench supply with clip leads."),
-    "P22": dict(
+    "n8": dict(
         does="A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by hand on an 8-way switch or by the FPGA over three Pmod lines.",
         chips=["PE43711"], specs="7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB.  By hand: switch way 1 (SPI) off, ways 2-8 the bits 0.25, 0.5, 1, 2, 4, 8 and 16 dB (on = that much more), the chip's direct parallel mode.  By the FPGA: ways 2-8 off, way 1 on; SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first.  3.3 V and 150 uA from the Pmod either way.",
         limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.",
         experiments="The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.",
-        use="Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
+        use="Plug AMOD-N into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
         needs=NOTHING),
-    "P23": dict(
+    "n9": dict(
         does="An oscillator made of one transistor and a tank, tunable by a voltage and lockable to an outside tone.",
         chips=["MMBT3904", "BB133"], specs="A Clapp (series-tuned Colpitts) on an MMBT3904 at about 1.5 mA; 10 uH and a BB133 varactor; 9.6-11.5 MHz for TUNE from -2 to +2 V (10.5 MHz at 0 V); about -22 dBm into 50 ohm; the Pmod's 3.3 V, switched.",
         limits="Free-running LC: it drifts with temperature; the frequencies are calculated to within about 10 %; the output is small (22 pF from the emitter) so the load does not pull it.",
         experiments="Injection locking: a DAC tone near its frequency on TUNE pulls it in over a range that grows with the tone's amplitude (Adler's equation); FM from a DAC; its phase noise against the MAX2871's and a crystal's; a phase-locked loop closed in the FPGA (phase from an ADC, control on TUNE).",
         use="Plug the board into the Pmod and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.",
         needs=NOTHING),
-    "P24": dict(
+    "n10": dict(
         does="A 1:1 transformer whose OUT jack floats: a balun for a dipole, and a break in a ground loop.",
         chips=["TC1-1TG2+"], specs="0.4-500 MHz; 0.3 dB of loss at 10 MHz, 0.5 dB at 100 MHz, 1.8 dB at 500 MHz (the datasheet); OUT's four legs on an island with no ground within 5.6 mm on any layer.",
         limits="0.25 W and 30 mA DC (the datasheet); nothing below 0.4 MHz; the island's few pF to the board limit the common-mode isolation as the frequency rises.",
         experiments="The tutorial's HF dipole fed balanced (OUT's pin and shell to its two halves); a ground loop between the host and a mains-powered instrument broken (watch the hum go); a floating measurement.",
         use="IN from the source; OUT through an SMA-to-clips lead to the dipole or the floating load.",
         needs="An SMA-to-two-clips lead (KIT.md) for a dipole."),
-    "P25": dict(
+    "n11": dict(
         does="A 1:4 transformer: OUT's impedance is four times IN's and its voltage twice; a DIP switch puts a known load on OUT.",
         chips=["TC4-1W+"], specs="3-800 MHz; 0.8 dB mid-band, 1.1 dB at 3 MHz, 2.2 dB at 800 MHz (the datasheet); switch 1: 200 ohm across OUT (IN reads 50); switch 2: 49.9 ohm (IN reads 12.5).",
         limits="Nothing below 3 MHz; OUT is referenced to ground (the secondary's low end is grounded), so it is a step-up transformer here, not a balun.",
-        experiments="The turns ratio squared measured: IN's impedance with each load (PhMOD's Y7 or a VNA); a 200 ohm source or load matched to 50 ohm; twice the voltage at OUT.",
+        experiments="The turns ratio squared measured: IN's impedance with each load (PhMOD's h7 or a VNA); a 200 ohm source or load matched to 50 ohm; twice the voltage at OUT.",
         use="IN from the source or the analyzer; OUT open, to a load, or loaded by the switch.",
         needs=NOTHING),
 }

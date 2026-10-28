@@ -426,7 +426,7 @@ class SchCtx:
                      in_bom=False, on_board=False, hide_ref=True, hide_value=False)
 
     def dip_caps(self, t):
-        """A DIP switch whose poles put capacitors across two nodes of the chain (P4, P8): drawn under the line, each
+        """A DIP switch whose poles put capacitors across two nodes of the chain (p4, p8): drawn under the line, each
         switch pad wired to the net its pin declares (a label for the chain's nets, the capacitor itself for the
         switched ones), the capacitors beside the pads whose net they share."""
         sw = [r for r, p in t.parts.items() if p.key.startswith("DIP")][0]
@@ -459,7 +459,7 @@ class SchCtx:
                 self.label(net.lstrip("/"), end[0], end[1], justify="right" if left else "left")
 
     def delay_line(self, t):
-        """P11: the twenty sections as two rows of ten, the taps and the jacks."""
+        """p11: the twenty sections as two rows of ten, the taps and the jacks."""
         y = self.oy + 25.4
         x = self.ox + 10.16
         jin = [j for j in t.jacks if j["label"] == "IN"][0]
@@ -551,7 +551,7 @@ class SchCtx:
         self.gnd(sp[pads[0]][0] + 12.7 * len(refs), y_bus)
 
     def leds(self, t):
-        """P12: the jack, the 100 ohm, the 4-way switch and the four LEDs to ground."""
+        """p12: the jack, the 100 ohm, the 4-way switch and the four LEDs to ground."""
         y = self.oy + 30.48
         x = self.ox + 12.7
         jin = t.jacks[0]
@@ -576,7 +576,7 @@ class SchCtx:
         self.result_note(t)
 
     def loopstick(self, t):
-        """P13: the terminal, the capacitor bank on the 4-way switch, the tap to the jack."""
+        """p13: the terminal, the capacitor bank on the 4-way switch, the tap to the jack."""
         y = self.oy + 30.48
         x = self.ox + 20.32
         term = [r for r, p in t.parts.items() if p.key == "TERM3"][0]

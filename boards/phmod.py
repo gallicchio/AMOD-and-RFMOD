@@ -3,7 +3,7 @@ whose converters sample DC to 30 MHz directly: a 1 W pulse amplifier and a duple
 NMR, a coil driver for gradients and Helmholtz pairs, a two-channel HF receiver front end, VLF loop amplifiers, a 50 ohm
 reflection bridge for complex S11, coupled and parametric resonators, a switched noise source and a laser driver with an RF
 bias-T.  Four layers: L1 parts and drawn wires, L2 ground, L3 the rails (+5 V everywhere, -5 V in the gutter under row 0),
-L4 ground with the back-side text; +-15 V only reach the pulse amplifier, on the back from Y1 below it.
+L4 ground with the back-side text; +-15 V only reach the pulse amplifier, on the back from h1 below it.
 
 Designed for Prompt 13 (the second-level boards, for the ECP5-2ADC-2DAC board).  PLAN_LEVEL2.md section 3 has the reasons and
 the changes from Appendix D's first AMOD-2 (the optics tiles moved to a future board).
@@ -28,14 +28,14 @@ def gnd(t, ref, pad, pt, w=0.25):
     t.gnd_stub(ref, pad, pt, sym=(0, 0), width=w, fine=True)
 
 
-# ------------------------------------------------------------------------------------------------------------ Y2 --
-def tile_y2():
+# ------------------------------------------------------------------------------------------------------------ h2 --
+def tile_h2():
     """The pulse amplifier: a THS3491 (VQFN-16 at (12.0, 8.5), rot 0: FB, -IN, +IN down its left, VOUT on its right, +VS on top,
     -VS along the bottom) at gain 10.3 (698 ohm from its FB pin, which is the output, to -IN; 75 ohm to ground) from +-15 V.  IN is
     terminated in 49.9 ohm, so a DAC's +-1 V into 50 ohm becomes +-10 V into a 50 ohm load: 1 W.  OUT is not back-terminated (it
     drives the T/R switch and the probe).  PD from Pmod IO1 through 4.7 k, 10 k to ground: off unless the FPGA holds it high, so it
-    is silent between pulses; it heats if left on at full power (pulse it).  +-15 V come up the back from Y1."""
-    t = Tile("Y2", "pulse amplifier", [(2, 0)], supply="+-15 V", subtitle="THS3491", sections=[])
+    is silent between pulses; it heats if left on at full power (pulse it).  +-15 V come up the back from h1."""
+    t = Tile("h2", "pulse amplifier", [(2, 0)], supply="+-15 V", subtitle="THS3491", sections=[])
     jin = t.jack("TL", "IN", "IN", "in", "+-1 V", silk="IN")
     jout = t.jack("BR", "OUT", "OUT", "out", "+-10 V into 50 ohm", silk="OUT")
     pins = {"1": "FBO", "3": "INN", "4": "IN", "5": "GND", "7": "-15V", "8": "-15V", "10": "OUT", "11": "OUT", "13": "+15V", "14": "+15V",
@@ -59,7 +59,7 @@ def tile_y2():
     # OUT: the two VOUT pins to the right, down between the OUT jack's legs
     t.wire("OUT", [(u, "11"), (13.875, 8.25), (13.875, 8.75), (u, "10")], width=0.25)
     t.wire("OUT", [(13.875, 8.5), (14.6, 8.5), (15.25, 9.15), (jout, "1")], width=0.5)
-    # +15 V: the pair on top to a bus along y 6.0 with 100 nF and 10 uF, a via at its end for Y1's line up the back
+    # +15 V: the pair on top to a bus along y 6.0 with 100 nF and 10 uF, a via at its end for h1's line up the back
     t.wire("+15V", [(u, "14"), (12.25, 6.0), (19.6, 6.0)], width=0.25)
     t.wire("+15V", [(u, "13"), (12.75, 6.0)], width=0.25)
     cp1 = t.add("C", "C0402 100nF", "100n", 13.6, 5.0, 270, {"1": "GND", "2": "+15V"}, label=None)            # pad 1 up
@@ -69,7 +69,7 @@ def tile_y2():
     gnd(t, cp1, "1", (13.6, 3.9))
     gnd(t, cp2, "1", (16.0, 2.6), w=0.4)
     t.via("+15V", 19.6, 6.0)
-    # -15 V: the pair below to 100 nF beside them and 10 uF to the left, a via where Y1's line arrives up the back
+    # -15 V: the pair below to 100 nF beside them and 10 uF to the left, a via where h1's line arrives up the back
     cn1 = t.add("C", "C0402 100nF", "100n", 11.2, 11.6, 90, {"1": "GND", "2": "-15V"}, label=None)              # pad 2 up
     cn2 = t.add("C", "C0805 10uF", "10u", 8.6, 12.4, 0, {"1": "GND", "2": "-15V"}, label=None)
     t.wire("-15V", [(u, "7"), (12.25, 10.75), (11.2, 10.8), (cn1, "2")], width=0.25)
@@ -86,7 +86,7 @@ def tile_y2():
     t.wire("PD", [(11.25, 5.6), (rs, "1")], width=F)
     gnd(t, rpd, "1", (8.3, 5.6), w=0.2)
     t.wire("/PMOD1", [(-0.75, 0.6), (11.25, 0.6), (rs, "2")], width=F, silk=False)
-    t.text(1.2, 15.4, "Y2", 1.2, 0.2, "left")
+    t.text(1.2, 15.4, "h2", 1.2, 0.2, "left")
     t.text(1.2, 16.90, "PULSES ONLY", 0.8, 0.15, "left")
     t.text(1.2, 18.25, "IO1 high: on", 0.8, 0.15, "left")
     t.titles.append("Pulse amp")
@@ -98,14 +98,14 @@ def tile_y2():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y3 --
-def tile_y3():
+# ------------------------------------------------------------------------------------------------------------ h3 --
+def tile_h3():
     """NMR's duplexer and preamplifier, two cells.  Left: TX IN through two pairs of crossed 1N4148W diodes to PROBE: the pulse
     passes (1.4 V drop), the transmitter's noise between pulses does not.  Right: LINE (from the probe through a quarter-wave
     cable, or a short cable and a 6 dB pad) clamped to ground by crossed diodes and terminated in 49.9 ohm, into AMOD-A's
     op-amp tile with an OPA847 at gain 12 (1.1 k / 100 ohm), 49.9 ohm out to RX OUT.  With the quarter-wave line the clamp
     shorts its far end during the pulse, so the probe sees an open there; between pulses the echo reaches the preamplifier."""
-    t = Tile("Y3", "duplexer and preamp", [(0, 0), (1, 0)], supply="+5 V", subtitle="OPA847", sections=[])
+    t = Tile("h3", "duplexer and preamp", [(0, 0), (1, 0)], supply="+5 V", subtitle="OPA847", sections=[])
     jtx = t.jack("TL0", "TX IN", "TX", "in", "+-15 V", silk="TX IN")
     jpr = t.jack("BR0", "PROBE", "PRB", "out", "", silk="PROBE")
     jln = t.jack("TL1", "LINE", "IN", "in", "", silk="LINE")
@@ -138,7 +138,7 @@ def tile_y3():
     t.wire("VS", [HDR_VS, (8.54, 19.6), (31.7, 19.6), (31.7, 18.1)], width=0.35, silk=False)
     amod_a.opa_tile_br(t, "R0603 100R", "100R", chip="OPA847", rf_key="R0603 1.1k", jack_in=False, dx=21.5, neg="bottom",
                        in_from=[(27.4, 9.0), (30.5, 9.0), (30.5, 4.75)], legend=False, loop=False, vs_from_header=False)
-    t.text(1.2, 9.4, "Y3", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h3", 1.2, 0.2, "left")
     t.text(4.1, 9.4, "Duplexer", 0.8, 0.15, "left")
     t.titles += ["PREAMP x12", "NMR DUPLEXER"]
     t.info(["TX IN -> PROBE", "via crossed diodes"], near=(1.2, 10.8))
@@ -161,7 +161,7 @@ def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True, chip="LMH6629", rf
     top, -IN and V+ along the bottom); OUT round its right side at x 15.1 to Rf under it and to 1 uF and 49.9 ohm into the OUT
     jack at the cell's bottom-right.  VS comes up the back from a via at (10.2, 18.1) that the tile feeds.  term=False leaves
     out the 49.9 ohm termination (a source on the tile drives the line).  `chip`, `rf`, `rg`, `rb` (the bias pair) and `cf` (a
-    capacitor across Rf, under it) re-use the core for other gains (Y6)."""
+    capacitor across Rf, under it) re-use the core for other gains (h6)."""
     X = lambda x: x + dx
     sfx = "" if dx == 0 else "B"
     IN, IN2, OUTA, FBN, OUTC, OUT = ("IN" + sfx, "IN2" + sfx, "OA" + sfx, "FB" + sfx, "OC" + sfx, "OUT" + sfx)
@@ -216,12 +216,12 @@ def lmh_amp(t, dx=0.0, jack_in=True, in_from=None, term=True, chip="LMH6629", rf
     t.gnd_stub(cp, "2", (X(9.0), 13.9), sym=(0, 0), width=0.2, fine=True)
 
 
-# ------------------------------------------------------------------------------------------------------------ Y5 --
-def tile_y5():
+# ------------------------------------------------------------------------------------------------------------ h5 --
+def tile_h5():
     """The two-channel HF receiver front end: two LMH6629 amplifiers (0.69 nV/rtHz, gain 9.9), 50 ohm in and out, from a few
     kHz to 100 MHz, on one switched 5 V; the host's ADCs sample both coherently (the host's own front end rolls off at 23 MHz;
     add a 30 MHz low-pass ahead of it for a station beside an FM transmitter).  It carries the Pmod plug in its bottom margin."""
-    t = Tile("Y5", "HF receiver", [(0, 3), (1, 3)], supply="+5 V", subtitle="2 x LMH6629", sections=[])
+    t = Tile("h5", "HF receiver", [(0, 3), (1, 3)], supply="+5 V", subtitle="2 x LMH6629", sections=[])
     t.jack("TL0", "IN A", "IN", "in", "-10 dBm", silk="IN A")
     t.jack("BR0", "OUT A", "OUT", "out", "", silk="OUT A")
     t.jack("TL1", "IN B", "INB", "in", "-10 dBm", silk="IN B")
@@ -237,7 +237,7 @@ def tile_y5():
     pins.update({"3": "GND", "4": "GND", "1": "/PMOD_VCC", "2": "/PMOD_VCC"})
     pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, pins, hide_value=True)
     t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
-    t.text(1.2, 9.4, "Y5", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h5", 1.2, 0.2, "left")
     t.text(4.1, 9.4, "HF preamps", 0.8, 0.15, "left")
     t.info(["x9.9 (20 dB) each", "5 kHz - 100 MHz", "0.7 nV/rtHz"], near=(22.0, 16.0))
     t.result = "gain 9.9 (20 dB) on each channel, 50 ohm in and out, about 5 kHz to 100 MHz; 0.7 nV/rtHz at the input (NF about 2.5 dB)"
@@ -248,15 +248,15 @@ def tile_y5():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y9 --
-def tile_y9():
+# ------------------------------------------------------------------------------------------------------------ h9 --
+def tile_h9():
     """A switched HF noise source: the base-emitter junction of an MMBT3904 in avalanche (the base at -5 V, the emitter fed from
     the switched rail VN through 680 ohm: about 8 V across it at 2-3 mA), its noise straight into an LMH6629 at gain 9.9 (the
-    Y5 channel without its input termination) and out through 1 uF and 49.9 ohm.  A TPS22917 load switch makes VN from the
+    h5 channel without its input termination) and out through 1 uF and 49.9 ohm.  A TPS22917 load switch makes VN from the
     tile's 5 V when Pmod IO8 is high: off is the cold state of a Y-factor measurement (the amplifier's own noise), on the hot.
     The switch and the junction stand in the top-left quarter (no jack there), the amplifier in the top-right; -5 V comes up
     a finger of L3 from the gutter below."""
-    t = Tile("Y9", "noise source", [(3, 0)], supply="+5 V", subtitle="MMBT3904 + LMH6629", sections=[])
+    t = Tile("h9", "noise source", [(3, 0)], supply="+5 V", subtitle="MMBT3904 + LMH6629", sections=[])
     t.jack("BR", "OUT", "OUT", "out", "", silk="OUT")
     power_header(t, rail="+5V")
     t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
@@ -286,7 +286,7 @@ def tile_y9():
     gnd(t, cb1, "2", (7.54, 12.0), w=0.25)
     gnd(t, cb2, "2", (6.4, 12.0), w=0.25)
     lmh_amp(t, 0.0, jack_in=False, in_from=[(7.54, 4.9), (8.0, 4.75)], term=False)
-    t.text(1.0, 6.3, "Y9", 1.2, 0.2, "left")
+    t.text(1.0, 6.3, "h9", 1.2, 0.2, "left")
     t.text(1.0, 7.8, "Noise", 0.8, 0.15, "left")
     t.result = "off: the amplifier's own noise (about 6 nV/rtHz at OUT); on: tens to hundreds of nV/rtHz from 10 kHz to 50 MHz, flat to about 1 dB"
     t.notes = ["An MMBT3904's emitter-base junction breaks down near 8 V; between -5 V and the switched 5 V through 680 ohm it carries",
@@ -297,8 +297,8 @@ def tile_y9():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y7 --
-def tile_y7():
+# ------------------------------------------------------------------------------------------------------------ h7 --
+def tile_h7():
     """The reflection bridge, two cells, +-5 V.  DRIVE (the top-left jack) feeds node D; 49.9 ohm from D to A, which runs right
     along y 4.75 to the DUT jack (the right cell's top-left); 49.9 ohm from D to B and 49.9 ohm from B to ground.  With a 50 ohm
     DUT the bridge balances (A = B); in general A - B = B x Gamma.  Two OPA810 (SOT-23-5, rot 270) stand under the line, each
@@ -306,7 +306,7 @@ def tile_y7():
     U2 as a difference amplifier, +IN on A and 499 ohm from U1's output to -IN, 499 ohm feedback: 2 A - 2 B (REFL, through
     49.9 ohm along y 10 to the right cell's bottom-right jack).  REFL / INC = Gamma, complex, at every frequency the host
     makes.  -5 V comes down the back from the gutter above at x 14.6 and 19.8; VS up the back from the switch at x 10.2."""
-    t = Tile("Y7", "reflection bridge", [(0, 1), (1, 1)], supply="+-5 V", subtitle="2 x OPA810", sections=[])
+    t = Tile("h7", "reflection bridge", [(0, 1), (1, 1)], supply="+-5 V", subtitle="2 x OPA810", sections=[])
     jd = t.jack("TL0", "DRIVE", "DRV", "in", "+-1 V into 50 ohm", silk="DRIVE")
     ji = t.jack("BR0", "INC", "INC", "out", "", silk="INC")
     ju = t.jack("TL1", "DUT", "A", "out", "", silk="DUT")
@@ -368,7 +368,7 @@ def tile_y7():
     cp2 = t.add("C", "C0402 100nF", "100n", 22.8, 13.5, 270, {"1": "VS", "2": "GND"}, label=None)
     t.wire("VS", [(22.8, 12.4), (cp2, "1")], width=0.25)
     gnd(t, cp2, "2", (22.8, 15.0), w=0.25)
-    t.text(1.2, 9.4, "Y7", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h7", 1.2, 0.2, "left")
     t.text(4.1, 9.4, "S11 bridge", 0.8, 0.15, "left")
     t.text(21.6, 17.6, "REFL/INC=S11", 0.8, 0.15, "left")
     t.titles.append("Reflectometer")
@@ -382,8 +382,8 @@ def tile_y7():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y8 --
-def tile_y8():
+# ------------------------------------------------------------------------------------------------------------ h8 --
+def tile_h8():
     """Coupled and parametric resonators, two cells, passive: two 10 MHz LC tanks (TDK's 10 uH NLV32, Q about 30), each tuned
     by a back-to-back pair of BB133 varactors whose cathodes sit at half the supply through 100 k / 100 k.  Like two cavities
     each has weak capacitive ports: SIG (terminated in 49.9 ohm) drives tank 1 through 2.2 pF, and 2.2 pF from each tank feeds
@@ -393,7 +393,7 @@ def tile_y8():
     either.  Tank 1 in the left cell's top-right quarter on a bus along y 4.75, tank 2 in the right cell's on y 5.5; the
     switch under the right jack, its top row fed along y 8.55 - 9.35 from the left and y 9.0 from the right, its bottom row
     joined to tank 2 round its right side."""
-    t = Tile("Y8", "coupled resonators", [(0, 2), (1, 2)], supply="+5 V", subtitle="2 x LC + BB133", sections=[])
+    t = Tile("h8", "coupled resonators", [(0, 2), (1, 2)], supply="+5 V", subtitle="2 x LC + BB133", sections=[])
     js = t.jack("TL0", "SIG", "SIG", "in", "+-1 V into 50 ohm", silk="SIG")
     jo1 = t.jack("BR0", "OUT 1", "OUT1", "out", "", silk="OUT 1")
     jt = t.jack("TL1", "TUNE / PUMP", "TP", "in", "+-2 V open", silk="TUNE/PUMP")
@@ -483,7 +483,7 @@ def tile_y8():
     t.via("VS", 10.2, 11.0, fine=True)
     t.wire("VS", [(cvs, "1"), (9.0, 11.0), (10.2, 11.0)], width=0.2)
     gnd(t, cvs, "2", (9.0, 13.9), w=0.2)
-    t.text(1.2, 9.4, "Y8", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h8", 1.2, 0.2, "left")
     t.text(4.1, 9.4, "2 x LC", 0.8, 0.15, "left")
     t.result = "two 10 MHz tanks (Q about 30); coupled by 1, 2.2 or 3.2 pF they split by 0.4 - 1.2 MHz; TUNE moves tank 2 by +-5 %; a 20 MHz pump on it gives parametric gain"
     t.notes = ["Two LC tanks, 10 uH and about 25 pF each (fixed, two BB133 back to back at 2.5 V, the ports), near 10 MHz, Q about 30.",
@@ -494,8 +494,8 @@ def tile_y8():
     return t
 
 
-# ----------------------------------------------------------------------------------------------------------- Y10 --
-def tile_y10():
+# ----------------------------------------------------------------------------------------------------------- h10 --
+def tile_h10():
     """The laser driver with an RF bias-T, two cells.  SET (terminated, 1 k / 100 nF) drives OPA810 U1 and a 2N7002 that pull
     SET / 1 k through 1 k from VS: REF = VS - SET.  OPA810 U2 holds the AO3401's source at REF (1 k into -IN, 10 nF to its
     output, 100 ohm to the gate), so 10 ohm from VS carries SET / 10 ohm: 100 mA per volt, from 0.  The drain (ID) feeds the
@@ -503,7 +503,7 @@ def tile_y10():
     ground (Pmod IO5 high) steals the current for microsecond pulses without upsetting the loop; a B5819W guards against
     reverse current.  MON is the diode's voltage through 10 k into the host's 50 ohm (1/200).  The RF line drops from RF IN
     and runs along y 9 to the LD jack's left; the gate and source lines go under it on the back."""
-    t = Tile("Y10", "laser driver", [(2, 2), (3, 2)], supply="+5 V", subtitle="current source + bias-T", sections=[])
+    t = Tile("h10", "laser driver", [(2, 2), (3, 2)], supply="+5 V", subtitle="current source + bias-T", sections=[])
     jset = t.jack("TL0", "SET", "SET", "in", "0-1 V: 0-100 mA", silk="SET")
     jmon = t.jack("BR0", "MON", "MON", "out", "", silk="MON")
     jrf = t.jack("TL1", "RF IN", "RF", "in", "+10 dBm max", silk="RF IN")
@@ -604,7 +604,7 @@ def tile_y10():
     cpa = t.add("C", "C0402 100nF", "100n", 22.2, 12.0, 0, {"1": "VS", "2": "GND"}, label=None)
     t.wire("VS", [(21.0, 12.0), (cpa, "1")], width=0.2)
     gnd(t, cpa, "2", (23.4, 12.0), w=0.2)
-    t.text(1.2, 9.4, "Y10", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h10", 1.2, 0.2, "left")
     t.text(4.9, 9.4, "Laser", 0.8, 0.15, "left")
     t.titles.append("Laser driver")
     t.info(["SET: 100 mA/V", "start at mV"], near=(1.2, 10.8))
@@ -617,20 +617,20 @@ def tile_y10():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y6 --
-def tile_y6():
+# ------------------------------------------------------------------------------------------------------------ h6 --
+def tile_h6():
     """A VLF / LF loop amplifier, one cell: the loop (or a ferrite rod's coil) on the IN jack through an SMA lead, 1 uF into an
     OPA810 biased at half the supply by 100 k / 100 k (the loop is a low-impedance source; the 50 ohm termination stays off),
     gain 101 (10 k / 100 ohm, the 100 ohm to ground through 1 uF: a 1.6 kHz high-pass), 100 pF across 10 k (a 160 kHz roll-off
     that keeps the AM broadcast band out), 1 uF and 49.9 ohm into OUT.  The LMH6629 tile's core with other values."""
-    t = Tile("Y6", "VLF loop amplifier", [(2, 3)], supply="+5 V", subtitle="OPA810 x101", sections=[])
+    t = Tile("h6", "VLF loop amplifier", [(2, 3)], supply="+5 V", subtitle="OPA810 x101", sections=[])
     t.jack("TL", "LOOP", "IN", "in", "mV", silk="LOOP")
     t.jack("BR", "OUT", "OUT", "out", "", silk="OUT")
     power_header(t, rail="+5V")
     t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
     lmh_amp(t, 0.0, term=False, chip="OPA810", rf=("R0402 10k", "10k"), rg=("R0402 100R", "100"), rb=("R0402 100k", "100k"),
             cf=("C0402 100pF", "100p"))
-    t.text(1.2, 9.4, "Y6", 1.2, 0.2, "left")
+    t.text(1.2, 9.4, "h6", 1.2, 0.2, "left")
     t.text(4.1, 9.4, "VLF loop", 0.8, 0.15, "left")
     t.titles.append("VLF loop amp")
     t.info(["x101"], near=(9.0, 2.0), reach=8.0)
@@ -638,13 +638,13 @@ def tile_y6():
     t.notes = ["A loop's EMF is N A dB/dt: a 1 m square of 10 turns gives about 1 uV for 1 pT at 20 kHz.  1 uF into an OPA810 at half",
                "the supply (100 k / 100 k), gain 101 (10 k / 100 ohm to ground through 1 uF), 100 pF across 10 k: 1.6 - 160 kHz.  Sferics",
                "(lightning, thousands of kilometres away), NAA's 24 kHz MSK, WWVB's 60 kHz time code.  Two loops at right angles (this and",
-               "Y5's IN A, or two boards) give a lightning stroke's bearing from the ratio of the two signals."]
+               "h5's IN A, or two boards) give a lightning stroke's bearing from the ratio of the two signals."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y4 --
-def tile_y4():
+# ------------------------------------------------------------------------------------------------------------ h4 --
+def tile_h4():
     """The coil driver, one cell in the board's corner: a DRV8876 H-bridge in PH/EN mode (Pmod IO6 enables and is the PWM, IO7
     the direction; 100 k holds both low), nSLEEP and the 5 V divider from the switched rail.  VM through two B5819W: USB's 5 V
     (4.6 V) or 12-18 V on the right-margin terminal, whichever is higher (the 25 V bulk capacitor sets the limit).  IPROPI into
@@ -652,7 +652,7 @@ def tile_y4():
     The coil on the lower terminal.  The chip at (13, 12.5), rot 0: control pins down its left, the charge pump, VM and OUT2
     down its right, OUT1 at its foot; the diodes above it, the buffer beside the MON jack; IO6 / IO7 come down the back at
     x 9.55 / 8.95 to vias beside pins 1 and 2."""
-    t = Tile("Y4", "coil driver", [(3, 3)], supply="+5 V or 12-18 V", subtitle="DRV8876", sections=[])
+    t = Tile("h4", "coil driver", [(3, 3)], supply="+5 V or 12-18 V", subtitle="DRV8876", sections=[])
     t.fine = True
     jmon = t.jack("TL", "MON", "MON", "out", "IPROPI", silk="MON")
     power_header(t, rail="+5V")
@@ -729,7 +729,7 @@ def tile_y4():
     t.via("VS", 15.9, 2.4, fine=True)
     t.wire("VS", [(dint, "2"), (15.9, 2.4)], width=0.3)
     t.wire("VS", [(9.0, 17.3), (19.6, 17.3), (19.6, 2.4), (15.9, 2.4)], width=0.3, layer="B.Cu", silk=False, fine=True)
-    t.text(1.2, 21.3, "Y4", 1.2, 0.2, "left")
+    t.text(1.2, 21.3, "h4", 1.2, 0.2, "left")
     t.text(4.1, 21.3, "Coil driver", 0.8, 0.15, "left")
     t.text(19.4, 21.3, "COIL >", 0.8, 0.15, "right")
     t.result = "about 1.3 A either way into a coil, PWM on IO6; MON about 1.5 V per amp"
@@ -738,13 +738,13 @@ def tile_y4():
     return t
 
 
-# ------------------------------------------------------------------------------------------------------------ Y1 --
-def tile_y1():
+# ------------------------------------------------------------------------------------------------------------ h1 --
+def tile_h1():
     """Power, two cells, no jacks.  Left: the TPS65131 boost and inverter make +15 and -15 V from the 5 V (1 M / 88.7 k and
-    1.3 M / 105 k, TI's 4.7 uH and Schottky rectifiers, 3 x 10 uF on each output), carried up the back to Y2's pulse amplifier
+    1.3 M / 105 k, TI's 4.7 uH and Schottky rectifiers, 3 x 10 uF on each output), carried up the back to h2's pulse amplifier
     only.  Right: AMOD-A's USB-C input (5.1 k CC pull-downs, 2 A PTC, 5 V TVS, 2 x 10 uF) and the LM2664 that makes -5 V into the
     strip in the gutter above; a green LED on +5 V, a red one on -5 V, a yellow one on +15 V."""
-    t = Tile("Y1", "power", [(2, 1), (3, 1)], subtitle="USB-C 5 V in: +5, -5, +15, -15 out", sections=[])
+    t = Tile("h1", "power", [(2, 1), (3, 1)], subtitle="USB-C 5 V in: +5, -5, +15, -15 out", sections=[])
     t.pwr_flags = ["+5V", "+15V", "-15V", "VINF"]
     # ---- the TPS65131 (rot 180 at (10.0, 9.5)): OUTN, VNEG, FBN, VREF, CN down the left (the inverter's corner, top-left);
     # INN, VIN, PGND, INP down the right (the boost's corner, bottom-right); the enables along the top; AGND, CP, FBP, VPOS,
@@ -769,7 +769,7 @@ def tile_y1():
         gnd(t, c, "2", (x, 1.0), w=0.4)
     t.wire("-15V", [(d2, "2"), (11.15, 4.3), (17.2, 4.3)], width=0.5)
     t.via("-15V", 12.2, 4.3, fine=True)
-    t.via("-15V", 11.15, 5.7)                                                           # Y2's -15 V leaves here, up the back
+    t.via("-15V", 11.15, 5.7)                                                           # h2's -15 V leaves here, up the back
     t.wire("-15V", [(d2, "2"), (11.15, 5.7)], width=0.4)
     # -15 V's sense and divider: VNEG to a via, R3 and C10 from the divider's top, both on the back to the -15 V line
     t.via("-15V", 7.25, 9.25, fine=True)
@@ -846,7 +846,7 @@ def tile_y1():
     t.wire("+15V", [(20.05, 13.6), (20.05, 15.6), (ry, "1")], width=0.25)
     t.wire("LEDY", [(ry, "2"), (22.6, 15.6), (22.6, 17.8), (dy, "2")], width=0.25)
     gnd(t, dy, "1", (20.06, 18.9))
-    # ---- the USB-C input and the LM2664, in the right cell (AMOD-A's A1 moved right by 21.5)
+    # ---- the USB-C input and the LM2664, in the right cell (AMOD-A's a1 moved right by 21.5)
     X = lambda x: x + 21.5
     ux = USB_X - t.x0
     j = t.add("J", "USBC", "USB-C", ux, 10.0, 90, {"A4": "VBUS", "A9": "VBUS", "B4": "VBUS", "B9": "VBUS", "A5": "CC1", "B5": "CC2",
@@ -898,82 +898,82 @@ def tile_y1():
     t.wire("+5V", [(dg, "2"), (X(24.6), 0.6)], silk=False)
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (X(26.6), 0.6), sym=(0, 0))
-    t.text(X(13.0), 18.6, "Y1 power", 0.9, 0.17, "center")
+    t.text(X(13.0), 18.6, "h1 power", 0.9, 0.17, "center")
     t.text(1.2, 18.6, "+-15 V", 0.8, 0.15, "left")
     t.result = ("+5 V from the USB-C (up to 2 A), -5 V at 40 mA, +15 V and -15 V at about 150 mA each for the pulse amplifier; green: "
                 "5 V in, red: -5 V up, yellow: +15 V up")
     t.notes = ["USB-C power only (5.1 k on each CC).  The TPS65131 runs both converters at 1.25 MHz with power-save off (quieter);",
-               "+15 V = 1.213 V x (1 + 1 M / 88.7 k) = 14.9 V, -15 V = -1.213 V x 1.3 M / 105 k = -15.0 V.  Only Y2 draws them, through",
-               "two back-side tracks; everything else runs from +5 V and the LM2664's -5 V (40 mA: Y3, Y7 and Y9 draw about 30)."]
+               "+15 V = 1.213 V x (1 + 1 M / 88.7 k) = 14.9 V, -15 V = -1.213 V x 1.3 M / 105 k = -15.0 V.  Only h2 draws them, through",
+               "two back-side tracks; everything else runs from +5 V and the LM2664's -5 V (40 mA: h3, h7 and h9 draw about 30)."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
 
 def tiles():
-    return [tile_y3(), tile_y2(), tile_y9(), tile_y7(), tile_y1(), tile_y8(), tile_y10(), tile_y5(), tile_y6(), tile_y4()]
+    return [tile_h3(), tile_h2(), tile_h9(), tile_h7(), tile_h1(), tile_h8(), tile_h10(), tile_h5(), tile_h6(), tile_h4()]
 
 
 PMOD_USED = {"/PMOD1", "/PMOD5", "/PMOD6", "/PMOD7", "/PMOD8"}
-PMOD_HOST = "Y5's bottom edge"
-PMOD_NAMES = {"/PMOD1": "Y2's PD (high: the pulse amplifier on)", "/PMOD5": "Y10's shunt (high: the laser's current diverted)",
-              "/PMOD6": "Y4's EN (high: the bridge on; PWM it)", "/PMOD7": "Y4's PH (the current's direction)",
-              "/PMOD8": "Y9's load switch (high: noise on)"}
+PMOD_HOST = "h5's bottom edge"
+PMOD_NAMES = {"/PMOD1": "h2's PD (high: the pulse amplifier on)", "/PMOD5": "h10's shunt (high: the laser's current diverted)",
+              "/PMOD6": "h4's EN (high: the bridge on; PWM it)", "/PMOD7": "h4's PH (the current's direction)",
+              "/PMOD8": "h9's load switch (high: noise on)"}
 HANDBOOK_INTRO = [
-    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on Y1, built for the ECP5-2ADC-2DAC board, whose converters sample",
+    "Ten tiles on sixteen 20 mm cells, four layers, USB-C power on h1, built for the ECP5-2ADC-2DAC board, whose converters sample",
     "DC to 30 MHz directly: two DACs and two ADCs, so most tiles take one or two DAC channels and give one or two ADC channels.",
     "Every tile's input is its top-left jack and its output its bottom-right jack; a two-cell tile has two of each.  The powered",
     "tiles have the AMOD-A slide switch (up: on).  +5 V is everywhere on L3; -5 V (40 mA, the LM2664) reaches the tiles above and",
-    "below the gutter under row 0 (Y3, Y7, Y9); +-15 V from the TPS65131 reach only Y2, on two tracks on the back.  Nothing here",
-    "needs more than USB's 5 V except Y4's coil, which may have 12-18 V of its own on its upper terminal."]
+    "below the gutter under row 0 (h3, h7, h9); +-15 V from the TPS65131 reach only h2, on two tracks on the back.  Nothing here",
+    "needs more than USB's 5 V except h4's coil, which may have 12-18 V of its own on its upper terminal."]
 HANDBOOK_SECTIONS = [
     ["## The tiles together", "",
      "Every experiment below uses the ECP5 board's converters directly: DAC 1 and DAC 2 make the stimulus, ADC 1 and ADC 2 read the",
      "response, and the gateware does the rest (quadrature demodulation, averaging, lock-in).  One clock, so phase means something.",
      "",
-     "1. **Pulsed NMR, 5-25 MHz.**  DAC 1 into Y2 (IO1 high only during the pulse: +-1 V becomes +-10 V, 1 W into 50 ohm), Y2's",
-     "   OUT into Y3's TX IN, Y3's PROBE to the probe (match it first with Y7: S11 below -20 dB at the Larmor frequency), a",
-     "   quarter-wave cable from a tee at the probe back to LINE; Y3's RX OUT (the OPA847, x12) into ADC 1, demodulated at the",
+     "1. **Pulsed NMR, 5-25 MHz.**  DAC 1 into h2 (IO1 high only during the pulse: +-1 V becomes +-10 V, 1 W into 50 ohm), h2's",
+     "   OUT into h3's TX IN, h3's PROBE to the probe (match it first with h7: S11 below -20 dB at the Larmor frequency), a",
+     "   quarter-wave cable from a tee at the probe back to LINE; h3's RX OUT (the OPA847, x12) into ADC 1, demodulated at the",
      "   Larmor frequency in the gateware.  A Halbach or yoke magnet of N52",
      "   cubes (0.3-0.5 T, protons at 13-21 MHz), a 5 mm vial of water with a little copper sulphate: the FID, the spin echo, CPMG,",
-     "   T1 by inversion recovery, T2.  Y4 on a gradient coil during the echo: a one-dimensional image.",
-     "2. **Earth's-field NMR, 2 kHz.**  Y4 drives a polarizing coil round a litre of water for a few seconds (12 V, an amp), then",
-     "   stops (IO6 low); a second, receive coil round the same bottle into Y6 (gain 101) and ADC 1: the protons' precession in the",
+     "   T1 by inversion recovery, T2.  h4 on a gradient coil during the echo: a one-dimensional image.",
+     "2. **Earth's-field NMR, 2 kHz.**  h4 drives a polarizing coil round a litre of water for a few seconds (12 V, an amp), then",
+     "   stops (IO6 low); a second, receive coil round the same bottle into h6 (gain 101) and ADC 1: the protons' precession in the",
      "   Earth's 50 uT, outdoors, away from mains wiring.",
-     "3. **ESR of DPPH, 10-100 MHz.**  A small loop round the sample, tuned to the DAC's frequency and read by Y7 (DRIVE from DAC 1,",
-     "   INC and REFL into the ADCs); Y4 sweeps a Helmholtz pair through g = 2 (1.07 mT at 30 MHz): the loop's S11 dips on resonance.",
-     "4. **The ionosphere.**  Two HF antennas into Y5's IN A and IN B (gain 9.9 each, 0.7 nV/rtHz): WWV's carrier Doppler at 5, 10",
-     "   and 15 MHz (HamSCI), the phase between the channels as a bearing, FT8 and WSPR decoded in software.  A VLF loop into Y6:",
+     "3. **ESR of DPPH, 10-100 MHz.**  A small loop round the sample, tuned to the DAC's frequency and read by h7 (DRIVE from DAC 1,",
+     "   INC and REFL into the ADCs); h4 sweeps a Helmholtz pair through g = 2 (1.07 mT at 30 MHz): the loop's S11 dips on resonance.",
+     "4. **The ionosphere.**  Two HF antennas into h5's IN A and IN B (gain 9.9 each, 0.7 nV/rtHz): WWV's carrier Doppler at 5, 10",
+     "   and 15 MHz (HamSCI), the phase between the channels as a bearing, FT8 and WSPR decoded in software.  A VLF loop into h6:",
      "   sferics from lightning thousands of kilometres away, the Navy's MSK stations near 24 kHz (and their daily phase change at",
      "   sunrise and sunset), sudden ionospheric disturbances from solar flares, WWVB's 60 kHz time code.",
-     "5. **Impedance and the Smith chart.**  Y7: DRIVE from DAC 1, REFL and INC into the ADCs; REFL / INC = Gamma at every",
+     "5. **Impedance and the Smith chart.**  h7: DRIVE from DAC 1, REFL and INC into the ADCs; REFL / INC = Gamma at every",
      "   frequency the DAC makes.  Calibrate with an open, a short and 50 ohm on DUT, then a crystal's motional arm, an antenna's",
      "   match, a cable's length (time-domain reflectometry from a step), an NMR probe's tuning.",
-     "6. **Coupled and parametric resonators.**  Y8: DAC 1 into SIG, DAC 2 into TUNE / PUMP (a slow ramp, a 20 MHz pump, or both",
+     "6. **Coupled and parametric resonators.**  h8: DAC 1 into SIG, DAC 2 into TUNE / PUMP (a slow ramp, a 20 MHz pump, or both",
      "   added), OUT 1 and OUT 2 into the ADCs.  Normal-mode splitting and the avoided crossing as TUNE sweeps tank 2 through tank",
      "   1 (the DIP's 1 and 2.2 pF set the coupling); damp tank 1 (the DIP's 2 k) and its response shows a transparency window: the",
      "   EIT analogue; pump at twice the frequency: phase-sensitive gain and de-amplification, then parametric oscillation.",
-     "7. **Noise.**  Y9 into Y5 (or Y3's preamp) with IO8 toggled: the Y-factor gives the amplifier's noise figure; Y9's noise into",
+     "7. **Noise.**  h9 into h5 (or h3's preamp) with IO8 toggled: the Y-factor gives the amplifier's noise figure; h9's noise into",
      "   a filter with ADC 1 on its input and ADC 2 on its output: the transfer function from the cross-spectrum.",
-     "8. **Lasers and atoms.**  Y10 drives a VCSEL or a laser diode on its LD jack (SET from DAC 1: 100 mA per volt; a VCSEL runs",
-     "   at about 1.5 mA, so put 30 dB of SMA attenuation on SET and the DAC's full scale is 3 mA); RF-MOD-2's synthesizer on RF IN",
+     "8. **Lasers and atoms.**  h10 drives a VCSEL or a laser diode on its LD jack (SET from DAC 1: 100 mA per volt; a VCSEL runs",
+     "   at about 1.5 mA, so put 30 dB of SMA attenuation on SET and the DAC's full scale is 3 mA); IQ-MOD's synthesizer on RF IN",
      "   puts sidebands on the light: 3.417 GHz on a 795 nm VCSEL through a rubidium",
      "   cell is coherent population trapping, the chip-scale atomic clock's physics; IO5 blanks the light for pulsed ODMR with",
-     "   RF-MOD-2's X9 loop; MON (the diode's voltage) with a photodiode on an ADC gives the L-I-V curve and the threshold.",
+     "   IQ-MOD's q9 loop; MON (the diode's voltage) with a photodiode on an ADC gives the L-I-V curve and the threshold.",
      "",
-     "Levels to remember: Y2 gives 1 W into 50 ohm from +-1 V and is for pulses (keep the duty cycle under 10 %); Y3 lets through",
-     "the transmitter above about 0.7 V and gives x12 on the way back; Y5's channels give x9.9 (20 dB); Y6 x101; Y7's REFL and INC",
-     "reach the ADCs at half (49.9 ohm into 50 ohm), and so does every output here; Y8's ports are -43 dB; Y10 stops at 100 mA (1 V);",
-     "Y4 chops at about 1.3 A."],
+     "Levels to remember: h2 gives 1 W into 50 ohm from +-1 V and is for pulses (keep the duty cycle under 10 %); h3 lets through",
+     "the transmitter above about 0.7 V and gives x12 on the way back; h5's channels give x9.9 (20 dB); h6 x101; h7's REFL and INC",
+     "reach the ADCs at half (49.9 ohm into 50 ohm), and so does every output here; h8's ports are -43 dB; h10 stops at 100 mA (1 V);",
+     "h4 chops at about 1.3 A."],
 ]
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0)]
 HOLES = []
 FEET = [(5.0, 5.0), (95.0, 5.0), (95.8, 71.0), (5.0, 85.0)]
 SLOTS = []
 RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
-              ("-5V", [(8.0, 27.85), (72.65, 27.85), (72.65, 16.75), (74.25, 16.75), (74.25, 27.85), (93.4, 27.85),   # with Y9's finger
+              ("-5V", [(8.0, 27.85), (72.65, 27.85), (72.65, 16.75), (74.25, 16.75), (74.25, 27.85), (93.4, 27.85),   # with h9's finger
                        (93.4, 29.15), (8.0, 29.15)], 1)]
 _Y1, _Y2 = G.cell_origin(2, 1), G.cell_origin(2, 0)
-# +-15 V from Y1 up to Y2 on the back: +15 V up the gutter at x 70.8, -15 V straight up at Y1 / Y2's local x 10.6 to 11.15
+# +-15 V from h1 up to h2 on the back: +15 V up the gutter at x 70.8, -15 V straight up at h1 / h2's local x 10.6 to 11.15
 _PM = (G.cell_origin(0, 3)[0] + 2.97, G.cell_origin(0, 3)[1] + 24.25)   # the Pmod plug's centre: pad columns at -6.35 .. 6.35, rows at +-1.27
 
 
@@ -986,26 +986,26 @@ def _pad(k):
 _Y4 = G.cell_origin(3, 3)
 BACK_WIRES = [("+15V", [(_Y1[0] + 20.05, _Y1[1] + 7.2), (_Y1[0] + 20.05, _Y2[1] + 6.45), (_Y2[0] + 19.6, _Y2[1] + 6.0)]),
               ("-15V", [(_Y1[0] + 11.15, _Y1[1] + 5.7), (_Y1[0] + 9.55, _Y1[1] + 4.1), (_Y2[0] + 9.55, _Y2[1] + 13.75)]),
-              # IO6 / IO7 to Y4: along the bottom edge, up the left side of the gutter at x 48.6 / 49.0, across the top of Y6
+              # IO6 / IO7 to h4: along the bottom edge, up the left side of the gutter at x 48.6 / 49.0, across the top of h6
               ("/PMOD6", [_pad(9), (_pad(9)[0], 99.0), (48.6, 99.0), (48.6, _Y4[1] - 0.4), (_Y4[0] + 9.55, _Y4[1] - 0.4), (_Y4[0] + 9.55, _Y4[1] + 9.5)]),
               ("/PMOD7", [_pad(7), (_pad(7)[0], 99.4), (49.0, 99.4), (49.0, _Y4[1] + 0.1), (_Y4[0] + 8.95, _Y4[1] + 0.1), (_Y4[0] + 8.95, _Y4[1] + 10.875)])]
-FRONT_TEXT = [(96.1, 71.9, "VM IN"), (96.1, 73.3, "12-18 V")]   # Y4's upper terminal, in the margin above it
-FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (88.0, 97.0)]          # the third off Y4's coil terminal
+FRONT_TEXT = [(96.1, 71.9, "VM IN"), (96.1, 73.3, "12-18 V")]   # h4's upper terminal, in the margin above it
+FIDUCIALS = [(3.5, 50.0), (96.5, 10.0), (88.0, 97.0)]          # the third off h4's coil terminal
 
 # the Pmod lines: along the bottom margin, then up the gutter between columns 1 and 2 (x 49.4 .. 50.6)
 _Y9 = G.cell_origin(3, 0)
 FRONT_WIRES = [("/PMOD1", [_pad(12), (_pad(12)[0], 93.05), (50.0, 93.05), (50.0, _Y2[1] + 0.6)]),
-               # IO5 up the gutter at x 50.4 to Y10's shunt
+               # IO5 up the gutter at x 50.4 to h10's shunt
                ("/PMOD5", [_pad(11), (_pad(11)[0] + 1.27, _PM[1]), (_pad(11)[0] + 1.27, 93.5), (50.4, 93.5), (50.4, G.cell_origin(2, 2)[1] + 0.25),
                            (G.cell_origin(2, 2)[0] - 0.35, G.cell_origin(2, 2)[1] + 0.25)]),
-               # IO8 round the left and top margins to Y9's load switch
+               # IO8 round the left and top margins to h9's load switch
                ("/PMOD8", [_pad(5), (_pad(5)[0], 99.15), (2.4, 99.15), (2.4, 93.2), (6.0, 93.2), (6.0, 1.5), (71.5, 1.5), (71.5, _Y9[1] + 3.95),
                            (_Y9[0] + 2.0625, _Y9[1] + 3.95)])]
 BACK_TEXT_X = 50.0
 QR_AT = (61.0, 33.0)
 BACK_TEXT = ["PhMOD: magnetic resonance, the ionosphere and light.",
              "Jacks at each cell's top-left and bottom-right; powered",
-             "tiles have a slide switch (up: on).  USB-C on Y1.  Y2",
+             "tiles have a slide switch (up: on).  USB-C on h1.  h2",
              "is the 1 W pulse amplifier: pulse it, do not leave it on."]
 
 
@@ -1013,20 +1013,20 @@ BACK_TEXT = ["PhMOD: magnetic resonance, the ionosphere and light.",
 import backplots as BP
 # The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
 BACK = {
-    "Y1": ["USB-C 5 V only", "+-15 V reach Y2 only", "-5 V 40 mA"],
-    "Y2": ["PULSES ONLY", "duty < 10 %", "+-10 V, 50 ohm", "never open", "or shorted", "IO1 high: on"],
-    "Y3": ["TX IN: from Y2", "LINE: lambda/4", "cable to probe", "RX OUT x12"],
-    "Y4": ["VM: 18 V max,", "else USB 4.6 V", "1.3 A limit", "MON 1.5 V/A"],
-    "Y5": ["x9.9 each", "IN max -10 dBm", "low-pass to the ADC"],
-    "Y6": ["x101", "1.6-160 kHz", "away from mains"],
-    "Y7": ["REFL / INC = S11", "DC-30 MHz", "calibrate open, short, load"],
-    "Y8": ["tanks ~10 MHz", "TUNE: tank 2", "by +-5 %", "PUMP at 2 f"],
-    "Y9": ["IO8 high: on", "flat to 50 MHz", "calibrate ENR"],
-    "Y10": ["SET: 100 mA/V", "START A LASER", "AT A FEW mV", "VCSEL: 30 dB", "pad on SET", "RF IN +10 dBm", "IO5 high: off"],
+    "h1": ["USB-C 5 V only", "+-15 V reach h2 only", "-5 V 40 mA"],
+    "h2": ["PULSES ONLY", "duty < 10 %", "+-10 V, 50 ohm", "never open", "or shorted", "IO1 high: on"],
+    "h3": ["TX IN: from h2", "LINE: lambda/4", "cable to probe", "RX OUT x12"],
+    "h4": ["VM: 18 V max,", "else USB 4.6 V", "1.3 A limit", "MON 1.5 V/A"],
+    "h5": ["x9.9 each", "IN max -10 dBm", "low-pass to the ADC"],
+    "h6": ["x101", "1.6-160 kHz", "away from mains"],
+    "h7": ["REFL / INC = S11", "DC-30 MHz", "calibrate open, short, load"],
+    "h8": ["tanks ~10 MHz", "TUNE: tank 2", "by +-5 %", "PUMP at 2 f"],
+    "h9": ["IO8 high: on", "flat to 50 MHz", "calibrate ENR"],
+    "h10": ["SET: 100 mA/V", "START A LASER", "AT A FEW mV", "VCSEL: 30 dB", "pad on SET", "RF IN +10 dBm", "IO5 high: off"],
 }
 BACK_PLOTS = {
-    "Y5": BP.amplifier(19.9, 100e6, f1=1e3, f2=3e8, fl=5e3, name="x9.9"),
-    "Y6": BP.amplifier(40.1, 160e3, f1=100.0, f2=1e7, fl=1.6e3, name="x101"),
+    "h5": BP.amplifier(19.9, 100e6, f1=1e3, f2=3e8, fl=5e3, name="x9.9"),
+    "h6": BP.amplifier(40.1, 160e3, f1=100.0, f2=1e7, fl=1.6e3, name="x101"),
 }
 
 
