@@ -533,3 +533,53 @@ Not on the list: RF low-passes for the MAX2871's harmonics (LFCN-320+/530+ are i
 All 80 cells are full.  Suggested homes: the attenuator in place of RF-MOD-2's X4 (a copy of RF-MOD's R5; a cable to
 R5 does its job); the oscillator in place of AMOD-A's A3 (the host's x100 input now does its job, though A2 and A3
 together show gain times bandwidth).  Waiting for Jason's choice.
+
+## Prompt 17 (2026-10-28)
+
+> It seems like there is enough pressure that I should make another analog board. We should really call this the 2nd
+> board because it's so much simpler than even the active board. The board with the laser stuff and NV center stuff
+> should maybe be renamed  OMOD for optics or PhMOD for physics. All of the things that you suggested along with some of
+> the things that we've dropped should go on this new analog board. Things that I can recall off the top of my head which
+> would benefit from inclusion in a new analog passive board include SLOT for VNA-type calibration, passive splitters,  If
+> it make sense to move the diode mixer onto this new analog passive board, do that to free up space there. Allow
+> yourself to make a analog passive board and fill it with the tiles that got bumped or new one that would be great to
+> have. Work on this for however long it takes and let me know when the images and docs are all updated.
+
+Mid-turn:
+
+> Keep going. If something can run on 3.3V, it could still be plugged into the PMOD port but wouldn't require an
+> external USB 5V input.
+
+> To distinguish whole-tile labels from SMA or port labels, use different cases (upper, lower, mixed).
+
+### Response 17 (about 11:00 to 17:00)
+
+- *AMOD-2 is PhMOD* (physics: magnetic resonance, the ionosphere and light).  The stem is `phmod`; the tiles keep
+  Y1-Y10.  OMOD is left for the optics board of PLAN_LEVEL2 section 6.
+- *AMOD-P2, the second passive board*, second in every list.  It did not take the freed name AMOD-2, which the history
+  uses for the physics board.  Twelve tiles, P14-P25, on sixteen cells, four layers on RF-MOD's stack and launch, no USB:
+  - P14 calibration: SHORT and OPEN at the pin, LOAD, a 25 ohm check standard, a 19.8 mm THRU.
+  - P15 two Smith-chart loads: 200 ohm, and 200 ohm matched at 9.2 MHz.
+  - P16 a resistive splitter, DC-6 GHz.
+  - P17 an ADP-2-1+ transformer splitter.
+  - P18 a quarter-wave stub, with a notch near 2.45 GHz.
+  - P19 an LFCN-1000+ low-pass.
+  - P20 a zero-bias SMS7630 doubler detector.
+  - P21 a bias-T.
+  - P22 a PE43711 step attenuator on the Pmod's SPI lines.
+  - P23 a 10.5 MHz Clapp oscillator, varactor-tuned and injection-lockable from TUNE.
+  - P24 a 1:1 balun whose OUT jack floats.
+  - P25 a 1:4 transformer with switched loads.
+
+  P22 and P23 run on the Pmod's 3.3 V, as the mid-turn message said, and carry the board's plug.  $43.91 of parts.
+- *The diode mixer stayed on RF-MOD.*  With the two powered tiles on AMOD-P2, the tiles asked for, suggested and dropped
+  filled its sixteen cells exactly.  Moving R1 would have left two cells on RF-MOD with nothing waiting for them.
+- *Left out:* the oscillator's crystal (a VCXO; no room), a 30 MHz anti-alias low-pass (the host has its own), a crystal
+  ladder filter, a 10.7 MHz ceramic filter (none in stock), a quadrature hybrid.
+- *Case on the silk, all six boards:* ports in capitals, tile labels in mixed case, the rest lower case.
+- *Placements.*  A new check (`scripts/check_rotations.py`) fits JLCPCB's own drawing of every part onto its footprint.
+  It found every SOT-23-family part at 0 where JLCPCB needs 180 (or 270), including the AO3401A in every powered tile.
+  It also found SOICs, the TSSOP and the headers needing 270, and the USB-C, SOT-89s, slide switches and headers needing
+  a move to JLCPCB's origin.  The upload CPLs of all six boards now apply both; the DOA lists make it an order gate.
+- All six boards: ERC 0, DRC 0, every fab check.  Handbooks, README, PLAN.md section 11, the review brief, KIT.md,
+  DOA_amod_p2.md, Appendix D (with fresh renders) and CLAUDE_PCB.md section 23 updated.  Nothing pushed.

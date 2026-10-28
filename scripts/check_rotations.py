@@ -17,6 +17,14 @@ import parts, easyeda
 from sexp_parse import parse_file
 
 UNPOLAR = ("Resistor_SMD:", "Capacitor_SMD:", "Inductor_SMD:")
+# fits that disagree with the table for a known reason: the table is right
+KNOWN = {
+    "C2297": "KT-0805G: read at 0 in GPiBridge's preview; JLCPCB numbers this LED's pads the other way round",
+    "C2296": "KT-0805Y: the KT-0805G's family drawing (read at 0)",
+    "C2293": "KT-0805B: the KT-0805G's family drawing (read at 0)",
+    "C13774": "HC-49S crystal: two pads, no polarity",
+    "C206667": "ADL5350: the footprint IS JLCPCB's drawing with its pads renumbered to theirs; a pin-number fit cannot see that",
+}
 
 
 def footprints(stem):
@@ -121,7 +129,7 @@ def main(stems):
                 continue
             (e0, best, datum), (e1, nxt, _) = r[0], r[1]
             table = parts.JLC_ROTATION.get(code, (0, "absent"))
-            flag = "ok" if table[0] == best else "DIFFERS"
+            flag = "ok" if table[0] == best else ("known" if code in KNOWN else "DIFFERS")
             amb = " ambiguous (%.2f vs %.2f mm)" % (e0, e1) if e1 - e0 < 0.15 else ""
             have = getattr(parts, "JLC_DATUM", {}).get(code, (0.0, 0.0))[:2]
             dat = ""

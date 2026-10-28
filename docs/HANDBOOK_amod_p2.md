@@ -17,7 +17,7 @@ name in capitals.
 ### Pmod lines
 
 The 2 x 6 plug on P22's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
-which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
+which powers P22 and P23, the board's only supply; the lines are 3.3 V CMOS):
 
 - Pmod pin 2 (PMOD2): SDATA (SI) of P22's PE43711, P22
 - Pmod pin 3 (PMOD3): SCLK of P22, P22

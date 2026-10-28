@@ -125,7 +125,7 @@ def handbook(stem, meta, mod):
         pm = pmod_pins(meta)
         names = getattr(mod, "PMOD_NAMES", {})
         lines += ["### Pmod lines", "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "R10's bottom edge"),
-                  "which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):", ""]
+                  getattr(mod, "PMOD_VCC_TEXT", "which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):"), ""]
         for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
             k = int(net.replace("/PMOD", ""))
             lines.append("- Pmod pin %d (%s): %s, %s" % (k if k <= 4 else k + 2, net.lstrip("/"), names.get(net, ""), ", ".join(sorted(pm[net]))))

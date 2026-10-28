@@ -470,6 +470,7 @@ def tiles():
 
 
 PMOD_HOST = "P22's bottom edge"
+PMOD_VCC_TEXT = "which powers P22 and P23, the board's only supply; the lines are 3.3 V CMOS):"
 PMOD_NAMES = {"/PMOD2": "SDATA (SI) of P22's PE43711", "/PMOD3": "SCLK of P22", "/PMOD4": "LE of P22"}
 HANDBOOK_INTRO = [
     "Twelve tiles on sixteen 20 mm cells, four layers, no USB.  Ten of them are passive and need nothing; P22 (the step",
