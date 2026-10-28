@@ -65,6 +65,7 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
 | Speaker, 36 mm, 8 ohm, 2 W, wire leads | A12 | 1 | [Adafruit 6486](https://www.adafruit.com/product/6486) | $1.95 | 14 | page |
 | Electret capsule, 9.7 mm, 2 pins at 2.54 mm | A12 | 1 | [SparkFun COM-08635](https://www.sparkfun.com/electret-microphone.html) | $1.50 | in stock | page |
 | AM loopstick, 240 uH, 10 x 70 mm ferrite rod | P13 | 1 | [Atomic-29 240 uH loopstick coil](https://atomic-29.com/products/240uh-loopstick-antenna-coil) | $4.65 | add-to-cart, no count | page |
+| Tuning capacitor, 365 pF single-section air variable, 1/4 inch shaft, and a knob (optional) | P13 | 1 | [Amplified Parts 365 pF variable capacitor](https://www.amplifiedparts.com/node/5317) | $30.95 (eBay listing of the same seller) | unverified (the pages refused a script) | search snippet |
 | HB100 10.525 GHz Doppler module | A5 | 1 | [MH-ET Live HB100 X at Amazon, B07YY6FD4T](https://www.amazon.com/dp/B07YY6FD4T) | $13.76 | in stock | page |
 | Cable ties, 2.5 x 99 mm | P13 | 2 | [Panduit PLT1M-C at Digi-Key](https://www.digikey.com/en/products/detail/panduit-corp/PLT1M-C/280033) | about $0.25 | not shown | snippet |
 
@@ -78,6 +79,10 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
   tunes P13 about 17 % higher than the silkscreen says, roughly 470 kHz to 1.5 MHz, still the AM band.  Leave the
   terminal's tap pin empty.  A 350 uH coil with a 10 uH secondary on a 10 x 60 mm rod is listed on Amazon (ASIN
   B0BPQM9P79), but its page did not load: price and stock unverified.
+- **The tuning capacitor** is optional: P13's switches tune the band in 15 steps without it.  Its two leads go in the
+  VAR C terminal, frame (rotor) to GND so a hand on the knob does not detune it.  With the switches off, 365 pF tunes
+  the kit's 240 uH coil from about 540 kHz to 2 MHz; with a switch on it tunes between that switch's steps.  Any AM
+  tuning capacitor of 200-400 pF does (a polyvaricon's two AM sections in parallel are about 200 pF).
 - **The cable ties** come singly from Digi-Key; a 100-pack is about $19.46 at Newark (snippet).
 - **The HB100** has no distributor listing in the US; Amazon is the only source found (also B0DYYP5X1K, $12.17).  Modules
   differ in pin order ("+5V GND IF" or "IF GND +5V"): A5's header is +5 V, IF, ground on jumper wires, so wire it to the

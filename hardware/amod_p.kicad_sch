@@ -200,6 +200,212 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Connector:Screw_Terminal_01x02"
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Screw_Terminal_01x02"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "screw terminal"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "TerminalBlock*:*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Screw_Terminal_01x02_1_1"
+				(rectangle
+					(start -1.27 1.27)
+					(end 1.27 -3.81)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.5334 0.3302) (xy 0.3302 -0.508)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.5334 -2.2098) (xy 0.3302 -3.048)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3556 0.508) (xy 0.508 -0.3302)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -0.3556 -2.032) (xy 0.508 -2.8702)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 0)
+					(radius 0.635)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 0 -2.54)
+					(radius 0.635)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Connector:Screw_Terminal_01x03"
 			(pin_names
 				(offset 1.016)
@@ -2840,18 +3046,6 @@
 		)
 		(uuid "0570ccbf-9d53-5c6c-a43a-30197ed93472")
 	)
-	(text "EXPECT: with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)"
-		(exclude_from_sim no)
-		(at 218.44 522.94 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "07bb9c76-e8fe-5806-a3c5-f7c2d6763503")
-	)
 	(text "P3   RC high-pass, 159 kHz"
 		(exclude_from_sim no)
 		(at 408.94 33.78 0)
@@ -2997,6 +3191,18 @@
 			(justify right)
 		)
 		(uuid "16268412-2833-58c7-99e2-342955ecef18")
+	)
+	(text "EXPECT: with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band); a variable capacitor on VAR C tunes between them"
+		(exclude_from_sim no)
+		(at 218.44 520.3 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "162d840c-a2d6-53f0-b3f3-47600ef3091c")
 	)
 	(text "cell (0,2)"
 		(exclude_from_sim no)
@@ -3478,17 +3684,6 @@
 		)
 		(uuid "68cb8eca-a148-5291-a657-9ad9f85ce3a0")
 	)
-	(text "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns"
-		(exclude_from_sim no)
-		(at 218.44 525.58 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "6a55311b-f38c-5998-9cee-9fc9f5b31ee2")
-	)
 	(text "OUT"
 		(exclude_from_sim no)
 		(at 71.12 308.76 0)
@@ -3638,16 +3833,16 @@
 		)
 		(uuid "82888f92-e2b8-542e-8cbf-d341d725be44")
 	)
-	(text "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station."
+	(text "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns"
 		(exclude_from_sim no)
-		(at 218.44 530.86 0)
+		(at 218.44 522.94 0)
 		(effects
 			(font
 				(size 1.2 1.2)
 			)
 			(justify left)
 		)
-		(uuid "8492e2b9-ae68-50ae-8baa-a0657e9891a4")
+		(uuid "83b7a2b2-020b-5f62-8cc3-702026b041e4")
 	)
 	(text "±4 V"
 		(exclude_from_sim no)
@@ -3670,6 +3865,28 @@
 			(justify left)
 		)
 		(uuid "8878cf16-7428-5587-a6d5-315b4b39f92e")
+	)
+	(text "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to"
+		(exclude_from_sim no)
+		(at 218.44 525.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "92cb0254-c824-5e01-adb5-bf568baf3e43")
+	)
+	(text "VAR C: external tuning C"
+		(exclude_from_sim no)
+		(at 228.6 459.74 0)
+		(effects
+			(font
+				(size 1.1 1.1)
+			)
+			(justify right)
+		)
+		(uuid "92d33a94-d714-5c3a-a253-d17ecc0e8506")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -3962,6 +4179,17 @@
 		)
 		(uuid "cc814ef5-3ed9-5e33-b198-db9a0c1daaa1")
 	)
+	(text "0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air"
+		(exclude_from_sim no)
+		(at 218.44 528.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "cfe7e6b1-e635-5035-958d-7cd7f78e0b2a")
+	)
 	(text "tutorial RC and LC circuits, Control at the speed of the cable"
 		(exclude_from_sim no)
 		(at 599.44 37.08 0)
@@ -4049,6 +4277,17 @@
 			(justify left)
 		)
 		(uuid "df53d811-5381-5da9-900a-69bcfdde1525")
+	)
+	(text "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware."
+		(exclude_from_sim no)
+		(at 218.44 530.86 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "df8717dc-a972-5bb4-9a71-66350959ba44")
 	)
 	(text "IN"
 		(exclude_from_sim no)
@@ -4294,17 +4533,6 @@
 			(justify left)
 		)
 		(uuid "fd2a205d-a245-5ebe-b34d-09bee30471b4")
-	)
-	(text "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to"
-		(exclude_from_sim no)
-		(at 218.44 528.22 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "fd2cc83e-e68f-522c-9810-4ce271d75cd7")
 	)
 	(junction
 		(at 255.27 60.96)
@@ -4874,6 +5102,16 @@
 	)
 	(wire
 		(pts
+			(xy 243.84 462.28) (xy 243.84 464.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d4d9d92-620e-5235-b4f5-ac5b13cbf983")
+	)
+	(wire
+		(pts
 			(xy 231.14 335.28) (xy 233.68 335.28)
 		)
 		(stroke
@@ -5011,6 +5249,16 @@
 			(type default)
 		)
 		(uuid "198c3084-fa9d-59d4-8382-284d225fa105")
+	)
+	(wire
+		(pts
+			(xy 241.3 459.74) (xy 246.38 459.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1bcb5ead-bd90-57af-8f6f-d9d628a4b2b4")
 	)
 	(wire
 		(pts
@@ -6734,6 +6982,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.3 462.28) (xy 243.84 462.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c37b1801-4b0b-5e94-b7fe-e95122495dc3")
+	)
+	(wire
+		(pts
 			(xy 292.1 309.88) (xy 293.37 309.88)
 		)
 		(stroke
@@ -7571,6 +7829,16 @@
 			(justify left)
 		)
 		(uuid "6effdca9-2827-5dde-b715-141cfe5acb7a")
+	)
+	(label "P13_HOT"
+		(at 246.38 459.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7869297d-a582-516b-8ff9-f31fd2ebeb39")
 	)
 	(label "P4_IN"
 		(at 619.76 60.96 0)
@@ -11960,6 +12228,109 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 236.22 459.74 0)
+		(mirror y)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3ca2ff01-9dfd-5a60-948d-b9e31c361964")
+		(property "Reference" "J1303"
+			(at 236.22 454.66 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VAR C"
+			(at 236.22 464.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "amod:TerminalBlock_KF301_1x02_P5.00mm"
+			(at 236.22 459.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 236.22 459.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 236.22 459.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C474881"
+			(at 236.22 459.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "MPN" "KF301-5.0-2P"
+			(at 236.22 459.74 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "c428dd3f-9181-5ee1-888c-ea6dba559509")
+		)
+		(pin "2"
+			(uuid "801bab28-f206-5aa3-808a-4a25cfae9f5c")
+		)
+		(instances
+			(project "amod_p"
+				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
+					(reference "J1303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_Coaxial")
 		(at 76.2 60.96 0)
 		(unit 1)
@@ -13007,6 +13378,84 @@
 			(project "amod_p"
 				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
 					(reference "MH4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 358.14 485.14 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "4994b1b1-d028-5d9c-9c42-cfe4c9198eb6")
+		(property "Reference" "#PWR13004"
+			(at 358.14 477.52 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 358.14 492.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 358.14 485.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 358.14 485.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" ""
+			(at 358.14 485.14 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ef56d958-07f6-5ebf-bc6d-f59914b4e6fb")
+		)
+		(instances
+			(project "amod_p"
+				(path "/9eb78eaa-30d0-5848-9a54-3294ec10adc7"
+					(reference "#PWR13004")
 					(unit 1)
 				)
 			)
@@ -23957,7 +24406,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 358.14 485.14 0)
+		(at 243.84 464.82 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -23967,7 +24416,7 @@
 		(dnp no)
 		(uuid "cd0e0a41-d83c-5f74-b7af-55cf0c769b59")
 		(property "Reference" "#PWR13003"
-			(at 358.14 477.52 0)
+			(at 243.84 457.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23978,7 +24427,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 358.14 492.76 0)
+			(at 243.84 472.44 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -23989,7 +24438,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 358.14 485.14 0)
+			(at 243.84 464.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24000,7 +24449,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 358.14 485.14 0)
+			(at 243.84 464.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -24011,7 +24460,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 358.14 485.14 0)
+			(at 243.84 464.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)

@@ -578,6 +578,14 @@ class SchCtx:
                 self.junction(xb, sp[pin][1])
         caps = [r for r, p in t.parts.items() if p.key.startswith("C0805")]
         self.fan_right(sp, ["8", "7", "6", "5"], caps, "1", sp["5"][1] + 17.78)
+        tv = [r for r, p in t.parts.items() if p.key == "TERM2"]
+        if tv:                                         # VAR C: an external tuning capacitor across the coil, beside the bank
+            vp = self.part(tv[0], x, y + 17.78, mirror="y", label_off=((0, -5.08), (0, 5.08)))
+            self.wire([vp["1"], (vp["1"][0] + 5.08, vp["1"][1])])
+            self.label("%s_HOT" % t.id, vp["1"][0] + 5.08, vp["1"][1])
+            self.wire([vp["2"], (vp["2"][0] + 2.54, vp["2"][1]), (vp["2"][0] + 2.54, vp["2"][1] + 2.54)])
+            self.gnd(vp["2"][0] + 2.54, vp["2"][1] + 2.54)
+            self.text("VAR C: external tuning C", vp["1"][0] - 12.7, vp["1"][1], 1.1, "right")
         jo = t.jacks[0]
         pj = self.jack(jo["ref"], x + 121.92, y + 35.56, "out", "OUT", jo["limit"])
         self.wire([tap, (tap[0] + 7.62, tap[1]), (tap[0] + 7.62, y + 35.56), pj])

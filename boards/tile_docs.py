@@ -126,12 +126,12 @@ DOCS["amod_p"] = {
         use="Ramp the DAC (or the host's LED output) into IN and read the LED loop's voltage; one DIP way at a time.",
         needs="Nothing (a dark room helps)."),
     "P13": dict(
-        does="An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors, its tap on the jack.",
+        does="An AM-band antenna: a ferrite-rod coil screwed into the terminal, tuned by four switched capacitors or an external tuning capacitor on VAR C, its tap on the jack.",
         chips=[], specs="With a 330 uH coil: 1.28 MHz (47 pF) down to 0.40 MHz (470 pF), and the sums between; the kit's 240 uH coil tunes about 17 % higher.",
-        limits="Stepped tuning (15 combinations), not a knob; a weak signal that needs A4's gain before the ADC.",
+        limits="The switches tune in 15 steps; continuous tuning needs a capacitor on VAR C (a polyvaricon and its dial are 20 mm square: no room on the tile).  A weak signal that needs A4's gain before the ADC.",
         experiments="Real AM stations; the resonance and Q of a loopstick; the tutorial's AM radio gateware.",
-        use="Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band.",
-        needs="An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C)."),
+        use="Coil ends to GND and HOT, its tap (if it has one) to TAP; rod along the bottom edge with two cable ties; OUT to AMOD-A's A4, A4 to the ADC; the DIP picks the band, or a tuning capacitor on VAR C (frame to GND) tunes within it.",
+        needs="An AM loopstick coil and two cable ties (kit: Atomic-29 240 uH loopstick, Panduit PLT1M-C); optionally a 365 pF tuning capacitor with a knob (kit: Amplified Parts single-section 365 pF)."),
 }
 
 # ------------------------------------------------------------------------------------------------------------ AMOD-A --

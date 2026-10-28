@@ -6239,11 +6239,12 @@
    "y0": 72.25,
    "w": 41.5,
    "h": 20.0,
-   "result": "with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)",
+   "result": "with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band); a variable capacitor on VAR C tunes between them",
    "notes": [
     "Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns",
     "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to",
-    "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station."
+    "0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air",
+    "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware."
    ],
    "top_pour": false,
    "fine": false,
@@ -6292,11 +6293,25 @@
      "hide_value": true
     },
     {
+     "ref": "J1303",
+     "key": "TERM2",
+     "value": "VAR C",
+     "x": 28.0,
+     "y": 15.2,
+     "rot": 180,
+     "pins": {
+      "1": "/P13_HOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
      "ref": "SW1301",
      "key": "DIP4",
      "value": "DIP4",
      "x": 25.0,
-     "y": 13.0,
+     "y": 5.4,
      "rot": 270,
      "pins": {
       "1": "/P13_HOT",
@@ -6315,8 +6330,8 @@
      "ref": "C1301",
      "key": "C0805 47pF",
      "value": "47p",
-     "x": 31.9,
-     "y": 9.9,
+     "x": 32.9,
+     "y": 1.6,
      "rot": 0,
      "pins": {
       "1": "/P13_C1",
@@ -6329,8 +6344,8 @@
      "ref": "C1302",
      "key": "C0805 100pF",
      "value": "100p",
-     "x": 31.9,
-     "y": 12.0,
+     "x": 32.9,
+     "y": 3.8,
      "rot": 0,
      "pins": {
       "1": "/P13_C2",
@@ -6343,8 +6358,8 @@
      "ref": "C1303",
      "key": "C0805 220pF",
      "value": "220p",
-     "x": 31.9,
-     "y": 14.1,
+     "x": 32.9,
+     "y": 6.035,
      "rot": 0,
      "pins": {
       "1": "/P13_C3",
@@ -6357,8 +6372,8 @@
      "ref": "C1304",
      "key": "C0805 470pF",
      "value": "470p",
-     "x": 31.9,
-     "y": 16.2,
+     "x": 32.9,
+     "y": 8.2,
      "rot": 0,
      "pins": {
       "1": "/P13_C4",
@@ -6389,18 +6404,13 @@
      "ref": "TP1302",
      "key": "TP",
      "value": "HOT",
-     "x": 25.0,
-     "y": 6.5,
+     "x": 37.0,
+     "y": 12.4,
      "rot": 0,
      "pins": {
       "1": "/P13_HOT"
      },
-     "label": [
-      2.4,
-      0,
-      "left",
-      0.8
-     ],
+     "label": null,
      "hide_value": false
     }
    ],
@@ -6418,15 +6428,40 @@
       ],
       [
        19.3,
-       11.095
+       10.8
+      ],
+      [
+       30.5,
+       10.8
+      ],
+      [
+       "J1303",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/P13_HOT",
+     [
+      [
+       19.3,
+       10.8
+      ],
+      [
+       19.3,
+       3.495
       ],
       [
        21.19,
-       11.095
+       3.495
       ],
       [
        21.19,
-       14.905
+       7.305000000000001
       ]
      ],
      0.35,
@@ -6439,15 +6474,15 @@
      [
       [
        28.81,
-       11.095
+       3.495
       ],
       [
        30.0,
-       11.095
+       3.495
       ],
       [
        30.0,
-       9.9
+       1.6
       ],
       [
        "C1301",
@@ -6464,15 +6499,15 @@
      [
       [
        28.81,
-       12.365
+       4.765000000000001
       ],
       [
-       30.3,
-       12.365
+       30.6,
+       4.765000000000001
       ],
       [
-       30.3,
-       12.0
+       30.6,
+       3.8
       ],
       [
        "C1302",
@@ -6489,15 +6524,7 @@
      [
       [
        28.81,
-       13.635
-      ],
-      [
-       30.3,
-       13.635
-      ],
-      [
-       30.3,
-       14.1
+       6.035
       ],
       [
        "C1303",
@@ -6514,15 +6541,15 @@
      [
       [
        28.81,
-       14.905
+       7.305000000000001
       ],
       [
        30.0,
-       14.905
+       7.305000000000001
       ],
       [
        30.0,
-       16.2
+       8.2
       ],
       [
        "C1304",
@@ -6584,12 +6611,16 @@
      "/P13_HOT",
      [
       [
-       21.19,
-       11.095
+       30.5,
+       10.8
       ],
       [
-       21.19,
-       6.5
+       33.9,
+       10.8
+      ],
+      [
+       33.9,
+       12.4
       ],
       [
        "TP1302",
@@ -6613,17 +6644,17 @@
      ],
      [
       [
-       34.0,
-       9.9
+       34.9,
+       1.6
       ],
       [
-       34.0,
-       8.4
+       34.9,
+       9.8
       ]
      ],
      [
-      0,
-      -1
+      1,
+      0
      ],
      null,
      false
@@ -6635,17 +6666,17 @@
      ],
      [
       [
-       34.0,
-       12.0
+       34.9,
+       3.8
       ],
       [
-       34.0,
-       8.4
+       34.9,
+       9.8
       ]
      ],
      [
-      0,
-      -1
+      1,
+      0
      ],
      null,
      false
@@ -6657,17 +6688,17 @@
      ],
      [
       [
-       34.0,
-       14.1
+       34.9,
+       6.035
       ],
       [
-       34.0,
-       8.4
+       34.9,
+       9.8
       ]
      ],
      [
-      0,
-      -1
+      1,
+      0
      ],
      null,
      false
@@ -6679,17 +6710,17 @@
      ],
      [
       [
-       34.0,
-       16.2
+       34.9,
+       8.2
       ],
       [
-       34.0,
-       8.4
+       34.9,
+       9.8
       ]
      ],
      [
-      0,
-      -1
+      1,
+      0
      ],
      null,
      false
@@ -6709,12 +6740,28 @@
      ],
      null,
      false
+    ],
+    [
+     [
+      "J1303",
+      "2"
+     ],
+     [
+      23.3,
+      15.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
     ]
    ],
    "texts": [
     [
-     35.1,
-     9.9,
+     35.7,
+     1.6,
      "1: 47p",
      0.8,
      0.15,
@@ -6722,8 +6769,8 @@
      0
     ],
     [
-     35.1,
-     12.0,
+     35.7,
+     3.8,
      "2: 100p",
      0.8,
      0.15,
@@ -6731,8 +6778,8 @@
      0
     ],
     [
-     35.1,
-     14.1,
+     35.7,
+     6.035,
      "3: 220p",
      0.8,
      0.15,
@@ -6740,8 +6787,8 @@
      0
     ],
     [
-     35.1,
-     16.2,
+     35.7,
+     8.2,
      "4: 470p",
      0.8,
      0.15,
@@ -6776,6 +6823,24 @@
      0
     ],
     [
+     25.5,
+     20.8,
+     "GND",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     30.5,
+     20.8,
+     "HOT",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
      11.5,
      2.4,
      "P13",
@@ -6783,19 +6848,38 @@
      0.3,
      "center",
      0
-    ],
-    [
-     40.3,
-     18.6,
-     "AM LOOPSTICK 0.5-1.7 MHz",
-     0.9,
-     0.17,
-     "right",
-     0
     ]
    ],
-   "infos": [],
-   "titles": [],
+   "infos": [
+    {
+     "lines": [
+      "VAR C",
+      "OPTIONAL"
+     ],
+     "near": [
+      35.0,
+      15.8
+     ],
+     "size": 0.8,
+     "justify": "left",
+     "reach": 30.0
+    },
+    {
+     "lines": [
+      "0.5-1.7 MHz"
+     ],
+     "near": [
+      41.0,
+      18.6
+     ],
+     "size": 0.8,
+     "justify": "right",
+     "reach": 30.0
+    }
+   ],
+   "titles": [
+    "AM LOOPSTICK"
+   ],
    "slots": [],
    "voids": []
   }
@@ -6821,7 +6905,7 @@
  "back_text": [
   "AMOD-P: passive building blocks for the FPGA tutorial's converters.  Each tile is one circuit with its own SMA jacks:",
   "cable DAC OUT to a tile's IN and its OUT to ADC IN.  Every jack takes +-4 V.  No power.  The handbook has each tile's",
-  "expected response.  P13 wants a ferrite-rod coil (about 330 uH) along this edge, under cable ties through the slots."
+  "expected response.  P13: a 330 uH ferrite-rod coil along this edge, under cable ties; a tuning capacitor on VAR C."
  ],
  "slots": [
   [

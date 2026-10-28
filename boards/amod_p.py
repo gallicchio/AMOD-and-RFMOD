@@ -370,41 +370,53 @@ def tile_p12():
 
 def tile_p13():
     """An AM loopstick: a 3-way terminal for the ferrite rod's coil (ends and tap), 47 / 100 / 220 / 470 pF across it on a
-    4-way DIP, the jack on the tap; the rod lies along the board's bottom edge under two pairs of cable-tie slots.  The
-    terminal's pins are named in the margin below it, where the wires come in."""
+    4-way DIP, a 2-way terminal beside it for an external tuning capacitor (VAR C, in parallel with the switched ones), the
+    jack on the tap; the rod lies along the board's bottom edge under two pairs of cable-tie slots.  Both terminals take
+    their wires from the bottom edge, and their pins are named in the margin below them.  The DIP and its capacitors fill
+    the right cell's top half: each capacitor's wire leaves its switch pad and turns up or down to its row (the top pad's
+    wire outermost, so none cross)."""
     t = Tile("P13", "AM loopstick", [(1, 3), (2, 3)], subtitle="0.5-1.7 MHz", sections=["An AM radio"])
     idx = t.idx
     jack = t.jack("TL", "OUT", "TAP", "out", "to A4")
     j = t.add("J", "TERM3", "coil", 10.5, 15.2, 180, {"1": "HOT", "2": "TAP", "3": "GND"}, hide_value=True)     # wires enter from the bottom edge
-    sw = t.add("SW", "DIP4", "DIP4", 25.0, 13.0, 270, {"1": "HOT", "2": "HOT", "3": "HOT", "4": "HOT", "5": "C4", "6": "C3", "7": "C2", "8": "C1"}, hide_value=True)
-    pads = dip_pads(4, 25.0, 13.0, 270)
-    t.wire("HOT", [(j, "1"), (19.3, 15.2), (19.3, pads["1"][1]), pads["1"], pads["4"]])
-    rows = (9.9, 12.0, 14.1, 16.2)
-    xj = (30.0, 30.3, 30.3, 30.0)
+    jv = t.add("J", "TERM2", "VAR C", 28.0, 15.2, 180, {"1": "HOT", "2": "GND"}, hide_value=True)              # pad 1 at x 30.5, pad 2 at 25.5
+    sw = t.add("SW", "DIP4", "DIP4", 25.0, 5.4, 270, {"1": "HOT", "2": "HOT", "3": "HOT", "4": "HOT", "5": "C4", "6": "C3", "7": "C2", "8": "C1"}, hide_value=True)
+    pads = dip_pads(4, 25.0, 5.4, 270)
+    t.wire("HOT", [(j, "1"), (19.3, 15.2), (19.3, 10.8), (30.5, 10.8), (jv, "1")])
+    t.wire("HOT", [(19.3, 10.8), (19.3, pads["1"][1]), pads["1"], pads["4"]])
+    rows = (1.6, 3.8, 6.035, 8.2)
+    xj = (30.0, 30.6, None, 30.0)                      # the turns: C1 up and C4 down at 30.0, C2 up at 30.6, C3 straight across
     for k, (val, key) in enumerate((("47p", "C0805 47pF"), ("100p", "C0805 100pF"), ("220p", "C0805 220pF"), ("470p", "C0805 470pF")), 1):
         px, py = pads[str(9 - k)]
         ry = rows[k - 1]
-        c = t.add("C", key, val, 31.9, ry, 0, {"1": "C%d" % k, "2": "GND"}, label=None)
-        t.wire("C%d" % k, [(px, py), (xj[k - 1], py), (xj[k - 1], ry), (c, "1")])
-        t.gnd_stub(c, "2", [(34.0, ry), (34.0, 8.4)], sym=(0, -1))
-        t.text(35.1, ry, "%d: %s" % (k, val), 0.8, 0.15, "left")
+        c = t.add("C", key, val, 32.9, ry, 0, {"1": "C%d" % k, "2": "GND"}, label=None)
+        if xj[k - 1] is None:
+            t.wire("C%d" % k, [(px, py), (c, "1")])
+        else:
+            t.wire("C%d" % k, [(px, py), (xj[k - 1], py), (xj[k - 1], ry), (c, "1")])
+        t.gnd_stub(c, "2", [(34.9, ry), (34.9, 9.8)], sym=(1, 0))
+        t.text(35.7, ry, "%d: %s" % (k, val), 0.8, 0.15, "left")
     t.gnd_stub(j, "3", (1.7, 15.2), sym=(0, -1))
+    t.gnd_stub(jv, "2", (23.3, 15.2), sym=(0, 0))      # under the terminal's body, beside its pad
     t.wire("TAP", [(j, "2"), (10.5, 10.2), (4.75, 10.2), (jack, "1")])
     a = t.loop("TAP", 14.0, 7.7, 0, "TAP", label_at=(2.4, 0, "left", 0.8))
     t.wire("TAP", [(10.5, 10.2), (14.0, 10.2), (a, "1")])
-    b = t.loop("HOT", 25.0, 6.5, 0, "HOT", label_at=(2.4, 0, "left", 0.8))
-    t.wire("HOT", [pads["1"], (pads["1"][0], 6.5), (b, "1")])
-    for x, s in ((5.5, "GND"), (10.5, "TAP"), (15.5, "HOT")):
+    b = t.loop("HOT", 37.0, 12.4, 0, "HOT")
+    t.wire("HOT", [(30.5, 10.8), (33.9, 10.8), (33.9, 12.4), (b, "1")])
+    for x, s in ((5.5, "GND"), (10.5, "TAP"), (15.5, "HOT"), (25.5, "GND"), (30.5, "HOT")):
         t.text(x, 20.8, s, 0.8, 0.15, "center")                    # in the margin below, where the wires come in
     t.text(11.5, T.ID_Y, t.id, 1.5, 0.3, "center")
-    t.text(40.3, T.NAME_Y, "AM LOOPSTICK 0.5-1.7 MHz", 0.9, 0.17, "right")
+    t.titles.append("AM LOOPSTICK")
+    t.info(["VAR C", "OPTIONAL"], near=(35.0, 15.8))
+    t.info(["0.5-1.7 MHz"], near=(41.0, 18.6), justify="right")
     import numpy as np
     L = 330e-6
     t.sim["f_res"] = {k: 1 / (2 * np.pi * np.sqrt(L * c)) for k, c in (("1", 47e-12), ("2", 100e-12), ("3", 220e-12), ("4", 470e-12), ("3+4", 690e-12), ("all", 837e-12))}
-    t.result = "with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band)"
+    t.result = "with a 330 uH loopstick: 1.28 MHz on 1, 0.88 on 2, 0.59 on 3, 0.40 MHz on 4, and the sums between (the AM band); a variable capacitor on VAR C tunes between them"
     t.notes = ["Any ferrite-rod AM antenna coil (about 330 uH; 50 to 100 mm long) screws into the terminal, its tap (a quarter of the turns",
                "from the ground end) to the jack.  The switch's capacitors tune it: f = 1 / (2 pi sqrt(L C)), 1.28 MHz with 47 pF down to",
-               "0.40 MHz with 470 pF; combine positions for the steps between.  Into A4's LNA and the tutorial's AM radio gateware: a real station."]
+               "0.40 MHz with 470 pF; combine positions for the steps between.  VAR C takes an external tuning capacitor (a 365 pF air",
+               "variable with a big knob tunes the whole band alone, switches off); its frame to GND.  Into A4's LNA and the AM radio gateware."]
     t.sch_draw = lambda ctx, tt: ctx.loopstick(tt)
     return t
 
@@ -422,7 +434,7 @@ SLOTS = [(30.0, 92.9), (30.0, 98.6), (70.0, 92.9), (70.0, 98.6)]
 FRONT_TEXT = [(50.0, 96.0, "ferrite rod along this edge, cable ties through the slots")]
 BACK_TEXT = ["AMOD-P: passive building blocks for the FPGA tutorial's converters.  Each tile is one circuit with its own SMA jacks:",
              "cable DAC OUT to a tile's IN and its OUT to ADC IN.  Every jack takes +-4 V.  No power.  The handbook has each tile's",
-             "expected response.  P13 wants a ferrite-rod coil (about 330 uH) along this edge, under cable ties through the slots."]
+             "expected response.  P13: a 330 uH ferrite-rod coil along this edge, under cable ties; a tuning capacitor on VAR C."]
 
 
 if __name__ == "__main__":
