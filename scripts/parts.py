@@ -23,13 +23,13 @@ BOARDS = {
     "amod_a": dict(stem="amod_a", name="AMOD-A", title="AMOD-A: active building blocks on USB-C power", layers=4,
                    subtitle="gain blocks, an HF LNA, a 10.5 GHz Doppler radar, a one-pin ADC, a 74HC4046 PLL, heat, a mixer, impedance, ultrasound, audio"),
     "rf_mod": dict(stem="rf_mod", name="RF-MOD", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
-                   subtitle="a quadrature transmitter, a synthesizer, two mixers, an LNA and a gain block, two filters, a splitter, power and a 25 MHz reference",
+                   subtitle="a quadrature transmitter, a synthesizer, three mixers (one a diode ring), an LNA and a gain block, two filters, power and a 25 MHz reference",
                    fine=True, rf=True, what="the RF board", power_nets=["GND", "+5V", "+3V3", "+8V"]),
     "amod_2": dict(stem="amod_2", name="AMOD-2", title="AMOD-2: HF, magnetic resonance and the reflectometer", layers=4,
                    subtitle="a pulse amplifier and duplexer, an HF receiver, VLF loops, a bridge, coupled resonators, a coil driver, noise, a laser driver",
                    fine=True, rf=False, what="the second-level HF board", power_nets=["GND", "+5V", "-5V", "+15V", "-15V", "+3V3"]),
     "rf_mod_2": dict(stem="rf_mod_2", name="RF-MOD-2", title="RF-MOD-2: coherent I/Q and microwave physics", layers=4,
-                   subtitle="an I/Q modulator and demodulator, a synthesizer and splitter, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop",
+                   subtitle="an I/Q modulator and demodulator on one synthesizer, a directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop",
                    fine=True, rf=True, what="the second-level RF board", power_nets=["GND", "+5V", "-5V"]),
 }
 BOARDS["amod_p"].update(fine=False, rf=False, what="the passive board", power_nets=["GND"])
@@ -357,7 +357,7 @@ PASSIVES = {
     "L1210 150uH": dict(lcsc="C250237", mpn="NLCV32T-151K-EF", jlc_type="extended", stock=10151, price=0.0482, note="TDK, 6.1 ohm, 100 mA, shielded"),
     # --- RF-MOD (stock 2026-10-25 08:02): 0402 for the synthesizer, C0G in every signal path ---
     "C0402 100pF": dict(lcsc="C1546", mpn="0402CG101J500NT", jlc_type="basic", stock=3331448, price=0.0033, note="C0G: the RF blocks and the loop filter's C3"),
-    "R0402 18R": dict(lcsc="C25084", mpn="0402WGF180JTCE", jlc_type="extended", stock=126992, price=0.0013, note="the splitter's three legs (50/3 = 16.7)"),
+    "R0402 18R": dict(lcsc="C25084", mpn="0402WGF180JTCE", jlc_type="extended", stock=126992, price=0.0013, note="no longer used (the splitters became a mixer and a coupler)"),
     "R0402 0R": dict(lcsc="C17168", mpn="0402WGF0000TCE", jlc_type="basic", stock=8603414, price=0.0011, note="the mixer's LO series element (a 3-8 nH inductor per band)"),
     "C0402 15pF": dict(lcsc="C1548", mpn="0402CG150J500NT", jlc_type="basic", stock=1035905, price=0.0038, note="C0G: the mixer's diplexer"),
     "L0402 47nH": dict(lcsc="C192855", mpn="LQW15AN47NJ00D", jlc_type="extended", stock=40459, price=0.0521, note="Murata LQW15: the mixer's diplexer"),

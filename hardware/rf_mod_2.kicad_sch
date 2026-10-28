@@ -9,7 +9,7 @@
 		(date "2026-10-25")
 		(rev "A")
 		(company "Board: Jason Gallicchio and Claude  |  open hardware, CERN-OHL-P-2.0  |  github.com/gallicchio/AMOD-and-RFMOD")
-		(comment 1 "an I/Q modulator and demodulator, a synthesizer and splitter, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop")
+		(comment 1 "an I/Q modulator and demodulator on one synthesizer, a directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop")
 		(comment 2 "Every tile is one circuit with its own SMA jacks; the board's silkscreen draws each tile's wires as they are laid.")
 		(comment 3 "Drawn by scripts/gen_sch.py from boards/rf_mod_2.py; the expected responses from sim/passive.py")
 	)

@@ -9,7 +9,7 @@
 		(date "2026-10-25")
 		(rev "A")
 		(company "Board: Jason Gallicchio and Claude  |  open hardware, CERN-OHL-P-2.0  |  github.com/gallicchio/AMOD-and-RFMOD")
-		(comment 1 "a quadrature transmitter, a synthesizer, two mixers, an LNA and a gain block, two filters, a splitter, power and a 25 MHz reference")
+		(comment 1 "a quadrature transmitter, a synthesizer, three mixers (one a diode ring), an LNA and a gain block, two filters, power and a 25 MHz reference")
 		(comment 2 "Every tile is one circuit with its own SMA jacks; the board's silkscreen draws each tile's wires as they are laid.")
 		(comment 3 "Drawn by scripts/gen_sch.py from boards/rf_mod.py; the expected responses from sim/passive.py")
 	)

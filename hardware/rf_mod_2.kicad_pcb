@@ -47792,10 +47792,10 @@
 			(justify left)
 		)
 	)
-	(gr_text "an I/Q modulator and demodulator, a synthesizer and splitter, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop"
+	(gr_text "an I/Q modulator and demodulator on one synthesizer, a directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop"
 		(at 50 5.4 0)
 		(layer "F.SilkS")
-		(uuid "7fa805b6-d407-58e3-95a7-b92ad8c6add1")
+		(uuid "3a38e2c0-990b-5fd9-807e-26c4701ada69")
 		(effects
 			(font
 				(size 0.8 0.8)
