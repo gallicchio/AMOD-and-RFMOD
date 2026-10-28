@@ -1,7 +1,7 @@
 # The student kit: what the boards need that is on none of them
 
 Everything machine-placed is on the boards.  This is what one bench needs beside the ECP5-2ADC-2DAC board and one
-each of AMOD-P, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (AMOD-2 and
+each of AMOD-P, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (PhMOD and
 RF-MOD-2) add is in its own section at the end.  Every product was chosen in stock and
 shipping to a US address on **2026-10-25**.  "Page" means the price and stock were read on the vendor's product page
 that day.  "Snippet" means the vendor's page would not load for a script (Digi-Key and Mouser block them) and the
@@ -111,12 +111,12 @@ These are for the RH-5019 test loops, straight into a scope input.  A 10x probe 
 Pomona's 3788 is BNC **female** and needs a BNC cable.  The long-cable experiments' coax is in the tutorial's
 Appendix D, "Long cables".
 
-## For the second-level boards (AMOD-2 and RF-MOD-2)
+## For the second-level boards (PhMOD and RF-MOD-2)
 
 Read on 2026-10-25 as above.  Thorlabs' prices and US-warehouse stock came from its store's own product data;
 Remington's from its store's options service.  Several items are per lab rather than per bench (marked).
 
-### AMOD-2: NMR and ESR
+### PhMOD: NMR and ESR
 
 | item | tile | qty | product | unit price | stock as read | source |
 |---|---|---|---|---|---|---|
@@ -138,7 +138,7 @@ Remington's from its store's options service.  Several items are per lab rather 
 - **The magnet:** NdFeB drifts about 0.12 % per kelvin, about 20 kHz per kelvin at 17 MHz: track the Larmor frequency
   or hold the temperature.  Each cube pulls 23 lb: build the ring in a jig, wear eye protection, keep pacemakers away.
 
-### AMOD-2: radio
+### PhMOD: radio
 
 | item | tile | qty | product | unit price | stock as read | source |
 |---|---|---|---|---|---|---|

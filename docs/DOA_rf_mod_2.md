@@ -20,7 +20,7 @@ bench test must confirm.  The ones marked **order gate** must be confirmed befor
    the input, 1 the output, 4 the coupled port, 6 the isolated port (51 ohm), 2 and 5 ground.  Confirm TDK's direction
    mark sits at the input end of each (the first one's toward IN, the second one's toward OUT): a turned coupler swaps
    FWD and REFL with its terminated port, and that jack reads nothing.
-5. **MMBT3904 and TPS22917 (X7).** As AMOD-2's Y9: the base on -5 V, the emitter the noise node; the load switch's ON
+5. **MMBT3904 and TPS22917 (X7).** As PhMOD's Y9: the base on -5 V, the emitter the noise node; the load switch's ON
    from IO6.
 6. **The stack.**  The 50 ohm lines assume JLC04161H-7628, as RF-MOD.  Choose that stack in the order.
 7. **X9's loop** has no copper on any layer within 2 mm (rule areas): check the inner-layer gerbers show the hole.

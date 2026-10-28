@@ -25,9 +25,9 @@ BOARDS = {
     "rf_mod": dict(stem="rf_mod", name="RF-MOD", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
                    subtitle="a quadrature transmitter, a synthesizer, three mixers (one a diode ring), an LNA and a gain block, two filters, power and a 25 MHz reference",
                    fine=True, rf=True, what="the RF board", power_nets=["GND", "+5V", "+3V3", "+8V"]),
-    "amod_2": dict(stem="amod_2", name="AMOD-2", title="AMOD-2: HF, magnetic resonance and the reflectometer", layers=4,
+    "phmod": dict(stem="phmod", name="PhMOD", title="PhMOD: magnetic resonance, the ionosphere and light", layers=4,
                    subtitle="a pulse amplifier and duplexer, an HF receiver, VLF loops, a bridge, coupled resonators, a coil driver, noise, a laser driver",
-                   fine=True, rf=False, what="the second-level HF board", power_nets=["GND", "+5V", "-5V", "+15V", "-15V", "+3V3"]),
+                   fine=True, rf=False, what="the physics board", power_nets=["GND", "+5V", "-5V", "+15V", "-15V", "+3V3"]),
     "rf_mod_2": dict(stem="rf_mod_2", name="RF-MOD-2", title="RF-MOD-2: coherent I/Q and microwave physics", layers=4,
                    subtitle="an I/Q modulator and demodulator on one synthesizer, a directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop",
                    fine=True, rf=True, what="the second-level RF board", power_nets=["GND", "+5V", "-5V"]),
@@ -228,7 +228,7 @@ PARTS = {
     "TPS22917": dict(value="TPS22917", mpn="TPS22917DBVR", lcsc="C2681320", jlc_type="extended", process="SMT", stock=37270, price=0.3653,
                      footprint="Package_TO_SOT_SMD:SOT-23-6", symbol="Power_Management:TPS22917DBV", match=["TPS22917"],
                      desc="TI load switch, 80 mOhm, ON is a logic input (1 V high) with a smart pull-down: the noise source's on/off from a Pmod line (1 VIN, 2 GND, 3 ON, 4 CT, 5 QOD, 6 VOUT)"),
-    # ---- AMOD-2 (stock 2026-10-25 15:40) ----
+    # ---- PhMOD, AMOD-2 until Prompt 17 (stock 2026-10-25 15:40) ----
     "TPS65131": dict(value="TPS65131", mpn="TPS65131RGER", lcsc="C87663", jlc_type="extended", process="SMT", stock=2273, price=2.8786,
                      footprint="Package_DFN_QFN:QFN-24-1EP_4x4mm_P0.5mm_EP2.7x2.7mm", symbol="Regulator_Switching:TPS65131RGE", match=["TPS65131"],
                      desc="TI dual boost and inverter, +-15 V at about 200 mA from 5 V (the PA's rails), 1.25 MHz, VQFN-24 4 x 4"),
@@ -399,7 +399,7 @@ PASSIVES = {
     "R0402 62R": dict(lcsc="C4962", mpn="0402WGF620JTCE", jlc_type="extended", stock=23081, price=0.0012, note="the noise source's 20 dB pad, shunt arms"),
     "R0402 240R": dict(lcsc="C25094", mpn="0402WGF2400TCE", jlc_type="extended", stock=96104, price=0.0016, note="the noise source's 20 dB pad, series arm"),
     "R0402 10R": dict(lcsc="C25077", mpn="0402WGF100JTCE", jlc_type="basic", stock=3477549, price=0.0012, note="the GNSS bias-T's series resistor"),
-    # --- AMOD-2 (stock 2026-10-25 15:40) ---
+    # --- PhMOD (stock 2026-10-25 15:40) ---
     "R0402 1M": dict(lcsc="C26083", mpn="0402WGF1004TCE", jlc_type="basic", stock=2376615, price=0.0015, note="the +15 V divider (1 M / 88.7 k: 14.9 V)"),
     "R0402 88.7k": dict(lcsc="C25922", mpn="0402WGF8872TCE", jlc_type="extended", stock=83563, price=0.0016),
     "R0402 1.3M": dict(lcsc="C423245", mpn="0402WGF1304TCE", jlc_type="extended", stock=14447, price=0.0005, note="the -15 V divider (1.3 M / 105 k)"),

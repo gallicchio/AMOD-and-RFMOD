@@ -345,7 +345,7 @@ DOCS["rf_mod_2"] = {
         chips=[], specs="About 50 uT (0.5 G) at its centre for +20 dBm through it into 50 ohm; DC-6 GHz, no tuning; a Rabi frequency near 1 MHz.",
         limits="Needs watts-level drive for fast Rabi oscillations; the NV diamond is expensive; copper is cleared round it on every layer.",
         experiments="The ODMR dip at 2.87 GHz, its Zeeman splitting (a magnetometer), Rabi oscillations, a Ramsey sequence.",
-        use="X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (AMOD-2's Y10), red light to a photodiode on an ADC.",
+        use="X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (PhMOD's Y10), red light to a photodiode on an ADC.",
         needs="An NV diamond (kit: Thorlabs DNVB14 or DNVB1, per lab), a 532 nm laser (CPS532), a 600 nm long-pass filter, a 0.7-3.5 GHz amplifier (ZRL-3500+), a 1 W 50 ohm load, a magnet, laser goggles."),
     "X10": dict(
         does="Power: 5 V from USB-C and -5 V made from it.",
@@ -359,8 +359,8 @@ DOCS["rf_mod_2"] = {
         use="IO5 high and IO8 low: RFC to RF1; IO5 low and IO8 high: RFC to RF2.", needs=NOTHING),
 }
 
-# ------------------------------------------------------------------------------------------------------------ AMOD-2 --
-DOCS["amod_2"] = {
+# ------------------------------------------------------------------------------------------------------------- PhMOD --
+DOCS["phmod"] = {
     "Y1": dict(
         does="Power: 5 V from USB-C, and -5 V and +-15 V made from it (the +-15 V for the pulse amplifier).",
         chips=["TPS65131", "LM2664"], specs="+5 V up to 2 A; -5 V at 40 mA; +15 V and -15 V at about 150 mA each; LEDs: green 5 V, red -5 V, yellow +15 V.",

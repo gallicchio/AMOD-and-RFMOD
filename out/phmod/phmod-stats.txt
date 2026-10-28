@@ -1,0 +1,63 @@
+PCB statistics report
+=====================
+- Date: 2026-10-25
+- Project: phmod
+- Board name: phmod
+
+Board
+-----
+- Width: 100.0000 mm
+- Height: 100.0000 mm
+- Area: 9992.261 mm²
+- Front copper area: 1438.361 mm²
+- Back copper area: 9268.243 mm²
+- Min track clearance: 0.2000 mm
+- Min track width: 0.1500 mm
+- Min drill diameter: 0.2500 mm
+- Board stackup thickness: 1.6000 mm
+
+- Front footprint area: 3349.527 mm²
+- Back footprint area: 694.666 mm²
+- Front component density: 33.52 %
+- Back component density: 6.95 %
+Pads
+----
+- Through hole: 150
+- SMD: 583
+- Connector: 0
+- NPTH: 18
+- Castellated: 0
+- Press-fit: 0
+
+Vias
+----
+- Through vias: 203
+- Blind vias: 0
+- Buried vias: 0
+- Micro vias: 0
+
+Components
+----------
+
+|              | Front Side | Back Side | Total |
+|--------------|------------|-----------|-------|
+|THT:          |         29 |         0 |    29 |
+|SMD:          |        205 |         0 |   205 |
+|Unspecified:  |          0 |         0 |     0 |
+|Total:        |        234 |         0 |   234 |
+
+Drill holes
+-----------
+
+| Count | Shape |    X Size |    Y Size | Plated | Via/Pad | Start Layer | Stop Layer |
+|-------|-------|-----------|-----------|--------|---------|-------------|------------|
+|   140 | Round | 0.2500 mm | 0.2500 mm |    PTH |     Via |        F.Cu |       B.Cu |
+|   104 | Round | 1.5000 mm | 1.5000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|    63 | Round | 0.3000 mm | 0.3000 mm |    PTH |     Via |        F.Cu |       B.Cu |
+|    26 | Round | 1.3500 mm | 1.3500 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|    16 |  Slot | 0.9000 mm | 1.4500 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|    12 | Round | 1.1000 mm | 1.1000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     4 | Round | 1.4000 mm | 1.4000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     2 | Round | 0.6500 mm | 0.6500 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
+|     2 |  Slot | 0.6000 mm | 1.7000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
+|     2 |  Slot | 0.6000 mm | 1.2000 mm |    PTH |     Pad |        F.Cu |       B.Cu |

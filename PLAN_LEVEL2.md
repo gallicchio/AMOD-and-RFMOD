@@ -1,4 +1,4 @@
-# The second level: AMOD-2 and RF-MOD-2, and the first level checked again
+# The second level: PhMOD (AMOD-2 until Prompt 17) and RF-MOD-2, and the first level checked again
 
 Prompt 13 (2026-10-25): check that the first AMOD and RF-MOD boards hold the right things to build first, then fill
 the second-level boards with the most interesting RF physics and communications experiments.  Prompt 13's
@@ -32,7 +32,7 @@ AMOD-P is unchanged: every tile serves a tutorial page and nothing on the host d
 stay although the host has x10 and x100 inputs: they are 50 Ohm drivers with more bandwidth, and the op-amp tiles the
 tutorial measures.
 
-## 3. AMOD-2: HF, magnetic resonance and the reflectometer (as built, rev A)
+## 3. PhMOD (AMOD-2 until Prompt 17): magnetic resonance, the ionosphere and light (as built, rev A)
 
 DC to 30 MHz is where the host's converters sample directly, and where most of the RF physics a student can touch
 lives: nuclear and electron spin resonance, the ionosphere (VLF transmitters, sferics, WWV, the HF bands), coupled
@@ -69,7 +69,7 @@ Pmod (the plug on Y5's bottom edge): IO1 Y2's PD, IO5 Y10's shunt, IO6 and IO7 Y
 IO2-IO4 spare.  IO1 and IO5 run on the front up the gutter at x 50.0 and 50.4, IO6 and IO7 on the back along the
 bottom edge and across the top of Y6, IO8 round the left and top margins.
 
-**What it opens, with the host:** see `docs/HANDBOOK_amod_2.md`, "The tiles together": pulsed NMR and one-dimensional
+**What it opens, with the host:** see `docs/HANDBOOK_phmod.md`, "The tiles together": pulsed NMR and one-dimensional
 MRI, Earth's-field NMR, ESR of DPPH, the ionosphere at HF and VLF, the Smith chart and time-domain reflectometry,
 normal modes, EIT and parametric gain, noise figure and transfer functions from noise, CPT and ODMR with a laser.
 
@@ -120,5 +120,5 @@ below 100 in stock; Jason accepted it (and 21) on 2026-10-25, and `check_outputs
 Appendix D's first AMOD-2 carried the experiments of an optics lab: the OPA462 piezo driver with its 60 and 150 V
 ranges, the bimorph cantilever with its shadow sensor (the Thorlabs PB4NB2W and PiezoDrive BA4010 recorded there),
 the TEC driver, the fast photodiode amplifier and the varactor-pulled crystal.  None is RF, and the second level is
-now RF; they are kept, with Jason's answers, as an optics board for later.  AMOD-2's coil driver also drives a TEC,
+now RF; they are kept, with Jason's answers, as an optics board for later.  PhMOD's coil driver also drives a TEC,
 and Y10 is the laser driver they would have shared.

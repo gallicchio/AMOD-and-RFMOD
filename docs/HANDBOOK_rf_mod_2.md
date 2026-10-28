@@ -38,7 +38,7 @@ coherent I/Q transceiver from 0.4 to 6 GHz whose baseband is the ECP5 board's 30
 3. **Radar.**  X3 stepped (or X1 chirped), X1's RF OUT to one antenna, X2's RF IN on another: a stepped-frequency or FMCW
    radar whose range bins are an FFT of X2's samples, and whose phase gives millimetre motion (breathing, a pendulum).
 4. **Diamond NV centres (ODMR).**  X3 near 2.87 GHz through X1 (the DACs make the sweep and the modulation) and an amplifier
-   into X9's loop under a diamond plate; green light from AMOD-2's Y10 (pulsed with IO5) and a photodiode on an ADC: the
+   into X9's loop under a diamond plate; green light from PhMOD's Y10 (pulsed with IO5) and a photodiode on an ADC: the
    resonance dip, its Zeeman splitting under a magnet (a magnetometer), Rabi oscillations, a Ramsey sequence.
 5. **GNSS.**  An active antenna on X8 (bias on its centre pin, the MAX2659 and two SAW filters), X2's LO at 1575.42 MHz minus
    a few MHz, I and Q into the ADCs: GPS L1 C/A acquisition by correlation, Doppler and code phase, then a position fix.
@@ -251,7 +251,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>A one-turn, 1.6 mm loop in a 50 ohm through-line: the microwave field for optically detected magnetic resonance (ODMR) of NV centres in diamond.</b><br><br>
 <b>Jacks:</b> IN, top left (+30 dBm); OUT, bottom right.<br><br>
 <b>Expect:</b> a 50 ohm through line (the loop adds about 1.5 nH); at its centre about 50 uT (0.5 G) of microwave field for +20 dBm through it into 50 ohm, a Rabi frequency near 1 MHz for NV centres; twice that with OUT shorted<br><br>
-<b>How to use it:</b> X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (AMOD-2's Y10), red light to a photodiode on an ADC.<br><br>
+<b>How to use it:</b> X3 through X1 and an amplifier into IN; OUT to a 50 ohm load; the diamond on the loop, green light from above (PhMOD's Y10), red light to a photodiode on an ADC.<br><br>
 <b>You need:</b> An NV diamond (kit: Thorlabs DNVB14 or DNVB1, per lab), a 532 nm laser (CPS532), a 600 nm long-pass filter, a 0.7-3.5 GHz amplifier (ZRL-3500+), a 1 W 50 ohm load, a magnet, laser goggles. (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> About 50 uT (0.5 G) at its centre for +20 dBm through it into 50 ohm; DC-6 GHz, no tuning; a Rabi frequency near 1 MHz.<br><br>
 <b>Limits:</b> Needs watts-level drive for fast Rabi oscillations; the NV diamond is expensive; copper is cleared round it on every layer.<br><br>

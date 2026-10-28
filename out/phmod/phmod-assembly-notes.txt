@@ -1,0 +1,12 @@
+PhMOD -- notes for the assembler
+=====================================================
+
+PLACEMENTS
+  Use phmod_cpl_jlcpcb_upload.csv for JLCPCB.  It is phmod_cpl_kicad_native.csv
+  with JLCPCB's own per-part rotations applied; use the native file anywhere else.
+
+SMA jacks (J*) -- straight, through-hole, 5 pins: a square of four legs and a centre pin.  Any quarter turn fits.
+DIP switches (SW*) -- the sliders should move toward the side the silkscreen marks ON.
+Terminal blocks -- the wire openings face the board's edge.
+Diodes and LEDs -- polarised; the cathode is pad 1, at the end the silkscreen bar marks.
+Test loops (TP*) -- one pad each; the loop lies along the pad's long axis.

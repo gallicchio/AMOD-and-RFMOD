@@ -1236,7 +1236,7 @@ class Board:
         """The back: the name and the makers in the top margin, the user's notes in the bottom margin, the QR code
         under a cell with no holes in its lower half (every other place on the back has a jack's five holes)."""
         B = self.B
-        self._text(50, 2.6, B["name"].upper() + "   " + B["title"].split(":", 1)[1].strip(), 1.8, 0.3, layer=pcbnew.B_SilkS)
+        self._text(50, 2.6, B["name"] + "   " + B["title"].split(":", 1)[1].strip(), 1.8, 0.3, layer=pcbnew.B_SilkS)
         self._text(50, 5.2, "%s, rev %s, %s   %s" % (parts.AUTHORS, parts.REV, parts.DATE, parts.URL), 1.0, 0.15, layer=pcbnew.B_SilkS)
         lines = self.meta["back_text"]
         for i, line in enumerate(lines):

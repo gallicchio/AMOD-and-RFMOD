@@ -745,7 +745,7 @@ HANDBOOK_SECTIONS = [
      "3. **Radar.**  X3 stepped (or X1 chirped), X1's RF OUT to one antenna, X2's RF IN on another: a stepped-frequency or FMCW",
      "   radar whose range bins are an FFT of X2's samples, and whose phase gives millimetre motion (breathing, a pendulum).",
      "4. **Diamond NV centres (ODMR).**  X3 near 2.87 GHz through X1 (the DACs make the sweep and the modulation) and an amplifier",
-     "   into X9's loop under a diamond plate; green light from AMOD-2's Y10 (pulsed with IO5) and a photodiode on an ADC: the",
+     "   into X9's loop under a diamond plate; green light from PhMOD's Y10 (pulsed with IO5) and a photodiode on an ADC: the",
      "   resonance dip, its Zeeman splitting under a magnet (a magnetometer), Rabi oscillations, a Ramsey sequence.",
      "5. **GNSS.**  An active antenna on X8 (bias on its centre pin, the MAX2659 and two SAW filters), X2's LO at 1575.42 MHz minus",
      "   a few MHz, I and Q into the ADCs: GPS L1 C/A acquisition by correlation, Doppler and code phase, then a position fix.",

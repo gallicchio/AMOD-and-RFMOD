@@ -1,4 +1,4 @@
-# Design-review brief: AMOD-P, AMOD-A, RF-MOD, AMOD-2, RF-MOD-2 and the Icepi Pmod adapter, rev A (2026-10-25)
+# Design-review brief: AMOD-P, AMOD-A, RF-MOD, PhMOD (was AMOD-2), RF-MOD-2 and the Icepi Pmod adapter, rev A (2026-10-25)
 
 For a reviewer (a person or another model) who has not seen the night's work.  Read in this order, then answer the
 questions at the end with evidence (a datasheet page, a rule, a measurement), not opinion.
@@ -20,7 +20,7 @@ SAW filters, a QPL9547 LNA and a GALI-84+ gain block, power with a 7.8 V boost a
 ADL5350 mixers, a MAX2871 synthesizer with both of its complementary outputs on jacks and a TRF3722 quadrature transmitter on a Pmod (one complete link on one
 reference; `PLAN.md` section 6, `PLAN_LEVEL2.md` section 2).
 
-The second level is built for the ECP5-2ADC-2DAC board's two DACs and two ADCs (`PLAN_LEVEL2.md`).  AMOD-2 (four
+The second level is built for the ECP5-2ADC-2DAC board's two DACs and two ADCs (`PLAN_LEVEL2.md`).  PhMOD (AMOD-2 until Prompt 17; four
 layers, ten tiles, DC-30 MHz): a THS3491 1 W pulse amplifier on +-15 V from a TPS65131, NMR's passive duplexer with an
 OPA847 preamplifier, a DRV8876 coil driver, two LMH6629 receive channels, an OPA810 VLF loop amplifier, a 50 ohm
 reflection bridge, two passive coupled LC tanks with BB133 varactors, an avalanche-noise source and a laser driver with
@@ -33,8 +33,8 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 ## Where everything is
 
 - `PLAN.md`: the decisions with their reasons, the tile tables as built, the parts and the stock on the day.
-- `PLAN_LEVEL2.md`: the same for AMOD-2 and RF-MOD-2, with every change from their plan and its reason.
-- `boards/amod_p.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/amod_2.py`, `boards/rf_mod_2.py`: each tile's netlist, placement and wires in one place (the source of
+- `PLAN_LEVEL2.md`: the same for PhMOD and RF-MOD-2, with every change from their plan and its reason.
+- `boards/amod_p.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/rf_mod_2.py`: each tile's netlist, placement and wires in one place (the source of
   truth; the schematic and the board are generated from it and checked against it).
 - `scripts/parts.py`: every part with its LCSC code, checked against JLCPCB's API (`scripts/jlc_cache.json`
   keeps the answers and their times).
@@ -65,12 +65,12 @@ stock above 100 for every part on the day, except the ADL5380 (14), which Jason 
    in place of the datasheet's tuned tanks, the GALI-84+ bias (22 ohm from 7.8 V).
 7. **The two parts placed at 45 degrees on AMOD-P** (P8's HC-49S crystal, P9's ceramic resonator): their placement
    rotation in `out/amod_p/` against JLCPCB's preview.
-8. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A, RF-MOD, AMOD-2 and RF-MOD-2, the ECP5 board's and the adapter's
+8. **Every Pmod pin, on both mating halves** (the plugs on AMOD-A, RF-MOD, PhMOD and RF-MOD-2, the ECP5 board's and the adapter's
    sockets), by pad position against the body, not by pad number: rev A's first layout got this wrong once.
-9. **AMOD-2's power and pulse path:** the TPS65131's dividers and inductor choice, the THS3491's RGT pin table and
+9. **PhMOD's power and pulse path:** the TPS65131's dividers and inductor choice, the THS3491's RGT pin table and
    thermal pad (on ground), the +-15 V back tracks' width for Y2's peaks, Y3's crossed diodes against a 1 W pulse.
-10. **AMOD-2's analog tiles:** Y7's REFL = 2A - 2B with the OPA810 (bandwidth at 30 MHz), Y8's tank frequencies with the
-    BB133's C-V curve (`docs/DOA_amod_2.md` 5), Y10's loop stability (1 k / 10 nF integrator, 100 ohm into the AO3401's
+10. **PhMOD's analog tiles:** Y7's REFL = 2A - 2B with the OPA810 (bandwidth at 30 MHz), Y8's tank frequencies with the
+    BB133's C-V curve (`docs/DOA_phmod.md` 5), Y10's loop stability (1 k / 10 nF integrator, 100 ohm into the AO3401's
     gate) and its 100 mA/V scale, Y4's DRV8876 mode pins and IPROPI gain.
 11. **RF-MOD-2's front ends:** the ADL5375 baseband networks (0.5 V common mode, +-0.34 V swing), the ADL5380's output
     difference amplifiers, the three footprints drawn from JLCPCB's drawings (MAX2659, the 1109 SAW, SKY13370),
