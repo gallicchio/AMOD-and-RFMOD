@@ -4,7 +4,7 @@
 The BOM and CPL are written in the column layout JLCPCB expects, which
 NextPCB and CircuitHub also accept.
 """
-import csv, io, os, re, shutil, subprocess, sys, zipfile
+import csv, math, io, os, re, shutil, subprocess, sys, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import kienv, parts
 import geometry as G
@@ -120,6 +120,8 @@ def export_cpl(stem, bom_lines):
         for ref in line["Designator"].split(","):
             lcsc_of[ref.strip()] = line["LCSC Part #"]
 
+    moved = []
+
     def write(path, correct):
         turned = []
         with open(path, "w", newline="") as fh:
@@ -127,13 +129,22 @@ def export_cpl(stem, bom_lines):
             w.writerow(["Designator", "Mid X", "Mid Y", "Layer", "Rotation"])
             for r in rows:
                 rot = float(r["Rot"])
+                x, y = float(r["PosX"]), float(r["PosY"])
                 if correct:
-                    d = parts.JLC_ROTATION.get(lcsc_of.get(r["Ref"], ""), (0,))[0]
+                    code = lcsc_of.get(r["Ref"], "")
+                    dat = parts.JLC_DATUM.get(code)
+                    if dat and r["Side"].lower().startswith("t"):
+                        # their origin, turned with the part (KiCad's counter-clockwise on a y-down board); the CPL's y runs up
+                        c, s_ = math.cos(math.radians(rot)), math.sin(math.radians(rot))
+                        x += dat[0] * c + dat[1] * s_
+                        y -= -dat[0] * s_ + dat[1] * c
+                        moved.append(r["Ref"])
+                    d = parts.JLC_ROTATION.get(code, (0,))[0]
                     if d:
                         rot = (rot + d) % 360.0
                         turned.append(r["Ref"])
-                w.writerow([r["Ref"], f'{float(r["PosX"]):.4f}',
-                            f'{float(r["PosY"]):.4f}',
+                w.writerow([r["Ref"], f'{x:.4f}',
+                            f'{y:.4f}',
                             "Top" if r["Side"].lower().startswith("t")
                             else "Bottom", f'{rot:.1f}'])
         return turned
@@ -142,7 +153,7 @@ def export_cpl(stem, bom_lines):
     write(path, False)
     jlc = os.path.join(OUT, stem, f"{stem}_cpl_jlcpcb_upload.csv")
     turned = write(jlc, True)
-    return path, jlc, len(rows), turned
+    return path, jlc, len(rows), turned, moved
 
 
 def by_lcsc():
@@ -213,7 +224,11 @@ ASSEMBLY_NOTES = """{name} -- notes for the assembler
 
 PLACEMENTS
   Use {stem}_cpl_jlcpcb_upload.csv for JLCPCB.  It is {stem}_cpl_kicad_native.csv
-  with JLCPCB's own per-part rotations applied; use the native file anywhere else.
+  with JLCPCB's own per-part rotations applied, and the parts whose JLCPCB drawing has its
+  origin away from KiCad's (the USB-C, the SOT-89s, the slide switches, the pin headers)
+  moved to put that origin where it belongs; use the native file anywhere else.  Check in
+  the preview that every SOT-23 sits pin 1 where the silkscreen's dot is: JLCPCB draws them
+  turned 180 degrees from KiCad, and the upload file turns them back.
 
 SMA jacks (J*) -- straight, through-hole, 5 pins: a square of four legs and a centre pin.  Any quarter turn fits.
 DIP switches (SW*) -- the sliders should move toward the side the silkscreen marks ON.
@@ -354,14 +369,14 @@ def run(stem, layers):
     os.makedirs(os.path.join(OUT, stem), exist_ok=True)
     zpath, names = export_fab(stem, layers)
     bom, costed, lines, total, unknown = export_bom(stem)
-    cpl, jlc_cpl, ncpl, turned = export_cpl(stem, lines)
+    cpl, jlc_cpl, ncpl, turned, moved = export_cpl(stem, lines)
     notes_path = export_assembly_notes(stem)
     export_prints(stem, layers)
     made, skipped = export_images(stem, layers)
     print(f"  {stem}: {len(names)} gerber/drill files -> "
           f"{os.path.relpath(zpath, ROOT)}")
     print(f"  {stem}: {ncpl} placements -> {os.path.relpath(cpl, ROOT)}")
-    print(f"  {stem}: {len(turned)} of them turned for JLCPCB -> "
+    print(f"  {stem}: {len(turned)} of them turned and {len(moved)} moved to JLCPCB's origins -> "
           f"{os.path.relpath(jlc_cpl, ROOT)}")
     print(f"  {stem}: assembler's notes -> {os.path.relpath(notes_path, ROOT)}")
     print(f"  {stem}: {len(lines)} BOM lines, parts ${total:.2f}/board -> "

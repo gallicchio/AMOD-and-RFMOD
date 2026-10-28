@@ -6,7 +6,7 @@ worse, a wrong board: a BOM line with no order code, a placement that misses
 the board because the origins disagree, a part in the CPL that the BOM never
 mentions, a drill file with no holes.
 """
-import csv, os, re, sys, zipfile
+import csv, math, os, re, sys, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import parts, kienv
 import geometry as G
@@ -110,7 +110,8 @@ def check(stem, layers, w, h, problems, notes):
                  f"lines, all with order codes")
 
     # The JLC copy must be the same file, turned by exactly the amounts in the
-    # rotation table and by nothing else: same parts, same places, same sides.
+    # rotation table and moved by exactly the datums in parts.JLC_DATUM (turned
+    # with the part; the CPL's y runs up), and by nothing else.
     jlc_path = os.path.join(ROOT, "out", stem, f"{stem}_cpl_jlcpcb_upload.csv")
     if not os.path.exists(jlc_path):
         problems.append(f"{stem}: no JLCPCB-corrected placement file")
@@ -128,10 +129,13 @@ def check(stem, layers, w, h, problems, notes):
     turned = 0
     for ref, a in plain.items():
         b = jlc[ref]
-        if (a["Mid X"], a["Mid Y"], a["Layer"]) != (b["Mid X"], b["Mid Y"],
-                                                    b["Layer"]):
+        dat = parts.JLC_DATUM.get(lcsc_of.get(ref, ""), (0.0, 0.0))
+        r0 = math.radians(float(a["Rotation"]))
+        ex = float(a["Mid X"]) + dat[0] * math.cos(r0) + dat[1] * math.sin(r0)
+        ey = float(a["Mid Y"]) - (-dat[0] * math.sin(r0) + dat[1] * math.cos(r0))
+        if a["Layer"] != b["Layer"] or abs(float(b["Mid X"]) - ex) > 0.002 or abs(float(b["Mid Y"]) - ey) > 0.002:
             problems.append(f"{stem}: {ref} moved in the JLCPCB placement "
-                            f"file; only rotations may differ")
+                            f"file by other than its datum")
         want = (float(a["Rotation"])
                 + parts.JLC_ROTATION.get(lcsc_of.get(ref, ""), (0,))[0]) % 360.0
         diff = (float(b["Rotation"]) - want) % 360.0

@@ -262,14 +262,26 @@ class SchCtx:
         jin = [j for j in t.jacks if j["role"] == "in"]
         jout = [j for j in t.jacks if j["role"] != "in"]
         used_loops = set()
+        npins = {}
+        for _, _, n in t.netlist():
+            npins[n] = npins.get(n, 0) + 1
+
+        def jack_net(j, p, dx, justify):             # a label; a ground symbol for a jack shorted to ground; nothing on an open jack
+            if npins.get(j["net"], 0) <= 1:
+                self.s.no_connect(p[0], p[1])
+                return
+            self.wire([p, (p[0] + dx, y_sig)])
+            if j["net"] == "GND":
+                self.gnd(p[0] + dx, y_sig + 2.54)
+                self.wire([(p[0] + dx, y_sig), (p[0] + dx, y_sig + 2.54)])
+            else:
+                self.label(j["net"].lstrip("/"), p[0] + dx, y_sig, justify=justify)
         for i, j in enumerate(jin):
             p = self.jack(j["ref"], ox + 12.7 + i * 25.4, y_sig, "in", j["label"], j["limit"])
-            self.wire([p, (p[0] + 5.08, y_sig)])
-            self.label(j["net"].lstrip("/"), p[0] + 5.08, y_sig)
+            jack_net(j, p, 5.08, "left")
         for i, j in enumerate(jout):
             p = self.jack(j["ref"], ox + w - 25.4 - i * 25.4, y_sig, "out", j["label"], j["limit"])
-            self.wire([(p[0] - 5.08, y_sig), p])
-            self.label(j["net"].lstrip("/"), p[0] - 5.08, y_sig, justify="right")
+            jack_net(j, p, -5.08, "right")
         simple = ("Device:R_US", "Device:C", "Device:L", "Device:LED", "Diode:1N4148W", "Device:Crystal", "Device:FerriteBead",
                   "Device:Thermistor_NTC", "Device:D_Photo", "Device:Polyfuse", "Diode:SMAJ5.0A", "Device:C_Polarized")
         chips, twos, loops = [], [], []

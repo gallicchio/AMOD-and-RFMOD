@@ -208,19 +208,20 @@ HDR_VIA = (5.7, 19.05)       # the rail via between the switch's pads and the FE
 HDR_VS = (8.54, 18.1)        # where the tile's own rail starts: the drain
 
 
-def power_header(tile, rail="+5V", local="VS", dx=0.0):
+def power_header(tile, rail="+5V", local="VS", dx=0.0, pour=None):
     """A powered tile's switch at the standard places (HDR_*): the MSK12C02 standing along the left edge below the IN
     stub, its common (pad 2) to the P-FET's gate, pad 1 (slider up: ON) to ground and pad 3 to the rail, so the gate
     is either grounded (on) or at the source (off); the AO3401A at the switch's foot with its source on the rail
     through the via beside it and its drain the tile's own `local` rail, which the tile routes on from HDR_VS.
-    `dx` moves the whole header right (a two-cell tile whose left cell is busy).  Returns dict(sw, q)."""
+    `dx` moves the whole header right (a two-cell tile whose left cell is busy); `pour` says the rail is a pour under the
+    tile (the +5 V boards' L3; AMOD-P2's Pmod 3.3 V), reached by the via beside the FET.  Returns dict(sw, q)."""
     sx, sy = HDR_SW[0] + dx, HDR_SW[1]
     qx, qy = HDR_Q[0] + dx, HDR_Q[1]
     via = (HDR_VIA[0] + dx, HDR_VIA[1])
     sw = tile.add("SW", "SW_SLIDE", "ON", sx, sy, 270, {"1": "GND", "2": "G", "3": rail}, hide_value=True)
     q = tile.add("Q", "PFET", "AO3401A", qx, qy, 0, {"1": "G", "2": rail, "3": local}, hide_value=True)
     tile.gnd_stub(sw, "1", (sx + 1.95, sy - 0.75), sym=(0, 0))          # between pads 1 and 2, no symbol (the switch's own ground)
-    if rail == "+5V":                                                   # the pour under everything: the via beside the FET
+    if pour if pour is not None else rail == "+5V":                    # the pour under everything: the via beside the FET
         tile.via(rail, via[0], via[1])
         tile.wire(rail, [(sw, "3"), (via[0], sy + 2.25), via])
         tile.wire(rail, [(q, "2"), via])

@@ -495,7 +495,7 @@ JLC_ROTATION = {
     "C2296": (0, "predicted", "KT-0805Y: the same family drawing as the KT-0805G"),
     "C2293": (0, "predicted", "KT-0805B: the same family drawing as the KT-0805G"),
     "C3193261": (180, "predicted", "GALI-84+ on KiCad's SOT-89-3: JLCPCB's drawing has pins 1 and 3 at +x, KiCad's at -x"),
-    "C5119013": (180, "predicted", "TC32H4 on KiCad's Crystal_SMD_3225: JLCPCB's pad 1 is top-left (y up), KiCad's bottom-left"),
+    "C5119013": (0, "predicted", "TC32H4 on KiCad's Crystal_SMD_3225: JLCPCB's drawing fits ours unturned (scripts/check_rotations.py, Prompt 17; rev A said 180 from reading y upward); CostasLink's 3225 TCXO and VCXO read 0"),
     "C5289362": (0, "predicted", "XRNR4030: the footprint IS JLCPCB's drawing (two pads along x); symmetric"),
     "C7458627": (0, "predicted", "MAX2871 TQFN-32: JLCPCB's QFN drawings put pin 1 top-left as KiCad's; confirm the dot in the preview"),
     "C206667": (0, "predicted", "ADL5350: the footprint IS JLCPCB's drawing (pads renumbered as theirs)"),
@@ -511,16 +511,56 @@ JLC_ROTATION = {
     "C118997": (0, "predicted", "ADEX-10L+: the footprint IS JLCPCB's drawing (pin 1 bottom-left)"),
     "C415328": (0, "predicted", "HHM22137A1: the footprint IS JLCPCB's drawing (pin 1 bottom-left); TDK's direction mark to be checked in the preview"),
     "C208262": (180, "predicted", "ADL5611 on KiCad's SOT-89-3: JLCPCB's drawing has pins 1 and 3 at +x, KiCad's at -x (as the GALI-84+)"),
-    "C20526": (0, "predicted", "MMBT3904 SOT-23: the standard drawing"),
-    "C2681320": (0, "predicted", "TPS22917 SOT-23-6: TI's DBV drawing, pin 1 top-left as KiCad's"),
+
+
     "C87663": (0, "predicted", "TPS65131 VQFN-24: JLCPCB's drawing has pin 1 top-left as KiCad's ('-TL')"),
     "C2058688": (0, "predicted", "THS3491 VQFN-16: JLCPCB's drawing has pin 1 top-left as KiCad's ('-TL')"),
     "C575551": (270, "predicted", "DRV8876 HTSSOP-16: JLCPCB's drawing has the pins in rows, pin 1 bottom-left: KiCad's turned +90"),
-    "C2059678": (0, "predicted", "LMH6629 SOT-23-5: the standard drawing"),
+
     "C1517414": (0, "predicted", "OPA2388 SOIC-8: JLCPCB's SOIC drawings put pin 1 as KiCad's"),
     "C5334579": (0, "predicted", "BB133 SOD-323: JLCPCB's pad 1 (cathode) at -x as KiCad's"),
     "C64885": (0, "predicted", "B5819W SOD-123: pad 1 (cathode) at -x as KiCad's; see the bar in the preview"),
     "C57269": (0, "predicted", "SWPA4030: two pads along x, symmetric"),
+    # The SOT-23 family (Prompt 17, easyeda 2026-10-28).  JLCPCB's drawing names say where pin 1 is: "-BR" is pin 1
+    # bottom-right with the pins down the sides, KiCad's footprint turned 180 (CLAUDE_PCB.md: SOT-23-5 +180 read on the
+    # GPSDO's 59 placements, AO3401A and 2N7002 +180 read in GPiBridge's preview); "-BL" has the pins in rows along the
+    # bottom and top, pin 1 bottom-left, KiCad's turned +90; "-TL" is KiCad's own.  Rev A had these at 0 ("the standard
+    # drawing"), which would have put every one of them in backwards.
+    "C15127": (180, "predicted", "AO3401A SOT-23, JLCPCB '-BR': pin 1 bottom-right, KiCad's top-left"),
+    "C20917": (180, "predicted", "2N7002 SOT-23, '-BR'"),
+    "C8545": (180, "predicted", "the small N-FET SOT-23, '-BR'"),
+    "C20526": (180, "predicted", "MMBT3904 SOT-23, '-BR'"),
+    "C2868809": (180, "predicted", "TMP235 SOT-23, '-BR'"),
+    "C108573": (180, "predicted", "LM2664 SOT-23-6, '-BR'"),
+    "C193413": (180, "predicted", "TLV3501 SOT-23-6, '-BR'"),
+    "C2681320": (180, "predicted", "TPS22917 SOT-23-6, '-BR'"),
+    "C2862740": (180, "predicted", "TPS7A2033 SOT-23-5, '-BR'"),
+    "C7836": (180, "predicted", "SN74LVC1G17 SOT-23-5, '-BR'"),
+    "C2059678": (180, "predicted", "LMH6629 SOT-23-5, '-BR'"),
+    "C2833513": (0, "predicted", "OPA810 SOT-23-5, '-TL': pin 1 top-left as KiCad's"),
+    "C160422": (270, "predicted", "OPA847 SOT-23-6, '-BL': the pins in rows, pin 1 bottom-left: KiCad's turned +90"),
+    "C580235": (270, "predicted", "LT6230 SOT-23-6, '-BL'"),
+    "C84817": (270, "predicted", "MT3608 SOT-23-6, '-BL'"),
+    # by the fit of JLCPCB's drawing on ours (scripts/check_rotations.py, Prompt 17), each family read before (CLAUDE_PCB.md)
+    "C113367": (270, "predicted", "PAM8302A SOIC-8: KiCad's turned +90 (SOIC-8 +270 read on Lorenz and the Icepi build)"),
+    "C7295": (270, "predicted", "MC1496 SOIC-14: as the SOIC-8s"),
+    "C546981": (270, "predicted", "74HC4046 TSSOP-16: CostasLink's TSSOP-16s read +270"),
+    "C2937625": (270, "predicted", "1x3 header PZ254V-11-03P: read +270 in CostasLink's preview, with the datum below"),
+    "C2894928": (270, "predicted", "1x5 socket: as the headers"),
+    "C2894925": (270, "predicted", "1x2 socket: as the headers"),
+}
+
+# Where JLCPCB's origin for a part sits in our footprint's own frame (mm, y down), when it is not ours: the JLCPCB CPL
+# puts their origin there, turned with the part (gen_outputs.export_cpl).  CLAUDE_PCB.md "Part positions": every USB-C
+# so far was moved by hand in the preview until this was done.  From scripts/check_rotations.py (Prompt 17).
+JLC_DATUM = {
+    "C165948": (0.0, -1.572, "USB-C HRO TYPE-C-31-M-12: 1.572 mm towards the pad row, as CLAUDE_PCB.md records"),
+    "C208262": (-0.700, 0.0, "ADL5611 SOT-89: the 0.7 mm CostasLink's preview confirmed"),
+    "C3193261": (-0.593, 0.0, "GALI-84+ SOT-89: JLCPCB's leads 0.59 mm nearer their origin than KiCad's (fit on pins 1 and 3)"),
+    "C431540": (0.0, -0.251, "MSK12C02 slide switch"),
+    "C2937625": (0.0, 2.540, "1x3 header: JLCPCB's origin at the middle pin, KiCad's at pin 1"),
+    "C2894928": (0.0, 5.080, "1x5 socket: the middle pin"),
+    "C2894925": (0.0, 1.270, "1x2 socket: between the pins"),
 }
 
 
