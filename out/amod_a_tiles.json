@@ -7988,7 +7988,7 @@
     "Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX",
     "transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's",
     "own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers",
-    "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart)."
+    "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).  The slide switch's 5 V powers the bridge and the op amp's + rail."
    ],
    "top_pour": false,
    "fine": false,
@@ -9480,9 +9480,9 @@
    "y0": 72.25,
    "w": 41.5,
    "h": 20.0,
-   "result": "a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100",
+   "result": "a speaker on SPK follows SPEAKER IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100",
    "notes": [
-    "PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
+    "PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
     "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
     "+ side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech."
    ],
@@ -9499,7 +9499,7 @@
      "x": 4.75,
      "y": 4.75,
      "label_at": null,
-     "silk": "AUDIO IN"
+     "silk": "SPEAKER IN"
     },
     {
      "slot": "BR1",

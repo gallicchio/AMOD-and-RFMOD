@@ -531,7 +531,7 @@ def tile_a11():
     t.notes = ["Drive IN1/IN2 (Pmod IO4, IO3) in antiphase at 40 kHz for 8-20 cycles: the bridge puts 10 V peak to peak across the TX",
                "transducer.  The RX transducer's 10 nF / 3.9 k high-pass (4 kHz) feeds an OPA810 at x100 (1.4 MHz: the transducer's",
                "own resonance sets the band).  Time of flight at 343 m/s: 5.8 us per mm there and back.  Put the two transducers",
-               "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart)."]
+               "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).  The slide switch's 5 V powers the bridge and the op amp's + rail."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -739,12 +739,12 @@ def tile_a10():
 def tile_a12():
     """Audio, two cells.  Left: a PAM8302A class-D amplifier (SOIC-8, rot 270: IN-, IN+, BYP, SD along the top; VO+,
     VDD, GND, VO- along the bottom) driving a speaker on the screw terminal in the right cell's top-left; its input
-    is AUDIO IN through 1 u and the one-bit stream from Pmod IO2 through 10 k into 10 n.  Right: an electret in the
+    is SPEAKER IN through 1 u and the one-bit stream from Pmod IO2 through 10 k into 10 n.  Right: an electret in the
     1 x 2 socket (2.2 k bias from VS), 1 u into the A2 geometry at x100 and out to MIC OUT.  +-5 V (the op amp; the
     class-D runs on the switched +5 V).  No 3.5 mm jack: the one-bit stream is heard on the speaker."""
     t = Tile("A12", "audio", [(2, 3), (3, 3)], supply="+-5 V", sections=["ADC samples to Python", "MSK and GMSK"])
     idx = t.idx
-    t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="AUDIO IN"); t.jack("BR1", "OUT", "OUT", "out", "", silk="MIC OUT")
+    t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="SPEAKER IN"); t.jack("BR1", "OUT", "OUT", "out", "", silk="MIC OUT")
     power_header(t)
     # --- the class-D amplifier (left cell)
     pa = t.add("U", "PAM8302", "PAM8302A", 10.3, 12.6, 270, {"1": "VS", "2": "BYP", "3": "NODE", "4": "INM", "5": "VOP", "6": "VS", "7": "GND", "8": "VOM"},
@@ -803,8 +803,8 @@ def tile_a12():
     t.wire("VS", [(rb, "1"), (29.0, 18.9)], silk=False)
     opa_tile_br(t, "R0603 100R", "100R", jack_in=False, dx=21.5, neg="top", legend=False, in_from=[(cc, "2"), (32.75, 2.4)])
     t.text(22.2, 14.0, "MIC", 0.8, 0.15, "left")
-    t.result = "a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
-    t.notes = ["PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
+    t.result = "a speaker on SPK follows SPEAKER IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
+    t.notes = ["PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
                "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
                "+ side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)

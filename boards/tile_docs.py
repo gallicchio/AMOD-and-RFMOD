@@ -203,17 +203,17 @@ DOCS["amod_a"] = {
         needs="A way to put a part on the DUT jack: an SMA-to-minigrabber lead or a part soldered to an SMA plug."),
     "A11": dict(
         does="40 kHz ultrasound: an H-bridge drives the transmitter from two Pmod lines, and the receiver's signal comes out x100.",
-        chips=["DRV8837", "OPA810"], specs="TX gets 10 V p-p from Pmod IO4 / IO3 in antiphase; RX x100 behind a 4 kHz high-pass; 5.8 us per mm there and back.",
+        chips=["DRV8837", "OPA810"], specs="TX gets 10 V p-p from Pmod IO4 / IO3 in antiphase; RX x100 behind a 4 kHz high-pass; 5.8 us per mm there and back.  The slide switch's 5 V powers the two amplifiers: the TX H-bridge (each end of the transducer swings 0-5 V, in antiphase) and the RX op amp's positive rail (its negative rail is the board's -5 V).",
         limits="Only at the transducers' 40 kHz resonance; the receiver hears the transmitter directly for the first few hundred microseconds.",
         experiments="The speed of sound, echo ranging (sonar), Doppler, beam patterns, an ultrasonic data link.",
         use="Transmitter in the TX socket, receiver in the RX socket (pins 1 and 5 of each); the gateware sends 8-20 cycles of 40 kHz on IO4 and IO3 in antiphase; RX OUT to an ADC; hold a reflector above the board.",
         needs="A pair of 40 kHz transducers (kit: PUI UT-1640K-TT-2-R and UR-1640K-TT-2-R)."),
     "A12": dict(
         does="Audio: a 2.5 W class-D amplifier into a speaker, fed from a DAC or a one-bit Pmod stream, and an electret microphone amplified x100.",
-        chips=["PAM8302A", "OPA810"], specs="Up to 2.5 W into 4 ohm (about 1.5 W into 8); AUDIO IN +-1 V; the one-bit stream on Pmod IO2 through 10 k / 10 nF; MIC OUT x100.",
+        chips=["PAM8302A", "OPA810"], specs="Up to 2.5 W into 4 ohm (about 1.5 W into 8); SPEAKER IN +-1 V; the one-bit stream on Pmod IO2 through 10 k / 10 nF; MIC OUT x100.",
         limits="Mono; the class-D output is unfiltered (the speaker is the filter); the microphone hears the speaker.",
         experiments="An acoustic modem (FSK, MSK through the air); the speed of sound in air; a room's echoes and impulse response; one-bit (PDM) audio.",
-        use="Speaker wires in the SPK terminal, the electret in the MIC socket (+ to pin 1); DAC to AUDIO IN or a one-bit stream on IO2; MIC OUT to an ADC.",
+        use="Speaker wires in the SPK terminal, the electret in the MIC socket (+ to pin 1); DAC to SPEAKER IN or a one-bit stream on IO2; MIC OUT to an ADC.",
         needs="A small speaker and an electret capsule (kit: Adafruit 6486 36 mm 8 ohm speaker, SparkFun COM-08635 electret)."),
 }
 

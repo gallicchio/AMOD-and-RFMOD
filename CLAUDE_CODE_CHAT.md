@@ -448,3 +448,22 @@ channel and a microphone channel.  RF-MOD's splitter takes two cells for its thr
 (the reference is shared by a trace); R13 pairs with R8 and R10 as a heterodyne receiver on one reference.  RF-MOD-2's
 splitter is what makes X1 and X2 coherent.  Proposed for Jason's decision: bring each MAX2871's complementary output
 (RFOUTA-, now terminated) to a second jack and free both splitters' two cells.
+
+## Prompt 15 (2026-10-28)
+
+> Your decision was correct to remove the section numbers from the PCB and keep them in the computer files.  Web pages
+> can be updated; PCBs are forever.
+>
+> I'd be willing to hand solder the AM tuning capacitor.  I don't know if you can find a physically small enough knob
+> for the board.  If you can't, keep the switches, but maybe add screw terminals for an external large knob if there is
+> room.
+>
+> Do the diode-ring mixer instead of the "least useful" passive splitter.  I have passive splitters.
+>
+> On the ultrasound module tile, I understand that the header pins are not power, but what is power used for at all on
+> this tile?  TX and RX amplifiers, it would seem.
+>
+> Don't say "AUDIO IN".  That's confusing.  Whose "in"?  Say SPEAKER IN and MIC OUT.
+>
+> Yes, free both splitters and bring out RFOUTA-.  Add the diode-ring mixer and, on RF-MOD-2, a directional coupler.
+

@@ -7905,6 +7905,17 @@
 		)
 		(uuid "5da11440-284e-5b05-af00-48fa4295a8da")
 	)
+	(text "PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k"
+		(exclude_from_sim no)
+		(at 408.94 525.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "6475aa35-949c-5eac-b03b-d2acb996f5b3")
+	)
 	(text "its colour (P12) gives Planck's constant; a crystal (P8) shows its series and parallel resonances."
 		(exclude_from_sim no)
 		(at 408.94 403.86 0)
@@ -7948,17 +7959,6 @@
 			(justify left)
 		)
 		(uuid "68cb8eca-a148-5291-a657-9ad9f85ce3a0")
-	)
-	(text "PAM8302A: 1 u couples AUDIO IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k"
-		(exclude_from_sim no)
-		(at 408.94 525.58 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "6b659da7-7792-5887-8da8-f9eb5f03e73b")
 	)
 	(text "which is fine for a product detector).  IF OUT is single-ended from pin 6 through 100 n: a 1.5 k source, so read it"
 		(exclude_from_sim no)
@@ -8165,7 +8165,7 @@
 		)
 		(uuid "82f4da1f-6da9-54b7-99d8-5d5fd8afa805")
 	)
-	(text "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart)."
+	(text "in pins 1 and 5 (10.16 mm; their leads are 10 mm apart).  The slide switch's 5 V powers the bridge and the op amp's + rail."
 		(exclude_from_sim no)
 		(at 27.94 530.86 0)
 		(effects
@@ -8264,7 +8264,7 @@
 		)
 		(uuid "9cf6ce92-9b69-5cdc-9d63-5d03197b5664")
 	)
-	(text "EXPECT: a speaker on SPK follows AUDIO IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
+	(text "EXPECT: a speaker on SPK follows SPEAKER IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
 		(exclude_from_sim no)
 		(at 408.94 522.94 0)
 		(effects
