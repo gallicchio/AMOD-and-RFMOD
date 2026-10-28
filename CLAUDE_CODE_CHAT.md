@@ -583,3 +583,58 @@ Mid-turn:
   a move to JLCPCB's origin.  The upload CPLs of all six boards now apply both; the DOA lists make it an order gate.
 - All six boards: ERC 0, DRC 0, every fab check.  Handbooks, README, PLAN.md section 11, the review brief, KIT.md,
   DOA_amod_p2.md, Appendix D (with fresh renders) and CLAUDE_PCB.md section 23 updated.  Nothing pushed.
+
+## Prompt 18 (2026-10-28)
+
+> Make sure that the rotation bug you found is documented in the appropriate place in ~/OpticsPCBs/CLAUDE_PCB.md. I
+> think you probably put that there, but just check.. Can the P22 Attenuator (PE43711) also still be controlled with
+> switches? Does this part need the 3.3V power? If the FPGA pins are high impedance, this would be nice to do manually.
+> Can the P23 Oscillator be used with a mixer (and the DAC board) to transmit FM in a way that an FM radio can pick it
+> up? Is there a path to receive and digitize broadcast FM with these boards? Are there any tiles that would make sense
+> to swap around between boards in terms of power (3.3V vs the 5V USB input) or similarity for logical or pedagogical
+> reasons? I hope that the silkscreen (including on the back) is appropriately used to document anything that a user
+> definitely needs to know to use the tiles successfully and without damaging anything. If there is additional room on
+> the back, putting plots of expected responses or other relevant parameters would be great. When someone is screwing
+> things into the board, it's far easier to read the silkscreen in front of them than it is to look up stuff on github
+> and try to make sure they are looking at the correct list for the correct board. Is there a path on these boards to
+> transmit and receive Bluetooth Low Energy (BLE) from back and forth between the ECP5 FPGA and, say, a phone or laptop?
+> What other common radio protocols could be done from these boards to a phone, laptop, or handheld radio?
+
+Mid-turn:
+
+> Look at these sets of labs from Analog Devices: https://wiki.analog.com/university/courses/electronics/labs  Maybe you
+> already did this. I think that there is value in building most of these things on a breadboard with individual ICs,
+> but if there are some labs here that fit in the spirit of these boards (along with the ECP5 2DAC 2ADC board), if we
+> are missing something, let's see if we can add it. Whole areas that we are missing include power regulation and other
+> component-level circuits, but something like a switched capacitor filter or details of their Delta – Sigma Modulator,
+> if there is room, might be worth it.
+
+### Response 18 (about 17:00 onward)
+
+- *The rotation bug* is in CLAUDE_PCB.md section 8's rotation table (the SOT-23 family by its drawing's suffix, SOIC and
+  TSSOP, headers, 3225 crystals, the datums) and section 23's lessons; section 24 now adds the back panels' lessons.
+- *P22 by hand:* yes.  The PE43711's direct parallel mode (P/S low, LE high) is meant for switches.  P22 took a second
+  cell for an 8-way DIP: way 1 SPI, ways 2-8 the bits, 100 k pull-downs, LE pulled up so a floating FPGA pin leaves the
+  switches in charge; in SPI mode the bits must be off.  It still needs the Pmod's 3.3 V (an active switch array).  P15
+  (the Smith-chart loads) gave up its cell; P23 moved to (3,0).
+- *The back of every board:* a panel under each tile (its limits, loads, supply, the one thing that breaks it) and a
+  plot of the response to expect where there is room (AMOD-P's ladders, P10's clipping curve, P17, P18, P19, P23, A2-A4,
+  Y5, Y6, X5).  Placed in reading order, every panel and plot on all six boards, DRC 0.  The front gained PULSES ONLY
+  (Y2), "start at mV" (Y10) and the LNAs' "IN -20 dBm" (R5, X4).
+- *FM:* transmit with the DAC (an FM IF from the gateware) or P23 (audio on TUNE, about 0.5 MHz/V) into R1's IF, R10 at
+  about 87 MHz on its LO, 98 MHz on its RF port, a few centimetres of wire (Part 15.239).  Receive with R1 and R10 down to
+  a few MHz, AMOD-P's LC low-pass, the ADC at 25 MS/s and an FM discriminator in the gateware, A12 for the sound.
+- *BLE:* advertising from the FPGA is practical (GFSK on the two DACs into RF-MOD-2's X1 on X3's LO at 2402/2426/2480
+  MHz, or R13 alone); a phone's scanner lists it.  Receiving a phone's advertising through R2, R5 and X2 into the ADCs
+  is practical too.  A connection (150 us turnaround, hopping) is possible in gateware but the largest project.
+- *Other protocols:* an 802.11b beacon (a fake SSID in a laptop's list), AM broadcast straight from the DAC, 433 MHz OOK
+  for rtl_433, LoRa at 915 MHz to a Meshtastic handheld, receiving FRS/GMRS or a ham handheld's NBFM; receive-only
+  ADS-B, GPS and NOAA APT.  Not practical: Bluetooth Classic, OFDM Wi-Fi, Zigbee/Thread to a phone.
+- *Swaps:* none made (PLAN.md section 12): X4 duplicates R5 and is the first cell to give up; R1 suits AMOD-P2 but wants
+  R10 beside it; A6 and A7 could run on 3.3 V but moving them saves AMOD-A nothing.
+- *Analog Devices' labs* (a subagent read all 109 pages; docs/ADI_LABS_SURVEY.md): power regulation is the one whole
+  area missing; switched capacitors, a second-order delta-sigma, track-and-hold, SAR and transistor blocks also fit.  The
+  boards are full, so PLAN.md section 12 proposes a seventh board, AMOD-A2, for Jason to decide.
+- Full rebuild: ERC 0, DRC 0, every check; check_rotations 186 codes, 0 differ.  AMOD-P2: eleven tiles, 28 jacks,
+  $43.82.  README, PLAN.md, DOA, KIT, review brief, handbooks, Appendix D (fresh renders and AMOD-P2's back) updated.
+  Nothing pushed.
