@@ -10,10 +10,12 @@ tutorial at `~/mudd/133electronics/icepi-zero-dac-adc/tutorial/`, Appendix D is 
 cell between two vertical SMA jacks (IN top-left, OUT bottom-right, so every jack is 14.85 mm or more from every
 other on the board), the circuit drawn on the silkscreen as it is
 wired.  AMOD-P (two layers) is thirteen passive tiles: attenuators, RC and LC filters, resonators, a delay line, a
-clipper, an AM loopstick.  AMOD-P2 (four layers, `PLAN.md` section 11) is twelve tiles, ten passive: calibration
-standards at the jacks' pins, a resistive and a transformer splitter, two Smith-chart loads, a quarter-wave stub, an
+clipper, an AM loopstick.  AMOD-P2 (four layers, `PLAN.md` sections 11 and 12) is eleven tiles, nine passive: calibration
+standards at the jacks' pins, a resistive and a transformer splitter, a quarter-wave stub, an
 LTCC low-pass, a zero-bias diode detector, a bias-T, a 1:1 balun with a floating output and a 1:4 transformer; and two on
-the Pmod's 3.3 V with no USB: a PE43711 step attenuator on the Pmod's SPI lines and a one-transistor Clapp oscillator.
+the Pmod's 3.3 V with no USB: a PE43711 step attenuator set by an 8-way switch or the Pmod's SPI lines, and a
+one-transistor Clapp oscillator.  Every tile has a panel on the back (its limits, its loads, its supply) and most a plot
+of the response to expect (`PLAN.md` section 12).
 AMOD-A (four layers) is twelve active tiles on USB-C power with a slide switch and P-FET
 per tile: two gain blocks, an OPA847 LNA, a socket and amplifier for an HB100 Doppler module, a delta-sigma comparator, a 4046 PLL, a
 heater with a TMP235, an MC1496 mixer, an impedance and I-V tile (V and I for the host's two ADCs), a 40 kHz ultrasound pair,
@@ -79,6 +81,11 @@ stock above 100 for every part on the day, except the ADL5380 (14), which Jason 
 11. **RF-MOD-2's front ends:** the ADL5375 baseband networks (0.5 V common mode, +-0.34 V swing), the ADL5380's output
     difference amplifiers, the three footprints drawn from JLCPCB's drawings (MAX2659, the 1109 SAW, SKY13370),
     and X9's loop and its keep-out.
+12. **The back panels** (each board module's `BACK` and `BACK_PLOTS`, drawn by `gen_pcb.back_panels`; the bottom-side
+    renders in `docs/images/`): is every number the tile's own limit (input level, load, supply, duty), is anything a
+    user could damage a tile with missing, and does each plot's shape match the handbook's "expect" line?
+13. **P22's hand mode:** the PE43711's direct parallel mode with P/S and the seven bits on the DIP switch (100 k
+    pull-downs) and LE pulled up by 100 k, against pSemi's Table 9 and its power-up rules.
 
 Answer as a numbered list of findings, each with the file and line (or the tile and part), the evidence, and the
 fix.  "Looks fine" without evidence is not a finding.

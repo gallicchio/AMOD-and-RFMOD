@@ -520,6 +520,7 @@ JLC_ROTATION = {
     "C40735": (0, "predicted", "DSHP02: JLCPCB's drawing has pin 1 bottom-left as ours (easyeda 2026-10-25)"),
     "C40736": (0, "predicted", "DSHP04: as the DSHP02"),
     "C40737": (180, "predicted", "DSHP06: JLCPCB's drawing has pin 1 top-right, ours bottom-left"),
+    "C40738": (0, "predicted", "DSHP08: check_rotations fits JLCPCB's drawing at 0 (rms 0.00 mm), unlike the DSHP06"),
     "C474881": (0, "predicted", "KF301-2P: pins along x as JLCPCB's drawing"),
     "C474882": (0, "predicted", "KF301-3P: pins along x as JLCPCB's drawing"),
     "C13774": (0, "predicted", "HC-49S SMD crystal: two pads along x as JLCPCB's drawing; symmetric"),

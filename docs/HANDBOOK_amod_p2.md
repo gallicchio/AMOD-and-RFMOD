@@ -7,9 +7,9 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 
 ![front](images/amod_p2-render-top.png)
 
-Twelve tiles on sixteen 20 mm cells, four layers, no USB.  Ten of them are passive and need nothing; P22 (the step
+Eleven tiles on sixteen 20 mm cells, four layers, no USB.  Nine of them are passive and need nothing; P22 (the step
 attenuator) and P23 (the oscillator) run on the host's 3.3 V through the Pmod plug under P22, so plug the board into the
-host's Pmod (or a Pmod cable) to use them.  Every tile's input is its top-left jack and its output its bottom-right jack,
+host's Pmod (or a Pmod cable) to use them, even to set P22 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,
 every 50 ohm line is coplanar waveguide with a via fence and every jack has RF-MOD's launch (no plane under its centre
 pin), except P14's SHORT, whose centre pin is the ground pour.  On the board a tile's label is in mixed case and a port's
 name in capitals.
@@ -28,11 +28,11 @@ which powers P22 and P23, the board's only supply; the lines are 3.3 V CMOS):
 1. **Calibrate first.**  P14's SHORT, OPEN and LOAD and its THRU calibrate a NanoVNA, or RF-MOD-2's reflectometer (X1,
    X2 and X5), at the board's surface; the 25 OHM standard checks the result (|S11| = 1/3).  Every tile's jacks are the
    same part, so a tile measured afterwards is measured from its pads.
-2. **Impedance.**  P15's two loads and P25's transformer on PhMOD's reflection bridge (Y7) or the VNA: points on the
-   Smith chart, a match at one frequency, the turns ratio squared.
+2. **Impedance.**  P14's 25 OHM standard and P25's transformer with its 200 ohm or 49.9 ohm load on PhMOD's
+   reflection bridge (Y7) or the VNA: points on the Smith chart, a match across a band, the turns ratio squared.
 3. **Splitting and combining.**  P16 (resistive, DC-6 GHz, no isolation) against P17 (transformer, 0.5-400 MHz, 25 dB
    of isolation).  The two DACs combined through P17 into an amplifier make a two-tone intermodulation test, with P22
-   setting the level in 0.25 dB steps.
+   setting the level in 0.25 dB steps, by hand on its switch or from the FPGA.
 4. **Power.**  P22 makes a known level; P20 turns power into volts (square law at the bottom) to set against RF-MOD-2's
    AD8318 (log); compression points and IP3 of every amplifier and mixer on the boards follow.
 5. **Lines and filters.**  P18's stub and P19's low-pass swept by RF-MOD's synthesizer into a detector, or on the VNA.
@@ -41,7 +41,8 @@ which powers P22 and P23, the board's only supply; the lines are 3.3 V CMOS):
 7. **On the air.**  P24 feeds the tutorial's HF dipole balanced; P21 powers an active antenna or an LNA through its
    cable.
 
-Levels to remember: P22 takes +23 dBm above 48 MHz but only about +9.5 dBm below 0.5 MHz; P20 wants +10 dBm at most
+Levels to remember: P22 takes +23 dBm above 48 MHz but only about +9.5 dBm below 0.5 MHz, and its switch's way 1
+(SPI) must be off for the bits to count, the bits off for SPI; P20 wants +10 dBm at most
 and a high-impedance load; P21 passes 100 mA and 16 V; P23 gives about -22 dBm.
 
 ## The tiles
@@ -66,26 +67,6 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Limits:</b> The standards are modelled, not measured: the open's fringing (tens of fF) and the short's inductance (tens of pH) count above about 3 GHz, and the 0402 load is a 20 dB return loss at 3 GHz.  Check them once against the NanoVNA's SMA standards.<br><br>
 <b>Experiments:</b> A full SOLT calibration of RF-MOD-2's reflectometer (X1, X2, X5) or of a NanoVNA at the board's surface; the 25 ohm standard as its check; every other tile then measured from its pads with its jacks taken out (they are all the same part).<br><br>
 <b>The circuit:</b> Calibration standards at the board surface.  SHORT: the centre pin poured to ground all round.  OPEN: the bare pin (fringing about 30 fF, to be measured against the NanoVNA's SMA open).  LOAD: 4 mm of 50 ohm line into 2 x 100 ohm. 25 OHM: 2 x 49.9 ohm at the end of 4.75 mm of line, a verification standard (VSWR 2).  THRU: 19.8 mm of 50 ohm line, about 115 ps (enter it as the thru's delay).  Every jack on the boards is the same part, so a calibration here measures each tile from its pads with its jacks taken out.
-
-</td></tr></table>
-
-<a id="p15"></a>
-
-### P15  two loads
-
-<table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p2_P15.jpg" width="262" alt="P15  two loads"></td>
-<td valign="top">
-
-<b>Two loads to read on a Smith chart: 200 ohm alone, and the same 200 ohm matched to 50 ohm at 9.2 MHz by an L-network.</b><br><br>
-<b>Jacks:</b> 200 OHM, top left; MATCHED, bottom right.<br><br>
-<b>Expect:</b> 200 OHM: Gamma = +0.6 (VSWR 4) at every frequency below 100 MHz.  MATCHED: Gamma = 0 at 9.2 MHz, |Gamma| 0.5 at about 5 and 14 MHz<br><br>
-<b>How to use it:</b> A DAC into PhMOD's Y7 DRIVE and its DUT jack to 200 OHM or MATCHED, the two ADCs on INC and REFL; or a VNA's port.<br><br>
-<b>You need:</b> Nothing beyond SMA cables.<br><br>
-<b>Specs:</b> 200 OHM: Gamma +0.6 (VSWR 4) to about 100 MHz.  MATCHED: 1.5 uH in series, 150 pF and 200 ohm to ground: Gamma 0 at 9.2 MHz, |Gamma| 0.5 near 5 and 14 MHz.<br><br>
-<b>Limits:</b> HF only: above about 100 MHz the parts and the line move both points; the inductor's Q (about 35) leaves an ohm or two of loss at the match.<br><br>
-<b>Experiments:</b> Both on the Smith chart with PhMOD's reflection bridge (Y7) or a VNA; the matched load passing through the chart's centre as the sweep crosses 9.2 MHz; the network designed back from the measured 200 ohm.<br><br>
-<b>The circuit:</b> An L-network: 1.5 uH in series from the jack, 150 pF and 200 ohm to ground.  Z = j w L + 200 / (1 + j w 200 C) is 50 ohm where w 200 C = sqrt(3), 9.2 MHz; away from it the point circles the chart.  The 200 ohm alone is the unmatched load.
 
 </td></tr></table>
 
@@ -220,22 +201,22 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 ### P22  step attenuator
 
 <table><tr>
-<td valign="top" width="270"><img src="images/tiles/amod_p2_P22.jpg" width="262" alt="P22  step attenuator"></td>
+<td valign="top" width="528"><img src="images/tiles/amod_p2_P22.jpg" width="520" alt="P22  step attenuator"></td>
 <td valign="top">
 
-<b>A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by the FPGA over three Pmod lines.</b><br><br>
+<b>A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by hand on an 8-way switch or by the FPGA over three Pmod lines.</b><br><br>
 <b>Jacks:</b> IN, top left (+20 dBm); OUT, bottom right.<br><br>
 <b>Pmod:</b> IO2 (Pmod pin 2): SDATA (SI) of P22's PE43711; IO3 (Pmod pin 3): SCLK of P22; IO4 (Pmod pin 4): LE of P22<br><br>
 <b>Supply:</b> 3.3 V<br><br>
-<b>Expect:</b> 0 to 31.75 dB in 0.25 dB steps (1.5-2.8 dB of loss at 0 dB, rising with frequency), set by an 8-bit word over the Pmod; 31.75 dB at power-up<br><br>
-<b>How to use it:</b> Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device; write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).<br><br>
+<b>Expect:</b> 0 to 31.75 dB in 0.25 dB steps (1.5-2.8 dB of loss at 0 dB, rising with frequency), set by the switches or by an 8-bit word over the Pmod<br><br>
+<b>How to use it:</b> Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
-<b>Specs:</b> 7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB; serial: SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first; 3.3 V and 150 uA from the Pmod; 31.75 dB at power-up.<br><br>
-<b>Limits:</b> +23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; needs the board plugged into the host's Pmod.<br><br>
+<b>Specs:</b> 7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB.  By hand: switch way 1 (SPI) off, ways 2-8 the bits 0.25, 0.5, 1, 2, 4, 8 and 16 dB (on = that much more), the chip's direct parallel mode.  By the FPGA: ways 2-8 off, way 1 on; SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first.  3.3 V and 150 uA from the Pmod either way.<br><br>
+<b>Limits:</b> +23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.<br><br>
 <b>Experiments:</b> The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.<br><br>
 <b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C470929.html">PE43711</a><br><br>
-<b>The circuit:</b> pSemi PE43711 in serial mode: shift 8 bits (bit 7 = 0, then 4 x dB, least significant first) on SDATA (IO2) with SCLK (IO3) while LE (IO4) is low, then raise LE.  RF-MOD's MAX2871 and TRF3722 take the same three lines' timing. Below 48 MHz it takes less power: about +9.5 dBm under 0.5 MHz and +15 dBm at 5 MHz (+23 dBm above 48 MHz).<br><br>
-<b>Parts:</b> PE43711B-Z (C470929).
+<b>The circuit:</b> pSemi PE43711.  By hand: SPI off, the bits on the switch (direct parallel mode: P/S low, LE held high by 100 k when the FPGA's pin floats).  By the FPGA: every bit off, SPI on, then shift 8 bits (bit 7 = 0, then 4 x dB, least significant first) on SDATA (IO2) with SCLK (IO3) while LE (IO4) is low, and raise LE.  Either way it needs the Pmod's 3.3 V. Below 48 MHz it takes less power: about +9.5 dBm under 0.5 MHz and +15 dBm at 5 MHz (+23 dBm above 48 MHz).<br><br>
+<b>Parts:</b> DSHP08TSGET (C40738), PE43711B-Z (C470929).
 
 </td></tr></table>
 

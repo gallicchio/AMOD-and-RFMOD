@@ -1,17 +1,23 @@
 # AMOD-P2: what could make it dead on arrival, and what to check before paying
 
-Rev A, 2026-10-28 (Prompt 17).  Every item is a fact the design assumed that a datasheet, JLCPCB's placement preview or
+Rev A, 2026-10-28 (Prompt 17; P22's switch, Prompt 18).  Every item is a fact the design assumed that a datasheet, JLCPCB's placement preview or
 the first bench test must confirm.  The ones marked **order gate** must be confirmed before the order is placed.
 `scripts/check_rotations.py amod_p2` fits JLCPCB's own drawing of every part onto its footprint; on 2026-10-28 it
-agreed with the rotation table on all 33 codes.
+agreed with the rotation table on all 32 codes (Prompt 18, after P22's switch went in and P15
+came out).
 
 ## Order gate: pins, packages and polarity
 
-1. **PE43711 (P22, U2201).** KiCad's QFN-24 4 x 4 (EP 2.7), CPL +270 (JLCPCB's drawing has pin 1 bottom-left; CostasLink
-   rev A read +270 for this same part in its preview).  Pins as pSemi's Table 9: 5 RF1 (IN through 100 nF), 14 RF2 (OUT
-   through 100 nF), 2 VDD and 3 P/S on the Pmod's 3.3 V (serial mode), 16 LE, 17 CLK, 18 SI on Pmod IO4, IO3 and IO2;
-   the seven parallel pins (1, 19-24) and every ground pin into the exposed pad.  In the preview the pin-1 dot sits at
-   the chip's top-right corner as the board shows it.
+1. **PE43711 (P22, U2201).**  KiCad's QFN-24 4 x 4 (EP 2.7), on the board at 0, CPL +270 (JLCPCB's drawing has pin 1
+   bottom-left; CostasLink rev A read +270 for this same part in its preview).  Pins as pSemi's Table 9: 5 RF1 (IN
+   through 100 nF), 14 RF2 (OUT through 100 nF), 2 VDD on the Pmod's 3.3 V, 3 P/S on switch way 1 (100 k down), 16 LE
+   on Pmod IO4 (100 k up), 17 CLK on IO3, 18 SI on IO2; the seven parallel pins (1, 24-19 for 0.25-16 dB) on ways 2-8,
+   each 100 k down; every ground pin into the exposed pad.  In the preview the pin-1 dot sits at the chip's top-left
+   corner as the board shows it.
+1a. **The 8-way DIP switch (P22, SW2201), DSHP08TSGET C40738.**  JLCPCB's drawing fits ours at 0 (unlike the 6-way
+   DSHP06, which is 180).  Pins 1-8 are the ways' chip side (P/S, then the bits), 9-16 the 3.3 V side.  Turned half
+   round it still works, but way 1 would be the 16 dB bit, way 8 SPI, and "up: on" upside down: check pin 1 in the
+   preview against the silk's "1: SPI".
 2. **ADP-2-1+ (P17, U1701), case CD636, 41 in stock.**  The footprint is JLCPCB's drawing (pin 1 bottom-left), turned 270
    on the board so SUM (pin 1) faces the top jack.  Pins 1 SUM, 3 port 1, 4 port 2, 6 ground; 2 and 5 joined by a
    track under the body and **not** grounded (Mini-Circuits: "externally connect together & isolate").
@@ -38,9 +44,10 @@ agreed with the rotation table on all 33 codes.
 ## Bench, first power
 
 12. Unplugged, every passive tile works: P16 IN to OUT 1 is -6 dB on a VNA or the host, P17 SUM to PORT 1 -3.2 dB, P19
-    flat to 1 GHz, P15's MATCHED reads 50 ohm at 9.2 MHz.
-13. Plugged into the host's Pmod: 3.3 V across P22's 100 nF.  P22 powers up at 31.75 dB; write 0x00 (0 dB) and IN to OUT
-    reads 1.5-2.8 dB of loss; write 0x40 (16 dB) and it reads 16 dB more.
+    flat to 1 GHz, P25 with its 200 ohm switched on reads about 50 ohm at IN from 3 to 800 MHz.
+13. Plugged into the host's Pmod: 3.3 V across P22's 100 nF.  By hand (way 1 off): every bit off and IN to OUT reads
+    1.5-2.8 dB of loss; way 8 (16 dB) on and it reads 16 dB more.  By the FPGA (ways 2-8 off, way 1 on): it powers up
+    at 31.75 dB; write 0x00 (0 dB) and it reads the same 1.5-2.8 dB; write 0x40 (16 dB) and 16 dB more.
 14. P23's switch up: OUT about -22 dBm near 10.5 MHz on the ADC's x10 input; TUNE from a DAC at -2 V and +2 V moves it
     to about 9.6 and 11.5 MHz.  Then a tone near its frequency on TUNE: it locks.
 15. P20: -10 dBm at 915 MHz into IN gives about 0.1 V on the ADC at high impedance; 20 dB less, about 1 mV.
@@ -50,6 +57,7 @@ agreed with the rotation table on all 33 codes.
 
 ## What it is not
 
-AMOD-P2 has no USB and no power of its own: P22 and P23 are dark unless the board is on a Pmod.  Its RF tiles are on
+AMOD-P2 has no USB and no power of its own: P22 and P23 are dark unless the board is on a Pmod (P22 even when set
+by hand: the PE43711 is an active switch array).  Its RF tiles are on
 RF-MOD's stack-up and launch, so their 50 ohm lines are only as good as RF-MOD's (CostasLink's design); none has been
 measured.

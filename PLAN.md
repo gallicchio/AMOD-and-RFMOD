@@ -9,7 +9,7 @@ decision record; `CLAUDE_CODE_CHAT.md` is the conversation; the generators under
 | board | what | layers | cells | jacks |
 |---|---|---|---|---|
 | **AMOD-P** | passive blocks: pads, RC and LC filters, resonators, a crystal, a clipper, a tapped delay line, LEDs, an AM loopstick | 2 | 16 | 27 |
-| **AMOD-P2** | the second passive board (section 11, Prompt 17): calibration standards, two splitters, Smith-chart loads, a stub, a low-pass, a detector, a bias-T, a balun and a 1:4 transformer; a step attenuator and an oscillator on the Pmod's 3.3 V | 4 | 16 | 30 |
+| **AMOD-P2** | the second passive board (section 11, Prompt 17): calibration standards, two splitters, a stub, a low-pass, a detector, a bias-T, a balun and a 1:4 transformer; a step attenuator (by hand or the FPGA) and an oscillator on the Pmod's 3.3 V | 4 | 16 | 28 |
 | **AMOD-A** | active blocks on USB-C power: gain blocks, an HF LNA, Johnson noise, a one-pin delta-sigma ADC, a 74HC4046 PLL, a heater, a mixer, light, 40 kHz ultrasound, audio | 4 | 16 | 21 |
 | **RF-MOD** | 915 MHz, 2.4 GHz and a stretch to 5.8 GHz: printed antennas, filters, an LNA, a 2.4 GHz front end, two mixers, two synthesizers, a gain block, a TRF3722 quadrature transmitter | 4 | 16 | 26 |
 
@@ -389,15 +389,14 @@ input", and "To distinguish whole-tile labels from SMA or port labels, use diffe
 | # | cells | tile | jacks | as built | chips (JLCPCB 2026-10-28) |
 |---|---|---|---|---|---|
 | P14 | (0,0)-(2,0) | calibration | SHORT, OPEN, LOAD, 25 OHM, THRU, THRU | SHORT: the pin poured to ground (no launch void); OPEN: the bare pin; LOAD: 2 x 100 ohm after 4 mm of line; 25 ohm: 2 x 49.9 ohm (VSWR 2); THRU: 19.8 mm, about 115 ps | resistors |
-| P15 | (3,0) | Smith-chart loads | 200 OHM, MATCHED | 200 ohm; 200 ohm matched at 9.2 MHz by 1.5 uH series and 150 pF shunt | MLF1608A1R5JT000 C87514 |
 | P16 | (0,1)-(1,1) | resistive splitter | IN, OUT 1, OUT 2 | 3 x 16.9 ohm star, DC-6 GHz, -6 dB | 0402WGF169JTCE C82287 |
 | P17 | (2,1)-(3,1) | transformer splitter | SUM, PORT 1, PORT 2 | ADP-2-1+ turned 270, pins 2 and 5 joined off ground | ADP-2-1+ C2683460 (41: accepted under Prompt 13's rule) |
 | P18 | (0,2) | quarter-wave stub | IN, OUT | a 17.3 mm open stub (copper graphics, not a track) on the line: a notch near 2.45 GHz | copper |
 | P19 | (1,2) | low-pass | IN, OUT | LFCN-1000+, DC-1 GHz | LFCN-1000+ C879868 |
 | P20 | (2,2) | detector | IN, OUT | 51 ohm, 10 nF, a zero-bias SMS7630 pair as a doubler, 100 pF / 100 k | SMS7630-006LF C6489012 (83: accepted) |
 | P21 | (3,2) | bias-T | RF, RF+DC | 100 nF; 27 nH + 330 nH + 10 uH; DC and GND test loops | (the board's passives) |
-| P22 | (0,3) | step attenuator | IN, OUT | PE43711 turned 270, serial on IO2-IO4, 100 nF blocks; carries the Pmod plug | PE43711B-Z C470929 (1,673) |
-| P23 | (1,3) | oscillator | TUNE, OUT | Clapp on an MMBT3904, 10 uH + BB133, 220 / 220 pF, 9.6-11.5 MHz; switch and FET | MMBT3904, BB133 |
+| P22 | (0,3)-(1,3) | step attenuator | IN, OUT | PE43711; an 8-way DIP switch (way 1 SPI, ways 2-8 the bits, 100 k pull-downs, LE pulled high): by hand in direct parallel mode, or serial on IO2-IO4; 100 nF blocks; carries the Pmod plug | PE43711B-Z C470929 (1,673); DSHP08TSGET C40738 (4,520) |
+| P23 | (3,0) | oscillator | TUNE, OUT | Clapp on an MMBT3904, 10 uH + BB133, 220 / 220 pF, 9.6-11.5 MHz; switch and FET | MMBT3904, BB133 |
 | P24 | (2,3) | 1:1 balun | IN, OUT | TC1-1TG2+ in the top-right quarter; OUT's legs an island 5.6 mm clear of every plane | TC1-1TG2+ C3305009 (85: accepted) |
 | P25 | (3,3) | 1:4 transformer | IN, OUT | TC4-1W+, the secondary grounded at one end; DIP: 200 or 49.9 ohm on OUT | TC4-1W+ C879855 (2,227) |
 
@@ -414,3 +413,59 @@ footprint on our board.  Rev A's table had every SOT-23, SOT-23-5 and SOT-23-6 a
 "-BL" ones KiCad's turned +90 (OPA847, LT6230, MT3608).  The SOICs, the TSSOP and the 2.54 mm headers needed +270, and the
 3225 TCXO 0 rather than 180.  `parts.JLC_DATUM` now moves the USB-C (1.572 mm), the SOT-89s, the slide switch and the
 headers to JLCPCB's origin in the upload CPL.  CLAUDE_PCB.md's readings from earlier orders agree with every one.
+
+## 12. Prompt 18: the back of every board, P22 by hand, and what is still missing (2026-10-28)
+
+Jason, Prompt 18: "Can the P22 Attenuator (PE43711) also still be controlled with switches?  Does this part need the
+3.3V power? ... I hope that the silkscreen (including on the back) is appropriately used to document anything that a
+user definitely needs to know to use the tiles successfully and without damaging anything.  If there is additional room
+on the back, putting plots of expected responses or other relevant parameters would be great.  When someone is screwing
+things into the board, it's far easier to read the silkscreen in front of them than it is to look up stuff on github."
+
+**Done.**
+
+- **A panel under every tile, on the back** (`gen_pcb.back_panels`): its number and title, then the lines in its board
+  module's `BACK` dict: input limits, loads, supplies, the switch and the one thing that breaks it.  Mirrored, so they
+  read from the back; 0.8 mm text on a 1.5 mm pitch.  A panel goes as one block or in two to four parts, each below the
+  one before so it reads in order, clear of the back's tracks and vias where there is room (over a track otherwise: the
+  ink sits on the mask).  Lines are 13 characters or fewer on a one-cell tile, about 22 on a wider one: the free space
+  on a cell's back is the 10 mm between its two diagonal jacks.
+- **A plot of the expected response** where there is room: the ladder tiles of AMOD-P their own simulation; the others
+  from `scripts/backplots.py` (amplifiers' gain against frequency, datasheet tables, P18's open stub, P23's frequency
+  against TUNE, P10's OUT against IN).  The axis drawn mirrored so it reads left to right from the back; its range in
+  the line above it, its ends below.  All plots placed on all six boards.
+- **The front** carries the few that must be seen while cabling: Y2 PULSES ONLY, Y10 "start at mV", R5 and X4 "IN -20
+  dBm", P22's switch rule.
+- **P22 by hand.**  The PE43711 has a direct parallel mode (P/S low, LE high) that pSemi calls "ideal for manual
+  control": an 8-way DIP switch, way 1 SPI (on: serial, P/S high), ways 2-8 the seven bits, 100 k pull-downs, LE pulled
+  up by 100 k so a floating FPGA pin leaves the switches in charge.  In SPI mode the bits must be off.  The chip needs
+  the Pmod's 3.3 V either way: it is an active switch array (its digital inputs are 3.6 V absolute maximum).  It took a
+  second cell; P15 (two Smith-chart loads) gave it up, P23 moved to (3,0).  P14's 25 ohm standard and P25's 200 and
+  49.9 ohm loads still put points on a Smith chart.
+
+**Swaps considered, not made.**  X4 (RF-MOD-2's preamp) is R5 again; it stays so RF-MOD-2 receives on its own, but it
+is the first cell to give up.  R1 (the passive diode mixer) would suit AMOD-P2 but wants R10's LO beside it, and AMOD-P2
+is full.  A6 (one-bit ADC) and A7 (4046 PLL) would run on the Pmod's 3.3 V, but AMOD-A needs USB for its other tiles
+anyway, so moving them saves nothing.
+
+**Still missing: Analog Devices' labs** (`docs/ADI_LABS_SURVEY.md`).  Power regulation is the one whole area none of
+the boards covers; switched-capacitor circuits, the inside of a delta-sigma modulator, sample-and-hold, SAR conversion
+and transistor-level stages are the others that fit.  The six boards are full, so these would be a seventh board,
+**AMOD-A2** (the second active board, USB-C power and the Pmod), proposed and not started:
+
+| tile | cells | what | parts (JLCPCB stock 2026-10-28) |
+|---|---|---|---|
+| power | 1 | USB-C 5 V, +-5 V for the op amps | as AMOD-A's A1 |
+| LDO and buck | 2 | a buck then an LDO, an electronic load from a DAC: ripple before and after, load steps, Zout(f), dropout, pulse-skipping | TLV62568 C163219, LP5907-3.3 C80670 or XC6206 C5446, OPA2810, AO3400A |
+| charge pump | 1 | the FPGA clocks it: Rout = 1/(fC) + switches, ripple against load | ICL7660A C7881; LM2664 C108573 |
+| FPGA buck | 2 | two half-bridges into two inductors, the duty from the FPGA: two-phase ripple cancellation, a digital loop's Bode plot | DRV8837 C39159 (about 250 kHz) |
+| switched-capacitor filter | 1 | an 8th-order filter whose corner follows the FPGA's clock; aliases at fclk +- fin | MAX291 C596390 (46) or LTC1069-6 C674326 (61) |
+| switched-capacitor resistor | 1 | R = 1/(fC) and an integrator from two switches and a capacitor, non-overlapping clocks from the FPGA | 2 x SN74LVC1G3157 C10426, OPA2810 |
+| second-order delta-sigma | 2 | both integrators, the comparator and the one-bit DAC on jacks: 40 dB/decade against AMOD-A's 20, idle tones | OPA2810, TLV3501 C193413, 74LVC1G79 C42878, REF3033 C36658 |
+| track-and-hold | 1 | acquisition, droop, pedestal, feedthrough | LF398 C2864267 |
+| R-2R and comparator | 2 | the FPGA runs SAR, tracking and dual-slope conversions; DNL and INL | 0.1 % resistors (to find), TLV3501 |
+| transistor blocks | 2 | a differential pair with a mirror load (tanh, triangle to sine); common emitter against cascode (Miller) | DMMT3904W C155305, BCV62 C139953 |
+| 555 | 1 | thresholds, f against V, a VFC as an ADC | TLC555 C6986 |
+
+Sixteen cells.  Not checked yet: a 5 V clock buffer for the filter chip, 0.1 % resistors in stock, whether each fits its
+cell.  Jason to decide.

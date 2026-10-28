@@ -115,7 +115,8 @@ Appendix D, "Long cables".
 
 Nothing new to buy: its tiles use what is above and below.
 
-- **P22 and P23** run on the host's 3.3 V through AMOD-P2's own Pmod plug.  Plug the board into the host's Pmod; when
+- **P22 and P23** run on the host's 3.3 V through AMOD-P2's own Pmod plug, P22 even when it is set by hand on its
+  switch.  Plug the board into the host's Pmod; when
   another board holds it, the 2 x 6 cable above with a 2 x 6 male-male changer does the job (the Icepi adapter's
   arrangement).
 - **P21's DC** comes from a bench supply's clip leads on its DC and GND loops: PhMOD's adjustable supply below, with

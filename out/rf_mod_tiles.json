@@ -927,7 +927,15 @@
    ],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "LO +4 dBm",
+    "RF below -5 dBm",
+    "IF DC-800 MHz",
+    "50 ohm on every port",
+    "10-1000 MHz"
+   ],
+   "back_plot": null
   },
   {
    "id": "R2",
@@ -1170,7 +1178,13 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "2.4-2.5 GHz",
+    "loss 1.7 dB",
+    "50 ohm"
+   ],
+   "back_plot": null
   },
   {
    "id": "R4",
@@ -1455,7 +1469,13 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "902-928 MHz",
+    "loss 1.1 dB",
+    "IN max +10 dBm"
+   ],
+   "back_plot": null
   },
   {
    "id": "R5",
@@ -2230,9 +2250,9 @@
      0
     ],
     [
-     5.6,
-     11.3,
-     "NF 0.3 dB",
+     4.8,
+     10.95,
+     "IN -20 dBm",
      0.8,
      0.15,
      "left",
@@ -2246,7 +2266,14 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "IN < -20 dBm",
+    "+22 dBm BURNS",
+    "30 dB pad",
+    "from a TX"
+   ],
+   "back_plot": null
   },
   {
    "id": "R12",
@@ -2878,7 +2905,14 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "slide up: on",
+    "IN max 0 dBm",
+    "+20 dB, OUT",
+    "max +20 dBm"
+   ],
+   "back_plot": null
   },
   {
    "id": "R9",
@@ -4427,7 +4461,13 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "USB-C 5 V only",
+    "REF OUT 25 MHz, 1.6 V p-p",
+    "into 50 ohm, to R10 REF IN"
+   ],
+   "back_plot": null
   },
   {
    "id": "R7",
@@ -5515,7 +5555,14 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "LO 0 to +6 dBm (+4 best)",
+    "RF, IF max +10 dBm",
+    "IF DC-200 MHz",
+    "image: filter with R2, R4"
+   ],
+   "back_plot": null
   },
   {
    "id": "R8",
@@ -6603,7 +6650,14 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "LO 0 to +6 dBm (+4 best)",
+    "RF, IF max +10 dBm",
+    "IF DC-200 MHz",
+    "image: filter with R2, R4"
+   ],
+   "back_plot": null
   },
   {
    "id": "R10",
@@ -8845,7 +8899,14 @@
     21.9
    ],
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "OUT A+, A-: -4 to +5 dBm,",
+    "180 degrees apart",
+    "50 ohm on an unused one",
+    "harmonics below 3 GHz"
+   ],
+   "back_plot": null
   },
   {
    "id": "R13",
@@ -11463,7 +11524,13 @@
    "draws": [],
    "pour_below": null,
    "slots": [],
-   "voids": []
+   "voids": [],
+   "back": [
+    "I, Q +-1 V into 50 ohm",
+    "RF about -3 dBm",
+    "REF: 25 MHz via R10"
+   ],
+   "back_plot": null
   }
  ],
  "gnd_loops": [
