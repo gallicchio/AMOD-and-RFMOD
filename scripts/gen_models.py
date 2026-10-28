@@ -210,7 +210,7 @@ def filt1206():
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
+    makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: dip(8), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
               kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3,
               udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608, cd636, at224, filt1206]
     for mk in makers:

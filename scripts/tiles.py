@@ -95,6 +95,8 @@ class Tile:
         self.voids = []            # (x, y, r, layers): no copper fill within r of (x, y) on "inner" (L2-L4), "top" (L1) or "all" layers
         self.draws = []            # silk drawing that is not a wire: ("line", [(x, y), ...]) or ("arc", cx, cy, r, a0, sweep), local mm
         self.pour_below = None     # (x0, x1, y1): an RF tile's top pour also covers x0..x1 from its frame down to y1 (a line in the margin)
+        self.back = []             # short lines for the back's panel under the tile: what a user must know (levels, loads, cautions)
+        self.back_plot = None      # dict(x, y, xlog, xlim, ylim, xt, yt, name): the expected response, drawn on the back beside them
         self._counts = {}
         self.x0, self.y0, self.w, self.h = G.tile_frame(self.cells)
 
@@ -458,6 +460,9 @@ def ladder(tile, elements, loops=True, Rs=50.0, Rl=50.0, fspan=(1e4, 1e8), hiz_o
     g = P.db(h)
     tile.sim.update(dict(f=f.tolist(), db=g.tolist(), f3=P.corner(f, g), peak=P.peak(f, g)))
     tile.plot = dict(kind="bode", x=(f - f.min()), y=g, xlabel="f", ylabel="dB")
+    tile.back_plot = dict(x=[float(v) for v in f], y=[float(v) for v in g], xlog=True, xlim=(float(f.min()), float(f.max())),
+                          ylim=(max(-60.0, 10 * math.floor((float(min(g)) - 3.0) / 10.0)), 0.0), xt=(unit(float(f.min())), unit(float(f.max()))),
+                          yt=("0", "%d dB" % max(-60.0, 10 * math.floor((float(min(g)) - 3.0) / 10.0))), name="")
     tile.elements = elements
     tile.sch_draw = lambda ctx, t: draw_ladder(ctx, t)
     if legend:
@@ -552,7 +557,9 @@ def dump(tiles, mod, path):
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
             gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w, fine) for (pr, pt, sym, w, fine) in t.gnd_stubs],
             texts=[list(x) for x in t.texts], infos=list(t.infos), titles=list(t.titles), draws=list(getattr(t, "draws", [])),
-            pour_below=getattr(t, "pour_below", None), slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
+            pour_below=getattr(t, "pour_below", None), slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])],
+            back=list(getattr(mod, "BACK", {}).get(t.id, None) or getattr(t, "back", []) or []),
+            back_plot=getattr(mod, "BACK_PLOTS", {}).get(t.id, None) or getattr(t, "back_plot", None)))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
     return path

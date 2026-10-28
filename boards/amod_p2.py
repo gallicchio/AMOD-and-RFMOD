@@ -1,6 +1,8 @@
-"""AMOD-P2: the second passive board, rev A (Prompt 17).  Twelve tiles on sixteen cells: the RF and analog blocks the
+"""AMOD-P2: the second passive board, rev A (Prompt 17).  Eleven tiles on sixteen cells: the RF and analog blocks the
 other boards lacked or dropped, every one passive except two that run on the Pmod's own 3.3 V (no USB): a step
-attenuator the FPGA sets over three Pmod lines, and a one-transistor oscillator.
+attenuator set by hand on a switch or by the FPGA over three Pmod lines, and a one-transistor oscillator.  Prompt 18 gave
+the attenuator a second cell for its switch and dropped P15 (two Smith-chart loads): P14's 25 ohm standard and P25's
+switched loads cover the Smith chart.
 
 Jason, Prompt 17: "It seems like there is enough pressure that I should make another analog board.  We should really call
 this the 2nd board because it's so much simpler than even the active board ... All of the things that you suggested along
@@ -83,36 +85,6 @@ def tile_p14():
                "25 OHM: 2 x 49.9 ohm at the end of 4.75 mm of line, a verification standard (VSWR 2).  THRU: 19.8 mm of 50 ohm line,",
                "about 115 ps (enter it as the thru's delay).  Every jack on the boards is the same part, so a calibration here",
                "measures each tile from its pads with its jacks taken out."]
-    return t
-
-
-# ------------------------------------------------------------------------------------------------------------- P15 --
-def tile_p15():
-    """Two loads to see on a Smith chart: 200 ohm alone (Gamma +0.6 at every frequency), and 200 ohm matched to 50 ohm at
-    9.2 MHz by a low-pass L-network (1.5 uH in series, 150 pF across the 200 ohm; L / C = 50 x 200).  On a reflection
-    bridge or a VNA the second one passes through the chart's centre at 9.2 MHz and circles away from it on either side."""
-    t = rf_tile("P15", "two loads", [(3, 0)])
-    ja = t.jack("TL", "200 OHM", "RA", "in", "")
-    jm = t.jack("BR", "MATCHED", "RM", "in", "")
-    r1 = t.add("R", "R0402 200R", "200", 9.2, 6.1, 270, {"1": "RA", "2": "GND"}, label=None)
-    t.rf("RA", [(ja, "1"), (9.2, 4.75)])
-    t.wire("RA", [(9.2, 4.75), (r1, "1")], width=0.29)
-    t.gnd_stub(r1, "2", (9.2, 7.6), sym=(0, 0))
-    l1 = t.add("L", "L0603 1.5uH", "1.5u", 9.6, 15.25, 0, {"1": "N", "2": "RM"}, label=None)
-    c1 = t.add("C", "C0402 150pF", "150p", 7.4, 16.6, 270, {"1": "N", "2": "GND"}, label=None)
-    r2 = t.add("R", "R0402 200R", "200", 6.2, 16.6, 270, {"1": "N", "2": "GND"}, label=None)
-    t.rf("RM", [(jm, "1"), (l1, "2")])
-    t.wire("N", [(l1, "1"), (6.2, 15.25), (r2, "1")])
-    t.wire("N", [(7.4, 15.25), (c1, "1")])
-    t.gnd_stub(c1, "2", (7.4, 18.1), sym=(0, 0))
-    t.gnd_stub(r2, "2", (6.2, 18.1), sym=(0, 0))
-    t.titles.append("Smith chart")
-    t.text(14.6, 2.4, "P15", 0.9, 0.17, "center")
-    t.info(["gamma +0.6"], near=(13.0, 5.0))
-    t.info(["matched", "at 9.2 MHz"], near=(1.2, 11.0))
-    t.result = "200 OHM: Gamma = +0.6 (VSWR 4) at every frequency below 100 MHz.  MATCHED: Gamma = 0 at 9.2 MHz, |Gamma| 0.5 at about 5 and 14 MHz"
-    t.notes = ["An L-network: 1.5 uH in series from the jack, 150 pF and 200 ohm to ground.  Z = j w L + 200 / (1 + j w 200 C) is 50 ohm",
-               "where w 200 C = sqrt(3), 9.2 MHz; away from it the point circles the chart.  The 200 ohm alone is the unmatched load."]
     return t
 
 
@@ -281,61 +253,104 @@ def tile_p21():
 
 # ------------------------------------------------------------------------------------------------------- P22, P23 --
 def tile_p22():
-    """A digital step attenuator: pSemi PE43711 (QFN-24 4 x 4), 9 kHz-6 GHz, 0-31.75 dB in 0.25 dB steps, in serial mode
-    (P/S high, the seven parallel pins grounded) on the Pmod's SDATA, SCLK and LE (IO2, IO3, IO4: RF-MOD's lines), from the
-    Pmod's 3.3 V (150 uA; no switch).  It powers up at 31.75 dB.  100 nF blocks at both RF pins (they must sit at 0 V).
-    The chip turned 270: RF1 on its top edge under the IN line, RF2 on its bottom edge, the three control pins beside RF2
-    dropping to vias, and their lines on the back round the left of the OUT jack to the plug below the cell.  The tile carries
-    the Pmod plug (the board's only connection to the host: 3.3 V, ground, three lines).  The last millimetre into each RF
-    pin is a plain 0.25 mm track: the RF class's 0.25 mm gap does not fit a 0.5 mm pitch."""
-    t = rf_tile("P22", "step attenuator", [(0, 3)], supply="3.3 V")
+    """A digital step attenuator: pSemi PE43711 (QFN-24 4 x 4), 9 kHz-6 GHz, 0-31.75 dB in 0.25 dB steps, set by hand or by
+    the FPGA (Jason, Prompt 18: "If the FPGA pins are high impedance, this would be nice to do manually").  An 8-way DIP
+    switch above the chip: way 1 is SPI (P/S: off = parallel, the chip's "direct parallel" mode with LE held high by 100 k,
+    which pSemi calls "ideal for manual control ... switches or jumpers"; on = serial), ways 2-8 the seven bits 0.25-16 dB
+    (on = that much more attenuation), each pulled down by 100 k standing in the gap beside its line.  In serial mode the
+    seven bits must be off (the datasheet: the parallel inputs grounded), and SDATA, SCLK and LE come from Pmod IO2, IO3
+    and IO4 (RF-MOD's SPI lines).  Either way the chip needs the Pmod's 3.3 V (150 uA): it is an active switch array.
+    100 nF blocks at both RF pins (they must sit at 0 V).  Two cells: IN at the left cell's top-left, OUT at the right
+    cell's bottom-right, the chip between them; the plug below the left cell."""
+    t = rf_tile("P22", "step attenuator", [(0, 3), (1, 3)], supply="3.3 V")
     t.fine = True
     t.pwr_flags.append("VCC")                    # the host's 3.3 V through the plug: no regulator pin drives it here
-    jin = t.jack("TL", "IN", "IN", "in", "+20 dBm")
-    jout = t.jack("BR", "OUT", "OUT", "out", "")
-    cx, cy = 13.0, 7.0
-    pins = {"5": "RA", "14": "RB", "2": VCC, "3": VCC, "16": "/PMOD4", "17": "/PMOD3", "18": "/PMOD2", "25": "GND"}
-    for n in ("1", "4", "6", "7", "8", "9", "10", "11", "12", "13", "15", "19", "20", "21", "22", "23", "24"):
+    jin = t.jack("TL0", "IN", "IN", "in", "+20 dBm")
+    jout = t.jack("BR1", "OUT", "OUT", "out", "")
+    cx, cy = 20.75, 16.5
+    bits = ["B0", "B1", "B2", "B3", "B4", "B5", "B6"]          # 0.25, 0.5, 1, 2, 4, 8, 16 dB
+    pins = {"5": "RA", "14": "RB", "2": VCC, "3": "PS", "16": "/PMOD4", "17": "/PMOD3", "18": "/PMOD2", "25": "GND",
+            "1": "B0", "24": "B1", "23": "B2", "22": "B3", "21": "B4", "20": "B5", "19": "B6"}
+    for n in ("4", "6", "7", "8", "9", "10", "11", "12", "13", "15"):
         pins[n] = "GND"
-    u = t.add("U", "PE43711", "PE43711", cx, cy, 270, pins, hide_value=True, label=None)
-    ci = t.add("C", "C0402 100nF", "100n", 9.4, 3.75, 0, {"1": "IN", "2": "RA"}, label=None)
-    co = t.add("C", "C0402 100nF", "100n", 10.2, 12.2, 90, {"1": "OUT", "2": "RB"}, label=None)       # pad 1 down
-    cd = t.add("C", "C0402 100nF", "100n", 15.3, 3.2, 0, {"1": VCC, "2": "GND"}, label=None)
-    # RF: IN along y 3.75 over the top row of pads, down into RF1; RF2 down, left, down through the block, into OUT
-    t.rf("IN", [(jin, "1"), (4.75, 3.75), (ci, "1")])
-    t.wire("RA", [(ci, "2"), (cx - 0.75, 3.75), (u, "5")], width=0.25)
-    t.wire("RB", [(u, "14"), (cx - 0.75, 9.95), (10.2, 9.95), (co, "2")], width=0.25)
-    t.rf("OUT", [(co, "1"), (10.2, 15.25), (jout, "1")])
-    # ground: every ground pin into the exposed pad, four vias in it
-    for n, pt in (("6", (cx - 1.25, 5.9)), ("4", (cx - 0.25, 5.9)), ("1", (cx + 1.25, 5.9)), ("13", (cx - 1.25, 8.1)), ("15", (cx - 0.25, 8.1))):
+    u = t.add("U", "PE43711", "PE43711", cx, cy, 0, pins, hide_value=True, label=None)
+    L, R, T = cx - 1.962, cx + 1.962, cy - 1.962
+    # the DIP: pads 1-8 along its lower row are the switched nodes (way 1 SPI, ways 2-8 the bits), 9-16 along the upper row
+    # the 3.3 V; ON is toward the upper row
+    dx0, dy0 = cx, 5.03
+    nodes = ["PS"] + bits
+    dpins = {str(k): nodes[k - 1] for k in range(1, 9)}
+    dpins.update({str(17 - k): VCC for k in range(1, 9)})
+    sw = t.add("SW", "DIP8", "SPI / dB", dx0, dy0, 0, dpins, hide_value=True)
+    xk = [dx0 + (k - 4.5) * 1.27 for k in range(1, 9)]
+    yb = dy0 + 3.81                                            # the lower row's pad centres
+    t.wire(VCC, [(sw, "16"), (sw, "9")], width=F)
+    t.wire(VCC, [(xk[7], dy0 - 3.81), (27.3, dy0 - 3.81)], width=F)
+    t.via(VCC, 27.3, dy0 - 3.81, fine=True)
+    # pull-downs: one 100 k in each gap, its lower pad tied left to its line, its upper pad to a ground via above it
+    ys = 11.55
+    for k in range(8):
+        xr = xk[k] + 0.635
+        r = t.add("R", "R0402 100k", "100k", xr, ys - 0.51, 90, {"1": nodes[k], "2": "GND"}, label=None)      # pad 1 down
+        t.wire(nodes[k], [(r, "1"), (xk[k], ys)], width=F)
+        t.gnd_stub(r, "2", (xr, yb + 0.76 + 0.127 + 0.24), sym=(0, 0), fine=True)
+    # the lines: from the DIP's lower pads straight down past the pull-downs, then each jogs to its chip pin
+    jog = {"B6": 13.65, "B5": 13.25, "B4": 12.85, "B3": 12.45, "B2": 12.05, "B1": 13.65}
+    top_pin = {"B1": cx - 1.25, "B2": cx - 0.75, "B3": cx - 0.25, "B4": cx + 0.25, "B5": cx + 0.75, "B6": cx + 1.25}
+    pin_of = {"B1": "24", "B2": "23", "B3": "22", "B4": "21", "B5": "20", "B6": "19"}
+    for k, net in enumerate(nodes):
+        if net in jog:
+            t.wire(net, [(sw, str(k + 1)), (xk[k], jog[net]), (top_pin[net], jog[net]), (u, pin_of[net])], width=F)
+    t.wire("B0", [(sw, "2"), (xk[1], cy - 1.25), (u, "1")], width=F)                 # C0.25 from the chip's left side
+    t.wire("PS", [(sw, "1"), (xk[0], cy - 0.25), (u, "3")], width=F)                 # P/S, the same way, one row lower
+    # 3.3 V to VDD: a via between the two left lines; a 100 nF to its left
+    t.wire(VCC, [(u, "2"), (xk[0] + 0.635, cy - 0.75)], width=F)
+    t.via(VCC, xk[0] + 0.635, cy - 0.75, fine=True)
+    cd = t.add("C", "C0402 100nF", "100n", 15.0, 14.6, 90, {"1": VCC, "2": "GND"}, label=None)            # pad 1 down
+    t.wire(VCC, [(cd, "1"), (15.0, 15.9)], width=F)
+    t.via(VCC, 15.0, 15.9, fine=True)
+    t.gnd_stub(cd, "2", (15.0, 13.3), sym=(0, 0), fine=True)
+    # ground pins into the exposed pad, four vias in it
+    for n, pt in (("4", (L + 0.85, cy + 0.25)), ("6", (L + 0.85, cy + 1.25)), ("13", (R - 0.85, cy + 1.25)), ("15", (R - 0.85, cy + 0.25))):
         t.wire("GND", [(u, n), pt], width=F, silk=False)
     for k, n in enumerate(("7", "8", "9", "10", "11", "12")):
-        t.wire("GND", [(u, n), (cx - 1.1, cy - 1.25 + 0.5 * k)], width=F, silk=False)
-    for k, n in enumerate(("19", "20", "21", "22", "23", "24")):
-        t.wire("GND", [(u, n), (cx + 1.1, cy + 1.25 - 0.5 * k)], width=F, silk=False)
+        t.wire("GND", [(u, n), (cx - 1.25 + 0.5 * k, cy + 1.1)], width=F, silk=False)
     for (vx, vy) in ((cx - 0.55, cy - 0.55), (cx + 0.55, cy - 0.55), (cx - 0.55, cy + 0.55), (cx + 0.55, cy + 0.55)):
         t.gnd_stub(u, "25", (vx, vy), sym=(0, 0), fine=True)
-    # 3.3 V: VDD and P/S (high: serial) joined above their pads, a via to L3, the 100 nF beside it
-    t.wire(VCC, [(u, "3"), (cx + 0.25, 4.3), (cx + 0.75, 4.3), (u, "2")], width=F)
-    t.wire(VCC, [(cx + 0.75, 4.3), (cx + 0.75, 3.2), (cd, "1")], width=F)
-    t.via(VCC, cx + 0.75, 3.2, fine=True)
-    t.gnd_stub(cd, "2", (16.8, 3.2), sym=(0, 0))
-    # the Pmod plug in the margin below the cell, its pins past the board's edge (RF-MOD's R10 placement); LE, CLK and SI
-    # drop from the chip's bottom pins to vias and run on the back: west above the OUT jack's legs, south, west to the pads
+    # RF: IN down the left cell and along y cy+0.75 into RF1; RF2 out through the block to the right cell's OUT
+    ci = t.add("C", "C0402 100nF", "100n", 16.2, cy + 0.75, 0, {"1": "IN", "2": "RA"}, label=None)
+    co = t.add("C", "C0402 100nF", "100n", 24.6, cy + 0.75, 0, {"1": "RB", "2": "OUT"}, label=None)
+    t.rf("IN", [(jin, "1"), (4.75, cy + 0.75), (ci, "1")])
+    t.wire("RA", [(ci, "2"), (u, "5")], width=0.25)
+    t.wire("RB", [(u, "14"), (co, "1")], width=0.25)
+    t.rf("OUT", [(co, "2"), (25.6, cy + 0.75), (27.1, 15.25), (jout, "1")])
+    # the Pmod plug below the left cell; SI, SCLK and LE from the chip's right side to vias, then on the back down past the
+    # chip and west along the bottom edge to the plug's pads (LE nearest the cell, so the lines peel off without crossing)
     pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"6": "/PMOD4", "8": "/PMOD3", "10": "/PMOD2", "3": "GND", "4": "GND", "1": VCC, "2": VCC},
                hide_value=True)
     t.wire(VCC, [(pm, "1"), (pm, "2")], silk=False)
-    for n, net, (vx, vy), xs, ys, pad, xp in (("16", "/PMOD4", (cx + 0.25, 10.0), 10.0, 19.9, "6", 1.70),
-                                              ("17", "/PMOD3", (cx + 0.75, 10.6), 10.6, 20.5, "8", 4.24),
-                                              ("18", "/PMOD2", (cx + 1.25, 11.2), 11.2, 21.1, "10", 6.78)):
+    for n, net, vx, vy, yh, xp, pad in (("18", "/PMOD2", 25.3, cy - 1.25, 20.9, 6.78, "10"),
+                                        ("17", "/PMOD3", 24.6, cy - 0.75, 20.3, 4.24, "8"),
+                                        ("16", "/PMOD4", 23.9, cy - 0.25, 19.7, 1.70, "6")):
         t.wire(net, [(u, n), (vx, vy)], width=F)
-        t.wire(net, [(vx, vy), (xs, vy), (xs, ys), (xp, ys), (pm, pad)], width=F, layer="B.Cu", silk=False, fine=True)
+        if net == "/PMOD4":                                  # LE: split where its pull-up joins (a via there)
+            t.wire(net, [(vx, vy), (vx, yh), (xp, yh)], width=F, layer="B.Cu", silk=False, fine=True)
+            t.wire(net, [(xp, yh), (pm, pad)], width=F, layer="B.Cu", silk=False, fine=True)
+        else:
+            t.wire(net, [(vx, vy), (vx, yh), (xp, yh), (pm, pad)], width=F, layer="B.Cu", silk=False, fine=True)
+    rle = t.add("R", "R0402 100k", "100k", 2.6, 18.6, 90, {"1": "/PMOD4", "2": VCC}, label=None)          # pad 1 down
+    t.wire("/PMOD4", [(rle, "1"), (2.6, 19.7), (1.70, 19.7)], width=F)
+    t.wire(VCC, [(rle, "2"), (2.6, 17.3)], width=F)
+    t.via(VCC, 2.6, 17.3, fine=True)
     t.titles.append("Attenuator")
-    t.text(5.0, 11.8, "P22", 0.9, 0.17, "center")
-    t.info(["PE43711", "9 kHz-6 GHz", "0-31.75 dB", "Pmod IO2-4"], near=(1.2, 13.5))
-    t.result = "0 to 31.75 dB in 0.25 dB steps (1.5-2.8 dB of loss at 0 dB, rising with frequency), set by an 8-bit word over the Pmod; 31.75 dB at power-up"
-    t.notes = ["pSemi PE43711 in serial mode: shift 8 bits (bit 7 = 0, then 4 x dB, least significant first) on SDATA (IO2) with",
-               "SCLK (IO3) while LE (IO4) is low, then raise LE.  RF-MOD's MAX2871 and TRF3722 take the same three lines' timing.",
+    t.text(9.0, 10.0, "P22", 0.9, 0.17, "center")
+    t.info(["PE43711", "9 kHz-6 GHz", "0-31.75 dB"], near=(6.2, 11.6), reach=4.0)
+    t.info(["1: SPI", "2-8: .25 .5 1", "2 4 8 16 dB", "up: on"], near=(28.0, 2.0), reach=4.0)
+    t.info(["SPI on: 2-8 off"], near=(26.0, 10.6), reach=4.0)
+    t.result = "0 to 31.75 dB in 0.25 dB steps (1.5-2.8 dB of loss at 0 dB, rising with frequency), set by the switches or by an 8-bit word over the Pmod"
+    t.notes = ["pSemi PE43711.  By hand: SPI off, the bits on the switch (direct parallel mode: P/S low, LE held high by 100 k when the",
+               "FPGA's pin floats).  By the FPGA: every bit off, SPI on, then shift 8 bits (bit 7 = 0, then 4 x dB, least significant",
+               "first) on SDATA (IO2) with SCLK (IO3) while LE (IO4) is low, and raise LE.  Either way it needs the Pmod's 3.3 V.",
                "Below 48 MHz it takes less power: about +9.5 dBm under 0.5 MHz and +15 dBm at 5 MHz (+23 dBm above 48 MHz)."]
     return t
 
@@ -349,7 +364,7 @@ def tile_p23():
     22 pF from the emitter (about -22 dBm into 50 ohm).  The transistor stands over the switch's FET (collector down, to
     the supply); the tank fills the top-right quarter; the supply reaches the bias and the tank, and the output reaches the
     OUT jack's centre pin, on the back."""
-    t = rf_tile("P23", "oscillator", [(1, 3)], supply="3.3 V")
+    t = rf_tile("P23", "oscillator", [(3, 0)], supply="3.3 V")
     jt = t.jack("TL", "TUNE", "TUNE", "in", "+-2 V")
     jo = t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t, rail=VCC, local="VS", pour=True)
@@ -465,17 +480,17 @@ def tile_p25():
 
 
 def tiles():
-    return [tile_p14(), tile_p15(), tile_p16(), tile_p17(), tile_p18(), tile_p19(), tile_p20(), tile_p21(), tile_p22(), tile_p23(),
-            tile_p24(), tile_p25()]
+    return [tile_p14(), tile_p16(), tile_p17(), tile_p18(), tile_p19(), tile_p20(), tile_p21(), tile_p22(), tile_p23(), tile_p24(),
+            tile_p25()]
 
 
 PMOD_HOST = "P22's bottom edge"
 PMOD_VCC_TEXT = "which powers P22 and P23, the board's only supply; the lines are 3.3 V CMOS):"
 PMOD_NAMES = {"/PMOD2": "SDATA (SI) of P22's PE43711", "/PMOD3": "SCLK of P22", "/PMOD4": "LE of P22"}
 HANDBOOK_INTRO = [
-    "Twelve tiles on sixteen 20 mm cells, four layers, no USB.  Ten of them are passive and need nothing; P22 (the step",
+    "Eleven tiles on sixteen 20 mm cells, four layers, no USB.  Nine of them are passive and need nothing; P22 (the step",
     "attenuator) and P23 (the oscillator) run on the host's 3.3 V through the Pmod plug under P22, so plug the board into the",
-    "host's Pmod (or a Pmod cable) to use them.  Every tile's input is its top-left jack and its output its bottom-right jack,",
+    "host's Pmod (or a Pmod cable) to use them, even to set P22 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,",
     "every 50 ohm line is coplanar waveguide with a via fence and every jack has RF-MOD's launch (no plane under its centre",
     "pin), except P14's SHORT, whose centre pin is the ground pour.  On the board a tile's label is in mixed case and a port's",
     "name in capitals."]
@@ -484,11 +499,11 @@ HANDBOOK_SECTIONS = [
      "1. **Calibrate first.**  P14's SHORT, OPEN and LOAD and its THRU calibrate a NanoVNA, or RF-MOD-2's reflectometer (X1,",
      "   X2 and X5), at the board's surface; the 25 OHM standard checks the result (|S11| = 1/3).  Every tile's jacks are the",
      "   same part, so a tile measured afterwards is measured from its pads.",
-     "2. **Impedance.**  P15's two loads and P25's transformer on PhMOD's reflection bridge (Y7) or the VNA: points on the",
-     "   Smith chart, a match at one frequency, the turns ratio squared.",
+     "2. **Impedance.**  P14's 25 OHM standard and P25's transformer with its 200 ohm or 49.9 ohm load on PhMOD's",
+     "   reflection bridge (Y7) or the VNA: points on the Smith chart, a match across a band, the turns ratio squared.",
      "3. **Splitting and combining.**  P16 (resistive, DC-6 GHz, no isolation) against P17 (transformer, 0.5-400 MHz, 25 dB",
      "   of isolation).  The two DACs combined through P17 into an amplifier make a two-tone intermodulation test, with P22",
-     "   setting the level in 0.25 dB steps.",
+     "   setting the level in 0.25 dB steps, by hand on its switch or from the FPGA.",
      "4. **Power.**  P22 makes a known level; P20 turns power into volts (square law at the bottom) to set against RF-MOD-2's",
      "   AD8318 (log); compression points and IP3 of every amplifier and mixer on the boards follow.",
      "5. **Lines and filters.**  P18's stub and P19's low-pass swept by RF-MOD's synthesizer into a detector, or on the VNA.",
@@ -497,7 +512,8 @@ HANDBOOK_SECTIONS = [
      "7. **On the air.**  P24 feeds the tutorial's HF dipole balanced; P21 powers an active antenna or an LNA through its",
      "   cable.",
      "",
-     "Levels to remember: P22 takes +23 dBm above 48 MHz but only about +9.5 dBm below 0.5 MHz; P20 wants +10 dBm at most",
+     "Levels to remember: P22 takes +23 dBm above 48 MHz but only about +9.5 dBm below 0.5 MHz, and its switch's way 1",
+     "(SPI) must be off for the bits to count, the bits off for SPI; P20 wants +10 dBm at most",
      "and a high-impedance load; P21 passes 100 mA and 16 V; P23 gives about -22 dBm."],
 ]
 
@@ -515,6 +531,32 @@ BACK_TEXT = ["AMOD-P2: passive RF and analog blocks.  IN is each",
              "tile's top-left jack, OUT its bottom-right.  No USB:",
              "P22 and P23 run on the Pmod's 3.3 V when it is plugged",
              "in; everything else needs nothing.  See the handbook."]
+
+
+
+import backplots as BP
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
+BACK = {
+    "P14": ["SHORT, OPEN,", "LOAD at the pin", "25 OHM: VSWR 2", "THRU 115 ps", "tiles measure", "from their pads"],
+    "P16": ["DC-6 GHz", "-6 dB each way", "no isolation", "IN max +20 dBm"],
+    "P17": ["0.5-400 MHz", "-3.2 dB each way", "isolation 25 dB", "a combiner too"],
+    "P18": ["notch 2.45 GHz", "and 7.35 GHz", "50 ohm"],
+    "P19": ["DC-1 GHz", "-3 dB 1.3 GHz", "-30 dB 1.9-5 G"],
+    "P20": ["IN < +10 dBm", "OUT to a", "HIGH-Z ADC", "square law", "below -20 dBm"],
+    "P21": ["DC 16 V max", "100 mA max", "RF+DC has DC:", "mind its load"],
+    "P22": ["NEEDS THE PMOD'S 3.3 V", "by hand: SPI off, bits on", "FPGA: bits off, SPI on", "IN max +23 dBm, +9.5 dBm", "below 0.5 MHz"],
+    "P23": ["Pmod 3.3 V", "slide up: on", "TUNE +-2 V", "OUT -22 dBm"],
+    "P24": ["OUT floats", "0.4-500 MHz", "0.25 W, 30 mA"],
+    "P25": ["3-800 MHz", "OUT: 2x V,", "4x the Z", "1: 200, 2: 49.9"],
+}
+BACK_PLOTS = {
+    "P17": BP.points([(0.5e6, -30.1), (10e6, -34.5), (120e6, -28.2), (200e6, -25.6), (400e6, -25.4)], ylim=(-40.0, 0.0),
+                     yt=("0", "-40 dB"), name="isolation"),
+    "P18": BP.open_stub(2.45e9),
+    "P19": BP.points([(10e6, -0.1), (500e6, -0.3), (1000e6, -0.8), (1300e6, -3.0), (1500e6, -25.9), (2000e6, -49.5), (5000e6, -30.0),
+                      (5500e6, -20.0)], ylim=(-60.0, 0.0), yt=("0", "-60 dB"), name=""),
+    "P23": BP.clapp(),
+}
 
 
 if __name__ == "__main__":

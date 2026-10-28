@@ -802,6 +802,28 @@ BACK_TEXT = ["RF-MOD-2: X1 and X2 put the ECP5 board's DACs and ADCs",
              "slide switch (up: on).  USB-C on X10.  See the handbook."]
 
 
+
+import backplots as BP
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
+BACK = {
+    "X1": ["I, Q +-1 V into 50 ohm", "LO 0 dBm from X3", "0.4-6 GHz"],
+    "X2": ["RF -4 dBm: +-1 V out", "LO 0 dBm from X3", "pad a strong signal"],
+    "X3": ["OUT A+, A-: -4 to +5 dBm", "REF IN: the host's CLK OUT", "50 ohm on an unused one"],
+    "X4": ["IN < -20 dBm", "+22 dBm BURNS"],
+    "X5": ["0.6-3.5 GHz", "FWD, REFL -25 dB", "50 ohm on an unused port", "+35 dBm through"],
+    "X6": ["-60 to 0 dBm", "25 mV per dB", "OUT: high-Z"],
+    "X7": ["IO6 high: on", "calibrate ENR"],
+    "X8": ["ANT: 3.3 V on", "the centre pin:", "DC block for a", "passive antenna"],
+    "X9": ["50 ohm through", "+20 dBm: 50 uT", "no metal near"],
+    "X10": ["USB-C 5 V; -5 V 40 mA"],
+    "X11": ["IO5, IO8 opposite", "0.5-6 GHz", "+30 dBm max"],
+}
+BACK_PLOTS = {
+    "X5": BP.points([(0.6e9, -27.0), (0.67e9, -25.0), (2.7e9, -25.0), (3.5e9, -14.0)], xlog=False, ylim=(-40.0, 0.0),
+                    xt=("0.6G", "3.5G"), yt=("0", "-40 dB"), name="FWD"),
+}
+
+
 if __name__ == "__main__":
     ts = tiles()
     cells = [c for t in ts for c in t.cells]

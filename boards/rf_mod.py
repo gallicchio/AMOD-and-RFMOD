@@ -177,7 +177,7 @@ def qpl_tile(id, cell):
     t.gnd_stub(c10, "1", [(10.0, 13.45), (10.0, 12.9)], sym=(0, 0))
     t.text(11.6, 3.2, id, 1.2, 0.2, "center")
     t.titles.append("Preamp")
-    t.text(5.6, 11.3, "NF 0.3 dB", 0.8, 0.15, "left")
+    t.text(4.8, 10.95, "IN -20 dBm", 0.8, 0.15, "left")           # the level, not its noise figure: +22 dBm kills it (Prompt 18)
     t.result = "19.5 dB of gain and a 0.3-0.5 dB noise figure from 0.5 to 3 GHz (datasheet: 0.3 dB at 1.9 GHz, OIP3 +39 dBm); 65 mA from 5 V"
     t.notes = ["Qorvo QPL9547: a GaAs pHEMT LNA, internally matched to 50 ohm, 0.1-6 GHz.  It sets the noise figure of every receiver",
                "here, so put it first (before the filter) unless a strong neighbour overloads it; +39 dBm OIP3 makes that rare.",
@@ -945,6 +945,22 @@ BACK_TEXT = ["RF-MOD: 915 MHz and 2.4 GHz.  IN is each tile's top-left",
              "jack, OUT its bottom-right; the powered tiles have a slide",
              "switch (up: on).  Power: USB-C on R9.  The handbook has",
              "the rest."]
+
+
+
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
+BACK = {
+    "R1": ["LO +4 dBm", "RF below -5 dBm", "IF DC-800 MHz", "50 ohm on every port", "10-1000 MHz"],
+    "R2": ["2.4-2.5 GHz", "loss 1.7 dB", "50 ohm"],
+    "R4": ["902-928 MHz", "loss 1.1 dB", "IN max +10 dBm"],
+    "R5": ["IN < -20 dBm", "+22 dBm BURNS", "30 dB pad", "from a TX"],
+    "R12": ["slide up: on", "IN max 0 dBm", "+20 dB, OUT", "max +20 dBm"],
+    "R9": ["USB-C 5 V only", "REF OUT 25 MHz, 1.6 V p-p", "into 50 ohm, to R10 REF IN"],
+    "R7": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with R2, R4"],
+    "R8": ["LO 0 to +6 dBm (+4 best)", "RF, IF max +10 dBm", "IF DC-200 MHz", "image: filter with R2, R4"],
+    "R10": ["OUT A+, A-: -4 to +5 dBm,", "180 degrees apart", "50 ohm on an unused one", "harmonics below 3 GHz"],
+    "R13": ["I, Q +-1 V into 50 ohm", "RF about -3 dBm", "REF: 25 MHz via R10"],
+}
 
 
 if __name__ == "__main__":

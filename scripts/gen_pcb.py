@@ -16,6 +16,7 @@ import pcbnew
 from sexp_parse import parse_file
 import parts
 import geometry as G
+from tiles import label_case
 
 
 class NS:
@@ -180,6 +181,7 @@ class Board:
             for node in nodes:
                 self.pad_net[node] = name
         self.fps, self.pads, self.problems = {}, {}, []
+        self.back_plots = 0
         # the tiles name their nets ("/P5_N1"); KiCad names an unlabelled net after a pad ("Net-(R501-Pad2)").
         # Map each declared net to KiCad's name through any pad on it.
         self.kname = {}
@@ -1266,6 +1268,165 @@ class Board:
         for i, line in enumerate(("github.com/gallicchio/", "AMOD-and-RFMOD", "handbook and generator")):
             self._text(qx, qy + half + 1.5 + 1.4 * i, line, 0.8, 0.15, justify="center", layer=pcbnew.B_SilkS)
 
+    BACK_SIZE, BACK_THICK, BACK_LINE = 0.8, 0.15, 1.5     # the back panels' text: the floor JLCPCB prints cleanly
+
+    def _text_box_back(self, txt, size, thickness, justify):
+        """KiCad's box for `txt` mirrored on the back silk, drawn at (0, 0), relative to the anchor."""
+        t = pcbnew.PCB_TEXT(self.board)
+        t.SetText(txt)
+        t.SetTextSize(pcbnew.VECTOR2I(mm(size), mm(size)))
+        t.SetTextThickness(mm(thickness))
+        t.SetLayer(pcbnew.B_SilkS)
+        t.SetMirrored(True)
+        t.SetHorizJustify({"center": pcbnew.GR_TEXT_H_ALIGN_CENTER, "left": pcbnew.GR_TEXT_H_ALIGN_LEFT, "right": pcbnew.GR_TEXT_H_ALIGN_RIGHT}[justify])
+        t.SetPosition(pt(0, 0))
+        b = t.GetBoundingBox()
+        return (tomm(b.GetLeft()), tomm(b.GetTop()), tomm(b.GetRight()), tomm(b.GetBottom()))
+
+    def back_panels(self):
+        """Under each tile, on the back: its number and title, the lines a user must know (levels, loads, supplies,
+        cautions: `BACK` in its board module) and, where there is one, its expected response as a small plot (`BACK_PLOTS`,
+        or a ladder's own simulation).  Jason, Prompt 18: "When someone is screwing things into the board, it's far easier
+        to read the silkscreen in front of them than it is to look up stuff on github."  Placed in the tile's area clear of
+        every through-hole pad and of the back's other silk; mirrored so they read from the back."""
+        def box(b):
+            return (tomm(b.GetLeft()), tomm(b.GetTop()), tomm(b.GetRight()), tomm(b.GetBottom()))
+        rects = [(p["x0"], p["y0"], p["x1"], p["y1"]) for p in self.pad_list if p["through"]]
+        for d in self.board.GetDrawings():
+            d = d.Cast() if hasattr(d, "Cast") else d
+            if d.GetLayer() == pcbnew.B_SilkS:
+                rects.append(box(d.GetBoundingBox()))
+        # the back's own tracks and the vias (tented, but a row of them through a line of text is hard to read): kept clear
+        # of where there is room
+        tracks = [(a[0], a[1], b[0], b[1], 0.15) for (n, a, b, layer) in self.segments if layer == pcbnew.B_Cu]
+        segs = tracks + [(x, y, x, y, VIA_DIA / 2) for (n, x, y) in self.vias]
+        S, T, P = self.BACK_SIZE, self.BACK_THICK, self.BACK_LINE
+        for t in self.tiles:
+            lines = list(getattr(t, "back", None) or [])
+            plot = getattr(t, "back_plot", None)
+            if not lines and not plot:
+                continue
+            title = t.titles[0] if getattr(t, "titles", None) else t.name
+            if title.split()[0].isupper() and len(title.split()[0]) > 4:    # a block's label on the front ("PREAMP x12"), not the tile's
+                title = t.name
+            title = label_case(title)
+            block = ["%s  %s" % (t.id, title)] + lines
+            # the text: as one block, or in two, three or four when one does not fit, each part below the one before (so it
+            # reads in order); each split clear of the back's tracks and vias if it can be, then of the tracks only, then
+            # over them (silk on the mask over a track still reads: a whole block over a track beats one in scattered
+            # pieces); in any order only when nothing else fits
+            n = len(block)
+            splits = [[block]] + [[block[k * n // m:(k + 1) * n // m] for k in range(m)] for m in (2, 3, 4) if n >= m]
+            placed = []
+            tries = [(True, avoid, parts) for parts in splits for avoid in (segs, tracks, [])]
+            tries += [(False, avoid, parts) for parts in splits[1:] for avoid in (tracks, [])]
+            for ordered, avoid, parts in tries:
+                grid, mark = self._raster(t, rects, avoid)
+                spots = []
+                for part in parts:
+                    boxes = [tuple(v + (0, k * P, 0, k * P)[i] for i, v in enumerate(self._text_box_back(ln, S, T, "left"))) for k, ln in enumerate(part)]
+                    prefer, ok = (t.x0 + t.w - 1.0, t.y0 + 1.6), None
+                    if spots and ordered:
+                        (px, py), prev = spots[-1]
+                        below = py + (len(prev) - 0.5) * P
+                        prefer, ok = (px, py + len(prev) * P), (lambda ax, ay, below=below: ay >= below)
+                    at = self._search(t, grid, boxes, prefer, max(t.w, t.h), ok)
+                    if at is None:
+                        break
+                    for bx in boxes:
+                        mark(at[0] + bx[0] - 0.3, at[1] + bx[1] - 0.3, at[0] + bx[2] + 0.3, at[1] + bx[3] + 0.3)
+                    spots.append((at, part))
+                if len(spots) == len(parts):
+                    placed = spots
+                    break
+            if t.id in os.environ.get("BACK_DEBUG", "").split(","):           # the tile's free area on the back as a picture
+                grid, mark = self._raster(t, rects, [])
+                with open(os.path.join(HW, "..", "out", "back_debug_%s.pbm" % t.id), "w") as fh:
+                    fh.write("P1\n%d %d\n" % (len(grid[0]), len(grid)))
+                    for row in grid:
+                        fh.write(" ".join(str(v) for v in row) + "\n")
+            if not placed:
+                self.warnings.append("%s: no room on the back for its panel" % t.id)
+                continue
+            taken = []
+            for (ax, ay), part in placed:
+                for k, ln in enumerate(part):
+                    bx = self._text_box_back(ln, S, T, "left")
+                    taken.append((ax + bx[0] - 0.3, ay + k * P + bx[1] - 0.3, ax + bx[2] + 0.3, ay + k * P + bx[3] + 0.3))
+            for (ax, ay), part in placed:
+                for k, ln in enumerate(part):
+                    self._text(ax, ay + k * P, ln, S, T, justify="left", layer=pcbnew.B_SilkS)
+            if plot:
+                at = None
+                name = self._plot_name(plot)
+                xt = plot.get("xt") or ("", "")
+                sizes = ([(16.0, 7.0), (12.0, 6.0)] if t.w > 25 else []) + [(9.0, 5.0), (7.5, 4.2), (6.5, 3.6)]
+                for avoid in (segs, tracks, []):
+                    grid, mark = self._raster(t, rects + taken, avoid)
+                    for (W, H) in sizes:
+                        # the plot's footprint relative to its top-left corner (board): the box, its name above (anchored at
+                        # the box's right edge, reading leftward from the back), its x labels below at the two ends
+                        fp = [(-0.2, -0.2, W + 0.2, H + 0.2)]
+                        bn = self._text_box_back(name, S, T, "left") if name else None
+                        if bn:
+                            fp.append((W + bn[0], -0.9 + bn[1], W + bn[2], -0.9 + bn[3]))
+                        b0 = self._text_box_back(xt[0], S, T, "left")
+                        b1 = self._text_box_back(xt[1], S, T, "right")
+                        if (W + b0[0]) - (b1[2]) < 0.5:              # the two x labels would meet: this size is too narrow
+                            continue
+                        fp.append((W + b0[0], H + 0.95 + b0[1], W + b0[2], H + 0.95 + b0[3]))
+                        fp.append((b1[0], H + 0.95 + b1[1], b1[2], H + 0.95 + b1[3]))
+                        at = self._search(t, grid, fp, (t.x0 + 1.0, t.y0 + t.h - H - 2.5), max(t.w, t.h))
+                        if at is not None:
+                            break
+                    if at is not None:
+                        break
+                if at is None:
+                    self.warnings.append("%s: no room on the back for its plot" % t.id)
+                    continue
+                x0, y0 = at
+                self._back_plot(x0, y0, W, H, plot)
+                self.back_plots += 1
+
+    @staticmethod
+    def _plot_name(pl):
+        """The line over a back plot: its quantity and the y axis's range ("0 to -60 dB")."""
+        name = pl.get("name", "")
+        if pl.get("yt"):
+            name = (name + " " if name else "") + "%s to %s" % tuple(pl["yt"])
+        return name
+
+    def _back_plot(self, x0, y0, W, H, pl):
+        """A response on the back silk in the box (x0, y0, W, H), board mm, mirrored: the plot's x runs right to left on
+        the board, so from the back it reads left to right."""
+        L = pcbnew.B_SilkS
+        for (a, b) in (((x0, y0), (x0 + W, y0)), ((x0 + W, y0), (x0 + W, y0 + H)), ((x0 + W, y0 + H), (x0, y0 + H)), ((x0, y0 + H), (x0, y0))):
+            self._line(a, b, L, 0.12)
+        xa, xb = pl["xlim"]
+        ya, yb = pl["ylim"]
+        def u(x):
+            if pl.get("xlog"):
+                return (math.log10(x) - math.log10(xa)) / (math.log10(xb) - math.log10(xa))
+            return (x - xa) / (xb - xa)
+        pts = []
+        for x, y in zip(pl["x"], pl["y"]):
+            if x < xa or x > xb:
+                continue
+            uu = min(1.0, max(0.0, u(x)))
+            vv = min(1.0, max(0.0, (y - ya) / (yb - ya)))
+            pts.append((x0 + W - uu * W, y0 + H - vv * H))
+        step = max(1, len(pts) // 80)
+        pts = pts[::step] + ([pts[-1]] if pts and (len(pts) - 1) % step else [])
+        for a, b in zip(pts, pts[1:]):
+            self._line(a, b, L, 0.15)
+        S, T = self.BACK_SIZE, self.BACK_THICK
+        name = self._plot_name(pl)
+        if name:
+            self._text(x0 + W, y0 - 0.9, name, S, T, justify="left", layer=L)
+        xt = pl.get("xt") or ("", "")
+        self._text(x0 + W, y0 + H + 0.95, xt[0], S, T, justify="left", layer=L)
+        self._text(x0, y0 + H + 0.95, xt[1], S, T, justify="right", layer=L)
+
     def add_qr(self, url, cx, cy, module):
         import qrcode_gen
         m = qrcode_gen.encode(url, "L")
@@ -1319,6 +1480,7 @@ class Board:
         self.silk_board()
         self.place_labels()
         self.silk_back()
+        self.back_panels()
         self.fiducials()
         stabilise_uuids(self.board)
         pcbnew.SaveBoard(self.out_path, self.board)

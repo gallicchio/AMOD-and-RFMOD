@@ -138,7 +138,7 @@ def dip(nways):
     pads 1..N along the +y row left to right (pin 1 bottom-left, as JLCPCB draws the 2- and 4-way; the 6-way's drawing
     has pin 1 top-right, so its CPL rotation is 180).  ON is toward -y (the row of pads N+1..2N); the part is printed."""
     name = "SW_DIP_SPSTx%02d_Slide_1.27mm_DSHP%02d" % (nways, nways)
-    codes = {2: "C40735", 4: "C40736", 6: "C40737"}
+    codes = {2: "C40735", 4: "C40736", 6: "C40737", 8: "C40738"}
     f = fp_header(name, "%d-way SMD DIP switch, 1.27 mm pitch, DSHP%02dTSGET (LCSC %s), JLCPCB's land pattern" % (nways, nways, codes[nways]),
                   "DIP switch SPST x%d SMD 1.27mm half pitch" % nways, "smd", 5.6)
     row = 3.81
@@ -510,7 +510,7 @@ def lfcn():
     return name, f
 
 
-MAKERS = [adp2_1, at224, lfcn, sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
+MAKERS = [adp2_1, at224, lfcn, sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: dip(8), lambda: kf301(2), lambda: kf301(3),
           pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot,
           max2659, saw_1109, sky13370, adex10l, hhm22137]
 

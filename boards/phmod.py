@@ -87,7 +87,7 @@ def tile_y2():
     gnd(t, rpd, "1", (8.3, 5.6), w=0.2)
     t.wire("/PMOD1", [(-0.75, 0.6), (11.25, 0.6), (rs, "2")], width=F, silk=False)
     t.text(1.2, 15.4, "Y2", 1.2, 0.2, "left")
-    t.text(1.2, 16.90, "Pulse amp x10", 0.8, 0.15, "left")
+    t.text(1.2, 16.90, "PULSES ONLY", 0.8, 0.15, "left")
     t.text(1.2, 18.25, "IO1 high: on", 0.8, 0.15, "left")
     t.titles.append("Pulse amp")
     t.result = "gain 10.3 to 30 MHz: a DAC's +-1 V to +-10 V into 50 ohm (1 W); off (PD low) unless Pmod IO1 is high"
@@ -607,7 +607,7 @@ def tile_y10():
     t.text(1.2, 9.4, "Y10", 1.2, 0.2, "left")
     t.text(4.9, 9.4, "Laser", 0.8, 0.15, "left")
     t.titles.append("Laser driver")
-    t.info(["SET: 100 mA/V"], near=(1.2, 10.8))
+    t.info(["SET: 100 mA/V", "start at mV"], near=(1.2, 10.8))
     t.result = "0-100 mA from 0-1 V on SET, about 10 kHz of loop bandwidth; IO5 blanks it in about 1 us; RF from about 20 MHz to 3 GHz rides on the current"
     t.notes = ["A high-side current source: REF = VS - SET (OPA810 and a 2N7002 through 1 k / 1 k), OPA810 holds the AO3401's source at",
                "REF so 10 ohm carries SET / 10 ohm, 100 mA per volt (start a VCSEL at a few millivolts).  The drain feeds the diode through",
@@ -1007,6 +1007,27 @@ BACK_TEXT = ["PhMOD: magnetic resonance, the ionosphere and light.",
              "Jacks at each cell's top-left and bottom-right; powered",
              "tiles have a slide switch (up: on).  USB-C on Y1.  Y2",
              "is the 1 W pulse amplifier: pulse it, do not leave it on."]
+
+
+
+import backplots as BP
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
+BACK = {
+    "Y1": ["USB-C 5 V only", "+-15 V reach Y2 only", "-5 V 40 mA"],
+    "Y2": ["PULSES ONLY", "duty < 10 %", "+-10 V, 50 ohm", "never open", "or shorted", "IO1 high: on"],
+    "Y3": ["TX IN: from Y2", "LINE: lambda/4", "cable to probe", "RX OUT x12"],
+    "Y4": ["VM: 18 V max,", "else USB 4.6 V", "1.3 A limit", "MON 1.5 V/A"],
+    "Y5": ["x9.9 each", "IN max -10 dBm", "low-pass to the ADC"],
+    "Y6": ["x101", "1.6-160 kHz", "away from mains"],
+    "Y7": ["REFL / INC = S11", "DC-30 MHz", "calibrate open, short, load"],
+    "Y8": ["tanks ~10 MHz", "TUNE: tank 2", "by +-5 %", "PUMP at 2 f"],
+    "Y9": ["IO8 high: on", "flat to 50 MHz", "calibrate ENR"],
+    "Y10": ["SET: 100 mA/V", "START A LASER", "AT A FEW mV", "VCSEL: 30 dB", "pad on SET", "RF IN +10 dBm", "IO5 high: off"],
+}
+BACK_PLOTS = {
+    "Y5": BP.amplifier(19.9, 100e6, f1=1e3, f2=3e8, fl=5e3, name="x9.9"),
+    "Y6": BP.amplifier(40.1, 160e3, f1=100.0, f2=1e7, fl=1.6e3, name="x101"),
+}
 
 
 if __name__ == "__main__":

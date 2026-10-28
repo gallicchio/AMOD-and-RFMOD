@@ -447,13 +447,6 @@ DOCS["amod_p2"] = {
         experiments="A full SOLT calibration of RF-MOD-2's reflectometer (X1, X2, X5) or of a NanoVNA at the board's surface; the 25 ohm standard as its check; every other tile then measured from its pads with its jacks taken out (they are all the same part).",
         use="The analyzer's port to SHORT, OPEN and LOAD in turn; its two ports to THRU A and THRU B for the two-port step; then any tile.",
         needs=NOTHING),
-    "P15": dict(
-        does="Two loads to read on a Smith chart: 200 ohm alone, and the same 200 ohm matched to 50 ohm at 9.2 MHz by an L-network.",
-        chips=[], specs="200 OHM: Gamma +0.6 (VSWR 4) to about 100 MHz.  MATCHED: 1.5 uH in series, 150 pF and 200 ohm to ground: Gamma 0 at 9.2 MHz, |Gamma| 0.5 near 5 and 14 MHz.",
-        limits="HF only: above about 100 MHz the parts and the line move both points; the inductor's Q (about 35) leaves an ohm or two of loss at the match.",
-        experiments="Both on the Smith chart with PhMOD's reflection bridge (Y7) or a VNA; the matched load passing through the chart's centre as the sweep crosses 9.2 MHz; the network designed back from the measured 200 ohm.",
-        use="A DAC into PhMOD's Y7 DRIVE and its DUT jack to 200 OHM or MATCHED, the two ADCs on INC and REFL; or a VNA's port.",
-        needs=NOTHING),
     "P16": dict(
         does="A resistive power splitter: three 16.9 ohm in a star, every port 50 ohm, 6 dB from any port to either other, from DC to 6 GHz.",
         chips=[], specs="3 x 16.9 ohm (50 / 3); -6.0 dB each way; DC-6 GHz; OUT 1 and OUT 2 on lines of equal length.",
@@ -497,11 +490,11 @@ DOCS["amod_p2"] = {
         use="RF to the instrument, RF+DC to the device, the bench supply's clips on the DC and GND loops.",
         needs="A bench supply with clip leads."),
     "P22": dict(
-        does="A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by the FPGA over three Pmod lines.",
-        chips=["PE43711"], specs="7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB; serial: SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first; 3.3 V and 150 uA from the Pmod; 31.75 dB at power-up.",
-        limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; needs the board plugged into the host's Pmod.",
+        does="A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by hand on an 8-way switch or by the FPGA over three Pmod lines.",
+        chips=["PE43711"], specs="7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB.  By hand: switch way 1 (SPI) off, ways 2-8 the bits 0.25, 0.5, 1, 2, 4, 8 and 16 dB (on = that much more), the chip's direct parallel mode.  By the FPGA: ways 2-8 off, way 1 on; SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first.  3.3 V and 150 uA from the Pmod either way.",
+        limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.",
         experiments="The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.",
-        use="Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device; write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
+        use="Plug AMOD-P2 into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
         needs=NOTHING),
     "P23": dict(
         does="An oscillator made of one transistor and a tank, tunable by a voltage and lockable to an outside tone.",

@@ -437,6 +437,30 @@ BACK_TEXT = ["AMOD-P: passive building blocks for the FPGA tutorial's converters
              "expected response.  P13: a 330 uH ferrite-rod coil along this edge, under cable ties; a tuning capacitor on VAR C."]
 
 
+
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.  The ladder
+# tiles add their simulated response as a plot.
+BACK = {
+    "P1": ["-20 dB, 50 ohm", "-14 dB if high-Z", "IN max +-3 V"],
+    "P2": ["OUT: 1 k source", "ADC on high-Z", "tau 1 us"],
+    "P3": ["OUT: 1 k source", "ADC on high-Z"],
+    "P4": ["Q about 6", "1: +47 pF", "2: +100 pF", "1.07-0.83 MHz"],
+    "P5": ["50 ohm both", "ends", "-30 dB 18 MHz"],
+    "P6": ["50 ohm both", "ends"],
+    "P7": ["50 ohm both", "ends"],
+    "P8": ["fs 4.000 MHz", "Q about 50,000", "drive < +-1 V", "step a few Hz"],
+    "P9": ["455 kHz series", "Q a few 100", "one peak, no", "flat passband"],
+    "P10": ["IN max +-4 V", "OUT: high-Z"],
+    "P11": ["50 ohm both ends", "20 ns a section", "taps x1 high-Z", "taps /10 50 ohm", "cut-off 16 MHz"],
+    "P12": ["IN 0-5 V", "1: 630 nm", "2: 596 nm", "3: 525 nm", "4: 469 nm"],
+    "P13": ["330 uH coil", "0.4-1.3 MHz", "VAR C: outside", "tuning cap", "then A4's LNA"],
+}
+
+# P10's response is a transfer curve, not a frequency response (its ladder is 1 k into high-Z: flat)
+import backplots as BP                                 # noqa: E402
+BACK_PLOTS = {"P10": BP.clipper()}
+
+
 if __name__ == "__main__":
     ts = tiles()
     cells = [c for t in ts for c in t.cells]

@@ -841,6 +841,30 @@ BACK_TEXT = ["AMOD-A: active blocks on USB-C power.  Each tile",
              "takes the FPGA's lines; the handbook has the rest."]
 
 
+
+import backplots as BP
+# The back panels (gen_pcb.back_panels, Prompt 18): under each tile, what a user must know while cabling it.
+BACK = {
+    "A1": ["USB-C 5 V only", "+5 V 1.5 A", "-5 V 40 mA", "+3.3 V 300 mA"],
+    "A2": ["slide up: on", "IN max +-0.4 V", "x10 high-Z", "x5 into 50 ohm"],
+    "A3": ["slide up: on", "IN max +-40 mV", "1.4 MHz wide"],
+    "A4": ["slide up: on", "IN < +-30 mV", "x101, 1-30 M", "keep gain > 12"],
+    "A5": ["HB100 in socket", "70 Hz per m/s", "x101 audio"],
+    "A6": ["IN 0-3.3 V", "needs gateware", "clock 1-10 MHz"],
+    "A7": ["VCO ~100 kHz", "locks at x1", "probe pins 9, 13"],
+    "A8": ["IO6 high: 0.8 W", "HOT to touch", "TEMP 10 mV/K", "750 mV at 25 C"],
+    "A9": ["RF, LO +-0.3 V", "IF OUT is 1.5 k:", "high-Z ADC,", "short cable"],
+    "A10": ["Z = R X/(S-X)", "DIP R: 47, 470,", "4.7 k, 47 k", "DRIVE +-4 V,", "40 mA max", "calibrate open", "and short"],
+    "A11": ["40 kHz only", "TX 10 V p-p", "from IO3, IO4", "RX x100,", "4 kHz high-pass", "5.8 us per mm", "there and back"],
+    "A12": ["SPEAKER IN +-1 V", "2.5 W into 4 ohm", "MIC OUT x100", "one-bit DAC on IO2"],
+}
+BACK_PLOTS = {
+    "A2": BP.amplifier(20.0, 14e6, name="x10"),
+    "A3": BP.amplifier(40.0, 1.4e6, name="x100"),
+    "A4": BP.amplifier(40.0, 39e6, f1=1e6, f2=1e8, name="x101"),
+}
+
+
 if __name__ == "__main__":
     ts = tiles()
     cells = [c for t in ts for c in t.cells]
