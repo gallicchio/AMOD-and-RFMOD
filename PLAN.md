@@ -9,6 +9,7 @@ decision record; `CLAUDE_CODE_CHAT.md` is the conversation; the generators under
 | board | what | layers | cells | jacks |
 |---|---|---|---|---|
 | **AMOD-P** | passive blocks: pads, RC and LC filters, resonators, a crystal, a clipper, a tapped delay line, LEDs, an AM loopstick | 2 | 16 | 27 |
+| **AMOD-P2** | the second passive board (section 11, Prompt 17): calibration standards, two splitters, Smith-chart loads, a stub, a low-pass, a detector, a bias-T, a balun and a 1:4 transformer; a step attenuator and an oscillator on the Pmod's 3.3 V | 4 | 16 | 30 |
 | **AMOD-A** | active blocks on USB-C power: gain blocks, an HF LNA, Johnson noise, a one-pin delta-sigma ADC, a 74HC4046 PLL, a heater, a mixer, light, 40 kHz ultrasound, audio | 4 | 16 | 21 |
 | **RF-MOD** | 915 MHz, 2.4 GHz and a stretch to 5.8 GHz: printed antennas, filters, an LNA, a 2.4 GHz front end, two mixers, two synthesizers, a gain block, a TRF3722 quadrature transmitter | 4 | 16 | 26 |
 
@@ -351,3 +352,65 @@ SLEWRATE=SLOW, so no series resistors.  Hand-soldered like the original (three t
 
 Open items that are not Jason's to answer are decided in this file as they come up and logged in
 the chat; the ones that are his go in `QUESTIONS.md`.
+
+## 11. AMOD-P2: the second passive board (Prompt 17, 2026-10-28)
+
+Jason: "It seems like there is enough pressure that I should make another analog board.  We should really call this the
+2nd board because it's so much simpler than even the active board.  The board with the laser stuff and NV center stuff
+should maybe be renamed OMOD for optics or PhMOD for physics.  All of the things that you suggested along with some of
+the things that we've dropped should go on this new analog board ... SLOT for VNA-type calibration, passive splitters ...
+If it make sense to move the diode mixer onto this new analog passive board, do that to free up space there."  Mid-turn:
+"If something can run on 3.3V, it could still be plugged into the PMOD port but wouldn't require an external USB 5V
+input", and "To distinguish whole-tile labels from SMA or port labels, use different cases (upper, lower, mixed)."
+
+**Decided.**
+
+- **The name is AMOD-P2, and it is the second board in every list** (after AMOD-P, before AMOD-A).  The name AMOD-2 is
+  not reused: the commits, Appendix D and the chat log mean the physics board by it.  The tiles continue AMOD-P's
+  numbers, P14-P25.
+- **AMOD-2 is PhMOD** (physics: magnetic resonance, the ionosphere and light), not OMOD: one of its ten tiles is optical.
+  The optics board of PLAN_LEVEL2 section 6 keeps the name OMOD for later.  Its tiles keep Y1-Y10.
+- **Passive, with two tiles on the Pmod's 3.3 V and no USB.**  The step attenuator (150 uA) and the oscillator (about
+  2 mA) run from the host's 3.3 V through AMOD-P2's own plug, carried by P22 at the bottom-left as on every other board.
+  Everything else works unplugged.  The plug's IO2-IO4 are RF-MOD's SDATA, SCLK and LE, so one SPI peripheral in the
+  gateware drives every SPI tile on every board.
+- **Four layers, RF-MOD's stack (JLC04161H-7628) and launch,** because half the tiles are GHz parts: L2 ground, L3 the
+  Pmod's 3.3 V, L4 ground.  Feet, no holes (the board sits on a Pmod).
+- **The diode-ring mixer stays on RF-MOD.**  The tiles asked for, suggested in Prompt 16 and dropped before filled the
+  sixteen cells exactly once the two powered tiles came onto this board (Jason's mid-turn message), and moving R1 would
+  have left two cells on RF-MOD with nothing waiting for them; R1 also wants R10's LO beside it.
+- **Silk case.**  Ports in capitals, a tile's label in mixed case (its first letter capitalised, the rest as written:
+  `tiles.label_case`), notes and ranges in lower case except units, acronyms and part numbers.  Applied to all six
+  boards.  Titles that no longer fit a cell's frame were shortened (Attenuator, Balun, Transformer; RF-MOD's and
+  RF-MOD-2's LNA tiles are "Preamp").
+
+**As built** (ERC 0, DRC 0, all fab checks; $43.91 of parts a board; 30 jacks):
+
+| # | cells | tile | jacks | as built | chips (JLCPCB 2026-10-28) |
+|---|---|---|---|---|---|
+| P14 | (0,0)-(2,0) | calibration | SHORT, OPEN, LOAD, 25 OHM, THRU, THRU | SHORT: the pin poured to ground (no launch void); OPEN: the bare pin; LOAD: 2 x 100 ohm after 4 mm of line; 25 ohm: 2 x 49.9 ohm (VSWR 2); THRU: 19.8 mm, about 115 ps | resistors |
+| P15 | (3,0) | Smith-chart loads | 200 OHM, MATCHED | 200 ohm; 200 ohm matched at 9.2 MHz by 1.5 uH series and 150 pF shunt | MLF1608A1R5JT000 C87514 |
+| P16 | (0,1)-(1,1) | resistive splitter | IN, OUT 1, OUT 2 | 3 x 16.9 ohm star, DC-6 GHz, -6 dB | 0402WGF169JTCE C82287 |
+| P17 | (2,1)-(3,1) | transformer splitter | SUM, PORT 1, PORT 2 | ADP-2-1+ turned 270, pins 2 and 5 joined off ground | ADP-2-1+ C2683460 (41: accepted under Prompt 13's rule) |
+| P18 | (0,2) | quarter-wave stub | IN, OUT | a 17.3 mm open stub (copper graphics, not a track) on the line: a notch near 2.45 GHz | copper |
+| P19 | (1,2) | low-pass | IN, OUT | LFCN-1000+, DC-1 GHz | LFCN-1000+ C879868 |
+| P20 | (2,2) | detector | IN, OUT | 51 ohm, 10 nF, a zero-bias SMS7630 pair as a doubler, 100 pF / 100 k | SMS7630-006LF C6489012 (83: accepted) |
+| P21 | (3,2) | bias-T | RF, RF+DC | 100 nF; 27 nH + 330 nH + 10 uH; DC and GND test loops | (the board's passives) |
+| P22 | (0,3) | step attenuator | IN, OUT | PE43711 turned 270, serial on IO2-IO4, 100 nF blocks; carries the Pmod plug | PE43711B-Z C470929 (1,673) |
+| P23 | (1,3) | oscillator | TUNE, OUT | Clapp on an MMBT3904, 10 uH + BB133, 220 / 220 pF, 9.6-11.5 MHz; switch and FET | MMBT3904, BB133 |
+| P24 | (2,3) | 1:1 balun | IN, OUT | TC1-1TG2+ in the top-right quarter; OUT's legs an island 5.6 mm clear of every plane | TC1-1TG2+ C3305009 (85: accepted) |
+| P25 | (3,3) | 1:4 transformer | IN, OUT | TC4-1W+, the secondary grounded at one end; DIP: 200 or 49.9 ohm on OUT | TC4-1W+ C879855 (2,227) |
+
+**Left out, and why.**  The oscillator's crystal and DIP switch (a VCXO, which Appendix D's first AMOD-2 had): no room
+in one cell beside the switch and the jacks.  A 30 MHz anti-alias low-pass: the host's front end has its own filters.
+A crystal ladder filter: with 50 ohm ends it needs matching transformers, and its crystals' motional parameters are not
+published.  A 10.7 MHz ceramic filter: none in stock.  A quadrature hybrid: the I/Q chips on RF-MOD and RF-MOD-2 make
+their own quadrature.  Printed antennas, a printed coupler, a split-ring resonator: as before, they need a field solver
+and tuning.
+
+**Found on the way: JLCPCB's placements.**  `scripts/check_rotations.py` fits JLCPCB's drawing of every part onto the
+footprint on our board.  Rev A's table had every SOT-23, SOT-23-5 and SOT-23-6 at 0 ("the standard drawing"); JLCPCB's
+"-BR" drawings are KiCad's turned 180 (the AO3401A in every powered tile, the MMBT3904s, LMH6629s and the rest) and its
+"-BL" ones KiCad's turned +90 (OPA847, LT6230, MT3608).  The SOICs, the TSSOP and the 2.54 mm headers needed +270, and the
+3225 TCXO 0 rather than 180.  `parts.JLC_DATUM` now moves the USB-C (1.572 mm), the SOT-89s, the slide switch and the
+headers to JLCPCB's origin in the upload CPL.  CLAUDE_PCB.md's readings from earlier orders agree with every one.

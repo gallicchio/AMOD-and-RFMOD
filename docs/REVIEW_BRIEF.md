@@ -1,4 +1,4 @@
-# Design-review brief: AMOD-P, AMOD-A, RF-MOD, PhMOD (was AMOD-2), RF-MOD-2 and the Icepi Pmod adapter, rev A (2026-10-25)
+# Design-review brief: AMOD-P, AMOD-P2, AMOD-A, RF-MOD, PhMOD (was AMOD-2), RF-MOD-2 and the Icepi Pmod adapter, rev A (2026-10-25; AMOD-P2 2026-10-28)
 
 For a reviewer (a person or another model) who has not seen the night's work.  Read in this order, then answer the
 questions at the end with evidence (a datasheet page, a rule, a measurement), not opinion.
@@ -10,7 +10,11 @@ tutorial at `~/mudd/133electronics/icepi-zero-dac-adc/tutorial/`, Appendix D is 
 cell between two vertical SMA jacks (IN top-left, OUT bottom-right, so every jack is 14.85 mm or more from every
 other on the board), the circuit drawn on the silkscreen as it is
 wired.  AMOD-P (two layers) is thirteen passive tiles: attenuators, RC and LC filters, resonators, a delay line, a
-clipper, an AM loopstick.  AMOD-A (four layers) is twelve active tiles on USB-C power with a slide switch and P-FET
+clipper, an AM loopstick.  AMOD-P2 (four layers, `PLAN.md` section 11) is twelve tiles, ten passive: calibration
+standards at the jacks' pins, a resistive and a transformer splitter, two Smith-chart loads, a quarter-wave stub, an
+LTCC low-pass, a zero-bias diode detector, a bias-T, a 1:1 balun with a floating output and a 1:4 transformer; and two on
+the Pmod's 3.3 V with no USB: a PE43711 step attenuator on the Pmod's SPI lines and a one-transistor Clapp oscillator.
+AMOD-A (four layers) is twelve active tiles on USB-C power with a slide switch and P-FET
 per tile: two gain blocks, an OPA847 LNA, a socket and amplifier for an HB100 Doppler module, a delta-sigma comparator, a 4046 PLL, a
 heater with a TMP235, an MC1496 mixer, an impedance and I-V tile (V and I for the host's two ADCs), a 40 kHz ultrasound pair,
 a class-D speaker amplifier with an electret preamplifier; a 2 x 6 Pmod plug carries the FPGA's lines.
@@ -34,7 +38,7 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 
 - `PLAN.md`: the decisions with their reasons, the tile tables as built, the parts and the stock on the day.
 - `PLAN_LEVEL2.md`: the same for PhMOD and RF-MOD-2, with every change from their plan and its reason.
-- `boards/amod_p.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/rf_mod_2.py`: each tile's netlist, placement and wires in one place (the source of
+- `boards/amod_p.py`, `boards/amod_p2.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/rf_mod_2.py`: each tile's netlist, placement and wires in one place (the source of
   truth; the schematic and the board are generated from it and checked against it).
 - `scripts/parts.py`: every part with its LCSC code, checked against JLCPCB's API (`scripts/jlc_cache.json`
   keeps the answers and their times).

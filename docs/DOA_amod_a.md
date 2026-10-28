@@ -3,6 +3,11 @@
 Rev A, 2026-10-25.  Every item is a fact the design assumed that a datasheet, JLCPCB's placement preview or the
 first bench test must confirm.  The ones marked **order gate** must be confirmed before the order is placed.
 
+**Placements (Prompt 17).**  `scripts/check_rotations.py` found rev A's table placing every SOT-23, SOT-23-5 and
+SOT-23-6 as KiCad draws them, while JLCPCB's drawings are turned 180 ("-BR") or 90 ("-BL"); the upload CPL now turns
+them, and moves the USB-C, SOT-89s, slide switches and headers to JLCPCB's origins (`parts.JLC_DATUM`).  In the preview,
+check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell sits on its pads: an **order gate**.
+
 ## Order gate: pin and polarity assumptions
 
 1. **The HB100's header (A5, J501).**  A 1 x 3 socket wired +5 V (the tile's switched rail), IF, ground.  HB100

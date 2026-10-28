@@ -471,8 +471,34 @@ def tiles():
 
 PMOD_HOST = "P22's bottom edge"
 PMOD_NAMES = {"/PMOD2": "SDATA (SI) of P22's PE43711", "/PMOD3": "SCLK of P22", "/PMOD4": "LE of P22"}
-HANDBOOK_INTRO = []
-HANDBOOK_SECTIONS = []
+HANDBOOK_INTRO = [
+    "Twelve tiles on sixteen 20 mm cells, four layers, no USB.  Ten of them are passive and need nothing; P22 (the step",
+    "attenuator) and P23 (the oscillator) run on the host's 3.3 V through the Pmod plug under P22, so plug the board into the",
+    "host's Pmod (or a Pmod cable) to use them.  Every tile's input is its top-left jack and its output its bottom-right jack,",
+    "every 50 ohm line is coplanar waveguide with a via fence and every jack has RF-MOD's launch (no plane under its centre",
+    "pin), except P14's SHORT, whose centre pin is the ground pour.  On the board a tile's label is in mixed case and a port's",
+    "name in capitals."]
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "1. **Calibrate first.**  P14's SHORT, OPEN and LOAD and its THRU calibrate a NanoVNA, or RF-MOD-2's reflectometer (X1,",
+     "   X2 and X5), at the board's surface; the 25 OHM standard checks the result (|S11| = 1/3).  Every tile's jacks are the",
+     "   same part, so a tile measured afterwards is measured from its pads.",
+     "2. **Impedance.**  P15's two loads and P25's transformer on PhMOD's reflection bridge (Y7) or the VNA: points on the",
+     "   Smith chart, a match at one frequency, the turns ratio squared.",
+     "3. **Splitting and combining.**  P16 (resistive, DC-6 GHz, no isolation) against P17 (transformer, 0.5-400 MHz, 25 dB",
+     "   of isolation).  The two DACs combined through P17 into an amplifier make a two-tone intermodulation test, with P22",
+     "   setting the level in 0.25 dB steps.",
+     "4. **Power.**  P22 makes a known level; P20 turns power into volts (square law at the bottom) to set against RF-MOD-2's",
+     "   AD8318 (log); compression points and IP3 of every amplifier and mixer on the boards follow.",
+     "5. **Lines and filters.**  P18's stub and P19's low-pass swept by RF-MOD's synthesizer into a detector, or on the VNA.",
+     "6. **An oscillator.**  P23 on the ADC; a DAC on TUNE tunes it (DC) or locks it (a tone near its frequency): the",
+     "   lock range against the tone's amplitude, FM, and its phase noise against the MAX2871's.",
+     "7. **On the air.**  P24 feeds the tutorial's HF dipole balanced; P21 powers an active antenna or an LNA through its",
+     "   cable.",
+     "",
+     "Levels to remember: P22 takes +23 dBm above 48 MHz but only about +9.5 dBm below 0.5 MHz; P20 wants +10 dBm at most",
+     "and a high-impedance load; P21 passes 100 mA and 16 V; P23 gives about -22 dBm."],
+]
 
 GND_LOOPS = [(3.0, 30.0), (3.0, 70.0), (97.0, 30.0), (97.0, 84.0)]
 HOLES = []                                    # plugged into a host's Pmod: held by the plug; feet as on RF-MOD
