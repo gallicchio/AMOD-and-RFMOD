@@ -467,3 +467,39 @@ splitter is what makes X1 and X2 coherent.  Proposed for Jason's decision: bring
 >
 > Yes, free both splitters and bring out RFOUTA-.  Add the diode-ring mixer and, on RF-MOD-2, a directional coupler.
 
+**Response** (2026-10-28, 08:00-09:00).
+
+- *The AM tuning capacitor (P13).*  The smallest AM polyvaricons are 15-20 mm square, with a 20-25 mm dial on top: a
+  whole cell beside the jack, the dial overhanging the neighbours.  So the switches stay, and a 2-way screw terminal
+  (VAR C, the same KF301 as the coil's) sits beside the coil's terminal at the bottom edge, in parallel with the
+  switched capacitors.  An external 365 pF air variable with a big knob tunes the whole band by itself (switches off),
+  or between the switches' steps.  The DIP and its four capacitors moved up into the right cell's top half.  KIT.md
+  lists one (Amplified Parts' single-section 365 pF, about $31; its page refused a script, so unverified).
+- *The diode-ring mixer instead of RF-MOD's splitter.*  R1 is now a Mini-Circuits ADEX-10L+ (861 in stock at JLCPCB,
+  $8.93): LO and RF 10-1000 MHz, IF DC-800 MHz, +4 dBm of LO (R10 at its top setting drives it directly), 7.2 dB of
+  loss.  The silk draws what is in the package beside it: the LO balun, the ring of four diodes (two crossed), the RF
+  balun whose centre tap is the IF.  It covers 10-30 MHz, where AMOD-A's MC1496 Gilbert cell works, and 915 MHz, where
+  R8's ADL5350 works, so it can be compared with both.  The jack order is LO top-left, RF top of the right cell, IF
+  bottom of the left cell: the package's pins only allow that without a crossing.
+- *RFOUTA- on both synthesizers.*  R10 and X3 bring the MAX2871's complementary output to its own jack: OUT A+ and
+  OUT A-, the same frequency and power, 180 degrees apart.  The line drops past the chip, runs in the margin 1.25 mm
+  below the tile (the slide switch fills the tile's bottom edge) with the ground pour following it, and turns up into
+  the right cell's bottom-right jack.  On RF-MOD-2, X3's REF IN moved to the right cell's top-left with its line on the
+  back, and the IO5 and IO6 wires in the margin moved 1 mm down.  An unused output wants the kit's 50 ohm terminator.
+- *A directional coupler on RF-MOD-2.*  X5 is two TDK HHM22137A1 couplers back to back, each with its isolated port in
+  51 ohm.  FWD samples the wave going from IN to OUT, REFL the wave coming back from OUT, 25 dB down from 0.67 to 2.7
+  GHz (27 dB at 0.6, 14 dB at 3.5 GHz), with about 20 dB of directivity.  X1 on IN, a device on OUT and REFL into X2
+  measure the device's reflection (S11, magnitude and phase) as well as the transmission the pair already measured.
+  JLCPCB's land pattern left 0.2 mm between pads, under the RF class's 0.25; the pads are drawn 0.29 wide (the part's
+  terminals are 0.25).
+- *SPEAKER IN.*  A12's jack is SPEAKER IN on the board, in the handbook, README, plan and tutorial.
+- *The ultrasound tile's power.*  Yes: the slide switch's 5 V feeds the two amplifiers.  The DRV8837 H-bridge drives
+  the transmitter (each end swings 0-5 V in antiphase, so the transducer sees 10 V peak to peak), and the receive op
+  amp takes its positive rail from it (its negative rail is the board's -5 V).  The handbook now says so.
+- *Generators.*  Silk drawings that are not wires (`Tile.draw_line`, `draw_arc`), a pour tongue below a tile
+  (`Tile.pour_below`), jack names that slide up to 4.5 mm and print what blocks them when they cannot fit.
+- All five boards rebuilt: ERC 0, DRC 0, every fab check passed.  Parts per board: AMOD-P $17.07 (was $16.97),
+  AMOD-A $50.40, RF-MOD $66.51 (was $57.18: the mixer), AMOD-2 $78.19, RF-MOD-2 $99.65 (was $98.61).  Handbooks,
+  README tables, DOA lists, PLAN files, the review brief, KIT.md and Appendix D's renders updated; CLAUDE_PCB.md
+  section 22 has the lessons.  One thing noticed, not changed: AMOD-A's In2 pour fills to one of two equivalent shapes
+  on alternate builds (both DRC-clean).
