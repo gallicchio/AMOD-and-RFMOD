@@ -186,6 +186,15 @@ SYMBOLS = [
         [("11", "VM", "power_in"), ("12", "VCP", "passive"), ("13", "CPH", "passive"), ("14", "CPL", "passive"), ("8", "OUT1", "output"),
          ("10", "OUT2", "output"), ("9", "PGND", "power_in"), ("15", "GND", "power_in"), ("17", "PAD", "power_in")],
         "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.66x2.46mm", "DRV8876 3.5 A H-bridge with current sense output", width=12.7),
+    # ADEX-10L+ (Mini-Circuits, case CD542; datasheet "Pin Connections"): 6 LO, 3 RF, 2 IF, 1 4 5 ground
+    box("ADEX10L", "U", [("6", "LO", "passive"), ("3", "RF", "passive")],
+        [("2", "IF", "passive"), ("1", "GND", "power_in"), ("4", "GND", "power_in", "stack"), ("5", "GND", "power_in", "stack")],
+        "amod:MiniCircuits_CD542_ADEX-10L", "ADEX-10L+ double-balanced diode-ring mixer, 10-1000 MHz, LO +4 dBm, case CD542", width=10.16),
+    # HHM22137A1 (TDK, 1.6 x 0.8, 6 pads; specification "Terminal functions"): 1 output, 2 ground, 3 input, 4 monitor (coupled)
+    # output, 5 ground, 6 the 50 ohm termination port (isolated)
+    box("HHM22137", "U", [("3", "IN", "passive"), ("6", "ISO", "passive")],
+        [("1", "OUT", "passive"), ("4", "CPL", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in", "stack")],
+        "amod:Coupler_1608-6P_HHM22137A1", "HHM22137A1 directional coupler, 0.6-3.5 GHz, about 25 dB, 1.6 x 0.8 mm", width=10.16),
     # LFB212G45SG8A127 2.45 GHz LTCC (Murata, 2.0 x 1.25, 4 pads): 4 IN, 2 OUT, 1 / 3 ground (JLCPCB's numbering)
     box("LTCC2G4", "FL", [("4", "IN", "passive"), ("1", "GND", "power_in")], [("2", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_LTCC_2012_LFB212", "2.4-2.5 GHz LTCC band-pass filter, 2.0 x 1.25 mm", width=10.16),

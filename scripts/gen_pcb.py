@@ -658,7 +658,13 @@ class Board:
             z.SetIslandRemovalMode(pcbnew.ISLAND_REMOVAL_MODE_ALWAYS)
             o = z.Outline(); o.NewOutline()
             m = 0.9
-            for (x, y) in ((t.x0 + m, t.y0 + m), (t.x0 + t.w - m, t.y0 + m), (t.x0 + t.w - m, t.y0 + t.h - m), (t.x0 + m, t.y0 + t.h - m)):
+            pts = [(t.x0 + m, t.y0 + m), (t.x0 + t.w - m, t.y0 + m), (t.x0 + t.w - m, t.y0 + t.h - m)]
+            pb = getattr(t, "pour_below", None)
+            if pb:                                             # a tongue below the frame round a line that runs in the margin
+                sx0, sx1, sy1 = pb
+                pts += [(t.x0 + sx1, t.y0 + t.h - m), (t.x0 + sx1, t.y0 + sy1), (t.x0 + sx0, t.y0 + sy1), (t.x0 + sx0, t.y0 + t.h - m)]
+            pts.append((t.x0 + m, t.y0 + t.h - m))
+            for (x, y) in pts:
                 o.Append(mm(x), mm(y))
             self.board.Add(z)
 
@@ -943,13 +949,22 @@ class Board:
                 b = self._text_box(name, JACK_SIZE, JACK_THICK, "center")
                 ay = t.y0 + j["y"] - 3.64 - 0.22 - b[3] if top else t.y0 + j["y"] + 3.64 + 0.22 - b[1]
                 ax = t.x0 + j["x"]
-                for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 13) for sgn in (1, -1)]:
+                for dx in [0.0] + [k * 0.25 * sgn for k in range(1, 19) for sgn in (1, -1)]:     # up to 4.5 mm (R10's OUT A-)
                     box = (ax + dx + b[0], ay + b[1], ax + dx + b[2], ay + b[3])
+                    if box[0] < t.x0 + 0.6 or box[2] > t.x0 + t.w - 0.6:
+                        continue
                     if not self._hits(obst, box, 0.2):
                         ax += dx
                         break
                 else:
                     self.problems.append("%s: the jack name %r has no clear place on the frame" % (t.id, name))
+                    for dx in (-4.0, -3.0, -2.0, 0.0, 2.0):           # what is in the way, in tile mm
+                        box = (ax + dx + b[0], ay + b[1], ax + dx + b[2], ay + b[3])
+                        hit = [tuple(round(v - o, 2) for v, o in zip(r, (t.x0, t.y0, t.x0, t.y0))) for r in obst[0]
+                               if r[0] - 0.2 < box[2] and r[2] + 0.2 > box[0] and r[1] - 0.2 < box[3] and r[3] + 0.2 > box[1]]
+                        segs = [tuple(round(v, 2) for v in (sx0 - t.x0, sy0 - t.y0, sx1 - t.x0, sy1 - t.y0)) for (sx0, sy0, sx1, sy1, hw) in obst[1]
+                                if min(sx0, sx1) - hw - 0.2 < box[2] and max(sx0, sx1) + hw + 0.2 > box[0] and min(sy0, sy1) - hw - 0.2 < box[3] and max(sy0, sy1) + hw + 0.2 > box[1]]
+                        self.problems.append("   dx %.1f box %s: rects %s segs %s" % (dx, tuple(round(v, 2) for v in (box[0] - t.x0, box[1] - t.y0, box[2] - t.x0, box[3] - t.y0)), hit[:4], segs[:4]))
                 names.append((ax, ay, name, JACK_SIZE, JACK_THICK, (ax + b[0], ay + b[1], ax + b[2], ay + b[3])))
             out[t.id] = names
             taken += [n[5] for n in names]
@@ -1011,6 +1026,12 @@ class Board:
                 self._text(n[0], n[1], n[2], n[3], n[4], justify=n[6] if len(n) > 6 else "center")
             for (lx, ly, s, size, thk, just, ang) in t.texts:
                 self._text(x0 + lx, y0 + ly, s, size, thk, justify=just, angle=ang)
+            for d in getattr(t, "draws", []):                  # a symbol drawn on the silk (the mixer's diode ring)
+                if d[0] == "line":
+                    for a, b in zip(d[1][:-1], d[1][1:]):
+                        self._line((x0 + a[0], y0 + a[1]), (x0 + b[0], y0 + b[1]), width=0.15)
+                elif d[0] == "arc":
+                    self._arc(x0 + d[1], y0 + d[2], d[3], d[4], d[5], width=0.15)
             for ref, p in t.parts.items():
                 fp = self.fps.get(ref)
                 if fp is None:

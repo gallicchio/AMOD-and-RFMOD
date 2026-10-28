@@ -1,0 +1,199 @@
+(footprint "Coupler_1608-6P_HHM22137A1"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "HHM22137A1 directional coupler, 1.6 x 0.8 mm, 6 pads: JLCPCB's land pattern for C415328")
+	(tags "coupler directional")
+	(property "Reference" "REF**"
+		(at 0 1.3 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "b17645bd-2301-54de-9f4a-50b562e3c6c7")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Coupler_1608-6P_HHM22137A1"
+		(at 0 -1.3 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "68055f0d-7526-51d2-9366-840065fd48a6")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -1.3 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "fa070531-9f85-53ef-81af-3cb080230c95")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "HHM22137A1 directional coupler, 1.6 x 0.8 mm, 6 pads: JLCPCB's land pattern for C415328"
+		(at 0 -1.3 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "5f66895a-f027-5b8d-9735-49dfeed5ce39")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_circle
+		(center -0.95 0.75)
+		(end -0.89 0.75)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "8e168e3b-f975-5c9b-81d2-899b569e6675")
+	)
+	(fp_line
+		(start -1 -0.9)
+		(end 1 -0.9)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c051bb51-3ee2-5e31-a616-b0ab55cee838")
+	)
+	(fp_line
+		(start -1 0.9)
+		(end -1 -0.9)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "60d3ee99-53a8-5597-9f90-64b383719121")
+	)
+	(fp_line
+		(start 1 -0.9)
+		(end 1 0.9)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "f991072d-6f44-5da0-bccd-22ae3c0c19d9")
+	)
+	(fp_line
+		(start 1 0.9)
+		(end -1 0.9)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a2f2247f-24a3-5ebe-843e-41f95ac9a337")
+	)
+	(fp_line
+		(start -0.8 -0.4)
+		(end 0.8 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "4ed19bba-452f-5f30-a8cb-f3c91cb34d36")
+	)
+	(fp_line
+		(start -0.8 0.4)
+		(end -0.8 -0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "7bdb8c92-6ad2-5218-9077-1e70e6585f2f")
+	)
+	(fp_line
+		(start 0.8 -0.4)
+		(end 0.8 0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "5fc2ec9b-10f5-59ca-9e26-7c7e18c4c2e3")
+	)
+	(fp_line
+		(start 0.8 0.4)
+		(end -0.8 0.4)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "b1aff065-3dab-5441-85ee-7b16549ec3fa")
+	)
+	(pad "1" smd rect
+		(at -0.549 0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "77ccf436-f1df-5ae7-8c35-9604833f4529")
+	)
+	(pad "2" smd rect
+		(at -0.001 0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "3e94c904-d4a1-58bc-994d-dc34cffe075f")
+	)
+	(pad "3" smd rect
+		(at 0.551 0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "f6a55149-9569-597d-b0d8-9820ffe67142")
+	)
+	(pad "4" smd rect
+		(at 0.551 -0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "51b7a1e5-0637-568d-8e74-6b86bdcf7208")
+	)
+	(pad "5" smd rect
+		(at -0.001 -0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "942a4d9a-73f9-5a3c-9c69-c52f3d9e85c6")
+	)
+	(pad "6" smd rect
+		(at -0.549 -0.424)
+		(size 0.35 0.5)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "14a4d559-308c-5675-9594-d06836a58e91")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/Coupler_1608.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

@@ -1,0 +1,219 @@
+(footprint "MiniCircuits_CD542_ADEX-10L"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "ADEX-10L+ double-balanced mixer, Mini-Circuits case CD542: JLCPCB's land pattern for C118997")
+	(tags "mixer diode ring")
+	(property "Reference" "REF**"
+		(at 0 4.6 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "9433654c-cfa9-5b79-b958-238aaa6733e0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "MiniCircuits_CD542_ADEX-10L"
+		(at 0 -4.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "05987399-7308-53de-b47c-306fd874922d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 -4.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e7a8bd71-8e71-5531-91dd-6bcee37f70cc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "ADEX-10L+ double-balanced mixer, Mini-Circuits case CD542: JLCPCB's land pattern for C118997"
+		(at 0 -4.6 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f6abee6a-5ca6-5f08-b1b2-f64e1241d215")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.94 -1)
+		(end -3.94 1)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "257043db-cde3-5e08-93ee-714ac0eb8c96")
+	)
+	(fp_line
+		(start 3.94 -1)
+		(end 3.94 1)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "ce973197-1739-5455-b244-7f40d36a3710")
+	)
+	(fp_circle
+		(center -3.95 2)
+		(end -3.85 2)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "176d6ef3-b573-5abe-be4c-1aefdc323df6")
+	)
+	(fp_line
+		(start -4.2 -4.1)
+		(end 4.2 -4.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "b8207b18-8d04-5ecd-90a3-23702bc56ff5")
+	)
+	(fp_line
+		(start -4.2 4.1)
+		(end -4.2 -4.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "3126fe09-beca-51d5-a0e6-1918014af897")
+	)
+	(fp_line
+		(start 4.2 -4.1)
+		(end 4.2 4.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "47040e2d-e75c-59f4-8d89-c8f7de9d0460")
+	)
+	(fp_line
+		(start 4.2 4.1)
+		(end -4.2 4.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "66b709de-d543-5757-aa98-a20d04e8cc45")
+	)
+	(fp_line
+		(start -3.94 -2.8)
+		(end 3.94 -2.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "613808b5-6c9f-52b5-aead-cf38fa3203b1")
+	)
+	(fp_line
+		(start -3.94 2.8)
+		(end -3.94 -2.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "1f0ecd22-b60f-5277-a465-3c7d3d4dd771")
+	)
+	(fp_line
+		(start 3.94 -2.8)
+		(end 3.94 2.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "0144b52c-cc1a-5703-99c5-ce0735716ead")
+	)
+	(fp_line
+		(start 3.94 2.8)
+		(end -3.94 2.8)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2db407d2-2a80-502b-b5fb-d5b2580d3712")
+	)
+	(pad "1" smd rect
+		(at -2.54 2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "d0cd6767-e2dd-54f4-88cf-0a672cf2eddf")
+	)
+	(pad "2" smd rect
+		(at 0 2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "df81e089-eb44-5b9c-a39d-5af349d6a057")
+	)
+	(pad "3" smd rect
+		(at 2.54 2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "e768ce8f-0ba4-566a-ba6d-87339aee3d92")
+	)
+	(pad "4" smd rect
+		(at 2.54 -2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "9addffeb-b4c6-5df4-af98-92a345c2a8b6")
+	)
+	(pad "5" smd rect
+		(at 0 -2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "82d24ff5-fc15-5073-8235-c2fa3889d644")
+	)
+	(pad "6" smd rect
+		(at -2.54 -2.539)
+		(size 1.65 2.54)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "67d1d680-bc1c-52ff-8a63-ec1d0886ffac")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/amod.3dshapes/MiniCircuits_CD542.wrl"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 0.393701 0.393701 0.393701)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

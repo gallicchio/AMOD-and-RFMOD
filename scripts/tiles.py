@@ -84,6 +84,8 @@ class Tile:
         self.top_pour = False      # an RF tile: ground poured on L1 round everything, launch voids under its jacks, fences along its lines
         self.fine = False          # a tile with a fine-pitch chip: its nets get the "Fine" net class (0.127 mm clearance, 0.15 tracks)
         self.voids = []            # (x, y, r, layers): no copper fill within r of (x, y) on "inner" (L2-L4), "top" (L1) or "all" layers
+        self.draws = []            # silk drawing that is not a wire: ("line", [(x, y), ...]) or ("arc", cx, cy, r, a0, sweep), local mm
+        self.pour_below = None     # (x0, x1, y1): an RF tile's top pour also covers x0..x1 from its frame down to y1 (a line in the margin)
         self._counts = {}
         self.x0, self.y0, self.w, self.h = G.tile_frame(self.cells)
 
@@ -145,6 +147,14 @@ class Tile:
         in the stub's direction unless `sym` (a unit vector) says otherwise.  `width` overrides the tile's first wire's;
         `fine` makes the via the small one."""
         self.gnd_stubs.append(((ref, str(pad)), pt, sym, width, fine))
+
+    def draw_line(self, pts):
+        """A silk polyline that is a drawing, not a wire (no copper): a symbol on the silkscreen."""
+        self.draws.append(("line", [list(p) for p in pts]))
+
+    def draw_arc(self, cx, cy, r, a0, sweep):
+        """A silk arc centred at (cx, cy), from angle a0 (degrees, x toward +x, y down) through `sweep` degrees."""
+        self.draws.append(("arc", cx, cy, r, a0, sweep))
 
     def text(self, x, y, s, size=0.8, thick=0.15, justify="left", angle=0):
         self.texts.append((x, y, s, size, thick, justify, angle))
@@ -523,7 +533,8 @@ def dump(tiles, mod, path):
             routes=[(n, [list(q) for q in sp], w) for (n, sp, w) in t.routes],
             hops=[(n, list(a), list(b)) for (n, a, b) in t.hops],
             gnd_stubs=[(list(pr), (list(pt) if isinstance(pt, tuple) else [list(q) for q in pt]), (list(sym) if sym else None), w, fine) for (pr, pt, sym, w, fine) in t.gnd_stubs],
-            texts=[list(x) for x in t.texts], infos=list(t.infos), titles=list(t.titles), slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
+            texts=[list(x) for x in t.texts], infos=list(t.infos), titles=list(t.titles), draws=list(getattr(t, "draws", [])),
+            pour_below=getattr(t, "pour_below", None), slots=[list(x) for x in getattr(t, "slots", [])], voids=[list(v) for v in getattr(t, "voids", [])]))
     with open(path, "w") as fh:
         json.dump(out, fh, indent=1)
     return path

@@ -427,9 +427,44 @@ def led_0805():
     return name, f
 
 
+def adex10l():
+    """Mini-Circuits ADEX-10L+ double-balanced mixer (LCSC C118997), case CD542, 7.87 x 5.59 mm: six 1.65 x 2.54 pads at
+    x = -2.54, 0, +2.54, y = +-2.539, pins 1-3 along the bottom from the left and 4-6 along the top from the right (JLCPCB's
+    drawing, pin 1 bottom-left).  Mini-Circuits' pinout: 6 LO, 3 RF, 2 IF, 1 4 5 ground."""
+    name = "MiniCircuits_CD542_ADEX-10L"
+    f = fp_header(name, "ADEX-10L+ double-balanced mixer, Mini-Circuits case CD542: JLCPCB's land pattern for C118997", "mixer diode ring", "smd", 4.6)
+    for i, x in enumerate((-2.54, 0.0, 2.54)):
+        f.add(smd_pad(str(i + 1), x, 2.539, 1.65, 2.54, f"{name}/p{i + 1}", shape="rect"))
+        f.add(smd_pad(str(6 - i), x, -2.539, 1.65, 2.54, f"{name}/p{6 - i}", shape="rect"))
+    rect_lines(f, -3.94, -2.80, 3.94, 2.80, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -4.2, -4.1, 4.2, 4.1, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sx in (-1, 1):                                        # the body's short ends, clear of the pads
+        f.add(line(sx * 3.94, -1.0, sx * 3.94, 1.0, "F.SilkS", SILK_W, f"{name}/silk/{sx}"))
+    f.add(circle(-3.95, 2.0, 0.1, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "MiniCircuits_CD542.wrl")
+    return name, f
+
+
+def hhm22137():
+    """TDK HHM22137A1 directional coupler (LCSC C415328), 1.6 x 0.8 mm: six 0.35 x 0.50 pads at x = -0.549, 0, +0.551, y = +-0.424,
+    pins 1-3 along the bottom from the left and 4-6 along the top from the right (JLCPCB's drawing).  TDK's pinout: 1 output,
+    2 ground, 3 input, 4 coupled (monitor) output, 5 ground, 6 the isolated port (to a 50 ohm termination)."""
+    name = "Coupler_1608-6P_HHM22137A1"
+    f = fp_header(name, "HHM22137A1 directional coupler, 1.6 x 0.8 mm, 6 pads: JLCPCB's land pattern for C415328", "coupler directional", "smd", 1.3)
+    for num, x in (("1", -0.549), ("2", -0.001), ("3", 0.551)):
+        f.add(smd_pad(num, x, 0.424, 0.35, 0.50, f"{name}/p{num}", shape="rect"))
+    for num, x in (("6", -0.549), ("5", -0.001), ("4", 0.551)):
+        f.add(smd_pad(num, x, -0.424, 0.35, 0.50, f"{name}/p{num}", shape="rect"))
+    rect_lines(f, -0.8, -0.4, 0.8, 0.4, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -1.0, -0.9, 1.0, 0.9, "F.CrtYd", CRT_W, f"{name}/crt")
+    f.add(circle(-0.95, 0.75, 0.06, "F.SilkS", SILK_W, f"{name}/silk/p1", fill=True))
+    model(f, "Coupler_1608.wrl")
+    return name, f
+
+
 MAKERS = [sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3),
           pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot,
-          max2659, saw_1109, sky13370]
+          max2659, saw_1109, sky13370, adex10l, hhm22137]
 
 
 def main():

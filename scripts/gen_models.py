@@ -183,11 +183,21 @@ def dfn6_1515():
     return "DFN-6_1.5x1.5.wrl", HEAD + box(0, 0, 0.225, 1.5, 1.5, 0.45, BLACK)
 
 
+def cd542():
+    """Mini-Circuits case CD542 (the ADEX-10L+), 7.87 x 5.59 x 2.84 mm, a white ceramic body."""
+    return "MiniCircuits_CD542.wrl", HEAD + box(0, 0, 1.42, 7.87, 5.59, 2.84, WHITE)
+
+
+def coupler1608():
+    """The HHM22137A1's 1.6 x 0.8 x 0.6 mm LTCC body."""
+    return "Coupler_1608.wrl", HEAD + box(0, 0, 0.3, 1.6, 0.8, 0.6, WHITE)
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
               kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3,
-              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4]
+              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:
