@@ -69,7 +69,7 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
   for JLCPCB's conventions; the native KiCad file is beside it).
 - Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  67 BOM lines, 40 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $43.56.  Read `out/amod_c/amod_c-assembly-notes.txt` before confirming the order.
+- Parts per board: $43.57.  Read `out/amod_c/amod_c-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
