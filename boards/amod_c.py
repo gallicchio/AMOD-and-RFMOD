@@ -206,7 +206,8 @@ def tile_c6():
     virtual ground (VMID: the board's +3.3 V halved by two 0.1 % 10 k), so each one-bit DAC is just an SN74LVC1G3157
     switching 10 k between +3.3 V and ground: +-165 uA about VMID, ratiometric with VMID, with no negative reference; 10 k
     from +3.3 V into the first node cancels IN's own offset from VMID.  IN through 10 k into 220 pF, the first output
-    through 6.8 k into 330 pF; a TLV3501 compares the second output with VMID; a 74LVC1G79 registers it on the FPGA's clock
+    through 6.8 k into 680 pF; a TLV3501 compares the second output (through 10 k, which limits the current into its
+    input clamps when an integrator rails) with VMID; a 74LVC1G79 registers it on the FPGA's clock
     (Pmod IO1) and hands the bit to IO7 and to both switches (the first wired the other way round, so both loops are
     negative).  INT1 and INT2 on their jacks through 3.3 k / 1 k (read at high impedance: about a quarter, offset by 0.38
     V).  Full scale +-1.65 V; clock 1 MHz.  The OPA2810 (SOIC-8 at rot 0: OUT A, -IN A, +IN A, V- down its left at 24.5;
@@ -232,7 +233,10 @@ def tile_c6():
     rd1 = t.add("R", "RP0603 10k", "10k", 21.8, 7.3, 0, {"1": "D1", "2": "S1"}, label=None)
     roff = t.add("R", "RP0603 10k", "10k", 21.8, 9.0, 0, {"1": "+3V3", "2": "S1"}, label=None)
     cu1n = t.add("C", "C0402 100nF", "100n", 21.3, 2.35, 0, {"1": "GND", "2": "-5V"}, label=None)
-    c2 = t.add("C", "C0402 330pF", "330p", 31.4, 5.0, 90, {"1": "S2", "2": "I2"}, label=None)               # pad 2 up
+    # 680 pF, not the 330 pF the loop's arithmetic first gave: the comparator sees only the sign of OUT B, so scaling the
+    # second integrator changes no bit, and half the swing keeps OUT B inside the TLV3501's 3.3 V input range up to an
+    # input of 1.5 V (simulated: +-0.73 V about VMID at 1 V in, +-1.2 V at 1.5 V)
+    c2 = t.add("C", "C0402 680pF", "680p", 31.4, 5.0, 90, {"1": "S2", "2": "I2"}, label=None)               # pad 2 up
     r12 = t.add("R", "R0402 6.8k", "6.8k", 31.4, 7.0, 90, {"1": "I1", "2": "S2"}, label=None)               # pad 2 up
     rd2 = t.add("R", "R0402 10k", "10k", 32.9, 6.0, 0, {"1": "S2", "2": "D2"}, label=None)
     cu1p = t.add("C", "C0402 100nF", "100n", 32.2, 3.1, 0, {"1": "VS", "2": "GND"}, label=None)
@@ -274,9 +278,14 @@ def tile_c6():
     t.gnd_stub(cu1p, "2", (33.6, 3.1), sym=(0, 0))
     # ---- the decision: TLV3501 (SOT-23-6 at rot 0: -IN, V-, +IN down its left; SHDN, OUT, V+ up its right) right of the
     # second integrator, OUT under its body to the register below; V- and SHDN joined under the body
-    cmp_ = t.add("U", "TLV3501", "TLV3501", 36.4, 4.2, 0, {"1": "VM", "2": "GND", "3": "I2", "4": "+3V3", "5": "DEC", "6": "GND"}, hide_value=False, label=None)
+    cmp_ = t.add("U", "TLV3501", "TLV3501", 36.4, 4.2, 0, {"1": "VM", "2": "GND", "3": "I2C", "4": "+3V3", "5": "DEC", "6": "GND"}, hide_value=False, label=None)
     ccmp = t.add("C", "C0402 100nF", "100n", 39.75, 5.5, 90, {"1": "GND", "2": "+3V3"}, label=None)       # pad 2 up
-    t.wire("I2", [(c2, "2"), (33.9, 4.52), (34.6, 5.15), (cmp_, "3")], width=WF)
+    # OUT B reaches +IN through 10 k lying between the capacitor and the comparator: past full scale (or with the tile
+    # switched off) the integrators sit near a rail, and 10 k holds the current into the comparator's input clamps under
+    # 0.5 mA.  INT2's divider takes OUT B from ahead of it (a via above the I2 track, below)
+    rcmp = t.add("R", "R0402 10k", "10k", 32.82, 4.52, 0, {"1": "I2", "2": "I2C"}, label=None)
+    t.wire("I2", [(c2, "2"), (rcmp, "1")], width=WF)
+    t.wire("I2C", [(rcmp, "2"), (33.9, 4.52), (34.6, 5.15), (cmp_, "3")], width=WF)
     t.via("VM", 34.5, 2.3)
     t.wire("VM", [(34.5, 2.3), (cmp_, "1")], width=WF)
     t.wire("GND", [(cmp_, "2"), (35.925, 4.2), (36.875, 3.25), (cmp_, "6")], width=WF, silk=False)
@@ -357,9 +366,10 @@ def tile_c6():
     for net, a2, b2 in (("/PMOD7", (ff, "4"), (sw2, "6")), ("/PMOD7", (sw2, "6"), (sw1, "6")), ("/PMOD7", (ff, "4"), (41.1, 1.9)),
                         ("/PMOD1", (ff, "2"), (41.1, 3.1))):
         t.route(net, [a2, b2], width=W)
-    # I2: a via beside the comparator, down the back left of the INT2 jack's legs to its 3.3 k
-    t.via("I2", 33.4, 4.52)
-    t.wire("I2", [(33.4, 4.52), (32.7, 5.22), (32.7, 13.6), (31.09, 14.3)], layer="B.Cu", silk=False, width=WF)
+    # I2: a via above the track from OUT B to the capacitor, down the back left of the INT2 jack's legs to its 3.3 k
+    t.via("I2", 30.9, 3.75)
+    t.wire("I2", [(30.9, 3.75), (30.9, 4.47)], width=WF, silk=False)
+    t.wire("I2", [(30.9, 3.75), (30.9, 6.5), (32.7, 8.3), (32.7, 13.6), (31.09, 14.3)], layer="B.Cu", silk=False, width=WF)
     t.wire("I2", [(31.09, 14.3), (ro2, "1")], width=WF)
     t.text(6.0, 10.6, "c6", 1.5, 0.3, "center")
     t.titles.append("Delta-sigma")
@@ -443,15 +453,19 @@ def tile_c2():
     t.wire("LJ", [(rac2, "2"), ("J%d04" % t.idx, "1")])
     # ---- the load in the right cell's bottom-left quarter: the OPA810 (rot 270: +IN, V-, OUT along its top; -IN, V+ along
     # its bottom) with 1 nF under it from OUT to -IN, 1 k from the shunt to -IN on its left, the FET and its shunt right
-    ua = t.add("U", "OPA810", "OPA810", 25.4, 13.0, 270, {"1": "OG", "2": "GND", "3": "LOAD", "4": "FBK", "5": "VS"}, hide_value=False, label=None)
+    ua = t.add("U", "OPA810", "OPA810", 25.4, 13.0, 270, {"1": "OG", "2": "GND", "3": "LIN", "4": "FBK", "5": "VS"}, hide_value=False, label=None)
     rtl = t.add("R", "R0402 49.9R", "49.9", 27.3, 9.5, 0, {"1": "LOAD", "2": "GND"}, label=None)
+    # 1 k between LOAD and +IN: the op amp's negative rail is ground, so a DAC swinging below 0 V (or any input with the
+    # tile switched off) would drive its input clamp from 25 ohm; 1 k holds that under 0.5 mA (its FET input draws nothing)
+    rli = t.add("R", "R0402 1k", "1k", 24.45, 9.98, 270, {"1": "LOAD", "2": "LIN"}, label=None)             # pad 1 up
     cc = t.add("C", "C0603 1nF", "1n", 25.6, 16.4, 0, {"1": "FBK", "2": "OG"}, label=None)
     rc = t.add("R", "R0402 1k", "1k", 23.2, 15.8, 90, {"1": "SH", "2": "FBK"}, label=None)                  # pad 2 up
     rg = t.add("R", "R0402 100R", "100R", 28.2, 11.0, 0, {"1": "OG", "2": "GATE"}, label=None)
     q = t.add("Q", "NFET", "AO3400A", 29.8, 13.6, 0, {"1": "GATE", "2": "SH", "3": "VL"}, hide_value=True)
     rsh = t.add("R", "R0805 10R", "10R", 29.2, 17.0, 90, {"1": "GND", "2": "SH"}, label=None)               # pad 2 up
     coa = t.add("C", "C0402 100nF", "100n", 22.4, 12.6, 90, {"1": "GND", "2": "VS"}, label=None)            # pad 2 up
-    t.wire("LOAD", [("J%d03" % t.idx, "1"), (26.25, 9.5), (24.45, 9.5), (ua, "3")])
+    t.wire("LOAD", [("J%d03" % t.idx, "1"), (26.25, 9.5), (24.45, 9.5), (rli, "1")])
+    t.wire("LIN", [(rli, "2"), (ua, "3")], width=W)
     t.wire("LOAD", [(26.25, 9.5), (rtl, "1")])
     t.gnd_stub(rtl, "2", (28.6, 9.9), sym=(0, 0))
     t.gnd_stub(ua, "2", (25.4, 10.4), sym=(0, 0))
@@ -1067,7 +1081,7 @@ BACK = {
     "c1": ["USB-C 5 V only", "+5 V 1.5 A", "-5 V 40 mA", "+3.3 V 300 mA"],
     "c4": ["CLK on IO3", "fc = fCLK / 100", "to 15 kHz", "IN +-1 V"],
     "c5": ["phases IO4, IO8", "R = 1 / f C", "C = 1 nF", "IN +-1 V"],
-    "c6": ["IN +-1.65 V", "CLK IO1, BIT IO7", "needs gateware", "INT1, INT2 / 4"],
+    "c6": ["IN +-1.5 V max", "CLK IO1, BIT IO7", "needs gateware", "INT1, INT2 / 4"],
     "c2": ["buck 3.6 V 1.5 MHz", "LDO 3.3 V", "LOAD 100 mA/V,", "1 V max", "TRIM +-2 V"],
     "c3": ["IO6 clocks it", "OUT about -5 V", "R = 1 / f C"],
     "c7": ["IO5 high: track", "IO5 low: hold", "IN +-1 V", "droop 30 mV/s"],

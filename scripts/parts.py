@@ -487,6 +487,7 @@ PASSIVES = {
     "R0402 56R": dict(lcsc="C25127", mpn="0402WGF560JTCE", jlc_type="extended", stock=166571, price=0.0016, note="the baseband jacks' termination"),
     "R0402 1.1k": dict(lcsc="C25860", mpn="0402WGF1101TCE", jlc_type="extended", stock=303653, price=0.0012, note="the TRF3722's loop filter"),
     "C0402 330pF": dict(lcsc="C190579", mpn="0402CG331J500NT", jlc_type="extended", stock=17684, price=0.0039, note="C0G: the TRF3722's loop filter"),
+    "C0402 680pF": dict(lcsc="C301953", mpn="0402CG681J500NT", jlc_type="extended", stock=19911, price=0.0083, note="C0G: AMOD-C's c6 second integrator (stock 2026-10-28)"),
     "C0402 4.7pF": dict(lcsc="C1569", mpn="0402CG4R7C500NT", jlc_type="extended", stock=586033, price=0.0058, note="C0G: the TRF3722's RF output (TI's EVM)"),
     "C0603 10nF": dict(lcsc="C85973", mpn="GRM1885C1H103JA01D", jlc_type="extended", stock=325730, price=0.0110, note="C0G: the TRF3722's loop filter"),
     "L0402 18nH": dict(lcsc="C91622", mpn="LQW15AN18NG00D", jlc_type="extended", stock=46287, price=0.0506, note="Murata LQW15: the QPL9547's supply choke (Qorvo's 18 nH)"),

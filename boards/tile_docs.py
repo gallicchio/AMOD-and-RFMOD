@@ -576,8 +576,8 @@ DOCS["amod_c"] = {
     "c6": dict(
         does="A second-order delta-sigma modulator with its insides on jacks: a one-bit stream whose density follows IN.",
         chips=["OPA2810", "TLV3501", "SN74LVC1G79", "SN74LVC1G3157"],
-        specs="Two integrators (10 k into 220 pF, 6.8 k into 330 pF) on a 1.65 V virtual ground (the 3.3 V rail halved by 0.1 % resistors); the one-bit DACs switch 10 k between 3.3 V and ground; a TLV3501 and a 74LVC1G79 clocked from Pmod IO1 (about 1 MHz) put the bit on IO7.  Full scale +-1.65 V; INT1 and INT2 through 3.3 k / 1 k (about a quarter, offset 0.38 V).",
-        limits="IN is 10 k (not 50 ohm): drive it from the DAC directly.  INT1 and INT2 are 770 ohm sources: high impedance.  A DC input near a simple fraction of full scale makes idle tones.",
+        specs="Two integrators (10 k into 220 pF, 6.8 k into 680 pF) on a 1.65 V virtual ground (the 3.3 V rail halved by 0.1 % resistors); the one-bit DACs switch 10 k between 3.3 V and ground; a TLV3501 and a 74LVC1G79 clocked from Pmod IO1 (about 1 MHz) put the bit on IO7.  Full scale +-1.65 V; INT1 and INT2 through 3.3 k / 1 k (about a quarter, offset 0.38 V).",
+        limits="IN is 10 k (not 50 ohm): drive it from the DAC directly.  Keep IN within +-1.5 V: beyond that the second integrator leaves the comparator's 0-3.3 V input range (10 k protects the comparator; the bits stop meaning anything until IN comes back).  INT1 and INT2 are 770 ohm sources: high impedance.  A DC input near a simple fraction of full scale makes idle tones.",
         experiments="The noise spectrum's 40 dB per decade against AMOD-A's a6 (first order, 20); a sinc3 decimator's bits against the oversampling ratio; idle tones; the integrators' outputs on a scope as the loop runs.",
         use="A 1 MHz clock on Pmod IO1; read the bits on IO7 and decimate them; DAC to IN; INT1, INT2 to the ADCs at high impedance.", needs=GATEWARE),
     "c7": dict(
