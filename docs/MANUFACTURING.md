@@ -99,6 +99,25 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 3. Check the placement preview against `docs/images/amod_m-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
 4. Pay; keep the order number in the chat log.
 
+## AMOD-B: the brushless board
+
+- Gerbers and drills: `out/amod_b/amod_b-gerbers.zip` (upload as the PCB file).
+- Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
+- BOM: `out/amod_b/amod_b_bom_jlcpcb_upload.csv`; placements: `out/amod_b/amod_b_cpl_jlcpcb_upload.csv` (rotations already turned
+  for JLCPCB's conventions; the native KiCad file is beside it).
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  57 BOM lines, 29 of them
+  extended parts (each adds JLCPCB's loading fee).
+- Parts per board: $42.11.  Read `out/amod_b/amod_b-assembly-notes.txt` before confirming the order.
+
+### Order steps
+
+1. Order now > PCB: upload the gerber zip; 100 x 100 mm, 4 layers, 1.6 mm, any colour, HASL or ENIG, 5 pieces.
+2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check
+   every line against the notes: the DIP switches and the LEDs have printed orientation, the SMA and terminals are
+   through-hole and must be selected for assembly).
+3. Check the placement preview against `docs/images/amod_b-render-top.png`: polarised parts (diodes, LEDs, ICs' pin 1).
+4. Pay; keep the order number in the chat log.
+
 ## RF-MOD: the RF board
 
 - Gerbers and drills: `out/rf_mod/rf_mod-gerbers.zip` (upload as the PCB file).

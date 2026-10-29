@@ -81,6 +81,12 @@ CHIP_URL = {
     "QRE1113": "https://www.onsemi.com/products/sensors/photo-detectors/reflective-sensors/qre1113",
     "INA828": "https://www.ti.com/product/INA828",
     "SWPA6045": "https://www.lcsc.com/product-detail/C36414.html",
+    "DRV8311H": "https://www.ti.com/product/DRV8311",
+    "MT6701": "https://www.lcsc.com/product-detail/C3003196.html",
+    "LSM6DSO": "https://www.st.com/en/mems-and-sensors/lsm6dso.html",
+    "INA240": "https://www.ti.com/product/INA240",
+    "SN74LVC1G125": "https://www.ti.com/product/SN74LVC1G125",
+    "SMBJ12A": "https://www.lcsc.com/product-detail/C19077565.html",
 }
 
 NOTHING = "Nothing beyond SMA cables."
@@ -725,3 +731,93 @@ DOCS["amod_m"] = {
         use="The load cell on the XH; OUT to an ADC.", needs=MOTOR_KIT + "a 1-5 kg bar load cell with a JST XH 4-way lead."),
 }
 
+
+# ------------------------------------------------------------------------------------------------------------ AMOD-B --
+GIMBAL = MOTOR_KIT + "the GBM2804H-100T gimbal motor on b5"
+DOCS["amod_b"] = {
+    "b1": dict(
+        does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
+        chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
+        limits="-5 V is 40 mA: the seven OPA810s, the OPA2171, b3's level shifts and b9's sensor draw about 30 mA together.  The board negotiates nothing: use a plain 5 V supply.",
+        experiments="-", use="Plug in the USB-C (and the host's Pmod for b3, b5 and b6); then switch on each tile you use (slider up).",
+        needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
+    "b2": dict(
+        does="The motor supply VMOT: a barrel jack (5-12 V) or USB's 5 V, each through a Schottky; its voltage / 16 on a jack.",
+        chips=["SS34", "SMBJ12A"],
+        specs="DC-005 5.5 / 2.1 mm jack, centre positive; two SS34 (3 A) into VMOT, so VMOT is the larger input less about 0.4 V; SMBJ12A (clamps near 20 V, under the DRV8311's 24 V maximum) and 220 uF on VMOT soak up the motor's braking energy (the diodes stop it reaching the supply); green LED; VM = VMOT / 16 (15 k / 1 k) through 49.9 ohm.",
+        limits="5-12 V in (the clamp starts to conduct above about 13 V).  VMOT is not switched and has no fuse: the supply's current limit is the board's.  With USB alone VMOT is about 4.6 V: the gimbal motor turns, slowly and weakly.  VM is a 1 k source: read it at high impedance.",
+        experiments="The supply's droop as the motor accelerates; the braking energy coming back (VM rises while the motor slows).",
+        use="A 5-12 V supply on the barrel jack, current limited to about 1 A; VM to an ADC.", needs=MOTOR_KIT + "a 3-12 V adjustable supply with a barrel plug."),
+    "b3": dict(
+        does="A three-phase driver for the gimbal motor: each phase high or low from an FPGA line, all three floated by a DAC; two phases' low-side currents on jacks.",
+        chips=["DRV8311H", "TLV3501"],
+        specs="DRV8311H (3-20 V, 5 A peak, 210 mohm) from VMB in 3x PWM mode: INHA on Pmod IO5, INHB on IO1, INHC on IO2, each phase high when its line is high and low when it is low; the three INL pins are EN.  COAST (0 / +1 V, 49.9 ohm) through a TLV3501 (threshold 0.58 V) on the driver's 3.3 V: high, every phase floats.  Straps left open: 9 A trip, 180 V/us, the current amplifiers at 1 V/A about 1.65 V; IA, IB = phase A's and B's low-side currents shifted to 0 by 3.3 k / 10 k to -5 V: 0.75 V/A from 2.5 k.  The motor on a 3-way screw terminal: C, B, A from the left (phase A out through b11's shunt and back).",
+        limits="About 1.4 A each way at IA and IB (the amplifiers are linear from 0.25 V to 3.05 V), +-1.05 V there; they read only while a phase's low side conducts.  IA and IB are 2.5 k sources: read them at high impedance (an ADC's input or a scope's 1 M).  In 3x PWM mode the driver makes its own dead time: the FPGA only sets each phase high or low.",
+        experiments="Six-step commutation from the halls (b10) or the encoder; sinusoidal and field-oriented control from the encoder's angle; the phase currents' PWM ripple; coasting to read the back-EMF on b4; open-loop stepping of the gimbal motor as a slow stepper.",
+        use="PWM on IO5, IO1, IO2 (A, B, C); COAST from a DAC (0 V to run); IA and IB to the ADCs; the motor's three leads on the terminal.",
+        needs=GIMBAL + " (its leads on the terminal)."),
+    "b4": dict(
+        does="The back-EMF: phases A and B against the motor's neutral, divided by 14 and buffered.",
+        chips=["OPA2171"],
+        specs="Each phase through 13 k / 1 k; the three dividers' ends join at ground, so with every phase floating they make the motor's neutral; A and B followed by an OPA2171 on +-5 V: EA, EB = the phase / 14 through 49.9 ohm.",
+        limits="+-14 V at a phase reads +-1 V.  While the driver runs, EA and EB show the PWM's square waves (the phase voltages), not the back-EMF: coast (b3's COAST high) to see it.",
+        experiments="The back-EMF's sinusoid as the motor is spun by hand; its amplitude against speed (the motor constant); its zero crossings for sensorless commutation; its shape (sinusoidal or trapezoidal).",
+        use="COAST high and spin the motor by hand, or coast between drive pulses; EA and EB to the ADCs.", needs=GIMBAL + "."),
+    "b5": dict(
+        does="The gimbal motor on four slots over its sensors: a magnetic encoder under the shaft, two linear halls under the magnets, a reflective sensor under the rim.",
+        chips=["MT6701", "DRV5055", "QRE1113"],
+        specs="Four radial slots 3.4 mm wide, 4.3-11.7 mm from the centre (M2-M3 screws on any of the 2804 patterns: 12 mm, 16 / 19 mm, 14 x 14).  MT6701 (14 bits, SSI: CLK on SCK, CSN on CS ENC, DO to b6's buffer; its analog output to b7) at the centre under a 6 x 2.5 mm diametric magnet on the shaft's end, 0.5-2 mm above it.  Two DRV5055A3 under the rotor's magnets 14.5 mm out, 17.1 degrees apart (120 electrical degrees for 7 pole pairs), to b10.  A QRE1113 16.5 mm out under the bell's rim, to b9.",
+        limits="The magnet must be diametric (magnetised across its diameter) and centred over the encoder; the motor sits on spacers to set the gap.  The halls see the rotor's magnets only if they come within about 3 mm of the board.",
+        experiments="The encoder's angle against the halls' and the back-EMF's: the motor's electrical angle three ways; the encoder's nonlinearity against the index; cogging (the motor turned by hand, the angle and the current).",
+        use="Glue the magnet to the shaft's end; screw the motor down on spacers so the magnet is about 1 mm over the encoder; its leads to b3.",
+        needs=GIMBAL + ", a 6 x 2.5 mm diametric magnet, M2.5 screws and spacers."),
+    "b6": dict(
+        does="An IMU on SPI, and the buffer that lets the encoder share its MISO.",
+        chips=["LSM6DSO", "SN74LVC1G125"],
+        specs="LSM6DSO (gyroscope to 2000 dps, accelerometer to 16 g, both to 6.66 kHz) on SPI mode 3 up to 10 MHz: CS IMU on Pmod IO8, SCK IO4, MOSI IO7, MISO IO3.  A 74LVC1G125 puts the encoder's DO on MISO only while CS ENC (IO6) is low.  3.3 V from the board's rail.",
+        limits="Hold CS IMU and CS ENC never low together.  SPI only (its I2C mode is not wired).",
+        experiments="The accelerometer's gravity vector as a level (stand the board on edge: the roll about the motor's axis); the gyroscope's rate against the encoder's speed; a one-axis gimbal that holds a direction as the board tilts.",
+        use="SPI from the gateware on IO8, IO4, IO7, IO3 (the encoder on IO6).", needs=GATEWARE),
+    "b7": dict(
+        does="The encoder's analog angle: a sawtooth once a turn, centred on 0.",
+        chips=["OPA810"],
+        specs="The MT6701's OUT (0 to its 3.3 V over a turn) less 1.65 V (20 k / 20 k of the same 3.3 V, so it tracks), times 0.51, by an OPA810 on +-5 V: ANG = +-0.84 V through 49.9 ohm.",
+        limits="The MT6701's DAC is 12 bits and updates every few microseconds; its zero is the encoder's (set over SSI, or by where the magnet sits).",
+        experiments="The shaft's angle on a scope while the motor turns; speed from the sawtooth's period; the encoder's latency against the halls.",
+        use="ANG to an ADC.", needs=GIMBAL + " and its magnet."),
+    "b8": dict(
+        does="A vibration pickup: a piezo disc's charge amplified.",
+        chips=["OPA810"],
+        specs="The disc on a 2-way screw terminal through 1 k into an OPA810 charge amplifier on +-5 V: VIB = -Q / 1 nF above 160 Hz (1 M across), through 49.9 ohm.",
+        limits="Below 160 Hz the output falls (the 1 M); a hard tap on the disc can clip the amplifier at +-4 V.",
+        experiments="The cogging (12 a turn), the commutation's ripple and the PWM's whine, the bearing's noise; the motor mount's resonances; field-oriented control against six-step, heard.",
+        use="Stick the disc to the motor's mount (tape or wax); its wires on the terminal; VIB to an ADC.", needs=MOTOR_KIT + "a 27 mm piezo disc with leads."),
+    "b9": dict(
+        does="An index: the reflective sensor under the bell's rim sees a white mark once a turn.",
+        chips=["OPA810"],
+        specs="The QRE1113 on b5 (its LED at 21 mA from 5 V through 180 ohm), its collector held at 0 V by an OPA810 on +-5 V, its emitter on -5 V through 100 ohm: IDX = 4.7 k x the collector current, 100 pF across, through 49.9 ohm.",
+        limits="The rim must pass within a few millimetres of the sensor; lamps and sunlight add to the reading.",
+        experiments="An index pulse for the encoder; a tachometer with no encoder; the encoder's angle at each index (its repeatability).",
+        use="A white mark (tape, paint) on the bell's lower rim; IDX to an ADC.", needs=GIMBAL + ", white tape."),
+    "b10": dict(
+        does="The halls' two sinusoids: the rotor's electrical angle without the encoder.",
+        chips=["OPA810"],
+        specs="Each DRV5055A3 on b5 (25 mV/mT about half its 5 V) less half its supply (20 k / 20 k, ratiometric) times 0.39 by an OPA810 on +-5 V, as AMOD-M's m9: HA, HB = 9.75 mV/mT through 49.9 ohm.",
+        limits="+-85 mT before a sensor saturates; the rotor's field at the board is a few tens of millitesla.",
+        experiments="Hall-sensored six-step commutation; the electrical angle from the two sinusoids (atan2) against the encoder's; the pole count from their period against the encoder's turn.",
+        use="HA and HB to the ADCs.", needs=GIMBAL + "."),
+    "b11": dict(
+        does="Phase A's whole current, in line, both ways and through every PWM state.",
+        chips=["INA240", "OPA810"],
+        specs="Phase A from b3 through 0.05 ohm and back to the terminal, read by an INA240A1 (x20, common mode -4 to 80 V, built to reject the PWM's edges) about 2.5 V, and an OPA810 that takes the 2.5 V away: IPA = 1 V/A through 49.9 ohm.",
+        limits="+-2.5 A (the INA240's output range); about 400 kHz.",
+        experiments="IPA against b3's IA: what a low-side amplifier misses (the high side's share and the coast intervals); the phase current's sinusoid under field-oriented control; the current's rise at each PWM edge (L / R).",
+        use="IPA to an ADC.", needs=GIMBAL + "."),
+    "b12": dict(
+        does="The driver's supply current, both ways: the power into the motor and the energy it gives back.",
+        chips=["INA181", "OPA810"],
+        specs="VMOT from b2 through 0.1 ohm (VMB on to b3), read by an INA181A1 (x20) about 2.5 V and an OPA810 difference amplifier, as AMOD-M's m7: I = 1 V/A, +-1.2 A, through 49.9 ohm.",
+        limits="+-1.2 A.  The driver's input capacitors smooth the PWM's pulses: I is the average current, not each pulse.",
+        experiments="The electrical power in (I x VM); the driver's losses against the phase currents; the current going negative while the motor brakes.",
+        use="I to an ADC.", needs=NOTHING),
+}

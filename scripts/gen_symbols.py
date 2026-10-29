@@ -247,7 +247,7 @@ SYMBOLS = [
         "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "INA828 instrumentation amplifier, SOIC-8", width=10.16),
     # LSM6DSOTR (ST, LGA-14, Table 1): 1 SDO/SA0, 2 SDx, 3 SCx, 4 INT1, 5 VDDIO, 6 GND, 7 GND, 8 VDD, 9 INT2, 10 OCS_Aux,
     # 11 SDO_Aux, 12 CS, 13 SCL/SPC, 14 SDA/SDI
-    box("LSM6DSO", "U", [("12", "CS", "input"), ("13", "SPC", "input"), ("14", "SDI", "input"), ("1", "SDO", "output"), ("4", "INT1", "output"),
+    box("LSM6DSO", "U", [("12", "CS", "input"), ("13", "SPC", "input"), ("14", "SDI", "input"), ("1", "SDO", "tri_state"), ("4", "INT1", "output"),
                          ("9", "INT2", "output")],
         [("8", "VDD", "power_in"), ("5", "VDDIO", "power_in"), ("2", "SDX", "passive"), ("3", "SCX", "passive"), ("10", "OCS_AUX", "passive"),
          ("11", "SDO_AUX", "passive"), ("6", "GND", "power_in"), ("7", "GND", "power_in")],

@@ -31,14 +31,17 @@ def cell_origin(c, r):
 
 
 def tile_frame(cells):
-    """(x0, y0, w, h) of a tile that spans `cells` (a list of (c, r) in one row)."""
-    cs = sorted(c for c, r in cells)
-    rs = {r for c, r in cells}
-    assert len(rs) == 1, "a tile spans one row: %r" % (cells,)
+    """(x0, y0, w, h) of a tile that spans `cells` (a list of (c, r)): contiguous cells in one row, or a full rectangle
+    of them (AMOD-B's gimbal motor sits on 2 x 2, Prompt 19), the gutters between them part of the tile."""
+    cs = sorted({c for c, r in cells})
+    rs = sorted({r for c, r in cells})
     assert cs == list(range(cs[0], cs[0] + len(cs))), "a tile's cells are contiguous: %r" % (cells,)
-    x0, y0 = cell_origin(cs[0], rs.pop())
+    assert rs == list(range(rs[0], rs[0] + len(rs))), "a tile's rows are contiguous: %r" % (cells,)
+    assert len(set(cells)) == len(cs) * len(rs), "a tile of several rows is a full rectangle: %r" % (cells,)
+    x0, y0 = cell_origin(cs[0], rs[0])
     w = len(cs) * T + (len(cs) - 1) * GAP
-    return x0, y0, w, T
+    h = len(rs) * T + (len(rs) - 1) * GAP
+    return x0, y0, w, h
 
 
 def slot(cells, name):
@@ -54,6 +57,7 @@ def slot(cells, name):
     # the checkerboard slots of a multi-cell tile: TLk / BRk are cell k's top-left and bottom-right corners (k from 0)
     k = int(name[2:])
     assert name[:2] in ("TL", "BR") and 0 <= k < len(cells), name
+    assert len({r for c, r in cells}) == 1, "numbered slots are for a tile in one row: %r" % (cells,)
     x0 = k * (T + GAP)
     return (x0 + INSET, INSET) if name[:2] == "TL" else (x0 + T - INSET, h - INSET)
 

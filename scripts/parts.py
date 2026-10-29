@@ -42,7 +42,7 @@ BOARDS = {
     "amod_b": dict(stem="amod_b", name="AMOD-B", letter="B", why="brushless: a gimbal motor on its magnetic encoder, back-EMF, an IMU",
                    title="AMOD-B: brushless motors", layers=4,
                    subtitle="a three-phase driver, a gimbal motor over a magnetic encoder and halls, back-EMF, an IMU",
-                   fine=True, rf=False, what="the brushless board", power_nets=["GND", "+5V", "-5V", "+3V3", "/VMOT"]),
+                   fine=True, rf=False, what="the brushless board", power_nets=["GND", "+5V", "-5V", "+3V3", "/VMOT", "/VMB"]),
     "rf_mod": dict(stem="rf_mod", name="RF-MOD", letter="R", why="radio", title="RF-MOD: 915 MHz, 2.4 GHz and a stretch to 5.8 GHz", layers=4,
                    subtitle="a quadrature transmitter, a synthesizer, three mixers (one a diode ring), an LNA and a gain block, two filters, power and a 25 MHz reference",
                    fine=True, rf=True, what="the RF board", power_nets=["GND", "+5V", "+3V3", "+8V"]),
@@ -105,6 +105,8 @@ PARTS = {
                desc="M3 mounting hole, one per corner"),
     "SLOT": dict(value="", process="THT", in_bom=False, footprint="amod:Slot_CableTie_1.2x3.4mm", symbol="Mechanical:MountingHole",
                  desc="a 1.2 x 3.4 mm slot for a cable tie (holds the ferrite rod)"),
+    "SLOT_MOTOR": dict(value="", process="THT", in_bom=False, footprint="amod:Slot_Motor_3.4x7.4mm", symbol="Mechanical:MountingHole",
+                       desc="a radial 3.4 x 7.4 mm slot for a gimbal motor's M2-M3 screw (AMOD-B: r 6-10 mm covers the patterns reported)"),
     # ---- AMOD-A: power, gating, the chips (stock 2026-10-25 00:45-03:45) ----
     "USBC": dict(value="USB-C 5V", mpn="TYPE-C-31-M-12", lcsc="C165948", jlc_type="extended", process="SMT", stock=324740, price=0.1888,
                  footprint="Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12", symbol="Connector:USB_C_Receptacle_USB2.0_16P", match=["TYPE-C-31-M-12"],
@@ -320,6 +322,9 @@ PARTS = {
     "INA181A1": dict(value="INA181A1", mpn="INA181A1IDBVR", lcsc="C2058943", jlc_type="extended", process="SMT", stock=14126, price=0.4717,
                      footprint="Package_TO_SOT_SMD:SOT-23-6", symbol="Amplifier_Current:INA181", match=["INA181A1IDBVR"],
                      desc="current-sense amplifier, gain 20, common mode -0.2 to 26 V, SOT-23-6 (1 OUT, 2 GND, 3 IN+, 4 IN-, 5 REF, 6 VS)"),
+    "INA240A1": dict(value="INA240A1", mpn="INA240A1DR", lcsc="C2060769", jlc_type="extended", process="SMT", stock=3143, price=0.9008,
+                     footprint="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", symbol="Amplifier_Current:INA240A1D", match=["INA240A1DR"],
+                     desc="current-sense amplifier with PWM rejection, gain 20, common mode -4 to 80 V, SOIC-8 (1 IN-, 2 GND, 3 REF2, 5 OUT, 6 VS, 7 REF1, 8 IN+): AMOD-B's phase current in line"),
     "TCA0372": dict(value="TCA0372", mpn="TCA0372DWR2G", lcsc="C362060", jlc_type="extended", process="SMT", stock=2683, price=1.1775,
                     footprint="Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm", symbol="amod:TCA0372", match=["TCA0372DWR2G"],
                     desc="onsemi dual 1 A power op amp, 40 V, thermal shutdown, SOIC-16W (1 VCC, 2 OUT B, 7 -IN B, 8 +IN B, 9 +IN A, 10 -IN A, 16 OUT A, 4 5 12 13 ground)"),
@@ -787,6 +792,12 @@ JLC_ROTATION = {
     "C266128": (180, "predicted", "DRV5055A3 SOT-23, '-BR'"),
     "C144395": (180, "predicted", "JST B4B-XH-A: JLCPCB's drawing turned 180 from KiCad's, its origin at the middle of the row (JLC_DATUM)"),
     "C131342": (180, "predicted", "JST B6B-PH-K: as the XH (JLC_DATUM)"),
+    # AMOD-B's (Prompt 19), the same way
+    "C2060769": (270, "predicted", "INA240A1 SOIC-8: as the SOIC-8s (rms 0.23 mm)"),
+    "C3003196": (270, "predicted", "MT6701 SOP-8: as the SOIC-8s (rms 0.21 mm)"),
+    "C23654": (270, "predicted", "SN74LVC1G125 SOT-23-5: JLCPCB's drawing a quarter turn from KiCad's (rms 0.02 mm), unlike the OPA810's"),
+    "C5218862": (0, "predicted", "DRV8311H WQFN-24 (RRW): as KiCad's, by the pad numbers (rms 0.00 mm)"),
+    "C2655100": (0, "predicted", "LSM6DSO LGA-14: as KiCad's (rms 0.10 mm); the pads are symmetric under a half turn: pin 1 by the preview"),
 }
 
 # Where JLCPCB's origin for a part sits in our footprint's own frame (mm, y down), when it is not ours: the JLCPCB CPL

@@ -293,7 +293,7 @@ class SchCtx:
                   "Device:Thermistor_NTC", "Device:D_Photo", "Device:Polyfuse", "Diode:SMAJ5.0A", "Device:C_Polarized")
         chips, twos, loops = [], [], []
         for r, p in t.parts.items():
-            if p.key in ("SMA", "MH", "SLOT"):
+            if p.key in ("SMA", "MH") or p.key.startswith("SLOT"):
                 continue
             if p.key == "TP":
                 loops.append(r); continue
@@ -631,16 +631,17 @@ def build(stem):
                         "Drawn by scripts/gen_sch.py from boards/%s.py; the expected responses from sim/passive.py" % stem], project=stem)
     s.add_local_lib(os.path.join(HERE, "..", "hardware", "lib", "amod.kicad_sym"), "amod")
     for t in ts:
-        c0 = min(c for c, r in t.cells); r0 = t.cells[0][1]
+        c0 = min(c for c, r in t.cells); r0 = min(r for c, r in t.cells)
+        ncol, nrow = len({c for c, r in t.cells}), len({r for c, r in t.cells})
         ox = OX0 + c0 * BLOCK_W
         oy = OY0 + r0 * BLOCK_H
-        w = len(t.cells) * BLOCK_W - 5.08
-        h = BLOCK_H - 5.08
+        w = ncol * BLOCK_W - 5.08
+        h = nrow * BLOCK_H - 5.08
         ctx = SchCtx(s, t, ox, oy, w, h)
         ctx.header()
         t.sch_draw(ctx, t)
-        for i, (ref, p) in enumerate([(r, p) for r, p in t.parts.items() if p.key == "SLOT"]):
-            d = parts.info("SLOT")
+        for i, (ref, p) in enumerate([(r, p) for r, p in t.parts.items() if p.key.startswith("SLOT")]):
+            d = parts.info(p.key)
             s.place(d["symbol"], ref, "slot", ox + w - 15.24 + 0 - i * 7.62, oy + 12.7, footprint=d["footprint"], in_bom=False,
                     ref_off=(0, -3.5), val_off=(0, 3.5), hide_value=True)
     # board-level: the mounting holes and the ground loops, in a strip under the blocks

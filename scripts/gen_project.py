@@ -56,7 +56,7 @@ def severities():
     return out
 
 
-def project(stem, layers, power_nets, rf_nets=(), fine_nets=()):
+def project(stem, layers, power_nets, rf_nets=(), fine_nets=(), fine_refs=()):
     # beside a fine-pitch chip the rails and ground meet its nets at the fine clearance (a Default net still gets 0.2)
     classes = [net_class("Default", 0.25), net_class("Power", 0.4, priority=1, clearance=(0.127 if fine_nets else CLEARANCE))]
     assignments = {n: ["Power"] for n in power_nets}
@@ -90,7 +90,8 @@ def project(stem, layers, power_nets, rf_nets=(), fine_nets=()):
             "unannotated": "error", "unconnected_wire_endpoint": "error", "unresolved_variable": "error", "wire_dangling": "error"}},
         "libraries": {"pinned_footprint_libs": [], "pinned_symbol_libs": []},
         "meta": {"filename": stem + ".kicad_pro", "version": 3},
-        "net_settings": {"classes": classes, "meta": {"version": 4}, "net_colors": None, "netclass_assignments": assignments, "netclass_patterns": []},
+        "net_settings": {"classes": classes, "meta": {"version": 4}, "net_colors": None, "netclass_assignments": assignments,
+                         "netclass_patterns": [{"netclass": "Fine", "pattern": "unconnected-(%s-*" % r} for r in fine_refs]},
         "pcbnew": {"last_paths": {"gencad": "", "idf": "", "netlist": "", "plot": "", "pos_files": "", "specctra_dsn": "", "step": "", "svg": "", "vrml": ""},
                    "page_layout_descr_file": ""},
         "schematic": {"annotate_start_num": 0, "bom_fmt_presets": [], "bom_fmt_settings": {}, "bom_presets": [], "bom_settings": {},
@@ -121,7 +122,7 @@ def main():
     B = parts.BOARDS[stem]
     path = os.path.join(HW, stem + ".kicad_pro")
     # the RF net class: every net a tile draws as a 50 ohm line (tiles.RF_W), once the schematic stage has written the tiles
-    rf_nets, fine_nets = [], []
+    rf_nets, fine_nets, fine_refs = [], [], []
     tj = os.path.join(HW, "..", "out", stem + "_tiles.json")
     if os.path.exists(tj):
         for t in json.load(open(tj))["tiles"]:
@@ -130,11 +131,12 @@ def main():
                     rf_nets.append(w[0])
             if t.get("fine"):                      # a fine-pitch tile: every net of its parts but the rails and ground
                 for p in t["parts"]:
+                    fine_refs.append(p["ref"])             # and its chips' unconnected pins, which sit 0.15 mm from their neighbours
                     for n in p["pins"].values():
                         if n not in POWER_NETS[stem] and n not in fine_nets:
                             fine_nets.append(n)
     with open(path, "w") as fh:
-        json.dump(project(stem, B["layers"], POWER_NETS[stem], rf_nets, fine_nets), fh, indent=2)
+        json.dump(project(stem, B["layers"], POWER_NETS[stem], rf_nets, fine_nets, fine_refs), fh, indent=2)
         fh.write("\n")
     for name, body in (("sym-lib-table", SYM_LIB_TABLE), ("fp-lib-table", FP_LIB_TABLE)):
         with open(os.path.join(HW, name), "w") as fh:
