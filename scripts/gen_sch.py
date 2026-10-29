@@ -81,10 +81,13 @@ class SchCtx:
         return self.pins(ref)
 
     def pins(self, ref):
-        p = self.t.parts[ref]
-        d = parts.info(p.key)
-        nums = self.s.all_pin_numbers(d["symbol"])
-        return {n: self.s.pin(ref, 1, n) for n in nums}
+        """{pin: (x, y)} of every pin of `ref`'s units placed so far (a stock 74LVC1G79 keeps its power pins in unit 2)."""
+        out = {}
+        for (r, lib_id, x, y, rot, u, pins, mir) in self.s.symbols:
+            if r == ref:
+                for n in pins:
+                    out.setdefault(str(n), self.s.pin(ref, u, n))
+        return out
 
     def jack(self, ref, x, y, role, label, limit=""):
         """An SMA jack.  An input is mirrored so its pin faces the circuit (right); an output faces left.  Returns pin 1."""

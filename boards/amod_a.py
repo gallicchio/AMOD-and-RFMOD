@@ -30,12 +30,16 @@ def sot23_5(x, y, r):
 
 # ------------------------------------------------------------------------------------------------------------ a1 --
 def tile_a1():
+    return power_tile("a1")
+
+
+def power_tile(id, sections=("A counter on the LEDs",)):
     """Power: USB-C on the board's right edge (CC pull-downs ask for 5 V), a 2 A PTC, a 5 V TVS, 2 x 10 uF; the
     LM2664 inverts +5 to -5 V (40 mA) and the TPS7A2033 regulates +3.3 V; a green LED on +5 V and a red one on -5 V;
     a 1 x 5 socket with every rail along the top edge, its pins named in the gutter above.  The rails leave on the
     inner layer: +5 V through a via into the pour that covers the board, -5 V through vias into the strip in the
     gutter above, +3.3 V through a via into the strip in the gutter below."""
-    t = Tile("a1", "power", [(3, 1)], subtitle="USB-C 5 V in: +5, -5, +3.3 out", sections=["A counter on the LEDs"])
+    t = Tile(id, "power", [(3, 1)], subtitle="USB-C 5 V in: +5, -5, +3.3 out", sections=list(sections))
     t.pwr_flags = ["+5V"]
     ux = USB_X - t.x0
     j = t.add("J", "USBC", "USB-C", ux, 10.0, 90, {"A4": "VBUS", "A9": "VBUS", "B4": "VBUS", "B9": "VBUS", "A5": "CC1", "B5": "CC2",
@@ -117,7 +121,7 @@ def tile_a1():
     t.wire("+5V", [(dg, "2"), (24.6, 0.6)], silk=False)
     t.wire("LEDG", [(dg, "1"), (rg, "1")])
     t.gnd_stub(rg, "2", (26.6, 0.6), sym=(0, 0))
-    t.text(17.4, 1.9, "a1", 1.5, 0.3, "center")
+    t.text(17.4, 1.9, id, 1.5, 0.3, "center")
     t.text(18.7, 18.6, "Power", 0.9, 0.17, "right")
     t.result = "+5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up"
     t.notes = ["USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF.",

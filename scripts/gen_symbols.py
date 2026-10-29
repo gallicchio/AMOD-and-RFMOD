@@ -70,6 +70,34 @@ SYMBOLS = [
     box("LM2664", "U", [("5", "V+", "power_in"), ("4", "SD", "input"), ("6", "CAP+", "passive"), ("3", "CAP-", "passive")],
         [("2", "OUT", "power_out"), ("1", "GND", "power_in")],
         "Package_TO_SOT_SMD:SOT-23-6", "switched-capacitor voltage inverter, 40 mA"),
+    # LM2663M (TI, SOIC-8; datasheet section 5): 1 SD (ground to run), 2 CAP+, 3 GND, 4 CAP-, 5 OUT, 6 LV, 7 OSC, 8 V+
+    box("LM2663", "U", [("8", "V+", "power_in"), ("1", "SD", "input"), ("7", "OSC", "input"), ("6", "LV", "input"), ("2", "CAP+", "passive"), ("4", "CAP-", "passive")],
+        [("5", "OUT", "power_out"), ("3", "GND", "power_in")],
+        "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "switched-capacitor voltage inverter, 200 mA, SOIC-8"),
+    # TMUX4053 (TI, TSSOP-16; datasheet Table 6-3): 1 S2B, 2 S2A, 3 S3B, 4 D3, 5 S3A, 6 EN-bar, 7 VSS, 8 GND, 9 SEL3,
+    # 10 SEL2, 11 SEL1, 12 S1A, 13 S1B, 14 D1, 15 D2, 16 VDD (SELx low: Dx to SxA)
+    box("TMUX4053", "U", [("11", "SEL1", "input"), ("10", "SEL2", "input"), ("9", "SEL3", "input"), ("6", "~{EN}", "input"),
+                          ("12", "S1A", "passive"), ("13", "S1B", "passive"), ("2", "S2A", "passive"), ("1", "S2B", "passive"), ("5", "S3A", "passive"), ("3", "S3B", "passive")],
+        [("16", "V+", "power_in"), ("7", "V-", "power_in"), ("8", "GND", "power_in"), ("14", "D1", "passive"), ("15", "D2", "passive"), ("4", "D3", "passive")],
+        "Package_SO:TSSOP-16_4.4x5mm_P0.65mm", "three SPDT analog switches, +-5 V, TSSOP-16", width=12.7),
+    # TLC555CDR (TI, SOIC-8): 1 GND, 2 TRIG, 3 OUT, 4 RESET, 5 CONT, 6 THRES, 7 DISCH, 8 VDD
+    box("TLC555", "U", [("2", "TRIG", "input"), ("6", "THRES", "input"), ("7", "DISCH", "open_collector"), ("5", "CONT", "passive"), ("4", "~{RESET}", "input")],
+        [("8", "VDD", "power_in"), ("3", "OUT", "output"), ("1", "GND", "power_in")], "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "CMOS 555 timer, SOIC-8", width=10.16),
+    # SN74LVC1G3157 (TI, SOT-23-6 DBV): 1 B2, 2 GND, 3 B1, 4 A, 5 VCC, 6 S (S low: A to B1); the analog pins passive, so
+    # a reference or ground on them is no conflict
+    box("SW3157", "U", [("6", "S", "input"), ("3", "B1", "passive"), ("1", "B2", "passive")], [("5", "VCC", "power_in"), ("4", "A", "passive"), ("2", "GND", "power_in")],
+        "Package_TO_SOT_SMD:SOT-23-6", "SPDT analog switch, SOT-23-6", width=10.16),
+    # TLV3201 (TI, SC-70-5 DCK; datasheet pin descriptions): 1 OUT, 2 GND, 3 IN+, 4 IN-, 5 VCC
+    box("TLV3201", "U", [("3", "IN+", "input"), ("4", "IN-", "input"), ("2", "GND", "power_in")], [("5", "VCC", "power_in"), ("1", "OUT", "output")],
+        "Package_TO_SOT_SMD:SOT-353_SC-70-5", "40 ns comparator, 1.2 mV hysteresis, SC-70-5", width=10.16),
+    # DMMT3904W / BCM857BS (Diodes, SOT-363): 1 E1, 2 B1, 3 C2, 4 E2, 5 B2, 6 C1
+    box("NPN2_SOT363", "Q", [("2", "B1", "input"), ("5", "B2", "input")], [("6", "C1", "passive"), ("1", "E1", "passive"), ("3", "C2", "passive"), ("4", "E2", "passive")],
+        "Package_TO_SOT_SMD:SOT-363_SC-70-6", "matched NPN pair, SOT-363", width=10.16),
+    box("PNP2_SOT363", "Q", [("2", "B1", "input"), ("5", "B2", "input")], [("1", "E1", "passive"), ("6", "C1", "passive"), ("4", "E2", "passive"), ("3", "C2", "passive")],
+        "Package_TO_SOT_SMD:SOT-363_SC-70-6", "matched PNP pair, SOT-363", width=10.16),
+    # BCX56-16 (Nexperia, SOT-89): 1 B, 2 C (and the tab), 3 E
+    box("NPN_SOT89", "Q", [("1", "B", "input")], [("2", "C", "passive"), ("3", "E", "passive")],
+        "Package_TO_SOT_SMD:SOT-89-3", "NPN power transistor, SOT-89", width=7.62),
     # OPA810IDBVR (TI, SOT-23-5; the standard single op amp pinout): 1 OUT, 2 V-, 3 +IN, 4 -IN, 5 V+
     box("OPA_SOT23-5", "U", [("3", "+IN", "input"), ("4", "-IN", "input"), ("2", "V-", "power_in")], [("5", "V+", "power_in"), ("1", "OUT", "output")],
         "Package_TO_SOT_SMD:SOT-23-5", "single op amp, SOT-23-5 (OUT 1, V- 2, +IN 3, -IN 4, V+ 5)", width=10.16),
