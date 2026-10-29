@@ -207,7 +207,7 @@ def tile_c6():
     switching 10 k between +3.3 V and ground: +-165 uA about VMID, ratiometric with VMID, with no negative reference; 10 k
     from +3.3 V into the first node cancels IN's own offset from VMID.  IN through 10 k into 220 pF, the first output
     through 6.8 k into 330 pF; a TLV3501 compares the second output with VMID; a 74LVC1G79 registers it on the FPGA's clock
-    (Pmod IO5) and hands the bit to IO6 and to both switches (the first wired the other way round, so both loops are
+    (Pmod IO1) and hands the bit to IO7 and to both switches (the first wired the other way round, so both loops are
     negative).  INT1 and INT2 on their jacks through 3.3 k / 1 k (read at high impedance: about a quarter, offset by 0.38
     V).  Full scale +-1.65 V; clock 1 MHz.  The OPA2810 (SOIC-8 at rot 0: OUT A, -IN A, +IN A, V- down its left at 24.5;
     V+, OUT B, -IN B, +IN B down its right at 29.5) in the right cell's top-left quarter: the first integrator's parts on
@@ -215,7 +215,7 @@ def tile_c6():
     INT1's divider; +IN A and +IN B on vias under the body joined on the back, V+ on a via under the body.  The
     comparator and the register over the right cell's top-right, the second switch under the second integrator, the
     first switch beside its 10 k; VMID's divider in the right cell's bottom-left quarter.  VS comes along the bottom edge
-    and up the back; the bit and IO5 leave on the back for the Pmod plug."""
+    and up the back; the bit and IO1 leave on the back for the Pmod plug."""
     t = Tile("c6", "delta-sigma", [(1, 1), (2, 1)], supply="+-5 V", subtitle="second order", sections=["Trading speed for bits"])
     t.jack("TL0", "IN", "IN", "in", "±1 V", silk="IN 10K")
     t.jack("BR0", "INT1", "I1J", "out", "", silk="INT1 /4")
@@ -287,24 +287,18 @@ def tile_c6():
     t.wire("+3V3", [(40.9, 5.0), (ccmp, "2")], width=W)
     rail(t, "+3V3", (40.9, 5.0), "below")
     # the register (SOT-23-5 at rot 0: D, CLK, GND down its left; VCC, Q up its right) below the comparator
-    ff = t.add("U", "LVC1G79", "74LVC1G79", 37.1, 8.0, 0, {"1": "DEC", "2": "/PMOD5", "3": "GND", "4": "/PMOD6", "5": "+3V3"}, hide_value=False, label=None)
+    ff = t.add("U", "LVC1G79", "74LVC1G79", 37.1, 8.0, 0, {"1": "DEC", "2": "/PMOD1", "3": "GND", "4": "/PMOD7", "5": "+3V3"}, hide_value=False, label=None)
     cff = t.add("C", "C0402 100nF", "100n", 39.75, 8.6, 90, {"1": "GND", "2": "+3V3"}, label=None)        # pad 2 up
     t.wire("DEC", [(cmp_, "5"), (36.875, 4.2), (36.4, 4.9), (36.4, 6.5), (ff, "1")], width=WF, silk=False)
-    t.via("/PMOD5", 34.6, 8.0)
-    t.wire("/PMOD5", [(34.6, 8.0), (ff, "2")], width=WF)
     t.gnd_stub(ff, "3", (34.9, 9.9), sym=(0, 0))
     t.wire("+3V3", [(ff, "5"), (39.75, 7.05), (cff, "2")], width=W)
     t.wire("+3V3", [(39.75, 7.05), (40.9, 7.05), (40.9, 5.0)], width=W)
     t.gnd_stub(cff, "1", (39.75, 10.0), sym=(0, 0))
-    t.via("/PMOD6", 38.6, 10.4)
-    t.wire("/PMOD6", [(ff, "4"), (38.6, 9.6), (38.6, 10.4)], width=WF)
     # the second switch (SOT-23-6 at rot 0: B2, GND, B1 down its left; S, VCC, A up its right) under the second
     # integrator: A under its body and up to DAC2's 10 k
-    sw2 = t.add("U", "LVC1G3157", "74LVC1G3157", 32.0, 10.0, 0, {"1": "+3V3", "2": "GND", "3": "GND", "4": "D2", "5": "+3V3", "6": "/PMOD6"},
+    sw2 = t.add("U", "LVC1G3157", "74LVC1G3157", 32.0, 10.0, 0, {"1": "+3V3", "2": "GND", "3": "GND", "4": "D2", "5": "+3V3", "6": "/PMOD7"},
                 hide_value=True, label=None)
     t.wire("D2", [(sw2, "4"), (32.15, 10.95), (32.15, 6.9), (33.41, 6.9), (rd2, "2")], width=WF, silk=False)
-    t.via("/PMOD6", 33.8, 7.9)
-    t.wire("/PMOD6", [(33.8, 7.9), (sw2, "6")], width=WF)
     t.via("+3V3", 34.4, 10.6)
     t.wire("+3V3", [(sw2, "5"), (34.4, 10.6)], width=WF)
     t.wire("+3V3", [(34.4, 10.6), (34.9, 11.1), (40.9, 11.1), (40.9, 20.5)], layer="B.Cu", silk=False, width=W)
@@ -315,13 +309,11 @@ def tile_c6():
     t.gnd_stub(sw2, "3", (30.5, 12.0), sym=(0, 0))
     # the first switch (rot 90: B2, GND, B1 along its bottom; S, VCC, A along its top) beside DAC1's 10 k; B1 straight to
     # the offset resistor's +3.3 V end, A to DAC1's 10 k
-    sw1 = t.add("U", "LVC1G3157", "74LVC1G3157", 18.3, 7.6, 90, {"1": "GND", "2": "GND", "3": "+3V3", "4": "D1", "5": "+3V3", "6": "/PMOD6"},
+    sw1 = t.add("U", "LVC1G3157", "74LVC1G3157", 18.3, 7.6, 90, {"1": "GND", "2": "GND", "3": "+3V3", "4": "D1", "5": "+3V3", "6": "/PMOD7"},
                 hide_value=True, label=None)
     csw1 = t.add("C", "C0402 100nF", "100n", 19.5, 5.0, 0, {"1": "+3V3", "2": "GND"}, label=None)
     t.wire("D1", [(sw1, "4"), (19.6, 6.6), (rd1, "1")], width=WF)
     t.wire("+3V3", [(sw1, "3"), (roff, "1")], width=WF)
-    t.via("/PMOD6", 16.3, 6.0)
-    t.wire("/PMOD6", [(16.3, 6.0), (sw1, "6")], width=WF)
     t.via("+3V3", 18.0, 5.0)
     t.wire("+3V3", [(sw1, "5"), (18.3, 5.6), (18.0, 5.0), (csw1, "1")], width=WF)
     t.gnd_stub(csw1, "2", (20.4, 6.0), sym=(0, 0))
@@ -358,14 +350,21 @@ def tile_c6():
     t.wire("VS", [(27.9, 3.6), (28.5, 3.095)], width=WF, silk=False)
     # VMID: +IN A's via over the top on the back to the comparator's -IN
     t.wire("VM", [(26.1, 5.635), (26.1, 1.4), (34.5, 1.4), (34.5, 2.3)], layer="B.Cu", silk=False, width=WF)
+    # the bit and the clock: vias at the tile's top-right corner for the lines to the plug (BACK_WIRES), the router between
+    # the register, the switches and them
+    t.via("/PMOD7", 41.1, 1.9)
+    t.via("/PMOD1", 41.1, 3.1)
+    for net, a2, b2 in (("/PMOD7", (ff, "4"), (sw2, "6")), ("/PMOD7", (sw2, "6"), (sw1, "6")), ("/PMOD7", (ff, "4"), (41.1, 1.9)),
+                        ("/PMOD1", (ff, "2"), (41.1, 3.1))):
+        t.route(net, [a2, b2], width=W)
     # I2: a via beside the comparator, down the back left of the INT2 jack's legs to its 3.3 k
     t.via("I2", 33.4, 4.52)
     t.wire("I2", [(33.4, 4.52), (32.7, 5.22), (32.7, 13.6), (31.09, 14.3)], layer="B.Cu", silk=False, width=WF)
     t.wire("I2", [(31.09, 14.3), (ro2, "1")], width=WF)
     t.text(6.0, 10.6, "c6", 1.5, 0.3, "center")
     t.titles.append("Delta-sigma")
-    t.result = "a one-bit stream on IO6 whose density follows IN (+-1.5 V full scale), its noise shaped at 40 dB per decade"
-    t.notes = ["Clock IO5 at about 1 MHz and count IO6's ones.  The second integrator pushes the quantization noise up at 40 dB per",
+    t.result = "a one-bit stream on IO7 whose density follows IN (+-1.65 V full scale), its noise shaped at 40 dB per decade"
+    t.notes = ["Clock IO1 at about 1 MHz and count IO7's ones.  The second integrator pushes the quantization noise up at 40 dB per",
                "decade (AMOD-A's a6 is first order: 20 dB), so a sinc3 decimator gets more bits per clock.  INT1, INT2: high impedance."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
@@ -491,19 +490,19 @@ def tile_c2():
 
 # ------------------------------------------------------------------------------------------------------------ c3 --
 def tile_c3():
-    """A charge pump the FPGA clocks: the ICL7660A from the switched 5 V, its OSC pin driven from Pmod IO7 through an
+    """A charge pump the FPGA clocks: the ICL7660A from the switched 5 V, its OSC pin driven from Pmod IO6 through an
     SN74LV1T34 and 1 k (the pump runs at half the clock), 1 uF flying and 1 uF on the output, 1 k of load on the output;
     CAP shows the flying capacitor's top (0-5 V) and OUT the output (about -5 V), each through 47 k / 10 k (read at high
     impedance).  SOIC-8 at rot 0 (BOOST, CAP+, GND, CAP- down its left at 11.925; V+, OSC, LV, VOUT down its right at
     16.875) in the top-right quarter: the flying capacitor standing left of it with CAP's 47 k above, the output
     capacitor, V+'s capacitor and the load down the right edge, OSC under the body to the 1 k from the buffer below; CAP's
-    10 k under its jack, OUT's divider over the OUT jack.  VS comes up the back to the buffer and V+; IO7 from the back."""
+    10 k under its jack, OUT's divider over the OUT jack.  VS comes up the back to the buffer and V+; IO6 from the back."""
     t = Tile("c3", "charge pump", [(3, 2)], supply="+5 V", subtitle="ICL7660A", sections=["Regulators"])
     t.jack("TL", "CAP", "CJ", "out", "", silk="CAP /5.7")
     t.jack("BR", "OUT", "OJ", "out", "", silk="OUT /5.7")
     power_header(t)
     W = 0.25
-    b = t.add("U", "LV1T34", "LV1T34", 12.0, 9.2, 0, {"2": "/PMOD7", "3": "GND", "4": "CK", "5": "VS"}, hide_value=True, label=None)
+    b = t.add("U", "LV1T34", "LV1T34", 12.0, 9.2, 0, {"2": "/PMOD6", "3": "GND", "4": "CK", "5": "VS"}, hide_value=True, label=None)
     u = t.add("U", "ICL7660A", "ICL7660A", 14.4, 4.95, 0, {"2": "CP", "3": "GND", "4": "CM", "5": "VO", "7": "OSC", "8": "VS"}, hide_value=False, label=None)
     cf = t.add("C", "C0603 1uF", "1u", 9.6, 5.585, 90, {"1": "CM", "2": "CP"}, label=None)                  # pad 2 up
     rc1 = t.add("R", "R0402 47k", "47k", 9.6, 3.0, 90, {"1": "CP", "2": "CJ"}, label=None)                 # pad 2 up
@@ -532,11 +531,11 @@ def tile_c3():
     t.gnd_stub(ro2, "1", (17.0, 11.0), sym=(0, 0))
     t.gnd_stub(co, "2", (18.85, 4.75), sym=(0, 0))
     t.gnd_stub(cv, "1", (18.85, 4.75), sym=(0, 0))
-    # OSC under the body to the 1 k, the buffer's output beside it; IO7 up from the back
+    # OSC under the body to the 1 k, the buffer's output beside it; IO6 up from the back
     t.wire("OSC", [(u, "7"), (15.9, 4.315), (14.4, 4.8), (rosc, "2")], width=W, silk=False)
     t.wire("CK", [(b, "4"), (13.6, 9.85), (13.6, 10.11), (rosc, "1")], width=W)
-    t.via("/PMOD7", 10.2, 9.2)
-    t.wire("/PMOD7", [(10.2, 9.2), (b, "2")], width=W)
+    t.via("/PMOD6", 10.2, 9.2)
+    t.wire("/PMOD6", [(10.2, 9.2), (b, "2")], width=W)
     t.gnd_stub(b, "3", (10.3, 10.4), sym=(0, 0))
     # VS: the FET's drain right to a via, up the back left of the OUT jack's legs to a via under the buffer's VCC, on
     # under the chip and up to a via by V+
@@ -548,8 +547,8 @@ def tile_c3():
     t.wire("VS", [(17.9, 2.2), (cv, "2")], width=W)
     t.text(2.4, 9.6, "c3", 1.2, 0.24, "center")
     t.titles.append("Charge pump")
-    t.result = "about -5 V on the output, falling with load as 1 / (f C) + the switches: 2 k at 1 kHz, 80 ohm at 100 kHz (the pump at half IO7's clock)"
-    t.notes = ["ICL7660A: switches charge the flying 1 uF across the supply and dump it, upside down, into the output's 1 uF.  IO7",
+    t.result = "about -5 V on the output, falling with load as 1 / (f C) + the switches: 2 k at 1 kHz, 80 ohm at 100 kHz (the pump at half IO6's clock)"
+    t.notes = ["ICL7660A: switches charge the flying 1 uF across the supply and dump it, upside down, into the output's 1 uF.  IO6",
                "clocks it through an SN74LV1T34 and 1 k; with 1 k of load, sweep the clock and read OUT: Rout = 1 / (f C) + 60 ohm."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
@@ -557,7 +556,7 @@ def tile_c3():
 
 # ------------------------------------------------------------------------------------------------------------ c7 --
 def tile_c7():
-    """A track-and-hold: the LF398 on +-5 V (its minimum), 1 nF C0G as the hold capacitor, LOGIC from Pmod IO1 (high:
+    """A track-and-hold: the LF398 on +-5 V (its minimum), 1 nF C0G as the hold capacitor, LOGIC from Pmod IO5 (high:
     track; TTL threshold 1.4 V, so 3.3 V drives it), LOGIC REF grounded; IN terminated in 49.9 ohm, OUT through 49.9 ohm.
     The SOIC-14 turned 90 low in the cell (IN, V-, OUT along its bottom at y 10.08; OFFSET, V+, LOGIC, LOGIC REF, CH along
     its top at 5.13), the hold capacitor, V+'s capacitor and the logic's via in the band above it; IN down the left to
@@ -569,7 +568,7 @@ def tile_c7():
     t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
     W = 0.25
-    u = t.add("U", "LF398", "LF398", 13.8, 7.6, 90, {"1": "IN", "3": "-5V", "7": "OA", "8": "CH", "10": "GND", "11": "/PMOD1", "12": "VS"},
+    u = t.add("U", "LF398", "LF398", 13.8, 7.6, 90, {"1": "IN", "3": "-5V", "7": "OA", "8": "CH", "10": "GND", "11": "/PMOD5", "12": "VS"},
               hide_value=False, label=None)
     rt = t.add("R", "R0402 49.9R", "49.9", 8.6, 12.0, 270, {"1": "IN", "2": "GND"}, label=None)            # pad 1 up
     ch = t.add("C", "C0603 1nF", "1n", 17.6, 2.9, 0, {"1": "GND", "2": "CH"}, label=None)
@@ -579,12 +578,12 @@ def tile_c7():
     t.wire("IN", [("J%d01" % t.idx, "1"), (8.8, 4.75), (8.8, 10.075), (u, "1")])
     t.wire("IN", [(8.8, 10.075), (8.8, 11.49), (rt, "1")])
     t.gnd_stub(rt, "2", (8.6, 13.4), sym=(0, 0))
-    # the band above the chip: CH to the hold capacitor, LOGIC REF to ground, LOGIC to IO1's via, V+ to its capacitor
+    # the band above the chip: CH to the hold capacitor, LOGIC REF to ground, LOGIC to IO5's via, V+ to its capacitor
     t.wire("CH", [(u, "8"), (17.61, 4.0), (ch, "2")], width=W)
     t.gnd_stub(u, "10", [(15.07, 3.6), (15.6, 3.2)], sym=(0, 0))
     t.gnd_stub(ch, "1", (15.6, 3.2), sym=(0, 0))
-    t.via("/PMOD1", 13.8, 3.2)
-    t.wire("/PMOD1", [(13.8, 3.2), (u, "11")], width=W)
+    t.via("/PMOD5", 13.8, 3.2)
+    t.wire("/PMOD5", [(13.8, 3.2), (u, "11")], width=W)
     t.wire("VS", [(cvp, "1"), (11.12, 3.6), (12.53, 3.9), (u, "12")], width=W)
     t.gnd_stub(cvp, "2", (12.9, 2.3), sym=(0, 0))
     # OUT round the right edge to the 49.9 ohm and into the jack between its right legs
@@ -603,11 +602,11 @@ def tile_c7():
     t.wire("VS", [(9.8, 3.0), (cvp, "1")], width=W)
     t.text(6.0, 10.6, "c7", 1.5, 0.3, "center")
     t.titles.append("Track and hold")
-    t.info(["IO1 high: track"], near=(14.0, 1.0), reach=4.0)
-    t.result = "OUT follows IN while IO1 is high and holds when it falls: 4 us to acquire, about 30 mV/s of droop, a few mV of hold step"
+    t.info(["IO5 high: track"], near=(14.0, 1.0), reach=4.0)
+    t.result = "OUT follows IN while IO5 is high and holds when it falls: 4 us to acquire, about 30 mV/s of droop, a few mV of hold step"
     t.notes = ["LF398 on +-5 V (its minimum supply: inputs within +-1.5 V).  1 nF C0G: acquisition about 4 us, droop about 30 mV/s.",
                "Measure the acquisition time, the droop, the pedestal (the hold step) against IN, the feedthrough of a sine while",
-               "holding, and the aperture delay against the FPGA's edge on IO1."]
+               "holding, and the aperture delay against the FPGA's edge on IO5."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t
 
@@ -971,7 +970,7 @@ def tile_c9():
     # --- the Pmod plug, below the left cell in the bottom margin: JLCPCB's pad p is Pmod pin (13 - p) as check_pmod says
     pm = t.add("J", "PMOD", "Pmod", 2.97, 24.25, 0, {"1": "/PMOD_VCC", "2": "/PMOD_VCC", "3": "GND", "4": "GND", "5": "/PMOD8", "6": "/PMOD4",
                                                       "7": "/PMOD7", "8": "/PMOD3", "9": "/PMOD6", "10": "/PMOD2", "11": "/PMOD5", "12": "/PMOD1"}, hide_value=True)
-    t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], silk=False)
+    t.wire("/PMOD_VCC", [(pm, "1"), (pm, "2")], layer="B.Cu", silk=False)
     # the lower row's two inner signal pads on the front with 0.2 mm tracks along the channel between the rows (the upper
     # row's pads take their lines straight down on the back, pads 9 and 11 theirs along the bottom edge and from the right:
     # BACK_WIRES)
@@ -993,7 +992,7 @@ def tiles():
     return [tile_c4(), tile_c5(), tile_c11(), tile_c10(), tile_c6(), tile_c8(), tile_c2(), tile_c3(), tile_c9(), tile_c12(), tile_c7(), tile_c1()]
 
 
-GND_LOOPS = [(3.0, 30.0), (97.0, 50.0)]
+GND_LOOPS = [(97.0, 14.5), (97.0, 23.5)]             # both in the right margin by c11, below the fiducial: the left margin carries the Pmod lanes
 HOLES = []
 FEET = [(5.0, 5.0), (95.0, 5.0), (95.0, 95.0), (5.0, 85.0)]
 SLOTS = []
@@ -1008,7 +1007,19 @@ RAIL_POURS = [("+5V", 0.6, 0.6, 99.4, 99.4, 0),
               # margin, and from row 2 to row 3 right of column 0
               ("+3V3", [(27.75, 49.25), (92.75, 49.25), (92.75, 50.75), (29.25, 50.75), (29.25, 72.25), (7.0, 72.25), (7.0, 70.75),
                         (27.75, 70.75)], 1)]
-BACK_WIRES = []
+# the Pmod's lines on the back, from the tiles' vias to the plug (c9's left cell, bottom margin), in lanes that never cross:
+# c5's two phases and c4's clock up to the top margin and down the left margin, c8's bit across to it, the outer lane the
+# lowest at the plug; c6's clock and bit down the gutter between columns 2 and 3, c7's and c3's down the right margin, and
+# all four left along the bottom margin, the farther the lower.  Pads 5 and 7 (the lower row's inner pins) take the last
+# millimetres on the front through the channel between the rows (c9's 0.2 mm tracks from the vias at x 2.4 and 19.0).
+BACK_WIRES = [("/PMOD8", [(52.15, 10.5), (52.15, 2.4), (2.4, 2.4), (2.4, 96.5)]),
+              ("/PMOD4", [(51.35, 11.65), (51.35, 3.2), (3.2, 3.2), (3.2, 93.6), (9.45, 93.6), (9.45, 95.23)]),
+              ("/PMOD3", [(23.35, 10.05), (23.35, 4.0), (4.0, 4.0), (4.0, 92.9), (11.99, 92.9), (11.99, 95.23)]),
+              ("/PMOD2", [(17.35, 61.35), (4.8, 61.35), (4.8, 92.2), (14.53, 92.2), (14.53, 95.23)]),
+              ("/PMOD7", [(70.35, 31.15), (71.85, 31.15), (71.85, 96.5), (19.0, 96.5)]),
+              ("/PMOD1", [(70.35, 32.35), (71.15, 32.35), (71.15, 95.23), (17.07, 95.23)]),
+              ("/PMOD5", [(86.05, 75.45), (86.05, 74.4), (95.2, 74.4), (95.2, 97.77), (17.07, 97.77)]),
+              ("/PMOD6", [(82.45, 59.95), (82.45, 50.55), (96.0, 50.55), (96.0, 99.3), (14.53, 99.3), (14.53, 97.77)])]
 BACK_TEXT_X = 50.0
 QR_AT = (46.0, 20.5)                            # in c5's left cell: no through-hole pad within reach
 BACK_TEXT = ["AMOD-C: power and data conversion, switched",

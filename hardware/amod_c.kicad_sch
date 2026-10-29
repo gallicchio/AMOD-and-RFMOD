@@ -9315,7 +9315,7 @@
 		)
 		(uuid "43821ce2-be0f-55e5-ba4d-6456ef58f146")
 	)
-	(text "ICL7660A: switches charge the flying 1 uF across the supply and dump it, upside down, into the output's 1 uF.  IO7"
+	(text "ICL7660A: switches charge the flying 1 uF across the supply and dump it, upside down, into the output's 1 uF.  IO6"
 		(exclude_from_sim no)
 		(at 599.44 401.22 0)
 		(effects
@@ -9359,7 +9359,7 @@
 		)
 		(uuid "4be2d979-93b4-5572-9c80-9cb328244ef5")
 	)
-	(text "holding, and the aperture delay against the FPGA's edge on IO1."
+	(text "holding, and the aperture delay against the FPGA's edge on IO5."
 		(exclude_from_sim no)
 		(at 599.44 530.86 0)
 		(effects
@@ -9888,7 +9888,7 @@
 		)
 		(uuid "ac110778-0ad8-52c0-babe-da9c440958a7")
 	)
-	(text "EXPECT: a one-bit stream on IO6 whose density follows IN (+-1.5 V full scale), its noise shaped at 40 dB per decade"
+	(text "EXPECT: a one-bit stream on IO7 whose density follows IN (+-1.65 V full scale), its noise shaped at 40 dB per decade"
 		(exclude_from_sim no)
 		(at 218.44 271.58 0)
 		(effects
@@ -10013,7 +10013,18 @@
 		)
 		(uuid "bd2ef987-bfd9-572f-8520-0eb12556012e")
 	)
-	(text "EXPECT: about -5 V on the output, falling with load as 1 / (f C) + the switches: 2 k at 1 kHz, 80 ohm at 100 kHz (the pump at half IO7's clock)"
+	(text "Clock IO1 at about 1 MHz and count IO7's ones.  The second integrator pushes the quantization noise up at 40 dB per"
+		(exclude_from_sim no)
+		(at 218.44 274.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "be872d2a-e884-516e-9c8f-cf1e48f0ccda")
+	)
+	(text "EXPECT: about -5 V on the output, falling with load as 1 / (f C) + the switches: 2 k at 1 kHz, 80 ohm at 100 kHz (the pump at half IO6's clock)"
 		(exclude_from_sim no)
 		(at 599.44 398.58 0)
 		(effects
@@ -10146,17 +10157,6 @@
 		)
 		(uuid "eb5d72fb-ec3d-503e-bcc3-fc0ea7bb3388")
 	)
-	(text "Clock IO5 at about 1 MHz and count IO6's ones.  The second integrator pushes the quantization noise up at 40 dB per"
-		(exclude_from_sim no)
-		(at 218.44 274.22 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "f0fe27ca-518d-5d8d-b95d-feb43e626dd9")
-	)
 	(text "tutorial Trading speed for bits   (+-5 V)"
 		(exclude_from_sim no)
 		(at 218.44 164.08 0)
@@ -10212,7 +10212,7 @@
 		)
 		(uuid "f37188d0-78a4-5e9a-825c-6ebd2a52d46b")
 	)
-	(text "EXPECT: OUT follows IN while IO1 is high and holds when it falls: 4 us to acquire, about 30 mV/s of droop, a few mV of hold step"
+	(text "EXPECT: OUT follows IN while IO5 is high and holds when it falls: 4 us to acquire, about 30 mV/s of droop, a few mV of hold step"
 		(exclude_from_sim no)
 		(at 599.44 522.94 0)
 		(effects
@@ -16129,16 +16129,6 @@
 		)
 		(uuid "0780d287-7927-5ace-9682-1e3326012363")
 	)
-	(label "PMOD6"
-		(at 449.58 198.12 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "07df661a-8fac-5073-8d92-c75f4ea4262e")
-	)
 	(label "c5_VS"
 		(at 289.56 101.6 180)
 		(effects
@@ -16389,16 +16379,6 @@
 		)
 		(uuid "1a0d3bbf-9087-511c-ac68-f6a8f589e78d")
 	)
-	(label "PMOD6"
-		(at 500.38 200.66 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "1afd30c9-6b79-531d-a2a2-5feb3e98206a")
-	)
 	(label "c9_MO"
 		(at 129.54 461.01 0)
 		(effects
@@ -16458,6 +16438,16 @@
 			(justify left)
 		)
 		(uuid "203a09e1-b743-5925-87bb-d07d14d088b4")
+	)
+	(label "PMOD7"
+		(at 449.58 198.12 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "20cb347f-a187-5be3-bde8-92092f0bf983")
 	)
 	(label "c5_OA"
 		(at 363.22 101.6 0)
@@ -16698,6 +16688,16 @@
 			(justify right)
 		)
 		(uuid "32f553c4-2e54-53fd-b6b0-ac73c042d968")
+	)
+	(label "PMOD1"
+		(at 419.1 208.28 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "32f87f6b-1661-5bce-8780-015cb8dc243c")
 	)
 	(label "c7_VS"
 		(at 688.34 447.04 0)
@@ -17259,6 +17259,16 @@
 		)
 		(uuid "620ea3bc-b55c-5274-b157-d423920ea5d4")
 	)
+	(label "PMOD7"
+		(at 464.82 200.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "62f43699-bddf-52da-a57b-7c7e6fac08a7")
+	)
 	(label "c5_VS"
 		(at 360.68 73.66 0)
 		(effects
@@ -17769,16 +17779,6 @@
 		)
 		(uuid "82909018-56d8-579c-8ecd-e76d17474076")
 	)
-	(label "PMOD1"
-		(at 680.72 457.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "82caba05-e0ab-5e10-8f9a-ac3bf53f7eb6")
-	)
 	(label "c1_CC1"
 		(at 660.4 180.34 0)
 		(effects
@@ -18089,6 +18089,16 @@
 		)
 		(uuid "9433d016-b0a9-5f4e-b79a-d1e2f5cf0a70")
 	)
+	(label "PMOD5"
+		(at 680.72 457.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9573e9b3-b60d-5dc8-a056-760e416fcf89")
+	)
 	(label "c2_VS"
 		(at 287.02 322.58 0)
 		(effects
@@ -18138,16 +18148,6 @@
 			(justify right)
 		)
 		(uuid "99c154ff-da78-5d47-8d5d-cdfa0120d3b6")
-	)
-	(label "PMOD5"
-		(at 419.1 208.28 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "9a95460b-962e-50b1-b476-1bbd9fce37c8")
 	)
 	(label "c1_LEDR"
 		(at 642.62 254 180)
@@ -18529,16 +18529,6 @@
 		)
 		(uuid "b382e3fd-7bd7-5a65-a886-9b39974df9f9")
 	)
-	(label "PMOD6"
-		(at 464.82 200.66 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "b4a4cef7-1fdb-5901-bb57-fc05703ee338")
-	)
 	(label "c5_G"
 		(at 248.92 76.2 180)
 		(effects
@@ -18918,6 +18908,16 @@
 			(justify left)
 		)
 		(uuid "cfbb1cee-a08c-5abd-85c4-5b1d4078d07f")
+	)
+	(label "PMOD6"
+		(at 680.72 330.2 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "cff2619e-ab3c-55f2-b3d1-da57c9cbbdd8")
 	)
 	(label "c8_VS"
 		(at 129.54 327.66 0)
@@ -19329,16 +19329,6 @@
 		)
 		(uuid "ed7c7da6-feb5-5f86-ba92-439ec33fa25f")
 	)
-	(label "PMOD7"
-		(at 680.72 330.2 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "ef34574d-e1c9-5788-934b-724d892e21c1")
-	)
 	(label "c2_GATE"
 		(at 373.38 365.76 0)
 		(effects
@@ -19348,6 +19338,16 @@
 			(justify left)
 		)
 		(uuid "ef807bb7-b6df-5712-b906-152a59b351d1")
+	)
+	(label "PMOD7"
+		(at 500.38 200.66 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f198f7c1-b144-5a70-9704-cafbfcfddb1f")
 	)
 	(label "c12_VS"
 		(at 477.52 449.58 0)
