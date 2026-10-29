@@ -84,6 +84,20 @@ def clipper(R=1000.0, Is=2.52e-9, n=1.752, vmax=4.0):
     return dict(x=xs, y=ys, xlog=False, xlim=(-vmax, vmax), ylim=(-1.0, 1.0), xt=("IN -4V", "+4V"), yt=None, name="OUT +-1 V")
 
 
+def butterworth(n, fc, f1=None, f2=None):
+    """An n-th-order Butterworth low-pass: |H| = 1 / sqrt(1 + (f / fc)^2n)."""
+    f1, f2 = f1 or fc / 10, f2 or fc * 10
+    f = logspace(f1, f2)
+    y = [max(-10 * math.log10(1 + (x / fc) ** (2 * n)), -60.0) for x in f]
+    return dict(x=f, y=y, xlog=True, xlim=(f1, f2), ylim=(-60.0, 0.0), xt=(hz(f1), hz(f2)), yt=("0", "-60 dB"), name="")
+
+
+def curve(fn, a, b, ylim, xt, yt, name="", n=81):
+    """A transfer curve OUT = fn(IN) for IN from a to b, on linear axes."""
+    xs = linspace(a, b, n)
+    return dict(x=xs, y=[fn(x) for x in xs], xlog=False, xlim=(a, b), ylim=ylim, xt=xt, yt=yt, name=name)
+
+
 def hz(v):
     for m, s in ((1e9, "G"), (1e6, "M"), (1e3, "k")):
         if v >= m:

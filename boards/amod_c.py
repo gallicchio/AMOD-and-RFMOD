@@ -192,7 +192,7 @@ def tile_c5():
     t.gnd_stub(cvp, "1", (19.2, 15.75), sym=(0, 0))
     t.text(6.0, 10.6, "c5", 1.5, 0.3, "center")
     t.titles.append("SC integrator")
-    t.info(["R = 1 / f C", "phi1: IO4", "phi2: IO8"], near=(36.0, 3.0), reach=6.0)
+    t.info(["R = 1 / f C", "IO4, IO8"], near=(36.0, 3.0), reach=6.0)
     t.result = "an integrator whose input resistor is 1 / (f x 1 nF): 1 M at 1 kHz, 1 k at 1 MHz; OUT = -(1 / R C) x the integral of IN"
     t.notes = ["phi1 (IO4) connects the 1 nF's top plate to IN, phi2 (IO8) its bottom plate to the summing node: C x Vin per cycle at f,",
                "a resistor of 1 / (f C).  Make the phases non-overlapping, or overlap them and watch IN leak through.  1 M sets the DC gain."]
@@ -477,8 +477,6 @@ def tile_c2():
     t.wire("VS", [(22.4, 11.0), (23.4, 12.0), (26.35, 15.3)], layer="B.Cu", silk=False)
     t.text(6.0, 10.6, "c2", 1.5, 0.3, "center")
     t.titles.append("Regulators")
-    t.info(["buck 3.6 V", "1.5 MHz"], near=(9.0, 11.0), reach=4.0)
-    t.info(["LDO 3.3 V", "100 mA/V"], near=(39.5, 6.5), reach=5.0)
     t.result = "BUCK~ shows the buck's 1.5 MHz ripple (a few mV, pulse-skipping below about 150 mA); LDO~ the same after the LDO, 40 dB smaller; LOAD sets 100 mA per volt"
     t.notes = ["TLV62568: 3.6 V from 100 k / 20 k; TRIM through 100 k into the feedback node moves it (0 V: 4.2 V, +1 V: 3.2 V, open: 3.6 V).",
                "TPS7A2033: 3.3 V, about 92 dB of PSRR at 1 kHz and 40 dB at 1 MHz; below 3.5 V in it drops out (lower TRIM's voltage).",
@@ -601,8 +599,7 @@ def tile_c7():
     t.wire("VS", [(9.8, 18.5), (9.8, 3.0)], layer="B.Cu", silk=False)
     t.wire("VS", [(9.8, 3.0), (cvp, "1")], width=W)
     t.text(6.0, 10.6, "c7", 1.5, 0.3, "center")
-    t.titles.append("Track and hold")
-    t.info(["IO5 high: track"], near=(14.0, 1.0), reach=4.0)
+    t.titles.append("Track/hold")
     t.result = "OUT follows IN while IO5 is high and holds when it falls: 4 us to acquire, about 30 mV/s of droop, a few mV of hold step"
     t.notes = ["LF398 on +-5 V (its minimum supply: inputs within +-1.5 V).  1 nF C0G: acquisition about 4 us, droop about 30 mV/s.",
                "Measure the acquisition time, the droop, the pedestal (the hold step) against IN, the feedthrough of a sine while",
@@ -867,7 +864,6 @@ def tile_c8():
     t.gnd_stub(cp, "1", (18.7, 4.2), sym=(0, 0))
     t.text(6.0, 10.6, "c8", 1.5, 0.3, "center")
     t.titles.append("Comparator")
-    t.info(["BIT: IO2"], near=(12.0, 9.5), reach=4.0)
     t.result = "BIT on Pmod IO2 is high while IN is above DAC; a SAR search in gateware gives 12 bits in 12 steps of the DAC"
     t.notes = ["TLV3201 (40 ns, 1.2 mV hysteresis) on the 3.3 V rail.  Each input is averaged with the rail through a matched pair",
                "of 0.1 % 10 k, so +-1 V lands at 1.15-2.15 V on both pins and the comparison is unchanged.  20 k input impedance:",
@@ -1025,3 +1021,26 @@ QR_AT = (46.0, 20.5)                            # in c5's left cell: no through-
 BACK_TEXT = ["AMOD-C: power and data conversion, switched",
              "capacitors and transistors.  USB-C 5 V on c1."]
 FRONT_TEXT = []
+
+
+import math
+import backplots as BP
+# The back panels (gen_pcb.back_panels): under each tile, what a user must know while cabling it.
+BACK = {
+    "c1": ["USB-C 5 V only", "+5 V 1.5 A", "-5 V 40 mA", "+3.3 V 300 mA"],
+    "c4": ["CLK on IO3", "fc = fCLK / 100", "to 15 kHz", "IN +-1 V"],
+    "c5": ["phases IO4, IO8", "R = 1 / f C", "C = 1 nF", "IN +-1 V"],
+    "c6": ["IN +-1.65 V", "CLK IO1, BIT IO7", "needs gateware", "INT1, INT2 / 4"],
+    "c2": ["buck 3.6 V 1.5 MHz", "LDO 3.3 V", "LOAD 100 mA/V,", "1 V max", "TRIM +-2 V"],
+    "c3": ["IO6 clocks it", "OUT about -5 V", "R = 1 / f C"],
+    "c7": ["IO5 high: track", "IO5 low: hold", "IN +-1 V", "droop 30 mV/s"],
+    "c10": ["jumper on: CE", "off: cascode", "IN +-50 mV"],
+    "c11": ["OUT 6.9 kHz", "CV +-1 V", "moves it"],
+    "c12": ["OUT = |IN|", "DC to 100 kHz", "IN +-1 V"],
+    "c8": ["BIT on IO2", "high: IN > DAC", "SAR in gateware"],
+    "c9": ["IN+, IN- +-0.2 V", "linear +-25 mV", "OUT +-1 V"],
+}
+BACK_PLOTS = {
+    "c4": BP.butterworth(5, 10e3),
+    "c9": BP.curve(lambda v: -math.tanh(v / 0.0517), -0.2, 0.2, (-1.0, 1.0), ("-0.2V", "+0.2V"), ("+1", "-1 V")),
+}
