@@ -1,0 +1,12622 @@
+{
+ "tiles": [
+  {
+   "id": "m6",
+   "idx": 6,
+   "name": "solenoid",
+   "subtitle": "NCE6020AK",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "supply": "+5 V, VMOT",
+   "x0": 7.75,
+   "y0": 7.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "the coil on while CMD is high; I = its current, 1 V/A (up to 2 A); VD = the drain / 52: the flyback's spike, by the jumper",
+   "notes": [
+    "CMD (0 / +1 V) through 10 k into a TLV3501 drives an NCE6020AK (60 V) that switches the coil to ground; VMOT on the coil.",
+    "Jumper 1-2: a Schottky to VMOT (slow decay); 2-3: a 24 V TVS (fast decay); none: the FET avalanches.  I 1 V/A, VD drain / 52."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL0",
+     "label": "CMD",
+     "net": "/m6_CMD",
+     "role": "in",
+     "limit": "0/+1 V",
+     "ref": "J601",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "CMD 50R",
+     "launch": true
+    },
+    {
+     "slot": "TL1",
+     "label": "VD",
+     "net": "/m6_VDJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J602",
+     "x": 26.25,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "VD /52",
+     "launch": true
+    },
+    {
+     "slot": "BR1",
+     "label": "I",
+     "net": "/m6_IJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J603",
+     "x": 36.75,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "I 1V/A",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J601",
+     "key": "SMA",
+     "value": "CMD",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_CMD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J602",
+     "key": "SMA",
+     "value": "VD",
+     "x": 26.25,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_VDJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J603",
+     "key": "SMA",
+     "value": "I",
+     "x": 36.75,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_IJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW601",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m6_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q601",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_G",
+      "2": "+5V",
+      "3": "/m6_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R601",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 4.75,
+     "y": 9.6,
+     "rot": 270,
+     "pins": {
+      "1": "/m6_CMD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R602",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 9.4,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_CMD",
+      "2": "/m6_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R603",
+     "key": "R0402 47k",
+     "value": "47k",
+     "x": 9.6,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_VS",
+      "2": "/m6_TH"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R604",
+     "key": "R0402 5.1k",
+     "value": "5.1k",
+     "x": 11.9,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_TH",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U601",
+     "key": "TLV3501",
+     "value": "TLV3501",
+     "x": 13.0,
+     "y": 5.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_TH",
+      "2": "GND",
+      "3": "/m6_CP",
+      "4": "/m6_VS",
+      "5": "/m6_SIG",
+      "6": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C601",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.6,
+     "y": 7.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R605",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 13.6,
+     "y": 8.2,
+     "rot": 180,
+     "pins": {
+      "1": "/m6_SIG",
+      "2": "/m6_GATE"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R606",
+     "key": "R0402 100k",
+     "value": "100k",
+     "x": 11.6,
+     "y": 8.2,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m6_GATE"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "Q602",
+     "key": "NCE6020AK",
+     "value": "NCE6020AK",
+     "x": 16.0,
+     "y": 12.8,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_GATE",
+      "2": "/m6_DRN",
+      "3": "/m6_SRC"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R607",
+     "key": "R1206 0.05R",
+     "value": "0.05",
+     "x": 13.0,
+     "y": 18.4,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m6_SRC"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U602",
+     "key": "INA181A1",
+     "value": "INA181",
+     "x": 18.3,
+     "y": 18.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_IO",
+      "2": "GND",
+      "3": "/m6_SRC",
+      "4": "GND",
+      "5": "GND",
+      "6": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C602",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 21.0,
+     "y": 18.6,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R608",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 30.8,
+     "y": 19.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_IO",
+      "2": "/m6_IJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J604",
+     "key": "TERM2",
+     "value": "coil",
+     "x": 35.9,
+     "y": 4.35,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_DRN",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C603",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 42.25,
+     "y": 10.2,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J605",
+     "key": "HDR3",
+     "value": "D Z",
+     "x": 31.0,
+     "y": 10.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m6_DA",
+      "2": "/m6_DRN",
+      "3": "/m6_ZK"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "D601",
+     "key": "B5819W",
+     "value": "B5819W",
+     "x": 36.4,
+     "y": 10.0,
+     "rot": 180,
+     "pins": {
+      "1": "/VMOT",
+      "2": "/m6_DA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D602",
+     "key": "SMAJ24A",
+     "value": "SMAJ24A",
+     "x": 25.4,
+     "y": 16.6,
+     "rot": 180,
+     "pins": {
+      "1": "/m6_ZK",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R609",
+     "key": "R0805 5.1k",
+     "value": "5.1k",
+     "x": 23.6,
+     "y": 11.2,
+     "rot": 90,
+     "pins": {
+      "1": "/m6_DRN",
+      "2": "/m6_VDV"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R610",
+     "key": "R0402 100R",
+     "value": "100",
+     "x": 25.1,
+     "y": 11.3,
+     "rot": 270,
+     "pins": {
+      "1": "/m6_VDV",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R611",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 26.25,
+     "y": 9.7,
+     "rot": 90,
+     "pins": {
+      "1": "/m6_VDV",
+      "2": "/m6_VDJ"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW601",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q601",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_CMD",
+     [
+      [
+       "J601",
+       "1"
+      ],
+      [
+       "R602",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_CMD",
+     [
+      [
+       "J601",
+       "1"
+      ],
+      [
+       "R601",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_CP",
+     [
+      [
+       "R602",
+       "2"
+      ],
+      [
+       10.4,
+       4.75
+      ],
+      [
+       10.4,
+       6.35
+      ],
+      [
+       "U601",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_TH",
+     [
+      [
+       "R603",
+       "2"
+      ],
+      [
+       "R604",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_TH",
+     [
+      [
+       "R604",
+       "1"
+      ],
+      [
+       11.39,
+       4.45
+      ],
+      [
+       "U601",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U601",
+       "2"
+      ],
+      [
+       13.0,
+       5.4
+      ],
+      [
+       13.0,
+       4.45
+      ],
+      [
+       "U601",
+       "6"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m6_SIG",
+     [
+      [
+       "U601",
+       "5"
+      ],
+      [
+       15.3,
+       5.4
+      ],
+      [
+       15.3,
+       8.2
+      ],
+      [
+       "R605",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_GATE",
+     [
+      [
+       "R605",
+       "2"
+      ],
+      [
+       "R606",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "R606",
+       "1"
+      ],
+      [
+       10.6,
+       8.1
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m6_GATE",
+     [
+      [
+       "R606",
+       "2"
+      ],
+      [
+       11.5,
+       9.0
+      ],
+      [
+       "Q602",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_SRC",
+     [
+      [
+       "Q602",
+       "3"
+      ],
+      [
+       12.4,
+       16.5
+      ],
+      [
+       14.462,
+       16.9
+      ],
+      [
+       "R607",
+       "2"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_SRC",
+     [
+      [
+       "R607",
+       "2"
+      ],
+      [
+       15.4,
+       19.35
+      ],
+      [
+       "U602",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "R607",
+       "1"
+      ],
+      [
+       11.538,
+       20.0
+      ],
+      [
+       19.437,
+       20.0
+      ],
+      [
+       "U602",
+       "4"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U602",
+       "4"
+      ],
+      [
+       "U602",
+       "5"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U602",
+       "6"
+      ],
+      [
+       20.4,
+       17.45
+      ],
+      [
+       21.0,
+       17.6
+      ],
+      [
+       "C602",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C602",
+       "2"
+      ],
+      [
+       21.0,
+       16.9
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "C602",
+       "1"
+      ],
+      [
+       22.0,
+       18.5
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m6_IO",
+     [
+      [
+       "U602",
+       "1"
+      ],
+      [
+       17.4,
+       16.6
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_IO",
+     [
+      [
+       17.4,
+       16.6
+      ],
+      [
+       18.1,
+       19.3
+      ],
+      [
+       29.4,
+       19.3
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m6_IO",
+     [
+      [
+       29.4,
+       19.3
+      ],
+      [
+       "R608",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_IJ",
+     [
+      [
+       "R608",
+       "2"
+      ],
+      [
+       32.4,
+       19.0
+      ],
+      [
+       32.4,
+       15.25
+      ],
+      [
+       "J603",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       4.35
+      ],
+      [
+       "J604",
+       "2"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       4.35
+      ],
+      [
+       "J604",
+       "2"
+      ]
+     ],
+     1.0,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       4.35
+      ],
+      [
+       "C603",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_DRN",
+     [
+      [
+       20.4,
+       13.14
+      ],
+      [
+       "J605",
+       "2"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_DRN",
+     [
+      [
+       20.1,
+       10.3
+      ],
+      [
+       20.95,
+       10.3
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_DRN",
+     [
+      [
+       20.1,
+       11.3
+      ],
+      [
+       20.95,
+       11.3
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_DRN",
+     [
+      [
+       20.95,
+       11.3
+      ],
+      [
+       20.95,
+       10.3
+      ],
+      [
+       21.75,
+       9.15
+      ],
+      [
+       33.4,
+       9.15
+      ],
+      [
+       "J604",
+       "1"
+      ]
+     ],
+     0.8,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m6_DA",
+     [
+      [
+       "D601",
+       "2"
+      ],
+      [
+       31.85,
+       10.6
+      ],
+      [
+       "J605",
+       "1"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "D601",
+       "1"
+      ],
+      [
+       38.4,
+       9.0
+      ],
+      [
+       "J604",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_ZK",
+     [
+      [
+       "D602",
+       "1"
+      ],
+      [
+       30.2,
+       15.68
+      ],
+      [
+       "J605",
+       "3"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_DRN",
+     [
+      [
+       "R609",
+       "1"
+      ],
+      [
+       23.6,
+       13.14
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_VDV",
+     [
+      [
+       "R609",
+       "2"
+      ],
+      [
+       25.1,
+       10.29
+      ],
+      [
+       "R610",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_VDV",
+     [
+      [
+       25.1,
+       10.29
+      ],
+      [
+       25.6,
+       10.21
+      ],
+      [
+       "R611",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m6_VDJ",
+     [
+      [
+       "R611",
+       "2"
+      ],
+      [
+       "J602",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "+5V",
+     21.0,
+     16.9,
+     false
+    ],
+    [
+     "/m6_IO",
+     17.4,
+     16.6,
+     false
+    ],
+    [
+     "/VMOT",
+     42.25,
+     4.35,
+     false
+    ],
+    [
+     "/m6_DRN",
+     20.95,
+     10.3,
+     false
+    ],
+    [
+     "/m6_DRN",
+     20.95,
+     11.3,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m6_G",
+     [
+      [
+       "SW601",
+       "2"
+      ],
+      [
+       "Q601",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m6_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "C601",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m6_VS",
+     [
+      [
+       "C601",
+       "1"
+      ],
+      [
+       "R603",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m6_VS",
+     [
+      [
+       "C601",
+       "1"
+      ],
+      [
+       "U601",
+       "4"
+      ]
+     ],
+     0.25
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW601",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R601",
+      "2"
+     ],
+     [
+      4.75,
+      10.95
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R604",
+      "2"
+     ],
+     [
+      13.3,
+      2.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U601",
+      "6"
+     ],
+     [
+      15.2,
+      3.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C601",
+      "2"
+     ],
+     [
+      10.6,
+      8.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R607",
+      "1"
+     ],
+     [
+      10.2,
+      18.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "U602",
+      "2"
+     ],
+     [
+      15.9,
+      17.95
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C603",
+      "1"
+     ],
+     [
+      40.9,
+      11.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "D602",
+      "2"
+     ],
+     [
+      22.0,
+      18.5
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "R610",
+      "2"
+     ],
+     [
+      25.9,
+      12.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Solenoid"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m5",
+   "idx": 5,
+   "name": "servo",
+   "subtitle": "",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     2,
+     0
+    ]
+   ],
+   "supply": "+5 V",
+   "x0": 50.75,
+   "y0": 7.75,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "a servo at the angle a 1-2 ms pulse every 20 ms sets (CMD 0 / +1 V); I = the servo's current, 1 V/A",
+   "notes": [
+    "CMD (0 / +1 V from a DAC) through 10 k into a TLV3501 (threshold 0.49 V) makes the 5 V pulse a servo wants; the servo's",
+    "ground returns through 0.05 ohm and an INA181A1 (x20) puts 1 V/A on I.  Slew the angle and watch the current."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "CMD",
+     "net": "/m5_CMD",
+     "role": "in",
+     "limit": "0/+1 V",
+     "ref": "J501",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "CMD 50R",
+     "launch": true
+    },
+    {
+     "slot": "BR",
+     "label": "I",
+     "net": "/m5_IJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J502",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "I 1V/A",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J501",
+     "key": "SMA",
+     "value": "CMD",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_CMD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J502",
+     "key": "SMA",
+     "value": "I",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_IJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW501",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m5_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q501",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_G",
+      "2": "+5V",
+      "3": "/m5_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R501",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 4.75,
+     "y": 9.6,
+     "rot": 270,
+     "pins": {
+      "1": "/m5_CMD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R502",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 9.4,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_CMD",
+      "2": "/m5_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R503",
+     "key": "R0402 47k",
+     "value": "47k",
+     "x": 9.6,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_VS",
+      "2": "/m5_TH"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R504",
+     "key": "R0402 5.1k",
+     "value": "5.1k",
+     "x": 11.9,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_TH",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U501",
+     "key": "TLV3501",
+     "value": "TLV3501",
+     "x": 13.0,
+     "y": 5.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_TH",
+      "2": "GND",
+      "3": "/m5_CP",
+      "4": "/m5_VS",
+      "5": "/m5_SIG",
+      "6": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J503",
+     "key": "HDR3",
+     "value": "servo",
+     "x": 17.6,
+     "y": 2.7,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_SIG",
+      "2": "/m5_VS",
+      "3": "/m5_SG"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C501",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.6,
+     "y": 7.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U502",
+     "key": "INA181A1",
+     "value": "INA181",
+     "x": 13.0,
+     "y": 9.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_IO",
+      "2": "GND",
+      "3": "/m5_SG",
+      "4": "GND",
+      "5": "GND",
+      "6": "/m5_VS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R505",
+     "key": "R1206 0.05R",
+     "value": "0.05",
+     "x": 8.3,
+     "y": 11.0,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m5_SG"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C502",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 8.0,
+     "y": 13.5,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R506",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 10.6,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m5_IO",
+      "2": "/m5_IJ"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW501",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q501",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_CMD",
+     [
+      [
+       "J501",
+       "1"
+      ],
+      [
+       "R502",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_CMD",
+     [
+      [
+       "J501",
+       "1"
+      ],
+      [
+       "R501",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_CP",
+     [
+      [
+       "R502",
+       "2"
+      ],
+      [
+       10.4,
+       4.75
+      ],
+      [
+       10.4,
+       6.35
+      ],
+      [
+       "U501",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_TH",
+     [
+      [
+       "R503",
+       "2"
+      ],
+      [
+       "R504",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_TH",
+     [
+      [
+       "R504",
+       "1"
+      ],
+      [
+       11.39,
+       4.45
+      ],
+      [
+       "U501",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U501",
+       "2"
+      ],
+      [
+       13.0,
+       5.4
+      ],
+      [
+       13.0,
+       4.45
+      ],
+      [
+       "U501",
+       "6"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m5_SIG",
+     [
+      [
+       "U501",
+       "5"
+      ],
+      [
+       15.4,
+       5.4
+      ],
+      [
+       16.3,
+       4.5
+      ],
+      [
+       16.3,
+       2.7
+      ],
+      [
+       "J503",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U502",
+       "4"
+      ],
+      [
+       "U502",
+       "5"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m5_SG",
+     [
+      [
+       "R505",
+       "2"
+      ],
+      [
+       11.0,
+       11.0
+      ],
+      [
+       "U502",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m5_IJ",
+     [
+      [
+       "R506",
+       "2"
+      ],
+      [
+       "J502",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m5_G",
+     [
+      [
+       "SW501",
+       "2"
+      ],
+      [
+       "Q501",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m5_SG",
+     [
+      [
+       "R505",
+       "2"
+      ],
+      [
+       "J503",
+       "3"
+      ]
+     ],
+     0.4
+    ],
+    [
+     "/m5_IO",
+     [
+      [
+       "U502",
+       "1"
+      ],
+      [
+       "R506",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "C502",
+       "1"
+      ]
+     ],
+     0.4
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       "C502",
+       "1"
+      ],
+      [
+       "J503",
+       "2"
+      ]
+     ],
+     0.4
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       "J503",
+       "2"
+      ],
+      [
+       "U501",
+       "4"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       "U501",
+       "4"
+      ],
+      [
+       "U502",
+       "6"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       "C501",
+       "1"
+      ],
+      [
+       "R503",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m5_VS",
+     [
+      [
+       "C501",
+       "1"
+      ],
+      [
+       "C502",
+       "1"
+      ]
+     ],
+     0.25
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW501",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R501",
+      "2"
+     ],
+     [
+      4.75,
+      10.95
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R504",
+      "2"
+     ],
+     [
+      13.3,
+      2.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U501",
+      "6"
+     ],
+     [
+      15.2,
+      3.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U502",
+      "5"
+     ],
+     [
+      15.5,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U502",
+      "2"
+     ],
+     [
+      10.5,
+      9.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R505",
+      "1"
+     ],
+     [
+      5.8,
+      12.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C501",
+      "2"
+     ],
+     [
+      10.6,
+      8.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C502",
+      "2"
+     ],
+     [
+      9.9,
+      12.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Servo"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m2",
+   "idx": 2,
+   "name": "motor supply",
+   "subtitle": "5-16 V in",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     3,
+     0
+    ]
+   ],
+   "supply": null,
+   "x0": 72.25,
+   "y0": 7.75,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "VMOT = the larger of the barrel jack or terminal (5-16 V) and USB 5 V, each less a Schottky's 0.3-0.5 V; VM jack VMOT / 16",
+   "notes": [
+    "Barrel jack (centre +) or terminal, 5-16 V: each through an SS34 into VMOT, as is USB's 5 V, so VMOT is about 4.6 V",
+    "with no supply.  SMBJ16A and 220 uF on VMOT take the braking energy a motor returns.  VM: VMOT / 16 at high impedance."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL",
+     "label": "VM",
+     "net": "/m2_VMJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J201",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "VM /16",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J201",
+     "key": "SMA",
+     "value": "VM",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m2_VMJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J202",
+     "key": "DC005",
+     "value": "5-16V",
+     "x": 17.15,
+     "y": 13.35,
+     "rot": 180,
+     "pins": {
+      "1": "/m2_VEXT",
+      "2": "GND",
+      "3": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C201",
+     "key": "ELCO220U",
+     "value": "220u",
+     "x": 13.0,
+     "y": 4.9,
+     "rot": 0,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D201",
+     "key": "SMBJ16A",
+     "value": "SMBJ16A",
+     "x": 2.6,
+     "y": 14.0,
+     "rot": 270,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D202",
+     "key": "SS34",
+     "value": "SS34",
+     "x": 8.7,
+     "y": 11.3,
+     "rot": 0,
+     "pins": {
+      "1": "/VMOT",
+      "2": "/m2_VEXT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D203",
+     "key": "SS34",
+     "value": "SS34",
+     "x": 8.7,
+     "y": 15.0,
+     "rot": 0,
+     "pins": {
+      "1": "/VMOT",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R201",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 0.6,
+     "y": 6.4,
+     "rot": 90,
+     "pins": {
+      "1": "/m2_VD",
+      "2": "/m2_VMJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R202",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 0.6,
+     "y": 9.0,
+     "rot": 270,
+     "pins": {
+      "1": "/m2_VD",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R203",
+     "key": "R0402 15k",
+     "value": "15k",
+     "x": 2.6,
+     "y": 9.3,
+     "rot": 180,
+     "pins": {
+      "1": "/VMOT",
+      "2": "/m2_VD"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED201",
+     "key": "LED_G",
+     "value": "VM",
+     "x": 4.0,
+     "y": 18.9,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m2_LA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R204",
+     "key": "R0402 4.7k",
+     "value": "4.7k",
+     "x": 7.3,
+     "y": 18.9,
+     "rot": 0,
+     "pins": {
+      "1": "/m2_LA",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/m2_VEXT",
+     [
+      [
+       "J202",
+       "1"
+      ],
+      [
+       13.0,
+       15.7
+      ],
+      [
+       13.0,
+       11.3
+      ],
+      [
+       "D202",
+       "2"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "D203",
+       "1"
+      ],
+      [
+       6.7,
+       11.3
+      ],
+      [
+       "D202",
+       "1"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       6.7,
+       11.3
+      ],
+      [
+       "D201",
+       "1"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       6.7,
+       11.3
+      ],
+      [
+       6.7,
+       9.5
+      ],
+      [
+       10.3,
+       9.5
+      ],
+      [
+       "C201",
+       "1"
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "D203",
+       "1"
+      ],
+      [
+       6.7,
+       17.4
+      ],
+      [
+       "R204",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       6.7,
+       9.5
+      ],
+      [
+       "R203",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       5.9,
+       13.15
+      ],
+      [
+       7.5,
+       13.15
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       5.9,
+       13.15
+      ],
+      [
+       9.6,
+       13.15
+      ],
+      [
+       9.6,
+       -1.0
+      ],
+      [
+       -22.25,
+       -1.0
+      ],
+      [
+       -22.25,
+       79.25
+      ]
+     ],
+     1.6,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "D203",
+       "2"
+      ],
+      [
+       10.7,
+       16.75
+      ]
+     ],
+     1.0,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m2_VD",
+     [
+      [
+       "R203",
+       "2"
+      ],
+      [
+       "R202",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m2_VD",
+     [
+      [
+       "R202",
+       "1"
+      ],
+      [
+       "R201",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m2_VMJ",
+     [
+      [
+       "R201",
+       "2"
+      ],
+      [
+       0.6,
+       4.75
+      ],
+      [
+       "J201",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m2_LA",
+     [
+      [
+       "LED201",
+       "2"
+      ],
+      [
+       "R204",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "/VMOT",
+     5.9,
+     13.15,
+     false
+    ],
+    [
+     "/VMOT",
+     7.5,
+     13.15,
+     false
+    ],
+    [
+     "+5V",
+     10.7,
+     16.75,
+     false
+    ]
+   ],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "R202",
+      "2"
+     ],
+     [
+      0.6,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "LED201",
+      "1"
+     ],
+     [
+      2.6,
+      18.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "D201",
+      "2"
+     ],
+     [
+      2.6,
+      18.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C201",
+      "2"
+     ],
+     [
+      17.9,
+      6.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "J202",
+      "2"
+     ],
+     [
+      20.15,
+      19.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "J202",
+      "3"
+     ],
+     [
+      19.8,
+      9.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Motor supply"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m9",
+   "idx": 9,
+   "name": "hall",
+   "subtitle": "DRV5055A3",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     0,
+     1
+    ]
+   ],
+   "supply": "+-5 V",
+   "x0": 7.75,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "OUT = 9.75 mV per mT at the sensor (+-0.83 V at +-85 mT), 0 V with no field; about 20 kHz wide",
+   "notes": [
+    "DRV5055A3: 25 mV/mT about half its 5 V supply, ratiometric.  The OPA810 subtracts the same half (20 k / 20 k) and scales",
+    "by 0.39: OUT 9.75 mV/mT.  A magnet's distance, a maglev's gap, a gear tooth; the sensor is the small part top left."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/m9_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J901",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J901",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW901",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m9_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q901",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_G",
+      "2": "+5V",
+      "3": "/m9_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U901",
+     "key": "DRV5055A3",
+     "value": "DRV5055",
+     "x": 4.0,
+     "y": 4.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_VS",
+      "2": "/m9_OH",
+      "3": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C901",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 1.6,
+     "y": 4.2,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m9_VS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U902",
+     "key": "OPA810",
+     "value": "OPA810",
+     "x": 12.6,
+     "y": 5.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_OA",
+      "2": "-5V",
+      "3": "/m9_IP",
+      "4": "/m9_IN",
+      "5": "/m9_VS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R901",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 8.0,
+     "y": 5.95,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_OH",
+      "2": "/m9_IP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R902",
+     "key": "R0402 3.9k",
+     "value": "3.9k",
+     "x": 9.6,
+     "y": 7.8,
+     "rot": 270,
+     "pins": {
+      "1": "/m9_IP",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R903",
+     "key": "R0402 20k",
+     "value": "20k",
+     "x": 16.6,
+     "y": 6.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_VS",
+      "2": "/m9_IN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R904",
+     "key": "R0402 20k",
+     "value": "20k",
+     "x": 16.6,
+     "y": 7.6,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m9_IN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R905",
+     "key": "R0402 3.9k",
+     "value": "3.9k",
+     "x": 12.6,
+     "y": 8.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_IN",
+      "2": "/m9_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R906",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 10.6,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_OA",
+      "2": "/m9_OUT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C902",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 15.8,
+     "y": 3.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m9_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C903",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.4,
+     "y": 3.2,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "-5V"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW901",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q901",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m9_IP",
+     [
+      [
+       "R901",
+       "2"
+      ],
+      [
+       9.6,
+       5.95
+      ],
+      [
+       "U902",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m9_IP",
+     [
+      [
+       9.6,
+       5.95
+      ],
+      [
+       "R902",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m9_IN",
+     [
+      [
+       "R903",
+       "2"
+      ],
+      [
+       "R904",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m9_OUT",
+     [
+      [
+       "R906",
+       "2"
+      ],
+      [
+       "J901",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U902",
+       "2"
+      ],
+      [
+       10.2,
+       5.0
+      ],
+      [
+       10.2,
+       3.2
+      ],
+      [
+       "C903",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       10.2,
+       2.2
+      ],
+      [
+       10.2,
+       -0.75
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       10.2,
+       3.2
+      ],
+      [
+       10.2,
+       2.2
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m9_VS",
+     [
+      [
+       "U901",
+       "1"
+      ],
+      [
+       1.6,
+       3.05
+      ],
+      [
+       "C901",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "-5V",
+     10.2,
+     -0.75,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m9_G",
+     [
+      [
+       "SW901",
+       "2"
+      ],
+      [
+       "Q901",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m9_OH",
+     [
+      [
+       "U901",
+       "2"
+      ],
+      [
+       "R901",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_IN",
+     [
+      [
+       "U902",
+       "4"
+      ],
+      [
+       "R903",
+       "2"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_IN",
+     [
+      [
+       "R904",
+       "2"
+      ],
+      [
+       "R905",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_OA",
+     [
+      [
+       "U902",
+       "1"
+      ],
+      [
+       "R905",
+       "2"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_OA",
+     [
+      [
+       "R905",
+       "2"
+      ],
+      [
+       "R906",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "R903",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m9_VS",
+     [
+      [
+       "R903",
+       "1"
+      ],
+      [
+       "C902",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m9_VS",
+     [
+      [
+       "C902",
+       "1"
+      ],
+      [
+       "U902",
+       "5"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m9_VS",
+     [
+      [
+       "C902",
+       "1"
+      ],
+      [
+       "U901",
+       "1"
+      ]
+     ],
+     0.3
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW901",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R902",
+      "2"
+     ],
+     [
+      9.6,
+      9.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R904",
+      "1"
+     ],
+     [
+      15.2,
+      8.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U901",
+      "3"
+     ],
+     [
+      6.0,
+      4.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C901",
+      "1"
+     ],
+     [
+      1.6,
+      5.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C902",
+      "2"
+     ],
+     [
+      17.2,
+      3.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C903",
+      "1"
+     ],
+     [
+      8.92,
+      4.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Hall"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m10",
+   "idx": 10,
+   "name": "optical",
+   "subtitle": "QRE1113",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     1,
+     1
+    ]
+   ],
+   "supply": "+-5 V",
+   "x0": 29.25,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "OUT = 1 k x the phototransistor's current: about 0.1-0.9 V with white paper 1 mm above the sensor, near 0 V with nothing",
+   "notes": [
+    "QRE1113GR: an IR LED (21 mA through 180 ohm) and a phototransistor side by side.  The OPA810 holds the collector at 0 V",
+    "(emitter on -5 V through 100 ohm): OUT = 1 k x Ic.  Distance in the first millimetres, a mark on a wheel, a line."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/m10_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J1001",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J1001",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW1001",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m10_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q1001",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_G",
+      "2": "+5V",
+      "3": "/m10_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U1001",
+     "key": "QRE1113GR",
+     "value": "QRE1113",
+     "x": 4.0,
+     "y": 4.5,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_LA",
+      "2": "GND",
+      "3": "/m10_COL",
+      "4": "/m10_EM"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1001",
+     "key": "R0402 100R",
+     "value": "100",
+     "x": 7.0,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_EM",
+      "2": "-5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1002",
+     "key": "R0805 180R",
+     "value": "180",
+     "x": 4.0,
+     "y": 9.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_VS",
+      "2": "/m10_LA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U1002",
+     "key": "OPA810",
+     "value": "OPA810",
+     "x": 12.6,
+     "y": 5.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_OA",
+      "2": "-5V",
+      "3": "GND",
+      "4": "/m10_COL",
+      "5": "/m10_VS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1003",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 12.6,
+     "y": 8.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_COL",
+      "2": "/m10_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1001",
+     "key": "C0402 100pF",
+     "value": "100p",
+     "x": 12.6,
+     "y": 9.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_COL",
+      "2": "/m10_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1004",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 10.6,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_OA",
+      "2": "/m10_OUT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1002",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 15.8,
+     "y": 3.2,
+     "rot": 0,
+     "pins": {
+      "1": "/m10_VS",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1003",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.4,
+     "y": 3.2,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "-5V"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW1001",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q1001",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m10_COL",
+     [
+      [
+       "R1003",
+       "1"
+      ],
+      [
+       11.7,
+       8.0
+      ],
+      [
+       11.7,
+       9.2
+      ],
+      [
+       "C1001",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m10_OA",
+     [
+      [
+       "R1003",
+       "2"
+      ],
+      [
+       13.5,
+       8.0
+      ],
+      [
+       13.5,
+       9.2
+      ],
+      [
+       "C1001",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m10_OUT",
+     [
+      [
+       "R1004",
+       "2"
+      ],
+      [
+       "J1001",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U1002",
+       "2"
+      ],
+      [
+       10.2,
+       5.0
+      ],
+      [
+       10.2,
+       3.2
+      ],
+      [
+       "C1003",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       10.2,
+       3.2
+      ],
+      [
+       10.2,
+       2.2
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       10.2,
+       2.2
+      ],
+      [
+       10.2,
+       -0.75
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "-5V",
+     10.2,
+     -0.75,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m10_G",
+     [
+      [
+       "SW1001",
+       "2"
+      ],
+      [
+       "Q1001",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m10_LA",
+     [
+      [
+       "U1001",
+       "1"
+      ],
+      [
+       "R1002",
+       "2"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_COL",
+     [
+      [
+       "U1001",
+       "3"
+      ],
+      [
+       "U1002",
+       "4"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_COL",
+     [
+      [
+       "U1002",
+       "4"
+      ],
+      [
+       "R1003",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_OA",
+     [
+      [
+       "U1002",
+       "1"
+      ],
+      [
+       "R1003",
+       "2"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_OA",
+     [
+      [
+       "C1001",
+       "2"
+      ],
+      [
+       "R1004",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_EM",
+     [
+      [
+       "U1001",
+       "4"
+      ],
+      [
+       "R1001",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "-5V",
+     [
+      [
+       "R1001",
+       "2"
+      ],
+      [
+       10.2,
+       2.2
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m10_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "R1002",
+       "1"
+      ]
+     ],
+     0.4
+    ],
+    [
+     "/m10_VS",
+     [
+      [
+       "R1002",
+       "1"
+      ],
+      [
+       "C1002",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m10_VS",
+     [
+      [
+       "C1002",
+       "1"
+      ],
+      [
+       "U1002",
+       "5"
+      ]
+     ],
+     0.25
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW1001",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1001",
+      "2"
+     ],
+     [
+      1.8,
+      6.5
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1002",
+      "3"
+     ],
+     [
+      10.0,
+      6.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1002",
+      "2"
+     ],
+     [
+      17.2,
+      3.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1003",
+      "1"
+     ],
+     [
+      8.92,
+      4.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Optical"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m11",
+   "idx": 11,
+   "name": "load cell",
+   "subtitle": "INA828",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     2,
+     1
+    ]
+   ],
+   "supply": "+-5 V",
+   "x0": 50.75,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "OUT = 201 x the bridge's output: about 1 V at full load for a 1 mV/V cell; about 10 kHz wide",
+   "notes": [
+    "INA828 at G = 1 + 50 k / 249 = 201 on +-5 V, REF on ground; the bridge excited from +5 V.  Weigh, feel a force, close a",
+    "force loop with the servo or the linear amplifier.  Cable: 1 red E+, 2 black E-, 3 white S-, 4 green S+."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "BR",
+     "label": "OUT",
+     "net": "/m11_OUT",
+     "role": "out",
+     "limit": "",
+     "ref": "J1101",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "OUT",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J1101",
+     "key": "SMA",
+     "value": "OUT",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m11_OUT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J1102",
+     "key": "XH4V",
+     "value": "cell",
+     "x": 3.5,
+     "y": 4.0,
+     "rot": 270,
+     "pins": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "/m11_SN",
+      "4": "/m11_SP"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U1101",
+     "key": "INA828",
+     "value": "INA828",
+     "x": 14.5,
+     "y": 5.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m11_RG1",
+      "2": "/m11_SN",
+      "3": "/m11_SP",
+      "4": "-5V",
+      "5": "GND",
+      "6": "/m11_OI",
+      "7": "+5V",
+      "8": "/m11_RG8"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1101",
+     "key": "R0402 249R",
+     "value": "249",
+     "x": 14.5,
+     "y": 2.3,
+     "rot": 0,
+     "pins": {
+      "1": "/m11_RG1",
+      "2": "/m11_RG8"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R1102",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 18.4,
+     "y": 9.8,
+     "rot": 270,
+     "pins": {
+      "1": "/m11_OI",
+      "2": "/m11_OUT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1101",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 19.3,
+     "y": 3.6,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C1102",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 12.0,
+     "y": 9.6,
+     "rot": 0,
+     "pins": {
+      "1": "-5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/m11_RG1",
+     [
+      [
+       "R1101",
+       "1"
+      ],
+      [
+       12.6,
+       2.3
+      ],
+      [
+       "U1101",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m11_RG8",
+     [
+      [
+       "R1101",
+       "2"
+      ],
+      [
+       16.4,
+       2.3
+      ],
+      [
+       "U1101",
+       "8"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m11_SN",
+     [
+      [
+       "J1102",
+       "3"
+      ],
+      [
+       8.0,
+       9.0
+      ],
+      [
+       8.0,
+       4.965
+      ],
+      [
+       "U1101",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m11_SP",
+     [
+      [
+       "J1102",
+       "4"
+      ],
+      [
+       10.0,
+       11.5
+      ],
+      [
+       10.0,
+       6.235
+      ],
+      [
+       "U1101",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m11_OI",
+     [
+      [
+       "U1101",
+       "6"
+      ],
+      [
+       18.4,
+       6.235
+      ],
+      [
+       "R1102",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m11_OUT",
+     [
+      [
+       "R1102",
+       "2"
+      ],
+      [
+       18.4,
+       11.0
+      ],
+      [
+       15.25,
+       11.0
+      ],
+      [
+       "J1101",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U1101",
+       "7"
+      ],
+      [
+       18.5,
+       4.965
+      ],
+      [
+       18.5,
+       3.12
+      ],
+      [
+       "C1101",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C1101",
+       "2"
+      ],
+      [
+       19.3,
+       2.2
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "J1102",
+       "1"
+      ],
+      [
+       6.0,
+       4.0
+      ]
+     ],
+     0.4,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U1101",
+       "4"
+      ],
+      [
+       11.0,
+       7.505
+      ],
+      [
+       11.0,
+       9.6
+      ],
+      [
+       "C1102",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       11.0,
+       8.4
+      ],
+      [
+       11.0,
+       -0.75
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     19.3,
+     2.2,
+     false
+    ],
+    [
+     "+5V",
+     6.0,
+     4.0,
+     false
+    ],
+    [
+     "-5V",
+     11.0,
+     -0.75,
+     false
+    ]
+   ],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "C1101",
+      "1"
+     ],
+     [
+      19.6,
+      5.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U1101",
+      "5"
+     ],
+     [
+      17.0,
+      8.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "J1102",
+      "2"
+     ],
+     [
+      6.0,
+      6.5
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C1102",
+      "2"
+     ],
+     [
+      13.3,
+      9.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Load cell"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m4",
+   "idx": 4,
+   "name": "stepper",
+   "subtitle": "2 x DRV8251A",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "supply": "+5 V, VMOT",
+   "x0": 7.75,
+   "y0": 50.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "full, half or PWM microsteps at the rate the FPGA sets (IN1, IN2 per coil); IA, IB = the coil currents' size, 0.98 V/A, 1 A limit",
+   "notes": [
+    "Two DRV8251A from VMOT: coil A IN1 on IO2, IN2 on IO3; coil B IN1 on IO4, IN2 on IO8 (both low: coast, then sleep).",
+    "VREF 1.0 V and 620 ohm on IPROPI: 1 A limit, 0.98 V/A through 10 k onto IA and IB.  Stepper on the XH: A+, A-, B+, B-."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL0",
+     "label": "IA",
+     "net": "/m4_IAJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J401",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IA 10K",
+     "launch": true
+    },
+    {
+     "slot": "TL1",
+     "label": "IB",
+     "net": "/m4_IBJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J402",
+     "x": 26.25,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "IB 10K",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J401",
+     "key": "SMA",
+     "value": "IA",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_IAJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J402",
+     "key": "SMA",
+     "value": "IB",
+     "x": 26.25,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_IBJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW401",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m4_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q401",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_G",
+      "2": "+5V",
+      "3": "/m4_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U401",
+     "key": "DRV8251A",
+     "value": "DRV8251A",
+     "x": 13.0,
+     "y": 11.8,
+     "rot": 270,
+     "pins": {
+      "1": "/m4_IPA",
+      "2": "/PMOD3",
+      "3": "/PMOD2",
+      "4": "/m4_VRA",
+      "5": "/VMOT",
+      "6": "/m4_A1",
+      "7": "GND",
+      "8": "/m4_A2",
+      "9": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R401",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 11.095,
+     "y": 7.100000000000001,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_VRA",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R402",
+     "key": "R0402 3.9k",
+     "value": "3.9k",
+     "x": 9.6,
+     "y": 7.610000000000001,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_VS",
+      "2": "/m4_VRA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R403",
+     "key": "R0402 620R",
+     "value": "620",
+     "x": 14.905,
+     "y": 7.100000000000001,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_IPA",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C401",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.8,
+     "y": 13.0,
+     "rot": 90,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U402",
+     "key": "DRV8251A",
+     "value": "DRV8251A",
+     "x": 35.0,
+     "y": 11.8,
+     "rot": 270,
+     "pins": {
+      "1": "/m4_IPB",
+      "2": "/PMOD8",
+      "3": "/PMOD4",
+      "4": "/m4_VRB",
+      "5": "/VMOT",
+      "6": "/m4_B1",
+      "7": "GND",
+      "8": "/m4_B2",
+      "9": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R404",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 33.095,
+     "y": 7.100000000000001,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_VRB",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R405",
+     "key": "R0402 3.9k",
+     "value": "3.9k",
+     "x": 31.6,
+     "y": 7.610000000000001,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_VS",
+      "2": "/m4_VRB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R406",
+     "key": "R0402 620R",
+     "value": "620",
+     "x": 36.905,
+     "y": 7.100000000000001,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_IPB",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C402",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 31.8,
+     "y": 13.0,
+     "rot": 90,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C403",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 40.3,
+     "y": 16.4,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J403",
+     "key": "XH4V",
+     "value": "stepper",
+     "x": 20.5,
+     "y": 16.5,
+     "rot": 0,
+     "pins": {
+      "1": "/m4_A2",
+      "2": "/m4_A1",
+      "3": "/m4_B2",
+      "4": "/m4_B1"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R407",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 16.6,
+     "y": 6.4,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_IPA",
+      "2": "/m4_IAJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R408",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 38.6,
+     "y": 6.4,
+     "rot": 90,
+     "pins": {
+      "1": "/m4_IPB",
+      "2": "/m4_IBJ"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW401",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q401",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U401",
+       "7"
+      ],
+      [
+       13.635,
+       13.0
+      ]
+     ],
+     0.3,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD2",
+     [
+      [
+       "U401",
+       "3"
+      ],
+      [
+       12.365,
+       7.250000000000002
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD3",
+     [
+      [
+       "U401",
+       "2"
+      ],
+      [
+       13.635,
+       7.250000000000002
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_VRA",
+     [
+      [
+       "U401",
+       "4"
+      ],
+      [
+       "R401",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_VRA",
+     [
+      [
+       "R402",
+       "2"
+      ],
+      [
+       "R401",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_IPA",
+     [
+      [
+       "U401",
+       "1"
+      ],
+      [
+       "R403",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "U401",
+       "5"
+      ],
+      [
+       9.8,
+       14.4
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       9.8,
+       14.4
+      ],
+      [
+       "C401",
+       "1"
+      ]
+     ],
+     0.4,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U402",
+       "7"
+      ],
+      [
+       35.635,
+       13.0
+      ]
+     ],
+     0.3,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD4",
+     [
+      [
+       "U402",
+       "3"
+      ],
+      [
+       34.365,
+       7.250000000000002
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD8",
+     [
+      [
+       "U402",
+       "2"
+      ],
+      [
+       35.635,
+       7.250000000000002
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_VRB",
+     [
+      [
+       "U402",
+       "4"
+      ],
+      [
+       "R404",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_VRB",
+     [
+      [
+       "R405",
+       "2"
+      ],
+      [
+       "R404",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_IPB",
+     [
+      [
+       "U402",
+       "1"
+      ],
+      [
+       "R406",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "U402",
+       "5"
+      ],
+      [
+       31.8,
+       14.4
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       31.8,
+       14.4
+      ],
+      [
+       "C402",
+       "1"
+      ]
+     ],
+     0.4,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       14.4
+      ],
+      [
+       41.25,
+       15.2
+      ],
+      [
+       "C403",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       14.4
+      ],
+      [
+       31.8,
+       14.4
+      ],
+      [
+       9.8,
+       14.4
+      ]
+     ],
+     0.6,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m4_A2",
+     [
+      [
+       14.905,
+       15.25
+      ],
+      [
+       14.905,
+       18.3
+      ],
+      [
+       20.5,
+       18.3
+      ],
+      [
+       "J403",
+       "1"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_A1",
+     [
+      [
+       12.365,
+       15.25
+      ],
+      [
+       12.365,
+       19.3
+      ],
+      [
+       23.0,
+       19.3
+      ],
+      [
+       "J403",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_B1",
+     [
+      [
+       34.365,
+       15.25
+      ],
+      [
+       34.365,
+       18.3
+      ],
+      [
+       28.0,
+       18.3
+      ],
+      [
+       "J403",
+       "4"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_B2",
+     [
+      [
+       36.905,
+       15.25
+      ],
+      [
+       36.905,
+       19.3
+      ],
+      [
+       25.5,
+       19.3
+      ],
+      [
+       "J403",
+       "3"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_IAJ",
+     [
+      [
+       "R407",
+       "2"
+      ],
+      [
+       16.6,
+       3.0
+      ],
+      [
+       9.0,
+       3.0
+      ],
+      [
+       9.0,
+       4.75
+      ],
+      [
+       "J401",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m4_IBJ",
+     [
+      [
+       "R408",
+       "2"
+      ],
+      [
+       38.6,
+       3.0
+      ],
+      [
+       31.0,
+       3.0
+      ],
+      [
+       31.0,
+       4.75
+      ],
+      [
+       "J402",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "/PMOD2",
+     12.365,
+     7.250000000000002,
+     false
+    ],
+    [
+     "/PMOD3",
+     13.635,
+     7.250000000000002,
+     false
+    ],
+    [
+     "/VMOT",
+     9.8,
+     14.4,
+     false
+    ],
+    [
+     "/PMOD4",
+     34.365,
+     7.250000000000002,
+     false
+    ],
+    [
+     "/PMOD8",
+     35.635,
+     7.250000000000002,
+     false
+    ],
+    [
+     "/VMOT",
+     31.8,
+     14.4,
+     false
+    ],
+    [
+     "/VMOT",
+     42.25,
+     14.4,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m4_G",
+     [
+      [
+       "SW401",
+       "2"
+      ],
+      [
+       "Q401",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m4_IPA",
+     [
+      [
+       "R403",
+       "1"
+      ],
+      [
+       "R407",
+       "1"
+      ]
+     ],
+     0.2
+    ],
+    [
+     "/m4_IPB",
+     [
+      [
+       "R406",
+       "1"
+      ],
+      [
+       "R408",
+       "1"
+      ]
+     ],
+     0.2
+    ],
+    [
+     "/m4_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "R402",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m4_VS",
+     [
+      [
+       "R402",
+       "1"
+      ],
+      [
+       "R405",
+       "1"
+      ]
+     ],
+     0.3
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW401",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U401",
+      "9"
+     ],
+     [
+      12.2,
+      11.200000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U401",
+      "9"
+     ],
+     [
+      13.8,
+      11.200000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U401",
+      "9"
+     ],
+     [
+      12.2,
+      12.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U401",
+      "9"
+     ],
+     [
+      13.8,
+      12.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "R401",
+      "2"
+     ],
+     [
+      11.095,
+      5.750000000000002
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R403",
+      "2"
+     ],
+     [
+      14.905,
+      5.750000000000002
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C401",
+      "2"
+     ],
+     [
+      9.8,
+      11.600000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U402",
+      "9"
+     ],
+     [
+      34.2,
+      11.200000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U402",
+      "9"
+     ],
+     [
+      35.8,
+      11.200000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U402",
+      "9"
+     ],
+     [
+      34.2,
+      12.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U402",
+      "9"
+     ],
+     [
+      35.8,
+      12.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "R404",
+      "2"
+     ],
+     [
+      33.095,
+      5.750000000000002
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R406",
+      "2"
+     ],
+     [
+      36.905,
+      5.750000000000002
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C402",
+      "2"
+     ],
+     [
+      31.8,
+      11.600000000000001
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C403",
+      "1"
+     ],
+     [
+      39.35,
+      18.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Stepper"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m7",
+   "idx": 7,
+   "name": "linear amp",
+   "subtitle": "TCA0372",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     2
+    ]
+   ],
+   "supply": "VMOT, +-5 V",
+   "x0": 50.75,
+   "y0": 50.75,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "the load at 4 x IN (+-4 V for +-1 V), about VMOT / 2 at each end; I = the load's current, 1 V/A (+-1 A)",
+   "notes": [
+    "A TCA0372 bridge from VMOT: side A = VMOT/2 - 2 IN, side B = VMOT/2 + 2 IN, so the load sees 4 x IN.  Up to 1 A and about 1 W",
+    "in the chip: 8 ohm at 5-6 V, 30 ohm or more at 12 V.  0.1 ohm + INA181 + OPA810: I = 1 V/A.  A voice coil, a maglev magnet."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "BR0",
+     "label": "IN",
+     "net": "/m7_IN",
+     "role": "in",
+     "limit": "+-1 V",
+     "ref": "J701",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "IN 50R",
+     "launch": true
+    },
+    {
+     "slot": "TL0",
+     "label": "I",
+     "net": "/m7_IJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J702",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "I 1V/A",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J701",
+     "key": "SMA",
+     "value": "IN",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J702",
+     "key": "SMA",
+     "value": "I",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_IJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C701",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": -0.75,
+     "y": 1.9,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U701",
+     "key": "TCA0372",
+     "value": "TCA0372",
+     "x": 34.3,
+     "y": 10.6,
+     "rot": 270,
+     "pins": {
+      "1": "/VMOT",
+      "2": "/m7_OB",
+      "4": "GND",
+      "5": "GND",
+      "7": "/m7_NB",
+      "8": "/m7_TB",
+      "9": "/m7_TA",
+      "10": "/m7_NA",
+      "12": "GND",
+      "13": "GND",
+      "16": "/m7_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C702",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 40.45,
+     "y": 6.0,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R701",
+     "key": "R0402 15k",
+     "value": "15k",
+     "x": 27.0,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_CT",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R702",
+     "key": "R0402 15k",
+     "value": "15k",
+     "x": 27.0,
+     "y": 4.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_TB",
+      "2": "/m7_CT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R703",
+     "key": "R0402 20k",
+     "value": "20k",
+     "x": 27.0,
+     "y": 9.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_TA",
+      "2": "/m7_TB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R704",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 27.0,
+     "y": 14.6,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m7_TA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C703",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 28.2,
+     "y": 7.0,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m7_TB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C704",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 28.2,
+     "y": 12.4,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_TA",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R705",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 20.4,
+     "y": 13.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_IN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R706",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 31.125,
+     "y": 18.3,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_IN",
+      "2": "/m7_NA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R707",
+     "key": "R0402 20k",
+     "value": "20k",
+     "x": 35.0,
+     "y": 17.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_NA",
+      "2": "/m7_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R708",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 31.125,
+     "y": 3.2,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_NB",
+      "2": "/m7_OA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R709",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 34.3,
+     "y": 3.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_NB",
+      "2": "/m7_OB"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J703",
+     "key": "TERM2",
+     "value": "load",
+     "x": 44.9,
+     "y": 8.0,
+     "rot": 270,
+     "pins": {
+      "1": "/m7_OB",
+      "2": "/m7_LA"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R710",
+     "key": "R1206 0.1R",
+     "value": "0.1",
+     "x": 42.6,
+     "y": 18.35,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_OA",
+      "2": "/m7_LA"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U702",
+     "key": "INA181A1",
+     "value": "INA181",
+     "x": 42.6,
+     "y": 15.45,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_IO",
+      "2": "GND",
+      "3": "/m7_OA",
+      "4": "/m7_LA",
+      "5": "/m7_RFN",
+      "6": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C705",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 46.1,
+     "y": 14.05,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R711",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 45.5,
+     "y": 15.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_RFN",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R712",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 46.7,
+     "y": 15.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m7_RFN",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U703",
+     "key": "OPA810",
+     "value": "OPA810",
+     "x": 14.6,
+     "y": 6.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_DO",
+      "2": "-5V",
+      "3": "/m7_DP",
+      "4": "/m7_DN",
+      "5": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R713",
+     "key": "R0402 20k",
+     "value": "20k",
+     "x": 18.4,
+     "y": 8.8,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_DN",
+      "2": "/m7_IO"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R714",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 15.0,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_DO",
+      "2": "/m7_DN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R715",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 9.6,
+     "y": 9.2,
+     "rot": 90,
+     "pins": {
+      "1": "+5V",
+      "2": "/m7_DP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R716",
+     "key": "R0402 2k",
+     "value": "2k",
+     "x": 10.8,
+     "y": 9.2,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m7_DP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R717",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 11.0,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m7_IJ",
+      "2": "/m7_DO"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C706",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 11.2,
+     "y": 5.0,
+     "rot": 90,
+     "pins": {
+      "1": "-5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C707",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 18.6,
+     "y": 5.0,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "/VMOT",
+     [
+      [
+       -0.75,
+       -0.75
+      ],
+      [
+       "C701",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       -0.75,
+       -0.75
+      ],
+      [
+       39.6,
+       -0.75
+      ],
+      [
+       39.6,
+       3.6
+      ]
+     ],
+     0.8,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       -0.75,
+       -0.75
+      ],
+      [
+       27.0,
+       -0.75
+      ],
+      [
+       27.0,
+       1.2
+      ]
+     ],
+     0.4,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       34.3,
+       5.95
+      ],
+      [
+       34.3,
+       15.25
+      ]
+     ],
+     2.2,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       39.6,
+       3.6
+      ],
+      [
+       38.745,
+       4.4
+      ],
+      [
+       "U701",
+       "1"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "U701",
+       "1"
+      ],
+      [
+       38.745,
+       5.52
+      ],
+      [
+       "C702",
+       "2"
+      ]
+     ],
+     0.4,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       27.0,
+       1.2
+      ],
+      [
+       "R701",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_CT",
+     [
+      [
+       "R701",
+       "1"
+      ],
+      [
+       "R702",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TB",
+     [
+      [
+       "R702",
+       "1"
+      ],
+      [
+       27.0,
+       5.7
+      ],
+      [
+       29.855,
+       5.7
+      ],
+      [
+       "U701",
+       "8"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TB",
+     [
+      [
+       27.0,
+       5.7
+      ],
+      [
+       "R703",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TB",
+     [
+      [
+       28.2,
+       5.7
+      ],
+      [
+       "C703",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TA",
+     [
+      [
+       "R703",
+       "1"
+      ],
+      [
+       "R704",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TA",
+     [
+      [
+       27.0,
+       13.4
+      ],
+      [
+       29.855,
+       13.4
+      ],
+      [
+       "U701",
+       "9"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_TA",
+     [
+      [
+       28.2,
+       13.4
+      ],
+      [
+       "C704",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_IN",
+     [
+      [
+       "J701",
+       "1"
+      ],
+      [
+       20.4,
+       15.25
+      ],
+      [
+       20.4,
+       18.81
+      ],
+      [
+       "R706",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_IN",
+     [
+      [
+       20.4,
+       15.25
+      ],
+      [
+       "R705",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_NA",
+     [
+      [
+       "R706",
+       "2"
+      ],
+      [
+       "U701",
+       "10"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_NA",
+     [
+      [
+       "R707",
+       "1"
+      ],
+      [
+       31.125,
+       17.4
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       "U701",
+       "16"
+      ],
+      [
+       38.745,
+       17.4
+      ],
+      [
+       "R707",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_NB",
+     [
+      [
+       "R708",
+       "1"
+      ],
+      [
+       "U701",
+       "7"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_NB",
+     [
+      [
+       "R709",
+       "1"
+      ],
+      [
+       31.125,
+       3.6
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OB",
+     [
+      [
+       37.475,
+       3.6
+      ],
+      [
+       "R709",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       38.745,
+       18.35
+      ],
+      [
+       37.4,
+       18.4
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       37.4,
+       18.4
+      ],
+      [
+       37.0,
+       18.0
+      ],
+      [
+       37.0,
+       1.7
+      ],
+      [
+       31.125,
+       1.7
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       31.125,
+       1.7
+      ],
+      [
+       "R708",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OB",
+     [
+      [
+       "U701",
+       "2"
+      ],
+      [
+       37.475,
+       2.2
+      ],
+      [
+       43.8,
+       2.2
+      ],
+      [
+       44.9,
+       3.3
+      ],
+      [
+       "J703",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       "U701",
+       "16"
+      ],
+      [
+       38.745,
+       18.35
+      ],
+      [
+       "R710",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_LA",
+     [
+      [
+       "R710",
+       "2"
+      ],
+      [
+       48.0,
+       18.35
+      ],
+      [
+       48.0,
+       12.0
+      ],
+      [
+       46.5,
+       10.5
+      ],
+      [
+       "J703",
+       "2"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_OA",
+     [
+      [
+       41.138,
+       17.475
+      ],
+      [
+       "U702",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_LA",
+     [
+      [
+       44.062,
+       17.475
+      ],
+      [
+       "U702",
+       "4"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       44.6,
+       13.0
+      ],
+      [
+       44.6,
+       14.05
+      ],
+      [
+       "C705",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U702",
+       "6"
+      ],
+      [
+       44.6,
+       14.5
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       44.6,
+       14.05
+      ],
+      [
+       44.6,
+       14.5
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C705",
+       "1"
+      ],
+      [
+       45.5,
+       14.6
+      ],
+      [
+       "R711",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "C705",
+       "2"
+      ],
+      [
+       "R712",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m7_RFN",
+     [
+      [
+       "U702",
+       "5"
+      ],
+      [
+       44.75,
+       15.45
+      ],
+      [
+       44.75,
+       16.7
+      ],
+      [
+       46.7,
+       16.7
+      ],
+      [
+       "R712",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_RFN",
+     [
+      [
+       45.5,
+       16.7
+      ],
+      [
+       "R711",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_IO",
+     [
+      [
+       "U702",
+       "1"
+      ],
+      [
+       41.463,
+       13.2
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_IO",
+     [
+      [
+       41.463,
+       13.2
+      ],
+      [
+       40.6,
+       13.8
+      ],
+      [
+       40.6,
+       19.5
+      ],
+      [
+       19.4,
+       19.5
+      ],
+      [
+       19.4,
+       9.8
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m7_IO",
+     [
+      [
+       19.4,
+       9.8
+      ],
+      [
+       19.4,
+       8.8
+      ],
+      [
+       "R713",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DN",
+     [
+      [
+       "R713",
+       "1"
+      ],
+      [
+       17.2,
+       8.8
+      ],
+      [
+       17.2,
+       2.6
+      ],
+      [
+       "R714",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DN",
+     [
+      [
+       17.2,
+       7.35
+      ],
+      [
+       "U703",
+       "4"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DO",
+     [
+      [
+       "U703",
+       "1"
+      ],
+      [
+       13.463,
+       2.6
+      ],
+      [
+       "R714",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DO",
+     [
+      [
+       13.463,
+       2.6
+      ],
+      [
+       "R717",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_IJ",
+     [
+      [
+       "R717",
+       "1"
+      ],
+      [
+       9.0,
+       2.6
+      ],
+      [
+       8.6,
+       3.2
+      ],
+      [
+       8.6,
+       4.75
+      ],
+      [
+       "J702",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U703",
+       "5"
+      ],
+      [
+       16.0,
+       4.5
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C707",
+       "2"
+      ],
+      [
+       18.6,
+       3.9
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DP",
+     [
+      [
+       "U703",
+       "3"
+      ],
+      [
+       12.0,
+       7.35
+      ],
+      [
+       12.0,
+       8.2
+      ],
+      [
+       9.6,
+       8.2
+      ],
+      [
+       "R715",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m7_DP",
+     [
+      [
+       10.8,
+       8.2
+      ],
+      [
+       "R716",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "R715",
+       "1"
+      ],
+      [
+       9.6,
+       10.6
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U703",
+       "2"
+      ],
+      [
+       11.2,
+       6.4
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       11.2,
+       6.4
+      ],
+      [
+       "C706",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       11.2,
+       6.4
+      ],
+      [
+       8.6,
+       9.0
+      ],
+      [
+       8.6,
+       20.5
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "/VMOT",
+     -0.75,
+     -0.75,
+     false
+    ],
+    [
+     "/VMOT",
+     39.6,
+     3.6,
+     false
+    ],
+    [
+     "/m7_OA",
+     37.4,
+     18.4,
+     false
+    ],
+    [
+     "/m7_OA",
+     31.125,
+     1.7,
+     false
+    ],
+    [
+     "+5V",
+     44.6,
+     13.0,
+     false
+    ],
+    [
+     "/m7_IO",
+     41.463,
+     13.2,
+     false
+    ],
+    [
+     "/m7_IO",
+     19.4,
+     9.8,
+     false
+    ],
+    [
+     "+5V",
+     16.0,
+     4.5,
+     false
+    ],
+    [
+     "+5V",
+     18.6,
+     3.9,
+     false
+    ],
+    [
+     "+5V",
+     9.6,
+     10.6,
+     false
+    ],
+    [
+     "-5V",
+     11.2,
+     6.4,
+     false
+    ],
+    [
+     "-5V",
+     8.6,
+     20.5,
+     false
+    ]
+   ],
+   "routes": [],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "C701",
+      "1"
+     ],
+     [
+      0.6,
+      3.8
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U701",
+      "5"
+     ],
+     [
+      34.3,
+      8.2
+     ],
+     [
+      0,
+      0
+     ],
+     1.0,
+     false
+    ],
+    [
+     [
+      "U701",
+      "5"
+     ],
+     [
+      34.3,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     1.0,
+     false
+    ],
+    [
+     [
+      "U701",
+      "5"
+     ],
+     [
+      34.3,
+      13.0
+     ],
+     [
+      0,
+      0
+     ],
+     1.0,
+     false
+    ],
+    [
+     [
+      "C702",
+      "1"
+     ],
+     [
+      40.45,
+      7.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C703",
+      "1"
+     ],
+     [
+      28.2,
+      8.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C704",
+      "2"
+     ],
+     [
+      28.2,
+      11.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R704",
+      "1"
+     ],
+     [
+      27.0,
+      16.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R705",
+      "2"
+     ],
+     [
+      20.4,
+      12.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U702",
+      "2"
+     ],
+     [
+      39.9,
+      15.45
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R712",
+      "2"
+     ],
+     [
+      47.1,
+      14.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C707",
+      "1"
+     ],
+     [
+      18.6,
+      6.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R716",
+      "1"
+     ],
+     [
+      10.8,
+      10.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C706",
+      "2"
+     ],
+     [
+      10.2,
+      4.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Linear amp"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m8",
+   "idx": 8,
+   "name": "buck stage",
+   "subtitle": "TPS28225",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     2,
+     3
+    ],
+    [
+     3,
+     3
+    ]
+   ],
+   "supply": "+5 V, VMOT",
+   "x0": 50.75,
+   "y0": 72.25,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "VO = the duty cycle x VMOT at the PWM's frequency (100-500 kHz); I = the inductor's current, 1 V/A (0 when it dips below zero); VO jack VO / 16",
+   "notes": [
+    "PWM (0 / +1 V) squared by a TLV3501 into a TPS28225 driving two AO3400A from VMOT; 47 uH into 2 x 22 uF.  Close the loop",
+    "in the FPGA from VO (VO / 16) and I (1 V/A); a load on the terminal, up to 1 A.  The switch holds the driver's EN low."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL0",
+     "label": "PWM",
+     "net": "/m8_PWMJ",
+     "role": "in",
+     "limit": "0/+1 V",
+     "ref": "J801",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "PWM 50R",
+     "launch": true
+    },
+    {
+     "slot": "BR0",
+     "label": "VO",
+     "net": "/m8_VOJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J802",
+     "x": 15.25,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "VO /16",
+     "launch": true
+    },
+    {
+     "slot": "BR1",
+     "label": "I",
+     "net": "/m8_IJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J803",
+     "x": 36.75,
+     "y": 15.25,
+     "label_at": null,
+     "silk": "I 1V/A",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J801",
+     "key": "SMA",
+     "value": "PWM",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_PWMJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J802",
+     "key": "SMA",
+     "value": "VO",
+     "x": 15.25,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_VOJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J803",
+     "key": "SMA",
+     "value": "I",
+     "x": 36.75,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_IJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW801",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m8_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q801",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_G",
+      "2": "+5V",
+      "3": "/m8_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C801",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": -0.55,
+     "y": 2.4,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R801",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 4.75,
+     "y": 9.6,
+     "rot": 270,
+     "pins": {
+      "1": "/m8_PWMJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R802",
+     "key": "R0402 10k",
+     "value": "10k",
+     "x": 9.4,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_PWMJ",
+      "2": "/m8_CP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R803",
+     "key": "R0402 47k",
+     "value": "47k",
+     "x": 9.6,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "/m8_TH"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R804",
+     "key": "R0402 5.1k",
+     "value": "5.1k",
+     "x": 11.9,
+     "y": 2.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_TH",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U801",
+     "key": "TLV3501",
+     "value": "TLV3501",
+     "x": 13.0,
+     "y": 5.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_TH",
+      "2": "GND",
+      "3": "/m8_CP",
+      "4": "+5V",
+      "5": "/m8_PWM",
+      "6": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C802",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 9.6,
+     "y": 7.2,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C803",
+     "key": "C1206 22uF",
+     "value": "22u",
+     "x": 24.9,
+     "y": 3.8,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/VMOT"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "Q802",
+     "key": "NFET",
+     "value": "AO3400A",
+     "x": 28.6,
+     "y": 2.95,
+     "rot": 180,
+     "pins": {
+      "1": "/m8_UG",
+      "2": "/m8_PH",
+      "3": "/VMOT"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q803",
+     "key": "NFET",
+     "value": "AO3400A",
+     "x": 28.6,
+     "y": 6.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_LG",
+      "2": "GND",
+      "3": "/m8_PH"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "L801",
+     "key": "L47U_6045",
+     "value": "47u",
+     "x": 35.6,
+     "y": 3.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_PH",
+      "2": "/m8_LX"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U802",
+     "key": "TPS28225",
+     "value": "TPS28225",
+     "x": 27.0,
+     "y": 13.9,
+     "rot": 90,
+     "pins": {
+      "1": "/m8_UG",
+      "2": "/m8_BOOT",
+      "3": "/m8_PWM",
+      "4": "GND",
+      "5": "/m8_LG",
+      "6": "+5V",
+      "7": "/m8_EN",
+      "8": "/m8_PH"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C804",
+     "key": "C0402 220nF",
+     "value": "220n",
+     "x": 23.2,
+     "y": 13.9,
+     "rot": 90,
+     "pins": {
+      "1": "/m8_BOOT",
+      "2": "/m8_PH"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C805",
+     "key": "C0603 1uF",
+     "value": "1u",
+     "x": 27.8,
+     "y": 9.25,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R805",
+     "key": "R0402 100k",
+     "value": "100k",
+     "x": 24.0,
+     "y": 9.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_VS",
+      "2": "/m8_EN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R806",
+     "key": "R1206 0.05R",
+     "value": "0.05",
+     "x": 38.6,
+     "y": 9.0,
+     "rot": 90,
+     "pins": {
+      "1": "/m8_VO",
+      "2": "/m8_LX"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J804",
+     "key": "TERM2",
+     "value": "out",
+     "x": 44.9,
+     "y": 6.0,
+     "rot": 270,
+     "pins": {
+      "1": "/m8_VO",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "C806",
+     "key": "C1206 22uF",
+     "value": "22u",
+     "x": 44.0,
+     "y": 14.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_VO",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C807",
+     "key": "C1206 22uF",
+     "value": "22u",
+     "x": 44.0,
+     "y": 16.6,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_VO",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U803",
+     "key": "INA181A1",
+     "value": "INA181",
+     "x": 35.75,
+     "y": 9.0,
+     "rot": 90,
+     "pins": {
+      "1": "/m8_IO",
+      "2": "GND",
+      "3": "/m8_LX",
+      "4": "/m8_VO",
+      "5": "GND",
+      "6": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C808",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 33.2,
+     "y": 7.9,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R807",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 32.2,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_IO",
+      "2": "/m8_IJ"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R808",
+     "key": "R0402 15k",
+     "value": "15k",
+     "x": 21.2,
+     "y": 12.8,
+     "rot": 90,
+     "pins": {
+      "1": "/m8_VD",
+      "2": "/m8_VO"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R809",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 21.2,
+     "y": 17.4,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m8_VD"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R810",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 20.2,
+     "y": 15.25,
+     "rot": 0,
+     "pins": {
+      "1": "/m8_VOJ",
+      "2": "/m8_VD"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW801",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q801",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       -0.75,
+       0.4
+      ],
+      [
+       -0.55,
+       0.9
+      ],
+      [
+       "C801",
+       "2"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       -0.75,
+       0.4
+      ],
+      [
+       24.9,
+       0.4
+      ]
+     ],
+     0.8,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m8_PWMJ",
+     [
+      [
+       "J801",
+       "1"
+      ],
+      [
+       "R802",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_PWMJ",
+     [
+      [
+       "J801",
+       "1"
+      ],
+      [
+       "R801",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_CP",
+     [
+      [
+       "R802",
+       "2"
+      ],
+      [
+       10.4,
+       4.75
+      ],
+      [
+       10.4,
+       6.35
+      ],
+      [
+       "U801",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_TH",
+     [
+      [
+       "R803",
+       "2"
+      ],
+      [
+       "R804",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_TH",
+     [
+      [
+       "R804",
+       "1"
+      ],
+      [
+       11.39,
+       4.45
+      ],
+      [
+       "U801",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U801",
+       "2"
+      ],
+      [
+       13.0,
+       5.4
+      ],
+      [
+       13.0,
+       4.45
+      ],
+      [
+       "U801",
+       "6"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C802",
+       "1"
+      ],
+      [
+       9.1,
+       8.4
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       24.9,
+       0.4
+      ],
+      [
+       "C803",
+       "2"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "C803",
+       "2"
+      ],
+      [
+       "Q802",
+       "3"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "C803",
+       "1"
+      ],
+      [
+       24.9,
+       7.55
+      ],
+      [
+       "Q803",
+       "2"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m8_PH",
+     [
+      [
+       "Q802",
+       "2"
+      ],
+      [
+       31.0,
+       2.0
+      ],
+      [
+       31.0,
+       6.6
+      ],
+      [
+       "Q803",
+       "3"
+      ]
+     ],
+     0.6,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_PH",
+     [
+      [
+       31.0,
+       3.4
+      ],
+      [
+       "L801",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C805",
+       "1"
+      ],
+      [
+       26.4,
+       8.5
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C805",
+       "1"
+      ],
+      [
+       27.635,
+       10.45
+      ]
+     ],
+     0.3,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_LX",
+     [
+      [
+       "L801",
+       "2"
+      ],
+      [
+       38.6,
+       6.7
+      ],
+      [
+       "R806",
+       "2"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       "R806",
+       "1"
+      ],
+      [
+       40.4,
+       10.462
+      ],
+      [
+       40.4,
+       1.0
+      ],
+      [
+       43.8,
+       1.0
+      ],
+      [
+       "J804",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       40.4,
+       10.462
+      ],
+      [
+       41.9,
+       11.4
+      ],
+      [
+       41.9,
+       16.6
+      ],
+      [
+       "C807",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       41.9,
+       14.0
+      ],
+      [
+       "C806",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U803",
+       "2"
+      ],
+      [
+       "U803",
+       "5"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U803",
+       "6"
+      ],
+      [
+       34.8,
+       7.0
+      ],
+      [
+       33.2,
+       7.0
+      ],
+      [
+       "C808",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C808",
+       "2"
+      ],
+      [
+       32.2,
+       7.42
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_IJ",
+     [
+      [
+       "R807",
+       "2"
+      ],
+      [
+       "J803",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VD",
+     [
+      [
+       "R808",
+       "1"
+      ],
+      [
+       21.2,
+       15.25
+      ],
+      [
+       "R809",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VD",
+     [
+      [
+       21.2,
+       15.25
+      ],
+      [
+       "R810",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VOJ",
+     [
+      [
+       "R810",
+       "1"
+      ],
+      [
+       "J802",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       "R806",
+       "1"
+      ],
+      [
+       37.2,
+       11.6
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       37.2,
+       11.6
+      ],
+      [
+       36.6,
+       11.0
+      ],
+      [
+       22.6,
+       11.0
+      ],
+      [
+       22.6,
+       12.0
+      ]
+     ],
+     0.25,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       22.6,
+       12.0
+      ],
+      [
+       "R808",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m8_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       9.4,
+       17.3
+      ],
+      [
+       9.4,
+       11.2
+      ],
+      [
+       22.0,
+       11.2
+      ],
+      [
+       22.0,
+       10.2
+      ],
+      [
+       "R805",
+       "1"
+      ]
+     ],
+     0.3,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "/VMOT",
+     -0.75,
+     0.4,
+     false
+    ],
+    [
+     "/VMOT",
+     24.9,
+     0.4,
+     false
+    ],
+    [
+     "+5V",
+     9.1,
+     8.4,
+     false
+    ],
+    [
+     "+5V",
+     26.4,
+     8.5,
+     false
+    ],
+    [
+     "+5V",
+     32.2,
+     7.42,
+     false
+    ],
+    [
+     "/m8_VO",
+     37.2,
+     11.6,
+     false
+    ],
+    [
+     "/m8_VO",
+     22.6,
+     12.0,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m8_G",
+     [
+      [
+       "SW801",
+       "2"
+      ],
+      [
+       "Q801",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C802",
+       "1"
+      ],
+      [
+       "R803",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C802",
+       "1"
+      ],
+      [
+       "U801",
+       "4"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m8_UG",
+     [
+      [
+       "U802",
+       "1"
+      ],
+      [
+       "Q802",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m8_LG",
+     [
+      [
+       "U802",
+       "5"
+      ],
+      [
+       "Q803",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m8_BOOT",
+     [
+      [
+       "U802",
+       "2"
+      ],
+      [
+       "C804",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m8_PH",
+     [
+      [
+       "U802",
+       "8"
+      ],
+      [
+       "C804",
+       "2"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m8_PH",
+     [
+      [
+       "C804",
+       "2"
+      ],
+      [
+       "Q803",
+       "3"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m8_EN",
+     [
+      [
+       "U802",
+       "7"
+      ],
+      [
+       "R805",
+       "2"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m8_VO",
+     [
+      [
+       "R806",
+       "1"
+      ],
+      [
+       "U803",
+       "4"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m8_LX",
+     [
+      [
+       "R806",
+       "2"
+      ],
+      [
+       "U803",
+       "3"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m8_IO",
+     [
+      [
+       "U803",
+       "1"
+      ],
+      [
+       "R807",
+       "1"
+      ]
+     ],
+     0.25
+    ],
+    [
+     "/m8_PWM",
+     [
+      [
+       "U801",
+       "5"
+      ],
+      [
+       "U802",
+       "3"
+      ]
+     ],
+     0.25
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW801",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C801",
+      "1"
+     ],
+     [
+      0.8,
+      4.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R801",
+      "2"
+     ],
+     [
+      4.75,
+      10.95
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R804",
+      "2"
+     ],
+     [
+      13.3,
+      2.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U801",
+      "6"
+     ],
+     [
+      15.2,
+      3.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C802",
+      "2"
+     ],
+     [
+      10.6,
+      8.1
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C803",
+      "1"
+     ],
+     [
+      23.6,
+      6.6
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "Q803",
+      "2"
+     ],
+     [
+      26.2,
+      7.55
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "U802",
+      "4"
+     ],
+     [
+      28.905,
+      18.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C805",
+      "2"
+     ],
+     [
+      29.9,
+      9.25
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C806",
+      "2"
+     ],
+     [
+      46.8,
+      14.0
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "C807",
+      "2"
+     ],
+     [
+      46.8,
+      16.6
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "J804",
+      "2"
+     ],
+     [
+      46.9,
+      10.4
+     ],
+     [
+      0,
+      0
+     ],
+     0.6,
+     false
+    ],
+    [
+     [
+      "U803",
+      "2"
+     ],
+     [
+      35.75,
+      12.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C808",
+      "1"
+     ],
+     [
+      32.2,
+      8.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R809",
+      "1"
+     ],
+     [
+      21.2,
+      18.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "Buck stage"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m3",
+   "idx": 3,
+   "name": "DC motor",
+   "subtitle": "DRV8251A",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "supply": "+-5 V, VMOT",
+   "x0": 7.75,
+   "y0": 72.25,
+   "w": 41.5,
+   "h": 20.0,
+   "result": "the motor at the duty and direction IO7 (IN1) and IO1 (IN2) set; I = its current, 0.98 V/A; V = its terminal voltage / 13 (back-EMF in coast)",
+   "notes": [
+    "DRV8251A from VMOT: IN1 (IO7) and IN2 (IO1) choose forward, reverse, brake (both high) or coast (both low: then sleep).",
+    "IPROPI (620 ohm, 0.98 V/A, 2 A limit) buffered onto I; (M1 - M2) / 13 onto V.  Encoder A on IO5, B on IO6, its own 3.3 V."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [
+    {
+     "slot": "TL0",
+     "label": "V",
+     "net": "/m3_VJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J301",
+     "x": 4.75,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "V /13",
+     "launch": true
+    },
+    {
+     "slot": "TL1",
+     "label": "I",
+     "net": "/m3_IJ",
+     "role": "out",
+     "limit": "",
+     "ref": "J302",
+     "x": 26.25,
+     "y": 4.75,
+     "label_at": null,
+     "silk": "I 1V/A",
+     "launch": true
+    }
+   ],
+   "parts": [
+    {
+     "ref": "J301",
+     "key": "SMA",
+     "value": "V",
+     "x": 4.75,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_VJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "J302",
+     "key": "SMA",
+     "value": "I",
+     "x": 26.25,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_IJ",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "SW301",
+     "key": "SW_SLIDE",
+     "value": "ON",
+     "x": 2.75,
+     "y": 15.6,
+     "rot": 270,
+     "pins": {
+      "1": "GND",
+      "2": "/m3_G",
+      "3": "+5V"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "Q301",
+     "key": "PFET",
+     "value": "AO3401A",
+     "x": 7.6,
+     "y": 18.1,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_G",
+      "2": "+5V",
+      "3": "/m3_VS"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U301",
+     "key": "DRV8251A",
+     "value": "DRV8251A",
+     "x": 14.0,
+     "y": 11.6,
+     "rot": 270,
+     "pins": {
+      "1": "/m3_IP",
+      "2": "/PMOD1",
+      "3": "/PMOD7",
+      "4": "/m3_VR",
+      "5": "/VMOT",
+      "6": "/m3_M1",
+      "7": "GND",
+      "8": "/m3_M2",
+      "9": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R301",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 12.095,
+     "y": 6.899999999999999,
+     "rot": 90,
+     "pins": {
+      "1": "/m3_VR",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R302",
+     "key": "R0402 1.5k",
+     "value": "1.5k",
+     "x": 10.6,
+     "y": 7.409999999999998,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_VS",
+      "2": "/m3_VR"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R303",
+     "key": "R0402 620R",
+     "value": "620",
+     "x": 15.905,
+     "y": 6.899999999999999,
+     "rot": 90,
+     "pins": {
+      "1": "/m3_IP",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C301",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 10.8,
+     "y": 12.799999999999999,
+     "rot": 90,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C302",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 40.6,
+     "y": 13.0,
+     "rot": 90,
+     "pins": {
+      "1": "/VMOT",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J303",
+     "key": "PH6V",
+     "value": "motor",
+     "x": 23.5,
+     "y": 24.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_M1",
+      "2": "GND",
+      "3": "/PMOD5",
+      "4": "/PMOD6",
+      "5": "/m3_E3V3",
+      "6": "/m3_M2"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "U302",
+     "key": "OPA2171",
+     "value": "OPA2171",
+     "x": 36.4,
+     "y": 5.0,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_AO",
+      "2": "/m3_AO",
+      "3": "/m3_IP",
+      "4": "-5V",
+      "5": "/m3_BP",
+      "6": "/m3_BN",
+      "7": "/m3_BO",
+      "8": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R304",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 31.2,
+     "y": 4.75,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_IJ",
+      "2": "/m3_AO"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R305",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 40.9,
+     "y": 5.0,
+     "rot": 270,
+     "pins": {
+      "1": "/m3_BO",
+      "2": "/m3_BN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R306",
+     "key": "R0402 49.9R",
+     "value": "49.9",
+     "x": 40.9,
+     "y": 2.4,
+     "rot": 270,
+     "pins": {
+      "1": "/m3_VJ",
+      "2": "/m3_BO"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R307",
+     "key": "R0402 1k",
+     "value": "1k",
+     "x": 37.4,
+     "y": 20.7,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m3_BP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C303",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 37.2,
+     "y": 1.75,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C304",
+     "key": "C0402 100nF",
+     "value": "100n",
+     "x": 33.4,
+     "y": 8.9,
+     "rot": 0,
+     "pins": {
+      "1": "-5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R308",
+     "key": "R0402 13k",
+     "value": "13k",
+     "x": 37.4,
+     "y": 21.9,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_M1",
+      "2": "/m3_BP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R309",
+     "key": "R0402 13k",
+     "value": "13k",
+     "x": 37.4,
+     "y": 23.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m3_M2",
+      "2": "/m3_BN"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U303",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 43.0,
+     "y": 24.9,
+     "rot": 180,
+     "pins": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "+5V",
+      "5": "/m3_E3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C305",
+     "key": "C0603 1uF",
+     "value": "1u",
+     "x": 47.1,
+     "y": 24.9,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C306",
+     "key": "C0603 1uF",
+     "value": "1u",
+     "x": 39.7,
+     "y": 25.0,
+     "rot": 90,
+     "pins": {
+      "1": "GND",
+      "2": "/m3_E3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J304",
+     "key": "PMOD",
+     "value": "Pmod",
+     "x": 2.97,
+     "y": 24.25,
+     "rot": 0,
+     "pins": {
+      "1": "/PMOD_VCC",
+      "2": "/PMOD_VCC",
+      "3": "GND",
+      "4": "GND",
+      "5": "/PMOD8",
+      "6": "/PMOD4",
+      "7": "/PMOD7",
+      "8": "/PMOD3",
+      "9": "/PMOD6",
+      "10": "/PMOD2",
+      "11": "/PMOD5",
+      "12": "/PMOD1"
+     },
+     "label": null,
+     "hide_value": true
+    }
+   ],
+   "wires": [
+    [
+     "+5V",
+     [
+      [
+       "SW301",
+       "3"
+      ],
+      [
+       5.7,
+       17.85
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "Q301",
+       "2"
+      ],
+      [
+       5.7,
+       19.05
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "U301",
+       "7"
+      ],
+      [
+       14.635,
+       12.799999999999999
+      ]
+     ],
+     0.3,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       "U301",
+       "3"
+      ],
+      [
+       13.365,
+       7.049999999999999
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/PMOD1",
+     [
+      [
+       "U301",
+       "2"
+      ],
+      [
+       14.635,
+       7.049999999999999
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_VR",
+     [
+      [
+       "U301",
+       "4"
+      ],
+      [
+       "R301",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_VR",
+     [
+      [
+       "R302",
+       "2"
+      ],
+      [
+       "R301",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_IP",
+     [
+      [
+       "U301",
+       "1"
+      ],
+      [
+       "R303",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       "U301",
+       "5"
+      ],
+      [
+       10.8,
+       14.2
+      ]
+     ],
+     0.5,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       10.8,
+       14.2
+      ],
+      [
+       "C301",
+       "1"
+      ]
+     ],
+     0.4,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       14.75
+      ],
+      [
+       "C302",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/VMOT",
+     [
+      [
+       42.25,
+       14.75
+      ],
+      [
+       41.25,
+       14.2
+      ],
+      [
+       10.8,
+       14.2
+      ]
+     ],
+     0.8,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m3_M2",
+     [
+      [
+       15.905,
+       15.05
+      ],
+      [
+       15.905,
+       16.4
+      ],
+      [
+       33.5,
+       16.4
+      ],
+      [
+       "J303",
+       "6"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_M1",
+     [
+      [
+       13.365,
+       15.05
+      ],
+      [
+       13.365,
+       17.6
+      ],
+      [
+       23.5,
+       17.6
+      ],
+      [
+       "J303",
+       "1"
+      ]
+     ],
+     0.8,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_AO",
+     [
+      [
+       "U302",
+       "1"
+      ],
+      [
+       32.5,
+       3.095
+      ],
+      [
+       32.5,
+       4.365
+      ],
+      [
+       "U302",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_AO",
+     [
+      [
+       "R304",
+       "2"
+      ],
+      [
+       32.5,
+       4.75
+      ],
+      [
+       32.5,
+       4.365
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_IJ",
+     [
+      [
+       "R304",
+       "1"
+      ],
+      [
+       "J302",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BO",
+     [
+      [
+       "U302",
+       "7"
+      ],
+      [
+       40.2,
+       4.365
+      ],
+      [
+       40.2,
+       4.49
+      ],
+      [
+       "R305",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BO",
+     [
+      [
+       "R305",
+       "1"
+      ],
+      [
+       "R306",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BP",
+     [
+      [
+       "R307",
+       "2"
+      ],
+      [
+       37.91,
+       21.9
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_VJ",
+     [
+      [
+       "R306",
+       "1"
+      ],
+      [
+       40.9,
+       -0.35
+      ],
+      [
+       9.4,
+       -0.35
+      ],
+      [
+       9.4,
+       4.75
+      ],
+      [
+       "J301",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U302",
+       "8"
+      ],
+      [
+       38.875,
+       1.75
+      ],
+      [
+       "C303",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       38.875,
+       1.75
+      ],
+      [
+       39.8,
+       1.75
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U302",
+       "4"
+      ],
+      [
+       32.92,
+       6.905
+      ],
+      [
+       "C304",
+       "1"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "C304",
+       "1"
+      ],
+      [
+       32.0,
+       8.9
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       32.0,
+       8.9
+      ],
+      [
+       32.0,
+       -1.1
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m3_M2",
+     [
+      [
+       "J303",
+       "6"
+      ],
+      [
+       34.6,
+       24.4
+      ],
+      [
+       35.6,
+       23.4
+      ],
+      [
+       "R309",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_M1",
+     [
+      [
+       "J303",
+       "1"
+      ],
+      [
+       23.5,
+       21.7
+      ],
+      [
+       36.0,
+       21.7
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/m3_M1",
+     [
+      [
+       36.0,
+       21.7
+      ],
+      [
+       "R308",
+       "1"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BP",
+     [
+      [
+       "R308",
+       "2"
+      ],
+      [
+       38.6,
+       21.9
+      ],
+      [
+       38.6,
+       7.6
+      ],
+      [
+       "U302",
+       "5"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BN",
+     [
+      [
+       "R309",
+       "2"
+      ],
+      [
+       39.4,
+       23.4
+      ],
+      [
+       39.4,
+       8.0
+      ],
+      [
+       40.3,
+       8.0
+      ],
+      [
+       40.3,
+       5.635
+      ],
+      [
+       "U302",
+       "6"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_BN",
+     [
+      [
+       40.3,
+       5.635
+      ],
+      [
+       "R305",
+       "2"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U303",
+       "1"
+      ],
+      [
+       46.1,
+       25.85
+      ],
+      [
+       46.1,
+       23.95
+      ],
+      [
+       "U303",
+       "3"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       46.1,
+       23.95
+      ],
+      [
+       47.1,
+       23.95
+      ],
+      [
+       "C305",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C305",
+       "2"
+      ],
+      [
+       47.1,
+       22.9
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_E3V3",
+     [
+      [
+       "U303",
+       "5"
+      ],
+      [
+       40.85,
+       25.85
+      ],
+      [
+       40.85,
+       23.0
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_E3V3",
+     [
+      [
+       "C306",
+       "2"
+      ],
+      [
+       40.85,
+       24.225
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m3_E3V3",
+     [
+      [
+       40.85,
+       23.0
+      ],
+      [
+       31.5,
+       23.0
+      ],
+      [
+       "J303",
+       "5"
+      ]
+     ],
+     0.3,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD_VCC",
+     [
+      [
+       "J304",
+       "1"
+      ],
+      [
+       "J304",
+       "2"
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD5",
+     [
+      [
+       "J303",
+       "3"
+      ],
+      [
+       27.5,
+       26.05
+      ],
+      [
+       10.4,
+       26.05
+      ],
+      [
+       9.32,
+       25.52
+      ],
+      [
+       "J304",
+       "11"
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD6",
+     [
+      [
+       "J303",
+       "4"
+      ],
+      [
+       29.5,
+       27.1
+      ],
+      [
+       6.78,
+       27.1
+      ],
+      [
+       "J304",
+       "9"
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD8",
+     [
+      [
+       -5.35,
+       24.25
+      ],
+      [
+       1.25,
+       24.25
+      ],
+      [
+       "J304",
+       "5"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD1",
+     [
+      [
+       14.635,
+       7.049999999999999
+      ],
+      [
+       14.635,
+       6.3
+      ],
+      [
+       8.8,
+       6.3
+      ],
+      [
+       8.8,
+       21.0
+      ],
+      [
+       9.32,
+       21.4
+      ],
+      [
+       "J304",
+       "12"
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       13.365,
+       7.049999999999999
+      ],
+      [
+       9.4,
+       7.049999999999999
+      ],
+      [
+       9.4,
+       20.0
+      ],
+      [
+       11.6,
+       20.0
+      ],
+      [
+       11.6,
+       24.25
+      ]
+     ],
+     0.2,
+     "B.Cu",
+     false,
+     false
+    ],
+    [
+     "/PMOD7",
+     [
+      [
+       11.6,
+       24.25
+      ],
+      [
+       4.85,
+       24.25
+      ],
+      [
+       "J304",
+       "7"
+      ]
+     ],
+     0.2,
+     "F.Cu",
+     false,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     5.7,
+     19.05,
+     false
+    ],
+    [
+     "/PMOD7",
+     13.365,
+     7.049999999999999,
+     false
+    ],
+    [
+     "/PMOD1",
+     14.635,
+     7.049999999999999,
+     false
+    ],
+    [
+     "/VMOT",
+     10.8,
+     14.2,
+     false
+    ],
+    [
+     "/VMOT",
+     42.25,
+     14.75,
+     false
+    ],
+    [
+     "+5V",
+     39.8,
+     1.75,
+     false
+    ],
+    [
+     "-5V",
+     32.0,
+     8.9,
+     false
+    ],
+    [
+     "-5V",
+     32.0,
+     -1.1,
+     false
+    ],
+    [
+     "/m3_M1",
+     36.0,
+     21.7,
+     false
+    ],
+    [
+     "+5V",
+     47.1,
+     22.9,
+     false
+    ],
+    [
+     "/m3_E3V3",
+     40.85,
+     23.0,
+     false
+    ],
+    [
+     "/PMOD8",
+     -5.35,
+     24.25,
+     false
+    ],
+    [
+     "/PMOD7",
+     11.6,
+     24.25,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "/m3_G",
+     [
+      [
+       "SW301",
+       "2"
+      ],
+      [
+       "Q301",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m3_VS",
+     [
+      [
+       8.54,
+       18.1
+      ],
+      [
+       "R302",
+       "1"
+      ]
+     ],
+     0.3
+    ],
+    [
+     "/m3_IP",
+     [
+      [
+       "R303",
+       "1"
+      ],
+      [
+       "U302",
+       "3"
+      ]
+     ],
+     0.2
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "SW301",
+      "1"
+     ],
+     [
+      4.7,
+      14.85
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U301",
+      "9"
+     ],
+     [
+      13.2,
+      11.0
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U301",
+      "9"
+     ],
+     [
+      14.8,
+      11.0
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U301",
+      "9"
+     ],
+     [
+      13.2,
+      12.2
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "U301",
+      "9"
+     ],
+     [
+      14.8,
+      12.2
+     ],
+     [
+      0,
+      0
+     ],
+     0.3,
+     false
+    ],
+    [
+     [
+      "R301",
+      "2"
+     ],
+     [
+      12.095,
+      5.549999999999999
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R303",
+      "2"
+     ],
+     [
+      15.905,
+      5.549999999999999
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C301",
+      "2"
+     ],
+     [
+      10.8,
+      11.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C302",
+      "2"
+     ],
+     [
+      40.6,
+      10.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "J303",
+      "2"
+     ],
+     [
+      25.5,
+      22.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R307",
+      "1"
+     ],
+     [
+      35.9,
+      20.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C303",
+      "1"
+     ],
+     [
+      36.0,
+      1.75
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C304",
+      "2"
+     ],
+     [
+      34.6,
+      8.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U303",
+      "2"
+     ],
+     [
+      45.3,
+      24.9
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C305",
+      "1"
+     ],
+     [
+      48.3,
+      25.675
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C306",
+      "1"
+     ],
+     [
+      38.5,
+      25.775
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [],
+   "infos": [],
+   "titles": [
+    "DC motor"
+   ],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  },
+  {
+   "id": "m1",
+   "idx": 1,
+   "name": "power",
+   "subtitle": "USB-C 5 V in: +5, -5, +3.3 out",
+   "sections": [
+    "Motors"
+   ],
+   "cells": [
+    [
+     3,
+     1
+    ]
+   ],
+   "supply": null,
+   "x0": 72.25,
+   "y0": 29.25,
+   "w": 20.0,
+   "h": 20.0,
+   "result": "+5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up",
+   "notes": [
+    "USB-C power only: 5.1 k on each CC asks any source for 5 V.  A 2 A PTC, a 5 V TVS (clamps at 9.2 V) and 20 uF.",
+    "The LM2664 charge pump makes -5 V for the op-amp tiles (40 mA: four tiles at 10 mA); it is not switched per tile, an op",
+    "amp with its +5 V removed draws nothing.  The TPS7A2033 makes 3.3 V for the comparator and the lines that meet the FPGA.",
+    "The socket along the top carries +5, ground, -5, ground, +3.3: the bench's rails for a breadboard experiment."
+   ],
+   "top_pour": false,
+   "fine": false,
+   "jacks": [],
+   "parts": [
+    {
+     "ref": "J101",
+     "key": "USBC",
+     "value": "USB-C",
+     "x": 25.299999999999997,
+     "y": 10.0,
+     "rot": 90,
+     "pins": {
+      "A4": "/m1_VBUS",
+      "A9": "/m1_VBUS",
+      "B4": "/m1_VBUS",
+      "B9": "/m1_VBUS",
+      "A5": "/m1_CC1",
+      "B5": "/m1_CC2",
+      "A1": "GND",
+      "A12": "GND",
+      "B1": "GND",
+      "B12": "GND",
+      "SH": "GND"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "R101",
+     "key": "R0805 5.1k",
+     "value": "5.1k",
+     "x": 17.6,
+     "y": 11.5,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m1_CC1"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R102",
+     "key": "R0805 5.1k",
+     "value": "5.1k",
+     "x": 17.6,
+     "y": 9.3,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "/m1_CC2"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "F101",
+     "key": "PTC2A",
+     "value": "2A",
+     "x": 15.5,
+     "y": 6.2,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "/m1_VBUS"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "D101",
+     "key": "TVS5V",
+     "value": "SMAJ5.0A",
+     "x": 10.6,
+     "y": 7.6,
+     "rot": 270,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C101",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 7.0,
+     "y": 6.2,
+     "rot": 180,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C102",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 7.0,
+     "y": 8.8,
+     "rot": 180,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U101",
+     "key": "LM2664",
+     "value": "LM2664",
+     "x": 6.0,
+     "y": 12.6,
+     "rot": 0,
+     "pins": {
+      "1": "GND",
+      "2": "-5V",
+      "3": "/m1_CAPN",
+      "4": "+5V",
+      "5": "+5V",
+      "6": "/m1_CAPP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C103",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 6.0,
+     "y": 15.4,
+     "rot": 0,
+     "pins": {
+      "1": "/m1_CAPN",
+      "2": "/m1_CAPP"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C104",
+     "key": "C0805 10uF",
+     "value": "10u",
+     "x": 2.2,
+     "y": 14.6,
+     "rot": 270,
+     "pins": {
+      "1": "-5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "U102",
+     "key": "TPS7A2033",
+     "value": "3.3V",
+     "x": 13.8,
+     "y": 13.0,
+     "rot": 0,
+     "pins": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "+5V",
+      "5": "+3V3"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C105",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 10.4,
+     "y": 15.4,
+     "rot": 270,
+     "pins": {
+      "1": "+5V",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "C106",
+     "key": "C0805 1uF",
+     "value": "1u",
+     "x": 17.0,
+     "y": 14.8,
+     "rot": 270,
+     "pins": {
+      "1": "+3V3",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "J102",
+     "key": "HDR5",
+     "value": "rails",
+     "x": 2.4,
+     "y": 2.3,
+     "rot": 90,
+     "pins": {
+      "1": "+5V",
+      "2": "GND",
+      "3": "-5V",
+      "4": "GND",
+      "5": "+3V3"
+     },
+     "label": null,
+     "hide_value": true
+    },
+    {
+     "ref": "LED101",
+     "key": "LED_R",
+     "value": "-5V",
+     "x": 20.6,
+     "y": 2.6,
+     "rot": 270,
+     "pins": {
+      "1": "-5V",
+      "2": "/m1_LEDR"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R103",
+     "key": "R0805 1k",
+     "value": "1k",
+     "x": 22.6,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m1_LEDR",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "LED102",
+     "key": "LED_G",
+     "value": "+5V",
+     "x": 24.6,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m1_LEDG",
+      "2": "+5V"
+     },
+     "label": null,
+     "hide_value": false
+    },
+    {
+     "ref": "R104",
+     "key": "R0805 1k",
+     "value": "1k",
+     "x": 26.6,
+     "y": 2.6,
+     "rot": 90,
+     "pins": {
+      "1": "/m1_LEDG",
+      "2": "GND"
+     },
+     "label": null,
+     "hide_value": false
+    }
+   ],
+   "wires": [
+    [
+     "GND",
+     [
+      [
+       "J101",
+       "A1"
+      ],
+      [
+       22.169999999999998,
+       14.32
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "GND",
+     [
+      [
+       "J101",
+       "B1"
+      ],
+      [
+       22.169999999999998,
+       5.68
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_CC1",
+     [
+      [
+       "J101",
+       "A5"
+      ],
+      [
+       19.3,
+       11.25
+      ],
+      [
+       19.3,
+       11.5
+      ],
+      [
+       "R101",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_CC2",
+     [
+      [
+       "J101",
+       "B5"
+      ],
+      [
+       19.3,
+       8.25
+      ],
+      [
+       19.3,
+       9.3
+      ],
+      [
+       "R102",
+       "2"
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_VBUS",
+     [
+      [
+       "J101",
+       "B9"
+      ],
+      [
+       19.9,
+       12.45
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_VBUS",
+     [
+      [
+       "J101",
+       "A9"
+      ],
+      [
+       19.9,
+       7.55
+      ]
+     ],
+     0.25,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_VBUS",
+     [
+      [
+       19.9,
+       12.45
+      ],
+      [
+       19.9,
+       7.55
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     true,
+     false
+    ],
+    [
+     "/m1_VBUS",
+     [
+      [
+       19.9,
+       7.55
+      ],
+      [
+       19.9,
+       6.2
+      ],
+      [
+       "F101",
+       "2"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "F101",
+       "1"
+      ],
+      [
+       "C101",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C101",
+       "1"
+      ],
+      [
+       "C102",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U101",
+       "4"
+      ],
+      [
+       "U101",
+       "5"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "C104",
+       "1"
+      ],
+      [
+       1.1,
+       13.65
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       1.1,
+       13.65
+      ],
+      [
+       1.1,
+       -0.75
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "C105",
+       "1"
+      ],
+      [
+       10.4,
+       12.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "C106",
+       "1"
+      ],
+      [
+       19.0,
+       13.85
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+3V3",
+     [
+      [
+       19.0,
+       13.85
+      ],
+      [
+       19.0,
+       20.5
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     true,
+     false
+    ],
+    [
+     "+3V3",
+     [
+      [
+       19.0,
+       13.85
+      ],
+      [
+       19.0,
+       4.6
+      ],
+      [
+       12.56,
+       4.6
+      ],
+      [
+       "J102",
+       "5"
+      ]
+     ],
+     0.35,
+     "B.Cu",
+     true,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "J102",
+       "3"
+      ],
+      [
+       7.48,
+       -0.75
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "-5V",
+     [
+      [
+       "LED101",
+       "1"
+      ],
+      [
+       20.6,
+       -0.75
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m1_LEDR",
+     [
+      [
+       "LED101",
+       "2"
+      ],
+      [
+       "R103",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ],
+    [
+     "+5V",
+     [
+      [
+       "LED102",
+       "2"
+      ],
+      [
+       24.6,
+       0.6
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     false,
+     false
+    ],
+    [
+     "/m1_LEDG",
+     [
+      [
+       "LED102",
+       "1"
+      ],
+      [
+       "R104",
+       "1"
+      ]
+     ],
+     0.35,
+     "F.Cu",
+     true,
+     false
+    ]
+   ],
+   "vias": [
+    [
+     "+5V",
+     9.1,
+     6.2,
+     false
+    ],
+    [
+     "-5V",
+     1.1,
+     -0.75,
+     false
+    ],
+    [
+     "+5V",
+     10.4,
+     12.6,
+     false
+    ],
+    [
+     "+3V3",
+     19.0,
+     20.5,
+     false
+    ],
+    [
+     "-5V",
+     7.48,
+     -0.75,
+     false
+    ],
+    [
+     "-5V",
+     20.6,
+     -0.75,
+     false
+    ],
+    [
+     "+5V",
+     24.6,
+     0.6,
+     false
+    ]
+   ],
+   "routes": [
+    [
+     "+5V",
+     [
+      [
+       "U101",
+       "5"
+      ],
+      [
+       "C102",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m1_CAPN",
+     [
+      [
+       "U101",
+       "3"
+      ],
+      [
+       "C103",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "/m1_CAPP",
+     [
+      [
+       "U101",
+       "6"
+      ],
+      [
+       "C103",
+       "2"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "-5V",
+     [
+      [
+       "U101",
+       "2"
+      ],
+      [
+       "C104",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U102",
+       "1"
+      ],
+      [
+       "U102",
+       "3"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "+5V",
+     [
+      [
+       "U102",
+       "1"
+      ],
+      [
+       "C105",
+       "1"
+      ]
+     ],
+     0.35
+    ],
+    [
+     "+3V3",
+     [
+      [
+       "U102",
+       "5"
+      ],
+      [
+       "C106",
+       "1"
+      ]
+     ],
+     0.35
+    ]
+   ],
+   "hops": [],
+   "gnd_stubs": [
+    [
+     [
+      "R101",
+      "1"
+     ],
+     [
+      16.688,
+      10.4
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R102",
+      "1"
+     ],
+     [
+      15.9,
+      9.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "D101",
+      "2"
+     ],
+     [
+      10.6,
+      11.3
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C101",
+      "2"
+     ],
+     [
+      6.05,
+      4.7
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C102",
+      "2"
+     ],
+     [
+      5.0,
+      8.8
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C104",
+      "2"
+     ],
+     [
+      2.2,
+      17.0
+     ],
+     null,
+     null,
+     false
+    ],
+    [
+     [
+      "U101",
+      "1"
+     ],
+     [
+      4.86,
+      10.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "U102",
+      "2"
+     ],
+     [
+      11.4,
+      13.0
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C105",
+      "2"
+     ],
+     [
+      10.4,
+      17.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "C106",
+      "2"
+     ],
+     [
+      17.0,
+      17.2
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R103",
+      "2"
+     ],
+     [
+      22.6,
+      0.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ],
+    [
+     [
+      "R104",
+      "2"
+     ],
+     [
+      26.6,
+      0.6
+     ],
+     [
+      0,
+      0
+     ],
+     null,
+     false
+    ]
+   ],
+   "texts": [
+    [
+     2.4,
+     0.15,
+     "+5",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     4.94,
+     0.15,
+     "G",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     7.48,
+     0.15,
+     "-5",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     10.02,
+     0.15,
+     "G",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     12.56,
+     0.15,
+     "3V3",
+     0.8,
+     0.15,
+     "center",
+     0
+    ],
+    [
+     17.4,
+     1.9,
+     "m1",
+     1.5,
+     0.3,
+     "center",
+     0
+    ],
+    [
+     18.7,
+     18.6,
+     "Power",
+     0.9,
+     0.17,
+     "right",
+     0
+    ]
+   ],
+   "infos": [],
+   "titles": [],
+   "draws": [],
+   "pour_below": null,
+   "slots": [],
+   "voids": [],
+   "back": [],
+   "back_plot": null
+  }
+ ],
+ "gnd_loops": [
+  [
+   80.0,
+   95.8
+  ],
+  [
+   88.0,
+   95.8
+  ]
+ ],
+ "back_text": [
+  "AMOD-M: motors.  Motor supply",
+  "5-16 V on m2; USB-C 5 V on m1."
+ ],
+ "slots": [],
+ "front_text": [],
+ "rail_pours": [
+  [
+   "+5V",
+   0.6,
+   0.6,
+   99.4,
+   99.4,
+   0
+  ],
+  [
+   "-5V",
+   [
+    [
+     1.0,
+     27.75
+    ],
+    [
+     93.6,
+     27.75
+    ],
+    [
+     93.6,
+     29.25
+    ],
+    [
+     6.5,
+     29.25
+    ],
+    [
+     6.5,
+     70.75
+    ],
+    [
+     93.0,
+     70.75
+    ],
+    [
+     93.0,
+     72.25
+    ],
+    [
+     6.5,
+     72.25
+    ],
+    [
+     6.5,
+     94.5
+    ],
+    [
+     1.0,
+     94.5
+    ]
+   ],
+   1
+  ],
+  [
+   "+3V3",
+   7.0,
+   49.25,
+   93.0,
+   50.75,
+   1
+  ]
+ ],
+ "back_wires": [
+  [
+   "/PMOD8",
+   [
+    [
+     43.385,
+     58.0
+    ],
+    [
+     43.385,
+     49.45
+    ],
+    [
+     2.4,
+     49.45
+    ],
+    [
+     2.4,
+     96.5
+    ]
+   ]
+  ],
+  [
+   "/PMOD4",
+   [
+    [
+     42.115,
+     58.0
+    ],
+    [
+     42.115,
+     50.0
+    ],
+    [
+     3.15,
+     50.0
+    ],
+    [
+     3.15,
+     93.85
+    ],
+    [
+     9.45,
+     93.85
+    ],
+    [
+     9.45,
+     95.23
+    ]
+   ]
+  ],
+  [
+   "/PMOD3",
+   [
+    [
+     21.384999999999998,
+     58.0
+    ],
+    [
+     21.384999999999998,
+     50.55
+    ],
+    [
+     3.85,
+     50.55
+    ],
+    [
+     3.85,
+     93.15
+    ],
+    [
+     11.99,
+     93.15
+    ],
+    [
+     11.99,
+     95.23
+    ]
+   ]
+  ],
+  [
+   "/PMOD2",
+   [
+    [
+     20.115000000000002,
+     58.0
+    ],
+    [
+     20.115000000000002,
+     51.1
+    ],
+    [
+     4.55,
+     51.1
+    ],
+    [
+     4.55,
+     92.45
+    ],
+    [
+     14.53,
+     92.45
+    ],
+    [
+     14.53,
+     95.23
+    ]
+   ]
+  ]
+ ],
+ "front_wires": [],
+ "back_text_x": 66.5,
+ "qr_at": [
+  78.0,
+  58.9
+ ],
+ "fiducials": [
+  [
+   3.5,
+   50.0
+  ],
+  [
+   96.5,
+   50.0
+  ],
+  [
+   60.0,
+   96.8
+  ]
+ ],
+ "holes": [],
+ "feet": [
+  [
+   5.0,
+   5.0
+  ],
+  [
+   95.0,
+   5.0
+  ],
+  [
+   95.0,
+   95.0
+  ],
+  [
+   5.0,
+   85.0
+  ]
+ ],
+ "stem": "amod_m"
+}

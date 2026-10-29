@@ -219,6 +219,39 @@ SYMBOLS = [
         [("11", "VM", "power_in"), ("12", "VCP", "passive"), ("13", "CPH", "passive"), ("14", "CPL", "passive"), ("8", "OUT1", "output"),
          ("10", "OUT2", "output"), ("9", "PGND", "power_in"), ("15", "GND", "power_in"), ("17", "PAD", "power_in")],
         "Package_SO:HTSSOP-16-1EP_4.4x5mm_P0.65mm_EP3.4x5mm_Mask2.66x2.46mm", "DRV8876 3.5 A H-bridge with current sense output", width=12.7),
+    # ---- the motor boards (Prompt 19), each pinout from its datasheet's table and checked against EasyEDA's symbol ----
+    # DRV8251ADDAR (TI, HSOP-8, Table 6-1): 1 IPROPI, 2 IN2, 3 IN1, 4 VREF, 5 VM, 6 OUT1, 7 GND, 8 OUT2, 9 the thermal pad
+    box("DRV8251A", "U", [("3", "IN1", "input"), ("2", "IN2", "input"), ("4", "VREF", "input"), ("1", "IPROPI", "output")],
+        [("5", "VM", "power_in"), ("6", "OUT1", "output"), ("8", "OUT2", "output"), ("7", "GND", "power_in"), ("9", "PAD", "power_in")],
+        "Package_SO:HSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.41x3.1mm", "DRV8251A 4.1 A H-bridge with current sense, HSOP-8", width=12.7),
+    # TCA0372DWR2G (onsemi, SOIC-16W, case 751G): 1 VCC, 2 OUT B, 7 -IN B, 8 +IN B, 9 +IN A, 10 -IN A, 16 OUT A, 4 5 12 13
+    # VEE/GND (joined inside), 3 6 11 14 15 NC
+    box("TCA0372", "U", [("9", "+INA", "input"), ("10", "-INA", "input"), ("8", "+INB", "input"), ("7", "-INB", "input"),
+                         ("4", "GND", "power_in"), ("5", "GND", "power_in"), ("12", "GND", "power_in"), ("13", "GND", "power_in")],
+        [("1", "VCC", "power_in"), ("16", "OUTA", "output"), ("2", "OUTB", "output"), ("3", "NC", "no_connect"), ("6", "NC", "no_connect"),
+         ("11", "NC", "no_connect"), ("14", "NC", "no_connect"), ("15", "NC", "no_connect")],
+        "Package_SO:SOIC-16W_7.5x10.3mm_P1.27mm", "TCA0372 dual 1 A power op amp, SOIC-16W", width=12.7),
+    # TPS28225DR (TI, SOIC-8, "Terminal Functions"): 1 UGATE, 2 BOOT, 3 PWM, 4 GND, 5 LGATE, 6 VDD, 7 EN/PG, 8 PHASE
+    box("TPS28225", "U", [("3", "PWM", "input"), ("7", "EN/PG", "bidirectional"), ("6", "VDD", "power_in"), ("4", "GND", "power_in")],
+        [("2", "BOOT", "passive"), ("1", "UGATE", "output"), ("8", "PHASE", "passive"), ("5", "LGATE", "output")],
+        "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "TPS28225 synchronous buck gate driver, SOIC-8", width=12.7),
+    # NCE6020AK and any N-MOSFET in TO-252 (KiCad's TO-252-2: pads 1 and 3 the leads, 2 the tab): 1 G, 2 D, 3 S
+    box("NMOS_DPAK", "Q", [("1", "G", "input")], [("2", "D", "passive"), ("3", "S", "passive")],
+        "Package_TO_SOT_SMD:TO-252-2", "N-channel MOSFET, TO-252 (G 1, D 2 and the tab, S 3)", width=7.62),
+    # DC-005-5A-2.0 barrel jack (XKB's drawing): 1 the centre pin, 2 the sleeve, 3 the switch (made to the sleeve with no plug in)
+    box("BARREL3", "J", [("1", "PIN", "passive")], [("2", "SLEEVE", "passive"), ("3", "SW", "passive")],
+        "amod:BarrelJack_DC-005-5A_Horizontal", "5.5 / 2.1 mm barrel jack with a switch pin", width=10.16),
+    # INA828IDR (TI, SOIC-8): 1 RG, 2 -IN, 3 +IN, 4 -VS, 5 REF, 6 OUT, 7 +VS, 8 RG
+    box("INA828", "U", [("3", "+IN", "input"), ("2", "-IN", "input"), ("1", "RG", "passive"), ("8", "RG", "passive"), ("5", "REF", "input")],
+        [("7", "+VS", "power_in"), ("6", "OUT", "output"), ("4", "-VS", "power_in")],
+        "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", "INA828 instrumentation amplifier, SOIC-8", width=10.16),
+    # LSM6DSOTR (ST, LGA-14, Table 1): 1 SDO/SA0, 2 SDx, 3 SCx, 4 INT1, 5 VDDIO, 6 GND, 7 GND, 8 VDD, 9 INT2, 10 OCS_Aux,
+    # 11 SDO_Aux, 12 CS, 13 SCL/SPC, 14 SDA/SDI
+    box("LSM6DSO", "U", [("12", "CS", "input"), ("13", "SPC", "input"), ("14", "SDI", "input"), ("1", "SDO", "output"), ("4", "INT1", "output"),
+                         ("9", "INT2", "output")],
+        [("8", "VDD", "power_in"), ("5", "VDDIO", "power_in"), ("2", "SDX", "passive"), ("3", "SCX", "passive"), ("10", "OCS_AUX", "passive"),
+         ("11", "SDO_AUX", "passive"), ("6", "GND", "power_in"), ("7", "GND", "power_in")],
+        "Package_LGA:LGA-14_3x2.5mm_P0.5mm_LayoutBorder3x4y", "LSM6DSO six-axis IMU, LGA-14", width=12.7),
     # ADEX-10L+ (Mini-Circuits, case CD542; datasheet "Pin Connections"): 6 LO, 3 RF, 2 IF, 1 4 5 ground
     box("ADEX10L", "U", [("6", "LO", "passive"), ("3", "RF", "passive")],
         [("2", "IF", "passive"), ("1", "GND", "power_in"), ("4", "GND", "power_in", "stack"), ("5", "GND", "power_in", "stack")],

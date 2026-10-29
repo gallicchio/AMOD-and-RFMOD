@@ -158,6 +158,15 @@ def lfcsp8_2x3():
     return "LFCSP-8_2x3.wrl", HEAD + box(0, 0, 0.4, 3.0, 2.0, 0.8, BLACK)
 
 
+def barrel_dc005():
+    """The DC-005-5A's body: 14 x 9 x 11 mm, the plug's face at x -10.6."""
+    return "BarrelJack_DC005.wrl", HEAD + box(-3.6, -2.35, 5.5, 14.0, 9.0, 11.0, BLACK)
+
+
+def l_6x6():
+    return "L_6x6.wrl", HEAD + box(0, 0, 2.25, 6.0, 6.0, 4.5, BLACK)
+
+
 def l_4x4():
     """A 4 x 4 x 3 mm shielded inductor (the boost's XRNR4030)."""
     return "L_4x4.wrl", HEAD + box(0, 0, 1.5, 4.0, 4.0, 3.0, BLACK)
@@ -212,7 +221,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     makers = [sma_vertical, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: dip(8), lambda: kf301(2), lambda: kf301(3), testloop, pmod_plug, led_0805,
               kcr455, crystal_hc49s, pd70, led_side, pj320a, filt1411, filt2012, slide, wson8_2x2, dfn8_2x2, fuse_1812, l_4x4, qfn32_5x5, lfcsp8_2x3,
-              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608, cd636, at224, filt1206]
+              udfn6_1510, filt1109, dfn6_1515, qfn24_4x4, cd542, coupler1608, cd636, at224, filt1206, barrel_dc005, l_6x6]
     for mk in makers:
         name, body = mk()
         with open(os.path.join(OUT, name), "w") as fh:

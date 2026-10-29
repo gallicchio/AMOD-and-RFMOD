@@ -401,6 +401,54 @@ def slot():
     return name, f
 
 
+def tht_oval(num, x, y, w, h, dw, dh, key):
+    """A plated slot: an oval pad w x h with an oval drill dw x dh (both along the same axes)."""
+    p = S("pad", q(num), "thru_hole", "oval")
+    p.add(at(x, y), S("size", n(w), n(h)), S("drill", "oval", n(dw), n(dh)), S("layers", q("*.Cu"), q("*.Mask")),
+          S("remove_unused_layers", "no"), S("uuid", q(uid(key))))
+    return p
+
+
+def barrel_dc005():
+    """DC-005-5A-2.0 barrel jack (LCSC C381116) as JLCPCB draws it (scripts/easyeda.py, 2026-10-28) and XKB's drawing
+    dimensions it: three 1.0 x 3.5 mm plated slots, 1 (the centre pin) at (3.0, -2.35) and 2 (the sleeve) at (-3.0, -2.35)
+    standing, 3 (the switch) at (0, 2.35) lying; the body 14 x 9 mm from x -10.6 (the plug's face) to 3.4."""
+    name = "BarrelJack_DC-005-5A_Horizontal"
+    f = fp_header(name, "5.5/2.1 mm barrel jack, 5 A, three slotted pins: DC-005-5A-2.0 (LCSC C381116)", "barrel jack DC", "through_hole", 4.2)
+    f.add(tht_oval("1", 3.0, -2.35, 1.8, 4.2, 1.0, 3.5, f"{name}/p1"), tht_oval("2", -3.0, -2.35, 1.8, 4.0, 1.0, 3.5, f"{name}/p2"),
+          tht_oval("3", 0.0, 2.35, 4.0, 1.8, 3.5, 1.0, f"{name}/p3"))
+    rect_lines(f, -10.6, -6.85, 3.4, 2.15, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -10.85, -7.1, 4.15, 3.5, "F.CrtYd", CRT_W, f"{name}/crt")
+    f.add(line(-10.7, -6.95, -4.2, -6.95, "F.SilkS", SILK_W, f"{name}/silk/t"), line(-10.7, -6.95, -10.7, 2.25, "F.SilkS", SILK_W, f"{name}/silk/l"),
+          line(-10.7, 2.25, -2.3, 2.25, "F.SilkS", SILK_W, f"{name}/silk/b"))
+    model(f, "BarrelJack_DC005.wrl")
+    return name, f
+
+
+def l_6x6():
+    """SWPA6045S470MT 6 x 6 x 4.5 mm shielded power inductor (LCSC C36414): two 2.47 x 5.02 pads at x = +-2.60, as JLCPCB
+    draws it."""
+    name = "L_6x6_SWPA6045"
+    f = fp_header(name, "6 x 6 mm shielded power inductor, two 2.47 x 5.02 pads at +-2.60: SWPA6045 (LCSC C36414)", "inductor", "smd", 4.0)
+    f.add(smd_pad("1", -2.6, 0, 2.47, 5.02, f"{name}/p1"), smd_pad("2", 2.6, 0, 2.47, 5.02, f"{name}/p2"))
+    rect_lines(f, -3.0, -3.0, 3.0, 3.0, "F.Fab", FAB_W, f"{name}/fab")
+    rect_lines(f, -4.1, -3.3, 4.1, 3.3, "F.CrtYd", CRT_W, f"{name}/crt")
+    for sy in (-3.1, 3.1):
+        f.add(line(-1.2, sy, 1.2, sy, "F.SilkS", SILK_W, f"{name}/silk/{sy}"))
+    model(f, "L_6x6.wrl")
+    return name, f
+
+
+def slot_motor():
+    """A radial slot for a gimbal motor's screw, 3.4 mm wide and 7.4 long (its ends 6.0 and 10.0 mm from the motor's centre
+    when the slot's centre sits at 8.0): M2-M3 screws on any of the patterns the GBM2804H-100T is reported with."""
+    name = "Slot_Motor_3.4x7.4mm"
+    f = fp_header(name, "NPTH slot 3.4 x 7.4 mm for a gimbal motor's screw", "slot motor", "exclude_from_pos_files exclude_from_bom", 4.6)
+    f.add(npth(0, 0, 3.4, 7.4, f"{name}/slot"))
+    rect_lines(f, -1.95, -3.95, 1.95, 3.95, "F.CrtYd", CRT_W, f"{name}/crt")
+    return name, f
+
+
 def slide_switch():
     """The MSK12C02 footprint the motor-pid board vendored: KiCad's SW_SPDT_Shouhan_MSK12C02 with the locating holes
     lengthened so JLCPCB's drawing of the posts (0.3 mm further out) fits too.  Copied, with its model pointed at our library."""
@@ -513,7 +561,7 @@ def lfcn():
 
 MAKERS = [adp2_1, at224, lfcn, sma_vertical, testloop, lambda: dip(2), lambda: dip(4), lambda: dip(6), lambda: dip(8), lambda: kf301(2), lambda: kf301(3),
           pmod_plug, kcr455, hc49s_smd, pd70, led_side, led_0805, pj320a, saw_1411, lfb212, l_4x4, adl5350, slot,
-          max2659, saw_1109, sky13370, adex10l, hhm22137]
+          max2659, saw_1109, sky13370, adex10l, hhm22137, barrel_dc005, l_6x6, slot_motor]
 
 
 def main():
