@@ -695,3 +695,26 @@ Mid-turn:
 - *Left for Jason*: the gimbal motor's base thread is unpublished (iFlight says M2), so the kit's screws are unpriced;
   the tutorial checker's three remaining errors are on pages this prompt did not touch (two anchors in 0.01, one in
   0.00).
+
+## Prompt 20 (2026-10-29)
+
+> Great. Fix those links in 3.00 and 6.00. I rewrote some of the earlier material, stripping it down to its essentials
+> so that the students could see something running on their boards as soon as possible. If the section names simply
+> changed, that's an easy fix. But check that the content that those links were meant to point to is still relevant.
+
+### Response 20 (2026-10-29)
+
+Tutorial repo only, one commit (60b6d5e); the checker now reports 0 errors.
+- *3.00 and 6.00*: the heading was renamed ("Where does this run?" became "Where does a command run?") and the table
+  of prompts is still under it, matching what the pages use (Chapter 3: `#`, `>>>`; Chapter 6: `$`).  One gap: 6.12
+  and 7.03 type at `B$`, which the table lacked, so its two-board row became two rows (`A#`, `B#`: root's shell on each
+  board; `A$`, `B$`: the laptop, a command for board A or B).
+- *Appendix B*: "Which SMA is which?" moved from 0.00 to 1.02; the link follows it.
+- *Not flagged by the checker*: 0.00's converter table (ranges, the conversions code = 126.7 + 25.35 x V and V =
+  0.0307 x code - 3.95, 7.1 effective bits) moved to 1.02's "What the converters can do", but 1.04, 1.06, 1.07 and
+  2.05 still linked 0.00's top for it, and six printed code files (with their src/ copies) and two dev figure scripts
+  said "(0.00)".  All now cite 1.02; 2.05's "half-code residual of 0.00's sine fit" became "behind 1.02's 7.1
+  effective bits", which is what it meant.  The other links to 0.00 and 0.01 (the hardware list, cloning, the serial
+  port's name) still find their content.
+- *Left*: the checker's one warning, that 0.00 opens with a sentence rather than a picture, is from the rewrite and
+  left for Jason.  Nothing pushed.
