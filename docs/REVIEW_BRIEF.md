@@ -58,7 +58,7 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 - `hardware/*.kicad_sch`, `hardware/*.kicad_pcb`: the KiCad 10 files; `out/<stem>/`: gerbers, BOM, placement
   files, assembly notes, renders; `docs/images/`: the renders; `docs/HANDBOOK_*.md`: what each tile does and what
   to expect; `docs/DOA_*.md` (one per board): the assumptions to confirm.
-- `~/OpticsPCBs/CLAUDE_PCB.md`: the rule book the boards were designed to (sections 17-20 are this project's lessons).
+- `~/OpticsPCBs/CLAUDE_PCB.md`: the rule book the boards were designed to (sections 17-26 are this project's lessons).
 - `CLAUDE_CODE_CHAT.md`: the night's record, with the reasons for every deviation from the plan.
 
 ## The checks already run (every build)

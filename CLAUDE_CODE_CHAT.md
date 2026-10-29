@@ -638,3 +638,60 @@ Mid-turn:
 - Full rebuild: ERC 0, DRC 0, every check; check_rotations 186 codes, 0 differ.  AMOD-P2: eleven tiles, 28 jacks,
   $43.82.  README, PLAN.md, DOA, KIT, review brief, handbooks, Appendix D (fresh renders and AMOD-P2's back) updated.
   Nothing pushed.
+
+## Prompt 19 (2026-10-28)
+
+> The only other things that I might be interested in are motor drivers and mechanical servo-type feedback. DC motor,
+> stepper motor, 3-pole BLDC motor (like for a drone or even better a gimball), along with encoders or magnetic back
+> reaction or some other fast mechanical feedback. Would this fit on your 7th board, or would these things be an 8th
+> board. Either way, design those boards. We need a better naming system for the boards and tiles. I'm happy with the
+> 11th tile on the passive analog board being called A11, but should we call the 11th tile on the active analog board
+> B11 or C11 or something? For the RF boards, I'm happy with R11, but then S11 and T11?  Or go back to C11 for comms?
+> For the motor board, M11 for its 11th tile? If we can have a nice, well justified single-letter designator for each
+> board, it would make everything much more clear. Do all of this. Take your time and do it right. Cross check all
+> existing documentation for consistency.
+
+Mid-turn:
+
+> If it makes more sense to do 2 boards rather than one board with two Pmods, stick with an extra board. If you need
+> more than 8 FPGA pins, I guess you're stuck with the two Pmods.
+
+> Maybe you want to make the tiles lower case, because D11, Q11, C11, etc look like a  reference designators for
+> diodes, transistors, and capacitors. d11, q11, and c11 don't look like obvious electronics or PCB things.
+
+### Response 19 (2026-10-28 into 10-29)
+
+- *Names* (PLAN.md section 13): one letter per board, the initial of what it is about, and tiles as that letter in
+  lower case with a number: p (AMOD-P), n (AMOD-N, was AMOD-P2: the pieces of a network analyzer), a (AMOD-A), c
+  (AMOD-C, conversion), m (AMOD-M, motors), b (AMOD-B, brushless), r (RF-MOD), h (PhMOD), q (IQ-MOD, was RF-MOD-2:
+  quadrature).  No letter moved to another board and no retired name is reused, so a stale reference points at
+  nothing rather than at the wrong tile; not s (s11 is a reflection coefficient), not i, l or o.  Every board, the
+  handbooks, the README and Appendix D renamed with a tokenizer; the generator refuses a tile whose name is not its
+  board's letter and a number.
+- *The seventh board, AMOD-C* (conversion, the ADI labs' missing area from Prompt 18): a buck and an LDO with an
+  electronic load, a charge pump the FPGA clocks, a switched-capacitor filter and integrator, a second-order
+  delta-sigma modulator with both integrators on jacks, a track-and-hold, a SAR comparator, a differential pair, a
+  cascode, a 555 V-to-F and a precision rectifier.  Twelve tiles, 26 jacks, $43.57.  check_pinouts.py (new: every
+  symbol's pins against EasyEDA's) found two real pinout errors, fixed: the DMMT3904W pair and RF-MOD's 915 MHz SAW.
+- *Motors take two boards, one Pmod each* (sixteen FPGA lines in all).  **AMOD-M** (eleven tiles, 18 jacks, $35.98): a
+  DC motor with its encoder and a stepper on DRV8251A (it runs from USB's 5 V through the Schottky, unlike the
+  DRV8876), a servo, a solenoid with three flybacks on a jumper, a TCA0372 bridge amplifier for a voice coil or a
+  maglev, a TPS28225 buck stage the FPGA closes the loop on, and a hall, an optical and a load-cell sensor.
+  **AMOD-B** (twelve tiles, 13 jacks, $42.11): a GBM2804 gimbal motor on four slots over an MT6701 encoder, two halls
+  and an index sensor (a 2 x 2 tile); a DRV8311H in 3x PWM from three Pmod lines with COAST from a DAC; the back-EMF,
+  the phase current in line (INA240) and the bus current; the encoder's angle as a voltage, a vibration pickup; an
+  LSM6DSO sharing MISO with the encoder through a buffer (the MT6701's DO never lets go).  The driver's current
+  amplifiers reach the jacks through a passive 3.3 k / 10 k shift to -5 V (0.75 V/A) where an op amp did not fit.  The
+  SPI lines nest up a gutter because their Pmod pins were chosen for it; the encoder's lines run on 45-degree corridors
+  between the motor's slots; the +3.3 V pour got a band over the slots, which had cut it.
+- *Checks*: all nine boards rebuilt: ERC 0, DRC 0, every fab check; check_rotations 241 codes, 0 differ;
+  check_pinouts: naming differences only on the new boards, each read against its datasheet (DOA lists).
+- *Documents cross-checked*: PLAN.md sections 13-15 (section 14 rewritten as built, 15 for AMOD-C), KIT.md (AMOD-C's
+  note, a motors section from a parts search: about $100 a bench; no fixed 12 V adapter was in stock, so the 3-12 V
+  supply PhMOD already uses; the a12 speaker now out of stock), REVIEW_BRIEF.md (nine boards, three review items),
+  README (nine boards, AMOD-B's row and table), DOA_amod_c/m/b, the handbooks, AMOD-M's module note (it still said
+  DRV8876), Appendix D (the three boards with renders, and three image links Prompt 19's rename had broken), and
+  CLAUDE_PCB.md section 26.  Nothing pushed.
+- *Left for Jason*: the gimbal motor's base thread is unpublished (iFlight says M2), so the kit's screws are unpriced;
+  the tutorial checker's three remaining errors are on pages this prompt did not touch (two anchors in 0.01, one in
+  0.00).
