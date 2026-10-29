@@ -1456,7 +1456,13 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "CMD high: coil on",
+    "jumper 1-2: diode",
+    "2-3: 24 V TVS",
+    "none: avalanche",
+    "VD = drain / 52"
+   ],
    "back_plot": null
   },
   {
@@ -2274,7 +2280,11 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "CMD 1-2 ms / 20 ms",
+    "header: S + -",
+    "I 1 V/A"
+   ],
    "back_plot": null
   },
   {
@@ -2867,7 +2877,12 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "5-16 V, centre +",
+    "or USB 5 V alone",
+    "VMOT = in - 0.4 V",
+    "not switched"
+   ],
    "back_plot": null
   },
   {
@@ -3587,7 +3602,11 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "9.75 mV/mT",
+    "+-85 mT",
+    "sensor top left"
+   ],
    "back_plot": null
   },
   {
@@ -4236,7 +4255,11 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "target 1 mm up",
+    "OUT 0.1-0.9 V",
+    "sensor top left"
+   ],
    "back_plot": null
   },
   {
@@ -4726,7 +4749,12 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "1 red E+  2 black E-",
+    "3 white S-",
+    "4 green S+",
+    "gain 201"
+   ],
    "back_plot": null
   },
   {
@@ -5961,7 +5989,12 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "A: IN1 IO2, IN2 IO3",
+    "B: IN1 IO4, IN2 IO8",
+    "1 A per coil",
+    "XH: A+ A- B+ B-"
+   ],
    "back_plot": null
   },
   {
@@ -7826,7 +7859,13 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "load = 4 x IN",
+    "IN +-1 V",
+    "1 W in the chip:",
+    "8 ohm at 5-6 V",
+    "I 1 V/A both ways"
+   ],
    "back_plot": null
   },
   {
@@ -9505,7 +9544,12 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "PWM 100-500 kHz",
+    "VO = duty x VMOT",
+    "load up to 1 A",
+    "I 1 V/A, VO /16"
+   ],
    "back_plot": null
   },
   {
@@ -11270,7 +11314,13 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "IN1 IO7, IN2 IO1",
+    "2 A limit",
+    "I 0.98 V/A",
+    "V = motor / 13",
+    "PH: M1 G A B 3V3 M2"
+   ],
    "back_plot": null
   },
   {
@@ -12385,7 +12435,12 @@
    "pour_below": null,
    "slots": [],
    "voids": [],
-   "back": [],
+   "back": [
+    "USB-C 5 V only",
+    "+5 V 1.5 A",
+    "-5 V 40 mA",
+    "+3.3 V 300 mA"
+   ],
    "back_plot": null
   }
  ],

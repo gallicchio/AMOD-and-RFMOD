@@ -925,3 +925,51 @@ QR_AT = (78.0, 58.9)                    # under m7's right cell (the TCA0372 and
 BACK_TEXT = ["AMOD-M: motors.  Motor supply",
              "5-16 V on m2; USB-C 5 V on m1."]
 FRONT_TEXT = []
+
+
+PMOD_HOST = "the bottom margin under m3"
+PMOD_NAMES = {"/PMOD1": "m3's IN2 (the DC motor's second input)", "/PMOD2": "m4's coil A IN1",
+              "/PMOD3": "m4's coil A IN2", "/PMOD4": "m4's coil B IN1",
+              "/PMOD5": "m3's encoder A (3.3 V logic)", "/PMOD6": "m3's encoder B (3.3 V logic)",
+              "/PMOD7": "m3's IN1 (the DC motor's first input)", "/PMOD8": "m4's coil B IN2"}
+HANDBOOK_INTRO = [
+    "Eleven tiles on sixteen 20 mm cells, four layers.  m1 takes 5 V from its USB-C and makes -5 V (40 mA) and 3.3 V, as",
+    "AMOD-A's a1 does; m2 takes the motor supply, 5-16 V on a 5.5 / 2.1 mm barrel jack (centre positive), and joins the",
+    "USB's 5 V to it through Schottky diodes, so small motors run with no supply at about 4.6 V.  That rail, VMOT, runs",
+    "on a wide track down the back and is not switched.  The DC motor and the stepper take their commands from the FPGA",
+    "on the Pmod plug in the bottom margin under m3; everything else takes its command from a DAC and answers to an ADC",
+    "over SMA, as on the other boards.  A powered tile has a slide switch along its left edge (slider up: on); the motor",
+    "drivers' current limits and the buck's driver hang off it.  A port's name is in capitals on its tile's frame, a",
+    "terminated input says so (CMD 50R) and an output read through a divider says its ratio (VM /16).  The back of each",
+    "tile says what to know while cabling it."]
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "1. **Drives.**  m3 runs a brushed motor with its encoder (drive, brake or coast from two FPGA lines; its current",
+     "   and its terminal voltage on jacks, so the back-EMF shows in the coast intervals); m4 runs a bipolar stepper from",
+     "   four lines (full, half or PWM microsteps in gateware); m5 squares a DAC's pulse for a hobby servo; m6 switches",
+     "   a solenoid and shows its flyback three ways.",
+     "2. **Power stages the FPGA closes the loop on.**  m7 is a DC-coupled bridge amplifier (the load sees 4 x the DAC,",
+     "   both ways) for a voice coil, a speaker used as an actuator or a maglev's electromagnet; m8 is a synchronous",
+     "   buck's power stage, its PWM from a DAC and its inductor current and output on jacks.",
+     "3. **Sensors for those loops.**  m9 a linear hall sensor (a magnet's distance, a maglev's gap), m10 a reflective",
+     "   optical sensor (distance in the first millimetres, marks on a wheel), m11 a load cell's amplifier (force).",
+     "",
+     "A position servo: m3's encoder into the gateware, its PWM back out.  A maglev: m7 drives the electromagnet, m9",
+     "under it reads the gap, the gateware closes the loop at tens of kilohertz.  Every motor tile's supply is VMOT: a",
+     "bench supply's current limit, or the USB's, is the board's only fuse."]]
+
+# The back panels (gen_pcb.back_panels): under each tile, what a user must know while cabling it.
+BACK = {
+    "m1": ["USB-C 5 V only", "+5 V 1.5 A", "-5 V 40 mA", "+3.3 V 300 mA"],
+    "m2": ["5-16 V, centre +", "or USB 5 V alone", "VMOT = in - 0.4 V", "not switched"],
+    "m3": ["IN1 IO7, IN2 IO1", "2 A limit", "I 0.98 V/A", "V = motor / 13", "PH: M1 G A B 3V3 M2"],
+    "m4": ["A: IN1 IO2, IN2 IO3", "B: IN1 IO4, IN2 IO8", "1 A per coil", "XH: A+ A- B+ B-"],
+    "m5": ["CMD 1-2 ms / 20 ms", "header: S + -", "I 1 V/A"],
+    "m6": ["CMD high: coil on", "jumper 1-2: diode", "2-3: 24 V TVS", "none: avalanche", "VD = drain / 52"],
+    "m7": ["load = 4 x IN", "IN +-1 V", "1 W in the chip:", "8 ohm at 5-6 V", "I 1 V/A both ways"],
+    "m8": ["PWM 100-500 kHz", "VO = duty x VMOT", "load up to 1 A", "I 1 V/A, VO /16"],
+    "m9": ["9.75 mV/mT", "+-85 mT", "sensor top left"],
+    "m10": ["target 1 mm up", "OUT 0.1-0.9 V", "sensor top left"],
+    "m11": ["1 red E+  2 black E-", "3 white S-", "4 green S+", "gain 201"],
+}
+BACK_PLOTS = {}                         # m7's clipping plot found no room beside the QR code over its right cell

@@ -67,6 +67,20 @@ CHIP_URL = {
     "TLC555": "https://www.ti.com/product/TLC555",
     "OPA2197": "https://www.ti.com/product/OPA2197",
     "BAT54S": "https://www.lcsc.com/product-detail/C8592.html",
+    "DRV8251A": "https://www.ti.com/product/DRV8251A",
+    "OPA2171": "https://www.ti.com/product/OPA2171",
+    "INA181": "https://www.ti.com/product/INA181",
+    "TCA0372": "https://www.onsemi.com/products/amplifiers-comparators/operational-amplifiers-op-amps/tca0372",
+    "TPS28225": "https://www.ti.com/product/TPS28225",
+    "NCE6020AK": "https://www.lcsc.com/product-detail/C108639.html",
+    "SMAJ24A": "https://www.lcsc.com/product-detail/C113962.html",
+    "B5819W": "https://www.lcsc.com/product-detail/C64885.html",
+    "SS34": "https://www.lcsc.com/product-detail/C8678.html",
+    "SMBJ16A": "https://www.lcsc.com/product-detail/C353386.html",
+    "DRV5055": "https://www.ti.com/product/DRV5055",
+    "QRE1113": "https://www.onsemi.com/products/sensors/photo-detectors/reflective-sensors/qre1113",
+    "INA828": "https://www.ti.com/product/INA828",
+    "SWPA6045": "https://www.lcsc.com/product-detail/C36414.html",
 }
 
 NOTHING = "Nothing beyond SMA cables."
@@ -623,3 +637,91 @@ DOCS["amod_c"] = {
         experiments="Rectifying with no dead zone; the glitch against frequency; an AC voltmeter (rectify and average); AM detection.",
         use="DAC to IN, OUT to an ADC.", needs=NOTHING),
 }
+
+
+# ------------------------------------------------------------------------------------------------------------ AMOD-M --
+MOTOR_KIT = "From the kit (docs/KIT.md, Motors and actuators): "
+DOCS["amod_m"] = {
+    "m1": dict(
+        does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
+        chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
+        limits="-5 V is 40 mA: the op amps on +-5 V (m3, m7, m9, m10, m11) draw about 15 mA together.  The board negotiates nothing: use a plain 5 V supply.",
+        experiments="-", use="Plug in the USB-C (and the host's Pmod for m3 and m4); then switch on each tile you use (slider up).",
+        needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
+    "m2": dict(
+        does="The motor supply VMOT: a barrel jack (5-16 V) or USB's 5 V, each through a Schottky; its voltage / 16 on a jack.",
+        chips=["SS34", "SMBJ16A"],
+        specs="DC-005 5.5 / 2.1 mm jack, centre positive; two SS34 (3 A) into VMOT, so VMOT is the larger input less about 0.4 V; SMBJ16A (clamps near 26 V) and 220 uF on VMOT soak up a motor's braking energy (the diodes stop it reaching the supply); green LED; VM = VMOT / 16 (15 k / 1 k) through 49.9 ohm.",
+        limits="5-16 V in.  VMOT is not switched and has no fuse: the supply's current limit is the board's.  With USB alone VMOT is about 4.6 V, enough for the small motors (the DRV8251A's lockout is 4.45 V at most).  VM is a 1 k source: read it at high impedance.",
+        experiments="The supply's droop and the braking energy coming back onto VMOT (VM on an ADC while m3 brakes).",
+        use="A 12 V adapter on the barrel jack for anything bigger than a small gearmotor; VM to an ADC to watch VMOT.",
+        needs=MOTOR_KIT + "a 12 V 2 A barrel-jack adapter."),
+    "m3": dict(
+        does="A brushed DC motor with its encoder: drive, brake or coast from two FPGA lines; its current and its terminal voltage on jacks.",
+        chips=["DRV8251A", "OPA2171", "TPS7A20"],
+        specs="DRV8251A (4.1 A H-bridge) from VMOT: IN1 on Pmod IO7, IN2 on IO1 (both low: coast, then sleep after 1 ms).  Current limit 2 A (VREF 2.0 V from the switched 5 V, 620 ohm on IPROPI); I = the motor's current, 0.98 V/A, buffered by an OPA2171 through 49.9 ohm; V = (M1 - M2) / 13 through 49.9 ohm.  JST PH 6-way: 1 M1, 2 GND, 3 encoder A (IO5), 4 encoder B (IO6), 5 3.3 V (its own TPS7A2033), 6 M2.",
+        limits="2 A (cycle by cycle above it); IPROPI reads only while a low-side FET conducts (drive and brake, not coast).  V's +-1 V range covers +-13 V at the motor.  The encoder needs its own pull-ups or the FPGA's.  Encoder motors' pin orders differ: check yours against the PH's.",
+        experiments="Speed against duty cycle; drive / brake against drive / coast; the back-EMF in the coast intervals as a speed sensor with no encoder; the motor constant (Kt = Ke) from V and the encoder's speed; speed and position loops in gateware; current limiting under stall.",
+        use="PWM on IO7 (forward) or IO1 (reverse); the encoder into the gateware from IO5 and IO6; I and V to the ADCs.",
+        needs=MOTOR_KIT + "an N20 or 25 mm gearmotor with a hall encoder on a JST PH 6-way lead."),
+    "m4": dict(
+        does="A bipolar stepper: two DRV8251A from four FPGA lines; each coil's current on a jack.",
+        chips=["DRV8251A"],
+        specs="Coil A IN1 on Pmod IO2, IN2 on IO3; coil B IN1 on IO4, IN2 on IO8 (each pulled down: both low is coast).  VREF 1.0 V: 1 A per coil, and the tile's switch takes the limit to zero; IA, IB = each coil's current through 10 k (0.98 V/A, read at high impedance).  JST XH 4-way: 1 A+, 2 A-, 3 B+, 4 B- (each driver's OUT2 on its coil's + pin: a stepper does not notice).",
+        limits="1 A per coil.  IA and IB read the current's size, not its sign, and only while a low side conducts.",
+        experiments="Full, half and PWM microstepping in gateware; resonance and missed steps against the step rate; the coil current's rise against the supply voltage (L / R); stall detection from the current.",
+        use="The step sequence on IO2, IO3, IO4, IO8; IA and IB to the ADCs at high impedance.",
+        needs=MOTOR_KIT + "a NEMA 17 class bipolar stepper under 1 A per phase, with a JST XH 4-way lead."),
+    "m5": dict(
+        does="A hobby servo: a DAC's pulse squared to 5 V for the servo, and the servo's supply current on a jack.",
+        chips=["TLV3501", "INA181"],
+        specs="CMD (0 / +1 V, terminated in 49.9 ohm) through 10 k into a TLV3501 (threshold 0.49 V) on the switched 5 V; 3-pin header S, +5 V, GND (top to bottom); the servo's ground returns through 0.05 ohm, read by an INA181A1 (x20): I = 1 V/A through 49.9 ohm.",
+        limits="The servo runs from the switched 5 V (USB's): a micro servo's stall current (about 0.7 A) is fine, a big servo's is not.  I reads one way only.",
+        experiments="Angle against pulse width (1-2 ms every 20 ms); the servo's current while it slews and when it is held against a load; its internal loop's step response.",
+        use="A 1-2 ms pulse every 20 ms from a DAC on CMD; I to an ADC.", needs=MOTOR_KIT + "an SG90 or MG90S micro servo."),
+    "m6": dict(
+        does="A solenoid's low-side switch with its flyback chosen by a jumper: a diode, a 24 V TVS, or the FET's own avalanche.",
+        chips=["TLV3501", "NCE6020AK", "B5819W", "SMAJ24A", "INA181"],
+        specs="CMD (0 / +1 V, 49.9 ohm) through a TLV3501 into an NCE6020AK's gate (60 V, 20 A; 100 k holds it off); the coil on a screw terminal from VMOT.  Jumper on the 1 x 3 header: 1-2 a B5819W from the drain to VMOT (slow decay), 2-3 an SMAJ24A from the drain to ground (the drain clamps near 30 V: fast decay), none: the FET avalanches near 70 V.  I = the coil current, 1 V/A (0.05 ohm and an INA181A1); VD = the drain / 52 (5.1 k / 100 ohm) through 49.9 ohm.",
+        limits="The coil's current up to about 2 A (the 0.05 ohm shunt's 0.2 W), the Schottky's 1 A average.  'None' puts the coil's whole energy into the FET each time: a demonstration, not a way to run.  VD is a 150 ohm source: high impedance for the true scale.",
+        experiments="The coil current's L / R rise and its fall with each flyback; the drain's spike on VD (diode, TVS, avalanche); the release time of the plunger against the flyback; PWM hold-current reduction once the plunger has pulled in.",
+        use="A pulse on CMD from a DAC; choose the flyback with the jumper (power off); I and VD to the ADCs.",
+        needs=MOTOR_KIT + "a 5-12 V solenoid under 1.5 A and a jumper cap."),
+    "m7": dict(
+        does="A DC-coupled bridge amplifier from VMOT: the load sees 4 x IN, both ways; its current on a jack.",
+        chips=["TCA0372", "INA181", "OPA810"],
+        specs="TCA0372 (two 1 A power op amps): side A = VMOT / 2 - 2 IN, side B = VMOT / 2 + 2 IN, so the load sees 4 x IN; one chain (2 x 15 k, 20 k, 10 k) sets both references from VMOT.  IN +-1 V, terminated in 49.9 ohm.  The load's current through 0.1 ohm in series, an INA181A1 about 2.5 V and an OPA810 difference amplifier: I = 1 V/A, +-1.2 A, through 49.9 ohm.  The load on a screw terminal in the right margin.",
+        limits="About 1 W in the chip (thermal shutdown beyond): 8 ohm at 5-6 V, 30 ohm or more at 12 V.  Each output swings to about 1.3 V from either rail: at VMOT = 5 V the load gets +-2.4 V at most.  A DC offset of a few tens of millivolts with IN at 0 (the chain's resistors).",
+        experiments="A voice coil's force against current; a maglev (with m9 under an electromagnet); a speaker as an actuator; current (force) control closed in gateware on I; the bridge's clipping against VMOT.",
+        use="DAC on IN; I to an ADC; the load on the terminal.", needs=MOTOR_KIT + "a small speaker or voice-coil actuator, 8 ohm or more."),
+    "m8": dict(
+        does="A synchronous buck's power stage: the FPGA's PWM (through a DAC) in, the output and the inductor current out.",
+        chips=["TLV3501", "TPS28225", "AO3400A", "INA181"],
+        specs="PWM (0 / +1 V, 49.9 ohm) squared by a TLV3501 on +5 V into a TPS28225 (adaptive dead time, its own bootstrap diode; EN from the tile's switch) driving two AO3400A from VMOT (22 uF beside them); 47 uH (SWPA6045, 1.2 A) into 2 x 22 uF; output on a screw terminal.  I = the inductor current through 0.05 ohm and an INA181A1: 1 V/A, one way; VO / 16 (15 k / 1 k) through 49.9 ohm.",
+        limits="Up to 1 A of load; VMOT up to 16 V (the FETs are 30 V).  At light load the current dips below zero (the stage is synchronous) and I reads 0 there.  The DAC's PWM: 100-500 kHz.  VO is a 1 k source: high impedance.",
+        experiments="VO against duty cycle open loop; voltage-mode and current-mode control in gateware; load-step response; the inductor's ripple against frequency and VMOT; efficiency.",
+        use="A square wave on PWM from a DAC; VO and I to the ADCs; a load on the terminal (a resistor, an LED string, a motor).",
+        needs=GATEWARE + "  A load: a power resistor or a small motor."),
+    "m9": dict(
+        does="A linear hall sensor for a magnet's distance (a maglev's gap, a position loop's sensor).",
+        chips=["DRV5055", "OPA810"],
+        specs="DRV5055A3 (25 mV/mT about half its 5 V supply, +-85 mT) in the top-left corner; an OPA810 on +-5 V subtracts the half (ratiometric) and scales by 0.39: OUT = 9.75 mV/mT, +-0.83 V, about 20 kHz, through 49.9 ohm.",
+        limits="+-85 mT before the sensor saturates; a magnet's field falls with the cube of distance, so the useful range is a few millimetres to a few centimetres.",
+        experiments="Field against distance for a disc magnet; a maglev's gap sensor (with m7); a gear tooth or a magnet on a wheel as a tachometer.",
+        use="Bring a magnet to the sensor (the small part top left); OUT to an ADC.", needs=MOTOR_KIT + "a few neodymium disc magnets."),
+    "m10": dict(
+        does="A reflective optical sensor: distance in the first millimetres, a mark on a wheel, an edge.",
+        chips=["QRE1113", "OPA810"],
+        specs="QRE1113GR (an IR LED at 21 mA and a phototransistor side by side) in the top-left corner; an OPA810 holds the collector at 0 V: OUT = 1 k x the collector current (0.1-0.9 V with white paper 1 mm above), 100 pF across, through 49.9 ohm.",
+        limits="Best at about 1 mm, useful to a few; sunlight and lamps add to the reading; about 20 us response (the phototransistor).",
+        experiments="Output against distance and surface; a tachometer from a striped wheel on m3's motor; an edge or a line.",
+        use="Hold a surface above the sensor (the small part top left); OUT to an ADC.", needs=NOTHING),
+    "m11": dict(
+        does="A load cell's amplifier: a 4-wire bridge excited from 5 V, read at a gain of 201.",
+        chips=["INA828"],
+        specs="INA828 on +-5 V at G = 1 + 50 k / 249 = 201, REF on ground, OUT through 49.9 ohm; the bridge on a JST XH 4-way: 1 E+ red, 2 E- black, 3 S- white, 4 S+ green; always on (no switch: the bridge draws 5 mA).",
+        limits="A 1 mV/V cell gives 5 mV at full load: about 1 V out.  The INA828's offset (about 50 uV, 10 mV out) wants a tare in software.",
+        experiments="Weighing with a tare and a calibration weight; a force sensor for a force loop with m7 or m3; the bridge's drift with temperature.",
+        use="The load cell on the XH; OUT to an ADC.", needs=MOTOR_KIT + "a 1-5 kg bar load cell with a JST XH 4-way lead."),
+}
+
