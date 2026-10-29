@@ -1,11 +1,11 @@
-# Design-review brief: AMOD-P, AMOD-N, AMOD-A, RF-MOD, PhMOD (was AMOD-2), IQ-MOD and the Icepi Pmod adapter, rev A (2026-10-25; AMOD-N 2026-10-28)
+# Design-review brief: AMOD-P, AMOD-N, AMOD-A, AMOD-C, AMOD-M, AMOD-B, RF-MOD, PhMOD (was AMOD-2), IQ-MOD and the Icepi Pmod adapter, rev A (2026-10-25; AMOD-N, AMOD-C, AMOD-M and AMOD-B 2026-10-28)
 
 For a reviewer (a person or another model) who has not seen the night's work.  Read in this order, then answer the
 questions at the end with evidence (a datasheet page, a rule, a measurement), not opinion.
 
 ## What the boards are
 
-Five 100 x 100 mm boards of analog and RF "tiles" for an FPGA-plus-ADC/DAC teaching module (the ECP5-2ADC-2DAC board,
+Nine 100 x 100 mm boards of analog and RF "tiles" for an FPGA-plus-ADC/DAC teaching module (the ECP5-2ADC-2DAC board,
 tutorial at `~/mudd/133electronics/icepi-zero-dac-adc/tutorial/`, Appendix D is the brief).  Each tile is a 20 mm
 cell between two vertical SMA jacks (IN top-left, OUT bottom-right, so every jack is 14.85 mm or more from every
 other on the board), the circuit drawn on the silkscreen as it is
@@ -20,6 +20,16 @@ AMOD-A (four layers) is twelve active tiles on USB-C power with a slide switch a
 per tile: two gain blocks, an OPA847 LNA, a socket and amplifier for an HB100 Doppler module, a delta-sigma comparator, a 4046 PLL, a
 heater with a TMP235, an MC1496 mixer, an impedance and I-V tile (V and I for the host's two ADCs), a 40 kHz ultrasound pair,
 a class-D speaker amplifier with an electret preamplifier; a 2 x 6 Pmod plug carries the FPGA's lines.
+
+AMOD-C (four layers, twelve tiles, `PLAN.md` section 15) is conversion: a buck and an LDO with an electronic load, a
+charge pump, a switched-capacitor filter and integrator, a second-order delta-sigma modulator, an LF398 track-and-hold,
+a SAR comparator, a differential pair, a cascode, a 555 V-to-F and a precision rectifier.  AMOD-M (four layers, eleven
+tiles, `PLAN.md` section 14) is motors on a 5-16 V supply: a DRV8251A for a DC motor with its encoder and two for a
+stepper on the Pmod; a servo, a solenoid with a jumper-chosen flyback, a TCA0372 bridge amplifier and a TPS28225 buck
+stage from DACs; a hall, an optical and a load-cell amplifier for their loops.  AMOD-B (four layers, twelve tiles,
+`PLAN.md` section 14) is a brushless gimbal motor on a 5-12 V supply: a DRV8311H in 3x PWM from three Pmod lines with
+COAST from a DAC, the motor on four slots over an MT6701 encoder, two halls and an index sensor; its back-EMF, phase
+and bus currents (an INA240 in line), its vibration, and an LSM6DSO sharing the SPI with the encoder through a buffer.
 
 RF-MOD (four layers) is ten RF tiles on 50 ohm coplanar waveguide: a diode-ring mixer (ADEX-10L+), 2.45 GHz LTCC and 915 MHz
 SAW filters, a QPL9547 LNA and a GALI-84+ gain block, power with a 7.8 V boost and a 25 MHz TCXO reference, two
@@ -40,7 +50,8 @@ adapter grown to 80 x 30 mm with a Pmod socket on In2-routed lines.
 
 - `PLAN.md`: the decisions with their reasons, the tile tables as built, the parts and the stock on the day.
 - `PLAN_LEVEL2.md`: the same for PhMOD and IQ-MOD, with every change from their plan and its reason.
-- `boards/amod_p.py`, `boards/amod_n.py`, `boards/amod_a.py`, `boards/rf_mod.py`, `boards/phmod.py`, `boards/iq_mod.py`: each tile's netlist, placement and wires in one place (the source of
+- `boards/amod_p.py`, `boards/amod_n.py`, `boards/amod_a.py`, `boards/amod_c.py`, `boards/amod_m.py`, `boards/amod_b.py`,
+  `boards/rf_mod.py`, `boards/phmod.py`, `boards/iq_mod.py`: each tile's netlist, placement and wires in one place (the source of
   truth; the schematic and the board are generated from it and checked against it).
 - `scripts/parts.py`: every part with its LCSC code, checked against JLCPCB's API (`scripts/jlc_cache.json`
   keeps the answers and their times).
@@ -86,6 +97,15 @@ stock above 100 for every part on the day, except the ADL5380 (14), which Jason 
     user could damage a tile with missing, and does each plot's shape match the handbook's "expect" line?
 13. **n8's hand mode:** the PE43711's direct parallel mode with P/S and the seven bits on the DIP switch (100 k
     pull-downs) and LE pulled up by 100 k, against pSemi's Table 9 and its power-up rules.
+14. **AMOD-C's converters:** c6's two integrators and their swing against the 3.3 V comparator, c7's LF398 hold
+    capacitor and droop, c2's electronic load's loop and the buck's TRIM, c3's ICL7660A clocked from Pmod IO6 through
+    a 5 V buffer (`docs/DOA_amod_c.md`).
+15. **AMOD-M's power stages:** the DRV8251A's VREF and IPROPI scaling (m3, m4), m7's TCA0372 dissipation and its
+    references from one chain off VMOT, m8's TPS28225 dead time and bootstrap from a DAC's PWM, m6's avalanche
+    demonstration against the NCE6020AK's single-pulse rating (`docs/DOA_amod_m.md`).
+16. **AMOD-B's drive:** the DRV8311H's strap pins left open (3x PWM, 9 A trip, 1 V/A), COAST's comparator on AVDD, the
+    passive 3.3 k / 10 k level shift of SOA and SOB to -5 V, the MT6701's MODE on its pull-up, the LSM6DSO's unused pins,
+    and the five SPI lanes and the encoder's lines on the back between the gimbal's slots (`docs/DOA_amod_b.md`).
 
 Answer as a numbered list of findings, each with the file and line (or the tile and part), the evidence, and the
 fix.  "Looks fine" without evidence is not a finding.

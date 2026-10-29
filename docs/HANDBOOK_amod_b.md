@@ -159,7 +159,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Supply:</b> +3.3 V, +5 V<br><br>
 <b>Expect:</b> the MT6701's angle on SSI (14 bits a turn) and as a sawtooth to b7; two hall signals 120 electrical degrees apart to b10; an index pulse to b9<br><br>
 <b>How to use it:</b> Glue the magnet to the shaft's end; screw the motor down on spacers so the magnet is about 1 mm over the encoder; its leads to b3.<br><br>
-<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): the GBM2804H-100T gimbal motor on b5, a 6 x 2.5 mm diametric magnet, M2.5 screws and spacers. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): the GBM2804H-100T gimbal motor on b5, a 6 x 2.5 mm diametric magnet, and screws and spacers for its base (measure it: M2 by iFlight's word). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> Four radial slots 3.4 mm wide, 4.3-11.7 mm from the centre (M2-M3 screws on any of the 2804 patterns: 12 mm, 16 / 19 mm, 14 x 14).  MT6701 (14 bits, SSI: CLK on SCK, CSN on CS ENC, DO to b6's buffer; its analog output to b7) at the centre under a 6 x 2.5 mm diametric magnet on the shaft's end, 0.5-2 mm above it.  Two DRV5055A3 under the rotor's magnets 14.5 mm out, 17.1 degrees apart (120 electrical degrees for 7 pole pairs), to b10.  A QRE1113 16.5 mm out under the bell's rim, to b9.<br><br>
 <b>Limits:</b> The magnet must be diametric (magnetised across its diameter) and centred over the encoder; the motor sits on spacers to set the gap.  The halls see the rotor's magnets only if they come within about 3 mm of the board.<br><br>
 <b>Experiments:</b> The encoder's angle against the halls' and the back-EMF's: the motor's electrical angle three ways; the encoder's nonlinearity against the index; cogging (the motor turned by hand, the angle and the current).<br><br>
@@ -230,8 +230,8 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Jacks:</b> VIB, bottom right.<br><br>
 <b>Supply:</b> +-5 V<br><br>
 <b>Expect:</b> VIB = -the piezo's charge / 1 nF above 160 Hz: the motor's cogging, its commutation ripple, the bearing<br><br>
-<b>How to use it:</b> Stick the disc to the motor's mount (tape or wax); its wires on the terminal; VIB to an ADC.<br><br>
-<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): a 27 mm piezo disc with leads. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>How to use it:</b> Screw or tape the piezo element to the motor's mount; its wires on the terminal; VIB to an ADC.<br><br>
+<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): a 30 mm piezo element with wires. (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> The disc on a 2-way screw terminal through 1 k into an OPA810 charge amplifier on +-5 V: VIB = -Q / 1 nF above 160 Hz (1 M across), through 49.9 ohm.<br><br>
 <b>Limits:</b> Below 160 Hz the output falls (the 1 M); a hard tap on the disc can clip the amplifier at +-4 V.<br><br>
 <b>Experiments:</b> The cogging (12 a turn), the commutation's ripple and the PWM's whine, the bearing's noise; the motor mount's resonances; field-oriented control against six-step, heard.<br><br>

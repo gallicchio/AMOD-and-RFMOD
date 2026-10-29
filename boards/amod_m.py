@@ -1,6 +1,6 @@
 """AMOD-M: motors, rev A (Prompt 19).  Sixteen cells, four layers, USB-C power on m1 as AMOD-A's a1 and a motor supply
-of 5-16 V on m2 (a barrel jack or a screw terminal), with the USB's 5 V joining it through a Schottky.  A brushed DC
-motor with its encoder (DRV8876, the FPGA's PWM, the current and the back-EMF on jacks), a stepper (two DRV8876), and
+of 5-16 V on m2 (a barrel jack), with the USB's 5 V joining it through a Schottky.  A brushed DC motor with its
+encoder (DRV8251A, the FPGA's PWM, the current and the back-EMF on jacks), a stepper (two DRV8251A), and
 the actuators whose command comes from a DAC (a servo, a solenoid with its flyback chosen by a jumper, a DC-coupled
 power amplifier for a voice coil or an electromagnet, a buck stage the FPGA closes the loop on); the sensors those loops
 need (a linear hall sensor, a reflective optical sensor, a load cell's amplifier).  PLAN.md section 14 has the
@@ -10,8 +10,8 @@ Jason, Prompt 19: "motor drivers and mechanical servo-type feedback.  DC motor, 
 along with encoders or magnetic back reaction or some other fast mechanical feedback."  The brushless half is AMOD-B.
 
 L1 the parts and the drawn wires, L2 ground, L3 the rails (+5 V under the board; -5 V in the gutters under rows 0 and 2
-and down the left margin; +3.3 V in the gutter under row 1), L4 ground with the motor rail VMOT (a 2 mm track down the
-gutter between columns 1 and 2, which every motor tile touches), the Pmod lines and the back-side text.  Every tile
+and down the left margin; +3.3 V in the gutter under row 1), L4 ground with the motor rail VMOT (a 1.6 mm track along the
+top margin and down the gutter between columns 1 and 2, which every motor tile taps), the Pmod lines and the back-side text.  Every tile
 with a +5 V load has the standard header (tiles.power_header): a slide switch and a P-FET; VMOT itself is not switched.
 """
 import os, sys

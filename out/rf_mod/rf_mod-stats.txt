@@ -9,7 +9,7 @@ Board
 - Width: 100.0000 mm
 - Height: 100.0000 mm
 - Area: 9992.261 mm²
-- Front copper area: 5278.999 mm²
+- Front copper area: 5279.128 mm²
 - Back copper area: 9170.115 mm²
 - Min track clearance: 0.1541 mm
 - Min track width: 0.1500 mm
@@ -17,9 +17,9 @@ Board
 - Board stackup thickness: 1.6000 mm
 
 - Front footprint area: 2758.715 mm²
-- Back footprint area: 617.397 mm²
+- Back footprint area: 616.446 mm²
 - Front component density: 27.61 %
-- Back component density: 6.18 %
+- Back component density: 6.17 %
 Pads
 ----
 - Through hole: 136

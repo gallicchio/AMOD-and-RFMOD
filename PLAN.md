@@ -349,6 +349,8 @@ SLEWRATE=SLOW, so no series resistors.  Hand-soldered like the original (three t
    AMOD-A's a2-a4, a7, a8, a9 and a11 re-laid, RF-MOD's mixers' LO moved to the right cell's top-left; every pair of
    jacks 14.85 mm or more apart.  a4 now uses the OPA847's SOT-23-6 and a7 Nexperia's TSSOP-16 4046, so AMOD-A's
    parts are $50.90 a board.  All three boards: ERC 0, DRC 0, every fab check passed.
+9. PhMOD and IQ-MOD (`PLAN_LEVEL2.md`), AMOD-N (section 11), the backs (section 12), the names (section 13), AMOD-C
+   (section 15), AMOD-M and AMOD-B (section 14): done by 2026-10-28, each board ERC 0, DRC 0, every fab check passed.
 
 Open items that are not Jason's to answer are decided in this file as they come up and logged in
 the chat; the ones that are his go in `QUESTIONS.md`.
@@ -486,9 +488,9 @@ OUT), a tile's title is mixed case (Step attenuator), everything else lower case
 | p | AMOD-P (`amod_p`) | passive | p1-p13 | P1-P13 |
 | n | AMOD-N (`amod_n`) | networks: the pieces of a network analyzer (standards, splitters, a detector, an attenuator, a source) and the networks it measures | n1-n11 | AMOD-P2's P14, P16-P25 |
 | a | AMOD-A (`amod_a`) | active | a1-a12 | A1-A12 |
-| c | AMOD-C (`amod_c`) | conversion: power (linear, switched, charge pump) and data (delta-sigma, sample-and-hold, SAR), and the switched capacitors both use | c1-... | new (section 12's AMOD-A2) |
-| m | AMOD-M (`amod_m`) | motors: brushed DC, stepper, servo, solenoid, voice coil, and their sensors | m1-... | new |
-| b | AMOD-B (`amod_b`) | brushless: a gimbal motor on its magnetic encoder, the drone's sensorless six-step, an IMU | b1-... | new |
+| c | AMOD-C (`amod_c`) | conversion: power (linear, switched, charge pump) and data (delta-sigma, sample-and-hold, SAR), and the switched capacitors both use | c1-c12 | new (section 12's AMOD-A2) |
+| m | AMOD-M (`amod_m`) | motors: brushed DC, stepper, servo, solenoid, voice coil, and their sensors | m1-m11 | new |
+| b | AMOD-B (`amod_b`) | brushless: a gimbal motor on its magnetic encoder and halls, its back-EMF (the drone's sensorless six-step), an IMU | b1-b12 | new |
 | r | RF-MOD (`rf_mod`) | radio | r1, r2, r4, r5, r7-r10, r12, r13 | R1-R13 |
 | h | PhMOD (`phmod`) | the h of Ph (p is the passive board's), and HF, where all its tiles work | h1-h10 | Y1-Y10 |
 | q | IQ-MOD (`iq_mod`) | quadrature: its I/Q modulator and demodulator share one LO | q1-q11 | RF-MOD-2's X1-X11 |
@@ -514,3 +516,99 @@ OUT), a tile's title is mixed case (Step attenuator), everything else lower case
 
 `scripts/tiles.dump` refuses a tile whose name is not its board's letter and a number, a number used twice, and a `BACK`
 or `BACK_PLOTS` entry for a tile that does not exist.
+
+## 14. Prompt 19: the motor boards, AMOD-M and AMOD-B (2026-10-28)
+
+Jason, Prompt 19: "motor drivers and mechanical servo-type feedback.  DC motor, stepper motor, 3-pole BLDC motor (like for
+a drone or even better a gimbal), along with encoders or magnetic back reaction or some other fast mechanical feedback",
+and "If it makes more sense to do 2 boards rather than one board with two Pmods, stick with an extra board."
+
+**Two boards, one Pmod each.**  A brushed motor with its encoder needs four FPGA lines, a stepper four more, a three-phase
+bridge three and its two SPI sensors five: sixteen in all.  Everything else (servo, solenoid, linear amplifier, buck
+stage, sensors) takes its command from a DAC and returns to an ADC over SMA, as on every other board.  So AMOD-M
+(brushed, stepper, the slow actuators and their sensors: 8 lines) and AMOD-B (brushless: 8 lines).  The parts research
+of 2026-10-28 (JLCPCB stock that day, every datasheet named below read) chose each part.  What follows is what was
+built; the handbooks (`docs/HANDBOOK_amod_m.md`, `docs/HANDBOOK_amod_b.md`) have each tile's numbers and limits, the
+DOA lists what to confirm before ordering.
+
+**Motor power.**  Each board takes its motor supply on a 5.5 / 2.1 mm barrel jack (centre positive) on m2 or b2, with
+220 uF and a TVS on it, and the USB-C's 5 V joins it through a Schottky (two SS34), so small motors run with no supply at
+about 4.6 V.  AMOD-M: 5-16 V, SMBJ16A (its parts are rated 30 V and more).  AMOD-B: 5-12 V, SMBJ12A (clamping near 20 V,
+under the DRV8311's 24 V maximum).  VMOT runs on the back, 1.6 mm wide, and is not switched; the supply's current limit
+is the only fuse.  The kit's supply is Adafruit's 3-12 V adjustable 4880 (no fixed 12 V adapter was in stock).
+
+### AMOD-M (`amod_m`): motors, eleven tiles, $35.98 of parts
+
+| cells | tile | what | parts | jacks | Pmod |
+|---|---|---|---|---|---|
+| (3,1) | m1 power | USB-C 5 V in: +5, -5, +3.3 (as a1) | LM2664, TPS7A2033 | | |
+| (3,0) | m2 motor supply | barrel jack, TVS, 220 uF, USB through a Schottky; VMOT / 16 on a jack | DC-005, SMBJ16A, SS34 x 2 | VM /16 | |
+| (0,3)-(1,3) | m3 DC motor | DRV8251A from IN1, IN2 (drive, brake, coast); IPROPI buffered (0.98 V/A); the terminal voltage / 13; a JST PH 6-way (M1, GND, A, B, 3.3 V, M2) for an encoder motor, its own 3.3 V | DRV8251A, OPA2171, TPS7A2033 | V /13, I 1V/A | IN1 IO7, IN2 IO1, ENC A IO5, ENC B IO6 |
+| (0,2)-(1,2) | m4 stepper | two DRV8251A (IN1, IN2 each), 1 A per coil (VREF from the tile's switch); each coil's IPROPI through 10 k; a JST XH 4-way | 2 x DRV8251A | IA, IB (0.98 V/A at high impedance) | A IO2, IO3; B IO4, IO8 |
+| (2,0) | m5 servo | a DAC's pulse squared by a comparator into a 3-pin servo header on the switched 5 V; the servo's current, 1 V/A | TLV3501, INA181A1 | CMD 50R, I 1V/A | |
+| (0,0)-(1,0) | m6 solenoid | a DAC's pulse to a 60 V FET's gate; flyback by jumper: diode, 24 V TVS or none (avalanche); coil current 1 V/A and drain / 52 | TLV3501, NCE6020AK, B5819W, SMAJ24A, INA181A1 | CMD 50R, VD /52, I 1V/A | |
+| (2,2)-(3,2) | m7 linear amp | a DC-coupled bridge from VMOT for a voice coil, a speaker as an actuator or a maglev's electromagnet: load = 4 x IN; load current | TCA0372, INA181A1, OPA810 | IN 50R, I 1V/A | |
+| (2,3)-(3,3) | m8 buck stage | a DAC's PWM squared, a TPS28225 driving two AO3400A, 47 uH and 44 uF from VMOT: the FPGA closes the loop | TLV3501, TPS28225, 2 x AO3400A, INA181A1 | PWM 50R, VO /16, I 1V/A | |
+| (0,1) | m9 hall | a linear hall sensor (9.75 mV/mT at the jack) for the maglev and position loops | DRV5055A3, OPA810 | OUT | |
+| (1,1) | m10 optical | a reflective sensor (best at 1 mm), its collector held at 0 V | QRE1113GR, OPA810 | OUT | |
+| (2,1) | m11 load cell | an instrumentation amplifier at a gain of 201 for a 4-wire bridge excited from 5 V; a JST XH 4-way | INA828 | OUT | |
+
+Changes from this section's first plan: the DRV8251A for the DRV8876 (its undervoltage lockout is 4.45 V at most, so
+USB's 5 V through m2's Schottky runs it; IN1 / IN2 only, $0.44 against $0.66); m2's divider / 16 and no screw terminal;
+m4's stepper on IN1 / IN2 pairs rather than PH / EN; m6's RC flyback dropped (three choices on a 1 x 3 header); m7's
+gain 4 (one chain of resistors sets both references from VMOT).  The Pmod plug sits in the bottom margin under m3; m4's
+four lines come down the left margin on the back in nested lanes.
+
+### AMOD-B (`amod_b`): brushless, twelve tiles, $42.11 of parts
+
+| cells | tile | what | parts | jacks | Pmod |
+|---|---|---|---|---|---|
+| (3,1) | b1 power | as a1 | LM2664, TPS7A2033 | | |
+| (3,0) | b2 motor supply | as m2, 5-12 V | DC-005, SMBJ12A, SS34 x 2 | VM /16 | |
+| (3,2) | b12 bus current | VMOT through 0.1 ohm to VMB (the driver's supply); I = 1 V/A both ways (negative while the motor brakes) | INA181A1, OPA810 | I 1V/A | |
+| (1,3)-(2,3) | b3 BLDC driver | DRV8311H in 3x PWM (each phase high or low from its line; the straps open: 9 A trip, 180 V/us, 1 V/A); COAST from a DAC through a comparator floats all three; its low-side amplifiers SOA, SOB shifted to 0 by 3.3 k / 10 k to -5 V (0.75 V/A from 2.5 k); a 3-way screw terminal for the motor; the Pmod plug under its left cell | DRV8311H, TLV3501 | COAST 50R, IB .75V/A, IA .75V/A | INHA IO5, INHB IO1, INHC IO2 |
+| (0,3) | b4 back-EMF | phases A and B against the neutral of three 13 k / 1 k dividers (/14), buffered | OPA2171 | EA /14, EB /14 | |
+| (3,3) | b11 phase current | phase A through 0.05 ohm in line, an INA240A1 (PWM rejection) and an OPA810: IPA = 1 V/A, the whole current | INA240A1, OPA810 | IPA 1V/A | |
+| (1,1)-(2,2) | b5 gimbal | a GBM2804H-100T on four radial slots over an MT6701 (14-bit SSI; turned 180, its pins to vias under it); two DRV5055A3 under the rotor's magnets, 17.1 degrees (120 electrical) apart; a QRE1113 under the bell's rim | MT6701, 2 x DRV5055A3, QRE1113GR | | SCK, CS ENC (through b6) |
+| (0,2) | b6 IMU | LSM6DSO on SPI; the 74LVC1G125 that puts the MT6701's push-pull DO on MISO only while CS ENC is low | LSM6DSO, SN74LVC1G125 | | CS IMU IO8, SCK IO4, MOSI IO7, MISO IO3, CS ENC IO6 |
+| (0,0) | b7 angle | the MT6701's analog output less half its 3.3 V (the same 3.3 V, brought with it), x 0.51 | OPA810 | ANG | |
+| (1,0) | b8 vibration | a piezo element's charge amplifier (1 nF, 1 M: from 160 Hz) | OPA810 | VIB | |
+| (2,0) | b9 index | the QRE1113's collector held at 0 V: a pulse at a white mark on the rim | OPA810 | IDX | |
+| (0,1) | b10 halls | each hall less half its 5 V, x 0.39 (as m9) | 2 x OPA810 | HA, HB | |
+
+How it was decided where the first plan left cells open:
+
+- *b3's current amplifiers have no op amp.*  An OPA2197 difference stage did not fit beside the driver and its jacks;
+  SOx = 1.65 V + 1 V/A, and 3.3 k from SOx with 10 k to -5 V puts 1.65 V at 0 (1.65 x 10 = 5 x 3.3): 0.75 V/A from a
+  2.5 k source, read at an ADC's or a scope's high impedance.  GAIN stays at 1 V/A (a switch was in the first plan).
+- *The back-EMF (b4), the phase current (b11) and the bus current (b12)* took the cells the first plan held for "b4"
+  and "b7": the three views of the drive a low-side amplifier alone misses.  The analog angle (b7), the halls' outputs
+  (b10), the index (b9) and a vibration pickup (b8) took the rest; a generator tile was not built (the gimbal motor
+  spun by hand with COAST high is the generator b4 reads).
+- *The SPI lines' order on the plug was chosen so they nest*: up the gutter between columns 0 and 1 each lane to the
+  right of the last turns in above it, so no two cross (MISO on IO3 and CS ENC on IO6 for it).  All five go to b6;
+  SCK, CS ENC and DO go on to the encoder on 45-degree lines between the slots.
+- *+3.3 V on L3* runs in the gutter under row 1, which passes under the gimbal; its side slots cut that strip, so a band
+  over them joins the middle (the encoder's via) to the rest.
+
+A tile spanning a 2 x 2 block needed `geometry.tile_frame` and the schematic's block to take a rectangle (done for b5).
+
+## 15. Prompt 19: AMOD-C, the conversion board as built (2026-10-28)
+
+Section 12's AMOD-A2, renamed AMOD-C by section 13.  Twelve tiles, four layers, $43.57 of parts; `docs/HANDBOOK_amod_c.md`
+has each tile, `docs/DOA_amod_c.md` what to confirm.
+
+| cells | tile | parts | jacks |
+|---|---|---|---|
+| (3,1) | c1 power (as a1) | LM2664, TPS7A20 | |
+| (1,2)-(2,2) | c2 regulators and an electronic load | TLV62568, TPS7A20, OPA810, AO3400A | TRIM 100K, BUCK~, LOAD 50R, LDO~ |
+| (3,2) | c3 charge pump | ICL7660A, SN74LV1T34 | CAP /5.7, OUT /5.7 |
+| (0,0) | c4 switched-capacitor filter | MAX7410, SN74LV1T34 | IN 50R, OUT |
+| (1,0)-(2,0) | c5 switched-capacitor integrator | TMUX4053, OPA810 | IN 50R, OUT |
+| (1,1)-(2,1) | c6 delta-sigma modulator | OPA2810, TLV3501, SN74LVC1G79, SN74LVC1G3157 | IN 10K, INT1 /4, INT2 /4 |
+| (3,3) | c7 track and hold | LF398 | IN 50R, OUT |
+| (0,2) | c8 SAR comparator | TLV3201 | IN 20K, DAC 20K |
+| (0,3)-(1,3) | c9 differential pair | DMMT3904W, BCM857BS, MMBT3904, OPA810 | IN+ 50R, IN- 50R, OUT |
+| (0,1) | c10 cascode | DMMT3904W, MMBT3904 | IN 50R, OUT |
+| (3,0) | c11 555 (V-to-F) | TLC555 | CV 50R, OUT /4.9 |
+| (2,3) | c12 precision rectifier | OPA2197, BAT54S | IN 50R, \|IN\| |

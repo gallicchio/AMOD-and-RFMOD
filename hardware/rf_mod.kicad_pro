@@ -522,7 +522,472 @@
         "Fine"
       ]
     },
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J502-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C502-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C503-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C504-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R501-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C505-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C506-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J702-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J703-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C702-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U702-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C703-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L702-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C704-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C705-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R701-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C706-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L703-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C707-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J802-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J803-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C802-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U802-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C803-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L802-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C804-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C805-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R801-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C806-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L803-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C807-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1002-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1002-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U1002-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1003-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1002-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1004-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1005-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1003-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1006-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1007-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1008-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1004-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(LED1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L1001-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1009-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(L1002-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1003-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1010-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1011-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1012-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1013-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1005-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1014-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1015-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1004-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1302-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J1303-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1302-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1303-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1304-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1305-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1306-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1307-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1308-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1309-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1302-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1310-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1303-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1304-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1305-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1306-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1307-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1308-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1309-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1310-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1311-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1312-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1313-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1314-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1311-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R1315-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(LED1301-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U1302-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1312-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C1313-*"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {

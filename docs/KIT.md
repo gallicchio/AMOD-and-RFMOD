@@ -1,8 +1,9 @@
 # The student kit: what the boards need that is on none of them
 
 Everything machine-placed is on the boards.  This is what one bench needs beside the ECP5-2ADC-2DAC board and one
-each of AMOD-P, AMOD-N, AMOD-A and RF-MOD, read from the tiles' own declarations; what the second-level boards (PhMOD and
-IQ-MOD) add is in its own section at the end.  Every product was chosen in stock and
+each of AMOD-P, AMOD-N, AMOD-A and RF-MOD, read from the tiles' own declarations; what AMOD-C and the two motor boards
+(AMOD-M and AMOD-B, read on 2026-10-28) and the second-level boards (PhMOD and IQ-MOD) add is in their own sections
+toward the end.  Every product was chosen in stock and
 shipping to a US address on **2026-10-25**.  "Page" means the price and stock were read on the vendor's product page
 that day.  "Snippet" means the vendor's page would not load for a script (Digi-Key and Mouser block them) and the
 figure came from a search result: check it before ordering.
@@ -72,7 +73,9 @@ jacks.  A quarter-wave monopole made from a jack and 31 mm (2.4 GHz) or 78 mm (9
 - **The transducers** plug into pins 1 and 5 of a11's 1 x 5 sockets.  Those pins are 10.16 mm apart and the leads
   10.0 mm, so the leads flex in.
 - **The speaker:** the PAM8302A gives about 1.5 W into 8 ohm, inside the speaker's 2 W.  Only 14 were in stock;
-  Adafruit's 40 mm 4 ohm (3968) was out of stock.
+  Adafruit's 40 mm 4 ohm (3968) was out of stock.  On 2026-10-28 the 6486 was out of stock too, as were Adafruit's
+  8 ohm 1 W mini ovals (3923, 4227).  The 3 in 8 ohm 1 W speaker of the motors section (Adafruit 1313) does for a12
+  with the volume kept down (1 W against the amplifier's 1.5 W).
 - **The electret's** datasheet gives a 680 ohm load, 2.2 k maximum.  a12 biases it through 2.2 k from 5 V: inside the
   rating, at its top.  Pin 1 of the socket is the + side.
 - **The loopstick** is the nearest one verified in stock, and it is off the plan: 240 uH, not 330, and no tap.  It
@@ -124,6 +127,78 @@ Nothing new to buy: its tiles use what is above and below.
 - **n10's dipole:** the SMA-to-BNC adapter and the BNC-to-minigrabber lead above put the dipole's two halves on OUT's pin
   and shell.
 - **n1** is the calibration set for board-level work with a NanoVNA or IQ-MOD's reflectometer.
+
+## AMOD-C (the conversion board)
+
+Nothing new to buy beyond a third USB-C supply for its power tile c1 (or one moved from another board): its tiles
+take a DAC or the FPGA's lines in and give an ADC something out.
+
+## Motors and actuators (AMOD-M and AMOD-B)
+
+Read on **2026-10-28**, "page" and "snippet" as above, for one bench with one AMOD-M and one AMOD-B.  Each board's power
+tile (m1, b1) takes a 5 V USB-C supply as AMOD-A's does (Power, above): one more each, or one moved between boards.
+
+| item | tile | qty | product | unit price | stock as read | source |
+|---|---|---|---|---|---|---|
+| Motor supply, 3-12 V adjustable, 5 A, 5.5 / 2.1 mm plug, centre positive | m2, b2 | 1 | [Adafruit 4880](https://www.adafruit.com/product/4880) | $17.50 | 44 | page (polarity: snippet) |
+| DC gearmotor, N20, 6 V, 1:100, magnetic hall encoder (14 counts a motor turn, 3-5 V) | m3 | 1 | [Adafruit 4639](https://www.adafruit.com/product/4639) | $12.50 | in stock | page |
+| Stepper, NEMA 17, bipolar, 200 steps, 12 V 350 mA, 35 ohm a winding | m4 | 1 | [Adafruit 324](https://www.adafruit.com/product/324) | $14.00 | in stock | page |
+| Micro servo, TowerPro SG92R, 3-6 V | m5 | 1 | [Adafruit 169](https://www.adafruit.com/product/169) | $5.95 | in stock | page |
+| Push-pull solenoid, 12 V, 40 ohm (about 0.3 A), 5.5 mm throw | m6 | 1 | [Adafruit 412](https://www.adafruit.com/product/412) | $7.50 | in stock | page |
+| Speaker, 3 in, 8 ohm, 1 W | m7 | 1 | [Adafruit 1313](https://www.adafruit.com/product/1313) | $1.95 | in stock | page |
+| NdFeB disc, 4.76 x 1.59 mm, N52, axial | m9 | 4 | [K&J Magnetics D31-N52](https://www.kjmagnetics.com/proddetail.asp?prod=D31-N52) | $0.24 | in stock (no count) | page |
+| Load cell, 5 kg straight bar (TAL220B), 1.0 mV/V, 200 mm leads | m11 | 1 | [SparkFun SEN-14729](https://www.sparkfun.com/load-cell-5kg-straight-bar-tal220b.html) | $15.50 | in stock | page |
+| Jumper cap, 2-pin, 2.54 mm | m6 | 3 | [SparkFun PRT-09044](https://www.sparkfun.com/jumper-2-pin.html) | $0.10 | in stock | page |
+| JST PH 6-way cable pair, 2.0 mm, 20 cm | m3 | 1 | [Adafruit 5090](https://www.adafruit.com/product/5090) | $0.95 | in stock | page |
+| JST XH 4-way cable pair, 2.5 mm, 20 cm | m4, m11 | 2 | [Adafruit 4874](https://www.adafruit.com/product/4874) | $0.95 | in stock | page |
+| Gimbal motor GBM2804H-100T, 12N14P, 10 ohm, hollow shaft 7 mm outside | b5 | 1 | [iFlight GBM2804H-100T](https://shop.iflight.com/ipower-gimbal-brushless-motor-gbm2804h-100t-pro218) | $18.99 | in stock (no count) | page |
+| Diametric NdFeB disc, 6.00 x 2.50 mm, N35 | b5 | 3 | [Radial Magnets 8995 at Digi-Key](https://www.digikey.com/en/products/detail/radial-magnets-inc/8995/5126077) | about $0.24 | 4,709-19,991 on Digi-Key's regional sites | snippet |
+| Piezo element, 30 mm, enclosed, mounting holes, wires attached | b8 | 1 | [Adafruit 1739](https://www.adafruit.com/product/1739) | $0.95 | in stock | page |
+
+**About $100 a bench for this section** at single-unit prices, or about $82 where the bench already has PhMOD's
+Adafruit 4880; before shipping and tax, from five vendors (Adafruit, SparkFun, K&J, Digi-Key, iFlight).
+
+- **The supply** goes from 3 to 12 V, inside m2's 5-16 V and b2's 5-12 V.  12 V for the stepper and the solenoid; about
+  6 V for the N20 (6 V nominal) and for m7 with the 8 ohm speaker (m7's back: "8 ohm at 5-6 V").  Digi-Key's and
+  Jameco's listings give it as centre positive; Adafruit's page does not say.  It is PhMOD's h4 supply: a bench that
+  has one needs no second.  Not Adafruit 5130 (3-24 V): it passes AMOD-B's 12 V and AMOD-M's 16 V.  No fixed 12 V
+  2 A adapter was in stock on 2026-10-28 (Pololu 1471, 1774, 1468 and Adafruit 352 out of stock; Bel/CUI's at
+  Digi-Key 25 weeks).
+- **The N20's encoder:** the datasheet Adafruit links (Chihai CHF-GM12-N20VA) prints the encoder board's pins M1, GND,
+  C1, C2, VCC, M2: m3's PH order (1 M1, 2 GND, 3 A, 4 B, 5 3.3 V, 6 M2); if the count runs backwards, swap A and B in
+  the gateware.  The encoder has its own 3.3 k pull-ups.  Its plug is narrower than a PH (it fits inside the motor's
+  12.2 mm), so **make the lead**: cut the free end off Adafruit's harness and solder it to the half of the 5090 pair
+  that mates m3's header, pin 1 to pin 1, going by the encoder board's printed labels.  From 12 V keep the duty under
+  about 50 % (the motor is rated 4.5-6 V).  No encoder motor with a confirmed 2.0 mm PH plug was found (DFRobot's
+  FIT0521 has m3's pin order on a cable of unstated series; Pololu's use a 1.0 mm SH plug).
+- **The stepper's** coils are red and yellow (A), green and brown or gray (B): solder them to an XH half of a 4874,
+  red to pin 1 (A+), yellow 2 (A-), green 3 (B+), brown or gray 4 (B-).  35 ohm at 12 V is 0.34 A, under m4's 1 A
+  limit.  Reversing one coil reverses the direction.
+- **The servo:** m5's header is S, +5 V, GND; the orange wire on S.
+- **The solenoid** draws 0.3 A at 12 V.  Adafruit's 5 V solenoid (2776, 4.5 ohm) would draw 2.7 A at 12 V: only
+  with the supply at 5-6 V.
+- **The speaker:** m7 puts 4 x IN across it, +-4 V full scale, 1 W into 8 ohm at its rating; solder two wires for the
+  terminal.  No 30 ohm speaker for m7 at 12 V was in stock.
+- **The hall magnet:** a D31 gives 410 mT at its face against the DRV5055A3's +-85 mT: hold it a few millimetres above
+  the sensor.  Turning it over changes the sign.
+- **The load cell's** colours match m11's XH: red E+ to pin 1, black E- to 2, white S- to 3, green S+ to 4, on an XH
+  half of a 4874.  1.0 mV/V at 5 V gives 5 mV at 5 kg, about 1 V after m11's gain of 201.
+- **The cable pairs** are inline plug and socket: only one half mates the board's header.  Check before soldering.
+- **The gimbal motor's** leads are 300 mm of 28 AWG with no plug: twist and tin each and put them straight into b3's
+  3-way terminal (thin for a 5 mm terminal: fold the stripped end over once).  The phase order does not matter:
+  swapping two reverses the motor, and the electrical-angle calibration takes up the offset.  iFlight's page does not
+  say where it ships from; no US distributor stocks it (Robot Pi Shop lists it at $21.99, snippet).
+- **The motor's screws:** iFlight answers "M2" for the base; users of other 2804s report M3, and the base pattern is
+  not published.  Measure the motor, then screw it through b5's slots with spacers or washers that put the magnet
+  0.5-2 mm over the MT6701 (about 1 mm).  Not priced.
+- **The diametric magnet** (6 mm) is wider than the motor's 5 mm bore: glue it centred on the end of the 7 mm shaft
+  that faces the board.  K&J's D42DIA-N52 (6.35 x 3.17 mm, $0.60, page) is the alternate; give it a little more gap.
+- **The piezo element** screws or tapes to the motor's mount; its two wires go in b8's terminal (either way round: the
+  sign flips).  A bare 27 mm brass disc with leads (Murata 7BB-27-4L0) is more sensitive but was not found in US stock.
+- **Alternates** (read 2026-10-28): stepper SparkFun ROB-09238 (12 V 0.33 A, $26.95, page; pair its coils with an
+  ohmmeter); gearmotor DFRobot FIT0521 (25 mm, 6 V, 34:1, $19.90, page; stalls at 3.2 A, m3 limits at 2 A); voice
+  coil Adafruit 1674 bone-conductor transducer (8 ohm, 1 W, $8.95, page); load cell Adafruit 4541 (5 kg, $3.95, page;
+  colours unstated); hall magnet K&J D4H1 (6.35 x 2.54 mm, $0.35, page).
 
 ## For the second-level boards (PhMOD and IQ-MOD)
 

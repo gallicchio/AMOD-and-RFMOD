@@ -84,8 +84,8 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>The motor supply VMOT: a barrel jack (5-16 V) or USB's 5 V, each through a Schottky; its voltage / 16 on a jack.</b><br><br>
 <b>Jacks:</b> VM /16, top left.<br><br>
 <b>Expect:</b> VMOT = the larger of the barrel jack or terminal (5-16 V) and USB 5 V, each less a Schottky's 0.3-0.5 V; VM jack VMOT / 16<br><br>
-<b>How to use it:</b> A 12 V adapter on the barrel jack for anything bigger than a small gearmotor; VM to an ADC to watch VMOT.<br><br>
-<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): a 12 V 2 A barrel-jack adapter. (<a href="KIT.md">KIT.md</a>)<br><br>
+<b>How to use it:</b> The supply on the barrel jack: 12 V for the stepper and the solenoid, about 6 V for the N20 and m7's 8 ohm speaker; VM to an ADC to watch VMOT.<br><br>
+<b>You need:</b> From the kit (docs/KIT.md, Motors and actuators): a 3-12 V adjustable supply with a barrel plug (PhMOD's h4 and AMOD-B's b2 take the same one). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> DC-005 5.5 / 2.1 mm jack, centre positive; two SS34 (3 A) into VMOT, so VMOT is the larger input less about 0.4 V; SMBJ16A (clamps near 26 V) and 220 uF on VMOT soak up a motor's braking energy (the diodes stop it reaching the supply); green LED; VM = VMOT / 16 (15 k / 1 k) through 49.9 ohm.<br><br>
 <b>Limits:</b> 5-16 V in.  VMOT is not switched and has no fuse: the supply's current limit is the board's.  With USB alone VMOT is about 4.6 V, enough for the small motors (the DRV8251A's lockout is 4.45 V at most).  VM is a 1 k source: read it at high impedance.<br><br>
 <b>Experiments:</b> The supply's droop and the braking energy coming back onto VMOT (VM on an ADC while m3 brakes).<br><br>

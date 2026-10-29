@@ -660,8 +660,8 @@ DOCS["amod_m"] = {
         specs="DC-005 5.5 / 2.1 mm jack, centre positive; two SS34 (3 A) into VMOT, so VMOT is the larger input less about 0.4 V; SMBJ16A (clamps near 26 V) and 220 uF on VMOT soak up a motor's braking energy (the diodes stop it reaching the supply); green LED; VM = VMOT / 16 (15 k / 1 k) through 49.9 ohm.",
         limits="5-16 V in.  VMOT is not switched and has no fuse: the supply's current limit is the board's.  With USB alone VMOT is about 4.6 V, enough for the small motors (the DRV8251A's lockout is 4.45 V at most).  VM is a 1 k source: read it at high impedance.",
         experiments="The supply's droop and the braking energy coming back onto VMOT (VM on an ADC while m3 brakes).",
-        use="A 12 V adapter on the barrel jack for anything bigger than a small gearmotor; VM to an ADC to watch VMOT.",
-        needs=MOTOR_KIT + "a 12 V 2 A barrel-jack adapter."),
+        use="The supply on the barrel jack: 12 V for the stepper and the solenoid, about 6 V for the N20 and m7's 8 ohm speaker; VM to an ADC to watch VMOT.",
+        needs=MOTOR_KIT + "a 3-12 V adjustable supply with a barrel plug (PhMOD's h4 and AMOD-B's b2 take the same one)."),
     "m3": dict(
         does="A brushed DC motor with its encoder: drive, brake or coast from two FPGA lines; its current and its terminal voltage on jacks.",
         chips=["DRV8251A", "OPA2171", "TPS7A20"],
@@ -770,7 +770,7 @@ DOCS["amod_b"] = {
         limits="The magnet must be diametric (magnetised across its diameter) and centred over the encoder; the motor sits on spacers to set the gap.  The halls see the rotor's magnets only if they come within about 3 mm of the board.",
         experiments="The encoder's angle against the halls' and the back-EMF's: the motor's electrical angle three ways; the encoder's nonlinearity against the index; cogging (the motor turned by hand, the angle and the current).",
         use="Glue the magnet to the shaft's end; screw the motor down on spacers so the magnet is about 1 mm over the encoder; its leads to b3.",
-        needs=GIMBAL + ", a 6 x 2.5 mm diametric magnet, M2.5 screws and spacers."),
+        needs=GIMBAL + ", a 6 x 2.5 mm diametric magnet, and screws and spacers for its base (measure it: M2 by iFlight's word)."),
     "b6": dict(
         does="An IMU on SPI, and the buffer that lets the encoder share its MISO.",
         chips=["LSM6DSO", "SN74LVC1G125"],
@@ -791,7 +791,7 @@ DOCS["amod_b"] = {
         specs="The disc on a 2-way screw terminal through 1 k into an OPA810 charge amplifier on +-5 V: VIB = -Q / 1 nF above 160 Hz (1 M across), through 49.9 ohm.",
         limits="Below 160 Hz the output falls (the 1 M); a hard tap on the disc can clip the amplifier at +-4 V.",
         experiments="The cogging (12 a turn), the commutation's ripple and the PWM's whine, the bearing's noise; the motor mount's resonances; field-oriented control against six-step, heard.",
-        use="Stick the disc to the motor's mount (tape or wax); its wires on the terminal; VIB to an ADC.", needs=MOTOR_KIT + "a 27 mm piezo disc with leads."),
+        use="Screw or tape the piezo element to the motor's mount; its wires on the terminal; VIB to an ADC.", needs=MOTOR_KIT + "a 30 mm piezo element with wires."),
     "b9": dict(
         does="An index: the reflective sensor under the bell's rim sees a white mark once a turn.",
         chips=["OPA810"],

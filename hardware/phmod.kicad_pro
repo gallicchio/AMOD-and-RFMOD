@@ -309,7 +309,80 @@
         "Fine"
       ]
     },
-    "netclass_patterns": []
+    "netclass_patterns": [
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(SW401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(Q401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R402-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R403-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R404-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R405-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(U402-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(R406-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(D401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(D402-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C401-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C402-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(C403-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J402-*"
+      },
+      {
+        "netclass": "Fine",
+        "pattern": "unconnected-(J403-*"
+      }
+    ]
   },
   "pcbnew": {
     "last_paths": {

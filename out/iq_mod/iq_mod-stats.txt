@@ -17,9 +17,9 @@ Board
 - Board stackup thickness: 1.6000 mm
 
 - Front footprint area: 2773.429 mm²
-- Back footprint area: 687.10 mm²
+- Back footprint area: 686.624 mm²
 - Front component density: 27.76 %
-- Back component density: 6.88 %
+- Back component density: 6.87 %
 Pads
 ----
 - Through hole: 151
