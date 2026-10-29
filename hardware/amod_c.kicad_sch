@@ -9271,6 +9271,17 @@
 		)
 		(uuid "391920e1-1773-573f-b8bd-d395c3876bb0")
 	)
+	(text "Q1's collector-base capacitance, multiplied by the gain (Miller), meets the 2.2 k at its base; the cascode holds Q1's"
+		(exclude_from_sim no)
+		(at 27.94 274.22 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "3cc03877-2660-5f0f-a955-c0beeab3003d")
+	)
 	(text "IN"
 		(exclude_from_sim no)
 		(at 414.02 435.76 0)
@@ -9427,6 +9438,17 @@
 			(justify left)
 		)
 		(uuid "571fc29a-ef00-5c0b-b2a4-17e5ca39c650")
+	)
+	(text "several times wider"
+		(exclude_from_sim no)
+		(at 27.94 271.58 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+			)
+			(justify left)
+		)
+		(uuid "59ece9a0-4dfa-5835-a616-859ecc9499ee")
 	)
 	(text "±1 V"
 		(exclude_from_sim no)
@@ -9844,17 +9866,6 @@
 		)
 		(uuid "a38b2dfb-63b8-5f13-93f1-9f6263187b9d")
 	)
-	(text "Q1's collector-base capacitance, multiplied by the gain (Miller), meets the 2.2 k at its base; the cascode holds Q1's"
-		(exclude_from_sim no)
-		(at 27.94 274.22 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-			)
-			(justify left)
-		)
-		(uuid "a53b9bb3-5dd9-57b2-8f46-d5bd24f01f98")
-	)
 	(text "INT1"
 		(exclude_from_sim no)
 		(at 571.5 181.76 0)
@@ -9899,18 +9910,6 @@
 			(justify left)
 		)
 		(uuid "ad26d19d-5f1e-563f-87c0-ec7b27909d0a")
-	)
-	(text "EXPECT: gain about -8; common emitter (jumper on) about 1.5 MHz wide, the cascode (jumper parked) several times wider"
-		(exclude_from_sim no)
-		(at 27.94 271.58 0)
-		(effects
-			(font
-				(size 1.2 1.2)
-				(bold yes)
-			)
-			(justify left)
-		)
-		(uuid "aee57039-d164-59b7-91da-a31e61e71a26")
 	)
 	(text "slope gm = Itail / (4 VT), about 10 mS here; a triangle in becomes a sine-like wave out when it is driven past balance."
 		(exclude_from_sim no)
@@ -10090,6 +10089,18 @@
 			(justify right)
 		)
 		(uuid "d4a9e259-ed50-57d8-b0e5-1b0f7f473259")
+	)
+	(text "EXPECT: gain about -6 into a high impedance (-8 at Q1's collector), half that into 50 ohm; common emitter (jumper on) about 2 MHz wide, the cascode (jumper parked)"
+		(exclude_from_sim no)
+		(at 27.94 268.94 0)
+		(effects
+			(font
+				(size 1.2 1.2)
+				(bold yes)
+			)
+			(justify left)
+		)
+		(uuid "d97e2536-703b-53e8-991f-ae87b6203bf7")
 	)
 	(text "±2 V"
 		(exclude_from_sim no)

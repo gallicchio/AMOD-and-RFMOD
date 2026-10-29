@@ -614,8 +614,8 @@ def tile_c10():
     emitter and a 1 k collector load, biased by a chain from the switched 5 V (33 k / 20 k / 10 k: 2.4 V on the cascode's
     base, decoupled; 0.8 V on Q1's); IN terminated, AC-coupled and through 2.2 k, so the Miller capacitance shows; Q2 (the
     pair's other half) the cascode; a jumper on the 1 x 2 header shorts the cascode out (common emitter), parked on one
-    pin it leaves it in; Q3 (MMBT3904) an emitter follower at about 6 mA into 1 uF and 51 ohm on OUT.  Gain about -8;
-    the cascode lifts the bandwidth several times.  The pair (SOT-363 at rot 0: E1, B1, C2 down its left; C1, B2, E2 up
+    pin it leaves it in; Q3 (MMBT3904) an emitter follower at about 6 mA into 1 uF and 51 ohm on OUT.  Gain about -8 at
+    Q1's collector, -6 from IN (the 2.2 k against the stage's 6 k); the cascode lifts the bandwidth several times.  The pair (SOT-363 at rot 0: E1, B1, C2 down its left; C1, B2, E2 up
     its right) in the middle of the top-right quarter, Q2's emitter to Q1's collector under the body; the header at the
     right edge; the input network left of the pair; Q3 under the pair, its output down the strip left of the OUT jack
     and in between the jack's left legs.  C2 reaches the header, Q3's base and its collector resistor on the back; VS comes up the
@@ -679,7 +679,7 @@ def tile_c10():
     t.wire("VS", [(11.4, 19.4), (19.6, 19.4), (19.6, 9.85)], layer="B.Cu", silk=False)
     t.text(2.6, 9.6, "c10", 1.2, 0.24, "center")
     t.titles.append("Cascode")
-    t.result = "gain about -8; common emitter (jumper on) about 1.5 MHz wide, the cascode (jumper parked) several times wider"
+    t.result = "gain about -6 into a high impedance (-8 at Q1's collector), half that into 50 ohm; common emitter (jumper on) about 2 MHz wide, the cascode (jumper parked) several times wider"
     t.notes = ["Q1's collector-base capacitance, multiplied by the gain (Miller), meets the 2.2 k at its base; the cascode holds Q1's",
                "collector still, so only one Ccb counts.  The jumper on the header shorts the cascode out: compare the two sweeps."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
@@ -753,7 +753,7 @@ def tile_c11():
 def tile_c12():
     """A precision full-wave rectifier: an OPA2197's first half inverts IN through two Schottky diodes (BAT54S), so its
     second node X is -IN for positive inputs and 0 for negative ones; the second half sums -(IN + 2 X) = |IN|.  10 k /
-    10 k / 20 k / 10 k / 20 k; IN terminated, OUT through 49.9 ohm.  The chip (VSSOP-8 at rot 0: OUT A, -IN A, +IN A, V-
+    10 k / 20 k / 10 k / 20 k; IN terminated, OUT through 49.9 ohm.  The chip (VSSOP-8 on KiCad's MSOP-8 pattern at rot 0: OUT A, -IN A, +IN A, V-
     down its left at 12.29; V+, OUT B, -IN B, +IN B down its right at 16.51) in the top-right quarter; OUT A goes under
     its body to the diodes' common pin below it, -IN A out to a column on the left that comes down to the X-to-N 10 k
     standing beside the diodes and on to the first stage's 10 k from IN.  The second half's Rf and V+'s capacitor stand
@@ -1022,6 +1022,34 @@ BACK_TEXT = ["AMOD-C: power and data conversion, switched",
              "capacitors and transistors.  USB-C 5 V on c1."]
 FRONT_TEXT = []
 
+
+PMOD_HOST = "the bottom margin under c9"
+PMOD_NAMES = {"/PMOD1": "c6's clock (about 1 MHz, to the register)", "/PMOD2": "c8's BIT (high: IN above DAC)",
+              "/PMOD3": "c4's clock (100 x the corner)", "/PMOD4": "c5's phi1 (IN onto the capacitor)",
+              "/PMOD5": "c7's LOGIC (high: track, low: hold)", "/PMOD6": "c3's clock (the pump runs at half of it)",
+              "/PMOD7": "c6's bit (the modulator's output)", "/PMOD8": "c5's phi2 (the capacitor into the summing node)"}
+HANDBOOK_INTRO = [
+    "Twelve tiles on sixteen 20 mm cells, four layers.  c1 takes 5 V from its USB-C and makes -5 V (40 mA) and 3.3 V, as",
+    "AMOD-A's a1 does; every other tile has a slide switch along its left edge (slider up: on).  Seven tiles take a clock,",
+    "a phase or a control from the FPGA, or hand it a bit, on the Pmod plug in the bottom margin under c9, so plug in both",
+    "the USB-C and the host's Pmod.  A tile's input is its top-left jack and its output its bottom-right jack.  A port's",
+    "name is in capitals on its tile's frame; an input that is not 50 ohm says its impedance (IN 10K, DAC 20K) and an",
+    "output read through a divider its ratio (OUT /5.7): read those at high impedance.  The back of each tile says what",
+    "to know while cabling it."]
+HANDBOOK_SECTIONS = [
+    ["## The tiles together", "",
+     "1. **Power** (Regulators).  c2's buck makes 3.6 V at 1.5 MHz and its LDO 3.3 V from it; c2's own electronic load",
+     "   draws 100 mA per volt on LOAD, so a DAC step is a load step.  TRIM moves the buck from 2.2 to 5 V and pushes the",
+     "   LDO into dropout.  c3's charge pump makes -5 V the way c1's LM2664 does, but at the FPGA's clock.",
+     "2. **Switched capacitors.**  One law three times: c5's capacitor is a resistor of 1 / (f C), c4's filter is a ladder",
+     "   of such resistors whose corner follows the clock, and c3's output resistance is 1 / (f C) again.",
+     "3. **Trading speed for bits.**  c7 samples, c8 compares against the host's DAC (a successive-approximation ADC in",
+     "   gateware), c6 modulates (second order: its noise rises at 40 dB per decade against AMOD-A's a6's 20) and c11",
+     "   turns a voltage into a frequency (count it and it is an ADC).",
+     "4. **Transistors.**  c9's differential pair (tanh, and a triangle into a sine), c10's common emitter against its",
+     "   cascode (the Miller effect, on a jumper), c12's precision rectifier (an op amp hiding two diode drops).",
+     "",
+     "The -5 V rail is c1's 40 mA: the five tiles on +-5 V (c5, c6, c7, c9, c12) draw about 25 mA together."]]
 
 import math
 import backplots as BP

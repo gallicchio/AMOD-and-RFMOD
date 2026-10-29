@@ -3179,7 +3179,7 @@
    "y0": 29.25,
    "w": 20.0,
    "h": 20.0,
-   "result": "gain about -8; common emitter (jumper on) about 1.5 MHz wide, the cascode (jumper parked) several times wider",
+   "result": "gain about -6 into a high impedance (-8 at Q1's collector), half that into 50 ohm; common emitter (jumper on) about 2 MHz wide, the cascode (jumper parked) several times wider",
    "notes": [
     "Q1's collector-base capacitance, multiplied by the gain (Miller), meets the 2.2 k at its base; the cascode holds Q1's",
     "collector still, so only one Ccb counts.  The jumper on the header shorts the cascode out: compare the two sweeps."

@@ -647,7 +647,7 @@ JLC_ROTATION = {
     # bottom and top, pin 1 bottom-left, KiCad's turned +90; "-TL" is KiCad's own.  Rev A had these at 0 ("the standard
     # drawing"), which would have put every one of them in backwards.
     "C15127": (180, "predicted", "AO3401A SOT-23, JLCPCB '-BR': pin 1 bottom-right, KiCad's top-left"),
-    "C20917": (180, "predicted", "2N7002 SOT-23, '-BR'"),
+    "C20917": (180, "predicted", "AO3400A SOT-23, '-BR'"),
     "C8545": (180, "predicted", "the small N-FET SOT-23, '-BR'"),
     "C20526": (180, "predicted", "MMBT3904 SOT-23, '-BR'"),
     "C2868809": (180, "predicted", "TMP235 SOT-23, '-BR'"),
@@ -676,6 +676,22 @@ JLC_ROTATION = {
     "C6489012": (180, "predicted", "SMS7630-006LF SOT-23, '-BR'"),
     "C879868": (0, "predicted", "LFCN-1000+: the footprint IS JLCPCB's drawing"),
     "C2889142": (0, "predicted", "TXC 7U 3225 crystal on KiCad's Crystal_SMD_3225: JLCPCB's drawing has pad 1 bottom-left as KiCad's"),
+    # AMOD-C's parts (Prompt 19): by the fit of JLCPCB's drawing on ours (scripts/check_rotations.py after the first build)
+    "C8592": (180, "predicted", "BAT54S SOT-23, '-BR'"),
+    "C155305": (180, "predicted", "DMMT3904W SOT-363: JLCPCB's drawing is KiCad's turned 180 (rms 0.11 mm)"),
+    "C105896": (180, "predicted", "BCM857BS SOT-363: as the DMMT3904W (rms 0.06 mm)"),
+    "C163219": (180, "predicted", "TLV62568 SOT-23-5, '-BR'"),
+    "C42878": (180, "predicted", "SN74LVC1G79 SOT-23-5, '-BR'"),
+    "C10426": (180, "predicted", "SN74LVC1G3157 SOT-23-6, '-BR'"),
+    "C78541": (180, "predicted", "SN74LV1T34 SC-70-5: KiCad's turned 180"),
+    "C3658542": (270, "predicted", "TLV3201 SC-70-5: the pins in rows, pin 1 bottom-left: KiCad's turned +90 (unlike the SN74LV1T34's drawing)"),
+    "C6986": (270, "predicted", "TLC555 SOIC-8: as the SOIC-8s"),
+    "C7881": (270, "predicted", "ICL7660A SOIC-8: as the SOIC-8s"),
+    "C1849413": (270, "predicted", "OPA2810 SOIC-8: as the SOIC-8s"),
+    "C2864267": (270, "predicted", "LF398 SOIC-14: as the SOIC-8s"),
+    "C2867268": (270, "predicted", "OPA2197 MSOP-8: the pins in rows, pin 1 bottom-left (rms 0.02 mm)"),
+    "C17492626": (270, "predicted", "MAX7410 MSOP-8: as the OPA2197 (rms 0.03 mm)"),
+    "C5377936": (270, "predicted", "TMUX4053 TSSOP-16: as the 74HC4046's TSSOP-16"),
 }
 
 # Where JLCPCB's origin for a part sits in our footprint's own frame (mm, y down), when it is not ours: the JLCPCB CPL

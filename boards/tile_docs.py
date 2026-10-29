@@ -51,6 +51,22 @@ CHIP_URL = {
     "LFCN-1000+": "https://www.minicircuits.com/WebStore/dashboard.html?model=LFCN-1000%2B",
     "SMS7630": "https://www.skyworksinc.com/Products/Diodes/SMS7630-Series",
     "MMBT3904": "https://www.lcsc.com/product-detail/C20526.html",
+    "MAX7410": "https://www.analog.com/en/products/max7410.html",
+    "SN74LV1T34": "https://www.ti.com/product/SN74LV1T34",
+    "TMUX4053": "https://www.ti.com/product/TMUX4053",
+    "OPA2810": "https://www.ti.com/product/OPA2810",
+    "SN74LVC1G3157": "https://www.ti.com/product/SN74LVC1G3157",
+    "SN74LVC1G79": "https://www.ti.com/product/SN74LVC1G79",
+    "TLV62568": "https://www.ti.com/product/TLV62568",
+    "AO3400A": "https://www.lcsc.com/product-detail/C20917.html",
+    "ICL7660A": "https://www.lcsc.com/product-detail/C7881.html",
+    "LF398": "https://www.ti.com/product/LF398-N",
+    "TLV3201": "https://www.ti.com/product/TLV3201",
+    "DMMT3904W": "https://www.lcsc.com/product-detail/C155305.html",
+    "BCM857BS": "https://www.lcsc.com/product-detail/C105896.html",
+    "TLC555": "https://www.ti.com/product/TLC555",
+    "OPA2197": "https://www.ti.com/product/OPA2197",
+    "BAT54S": "https://www.lcsc.com/product-detail/C8592.html",
 }
 
 NOTHING = "Nothing beyond SMA cables."
@@ -517,4 +533,93 @@ DOCS["amod_n"] = {
         experiments="The turns ratio squared measured: IN's impedance with each load (PhMOD's h7 or a VNA); a 200 ohm source or load matched to 50 ohm; twice the voltage at OUT.",
         use="IN from the source or the analyzer; OUT open, to a load, or loaded by the switch.",
         needs=NOTHING),
+}
+
+# ------------------------------------------------------------------------------------------------------------ AMOD-C --
+GATEWARE = "Gateware on the host (the tutorial's)."
+DOCS["amod_c"] = {
+    "c1": dict(
+        does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
+        chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
+        limits="-5 V is 40 mA: the five tiles on +-5 V draw about 25 mA together.  The board negotiates nothing: use a plain 5 V supply.",
+        experiments="-", use="Plug in the USB-C and the host's Pmod; then switch on each tile you use (slider up).",
+        needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
+    "c2": dict(
+        does="A buck converter, an LDO after it and an electronic load: the ripple before and after the LDO, load steps, dropout.",
+        chips=["TLV62568", "TPS7A20", "OPA810", "AO3400A"],
+        specs="Buck: 3.6 V at 1.5 MHz from the switched 5 V, 2.2 uH, 10 uF in and out; TRIM through 100 k into its feedback node: OUT = 4.2 V - TRIM (open: 3.6 V).  LDO: 3.3 V, about 40 dB of rejection at 1.5 MHz.  Load: 100 mA per volt on LOAD (terminated in 49.9 ohm), from the LDO's output through an AO3400A and 10 ohm.  BUCK~ and LDO~ are the two outputs AC-coupled through 1 uF and 49.9 ohm.",
+        limits="LOAD 0 to 1 V (100 mA: the 10 ohm 0805 then dissipates 0.1 W, the FET 0.23 W).  Below about 3.5 V on its input (TRIM above +0.7 V) the LDO drops out.  The buck skips pulses below about 150 mA, so its ripple changes character with load.",
+        experiments="Output ripple and its spectrum before and after the LDO; load-step response (a square wave on LOAD); output impedance against frequency (a swept sine on LOAD, LDO~ on an ADC); dropout as TRIM lowers the buck; the buck's pulse-skipping at light load.",
+        use="LOAD from a DAC (0 to 1 V); TRIM from the other DAC or open; BUCK~ and LDO~ to the two ADCs (the x10 input for the few millivolts of ripple).",
+        needs=NOTHING),
+    "c3": dict(
+        does="A charge pump the FPGA clocks: -5 V from +5 V, whose output resistance is 1 / (f C).",
+        chips=["ICL7660A", "SN74LV1T34"],
+        specs="ICL7660A from the switched 5 V, OSC driven from Pmod IO6 through a 5 V buffer and 1 k (the pump runs at half IO6's frequency); 1 uF flying, 1 uF out, 1 k of load; CAP (the flying capacitor's top, 0-5 V) and OUT (about -5 V) each through 47 k / 10 k, so /5.7.",
+        limits="CAP and OUT are 8.2 k sources: read them at high impedance.  Rout = 1 / (f C) + about 60 ohm: 2 k at 1 kHz on IO6, 80 ohm at 100 kHz.  With no clock on IO6 the pump stops.",
+        experiments="Output voltage and ripple against the clock (the 1 / (f C) law); the flying capacitor's charge and dump on CAP; efficiency against load.",
+        use="A square wave on Pmod IO6 (1 kHz to 100 kHz); OUT and CAP to the ADCs at high impedance.", needs=GATEWARE),
+    "c4": dict(
+        does="A switched-capacitor filter: a 5th-order Butterworth low-pass whose corner is the FPGA's clock divided by 100.",
+        chips=["MAX7410", "SN74LV1T34"],
+        specs="fc = fCLK / 100, up to 15 kHz (1.5 MHz on IO3, through a 5 V buffer); IN terminated in 49.9 ohm and AC-coupled (1 uF, 100 k: 1.6 Hz); OUT AC-coupled through 1 uF and 49.9 ohm; 5 V from the switch.",
+        limits="IN +-1 V.  There is no anti-alias filter in front: a tone near fCLK folds down into the passband, and the clock's images sit near fCLK at OUT (that is the point).  JLCPCB had 134 MAX7410s on 2026-10-28.",
+        experiments="The corner following the clock; aliasing a tone near fCLK; the clock feedthrough on OUT's spectrum; a tracking filter controlled from gateware.",
+        use="A clock 100 times the corner you want on Pmod IO3; DAC to IN, OUT to an ADC.", needs=GATEWARE),
+    "c5": dict(
+        does="A resistor made of a switch and a capacitor, in an integrator: R = 1 / (f C), set by the FPGA's two phases.",
+        chips=["TMUX4053", "OPA810"],
+        specs="1 nF switched between IN and ground (phi1, Pmod IO4) and between ground and the summing node (phi2, IO8): the parasitic-insensitive integrator; R = 1 M at 1 kHz, 1 k at 1 MHz.  OPA810 with 10 nF (C0G) and 1 M across it; IN terminated in 49.9 ohm, OUT through 49.9 ohm.",
+        limits="IN +-1 V.  The phases must not overlap (overlap them on purpose to watch IN leak through); the TMUX4053's charge injection shows at high clock rates; the 1 M sets the DC gain (1 M / R).",
+        experiments="The 1 / (f C) law measured as the integrator's slope against the clock; a switched-capacitor low-pass (the integrator with the 1 M); overlap and charge injection.",
+        use="Two non-overlapping square waves on Pmod IO4 and IO8; DAC to IN, OUT to an ADC.", needs=GATEWARE),
+    "c6": dict(
+        does="A second-order delta-sigma modulator with its insides on jacks: a one-bit stream whose density follows IN.",
+        chips=["OPA2810", "TLV3501", "SN74LVC1G79", "SN74LVC1G3157"],
+        specs="Two integrators (10 k into 220 pF, 6.8 k into 330 pF) on a 1.65 V virtual ground (the 3.3 V rail halved by 0.1 % resistors); the one-bit DACs switch 10 k between 3.3 V and ground; a TLV3501 and a 74LVC1G79 clocked from Pmod IO1 (about 1 MHz) put the bit on IO7.  Full scale +-1.65 V; INT1 and INT2 through 3.3 k / 1 k (about a quarter, offset 0.38 V).",
+        limits="IN is 10 k (not 50 ohm): drive it from the DAC directly.  INT1 and INT2 are 770 ohm sources: high impedance.  A DC input near a simple fraction of full scale makes idle tones.",
+        experiments="The noise spectrum's 40 dB per decade against AMOD-A's a6 (first order, 20); a sinc3 decimator's bits against the oversampling ratio; idle tones; the integrators' outputs on a scope as the loop runs.",
+        use="A 1 MHz clock on Pmod IO1; read the bits on IO7 and decimate them; DAC to IN; INT1, INT2 to the ADCs at high impedance.", needs=GATEWARE),
+    "c7": dict(
+        does="A track-and-hold: OUT follows IN while Pmod IO5 is high and holds when it falls.",
+        chips=["LF398"],
+        specs="LF398 on +-5 V, 1 nF C0G hold capacitor; about 4 us to acquire, about 30 mV/s of droop, a few mV of hold step; IN terminated in 49.9 ohm, OUT through 49.9 ohm.",
+        limits="IN +-1 V (on +-5 V the LF398's inputs must stay within +-1.5 V).  The hold step depends on the input level; a sine feeds through while holding.",
+        experiments="Acquisition time, droop, pedestal (hold step) against IN, feedthrough, aperture delay against the FPGA's edge; sampling and aliasing with a slow ADC behind it.",
+        use="A pulse train on Pmod IO5 (high: track); DAC to IN, OUT to an ADC.", needs=GATEWARE),
+    "c8": dict(
+        does="A comparator for a successive-approximation or tracking ADC whose DAC is the host's.",
+        chips=["TLV3201"],
+        specs="TLV3201 (40 ns, 1.2 mV of hysteresis) on the 3.3 V rail; IN and DAC each averaged with the rail through matched 0.1 % 10 k, so the comparison is unchanged; BIT on Pmod IO2 (high: IN above DAC).",
+        limits="IN and DAC +-1 V, each 20 k: drive them from 50 ohm sources.  The ADC is as good as the host's DAC: 12 bits needs a 12-bit DAC.",
+        experiments="Successive approximation (12 bits in 12 steps), a tracking ADC, single-slope conversion; the host DAC's DNL and INL.",
+        use="The signal to IN, DAC 2 to DAC; the gateware sets the DAC, reads BIT on IO2 and halves the step.", needs=GATEWARE),
+    "c9": dict(
+        does="A differential pair on a current mirror: OUT is tanh of the input difference, linear near balance.",
+        chips=["DMMT3904W", "BCM857BS", "MMBT3904", "OPA810"],
+        specs="A matched NPN pair on a 1 mA tail (an MMBT3904 with -3.4 V on its base), a matched PNP pair as the mirror, an OPA810 transimpedance (1 k) on the output node: OUT = -1 k x (Ic1 - Ic2), +-1 V; gm = Itail / (4 VT), about 10 mS.  IN+ and IN- terminated in 49.9 ohm.",
+        limits="IN+ and IN- +-0.2 V; linear within about +-25 mV of balance; the offset is the pair's VBE match (2 mV).",
+        experiments="The tanh transfer and gm; a triangle of +-72 mV into a sine (1.4 % distortion); common-mode rejection (the same signal on both inputs).",
+        use="DAC 1 to IN+, DAC 2 to IN- (or IN- to a 50 ohm terminator); OUT to an ADC.", needs=NOTHING),
+    "c10": dict(
+        does="Common emitter against cascode on one transistor pair: the Miller effect, switched by a jumper.",
+        chips=["DMMT3904W", "MMBT3904"],
+        specs="Q1 at about 1.4 mA, 100 ohm in its emitter, 1 k collector load; Q2 its cascode (base at 2.4 V); Q3 an emitter follower into 1 uF and 51 ohm; IN terminated, AC-coupled and through 2.2 k.  Gain about -8 at Q1's collector, -6 from IN, -3 into 50 ohm.",
+        limits="IN +-50 mV.  The jumper on the header shorts the cascode (common emitter, about 2 MHz wide); parked on one pin it leaves the cascode in (several times wider).",
+        experiments="Bandwidth with and without the cascode; the Miller capacitance computed from the corner and the 2.2 k; gain against the emitter resistor.",
+        use="DAC to IN, OUT to an ADC; sweep the frequency once with the jumper on and once parked.", needs=NOTHING),
+    "c11": dict(
+        does="A 555 as a voltage-controlled oscillator: CV moves its thresholds and so its frequency.",
+        chips=["TLC555"],
+        specs="TLC555 astable from the switched 5 V, 1 k and 10 k with 10 nF C0G: about 6.9 kHz; CV terminated and through 2.2 k into the control pin; OUT through 3.9 k / 1 k (about 1 V).",
+        limits="CV +-1 V; OUT is a 800 ohm source, read it at high impedance.  The frequency falls as CV rises.",
+        experiments="Frequency against CV; the capacitor's ramp between 1/3 and 2/3 of the supply; a voltage-to-frequency ADC counted in the FPGA.",
+        use="CV from a DAC; OUT to an ADC.", needs=NOTHING),
+    "c12": dict(
+        does="A precision full-wave rectifier: OUT = |IN|, with no diode drop.",
+        chips=["OPA2197", "BAT54S"],
+        specs="An OPA2197 inverts IN through two Schottky diodes so its node X is -IN for positive inputs and 0 for negative ones; the second half sums -(IN + 2 X); IN terminated in 49.9 ohm, OUT through 49.9 ohm.",
+        limits="IN +-1 V; DC to about 100 kHz, above which the first stage's slew across the diodes leaves a glitch at each zero crossing.",
+        experiments="Rectifying with no dead zone; the glitch against frequency; an AC voltmeter (rectify and average); AM detection.",
+        use="DAC to IN, OUT to an ADC.", needs=NOTHING),
 }
