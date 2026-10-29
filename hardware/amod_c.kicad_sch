@@ -6744,10 +6744,10 @@
 				)
 			)
 			(symbol "NPN2_SOT363_1_1"
-				(pin passive line
-					(at 7.62 1.27 180)
+				(pin input line
+					(at -7.62 1.27 0)
 					(length 2.54)
-					(name "E1"
+					(name "B2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6781,9 +6781,9 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 -1.27 180)
+					(at 7.62 3.81 180)
 					(length 2.54)
-					(name "C2"
+					(name "C1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6791,6 +6791,24 @@
 						)
 					)
 					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 1.27 180)
+					(length 2.54)
+					(name "E1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -6808,24 +6826,6 @@
 							)
 						)
 					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -7.62 1.27 0)
-					(length 2.54)
-					(name "B2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
 					(number "5"
 						(effects
 							(font
@@ -6835,9 +6835,9 @@
 					)
 				)
 				(pin passive line
-					(at 7.62 3.81 180)
+					(at 7.62 -1.27 180)
 					(length 2.54)
-					(name "C1"
+					(name "C2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -30587,12 +30587,6 @@
 		(pin "2"
 			(uuid "a576d996-1699-51b2-8b9a-4d84e375b9c1")
 		)
-		(pin "5"
-			(uuid "b9295046-edde-5b5b-a03f-edc67612657e")
-		)
-		(pin "6"
-			(uuid "4dfdd6e6-64ff-5ddc-a41b-00d2313d193c")
-		)
 		(pin "1"
 			(uuid "c184959a-a82f-5cc7-ad65-67ec092b96b0")
 		)
@@ -30601,6 +30595,12 @@
 		)
 		(pin "4"
 			(uuid "f23a9988-3aa4-5110-b03d-84d1ad487e9b")
+		)
+		(pin "6"
+			(uuid "4dfdd6e6-64ff-5ddc-a41b-00d2313d193c")
+		)
+		(pin "5"
+			(uuid "b9295046-edde-5b5b-a03f-edc67612657e")
 		)
 		(instances
 			(project "amod_c"
@@ -42239,12 +42239,6 @@
 		(pin "2"
 			(uuid "ba0c1f08-a424-5107-ad5e-d99a1dd11f8f")
 		)
-		(pin "5"
-			(uuid "912de19d-b479-51c9-aed8-dd7e14dd0f71")
-		)
-		(pin "6"
-			(uuid "627116e0-59a0-5434-bc41-8eaa3a5d74fd")
-		)
 		(pin "1"
 			(uuid "3e431443-5727-577d-911d-b06374df0cb2")
 		)
@@ -42253,6 +42247,12 @@
 		)
 		(pin "4"
 			(uuid "f737f72a-4b29-5e0a-89eb-40c2603aa118")
+		)
+		(pin "6"
+			(uuid "627116e0-59a0-5434-bc41-8eaa3a5d74fd")
+		)
+		(pin "5"
+			(uuid "912de19d-b479-51c9-aed8-dd7e14dd0f71")
 		)
 		(instances
 			(project "amod_c"

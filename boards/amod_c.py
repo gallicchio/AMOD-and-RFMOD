@@ -615,18 +615,18 @@ def tile_c10():
     base, decoupled; 0.8 V on Q1's); IN terminated, AC-coupled and through 2.2 k, so the Miller capacitance shows; Q2 (the
     pair's other half) the cascode; a jumper on the 1 x 2 header shorts the cascode out (common emitter), parked on one
     pin it leaves it in; Q3 (MMBT3904) an emitter follower at about 6 mA into 1 uF and 51 ohm on OUT.  Gain about -8 at
-    Q1's collector, -6 from IN (the 2.2 k against the stage's 6 k); the cascode lifts the bandwidth several times.  The pair (SOT-363 at rot 0: E1, B1, C2 down its left; C1, B2, E2 up
-    its right) in the middle of the top-right quarter, Q2's emitter to Q1's collector under the body; the header at the
-    right edge; the input network left of the pair; Q3 under the pair, its output down the strip left of the OUT jack
-    and in between the jack's left legs.  C2 reaches the header, Q3's base and its collector resistor on the back; VS comes up the
-    back round the jack's legs."""
+    Q1's collector, -6 from IN (the 2.2 k against the stage's 6 k); the cascode lifts the bandwidth several times.  The pair (SOT-363 turned 180: E1, E2, C2 down its left; C1, B1, B2
+    down its right) in the middle of the top-right quarter, Q2's emitter to Q1's collector under the body; Q1's base out
+    to a via on the right and on the back to the input network's column left of the pair; the header at the right edge;
+    Q3 under the pair, its output down the strip left of the OUT jack and in between the jack's left legs.  C2 reaches
+    the header, Q3's base and its collector resistor on the back; VS comes up the back round the jack's legs."""
     t = Tile("c10", "cascode", [(0, 1)], supply="+5 V", subtitle="", sections=["Transistors"])
     t.jack("TL", "IN", "IN", "in", "±50 mV", silk="IN 50R")
     t.jack("BR", "OUT", "OUT", "out", "")
     power_header(t)
     W = 0.25
     WF = 0.2
-    q12 = t.add("Q", "DMMT3904W", "DMMT3904W", 13.2, 5.0, 0, {"1": "E1", "2": "B1", "3": "CN", "4": "C1", "5": "CB", "6": "C1"}, hide_value=True)
+    q12 = t.add("Q", "DMMT3904W", "DMMT3904W", 13.2, 5.0, 180, {"1": "CB", "2": "B1", "3": "C1", "4": "E1", "5": "C1", "6": "CN"}, hide_value=True)
     q3 = t.add("Q", "MMBT3904", "MMBT3904", 12.0, 9.8, 0, {"1": "CN", "2": "E3", "3": "VS"}, hide_value=True)
     jp = t.add("J", "HDR2", "CE", 18.0, 3.8, 0, {"1": "C1", "2": "CN"}, hide_value=True)
     rt = t.add("R", "R0402 51R", "51", 4.75, 9.6, 270, {"1": "IN", "2": "GND"}, label=None)                # pad 1 up, under the jack
@@ -636,7 +636,7 @@ def tile_c10():
     re = t.add("R", "R0402 100R", "100R", 10.3, 3.6, 0, {"1": "GND", "2": "E1"}, label=None)
     rch2 = t.add("R", "R0402 20k", "20k", 13.6, 7.1, 0, {"1": "B1", "2": "CB"}, label=None)
     rch1 = t.add("R", "R0402 33k", "33k", 15.1, 8.5, 270, {"1": "CB", "2": "VS"}, label=None)              # pad 1 up
-    ccb = t.add("C", "C0402 100nF", "100n", 15.65, 6.0, 90, {"1": "GND", "2": "CB"}, label=None)           # pad 2 up
+    ccb = t.add("C", "C0402 100nF", "100n", 15.65, 6.45, 90, {"1": "GND", "2": "CB"}, label=None)          # pad 2 up
     rc = t.add("R", "R0402 1k", "1k", 14.45, 10.4, 90, {"1": "CN", "2": "VS"}, label=None)                 # pad 2 up
     re3 = t.add("R", "R0402 470R", "470R", 9.35, 12.6, 90, {"1": "GND", "2": "E3"}, label=None)            # pad 2 up
     co = t.add("C", "C0402 1uF", "1u", 10.6, 12.6, 270, {"1": "E3", "2": "OC"}, label=None)                # pad 1 up
@@ -646,19 +646,23 @@ def tile_c10():
     t.wire("IN", [("J%d01" % t.idx, "1"), (rt, "1")])
     t.gnd_stub(rt, "2", (4.75, 10.9), sym=(0, 0))
     t.wire("BI", [(cin, "2"), (rs, "1")], width=WF)
-    # B1: a column left of the pair from its base down to the 20 k under it, the 2.2 k and the 10 k on the way
-    t.wire("B1", [(q12, "2"), (11.3, 5.0), (11.3, 7.1), (rch2, "1")], width=WF)
+    # B1: from the base (right middle) to a via, on the back under the pair to a via at the column left of it, which comes
+    # down to the 20 k under the pair past the 2.2 k and the 10 k
+    t.wire("B1", [(q12, "2"), (15.1, 5.0)], width=WF)
+    t.wire("B1", [(15.1, 5.0), (11.3, 5.0)], layer="B.Cu", silk=False, width=W)
+    t.wire("B1", [(11.3, 5.0), (11.3, 7.1), (rch2, "1")], width=WF)
     t.wire("B1", [(11.3, 5.75), (rs, "2")], width=WF)
     t.wire("B1", [(11.3, 6.85), (rch3, "2")], width=WF)
-    t.wire("E1", [(q12, "1"), (re, "2")], width=WF)
-    # the cascode: E2 to C1 under the body, C1 on to the header; its base network down a column on the right
-    t.wire("C1", [(q12, "6"), (13.2, 4.35), (13.2, 5.65), (q12, "4")], width=WF, silk=False)
-    t.wire("C1", [(q12, "6"), (16.4, 4.35), (17.0, 3.8), (jp, "1")], width=W)
-    t.wire("CB", [(q12, "5"), (14.9, 5.0), (14.9, 7.6), (rch1, "1")], width=WF)
-    t.wire("CB", [(14.9, 5.52), (ccb, "2")], width=WF)
+    t.wire("E1", [(q12, "4"), (re, "2")], width=WF)
+    # the cascode: E2 (left middle) to C1 (right top) under the body, C1 on to the header; its base (right bottom) down a
+    # column on the right with its network
+    t.wire("C1", [(q12, "3"), (13.2, 4.35), (13.2, 5.0), (q12, "5")], width=WF, silk=False)
+    t.wire("C1", [(q12, "3"), (16.4, 4.35), (17.0, 3.8), (jp, "1")], width=W)
+    t.wire("CB", [(q12, "1"), (14.9, 5.65), (14.9, 7.6), (rch1, "1")], width=WF)
+    t.wire("CB", [(14.9, 5.97), (ccb, "2")], width=WF)
     t.wire("CB", [(14.9, 7.1), (rch2, "2")], width=WF)
     # C2 (CN): a via under the pair, on the back to the header's other pin and to a via under the collector resistor
-    t.wire("CN", [(q12, "3"), (12.3, 6.5)], width=WF)
+    t.wire("CN", [(q12, "6"), (12.3, 6.5)], width=WF)
     t.wire("CN", [(12.3, 6.5), (16.4, 6.5), (jp, "2")], layer="B.Cu", silk=False, width=W)
     t.wire("CN", [(12.3, 6.5), (12.9, 7.1), (13.6, 9.3), (14.45, 11.8)], layer="B.Cu", silk=False, width=W)
     t.wire("CN", [(14.45, 11.8), (rc, "1")], width=WF)
@@ -880,9 +884,10 @@ def tile_c9():
     at -3.4 V from 6.8 k / 3.3 k and 1 k to -5 V); a matched PNP pair (BCM857BS) mirrors the left collector's current onto
     the right one, so the output node carries Ic1 - Ic2, which an OPA810 transimpedance stage (1 k) turns into OUT: tanh of
     the input difference over 2 VT, +-1 V at the tail's full 1 mA.  The mirror (SOT-363 turned 180: E2, B2, C1 down its
-    left; C2, B1, E1 down its right) over the pair (rot 0: E1, B1, C2 down its left; C1, B2, E2 down its right) in the left
-    cell's top-right quarter, the inputs coming down to the pair's bases from either side; the mirror's emitters joined
-    under its body, the pair's likewise; the mirror's diode node in the channel between the two; the tail standing under
+    left; C2, B1, E1 down its right) over the pair (turned 180: E1, E2, C2 down its left; C1, B1, B2 down its right) in the
+    left cell's top-right quarter; IN- comes down the right to B2, IN+ down the left to a via, under the pair on the back
+    to a via right of it and in to B1 (a SOT-363 leaves no room for a via under its body); the mirror's emitters joined
+    under its body; the pair's joined on the left and down the middle under the body to the tail; the mirror's diode node in the channel between the two; the tail standing under
     the pair with its divider and emitter resistor below.  The output node reaches the TIA (rot 270 in the right cell's
     bottom-left quarter, its feedback lying under it) on the back.  The Pmod plug in the margin below the left cell."""
     t = Tile("c9", "differential pair", [(0, 3), (1, 3)], supply="+-5 V", subtitle="", sections=["Transistors"])
@@ -893,7 +898,7 @@ def tile_c9():
     W = 0.25
     WF = 0.2
     qp = t.add("Q", "BCM857BS", "BCM857BS", 15.0, 4.3, 180, {"1": "VS", "2": "MD", "3": "MO", "4": "VS", "5": "MD", "6": "MD"}, hide_value=True, label=None)
-    qn = t.add("Q", "DMMT3904W", "DMMT3904W", 15.0, 7.4, 0, {"1": "EM", "2": "INP", "3": "MO", "4": "EM", "5": "INN", "6": "MD"}, hide_value=True, label=None)
+    qn = t.add("Q", "DMMT3904W", "DMMT3904W", 15.0, 7.4, 180, {"1": "INN", "2": "INP", "3": "MD", "4": "EM", "5": "EM", "6": "MO"}, hide_value=True, label=None)
     qt = t.add("Q", "MMBT3904", "MMBT3904", 15.84, 10.5, 90, {"1": "TB", "2": "TE", "3": "EM"}, hide_value=True, label=None)
     rt1 = t.add("R", "R0402 49.9R", "49.9", 9.6, 5.5, 90, {"1": "GND", "2": "INP"}, label=None)            # pad 2 up, on the line
     rt2 = t.add("R", "R0402 49.9R", "49.9", 19.6, 5.5, 90, {"1": "GND", "2": "INN"}, label=None)
@@ -901,10 +906,14 @@ def tile_c9():
     rb2 = t.add("R", "R0402 3.3k", "3.3k", 13.2, 12.6, 0, {"1": "-5V", "2": "TB"}, label=None)
     re = t.add("R", "R0402 1k", "1k", 16.79, 13.4, 90, {"1": "-5V", "2": "TE"}, label=None)               # pad 2 up
     cn1 = t.add("C", "C0402 100nF", "100n", 14.8, 15.6, 90, {"1": "GND", "2": "-5V"}, label=None)        # pad 2 up
-    # the inputs: down to the pair's bases from either side, each terminated on the way
-    t.wire("INP", [("J%d01" % t.idx, "1"), (12.0, 4.75), (12.0, 7.4), (qn, "2")])
+    # the inputs, each terminated on the way: IN- down the right to B2 (bottom right); IN+ down the left to a via, on the
+    # back under the pair to a via right of it and in to B1 (right middle): both bases are on the pair's right
+    t.wire("INP", [("J%d01" % t.idx, "1"), (12.0, 4.75), (12.0, 7.4)])
+    t.wire("INP", [(12.0, 7.4), (17.1, 7.4)], layer="B.Cu", silk=False, width=W)
+    t.wire("INP", [(17.1, 7.4), (qn, "2")], width=WF)
     t.wire("INP", [(9.6, 4.75), (rt1, "2")])
-    t.wire("INN", [("J%d02" % t.idx, "1"), (18.4, 4.75), (18.4, 7.4), (qn, "5")])
+    t.wire("INN", [("J%d02" % t.idx, "1"), (18.4, 4.75), (18.4, 8.05)])
+    t.wire("INN", [(18.4, 8.05), (qn, "1")], width=WF)
     t.wire("INN", [(19.6, 4.75), (rt2, "2")])
     t.gnd_stub(rt1, "1", (9.6, 7.0), sym=(0, 0))
     t.gnd_stub(rt2, "1", (19.6, 7.0), sym=(0, 0))
@@ -914,13 +923,13 @@ def tile_c9():
     t.wire("VS", [(12.9, 3.65), (qp, "4")], width=W)
     t.wire("MD", [(qp, "5"), (13.4, 4.3), (13.4, 4.95), (qp, "6")], width=WF)
     t.wire("MD", [(qp, "2"), (16.9, 4.3), (16.9, 5.85), (14.1625, 5.85), (qp, "6")], width=WF)
-    t.wire("MD", [(qn, "6"), (15.8375, 5.85)], width=WF)
-    # the pair: emitters joined under the body and down to the tail's collector
-    t.wire("EM", [(qn, "1"), (15.0, 6.75), (15.0, 8.05), (qn, "4")], width=WF, silk=False)
-    t.wire("EM", [(qn, "4"), (qt, "3")], width=W)
+    t.wire("MD", [(qn, "3"), (15.8375, 5.85)], width=WF)
+    # the pair: emitters joined on the left, then under the body and out of its bottom to the tail's collector
+    t.wire("EM", [(qn, "4"), (qn, "5")], width=WF, silk=False)
+    t.wire("EM", [(qn, "5"), (15.0, 7.4), (15.0, 8.9), (qt, "3")], width=WF)
     # the output node: the mirror's C2 and the pair's C2 to vias, joined on the back and on to the TIA's -IN
     t.wire("MO", [(qp, "3"), (16.6, 3.65), (17.2, 3.3)], width=WF)
-    t.wire("MO", [(qn, "3"), (13.0, 8.6)], width=WF)
+    t.wire("MO", [(qn, "6"), (13.0, 8.6)], width=WF)
     t.wire("MO", [(17.2, 3.3), (17.9, 4.0), (17.9, 9.0), (13.0, 9.0), (13.0, 8.6)], layer="B.Cu", silk=False, width=W)
     t.wire("MO", [(13.0, 8.6), (13.0, 9.0), (22.0, 9.0), (24.4, 11.4), (24.4, 13.6)], layer="B.Cu", silk=False, width=W)
     # the tail: its base divider and emitter resistor, -5 V along y 14.6 with its capacitor, a via to the margin

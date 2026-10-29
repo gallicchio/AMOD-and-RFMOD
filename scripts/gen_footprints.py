@@ -285,7 +285,8 @@ def pj320a():
 # ------------------------------------------------------------- RF filters --
 def saw_1411():
     """B39921B2672P810 915 MHz SAW (LCSC C1518004), SMD 1.4 x 1.1, five 0.25 x 0.32 pads: 1 at (-0.5, 0), 2 (0, +0.287), 3 (+0.5, +0.287),
-    4 (+0.5, -0.287), 5 (0, -0.287) (JLCPCB's drawing).  RF Microelectronics' pinout: 1 IN, 3 OUT, the rest ground."""
+    4 (+0.5, -0.287), 5 (0, -0.287) (JLCPCB's drawing: RF360's bottom view turned over and half round, so the numbers are
+    theirs).  RF360's pinout: 1 IN, 4 OUT, 2, 3 and 5 ground."""
     name = "Filter_SAW_1411-5P_B39921"
     f = fp_header(name, "915 MHz SAW filter, 1.4 x 1.1 mm, 5 pads: RF360 B39921B2672P810 (LCSC C1518004)", "SAW filter", "smd", 1.5)
     for num, (x, y) in {"1": (-0.5, 0.0), "2": (0.0, 0.287), "3": (0.5, 0.287), "4": (0.5, -0.287), "5": (0.0, -0.287)}.items():

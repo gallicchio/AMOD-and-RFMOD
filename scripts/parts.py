@@ -338,7 +338,7 @@ PARTS = {
                     desc="TI 40 ns rail-to-rail comparator, 1.2 mV hysteresis, SC-70-5 (1 OUT, 2 GND, 3 IN+, 4 IN-, 5 VCC)"),
     "DMMT3904W": dict(value="DMMT3904W", mpn="DMMT3904W-7-F", lcsc="C155305", jlc_type="extended", process="SMT", stock=4596, price=0.1594,
                       footprint="Package_TO_SOT_SMD:SOT-363_SC-70-6", symbol="amod:NPN2_SOT363", match=["DMMT3904W"],
-                      desc="Diodes matched NPN pair (2 % hFE, 2 mV VBE) from adjacent dice, SOT-363 (1 E1, 2 B1, 3 C2, 4 E2, 5 B2, 6 C1)"),
+                      desc="Diodes matched NPN pair (2 % hFE, 2 mV VBE) from adjacent dice, SOT-363 (1 B2, 2 B1, 3 C1, 4 E1, 5 E2, 6 C2: not the BCM857BS's order)"),
     "BCM857BS": dict(value="BCM857BS", mpn="BCM857BS-7-F", lcsc="C105896", jlc_type="extended", process="SMT", stock=16017, price=0.161,
                      footprint="Package_TO_SOT_SMD:SOT-363_SC-70-6", symbol="amod:PNP2_SOT363", match=["BCM857BS"],
                      desc="Diodes matched PNP pair, SOT-363 (1 E1, 2 B1, 3 C2, 4 E2, 5 B2, 6 C1): the differential pair's current mirror"),

@@ -5797,10 +5797,10 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 7.62 2.54 180)
+				(pin power_in line
+					(at 7.62 0 180)
 					(length 2.54)
-					(name "OUT"
+					(name "GND"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -5815,10 +5815,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 7.62 0 180)
+				(pin passive line
+					(at 7.62 2.54 180)
 					(length 2.54)
-					(name "GND"
+					(name "OUT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -22341,11 +22341,11 @@
 		(pin "5"
 			(uuid "922beaee-0909-586d-9bdf-33bf269175dd")
 		)
-		(pin "3"
-			(uuid "d8267b02-fe2f-555b-80e5-3683745bff1e")
-		)
 		(pin "4"
 			(uuid "ace6caa0-b521-5294-b127-1c032c9db2cb")
+		)
+		(pin "3"
+			(uuid "d8267b02-fe2f-555b-80e5-3683745bff1e")
 		)
 		(instances
 			(project "rf_mod"

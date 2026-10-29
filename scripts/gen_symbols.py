@@ -90,9 +90,12 @@ SYMBOLS = [
     # TLV3201 (TI, SC-70-5 DCK; datasheet pin descriptions): 1 OUT, 2 GND, 3 IN+, 4 IN-, 5 VCC
     box("TLV3201", "U", [("3", "IN+", "input"), ("4", "IN-", "input"), ("2", "GND", "power_in")], [("5", "VCC", "power_in"), ("1", "OUT", "output")],
         "Package_TO_SOT_SMD:SOT-353_SC-70-5", "40 ns comparator, 1.2 mV hysteresis, SC-70-5", width=10.16),
-    # DMMT3904W / BCM857BS (Diodes, SOT-363): 1 E1, 2 B1, 3 C2, 4 E2, 5 B2, 6 C1
-    box("NPN2_SOT363", "Q", [("2", "B1", "input"), ("5", "B2", "input")], [("6", "C1", "passive"), ("1", "E1", "passive"), ("3", "C2", "passive"), ("4", "E2", "passive")],
+    # DMMT3904W (Diodes, SOT-363; its datasheet's pin-out and EasyEDA's symbol agree): 1 B2, 2 B1, 3 C1, 4 E1, 5 E2, 6 C2 -- both
+    # bases on one side, both emitters on the other.  Rev A's first build gave it the BCM857BS's pinout (below), which
+    # would have left c9 and c10 dead; caught by reading the datasheet's drawing for the DOA list (Prompt 19).
+    box("NPN2_SOT363", "Q", [("2", "B1", "input"), ("1", "B2", "input")], [("3", "C1", "passive"), ("4", "E1", "passive"), ("6", "C2", "passive"), ("5", "E2", "passive")],
         "Package_TO_SOT_SMD:SOT-363_SC-70-6", "matched NPN pair, SOT-363", width=10.16),
+    # BCM857BS (Diodes, SOT-363; its datasheet's pin-out): 1 E1, 2 B1, 3 C2, 4 E2, 5 B2, 6 C1
     box("PNP2_SOT363", "Q", [("2", "B1", "input"), ("5", "B2", "input")], [("1", "E1", "passive"), ("6", "C1", "passive"), ("4", "E2", "passive"), ("3", "C2", "passive")],
         "Package_TO_SOT_SMD:SOT-363_SC-70-6", "matched PNP pair, SOT-363", width=10.16),
     # BCX56-16 (Nexperia, SOT-89): 1 B, 2 C (and the tab), 3 E
@@ -137,8 +140,10 @@ SYMBOLS = [
     # GALI-84+ (Mini-Circuits, SOT-89): 1 RF IN, 2 GND (the tab), 3 RF OUT and DC in
     box("GALI84", "U", [("1", "IN", "input")], [("3", "OUT", "output"), ("2", "GND", "power_in")],
         "Package_TO_SOT_SMD:SOT-89-3", "Mini-Circuits GALI-84+ MMIC amplifier, SOT-89 (1 IN, 2 GND, 3 OUT + DC)", width=10.16),
-    # B39921B2672P810 915 MHz SAW (RF360, 1.4 x 1.1, 5 pads): 1 IN, 3 OUT, 2 / 4 / 5 ground
-    box("SAW915", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in")], [("3", "OUT", "passive"), ("4", "GND", "power_in")],
+    # B39921B2672P810 915 MHz SAW (RF360, 1.4 x 1.1, 5 pads; the datasheet's section 4 and EasyEDA's symbol): 1 IN, 4 OUT,
+    # 2 / 3 / 5 ground.  Rev A's first build had 3 OUT and 4 ground, which grounds the output (scripts/check_pinouts.py,
+    # Prompt 19).
+    box("SAW915", "FL", [("1", "IN", "passive"), ("2", "GND", "power_in"), ("5", "GND", "power_in")], [("4", "OUT", "passive"), ("3", "GND", "power_in")],
         "amod:Filter_SAW_1411-5P_B39921", "915 MHz SAW band-pass filter, 1.4 x 1.1 mm", width=10.16),
     # ADL5350 (ADI, LFCSP-8 2 x 3; datasheet Table 6): 1 and 8 RF/IF (tied inside), 2 and 5 GND, 3 LOIN, 4 and 7 NC (ground them), paddle 9
     box("ADL5350", "U", [("1", "RF/IF", "passive"), ("8", "RF/IF", "passive"), ("3", "LOIN", "input")],

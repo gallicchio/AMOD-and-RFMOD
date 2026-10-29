@@ -20,8 +20,10 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
    or no connection on Taitien's drawing) floats.  A wrong turn puts 3.3 V on the output and ground on VCC.
 4. **ADL5350 (r7, r8).** The footprint is JLCPCB's own land pattern for C206667 (pads 1-4 along one long side, 5-8
    along the other, the 1.74 x 0.45 paddle as pad 9).  Check that pad 1 is RF/IF as the datasheet's Figure 2 says.
-5. **B39921B2672P810 SAW (r4).** Pad 1 in, 3 out, the others ground (JLCPCB's drawing).  The part is symmetric in
-   function, so a swap of in and out is harmless; a quarter turn would short the signal to ground.
+5. **B39921B2672P810 SAW (r4).** Pad 1 in, 4 out, 2, 3 and 5 ground (RF360's section 4; JLCPCB's drawing numbers the
+   pads as RF360 does, its bottom view turned over).  The first build took the output from pad 3, a ground pad, and
+   grounded pad 4: found by `scripts/check_pinouts.py` (Prompt 19) and fixed.  The part is symmetric in function, so a
+   swap of in and out is harmless; a quarter turn would short the signal to ground.
 6. **LFB212G45SG8A127 LTCC (r2).** Pads 4 in, 2 out at the ends, 1 and 3 ground along the long sides.  A quarter turn
    grounds the signal.
 7. **MT3608 boost (r9).** SOT-23-6: 1 SW, 2 GND, 3 FB, 4 EN, 5 IN, 6 NC.  FB 0.6 V with 12 k / 1 k: 7.8 V.  The SS34's

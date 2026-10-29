@@ -59,13 +59,15 @@ def tile_r2():
 
 
 def tile_r4():
-    """915 MHz band-pass: RF360 B39921B2672P810 SAW (1.4 x 1.1 mm, 5 pads), 902-928 MHz, 1.1 dB loss; pad 1 in, 3 out,
-    2, 4 and 5 ground.  The output pad sits 0.29 mm above the line: a short 45 degree jog brings it back."""
-    t, jin, jout, fl = filter_tile("r4", (3, 0), "SAW915", "B39921", {"1": "IN", "3": "OUT", "2": "GND", "4": "GND", "5": "GND"}, "915 MHz filter", [])
+    """915 MHz band-pass: RF360 B39921B2672P810 SAW (1.4 x 1.1 mm, 5 pads), 902-928 MHz, 1.1 dB loss; pad 1 in, 4 out,
+    2, 3 and 5 ground (the datasheet's section 4).  The output pad sits 0.29 mm above the line: a short 45 degree jog
+    brings it back; pad 3, below it, joins pad 2's ground."""
+    t, jin, jout, fl = filter_tile("r4", (3, 0), "SAW915", "B39921", {"1": "IN", "4": "OUT", "2": "GND", "3": "GND", "5": "GND"}, "915 MHz filter", [])
     t.rf("IN", [(jin, "1"), (4.75, 10.0), (9.2, 10.0)])
     t.wire("IN", [(9.2, 10.0), (fl, "1")], width=0.2)                     # the last 0.3 mm narrower: ground pads 0.25 away
-    t.wire("OUT", [(fl, "3"), (10.75, 10.287)], width=0.2)
-    t.rf("OUT", [(10.75, 10.287), (10.9, 10.287), (11.19, 10.0), (15.25, 10.0), (jout, "1")])
+    t.wire("OUT", [(fl, "4"), (10.75, 9.713)], width=0.2)
+    t.rf("OUT", [(10.75, 9.713), (10.9, 9.713), (11.19, 10.0), (15.25, 10.0), (jout, "1")])
+    t.wire("GND", [(fl, "3"), (fl, "2")], width=0.2)
     t.gnd_stub(fl, "5", (10.0, 8.5), sym=(0, -1), width=0.2)
     t.gnd_stub(fl, "2", (10.0, 11.5), sym=(0, 1), width=0.2)
     t.text(12.6, 2.4, "r4", 1.5, 0.3, "center")
