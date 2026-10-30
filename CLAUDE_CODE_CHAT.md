@@ -801,3 +801,22 @@ Mid-turn:
 - *MSK12C02*: section 28's new 0.55 mm datum is for round post holes; AMOD's slotted posts take JLCPCB's drawing at the
   0.251 mm datum (its posts at the slots' centre) and Shouhan's spacing alike.  Kept.
 - AMOD-A's parts $49.73.  CLAUDE_PCB.md section 29 extended (b01eb39).  Nothing pushed.
+
+## Prompt 23 (2026-10-29)
+
+> Now for the RF-MOD, my order looks like this (still no Impedance Control).
+
+(with screenshots of the quote: Specify Stackup Yes, JLC04161H-7628; Impedance Control No requirement; Min via
+0.25 mm, which made JLCPCB select FR4 TG155 and a 4-wire Kelvin test; LeadFree HASL; Economic PCBA, top, 2 pieces,
+Confirm Parts Placement Yes; PCB $51.43)
+
+### Response 23 (2026-10-29)
+
+- The order is right.  JLC04161H-7628 by name is better than "No requirement" (the same layers, stated).  Keep Impedance
+  Control at No requirement: the lines are drawn for that stack (0.29 mm, 0.25 mm gap: about 54 ohm, CostasLink's field
+  solve of the same geometry), and the service would let the fab re-width them.
+- The 0.25 mm vias cost about $38 on each of the five fine boards (TG155 $3.56, Kelvin test $17.20, via size $17.37):
+  my $12 PCB guess holds for the other four, so the total is about $190 more than my table.  Changing those vias to
+  0.3 mm holes would need every tight via re-checked on five boards; not worth it for this order.
+- ENIG instead of lead-free HASL is optional: flatter pads for the 0.5 mm leadless parts; HASL assembles them too.
+- MANUFACTURING.md's order steps say all of this.  Nothing pushed.

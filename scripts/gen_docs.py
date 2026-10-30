@@ -228,10 +228,13 @@ def manufacturing(stems):
                   "- Parts per board: $%.2f.  Read `out/%s/%s-assembly-notes.txt` before confirming the order." % (total, stem, stem), ""]
         lines += ["### Order steps", "",
                   "1. Order now > PCB: upload the gerber zip; 100 x 100 mm, %d layers, 1.6 mm, any colour, HASL or ENIG, 5 pieces." % layers,
-                  ("   Specify Stackup: No.  JLCPCB's \"No requirement\" 4-layer 1.6 mm stack is the JLC04161H-7628 construction (0.2104 mm"
-                   "\n   of 7628 prepreg under L1, a 1.065 mm core) that the 50 ohm lines were drawn for (jlcpcb.com/impedance, 2026-10-29)."
+                  ("   Specify Stackup: Yes, JLC04161H-7628 (\"No requirement\" is the same construction: 0.2104 mm of 7628 prepreg under"
+                   "\n   L1, a 1.065 mm core, 1 oz outer and 0.5 oz inner copper; jlcpcb.com/impedance, 2026-10-29).  Impedance Control: No"
+                   "\n   requirement: the lines are drawn for that stack (0.29 mm, 0.25 mm to the pour, about 54 ohm by CostasLink's field"
+                   "\n   solve of the same geometry), and the service would let the fab change their widths."
                    if layers == 4 else "   Specify Stackup: No (two layers: no stack to choose)."),
-                  ("   Min via hole size: 0.25mm/(0.35/0.4mm); this board's fine rules use 0.25 mm holes in 0.45 mm vias."
+                  ("   Min via hole size: 0.25mm/(0.35/0.4mm); this board's fine rules use 0.25 mm holes in 0.45 mm vias.  JLCPCB then\n"
+                   "   selects FR4 TG155 and a 4-wire Kelvin test itself: about $38 more for five boards (RF-MOD's quote, 2026-10-29)."
                    if parts.BOARDS[stem].get("fine") else "   Min via hole size: the default 0.3mm/(0.4/0.45mm); every via is 0.3 mm in 0.6 mm."),
                   "   Via covering: Plugged (the default) is fine: the design assumes tented vias, and plugged is better.",
                   "2. PCB assembly: economic, top side, 2 pieces; upload the BOM and placement files; confirm the parts list (check",
