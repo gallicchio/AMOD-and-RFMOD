@@ -521,16 +521,16 @@
         (number "4" (effects (font (size 1.27 1.27)))))
     )
   )
-  (symbol "PAM8302_SOIC8" (pin_names (offset 1.016)) (exclude_from_sim no) (in_bom yes) (on_board yes)
+  (symbol "PAM8302_MSOP8" (pin_names (offset 1.016)) (exclude_from_sim no) (in_bom yes) (on_board yes)
     (property "Reference" "U" (at -5.08 8.89 0) (effects (font (size 1.27 1.27)) (justify left)))
-    (property "Value" "PAM8302_SOIC8" (at -5.08 -8.89 0) (effects (font (size 1.27 1.27)) (justify left)))
-    (property "Footprint" "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (property "Value" "PAM8302_MSOP8" (at -5.08 -8.89 0) (effects (font (size 1.27 1.27)) (justify left)))
+    (property "Footprint" "Package_SO:MSOP-8_3x3mm_P0.65mm" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
     (property "Datasheet" "" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-    (property "Description" "PAM8302A 2.5 W filterless class-D amplifier, SOIC-8" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
-    (symbol "PAM8302_SOIC8_0_1"
+    (property "Description" "PAM8302A 2.5 W filterless class-D amplifier, MSOP-8" (at 0 0 0) (effects (font (size 1.27 1.27)) (hide yes)))
+    (symbol "PAM8302_MSOP8_0_1"
       (rectangle (start -5.08 7.62) (end 5.08 -7.62) (stroke (width 0.254) (type default)) (fill (type background)))
     )
-    (symbol "PAM8302_SOIC8_1_1"
+    (symbol "PAM8302_MSOP8_1_1"
       (pin input line (at -7.62 5.08 0) (length 2.54)
         (name "IN+" (effects (font (size 1.27 1.27))))
         (number "3" (effects (font (size 1.27 1.27)))))
@@ -540,8 +540,8 @@
       (pin input line (at -7.62 0.00 0) (length 2.54)
         (name "SD" (effects (font (size 1.27 1.27))))
         (number "1" (effects (font (size 1.27 1.27)))))
-      (pin passive line (at -7.62 -2.54 0) (length 2.54)
-        (name "BYP" (effects (font (size 1.27 1.27))))
+      (pin no_connect line (at -7.62 -2.54 0) (length 2.54)
+        (name "NC" (effects (font (size 1.27 1.27))))
         (number "2" (effects (font (size 1.27 1.27)))))
       (pin power_in line (at -7.62 -5.08 0) (length 2.54)
         (name "GND" (effects (font (size 1.27 1.27))))

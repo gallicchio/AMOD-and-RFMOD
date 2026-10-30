@@ -19,8 +19,10 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 3. (Rev A's LT6230 item: a5 no longer carries an LT6230.)
 4. **TLV3501 (a6, U601).** SOT-23-6, taken as -IN 1, V- 2, +IN 3, V+ 4, OUT 5, SHDN 6 with SHDN grounded (active
    high).  Confirm.
-5. **PAM8302A (a12, U1201).** SOIC-8, taken as SD 1, BYP 2, IN+ 3, IN- 4, VO+ 5, VDD 6, GND 7, VO- 8 (the board's
-   own box symbol).  SD is tied to VS (on when the tile is on).  Confirm SD's polarity (active low shutdown).
+5. **PAM8302A (a12, U1201).** MSOP-8 (PAM8302AASCR, C113367: JLCPCB stocks no other), SD 1, NC 2, IN+ 3, IN- 4,
+   VO+ 5, VDD 6, GND 7, VO- 8 (Diodes' application circuit and JLCPCB's symbol).  Until 2026-10-29 it sat on a SOIC-8
+   footprint, which JLCPCB's placement preview showed (its leads half-way between our pads); `check_overlay.py` now
+   fails a part whose drawing does not land on its pads.  SD is tied to VS (on when the tile is on).  Confirm SD's polarity (active low shutdown).
 6. **DRV8837 (a11, U1101).** WSON-8 with the thermal pad on ground; pins taken as VM 1, OUT1 2, OUT2 3, GND 4,
    IN2 5, IN1 6, nSLEEP 7, VCC 8, nSLEEP tied to VS.  Confirm against the DSG package drawing (pin 1 at the dot).
 7. **MC1496 (a9, U901).** SOIC-14 as the datasheet's "pin connections": SIG+ 1, GAIN 2 and 3, SIG- 4, BIAS 5,

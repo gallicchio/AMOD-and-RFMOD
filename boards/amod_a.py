@@ -741,8 +741,9 @@ def tile_a10():
 
 # ----------------------------------------------------------------------------------------------------------- a12 --
 def tile_a12():
-    """Audio, two cells.  Left: a PAM8302A class-D amplifier (SOIC-8, rot 270: IN-, IN+, BYP, SD along the top; VO+,
-    VDD, GND, VO- along the bottom) driving a speaker on the screw terminal in the right cell's top-left; its input
+    """Audio, two cells.  Left: a PAM8302A class-D amplifier (MSOP-8, rot 270: IN-, IN+, NC, SD along the top; VO+,
+    VDD, GND, VO- along the bottom; JLCPCB stocks only the MSOP-8, PAM8302AASCR: the SOIC-8 first drawn here did not fit it,
+    which JLCPCB's placement preview showed, Prompt 22) driving a speaker on the screw terminal in the right cell's top-left; its input
     is SPEAKER IN through 1 u and the one-bit stream from Pmod IO2 through 10 k into 10 n.  Right: an electret in the
     1 x 2 socket (2.2 k bias from VS), 1 u into the a2 geometry at x100 and out to MIC OUT.  +-5 V (the op amp; the
     class-D runs on the switched +5 V).  No 3.5 mm jack: the one-bit stream is heard on the speaker."""
@@ -751,44 +752,42 @@ def tile_a12():
     t.jack("TL", "AIN", "AIN", "in", "±1 V", silk="SPEAKER IN"); t.jack("BR1", "OUT", "OUT", "out", "", silk="MIC OUT")
     power_header(t)
     # --- the class-D amplifier (left cell)
-    pa = t.add("U", "PAM8302", "PAM8302A", 10.3, 12.6, 270, {"1": "VS", "2": "BYP", "3": "NODE", "4": "INM", "5": "VOP", "6": "VS", "7": "GND", "8": "VOM"},
+    # MSOP-8 pads at rot 270: 1-4 along y 10.49 at x 11.275, 10.625, 9.975, 9.325; 5-8 along y 14.71 at x 9.325 ... 11.275
+    pa = t.add("U", "PAM8302", "PAM8302A", 10.3, 12.6, 270, {"1": "VS", "3": "NODE", "4": "INM", "5": "VOP", "6": "VS", "7": "GND", "8": "VOM"},
                hide_value=False, label=None)
     cin = t.add("C", "C0805 1uF", "1u", 9.665, 5.0, 270, {"1": "AIN", "2": "NODE"}, label=None)             # pad 1 up
     rdac = t.add("R", "R0603 10k", "10k", 18.0, 5.0, 0, {"1": "NODE", "2": "/PMOD2"}, label=None)
     cdac = t.add("C", "C0805 10nF", "10n", 15.2, 6.5, 270, {"1": "NODE", "2": "GND"}, label=None)          # pad 1 up
     cm = t.add("C", "C0603 1uF", "1u", 6.6, 11.5, 270, {"1": "INM", "2": "GND"}, label=None)
-    cb = t.add("C", "C0603 1uF", "1u", 12.4, 8.0, 0, {"1": "BYP", "2": "GND"}, label=None)
     c100 = t.add("C", "C0603 100nF", "100n", 11.4, 17.5, 0, {"1": "VS", "2": "GND"}, label=None)
     cvdd = t.add("C", "C0805 10uF", "10u", 14.9, 17.3, 0, {"1": "VS", "2": "GND"}, label=None)
     spk = t.add("J", "TERM2", "SPK", 25.6, 6.6, 90, {"1": "VOP", "2": "VOM"}, hide_value=True)            # pads at (25.6, 9.1) and (25.6, 4.1)
     t.wire("AIN", [("J%d01" % idx, "1"), (8.6, 4.75), (8.6, 4.05), (cin, "1")])
-    t.wire("NODE", [(cin, "2"), (9.665, 10.125), (pa, "3")])
+    t.wire("NODE", [(cin, "2"), (9.665, 9.0), (9.975, 9.31), (pa, "3")])
     t.wire("NODE", [(9.665, 6.0), (15.2, 6.0), (17.225, 6.0), (rdac, "1")])
     t.gnd_stub(cdac, "2", (16.1, 7.45), sym=(0, 0))
     t.via("/PMOD2", 18.775, 3.9)
     t.wire("/PMOD2", [(rdac, "2"), (18.775, 3.9)])
     t.wire("/PMOD2", [(18.775, 3.9), (22.0, 3.9), (22.0, 20.5), (1.25, 20.5), (1.25, 21.5)], layer="B.Cu", silk=False)
     t.via("/PMOD2", 1.25, 21.5)                                                                           # board (52.0, 93.75)
-    t.wire("INM", [(cm, "1"), (8.395, 10.725), (pa, "4")])
+    t.wire("INM", [(cm, "1"), (9.325, 10.725), (pa, "4")])
     t.gnd_stub(cm, "2", (6.6, 13.4), sym=(0, 0))
-    t.wire("BYP", [(pa, "2"), (10.935, 8.9), (11.625, 8.9), (cb, "1")])
-    t.gnd_stub(cb, "2", (13.4, 8.9), sym=(0, 0))
     t.via("VS", 12.85, 9.6)                                     # vias clear of the pads: a hole in a pad drinks its solder
     t.via("VS", 13.95, 16.3)
-    t.wire("VS", [(pa, "1"), (12.205, 9.6), (12.85, 9.6)])
+    t.wire("VS", [(pa, "1"), (11.275, 9.6), (12.85, 9.6)])
     t.wire("VS", [(12.85, 9.6), (13.95, 9.6), (13.95, 16.3)], layer="B.Cu", silk=False)
     t.wire("VS", [(13.95, 16.3), (cvdd, "1")])
-    t.wire("VS", [(pa, "6"), (9.665, 18.9)])
+    t.wire("VS", [(pa, "6"), (9.975, 18.9)])
     t.wire("VS", [(c100, "1"), (10.625, 18.9)])
     t.wire("VS", [(cvdd, "1"), (13.95, 18.9)])
-    t.gnd_stub(pa, "7", (10.935, 16.4), sym=(0, 0))
+    t.gnd_stub(pa, "7", [(10.625, 15.85), (10.7, 16.15)], sym=(0, 0))
     t.gnd_stub(c100, "2", (12.175, 18.2), sym=(0, 0))
     t.gnd_stub(cvdd, "2", (15.85, 18.2), sym=(0, 0))
     t.via("VOP", 8.395, 16.7)
-    t.wire("VOP", [(pa, "5"), (8.395, 16.7)])
+    t.wire("VOP", [(pa, "5"), (9.325, 15.77), (8.395, 16.7)])
     t.wire("VOP", [(8.395, 16.7), (8.395, 17.3), (21.0, 17.3), (21.0, 9.1)], layer="B.Cu", silk=False)
     t.wire("VOP", [(21.0, 9.1), (spk, "1")])
-    t.wire("VOM", [(pa, "8"), (14.6, 15.075), (14.6, 8.75), (20.4, 8.75), (20.4, 4.1), (spk, "2")])
+    t.wire("VOM", [(pa, "8"), (14.6, 14.712), (14.6, 8.75), (20.4, 8.75), (20.4, 4.1), (spk, "2")])
     t.text(16.7, 2.4, "a12", 0.9, 0.17, "center")
     t.info(["MIC x100"], near=(33.0, 9.0))
     t.text(26.5, 13.0, "SPK", 0.8, 0.15, "center")
@@ -809,7 +808,7 @@ def tile_a12():
     t.text(22.2, 14.0, "MIC", 0.8, 0.15, "left")
     t.result = "a speaker on SPK follows SPEAKER IN (2.5 W into 4 ohm) or the one-bit stream on Pmod IO2 (10 k / 10 n); MIC OUT is the electret x100"
     t.notes = ["PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k",
-               "into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the",
+               "into 10 n (1.6 kHz) at the same node, so both play.  SD high: on with the tile (pin 2 is NC).  The electret (pin 1 is the",
                "+ side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech."]
     t.sch_draw = lambda ctx, tt: ctx.netlist_block(tt)
     return t

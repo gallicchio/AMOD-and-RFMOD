@@ -110,6 +110,9 @@ def stage_out(stem):
     out = sys_py("check_outputs.py", stem)
     if "ALL FAB CHECKS PASSED" not in out:
         raise Fail("the fab package did not pass its checks")
+    out = sys_py("check_overlay.py", stem)              # JLCPCB's drawing of every part on our pads: a wrong package fails
+    if " 0 do not land on our pads" not in out:
+        raise Fail("a part's JLCPCB drawing does not land on its footprint (scripts/check_overlay.py)")
 
 
 def stage_docs(stem):

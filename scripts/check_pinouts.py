@@ -69,8 +69,13 @@ def their_pins(code):
         texts = [t.strip() for t in re.findall(r'<text[^>]*>([^<]*)</text>', g.group(2))]
         if not num:
             continue
-        names = [t for t in texts if t and t != num.group(1)]
-        out[num.group(1)] = names[0] if names else ""
+        number = num.group(1)
+        if number not in texts:              # c_spicepin is the SPICE order, not always the printed number (the PAM8302's
+            printed = [t for t in texts if re.fullmatch(r"\d+", t)]       # pin 4 is its spice pin 2): use the printed one
+            if len(printed) == 1:
+                number = printed[0]
+        names = [t for t in texts if t and t != number]
+        out[number] = names[0] if names else ""
     return out
 
 

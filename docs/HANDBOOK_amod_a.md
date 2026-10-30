@@ -314,7 +314,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Experiments:</b> An acoustic modem (FSK, MSK through the air); the speed of sound in air; a room's echoes and impulse response; one-bit (PDM) audio.<br><br>
 <b>Chip:</b> <a href="https://www.diodes.com/assets/Datasheets/PAM8302A.pdf">PAM8302A</a>, <a href="https://www.ti.com/product/OPA810">OPA810</a><br><br>
 <b>Tutorial pages:</b> ADC samples to Python; MSK and GMSK.<br><br>
-<b>The circuit:</b> PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  BYP 1 u, SD high: on with the tile.  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.<br><br>
+<b>The circuit:</b> PAM8302A: 1 u couples SPEAKER IN to IN+ (IN- grounded through 1 u), the one-bit DAC on Pmod IO2 arrives through 10 k into 10 n (1.6 kHz) at the same node, so both play.  SD high: on with the tile (pin 2 is NC).  The electret (pin 1 is the + side, 2.2 k from VS) through 1 u into an OPA810 at x100: a few hundred millivolts for speech.<br><br>
 <b>Parts:</b> OPA810IDBVR (C2833513), PAM8302AASCR (C113367).
 
 </td></tr></table>

@@ -770,3 +770,34 @@ Costs: JLCPCB's economic PCBA fees of 2026-10-09 ($8.18 setup, $1.53 stencil, $3
 part, $0.0164 per through-hole joint), today's part prices with JLCPCB's own attrition, and a guessed $12 for five bare
 4-layer boards ($5 for 2-layer); no shipping or tariff.  The tutorial repo's index had been set to 1493241's tree by
 something else (commit there would revert eight commits), so Appendix D's new prices are left uncommitted.  Nothing pushed.
+
+## Prompt 22 (2026-10-29)
+
+> AMOD-A's U1201 seems to have the wrong package in the preview.
+
+(with a screenshot of JLCPCB's placement preview: the PAM8302's leads half-way between U1201's pads)
+
+Mid-turn:
+
+> For the RF-MOD board, I cannot pick the particular stackup.
+
+(with screenshots of the PCB quote page: Specify Stackup No / Yes, Via Covering Plugged, Min via hole size 0.3 mm)
+
+### Response 22 (2026-10-29)
+
+- *U1201*: right.  C113367 (PAM8302AASCR) is an MSOP-8, the only PAM8302 JLCPCB stocks (the SOP-8 PAM8302AADCR, C112137,
+  has none); the footprint was a SOIC-8.  check_rotations had fitted it at +270 with 0.77 mm rms and called it ok: it
+  never failed on a residual.  a12 re-laid on KiCad's MSOP-8 (every wire into the chip redrawn, pin 2 NC as Diodes'
+  application circuit and JLCPCB's symbol have it, its 1 u dropped), rms now 0.03 mm, ERC 0, DRC 0.
+- *The gate*: `scripts/check_overlay.py`, run in the out stage: JLCPCB's drawing laid where the table's turn and datum put
+  it, every pad centre inside our same-numbered pad (custom pads' primitives read: the SOT-89 tabs).  All nine boards:
+  108 codes, 0 off their pads; it fails a quarter turn by 2 mm.  The 310 two-pad lines' size codes all agree with
+  JLCPCB's packages.  `check_pinouts.py` paired EasyEDA's names by c_spicepin, which is not the printed number on the
+  PAM8302's symbol; fixed (only the PAM8302 and ADL5350 readings changed, both now agree).
+- *The stackup*: leave Specify Stackup at No.  JLCPCB's impedance page lists "No requirement" for 4-layer 1.6 mm as the
+  JLC04161H-7628 layers (0.2104 mm 7628 prepreg, 1.065 mm core).  Min via hole size 0.25mm/(0.35/0.4mm) for RF-MOD,
+  IQ-MOD, PhMOD, AMOD-B and AMOD-N (0.25 mm holes in 0.45 mm vias), the default 0.3 mm for the rest; Plugged vias are
+  fine.  These are now in MANUFACTURING.md's order steps.
+- *MSK12C02*: section 28's new 0.55 mm datum is for round post holes; AMOD's slotted posts take JLCPCB's drawing at the
+  0.251 mm datum (its posts at the slots' centre) and Shouhan's spacing alike.  Kept.
+- AMOD-A's parts $49.73.  CLAUDE_PCB.md section 29 extended (b01eb39).  Nothing pushed.

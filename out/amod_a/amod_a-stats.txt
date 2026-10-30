@@ -9,21 +9,21 @@ Board
 - Width: 100.0000 mm
 - Height: 100.0000 mm
 - Area: 9992.261 mm²
-- Front copper area: 1471.802 mm²
-- Back copper area: 9188.501 mm²
+- Front copper area: 1465.988 mm²
+- Back copper area: 9188.225 mm²
 - Min track clearance: 0.2000 mm
 - Min track width: 0.2000 mm
 - Min drill diameter: 0.3000 mm
 - Board stackup thickness: 1.6000 mm
 
-- Front footprint area: 3442.759 mm²
+- Front footprint area: 3420.421 mm²
 - Back footprint area: 700.822 mm²
-- Front component density: 34.45 %
+- Front component density: 34.23 %
 - Back component density: 7.01 %
 Pads
 ----
 - Through hole: 143
-- SMD: 476
+- SMD: 474
 - Connector: 0
 - NPTH: 24
 - Castellated: 0
@@ -31,7 +31,7 @@ Pads
 
 Vias
 ----
-- Through vias: 187
+- Through vias: 186
 - Blind vias: 0
 - Buried vias: 0
 - Micro vias: 0
@@ -42,16 +42,16 @@ Components
 |              | Front Side | Back Side | Total |
 |--------------|------------|-----------|-------|
 |THT:          |         28 |         0 |    28 |
-|SMD:          |        161 |         0 |   161 |
+|SMD:          |        160 |         0 |   160 |
 |Unspecified:  |          0 |         0 |     0 |
-|Total:        |        189 |         0 |   189 |
+|Total:        |        188 |         0 |   188 |
 
 Drill holes
 -----------
 
 | Count | Shape |    X Size |    Y Size | Plated | Via/Pad | Start Layer | Stop Layer |
 |-------|-------|-----------|-----------|--------|---------|-------------|------------|
-|   187 | Round | 0.3000 mm | 0.3000 mm |    PTH |     Via |        F.Cu |       B.Cu |
+|   186 | Round | 0.3000 mm | 0.3000 mm |    PTH |     Via |        F.Cu |       B.Cu |
 |    84 | Round | 1.5000 mm | 1.5000 mm |    PTH |     Pad |        F.Cu |       B.Cu |
 |    22 |  Slot | 0.9000 mm | 1.4500 mm |   NPTH |     Pad |        F.Cu |       B.Cu |
 |    21 | Round | 1.3500 mm | 1.3500 mm |    PTH |     Pad |        F.Cu |       B.Cu |

@@ -160,7 +160,7 @@ PARTS = {
                     footprint="Package_SON:Texas_DSG0008A_WSON-8-1EP_2x2mm_P0.5mm_EP0.9x1.6mm", symbol="Driver_Motor:DRV8837", match=["DRV8837"],
                     desc="H-bridge, 1.8 A, PWM inputs: drives the 40 kHz transducer from two Pmod pins"),
     "PAM8302": dict(value="PAM8302A", mpn="PAM8302AASCR", lcsc="C113367", jlc_type="extended", process="SMT", stock=12021, price=0.3089,
-                    footprint="Package_SO:SOIC-8_3.9x4.9mm_P1.27mm", symbol="amod:PAM8302_SOIC8", match=["PAM8302A"], desc="2.5 W filterless class-D mono amplifier: the speaker"),
+                    footprint="Package_SO:MSOP-8_3x3mm_P0.65mm", symbol="amod:PAM8302_MSOP8", match=["PAM8302A", "MSOP-8"], desc="2.5 W filterless class-D mono amplifier: the speaker (MSOP-8: JLCPCB has no SOIC-8 PAM8302 in stock)"),
     "PD70": dict(value="PD70-01C", mpn="PD70-01C/TR7", lcsc="C131196", jlc_type="extended", process="SMT", stock=77545, price=0.2097,
                  footprint="amod:Photodiode_PD70-01C", symbol="Device:D_Photo", match=["PD70-01C"], desc="PIN photodiode, 7 x 2.6 mm, 940 nm peak (visible too)"),
     "LED_SIDE": dict(value="red side-view", mpn="E6C1204URAC1UDA", lcsc="C375479", jlc_type="extended", process="SMT", stock=12614, price=0.0188,
@@ -755,7 +755,7 @@ JLC_ROTATION = {
     "C580235": (270, "predicted", "LT6230 SOT-23-6, '-BL'"),
     "C84817": (270, "predicted", "MT3608 SOT-23-6, '-BL'"),
     # by the fit of JLCPCB's drawing on ours (scripts/check_rotations.py, Prompt 17), each family read before (CLAUDE_PCB.md)
-    "C113367": (270, "predicted", "PAM8302A SOIC-8: KiCad's turned +90 (SOIC-8 +270 read on Lorenz and the Icepi build)"),
+    "C113367": (270, "predicted", "PAM8302AASCR MSOP-8 (JLCPCB's '-BL'): KiCad's turned +90, rms 0.03 mm; it sat on a SOIC-8 footprint until JLCPCB's preview showed it (Prompt 22)"),
     "C7295": (270, "predicted", "MC1496 SOIC-14: as the SOIC-8s"),
     "C546981": (270, "predicted", "74HC4046 TSSOP-16: CostasLink's TSSOP-16s read +270"),
     "C2937625": (270, "predicted", "1x3 header PZ254V-11-03P: read +270 in CostasLink's preview, with the datum below"),
