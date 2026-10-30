@@ -718,3 +718,55 @@ Tutorial repo only, one commit (60b6d5e); the checker now reports 0 errors.
   port's name) still find their content.
 - *Left*: the checker's one warning, that 0.00 opens with a sentence rather than a picture, is from the rewrite and
   left for Jason.  Nothing pushed.
+
+## Prompt 21 (2026-10-29)
+
+> There are some new lessons in ~/OpticsPCBs/CLAUDE_PCB.md. Look over them and do any checks that you think would help
+> ensure the successful fabrication and assembly of revA of this board. Then I will submit the JLCPCB order for at least
+> a few boards. Make a table here of the board, its approximate price, and the likelihood that it will work (or the
+> fraction of tiles you expect, on average, to work).
+
+Mid-turn:
+
+> Check ~/OpticsPCBs/CostasLink-PYNQ-Z2/tools/fit_pdf.py for those tools
+
+### Response 21 (2026-10-29)
+
+The new lessons (sections 1, 2, 5, 9, 10, 11, 14, 27, 28 since 9561e5d) run as checks on all nine boards; what they found,
+fixed and rebuilt (all nine: ERC 0, DRC 0, the new layout checks, every fab check; check_rotations 241 codes, 0 differ):
+- *Screw terminals backwards* (section 28, the op-amp review): JLCPCB's KF301 has its wire openings on the side our
+  footprint called the back, so all ten blocks (AMOD-P, -A, -M, -B, PhMOD) would have faced into the board.  CPL +180,
+  the footprint body 3.7 / 4.0 and its 3D model flipped, four blocks moved 0.4 mm forward off their neighbours, and a
+  wire-face check in `check_outputs.py`.
+- *Oversold parts* (the stock gate read raw stock): four codes showed stock but a negative free count.  Swapped for the
+  same value and package: 27 ohm (C100353), 6.8 k (C93940), 220 nF (C16772, X7R 16 V: both uses at 5 V or less),
+  OPA847IDBVT (C2059024, whose JLCPCB drawing is a quarter turn from the IDBVR's: +180, caught by check_rotations).  The
+  gate now uses the free count, for codes a BOM orders.
+- *Vias in pads*: ten vias had their holes in or across SMD lead pads, four more 0.02-0.03 mm inside (a12, m2, b2, r5,
+  r9, r12, q4, h1, h4, h7, h10).  All moved; `scripts/check_layout.py` fails one in every build (and gate 24's detours).
+- *Terminations' power* (the op-amp review's scope clip): the 49.9 ohm terminations and back-terminations, 62.5 mW in
+  0402 and 0.1 W in 0603, become 200 mW (Vishay CRCW0402...HP) and 250 mW (Yageo SR0603): a generator's 10 V p-p is 0.25 W.
+- *Assembly drawings* (section 2, `fit_pdf.py` from CostasLink as asked): they put the board 1:1 in an A4 corner under the
+  pours; now Fab, silkscreen and outline fitted to Letter with the scale, 88-92 % fill, checked in the build.
+- *RF gates 24-32* (`scripts/rf_extract.py`, `rf_survey.py`): lines exact, no matching part on a branch (the chips are
+  internally matched), chokes 0.5-2 mm off the line; fences 0.2-1.7 vias/mm and the pour up to 9.8 mm from a via: fine at
+  2.4 GHz, short at the 5.8 GHz stretch.  In the RF DOA lists.  The as-laid simulation was not run.
+- *Checked and fine*: diode, LED, TVS and electrolytic polarity against JLCPCB's drawings; the slide switches' posts
+  (already slotted); the LF398's pin 1; the THS3491's unisolated OUT goes on the bench list (terminate it).
+
+| board | tiles | parts / board | 5 PCBs, 2 assembled | 5 PCBs, 5 assembled | tiles expected to work |
+|---|---|---|---|---|---|
+| AMOD-P | 13 | $17 | ~$155 | ~$195 | ~95 % |
+| AMOD-N | 11 | $44 | ~$175 | ~$300 | ~90 % |
+| AMOD-A | 12 | $50 | ~$220 | ~$340 | ~88 % |
+| AMOD-C | 12 | $44 | ~$240 | ~$355 | ~85 % |
+| AMOD-M | 11 | $36 | ~$230 | ~$320 | ~85 % |
+| AMOD-B | 12 | $42 | ~$200 | ~$305 | ~78 % |
+| RF-MOD | 10 | $67 | ~$270 | ~$445 | ~80 % |
+| PhMOD | 10 | $78 | ~$295 | ~$490 | ~78 % |
+| IQ-MOD | 11 | $100 | ~$355 | ~$630 | ~72 % |
+
+Costs: JLCPCB's economic PCBA fees of 2026-10-09 ($8.18 setup, $1.53 stencil, $3.58 hand-soldering, $3.07 per Extended
+part, $0.0164 per through-hole joint), today's part prices with JLCPCB's own attrition, and a guessed $12 for five bare
+4-layer boards ($5 for 2-layer); no shipping or tariff.  The tutorial repo's index had been set to 1493241's tree by
+something else (commit there would revert eight commits), so Appendix D's new prices are left uncommitted.  Nothing pushed.
