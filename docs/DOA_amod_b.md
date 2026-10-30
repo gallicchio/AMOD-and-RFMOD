@@ -41,6 +41,8 @@ pin table.
 9. **The Pmod plug (b3's margin)**: `check_pmod` maps every pad to the Pmod standard; IO1 INHB, IO2 INHC, IO5 INHA,
    IO3 MISO, IO4 SCK, IO6 CS ENC, IO7 MOSI, IO8 CS IMU.  Pins 6 and 12 (the host's 3.3 V) join only each other.
 10. **The screw terminals** (b3's motor, b8's piezo) and the DC-005 jack (b2) are through-hole: JLCPCB solders them.
+    The KF301's CPL is turned 180 degrees so that its wire openings (JLCPCB's drawing: the 3.7 mm side) face where the
+    silkscreen draws them, north on both; `check_outputs` checks it.  In the preview: openings toward the top edge.
 
 ## Bench, first power
 

@@ -99,6 +99,9 @@ def stage_pcb(stem):
     print("  DRC: %d violation(s)" % n)
     if n:
         raise Fail("DRC reported %d violations -- see %s" % (n, os.path.relpath(rpt, ROOT)))
+    out = kicad_py("check_layout.py", stem, pcb)
+    if "layout checks: passed" not in out:
+        raise Fail("the layout checks failed (scripts/check_layout.py)")
 
 
 def stage_out(stem):

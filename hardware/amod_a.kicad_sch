@@ -18458,7 +18458,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 532.13 353.06 90)
 			(hide yes)
 			(show_name no)
@@ -18469,7 +18469,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 532.13 353.06 90)
 			(hide yes)
 			(show_name no)
@@ -21995,7 +21995,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 425.45 353.06 90)
 			(hide yes)
 			(show_name no)
@@ -22006,7 +22006,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 425.45 353.06 90)
 			(hide yes)
 			(show_name no)
@@ -22743,7 +22743,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 425.45 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -22754,7 +22754,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 425.45 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -25630,7 +25630,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C160422"
+		(property "LCSC" "C2059024"
 			(at 500.38 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -25641,7 +25641,7 @@
 				)
 			)
 		)
-		(property "MPN" "OPA847IDBVR"
+		(property "MPN" "OPA847IDBVT"
 			(at 500.38 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -27007,7 +27007,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 461.01 492.76 90)
 			(hide yes)
 			(show_name no)
@@ -27018,7 +27018,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 461.01 492.76 90)
 			(hide yes)
 			(show_name no)
@@ -31699,7 +31699,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 151.13 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -31710,7 +31710,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 151.13 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -32350,7 +32350,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 234.95 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -32361,7 +32361,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 234.95 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -33064,7 +33064,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 425.45 365.76 90)
 			(hide yes)
 			(show_name no)
@@ -33075,7 +33075,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 425.45 365.76 90)
 			(hide yes)
 			(show_name no)
@@ -34779,7 +34779,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 257.81 482.6 90)
 			(hide yes)
 			(show_name no)
@@ -34790,7 +34790,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 257.81 482.6 90)
 			(hide yes)
 			(show_name no)
@@ -43431,7 +43431,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 44.45 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -43442,7 +43442,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 44.45 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -45232,7 +45232,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 758.19 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -45243,7 +45243,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 758.19 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -48019,7 +48019,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 341.63 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -48030,7 +48030,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 341.63 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -49557,7 +49557,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C23185"
+		(property "LCSC" "C6230117"
 			(at 532.13 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -49568,7 +49568,7 @@
 				)
 			)
 		)
-		(property "MPN" "0603WAF499JT5E"
+		(property "MPN" "SR0603FR-7T49R9L"
 			(at 532.13 99.06 90)
 			(hide yes)
 			(show_name no)

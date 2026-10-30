@@ -104,7 +104,7 @@ def tile_m2():
     t.wire("VD", [(rd1, "2"), (rd2, "1")], width=W)
     t.wire("VD", [(rd2, "1"), (ro, "1")], width=W)
     t.wire("VMJ", [(ro, "2"), (0.6, 4.75), ("J%d01" % t.idx, "1")])
-    for ref_, pad, pt in ((rd2, "2", (0.6, 10.6)), (led, "1", (2.6, 18.3)), (dz, "2", (2.6, 18.3)), (ce, "2", (17.9, 6.6)),
+    for ref_, pad, pt in ((rd2, "2", (0.6, 10.6)), (led, "1", (2.6, 17.85)), (dz, "2", (2.6, 17.85)), (ce, "2", (17.9, 6.6)),
                           (jdc, "2", (20.15, 19.0)), (jdc, "3", (19.8, 9.3))):
         t.gnd_stub(ref_, pad, pt, sym=(0, 0))
     t.wire("LA", [(led, "2"), (rl, "1")], width=W)
@@ -436,12 +436,12 @@ def tile_m6():
     t.wire("IO", [(29.4, 19.3), (ro, "1")], width=W)
     t.wire("IJ", [(ro, "2"), (32.4, 19.0), (32.4, 15.25), ("J%d03" % t.idx, "1")])
     # ---- the coil's terminal (VMOT on pin 2 beside the bus, the drain on pin 1), 10 uF on VMOT at the bus
-    tc = t.add("J", "TERM2", "coil", 35.9, 4.35, 0, {"1": "DRN", "2": VM}, hide_value=True)
+    tc = t.add("J", "TERM2", "coil", 35.9, 3.95, 0, {"1": "DRN", "2": VM}, hide_value=True)
     cvm = t.add("C", "C0805 10uF", "10u", bx, 10.2, 90, {"1": "GND", "2": VM}, label=None)                # pad 2 up
-    t.via(VM, bx, 4.35)
-    t.wire(VM, [(bx, 4.35), (tc, "2")], width=WD)
-    t.wire(VM, [(bx, 4.35), (tc, "2")], width=WD, layer="B.Cu", silk=False)
-    t.wire(VM, [(bx, 4.35), (cvm, "2")], width=0.6)
+    t.via(VM, bx, 3.95)
+    t.wire(VM, [(bx, 3.95), (tc, "2")], width=WD)
+    t.wire(VM, [(bx, 3.95), (tc, "2")], width=WD, layer="B.Cu", silk=False)
+    t.wire(VM, [(bx, 3.95), (cvm, "2")], width=0.6)
     t.gnd_stub(cvm, "1", (40.9, 11.4), sym=(0, 0))
     # the drain: the tab to the header's middle pin along y 13.14; to the terminal's pin 1 on the back along y 9.0
     sel = t.add("J", "HDR3", "D Z", 31.0, 10.6, 0, {"1": "DA", "2": "DRN", "3": "ZK"}, hide_value=True)
@@ -555,9 +555,9 @@ def tile_m7():
     t.wire("OA", [(37.4, 18.4), (37.0, 18.0), (37.0, 1.7), (31.125, 1.7)], width=W, layer="B.Cu", silk=False)
     t.wire("OA", [(31.125, 1.7), (rib, "2")], width=W)
     # ---- the load: OB straight to the terminal's pin 1, OA through the shunt to pin 2
-    tl = t.add("J", "TERM2", "load", 44.9, 8.0, 270, {"1": "OB", "2": "LA"}, hide_value=True)
+    tl = t.add("J", "TERM2", "load", 45.3, 8.0, 270, {"1": "OB", "2": "LA"}, hide_value=True)
     rsh = t.add("R", "R1206 0.1R", "0.1", 42.6, 18.35, 0, {"1": "OA", "2": "LA"}, label=None)
-    t.wire("OB", [(u, "2"), (37.475, 2.2), (43.8, 2.2), (44.9, 3.3), (tl, "1")], width=WL)
+    t.wire("OB", [(u, "2"), (37.475, 2.2), (44.2, 2.2), (45.3, 3.3), (tl, "1")], width=WL)
     t.wire("OA", [(u, "16"), (38.745, 18.35), (rsh, "1")], width=WL)
     t.wire("LA", [(rsh, "2"), (48.0, 18.35), (48.0, 12.0), (46.5, 10.5), (tl, "2")], width=WL)
     # ---- the INA181 over the shunt (2.5 V on REF from 1 k / 1 k: no capacitor, so the reference and the difference

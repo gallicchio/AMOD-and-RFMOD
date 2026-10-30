@@ -72,11 +72,11 @@ def led_0805():
 
 def kf301(n):
     w = n * 5.0 + 0.4
-    s = HEAD + box(0, 0.2, 5.0, w, 7.6, 10.0, TERMBLUE)
+    s = HEAD + box(0, -0.15, 5.0, w, 7.7, 10.0, TERMBLUE)            # board y -3.7 (the wire face) to +4.0 (the back)
     for i in range(n):
         x = (i - (n - 1) / 2.0) * 5.0
-        s += prism_z(x, 0.2, 10.0, 10.3, 1.6, SILVER)
-        s += box(x, 2.9, 6.0, 3.0, 0.1, 3.0, (0.05, 0.05, 0.05))
+        s += prism_z(x, -0.15, 10.0, 10.3, 1.6, SILVER)
+        s += box(x, 3.75, 6.0, 3.0, 0.1, 3.0, (0.05, 0.05, 0.05))   # the wire openings, on the face
     return "TerminalBlock_KF301_1x%02d.wrl" % n, s
 
 

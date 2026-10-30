@@ -39,13 +39,13 @@ lives: nuclear and electron spin resonance, the ionosphere (VLF transmitters, sf
 and parametric resonators, impedance and transmission lines, noise.  Plus the one optical tile that serves RF
 physics: a laser driver whose bias-T puts gigahertz on the current (the rubidium CPT clock, NV-centre ODMR, PDH
 sidebands).  The piezo driver, the bimorph and the TEC of Appendix D's first AMOD-2 go to a future optics board
-(section 6).  ERC 0, DRC 0, all fabrication checks; 234 placements, 76 BOM lines, $78.19 of parts a board.
+(section 6).  ERC 0, DRC 0, all fabrication checks; 234 placements, 76 BOM lines, $78.19 of parts a board ($77.89 after the 2026-10-29 part swaps).
 
 | # | cells | tile | jacks | as built | chips (JLCPCB 2026-10-25) |
 |---|---|---|---|---|---|
 | h1 | (2,1)-(3,1) | power | | USB-C 5 V (5.1 k CC), 2 A PTC, 5 V TVS; an LM2664 for -5 V (40 mA) into L3's strip under row 0; a TPS65131 for +-15 V (1 M / 88.7 k, 1.3 M / 105 k, 1.25 MHz, power-save off) carried to h2 on two tracks on the back | TPS65131RGER C87663, LM2664 |
 | h2 | (2,0) | pulse amplifier | IN, OUT | THS3491 (RGT) at gain 10.3 from +-15 V: +-1 V into 50 ohm becomes +-10 V, 1 W; PD from IO1 through 4.7 k, 10 k holding it off | THS3491IRGTR C2058688 (237) |
-| h3 | (0,0)-(1,0) | duplexer and preamplifier | TX IN, PROBE, LINE, RX OUT | two pairs of crossed 1N4148W from TX IN to PROBE (the pulse passes, the transmitter's noise between pulses does not); LINE, from the probe through a quarter-wave cable (or a short cable and a 6 dB pad), clamped by crossed diodes and terminated in 49.9 ohm, into an OPA847 at x12: the classic passive duplexer | OPA847IDBVR C160422 |
+| h3 | (0,0)-(1,0) | duplexer and preamplifier | TX IN, PROBE, LINE, RX OUT | two pairs of crossed 1N4148W from TX IN to PROBE (the pulse passes, the transmitter's noise between pulses does not); LINE, from the probe through a quarter-wave cable (or a short cable and a 6 dB pad), clamped by crossed diodes and terminated in 49.9 ohm, into an OPA847 at x12: the classic passive duplexer | OPA847IDBVT C2059024 (the IDBVR reel, C160422, oversold on 2026-10-29) |
 | h4 | (3,3) | coil driver | MON | DRV8876 in PH/EN mode (IO6 enable and PWM, IO7 direction), VM the higher of USB's 5 V and 12-18 V on a terminal (two B5819W), IPROPI into 1.5 k (a 1.3 A limit with VREF at 2 V) buffered by an OPA810 to MON; the coil on a second terminal | DRV8876PWPR C575551 |
 | h5 | (0,3)-(1,3) | two-channel HF receiver | IN A, OUT A, IN B, OUT B | two LMH6629 at x9.9, 50 ohm in and out, 5 kHz-100 MHz; carries the Pmod plug | LMH6629MFX C2059678 |
 | h6 | (2,3) | VLF loop amplifier | LOOP, OUT | one OPA810 at x101, 1.6-160 kHz (100 pF across 10 k keeps the AM band out), the loop on an SMA lead | OPA810 |

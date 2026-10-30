@@ -147,6 +147,29 @@ def check(stem, layers, w, h, problems, notes):
     notes.append(f"{stem}: the JLCPCB placement file turns {turned} parts "
                  f"and moves none")
 
+    # A connector whose pins are symmetric can be placed with its cable face backwards and still fit every pad (the
+    # op-amp board's KF301s, 2026-10-27).  FACE: the face a cable enters, in JLCPCB's drawing (y down) and in our
+    # footprint; turned by each file's rotation, the two must agree.
+    FACE = {"C474881": ((0.0, 1.0), (0.0, -1.0), "wire openings"), "C474882": ((0.0, 1.0), (0.0, -1.0), "wire-entry arrows")}
+    def turn(v, deg):
+        r = math.radians(deg)
+        return (v[0] * math.cos(r) + v[1] * math.sin(r), -v[0] * math.sin(r) + v[1] * math.cos(r))
+    faced = []
+    for ref, a in plain.items():
+        code = lcsc_of.get(ref, "")
+        if code not in FACE:
+            continue
+        theirs, ours, what = FACE[code]
+        t, o = turn(theirs, float(jlc[ref]["Rotation"])), turn(ours, float(a["Rotation"]))
+        if a["Layer"] == "Bottom":
+            t, o = (-t[0], t[1]), (-o[0], o[1])
+        if t[0] * o[0] + t[1] * o[1] < 0.9:
+            problems.append(f"{stem}: {ref}'s {what} (JLCPCB's drawing, turned {jlc[ref]['Rotation']}) do not face where the footprint draws them")
+        else:
+            faced.append(ref + " " + {(0, -1): "N", (0, 1): "S", (1, 0): "E", (-1, 0): "W"}[(round(o[0]), round(o[1]))])
+    if faced:
+        notes.append(f"{stem}: terminal blocks' wire faces as drawn (JLCPCB's drawing turned by the CPL): " + ", ".join(sorted(faced)))
+
 
 
 def check_models(stem, problems, notes):
@@ -195,7 +218,10 @@ def check_models(stem, problems, notes):
 def check_codes(problems, notes):
     """Every LCSC code is the part the design thinks it is, by JLCPCB's own
     description (from the parts-API cache; scripts/jlc_api.py <code> refreshes it)."""
-    import jlc_api
+    import glob, jlc_api
+    used = set()                                        # stock matters only for a code some board's BOM orders
+    for path in glob.glob(os.path.join(OUT, "*", "*_bom_jlcpcb_upload.csv")):
+        used |= {r["LCSC Part #"].strip() for r in csv.DictReader(open(path))}
     seen = 0
     for key in parts.all_keys():
         p = parts.info(key)
@@ -221,12 +247,25 @@ def check_codes(problems, notes):
         if missing:
             problems.append(f"{code} ({key}): JLCPCB's description {text[:60]!r}... lacks {missing}")
         stock = part.get("stockCount") or 0
-        if stock < 100:
+        free = part.get("canPresaleNumber")             # stock less what other orders hold: negative when it is oversold
+        if free is not None and free < stock:           # (2026-10-29: four codes read thousands in stock and were oversold)
+            stock = max(free, 0)
+        if stock < 100 and code in used:
             if p.get("stock_exception"):                # a thin stock someone accepted, with who and when (parts.PARTS)
                 notes.append(f"{code} ({key}): {stock} in stock ({ts[:10]}), accepted: {p['stock_exception']}")
             else:
-                problems.append(f"{code} ({key}): only {stock} in stock ({ts[:10]})")
+                problems.append(f"{code} ({key}): only {stock} free to order ({part.get('stockCount')} in stock, {ts[:10]})")
     notes.append(f"{seen} LCSC codes match JLCPCB's own descriptions (MPN, value, package)")
+
+
+def check_pages(stem, problems, notes):
+    """Each assembly drawing fills its Letter page less half-inch margins, centred (CLAUDE_PCB.md gate 23)."""
+    import contextlib, io, fit_pdf
+    for side in ("top", "bottom"):
+        buf = io.StringIO()
+        with contextlib.redirect_stdout(buf):
+            ok = fit_pdf.check(os.path.join(OUT, stem, f"{stem}-assembly-{side}.pdf"))
+        (notes if ok else problems).append(buf.getvalue().strip())
 
 
 def check_pmod(stem, problems, notes):
@@ -286,6 +325,7 @@ def main():
     check_models(stem, problems, notes)
     check_stock(problems, notes)
     check_pmod(stem, problems, notes)
+    check_pages(stem, problems, notes)
     check_codes(problems, notes)
     for n in notes:
         print(f"  ok   {n}")

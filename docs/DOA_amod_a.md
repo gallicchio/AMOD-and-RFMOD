@@ -26,8 +26,8 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 7. **MC1496 (a9, U901).** SOIC-14 as the datasheet's "pin connections": SIG+ 1, GAIN 2 and 3, SIG- 4, BIAS 5,
    OUT+ 6, CAR+ 8, CAR- 10, OUT- 12, VEE 14; pins 7, 9, 11, 13 no connection.  Pin 7 carries the output wire past
    the chip: that is only safe if pin 7 is truly unconnected inside the package (the datasheet says so).
-8. **OPA847 (a4, U401).** Now the SOT-23-6 (OPA847IDBVR, C160422; the SOIC-8 did not fit between the checkerboard
-   jacks), taken as TI's DBV pinout: OUT 1, -VS 2, +IN 3, -IN 4, DIS 5, +VS 6, with DIS tied to +VS (enabled; low
+8. **OPA847 (a4, U401).** Now the SOT-23-6 (OPA847IDBVT, C2059024, the 250-piece reel: the IDBVR reel, C160422,
+   was oversold on 2026-10-29; the SOIC-8 did not fit between the checkerboard jacks), taken as TI's DBV pinout: OUT 1, -VS 2, +IN 3, -IN 4, DIS 5, +VS 6, with DIS tied to +VS (enabled; low
    disables).  Confirm against the DBV package drawing and the pin-1 mark in JLCPCB's preview.
 9. **74HC4046A (a7, U701).** Now Nexperia's 74HC4046APW-Q100J in TSSOP-16 (C546981, 234 in stock on 2026-10-25):
    TI's SOIC-16 (C6542) was too long for the cell between the checkerboard jacks.  Nexperia's pin table is the same

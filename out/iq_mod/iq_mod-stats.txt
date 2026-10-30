@@ -9,7 +9,7 @@ Board
 - Width: 100.0000 mm
 - Height: 100.0000 mm
 - Area: 9992.261 mm²
-- Front copper area: 5427.977 mm²
+- Front copper area: 5428.082 mm²
 - Back copper area: 9165.262 mm²
 - Min track clearance: 0.1860 mm
 - Min track width: 0.1500 mm

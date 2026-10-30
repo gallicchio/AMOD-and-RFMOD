@@ -357,10 +357,10 @@ def tile_h7():
     # VS: the drain to a via, up the back at x 10.2 and along y 10.9 to vias under the V+ pins; 100 nF at each end
     t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
     for x, u in ((15.55, u1), (20.75, u2)):
-        t.wire("VS", [(u, "5"), (x, 10.25)], width=0.2)
-    t.wire("VS", [(10.2, 18.1), (10.2, 10.9), (15.0, 10.9), (15.55, 10.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
-    t.wire("VS", [(15.55, 10.25), (16.2, 10.9), (20.75, 10.9), (20.75, 10.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
-    t.wire("VS", [(20.75, 10.25), (21.3, 10.9), (22.8, 10.9), (22.8, 12.4)], width=0.25, layer="B.Cu", silk=False, fine=True)
+        t.wire("VS", [(u, "5"), (x, 10.35)], width=0.2)
+    t.wire("VS", [(10.2, 18.1), (10.2, 10.9), (15.0, 10.9), (15.55, 10.35)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(15.55, 10.35), (16.2, 10.9), (20.75, 10.9), (20.75, 10.35)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(20.75, 10.35), (21.3, 10.9), (22.8, 10.9), (22.8, 12.4)], width=0.25, layer="B.Cu", silk=False, fine=True)
     t.via("VS", 10.2, 10.9, fine=True)
     cp1 = t.add("C", "C0402 100nF", "100n", 9.2, 11.6, 270, {"1": "VS", "2": "GND"}, label=None)               # pad 1 up
     t.wire("VS", [(10.2, 10.9), (9.2, 10.9), (cp1, "1")], width=0.25)
@@ -550,8 +550,8 @@ def tile_h10():
     t.wire("NA", [(rcomp, "2"), (24.65, 15.0)], width=0.2)
     t.via("SQ", 22.4, 15.0, fine=True)
     t.wire("SQ", [(rcomp, "1"), (22.4, 15.0)], width=0.2)
-    t.via("VS", 26.55, 14.2, fine=True)
-    t.wire("VS", [(ua, "5"), (26.55, 14.2)], width=0.2)
+    t.via("VS", 26.05, 14.0, fine=True)
+    t.wire("VS", [(ua, "5"), (26.55, 14.0), (26.05, 14.0)], width=0.2)
     t.via("GQ", 29.6, 11.26, fine=True)
     t.wire("GQ", [(riso, "2"), (29.6, 11.26)], width=0.2)
     # ---- the AO3401 (rot 0 at (32, 3.5)), its 10 ohm, the AO3400 shunt, the bias-T down to the LD jack
@@ -598,7 +598,7 @@ def tile_h10():
     t.wire("VS", [HDR_VS, (10.2, 18.1)], width=0.35)
     t.wire("VS", [(10.2, 18.1), (10.2, 9.6), (13.8, 9.6), (14.15, 9.25)], width=0.25, layer="B.Cu", silk=False, fine=True)
     t.wire("VS", [(14.15, 9.25), (18.6, 4.9), (19.4, 4.9)], width=0.25, layer="B.Cu", silk=False, fine=True)
-    t.wire("VS", [(19.4, 4.9), (21.0, 6.5), (21.0, 14.2), (26.55, 14.2)], width=0.25, layer="B.Cu", silk=False, fine=True)
+    t.wire("VS", [(19.4, 4.9), (21.0, 6.5), (21.0, 14.0), (26.05, 14.0)], width=0.25, layer="B.Cu", silk=False, fine=True)
     t.wire("VS", [(10.2, 18.1), (10.2, 20.4), (32.3, 20.4), (32.3, 7.9)], width=0.4, layer="B.Cu", silk=False)
     t.via("VS", 21.0, 12.0, fine=True)
     cpa = t.add("C", "C0402 100nF", "100n", 22.2, 12.0, 0, {"1": "VS", "2": "GND"}, label=None)
@@ -680,11 +680,11 @@ def tile_h4():
     # VS: the drain to a via, on the back under the FET and up x 5.9 to a via; along y 11.52 to nSLEEP and the divider's top
     t.via("VS", 9.0, 17.3, fine=True)
     t.wire("VS", [HDR_VS, (9.0, 17.3)], width=0.3)
-    t.via("VS", 5.9, 11.3, fine=True)
-    t.wire("VS", [(9.0, 17.3), (6.5, 17.3), (5.9, 16.7), (5.9, 11.3)], width=0.3, layer="B.Cu", silk=False, fine=True)
+    t.via("VS", 5.9, 10.9, fine=True)
+    t.wire("VS", [(9.0, 17.3), (6.5, 17.3), (5.9, 16.7), (5.9, 10.9)], width=0.3, layer="B.Cu", silk=False, fine=True)
     rv1 = t.add("R", "R0402 5.1k", "5.1k", 6.2, 12.0, 270, {"1": "VS", "2": "VREF"}, label=None)                 # pad 1 up
     rv2 = t.add("R", "R0402 3.3k", "3.3k", 6.2, 13.95, 270, {"1": "VREF", "2": "GND"}, label=None)
-    t.wire("VS", [(5.9, 11.3), (rv1, "1")], width=0.25)
+    t.wire("VS", [(5.9, 10.9), (rv1, "1")], width=0.25)
     t.wire("VS", [(rv1, "1"), (u, "3")], width=0.25)
     t.wire("VREF", [(rv1, "2"), (rv2, "1")], width=0.2)
     t.wire("VREF", [(6.2, 12.825), (u, "5")], width=0.2)
@@ -721,11 +721,11 @@ def tile_h4():
     t.wire("VCP", [(u, "12"), (18.1, 12.9), (cvcp, "2")], width=0.2)
     t.wire("VM", [(cvcp, "1"), (19.2, 13.23)], width=0.25)
     # the terminals in the right margin (rot 270: the wires enter from the board's edge): VM in above, the coil below
-    tvm = t.add("J", "TERM2", "VM in", 23.4, 9.0, 270, {"1": "VEXT", "2": "GND"}, hide_value=True)
-    tco = t.add("J", "TERM2", "coil", 23.4, 21.0, 270, {"1": "OUT2", "2": "OUT1"}, hide_value=True)
+    tvm = t.add("J", "TERM2", "VM in", 23.8, 9.0, 270, {"1": "VEXT", "2": "GND"}, hide_value=True)
+    tco = t.add("J", "TERM2", "coil", 23.8, 21.0, 270, {"1": "OUT2", "2": "OUT1"}, hide_value=True)
     t.wire("VEXT", [(tvm, "1"), (21.4, 2.55), (dext, "2")], width=0.6)
-    t.wire("OUT2", [(u, "10"), (19.9, 14.125), (23.4, 17.6), (tco, "1")], width=0.6)
-    t.wire("OUT1", [(u, "8"), (10.1, 15.6), (10.1, 19.6), (21.5, 19.6), (23.4, 21.5), (tco, "2")], width=0.6)
+    t.wire("OUT2", [(u, "10"), (19.9, 14.125), (23.375, 17.6), (23.8, 18.025), (tco, "1")], width=0.6)
+    t.wire("OUT1", [(u, "8"), (10.1, 15.6), (10.1, 19.6), (21.9, 19.6), (23.8, 21.5), (tco, "2")], width=0.6)
     t.via("VS", 15.9, 2.4, fine=True)
     t.wire("VS", [(dint, "2"), (15.9, 2.4)], width=0.3)
     t.wire("VS", [(9.0, 17.3), (19.6, 17.3), (19.6, 2.4), (15.9, 2.4)], width=0.3, layer="B.Cu", silk=False, fine=True)
@@ -768,7 +768,7 @@ def tile_h1():
         c = t.add("C", "C0805 10uF", "10u", x, 3.0, 90, {"1": "-15V", "2": "GND"}, label=None)               # rot 90: -15 V pad down
         gnd(t, c, "2", (x, 1.0), w=0.4)
     t.wire("-15V", [(d2, "2"), (11.15, 4.3), (17.2, 4.3)], width=0.5)
-    t.via("-15V", 12.2, 4.3, fine=True)
+    t.via("-15V", 11.95, 4.3, fine=True)
     t.via("-15V", 11.15, 5.7)                                                           # h2's -15 V leaves here, up the back
     t.wire("-15V", [(d2, "2"), (11.15, 5.7)], width=0.4)
     # -15 V's sense and divider: VNEG to a via, R3 and C10 from the divider's top, both on the back to the -15 V line
@@ -789,8 +789,8 @@ def tile_h1():
     t.wire("-15V", [(r3, "1"), (3.4, 8.9), (3.4, 7.8), (c10, "1")], width=F)
     t.via("-15V", 3.4, 6.9, fine=True)
     t.wire("-15V", [(3.4, 7.8), (3.4, 6.9)], width=F)
-    t.wire("-15V", [(3.4, 6.9), (6.0, 6.9), (11.0, 6.9), (12.2, 5.7), (12.2, 4.3)], width=0.2, layer="B.Cu", silk=False, fine=True)
-    t.wire("-15V", [(7.25, 9.25), (7.25, 7.4), (12.2, 5.2), (12.2, 4.3)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    t.wire("-15V", [(3.4, 6.9), (6.0, 6.9), (11.0, 6.9), (12.2, 5.7), (11.95, 4.3)], width=0.2, layer="B.Cu", silk=False, fine=True)
+    t.wire("-15V", [(7.25, 9.25), (7.25, 7.4), (12.2, 5.2), (11.95, 4.3)], width=0.2, layer="B.Cu", silk=False, fine=True)
     # the 5 V side (right column): INN on a via to the pour; VIN through 100 ohm with 100 nF; ENP and ENN on VIN, PSP and PSN on ground
     t.via("+5V", 12.8, 8.5, fine=True)
     t.wire("+5V", [(u, "6"), (u, "5"), (12.8, 8.5)], width=0.25)

@@ -11119,7 +11119,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25120"
+		(property "LCSC" "C844112"
 			(at 110.49 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -11130,7 +11130,7 @@
 				)
 			)
 		)
-		(property "MPN" "0402WGF499JTCE"
+		(property "MPN" "CRCW040249R9FKEDHP"
 			(at 110.49 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -12645,7 +12645,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25120"
+		(property "LCSC" "C844112"
 			(at 646.43 480.06 90)
 			(hide yes)
 			(show_name no)
@@ -12656,7 +12656,7 @@
 				)
 			)
 		)
-		(property "MPN" "0402WGF499JTCE"
+		(property "MPN" "CRCW040249R9FKEDHP"
 			(at 646.43 480.06 90)
 			(hide yes)
 			(show_name no)
@@ -19147,7 +19147,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25120"
+		(property "LCSC" "C844112"
 			(at 143.51 99.06 90)
 			(hide yes)
 			(show_name no)
@@ -19158,7 +19158,7 @@
 				)
 			)
 		)
-		(property "MPN" "0402WGF499JTCE"
+		(property "MPN" "CRCW040249R9FKEDHP"
 			(at 143.51 99.06 90)
 			(hide yes)
 			(show_name no)

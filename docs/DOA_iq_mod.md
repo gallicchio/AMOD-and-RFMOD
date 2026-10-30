@@ -40,6 +40,23 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 10. +5 V covers L3; -5 V (the LM2664, 40 mA) is a polygon in the gutter under row 1 and under q10, for q2's two
     difference amplifiers and q7's junction.  q1's, q2's and q3's 5 V / 3.3 V are islands on L3 under their chips.
 
+## The RF layout survey (2026-10-29)
+
+CLAUDE_PCB.md's gates 24-32 (CostasLink rev A's receive chain, which lost 30 dB at 5.8 GHz with every line right), measured
+on the written board by `scripts/rf_extract.py` and `scripts/rf_survey.py iq_mod 6` before the order:
+
+- **Lines (gate 32):** every 50 ohm line 0.29 mm wide, 0.25 mm from the top pour, ground under all of it outside the jacks'
+  launch voids.  The lines short of that are meant: q3's reference input (1 mm), the LNA's 5 V feed and q9's loop, the ODMR antenna, which has no ground by design.
+- **Parts on the lines (gates 26-28):** the RF chips are internally matched, so no matching part hangs on a branch (the
+  fault that cost CostasLink its 30 dB).  The shunt parts on RF lines are bias chokes and pull-ups 0.5-2 mm off the line,
+  under 10 degrees at 2.4 GHz; their cold ends reach a capacitor in 1.2-4.4 mm, not the 1 mm the gate asks.
+- **Detours (gate 24):** none but q9's loop, which is the antenna; `check_layout.py` now fails one in every build.
+- **Stitching (gates 30, 32):** the fences carry 0.2-1.7 (median 0.4) vias per mm (the gate: 1.5), and the top pour near the lines is
+  a median 2.0 mm and at most 9.4 mm from a ground via.  Fine at 2.4 GHz (lambda/20 is 3 mm in FR4); short of the gate for the 5.8-6 GHz stretch, where a via-free
+  patch of the pour can resonate.  Measure the stretch band against a cable before believing it.
+- **Not done:** the as-laid circuit simulation of gate 25.  The reason is the second bullet: with internally matched blocks
+  and no external match, the reference circuit and the as-laid one are the same chips joined by 50 ohm lines.
+
 ## Bench, first power
 
 11. Every tile off: the green and red LEDs light.  q3 on, 25 MHz on REF IN, program it: OUT A+ and OUT A- at -4 to +5 dBm.

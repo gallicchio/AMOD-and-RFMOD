@@ -232,7 +232,7 @@ Prompt 13 (`PLAN_LEVEL2.md` section 2).
 ## 7. Parts and sourcing
 
 The table below is the plan's list (2026-10-25 01:00).  The boards as built use what `scripts/parts.py` lists; the
-differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, OPA847IDBVR (C160422, SOT-23-6) for a4, 74HC4046APW-Q100J
+differences: OPA810 (not OPA2810) on AMOD-A's gain tiles, OPA847IDBVT (C2059024, SOT-23-6; the IDBVR reel C160422 was oversold on 2026-10-29) for a4, 74HC4046APW-Q100J
 (C546981, TSSOP-16, 234 in stock on 2026-10-25) for a7, no LT6230, NTC or 3.5 mm jack, and on RF-MOD one GALI-84+, the
 QPL9547TR7, the TRF3722, the ADL5350 twice and no LTC5510 or RFX2401C.
 
@@ -537,7 +537,7 @@ about 4.6 V.  AMOD-M: 5-16 V, SMBJ16A (its parts are rated 30 V and more).  AMOD
 under the DRV8311's 24 V maximum).  VMOT runs on the back, 1.6 mm wide, and is not switched; the supply's current limit
 is the only fuse.  The kit's supply is Adafruit's 3-12 V adjustable 4880 (no fixed 12 V adapter was in stock).
 
-### AMOD-M (`amod_m`): motors, eleven tiles, $35.98 of parts
+### AMOD-M (`amod_m`): motors, eleven tiles, $36.49 of parts
 
 | cells | tile | what | parts | jacks | Pmod |
 |---|---|---|---|---|---|
@@ -559,7 +559,7 @@ m4's stepper on IN1 / IN2 pairs rather than PH / EN; m6's RC flyback dropped (th
 gain 4 (one chain of resistors sets both references from VMOT).  The Pmod plug sits in the bottom margin under m3; m4's
 four lines come down the left margin on the back in nested lanes.
 
-### AMOD-B (`amod_b`): brushless, twelve tiles, $42.11 of parts
+### AMOD-B (`amod_b`): brushless, twelve tiles, $42.45 of parts
 
 | cells | tile | what | parts | jacks | Pmod |
 |---|---|---|---|---|---|
@@ -595,7 +595,7 @@ A tile spanning a 2 x 2 block needed `geometry.tile_frame` and the schematic's b
 
 ## 15. Prompt 19: AMOD-C, the conversion board as built (2026-10-28)
 
-Section 12's AMOD-A2, renamed AMOD-C by section 13.  Twelve tiles, four layers, $43.57 of parts; `docs/HANDBOOK_amod_c.md`
+Section 12's AMOD-A2, renamed AMOD-C by section 13.  Twelve tiles, four layers, $43.93 of parts (2026-10-29); `docs/HANDBOOK_amod_c.md`
 has each tile, `docs/DOA_amod_c.md` what to confirm.
 
 | cells | tile | parts | jacks |

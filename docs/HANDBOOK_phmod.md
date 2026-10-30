@@ -133,7 +133,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Experiments:</b> The FID, spin echoes, CPMG, T1 by inversion recovery, T2; a one-dimensional image with h4 on a gradient coil.<br><br>
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA847">OPA847</a><br><br>
 <b>The circuit:</b> The classic pulsed-NMR duplexer, broadband except for its one cable: crossed diodes in series with the transmitter, and a quarter wave of coax from PROBE to LINE (2.6 m of RG-316 at 20 MHz) whose far end the clamp diodes short during the pulse. Between pulses the diodes are off: the PA's noise does not reach the probe, the echo reaches the OPA847 (1.1 k / 100 ohm: x12, its minimum stable gain).  Without the cable, a short one and a 6 dB pad work at a few dB of loss.<br><br>
-<b>Parts:</b> 1N4148W (C81598), OPA847IDBVR (C160422).
+<b>Parts:</b> 1N4148W (C81598), OPA847IDBVT (C2059024).
 
 </td></tr></table>
 

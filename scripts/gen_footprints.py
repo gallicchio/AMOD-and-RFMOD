@@ -159,7 +159,10 @@ def dip(nways):
 # ------------------------------------------------------------ screw terminals --
 def kf301(npins):
     """KEFA KF301-5.0-xP (C474881 / C474882): pins on 5.0 mm centres, 2.2 mm pads on 1.4 mm holes (JLCPCB's
-    drawing); the body 7.6 deep, the wires enter from -y."""
+    drawing); the body 7.7 deep, the wires enter from -y.  The pins sit 4.0 mm from the back and 3.7 from the wire face
+    (KEFA's side view; its "3.60" is the pin length): the op-amp board's reviewers caught the first reading, which had the
+    body the other way round.  JLCPCB's drawing has its openings on its +y, so the CPL turns it 180 (parts.JLC_ROTATION):
+    its pin 1 lands in our hole 2, which for identical screws is the same."""
     name = "TerminalBlock_KF301_1x%02d_P5.00mm" % npins
     f = fp_header(name, "%d-way 5.0 mm screw terminal block, KEFA KF301-5.0-%dP (LCSC %s); wires enter from -y" % (npins, npins, "C474881" if npins == 2 else "C474882"),
                   "screw terminal block KF301 5.0mm", "through_hole", 5.6)
@@ -167,7 +170,7 @@ def kf301(npins):
         x = (i - (npins - 1) / 2.0) * 5.0
         f.add(tht_pad(str(i + 1), x, 0, 1.4, 2.2, f"{name}/p{i + 1}", shape="rect" if i == 0 else "circle"))
     w = npins * 5.0 + 0.4
-    x0, x1, yf, yb = -w / 2, w / 2, -4.0, 3.6
+    x0, x1, yf, yb = -w / 2, w / 2, -3.7, 4.0
     rect_lines(f, x0, yf, x1, yb, "F.Fab", FAB_W, f"{name}/fab")
     rect_lines(f, x0 - 0.1, yf - 0.1, x1 + 0.1, yb + 0.1, "F.SilkS", SILK_W, f"{name}/silk")
     for i in range(npins):

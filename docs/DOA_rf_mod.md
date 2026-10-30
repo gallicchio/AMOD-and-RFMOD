@@ -57,6 +57,23 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 11. **Stock.**  The GALI-84+ (r12 only now) had 144 on the day: thin; alternates (stock not checked) are the GALI-S66+
     or a PGA-103+ on the same footprint with a different bias resistor.
 
+## The RF layout survey (2026-10-29)
+
+CLAUDE_PCB.md's gates 24-32 (CostasLink rev A's receive chain, which lost 30 dB at 5.8 GHz with every line right), measured
+on the written board by `scripts/rf_extract.py` and `scripts/rf_survey.py rf_mod 6` before the order:
+
+- **Lines (gate 32):** every 50 ohm line 0.29 mm wide, 0.25 mm from the top pour, ground under all of it outside the jacks'
+  launch voids.  The lines short of that are meant: the 25 MHz reference, the I/Q baseband, the mixers' IFs and the LNA's 5 V feed, none above 200 MHz.
+- **Parts on the lines (gates 26-28):** the RF chips are internally matched, so no matching part hangs on a branch (the
+  fault that cost CostasLink its 30 dB).  The shunt parts on RF lines are bias chokes and pull-ups 0.5-2 mm off the line,
+  under 10 degrees at 2.4 GHz; their cold ends reach a capacitor in 1.2-4.4 mm, not the 1 mm the gate asks.
+- **Detours (gate 24):** none; `check_layout.py` now fails one in every build.
+- **Stitching (gates 30, 32):** the fences carry 0.2-1.4 (median 0.8) vias per mm (the gate: 1.5), and the top pour near the lines is
+  a median 2.0 mm and at most 9.8 mm from a ground via.  Fine at 2.4 GHz (lambda/20 is 3 mm in FR4); short of the gate for the 5.8-6 GHz stretch, where a via-free
+  patch of the pour can resonate.  Measure the stretch band against a cable before believing it.
+- **Not done:** the as-laid circuit simulation of gate 25.  The reason is the second bullet: with internally matched blocks
+  and no external match, the reference circuit and the as-laid one are the same chips joined by 50 ohm lines.
+
 ## Bench, first power
 
 11. With every tile off: the green LED (5 V in) and the yellow one (7.8 V) light; REF OUT shows 25 MHz.

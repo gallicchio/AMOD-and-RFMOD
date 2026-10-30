@@ -25,6 +25,7 @@ fp-info-cache
 /out/*.net
 /out/*.rpt
 /out/*_geom.json
+/out/*_rfgeo.json
 /out/*/*.step
 /out/*/_*.pdf
 

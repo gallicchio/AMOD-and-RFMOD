@@ -1488,6 +1488,9 @@ class Board:
         return self
 
     def export_geometry(self):
+        # One entry per (ref, pad number): an SMA's four ground posts, all numbered 2, are one entry here.  Count joints
+        # or pads from the board itself (scripts/rf_extract.py), not from this file (CLAUDE_PCB.md section 1: "Count pads, not
+        # pad numbers").
         pads = [dict(ref=k[0], pad=k[1], net=p["net"], x=p["x"], y=p["y"], w=p["x1"] - p["x0"], h=p["y1"] - p["y0"], through=p["through"])
                 for k, p in self.pads.items()]
         path = os.path.join(os.path.dirname(self.out_path), "..", "out", self.stem + "_geom.json")

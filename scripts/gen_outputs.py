@@ -6,7 +6,7 @@ NextPCB and CircuitHub also accept.
 """
 import csv, math, io, os, re, shutil, subprocess, sys, zipfile
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import kienv, parts
+import kienv, parts, fit_pdf
 import geometry as G
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -259,14 +259,17 @@ def export_prints(stem, layers):
     made = []
     kienv.cli("sch", "export", "pdf", "--black-and-white", "-o",
               os.path.join(d, f"{stem}-schematic.pdf"), sch)
-    kienv.cli("pcb", "export", "pdf", "--mode-single", "--black-and-white",
-              "--include-border-title", "--layers",
-              "F.Cu,F.Silkscreen,Edge.Cuts",
-              "-o", os.path.join(d, f"{stem}-assembly-top.pdf"), pcb)
-    kienv.cli("pcb", "export", "pdf", "--mode-single", "--black-and-white",
-              "--include-border-title", "--mirror", "--layers",
-              "B.Silkscreen,Edge.Cuts",
-              "-o", os.path.join(d, f"{stem}-assembly-bottom.pdf"), pcb)
+    # The assembly drawings: the parts' outlines and references (Fab), the silkscreen and the outline, no copper (a pour
+    # plotted black buries the silk), fitted to Letter less half-inch margins (kicad-cli plots the board 1:1 in the
+    # corner of an A4 sheet: CLAUDE_PCB.md section 2, "Every page fits what is on it").
+    name = parts.BOARDS[stem]["name"]
+    for side, layers, extra in (("top", "F.Fab,F.Silkscreen,Edge.Cuts", []),
+                                ("bottom", "B.Fab,B.Silkscreen,Edge.Cuts", ["--mirror"])):
+        raw = os.path.join(d, f"_{stem}-assembly-{side}.pdf")
+        kienv.cli("pcb", "export", "pdf", "--mode-single", "--black-and-white", *extra, "--layers", layers, "-o", raw, pcb)
+        cap = "%s rev A, %s, scale {scale}:1" % (name, "top side" if side == "top" else "bottom side seen from below (mirrored)")
+        fit_pdf.fit(raw, os.path.join(d, f"{stem}-assembly-{side}.pdf"), "letter", caption=cap)
+        os.remove(raw)
     for name in os.listdir(d):
         if name.endswith(".pdf"):
             normalise_timestamps(os.path.join(d, name))

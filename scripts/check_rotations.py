@@ -16,7 +16,7 @@ sys.path.insert(0, HERE)
 import parts, easyeda
 from sexp_parse import parse_file
 
-UNPOLAR = ("Resistor_SMD:", "Capacitor_SMD:", "Inductor_SMD:")
+UNPOLAR = ("Resistor_SMD:R_", "Capacitor_SMD:C_", "Inductor_SMD:L_")    # by footprint, not library: CP_Elec is polarised
 # fits that disagree with the table for a known reason: the table is right
 KNOWN = {
     "C2297": "KT-0805G: read at 0 in GPiBridge's preview; JLCPCB numbers this LED's pads the other way round",
@@ -24,6 +24,8 @@ KNOWN = {
     "C2293": "KT-0805B: the KT-0805G's family drawing (read at 0)",
     "C13774": "HC-49S crystal: two pads, no polarity",
     "C206667": "ADL5350: the footprint IS JLCPCB's drawing with its pads renumbered to theirs; a pin-number fit cannot see that",
+    "C474881": "KF301-2P: turned 180 for its wire openings, which a pin-number fit cannot see; the screws are identical",
+    "C474882": "KF301-3P: turned 180 for its wire-entry arrows, which a pin-number fit cannot see; the screws are identical",
 }
 
 

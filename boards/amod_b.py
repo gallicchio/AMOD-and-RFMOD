@@ -109,7 +109,7 @@ def tile_b2():
     t.wire("VD", [(rd1, "2"), (rd2, "1")], width=W)
     t.wire("VD", [(rd2, "1"), (ro, "1")], width=W)
     t.wire("VMJ", [(ro, "2"), (0.6, 4.75), ("J%d01" % t.idx, "1")])
-    for ref_, pad, pt in ((rd2, "2", (0.6, 10.6)), (led, "1", (2.6, 18.3)), (dz, "2", (2.6, 18.3)), (ce, "2", (17.9, 6.6)),
+    for ref_, pad, pt in ((rd2, "2", (0.6, 10.6)), (led, "1", (2.6, 17.85)), (dz, "2", (2.6, 17.85)), (ce, "2", (17.9, 6.6)),
                           (jdc, "2", (20.15, 19.0)), (jdc, "3", (19.8, 9.3))):
         t.gnd_stub(ref_, pad, pt, sym=(0, 0), width=W)
     t.wire("LA", [(led, "2"), (rl, "1")], width=W)

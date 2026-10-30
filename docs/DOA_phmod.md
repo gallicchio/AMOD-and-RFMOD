@@ -34,7 +34,10 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 8. **B5819W (h4 twice, h10) and 1N4148W (h3, four pairs).** The cathode bar must face VM in h4 and ID in h10.  Each of
    h3's pairs must be antiparallel (one bar each way); two bars the same way pass only one polarity of the pulse.
 9. **The terminals (h4) and the DIP4 (h8)** are through-hole and must be selected for assembly.  The terminals' wire
-   entries face the right edge (rot 270); check in the preview that they do not overhang the edge.
+   entries face the right edge (rot 270); check in the preview that they do not overhang the edge.  JLCPCB's KF301
+   drawing has its wire openings on the side the first footprint called the back (KEFA's side view: the pins sit
+   4.0 mm from the back, 3.7 from the openings), so since 2026-10-29 the CPL turns both terminals 180 degrees and
+   `check_outputs` checks that the openings face where the silkscreen draws them.  In the preview: openings to the right.
 
 10. **The Pmod plug (on h5).**  `check_pmod` maps every pad to its standard pin.  IO1 h2's PD, IO5 h10's shunt, IO6 and
     IO7 h4's EN and PH, IO8 h9's switch; IO2-IO4 spare.  A floating line leaves each tile safe: h2 off, h10's shunt
@@ -57,7 +60,9 @@ check that each SOT-23's pin 1 sits at its silkscreen dot and the USB-C's shell 
 
 16. Every tile off: the green LED (5 V), the red (-5 V) and the yellow (+15 V) light.  Then one tile at a time.
 17. h2 with IO1 low into a 50 ohm load rated 2 W: OUT sits at 0 V.  IO1 high and a 10 MHz burst of 0.1 V from DAC 1:
-    1 V at OUT.  Then full scale, in bursts.
+    1 V at OUT.  Then full scale, in bursts.  Always with OUT terminated: the THS3491's FB pin is its output and nothing
+    isolates a cable from it, so an open coax (a scope's 1 M input) is a capacitive load a current-feedback amplifier
+    may ring or oscillate into.  Look for it once, with a 50 ohm tee at the scope, before any long run.
 18. h10 with no laser and a 10 ohm resistor on LD: SET at 0.1 V gives 10 mA (0.1 V across the resistor), MON reads
     the resistor's voltage / 200; IO5 high takes it to 0.  Only then a laser, starting at a few millivolts of SET; a
     VCSEL (about 1.5 mA) gets 30 dB of SMA attenuation on SET, so the DAC's full scale is about 3 mA.

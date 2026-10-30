@@ -29,9 +29,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
 - BOM: `out/amod_n/amod_n_bom_jlcpcb_upload.csv`; placements: `out/amod_n/amod_n_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  33 BOM lines, 21 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  33 BOM lines, 22 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $43.82.  Read `out/amod_n/amod_n-assembly-notes.txt` before confirming the order.
+- Parts per board: $43.91.  Read `out/amod_n/amod_n-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -48,9 +48,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
 - BOM: `out/amod_a/amod_a_bom_jlcpcb_upload.csv`; placements: `out/amod_a/amod_a_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  61 BOM lines, 31 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  61 BOM lines, 32 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $50.40.  Read `out/amod_a/amod_a-assembly-notes.txt` before confirming the order.
+- Parts per board: $49.75.  Read `out/amod_a/amod_a-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -67,9 +67,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
 - BOM: `out/amod_c/amod_c_bom_jlcpcb_upload.csv`; placements: `out/amod_c/amod_c_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  67 BOM lines, 40 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  67 BOM lines, 42 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $43.57.  Read `out/amod_c/amod_c-assembly-notes.txt` before confirming the order.
+- Parts per board: $43.93.  Read `out/amod_c/amod_c-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -88,7 +88,7 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
   for JLCPCB's conventions; the native KiCad file is beside it).
 - Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  69 BOM lines, 42 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $35.98.  Read `out/amod_m/amod_m-assembly-notes.txt` before confirming the order.
+- Parts per board: $36.49.  Read `out/amod_m/amod_m-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -105,9 +105,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
 - BOM: `out/amod_b/amod_b_bom_jlcpcb_upload.csv`; placements: `out/amod_b/amod_b_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  57 BOM lines, 29 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  57 BOM lines, 30 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $42.11.  Read `out/amod_b/amod_b-assembly-notes.txt` before confirming the order.
+- Parts per board: $42.45.  Read `out/amod_b/amod_b-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -143,9 +143,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack.
 - BOM: `out/phmod/phmod_bom_jlcpcb_upload.csv`; placements: `out/phmod/phmod_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  76 BOM lines, 40 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  76 BOM lines, 41 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $78.19.  Read `out/phmod/phmod-assembly-notes.txt` before confirming the order.
+- Parts per board: $77.89.  Read `out/phmod/phmod-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 
@@ -162,9 +162,9 @@ unit prices on the day the stock was checked (`scripts/jlc_cache.json` has the t
 - Board: 100 x 100 mm, 4 layers, 1.6 mm, JLCPCB's standard stack (JLC04161H-7628 for the RF lines).
 - BOM: `out/iq_mod/iq_mod_bom_jlcpcb_upload.csv`; placements: `out/iq_mod/iq_mod_cpl_jlcpcb_upload.csv` (rotations already turned
   for JLCPCB's conventions; the native KiCad file is beside it).
-- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  63 BOM lines, 38 of them
+- Assembly: top side only, every part from JLCPCB's shelf, nothing hand-soldered.  63 BOM lines, 39 of them
   extended parts (each adds JLCPCB's loading fee).
-- Parts per board: $99.65.  Read `out/iq_mod/iq_mod-assembly-notes.txt` before confirming the order.
+- Parts per board: $99.71.  Read `out/iq_mod/iq_mod-assembly-notes.txt` before confirming the order.
 
 ### Order steps
 

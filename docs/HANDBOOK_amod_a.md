@@ -119,7 +119,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Chip:</b> <a href="https://www.ti.com/product/OPA847">OPA847</a><br><br>
 <b>Tutorial pages:</b> The speed of sound at 40 kHz; What time is it over there?.<br><br>
 <b>The circuit:</b> Non-inverting OPA847 (3.9 GHz GBW at this gain, 0.85 nV/rtHz): 1 k / 10 ohm, so x101 and about 39 MHz.  Its input noise with the 50 ohm termination's own noise gives a noise figure near 3 dB.  The op amp is stable only at gains above 12 (it is decompensated): do not change Rg upward.  SOT-23-6, DIS tied to +VS (enabled).<br><br>
-<b>Parts:</b> OPA847IDBVR (C160422).
+<b>Parts:</b> OPA847IDBVT (C2059024).
 
 </td></tr></table>
 
