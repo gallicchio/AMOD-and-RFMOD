@@ -954,7 +954,7 @@ The background agent finished; its runs were repeated here before anything was c
 
 > "Not ordered" came from the README's rev A line ("not yet ordered"); if the boards came in, rows 1.4-1.15 are rework
 > or rev B items, and the README line wants fixing once Jason confirms.  The Icepi adapter's generator is being made to
-> build either Pmod layout from one switch ("spec" for Digilent modules, "house" for these rev A plugs and ECP5 rev A),
+> build either Pmod layout from one switch ("spec" for Digilent modules, "mirrored" for these rev A plugs and ECP5 rev A),
 > and Jason is asked which to order.  For this rev A bring-up on ECP5 rev A the plugs as drawn mate with J303/J304; the
 > unpowered continuity step is the right guard; neither session changes the rev A plugs or `icepi_adapter/`.  ECP5
 > board A's USB PROG is still dead; Jason plans the rework today or tomorrow, and the ECP5 session will say when it
@@ -999,7 +999,7 @@ came in; then it gets the order date and what arrived.  The host visits keep wai
 
 > The Icepi Pmod adapter is redrawn to the Pmod spec in `~/OpticsPCBs/IcepiZeroADCDAC/adapters/` (uncommitted there;
 > Jason commits): J3 follows figure 5, DRC clean, 83 checks pass; the `.lpf` names are kept but the balls moved; a
-> `PMOD_LAYOUT` switch keeps the old "house" layout.  For rev B the plugs want Pmod pin k on pad 2k and pin k+6 on pad
+> `PMOD_LAYOUT` switch keeps the old "mirrored" layout.  For rev B the plugs want Pmod pin k on pad 2k and pin k+6 on pad
 > 2k-1 in the JLCPCB footprint's numbering, with `check_pmod`'s formula and the footprint docstring to match.  A rev A
 > plug pushed into a spec socket the right way up shorts `pmod[0]` to `pmod[4]` through its VCC pads (on AMOD-N it feeds
 > them into its 3.3 V rail) and puts the host's 3.3 V and ground on its IO lines.
@@ -1028,3 +1028,25 @@ came in; then it gets the order date and what arrived.  The host visits keep wai
 ### Response
 
 Nothing to change.  The host visits keep waiting for that word.
+
+## Sixth message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> Two things from Jason.  (1) "Don't call it 'house'.  This is just wrong.  Call it something else."  The old layout is
+> now "mirrored" (`PMOD_LAYOUT = "spec" | "mirrored"`); rename it wherever these documents use the other word.  (2) He
+> asked whether the right-angle Pmods could be fixed by re-soldering or stacking parts: no.  Worked from ECP5 J303's placed
+> pads (`~/OpticsPCBs/tools/pin_audit/connectors/pmod_rework_options.py`): a rev A plug moved to the board's bottom side
+> mates a standard host only with the AMOD board components down, and then no longer mates ECP5 rev A pin for pin;
+> moving both sides' parts gains nothing; any stack of straight parts gives either the fault or, turned over, power right
+> with IO1-4 on IO5-8.  What works: a crossed adapter (right-angle plug and socket, positions reversed, rows kept), a
+> crossed 12-wire harness, or the plug turned over with the `.lpf` swap.  Add the "does not work" to REVB 1.15.
+
+### Response (2026-11-16)
+
+- *The name:* this repository's documents used it only in this log's two summaries above, which now say "mirrored".
+  Nothing else here, the handbooks included, ever named it.  `PIN_AUDIT.md` is the ECP5 session's file and is left to it.
+- *The rework:* REVB 1.15 now says what does not fix a built board, and why, checked here by symmetry rather than taken
+  on trust.  Rev A's fault reverses the order along each row and keeps the rows: a mirror image.  Every rework with rigid,
+  straight parts (moving a part to the other side, turning it over, stacking pin strips) is a rotation, and a rotation
+  can reverse the order along the rows only by swapping the rows too.  So the best such a rework gives is power right
+  and IO1-4 on IO5-8, which is the "turned over, with the `.lpf` swap" case.  Only crossed wires (a harness, or a small
+  adapter board whose traces cross) undo a mirror.
