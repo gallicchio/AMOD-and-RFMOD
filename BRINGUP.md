@@ -250,10 +250,18 @@ AMOD-B (brushless)
 ## The gateware, and what has been rehearsed
 
 - `gateware/pmodbench/`: a bitstream for the ECP5-2ADC-2DAC board that puts both Pmod sockets under the PC's control
-  over the board's serial channel (pins, clocks, SPI, a bit-density counter, a logic capture), with drivers for the
-  MAX2871, PE43711, TRF3722, MT6701 and LSM6DSO.  It is simulated against models of those chips; it has not run on a
-  board.  It needs only the host's power, JTAG, TCXO and UART, so it depends on stages 1-3 of the host's own bring-up
-  (`~/OpticsPCBs/ECP5-2ADC-2DAC/BRINGUP.md`) and nothing later.
+  over the board's serial channel (per-pin direction, four clock generators a port, an SPI engine, a bit-density
+  counter that can close a delta-sigma loop, a frequency counter, a quadrature decoder, a logic capture), with drivers
+  for the MAX2871, PE43711, TRF3722, MT6701 and LSM6DSO and a pin profile per board that refuses to drive a line the
+  tile drives.  It needs only the host's power, JTAG, oscillator and UART, so it depends on stages 1-3 of the host's
+  own bring-up (`~/OpticsPCBs/ECP5-2ADC-2DAC/BRINGUP.md`) and nothing later.
+  - Simulated, not run on a board: `make sim` (77 checks of the RTL against models of the chips and tiles), `make test`
+    (84 checks: the Python driver's own bytes through the RTL in iverilog), `make mutants` (18 planted bugs, 18 caught),
+    sigrok's SPI decoder reading the captured waveforms back; the bitstream meets 25 MHz with 84 MHz to spare on paper.
+  - `python3 -m pytest bringup/test_host_cosim.py`: every call the plan makes on the host, for each of the eight
+    boards with a plug, through that driver into the simulated FPGA with the board's tile model in Pmod A.
+  - Its models were written from the same data sheets as its driver (and two parts' sheets are missing: REVB.md 2a.12),
+    so a pass shows the driver and the gateware agree, not that the silicon does.
 - `bringup/`: `python3 -m pytest bringup/` runs every visit of every board against a simulated bench (the instruments'
   words, each tile's model, noise, an 8-bit scope that clips), shows that a good board passes all 144 measured tests
   and that boards broken on purpose (a dead tile, half the gain, a shifted resonance, swapped cables, a silent host)

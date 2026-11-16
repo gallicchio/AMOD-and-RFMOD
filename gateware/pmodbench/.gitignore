@@ -1,0 +1,6 @@
+# pmodbench: keep the bitstream (so a board can be loaded without the tool chain), ignore what a build leaves behind
+build/*
+!build/pmodbench.bit
+__pycache__/
+*.vvp
+*.vcd

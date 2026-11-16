@@ -900,3 +900,19 @@ a tool that touches only its own instruments).  It is edited, not committed (tha
 **For Jason:** which boards arrived and how many are assembled; which instruments are this bring-up's (their addresses
 go into `bringup/bench.json`); whether an ECP5-2ADC-2DAC board that has passed its own power, JTAG and first-bitstream
 stages can be the Pmod host.  The first sitting is the thru calibration and AMOD-P, which has no power to get wrong.
+
+### Note to Response 24: the gateware's results (2026-11-15, later the same evening)
+
+The background agent finished; its runs were repeated here before anything was committed.
+- `gateware/pmodbench/`: `make sim` 77 checks, `make test` 84 checks (the driver's own bytes through the RTL, live, over
+  two pipes, so its polling loops run on simulated time), `make mutants` 18 planted bugs and 18 caught, sigrok-cli's SPI
+  decoder reading the captured MAX2871 and PE43711 words back.  `build/pmodbench.bit`: 6,519 LUTs (26 %), 84 MHz against
+  the 25 MHz it needs.  Nothing has run on a board.
+- New here: `bringup/test_host_cosim.py` plays every host call of the plan, board by board, through that driver into
+  the simulated FPGA with the board's tile model plugged in: all eight boards pass (the pin profiles accept every call,
+  the MAX2871 model locks, the IMU and the encoder answer).  With `test_bringup.py`: 49 tests.
+- What writing the pin profiles found, now `bringup/REVB.md` section 2a: AMOD-B's two chip selects float with no
+  host (both can drive MISO); PhMOD's laser line idles "on"; r13's LE, n8's SI and CLK and AMOD-C's clock inputs have
+  no pulls; a11's two lines are crossed against the handbook's names; six data sheets are missing, the MT6701's and the
+  LSM6DSO's among them, so those two helpers rest on the handbook's description.
+- The agent's defaults named the tool chain by `/home/...`; changed to `~` and `$HOME` before the commit.
