@@ -57,7 +57,7 @@ Ask for these (all have drivers in `lab-instrument-control`).  Each board uses a
 | MOT | the same supply's **output 2** | | banana to clip leads; a 5.5 x 2.1 mm barrel plug, centre +, for AMOD-M and AMOD-B |
 | **HOST** | an **ECP5-2ADC-2DAC** board running `gateware/pmodbench/build/pmodbench.bit` | its USB PROG to the PC | the tile board's Pmod plug straight into the host's **Pmod A** socket (the lower one on its right edge) |
 | **P1, P2** | HP **8720ES** network analyzer, ports 1 and 2 | GPIB 16 through the Prologix adapter | its two test cables, labelled P1 and P2, with a **full two-port calibration at their ends for 50 MHz to 6 GHz, 1601 points** (every analyzer visit uses that one sweep; the tool refuses to change it, because that would switch the calibration off) |
-| **SA** | Rigol **DSA875** spectrum analyzer | USB | one SMA cable, labelled SA; a 10 dB pad on its input for the amplifier tiles |
+| **SA** | Rigol **DSA875** spectrum analyzer | USB | one SMA cable, labelled SA (the most it is given here is a synthesizer's +5 dBm) |
 | (rails) | scope CH1-CH3 again, only in the power stage | | three **BNC-to-clip** leads (x1) and four male-male jumper wires for the rails socket |
 
 Small parts: **three 50 ohm SMA terminators**, **three short SMA male-male cables** (15 cm), **two SMA female-female

@@ -67,6 +67,13 @@ def capture_ranged(bench, chans, span, guess):
                     scale[r] = new; again = True
         if not again:
             break
+    else:
+        # still off the screen after five tries: something is far from what the model expects.  Look once with
+        # the widest window, so the log holds the real level and not a clipped one.
+        for r, (ch, load) in chans.items():
+            scale[r], offset[r] = min(sc.max_scale, 2.0), 0.0
+            sc.setup(ch, load, scale[r], 0.0)
+        t, v = sc.capture([ch for ch, _ in chans.values()], span)
     return t, {r: v[ch] for r, (ch, _) in chans.items()}, scale
 
 

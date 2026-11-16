@@ -188,12 +188,14 @@ def card(stem, v, prev=None, short=False):
     if kits:
         lines.append("From the kit: " + "; ".join(dict.fromkeys(kits)))
     lines.append("What I then run, and what passes:")
+    said = set()
     for t in v.tests:
         if t.kind == "manual":
             lines.append("   - %s: %s" % (t.id, t.p["text"]))
             continue
         if v.hands and t.pre:
-            lines += ["   * you: " + x for x in t.pre]
+            lines += ["   * you: " + x for x in t.pre if x not in said]
+            said.update(t.pre)
         lines.append("   - %s%s" % (t.id, ("  (%s)" % t.why) if t.why else ""))
         try:
             model = engine.predict(t)

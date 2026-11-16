@@ -132,7 +132,7 @@ for way, colour, vk, lo, hi in ((1, "red", 1.85, 1.6, 2.3), (2, "yellow", 1.95, 
     T += [dc("p12", "IN", [0.5, 1.5, 2.5], {"vin": ("IN", "1M")}, {"vin": _led(vk)},
              [Num("LED volts", lo, hi, "V"), Num("mA at 5 V", 8, 25, "mA")], name="way %d (%s)" % (way, colour), derive=_led_derive, hands=True,
              pre=("a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN "
-                  "(the two hookup lines below share that one cable; G1 itself is not used)",
+                  "(the two hookup lines above share that one cable; G1 itself is not used)",
                   "p12 DIP: only way %d ON; tell me which colour lights" % way))]
 T += [manual("p13", "loopstick", "With a 330 uH ferrite-rod coil on the COIL terminal (HOT, TAP, GND as printed) and a 5-turn wire loop "
              "on the generator held near the rod, I sweep 0.3-2 MHz and read OUT: one peak per DIP way (1.28, 0.88, 0.59, 0.40 MHz).",
