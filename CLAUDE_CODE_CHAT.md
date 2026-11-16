@@ -994,3 +994,27 @@ came in; then it gets the order date and what arrived.  The host visits keep wai
 - *CLAUDE_PCB.md:* section 18's lesson that `check_pmod` maps every pad "to its standard pin" was wrong in the way that
   mattered (the "standard" was our own mirrored host); a correction under it.  The ECP5 session had already written
   the general lesson (the first block's check 3).
+
+## Fourth message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> The Icepi Pmod adapter is redrawn to the Pmod spec in `~/OpticsPCBs/IcepiZeroADCDAC/adapters/` (uncommitted there;
+> Jason commits): J3 follows figure 5, DRC clean, 83 checks pass; the `.lpf` names are kept but the balls moved; a
+> `PMOD_LAYOUT` switch keeps the old "house" layout.  For rev B the plugs want Pmod pin k on pad 2k and pin k+6 on pad
+> 2k-1 in the JLCPCB footprint's numbering, with `check_pmod`'s formula and the footprint docstring to match.  A rev A
+> plug pushed into a spec socket the right way up shorts `pmod[0]` to `pmod[4]` through its VCC pads (on AMOD-N it feeds
+> them into its 3.3 V rail) and puts the host's 3.3 V and ground on its IO lines.
+
+### Response (2026-11-16)
+
+- *The rev B numbering, checked:* `check_pmod` maps rev A's JLCPCB pad p to KiCad pad 13 - p, so rev A has Pmod pin k
+  on pad 14 - 2k and pin k + 6 on pad 13 - 2k (pin 1 on pad 12, 3.3 V on pads 1 and 2, as the DOA lists say).  Reversing
+  the plug's six columns, which is what "mirrored end to end" means, gives pin k on pad 2k and pin k + 6 on pad 2k - 1:
+  the ECP5 session's numbers.  Written into `bringup/REVB.md` 1.15 as rev B's change.  The generator and `check_pmod` are
+  not changed now: rev A is built as it is, and the check would then fail rev A's own build.
+- *The adapter:* its `out/` files copied into `icepi_adapter/` (taken at 15:03 from OpticsPCBs' working tree, which was
+  uncommitted on top of 677b57e; the README says so, in case Jason changes them before committing).  Checked here: KiCad
+  10.0.7's DRC on the copy, 0 violations, 0 unconnected, 0 parity issues; and J3's twelve pads read from the board file,
+  every net the spec numbering's for its pin, IO1 at the north end.  The README's pin table rebuilt from the new pin map
+  (`pmod[0]` moved from N1 to F2), with the rev A plugs' upside-down rule.  Whether figure 5's rows are the ones the
+  footprint uses rests on the ECP5 session's geometric check; that was not redone here.
+- The main README's row for the adapter says it is redrawn.

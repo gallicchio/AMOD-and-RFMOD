@@ -43,21 +43,22 @@ LOCATE COMP "da0" SITE "D4";   # DA0, header pin 37 / GPIO26
 IOBUF  PORT "da0" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
 
 # ---- the Pmod socket J3: pmod[n-1] is the Pmod standard's IOn (pins 1-4, 7-10) -----
-LOCATE COMP "pmod[0]" SITE "N1";   # PMOD1, socket pad 1, header pin 10 / GPIO15
+# ---- J3 layout: spec (make_boards.py PMOD_LAYOUT) -----
+LOCATE COMP "pmod[0]" SITE "F2";   # PMOD1, socket pad 11, header pin 40 / GPIO21
 IOBUF  PORT "pmod[0]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[1]" SITE "G3";   # PMOD2, socket pad 3, header pin 27 / GPIO0
+LOCATE COMP "pmod[1]" SITE "H3";   # PMOD2, socket pad 9, header pin 36 / GPIO16
 IOBUF  PORT "pmod[1]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[2]" SITE "H3";   # PMOD3, socket pad 5, header pin 36 / GPIO16
+LOCATE COMP "pmod[2]" SITE "G3";   # PMOD3, socket pad 7, header pin 27 / GPIO0
 IOBUF  PORT "pmod[2]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[3]" SITE "F2";   # PMOD4, socket pad 7, header pin 40 / GPIO21
+LOCATE COMP "pmod[3]" SITE "N1";   # PMOD4, socket pad 5, header pin 10 / GPIO15
 IOBUF  PORT "pmod[3]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[4]" SITE "P1";   # PMOD5, socket pad 2, header pin 8 / GPIO14
+LOCATE COMP "pmod[4]" SITE "F1";   # PMOD5, socket pad 12, header pin 38 / GPIO20
 IOBUF  PORT "pmod[4]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[5]" SITE "J2";   # PMOD6, socket pad 4, header pin 22 / GPIO25
+LOCATE COMP "pmod[5]" SITE "K3";   # PMOD6, socket pad 10, header pin 28 / GPIO1
 IOBUF  PORT "pmod[5]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[6]" SITE "K3";   # PMOD7, socket pad 6, header pin 28 / GPIO1
+LOCATE COMP "pmod[6]" SITE "J2";   # PMOD7, socket pad 8, header pin 22 / GPIO25
 IOBUF  PORT "pmod[6]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
-LOCATE COMP "pmod[7]" SITE "F1";   # PMOD8, socket pad 8, header pin 38 / GPIO20
+LOCATE COMP "pmod[7]" SITE "P1";   # PMOD8, socket pad 6, header pin 8 / GPIO14
 IOBUF  PORT "pmod[7]" IO_TYPE=LVCMOS33 PULLMODE=NONE DRIVE=4 SLEWRATE=SLOW;
 
 # ---- the Icepi Zero itself ----------------------------

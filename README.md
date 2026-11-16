@@ -17,7 +17,7 @@ assembled, goes into `BRINGUP.md` when Jason says).  The bring-up is [`BRINGUP.m
 **The rev A Pmod plugs are not standard** (Jason, 2026-11-16).  They were drawn to mate with ECP5-2ADC-2DAC rev A's
 sockets, and both are mirrored end to end against the Pmod specification: a rev A board belongs only in an ECP5-2ADC-2DAC
 rev A, never in a standard Pmod host, module or cable, where its 3.3 V and ground meet I/O lines.  The rev A boards are
-marked so.  Rev B's plugs, and the Icepi adapter's socket, follow the specification.
+marked so.  Rev B's plugs will follow the specification, as the redrawn Icepi adapter's socket now does.
 
 | board | what | tiles | layers | parts per board |
 |---|---|---|---|---|
@@ -30,7 +30,7 @@ marked so.  Rev B's plugs, and the Icepi adapter's socket, follow the specificat
 | [RF-MOD](docs/HANDBOOK_rf_mod.md) | 915 MHz and 2.4 GHz: a diode-ring mixer, two filters, a QPL9547 LNA, a gain block, two ADL5350 mixers, a synthesizer with two outputs, a TRF3722 I/Q transmitter, power and a 25 MHz reference | 10 | 4 | $66.51 |
 | [PhMOD](docs/HANDBOOK_phmod.md) | physics at HF, magnetic resonance, the ionosphere and light: a 1 W pulse amplifier and duplexer, a two-channel HF receiver, a VLF loop amplifier, a reflection bridge, coupled resonators, a coil driver, a noise source, a laser driver with an RF bias-T | 10 | 4 | $77.89 |
 | [IQ-MOD](docs/HANDBOOK_iq_mod.md) | coherent I/Q and microwave physics, 0.4-6 GHz: an I/Q modulator and demodulator on one synthesizer's two outputs, a dual directional coupler, an LNA, a log detector, a switch, a noise source, GNSS, an ODMR loop | 11 | 4 | $99.71 |
-| [Icepi adapter](icepi_adapter/README.md) | the tutorial's 2x12 Icepi Zero adapter with a Pmod socket; never built; being redrawn to the Pmod standard in OpticsPCBs (2026-11-16), so this copy (rev A's non-standard layout) is to be replaced | | 4 | hand-soldered |
+| [Icepi adapter](icepi_adapter/README.md) | the tutorial's 2x12 Icepi Zero adapter with a Pmod socket, redrawn to the Pmod standard on 2026-11-16 (never built; a rev A AMOD plug fits it only upside down) | | 4 | hand-soldered |
 
 
 Each tile's name and what it does are printed on the board: the jacks' names sit on their own tile's frame beside each
