@@ -1,7 +1,8 @@
 # Claude Code Chat Log: AMOD and RF-MOD, the boards of analog and RF building blocks
 
 Every prompt, verbatim (minor typos fixed), followed by the response as it was given, with the
-renders as they were at the time (kept under `docs/history/`).  Model: Claude Fable 5.1, then Claude Opus 5.5 from Prompt 6.  The
+renders as they were at the time (kept under `docs/history/`).  Model: Claude Fable 5.1, then Claude Opus 5.5 from Prompt 6,
+then Claude Fable 5.2 from Prompt 24 (the bring-up).  The
 boards were specified first in the tutorial's Appendix D
 (`icepi-zero-dac-adc/tutorial/D_coming_soon.md`, "An AMOD: a board of analog blocks" and
 "For the agent that will design these boards"), and Jason's answers to the open questions
@@ -820,3 +821,82 @@ Confirm Parts Placement Yes; PCB $51.43)
   0.3 mm holes would need every tight via re-checked on five boards; not worth it for this order.
 - ENIG instead of lead-free HASL is optional: flatter pads for the 0.5 mm leadless parts; HASL assembles them too.
 - MANUFACTURING.md's order steps say all of this.  Nothing pushed.
+
+## Prompt 24 (2026-11-15; the boards have arrived)
+
+> Read CLAUDE_CODE_CHAT.md and come up with a bring up and test plan for PCBs that came in. All prompts (including this
+> and following ones) along with your responses should go into that document. The limiting factor will be my time in the
+> lab. To this end, write the bring up plan to use ~/mudd/lab-instrument-control/ and modify lab-instrument-control
+> repository if bugs are discovered or new features should be added. If there is any firmware for this project, write it
+> and simulate it as best you can before connecting any hardware. This includes one-off things just for the bringup
+> process. Install any tools you need to install in ~/.local/ kicad is there. Various versions of Vivado are in
+> ~/Downloads/Xilinx/ and you can use whichever if appropriate. If you need to look at other pcb projects in ~/pcbs/ or
+> ~/OpticsPCBs/ you should feel free to look. You should also modify ~/OpticsPCBs/CLAUDE_PCB.md with any lessons learned
+> that should be applied to future PCB work. In the next day or in the next few days, I'll hook up appropriate
+> instruments to this computer to debug this PCB. Any problems should go into a REVB.md or REVC.md list that you'll
+> maintain as you discover problems with the current revision that we will test. Again, any lessons learned should go
+> into ~/OpticsPCBs/CLAUDE_PCB.md for future PCB designs. When you are done with the plan, print it here in the chat,
+> with very explicit instructions on which channels of which instruments should connect to which places on the PCB. I'll
+> be juggling several of these PCB bringups at once, and it'll be easy for me to get confused when I pop in and change
+> some physical configuration, so you'll need to always remind me of where we're at so that I can sit down and
+> *correctly* do what needs doing in the brief windows that I have before I need to run to my next meeting.
+
+Mid-turn:
+
+> The instruments plugged in are being used for something else. Assume that I can attach any of the
+> lab-instrument-control instruments that would be helpful. I will probably do one board bringup at a time, but I want to
+> plan them in parallel.
+
+### Response 24 (2026-11-15; Claude Fable 5.2)
+
+Nothing was powered and no instrument was sent anything (the ones on `bell` are in other use: they were pinged and
+listed, no more).  Which boards arrived, and how many are assembled, is not in the repository: the plan covers all nine
+and asks.
+
+**The plan: `BRINGUP.md`, in visits.**  A visit is one set of named cables, a minute or two of hands, then the session
+measures alone.  The cables keep their names for the whole bring-up (G1, G2 the SDG1032X's channels; S1-S4 the
+SDS2104X Plus's; PWR the E3646A's output 1 on a USB-C lead; P1, P2 the 8720ES's ports; SA the DSA875; HOST an
+ECP5-2ADC-2DAC board's Pmod A).  Each visit has a card (cable, tile, the jack's printed name, row and column, what
+passes) and a picture drawn from the board's own geometry (`bringup/VISITS.md`, `bringup/cards/`).  Per board: inspect,
+set the switches, first power (a 1 / 3 / 5 V staircase, the rails where there is a rails socket, then a "walk" in
+which the supply's display names the tile whose slide switch to raise and the tool reads the step in current), the
+generator-and-scope visits, the Pmod-host visits, the sittings that need a hand between measurements, the network- and
+spectrum-analyzer visits, and last what needs a part from the kit.  Nine boards: 160 tests (144 measured, 16 by a
+person) in 95 visits; about a third need the host.  `bringup/STATUS.md` always says the board on the bench, what is
+cabled, what passed and the next card; the tool rewrites it after every step.
+
+**The tool: `bringup/`**, on `lab-instrument-control`'s drivers (no change to that repository was needed: nothing has
+run against an instrument yet).
+- `tiles.py`: every test of every tile, its model worked from the tile's netlist, its limits.  The cards, the
+  measurements and the rehearsal all read it.
+- `engine.py`, `measure.py`: stepped-sine sweeps with a fit at each frequency and the scope ranged to the signal;
+  captures; DC tables; sequences with the host; analyzer sweeps.  Levels are volts into 50 ohm, divided by a thru
+  calibration; the cable's capacitance is in the model of every 1 Mohm reading.
+- `bench.py`: opens only what `bench.json` names (it starts with nothing assigned).
+- `sim.py`, `test_bringup.py`: a simulated bench (each tile its own model, an 8-bit scope that clips, noise).
+  `python3 -m pytest bringup/`: 41 pass; a good board passes all 144 measured tests, and boards broken on purpose (a dead
+  tile, half the gain, a shifted resonance, swapped cables, a silent host) fail the right ones.  The rehearsal found
+  three wrong jack names, an edge counter that counted noise, and a delay estimate that failed on ringing.
+
+**Found on paper, for rev B** (`bringup/REVB.md`, each marked predicted until a visit reads it):
+- c11, the 555: its CV jack's 51 ohm termination is DC-coupled to the control pin through 2.2 k, so with nothing
+  connected the tile will not run at the 6.9 kHz its silk prints (11-14 kHz predicted).
+- a2 and a3: the silk's 14 MHz and 1.4 MHz divide the OPA810's 140 MHz (its bandwidth at gain 1) by the gain; its
+  gain-bandwidth product is 70 MHz, so about 6.9 and 0.69 MHz.
+- n9: "10.5 MHz at 0 V" needs a source holding TUNE at 0 V; the open jack leaves the varactor at 3.3 V.
+- What the bring-up cannot reach without hands: no bench power entry or per-tile current, no rail access at all on
+  RF-MOD, PhMOD and IQ-MOD, a slide switch per tile, driven outputs that end on terminals, no loop-back on the Pmod.
+
+**Gateware: `gateware/pmodbench/`** for the ECP5-2ADC-2DAC board: both Pmod sockets under the PC's control over the
+board's serial channel (per-pin direction, four clock generators a port, an SPI engine, a bit-density counter that can
+close a delta-sigma loop, a frequency counter, a quadrature decoder, a logic capture), with drivers for the MAX2871,
+PE43711, TRF3722, MT6701 and LSM6DSO and a per-board pin profile that refuses to drive a tile's output.  It uses only
+the host's oscillator, UART and Pmod pins.  It was still being simulated and built (a background agent) when this response was given: its results are in the note after this response.
+
+**CLAUDE_PCB.md** has section 30 (visits, one table of tests, the rehearsal, the test table as an order gate, a
+terminated control input as a load, designing the visits away, levels into 50 ohm, the supply's display as a prompt,
+a tool that touches only its own instruments).  It is edited, not committed (that repository is shared).
+
+**For Jason:** which boards arrived and how many are assembled; which instruments are this bring-up's (their addresses
+go into `bringup/bench.json`); whether an ECP5-2ADC-2DAC board that has passed its own power, JTAG and first-bitstream
+stages can be the Pmod host.  The first sitting is the thru calibration and AMOD-P, which has no power to get wrong.
