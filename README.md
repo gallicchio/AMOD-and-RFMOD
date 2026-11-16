@@ -256,7 +256,13 @@ More on each tile, with its picture, in the [IQ-MOD handbook](docs/HANDBOOK_iq_m
 - `docs/KIT.md`: what a bench needs beside the boards, with prices and links.
 - `docs/DOA_*.md`: the assumptions to confirm before ordering; `docs/REVIEW_BRIEF.md`: the brief for a design review.
 - `docs/MANUFACTURING.md`: how to order each board at JLCPCB with the files in `out/<board>/`.
-- `CLAUDE_CODE_CHAT.md`: every prompt and response of the design session.
+- `BRINGUP.md`: the bring-up of the rev A boards, in visits (which cable on which jack, what is measured, what passes);
+  `bringup/STATUS.md`: where it stands and the next step; `bringup/VISITS.md`: every visit's card and picture;
+  `bringup/REVB.md`: what rev B should change.  `bringup/` is the tool (`run.py`), on `lab-instrument-control`'s drivers,
+  with a simulated bench that rehearses every visit (`python3 -m pytest bringup/`).
+- `gateware/pmodbench/`: a bitstream and Python driver that put the ECP5-2ADC-2DAC board's Pmod sockets under the PC's
+  control (pins, clocks, SPI, a bit-density counter), for the tiles that need the FPGA's lines.
+- `CLAUDE_CODE_CHAT.md`: every prompt and response of the design session and of the bring-up.
 - `boards/<board>.py`: each tile's netlist, placement and wires, the one source the schematic and the board are
   generated from; `scripts/`: the generators and checks; `hardware/`: the KiCad 10 files they write.
 

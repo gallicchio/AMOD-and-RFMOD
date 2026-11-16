@@ -39,3 +39,12 @@ fp-info-cache
 
 # the label placer's debug rasters (LABEL_DEBUG=<tile> ./make.py ...)
 out/label_debug_*.pbm
+
+# The bring-up (bringup/README.md): the raw readings, the rehearsal's record and this bench's instrument addresses
+/bringup/data/
+/bringup/data_sim/
+/bringup/state_sim.json
+/bringup/BRINGUP_LOG_sim.md
+/bringup/bench.json
+/bringup/__pycache__/
+/bringup/.pytest_cache/
