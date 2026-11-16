@@ -202,22 +202,22 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile p12 "LEDs", jack printed "IN": row 4, column 1, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile p12 "LEDs", jack printed "IN": row 4, column 1, the cell's top-left -- 1 Mohm input
 What I then run, and what passes:
-   * you: a BNC tee on the generator cable: one arm to p12 IN, the other to the scope
+   * you: a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN (the two hookup lines below share that one cable; G1 itself is not used)
    * you: p12 DIP: only way 1 ON; tell me which colour lights
    - p12.way 1 (red)
         LED volts: 1.6 to 2.3 V
         mA at 5 V: 8 to 25 mA
-   * you: a BNC tee on the generator cable: one arm to p12 IN, the other to the scope
+   * you: a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN (the two hookup lines below share that one cable; G1 itself is not used)
    * you: p12 DIP: only way 2 ON; tell me which colour lights
    - p12.way 2 (yellow)
         LED volts: 1.7 to 2.4 V
         mA at 5 V: 8 to 25 mA
-   * you: a BNC tee on the generator cable: one arm to p12 IN, the other to the scope
+   * you: a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN (the two hookup lines below share that one cable; G1 itself is not used)
    * you: p12 DIP: only way 3 ON; tell me which colour lights
    - p12.way 3 (green)
         LED volts: 2.3 to 3.5 V
         mA at 5 V: 8 to 25 mA
-   * you: a BNC tee on the generator cable: one arm to p12 IN, the other to the scope
+   * you: a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN (the two hookup lines below share that one cable; G1 itself is not used)
    * you: p12 DIP: only way 4 ON; tell me which colour lights
    - p12.way 4 (blue)
         LED volts: 2.4 to 3.6 V
@@ -805,7 +805,7 @@ Hookup (every cable of this visit):
    P2    network analyzer port 2       ->  tile n4 "quarter-wave stub", jack printed "OUT": row 3, column 1, the cell's bottom-right
 What I then run, and what passes:
    - n4.S21 IN to OUT
-        notch frequency: 2.445 GHz (2.249 GHz to 2.64 GHz)
+        notch frequency: 2.449 GHz (2.253 GHz to 2.644 GHz)
         gain at 300 MHz: -1.5 to 0.2 dB
         notch depth: under -15 dB
 Then say: "N.rf10 cabled" (you can leave; I report when it is done).

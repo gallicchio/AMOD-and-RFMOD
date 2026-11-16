@@ -131,7 +131,8 @@ def _led_derive(v):
 for way, colour, vk, lo, hi in ((1, "red", 1.85, 1.6, 2.3), (2, "yellow", 1.95, 1.7, 2.4), (3, "green", 2.7, 2.3, 3.5), (4, "blue", 2.8, 2.4, 3.6)):
     T += [dc("p12", "IN", [0.5, 1.5, 2.5], {"vin": ("IN", "1M")}, {"vin": _led(vk)},
              [Num("LED volts", lo, hi, "V"), Num("mA at 5 V", 8, 25, "mA")], name="way %d (%s)" % (way, colour), derive=_led_derive, hands=True,
-             pre=("a BNC tee on the generator cable: one arm to p12 IN, the other to the scope",
+             pre=("a BNC tee on the scope's CH1 input: generator CH1 to one side of the tee with a BNC cable, cable S1 from the other side to p12 IN "
+                  "(the two hookup lines below share that one cable; G1 itself is not used)",
                   "p12 DIP: only way %d ON; tell me which colour lights" % way))]
 T += [manual("p13", "loopstick", "With a 330 uH ferrite-rod coil on the COIL terminal (HOT, TAP, GND as printed) and a 5-turn wire loop "
              "on the generator held near the rod, I sweep 0.3-2 MHz and read OUT: one peak per DIP way (1.28, 0.88, 0.59, 0.40 MHz).",
@@ -331,7 +332,7 @@ T += [seq("n8", "every bit, by the FPGA", [dict(host=[_USE_N], gen={"in": ("sine
           gens={"tune": "TUNE"}, scopes={"out": ("OUT", "50")},
           derive=lambda v: {"f(-2 V) / f(0)": v["f@-2"] / v["f@0"], "f(+2 V) / f(0)": v["f@2"] / v["f@0"]},
           why="Clapp: 10 uH and the BB133 between 220 pF and 220 pF; TUNE through 100 k")]
-_RFF = (50e6, 6e9, 401)
+_RFF = (50e6, 6e9, 1601)          # one sweep for every analyzer test: the 8720ES's calibration holds only for the sweep it was made at
 T += [s21("n1", "THRU A", "THRU B", _RFF, flat(-0.3), [Gabs(1e9, -1.0, 0.2), Gabs(3e9, -1.8, 0.2), Gabs(6e9, -4.0, 0.3)], name="THRU, S21"),
       s21("n1", "LOAD", None, _RFF, flat(-30), [Gabs(1e9, -80, -17), Gabs(3e9, -80, -12)], name="LOAD, S11", param="S11"),
       s21("n1", "25 OHM", None, _RFF, flat(-9.54), [Gabs(5e8, -11.0, -8.2), Gabs(2e9, -12.5, -7.0)], name="25 OHM, S11", param="S11"),
@@ -339,16 +340,16 @@ T += [s21("n1", "THRU A", "THRU B", _RFF, flat(-0.3), [Gabs(1e9, -1.0, 0.2), Gab
       s21("n1", "OPEN", None, _RFF, flat(-0.1), [Gabs(1e9, -1.5, 0.3)], name="OPEN, S11", param="S11"),
       s21("n2", "IN", "OUT 1", _RFF, flat(-6.1), [Gabs(1e9, -7.0, -5.3), Gabs(3e9, -8.0, -5.0)], pre=("a 50 ohm terminator on n2 OUT 2",)),
       s21("n2", "IN", "OUT 2", _RFF, flat(-6.1), [Gabs(1e9, -7.0, -5.3), Gabs(3e9, -8.0, -5.0)], pre=("a 50 ohm terminator on n2 OUT 1",)),
-      s21("n3", "SUM", "PORT 1", (50e6, 1e9, 201), flat(-3.3), [Gabs(1e8, -4.2, -2.8), Gabs(4e8, -5.0, -2.8)], pre=("a 50 ohm terminator on n3 PORT 2",)),
-      s21("n3", "PORT 1", "PORT 2", (50e6, 1e9, 201), flat(-28), [Gabs(1e8, -80, -18)], name="isolation, PORT 1 to PORT 2",
+      s21("n3", "SUM", "PORT 1", _RFF, flat(-3.3), [Gabs(1e8, -4.2, -2.8), Gabs(4e8, -5.0, -2.8)], pre=("a 50 ohm terminator on n3 PORT 2",)),
+      s21("n3", "PORT 1", "PORT 2", _RFF, flat(-28), [Gabs(1e8, -80, -18)], name="isolation, PORT 1 to PORT 2",
           pre=("a 50 ohm terminator on n3 SUM",)),
       s21("n4", "IN", "OUT", _RFF, Lin(lambda f, load: 1.0 / (1 + 0.5j * np.tan(0.5 * math.pi * f / 2.45e9) + 0.02)),
           [NotchF(0.08, lo=1.5e9, hi=3.5e9), Gabs(3e8, -1.5, 0.2), Check("notch depth", lambda r: r.notch(None, 1.5e9, 3.5e9)[1], "dB", hi=-15)]),
       s21("n5", "IN", "OUT", _RFF, table([(5e7, -0.2), (5e8, -0.3), (1e9, -0.8), (1.3e9, -3), (1.5e9, -26), (1.9e9, -32), (6e9, -32)]),
           [Gabs(5e8, -1.5, 0.1), Gabs(1e9, -2.5, 0.0), Gabs(2.5e9, -80, -20)]),
       s21("n7", "RF", "RF+DC", _RFF, flat(-0.4), [Gabs(1e8, -1.5, 0.2), Gabs(2.4e9, -2.5, 0.2)]),
-      s21("n10", "IN", "OUT", (50e6, 1e9, 201), flat(-0.6), [Gabs(1e8, -1.5, 0.1), Gabs(5e8, -3.5, 0.1)]),
-      s21("n11", "IN", None, (50e6, 1e9, 201), flat(-20), [Gabs(1e8, -80, -11), Gabs(5e8, -80, -8)], name="IN matched by 200 ohm, S11", param="S11"),
+      s21("n10", "IN", "OUT", _RFF, flat(-0.6), [Gabs(1e8, -1.5, 0.1), Gabs(5e8, -3.5, 0.1)]),
+      s21("n11", "IN", None, _RFF, flat(-20), [Gabs(1e8, -80, -11), Gabs(5e8, -80, -8)], name="IN matched by 200 ohm, S11", param="S11"),
       s21("n8", "IN", "OUT", _RFF, flat(-2.0), [Gabs(1e9, -3.2, -1.0), Gabs(3e9, -4.5, -1.0)], name="S21 at 0 dB", host=(_USE_N, H("pe43711_set", 0))),
       s21("n8", "IN", "OUT", _RFF, flat(-18.0), [Gabs(1e9, -19.8, -16.6)], name="S21 at 16 dB", host=(_USE_N, H("pe43711_set", 16)))]
 
@@ -484,10 +485,10 @@ T += [spec("r13", "RF OUT", (910e6, 920e6), _synth(915e6, -6.0), [SpecPeak(915e6
            stim={"i": ("dc", 0, 0, 0.5)}, host=(_USE_R, H("trf3722_set", 915e6, key="locked")),
            pre=("an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13)", "r13's slide switch UP"),
            why="DC on I alone is a CW carrier; about -3 dBm at full scale")]
-_F3 = (50e6, 6e9, 401)
+_F3 = _RFF
 T += [s21("r2", "IN", "OUT", _F3, table([(5e7, -45), (2.0e9, -32), (2.3e9, -6), (2.4e9, -1.8), (2.5e9, -1.8), (2.6e9, -6), (3.0e9, -30), (6e9, -30)]),
           [Gabs(2.45e9, -3.8, -0.8), Gabs(1.9e9, -90, -18), Gabs(3.1e9, -90, -15)]),
-      s21("r4", "IN", "OUT", (700e6, 1.1e9, 401), table([(7e8, -50), (8.8e8, -45), (9.0e8, -4), (9.02e8, -1.3), (9.28e8, -1.3), (9.3e8, -4), (9.5e8, -45), (1.1e9, -50)]),
+      s21("r4", "IN", "OUT", _RFF, table([(7e8, -50), (8.8e8, -45), (9.0e8, -4), (9.02e8, -1.3), (9.28e8, -1.3), (9.3e8, -4), (9.5e8, -45), (1.1e9, -50)]),
           [Gabs(915e6, -3.6, -0.5), Gabs(860e6, -95, -25), Gabs(970e6, -95, -25)], power=-10.0),
       s21("r5", "IN", "OUT", _F3, table([(5e7, 22), (5e8, 21), (1e9, 19.5), (2.4e9, 16), (6e9, 9)]), [Gabs(1e9, 15, 23.5), Gabs(2.4e9, 11, 21)],
           power=-30.0, pre=("r5's slide switch UP",), why="QPL9547: never more than -20 dBm in"),
@@ -591,7 +592,7 @@ T += [s21("q4", "IN", "OUT", _F3, table([(5e7, 22), (5e8, 21), (1e9, 19.5), (2.4
       s21("q5", "IN", "FWD", _F3, flat(-25), [Gabs(1e9, -29, -21), Gabs(2.4e9, -29, -20)], name="forward coupling",
           pre=("50 ohm terminators on q5 OUT and REFL",)),
       s21("q5", "IN", "REFL", _F3, flat(-45), [Gabs(1e9, -90, -36)], name="directivity", pre=("50 ohm terminators on q5 OUT and FWD",)),
-      s21("q8", "ANT", "OUT", (1.0e9, 2.6e9, 401), table([(1.0e9, -40), (1.5e9, -20), (1.56e9, 17), (1.575e9, 19), (1.606e9, 17), (1.66e9, -20), (2.6e9, -40)]),
+      s21("q8", "ANT", "OUT", _RFF, table([(1.0e9, -40), (1.5e9, -20), (1.56e9, 17), (1.575e9, 19), (1.606e9, 17), (1.66e9, -20), (2.6e9, -40)]),
           [Gabs(1.575e9, 13, 23.5), Gabs(1.1e9, -95, -15), Gabs(2.4e9, -95, -15)], power=-40.0,
           pre=("q8's slide switch UP", "ANT carries 3.3 V DC: fine for the 8720ES's port, NOT for a NanoVNA without a DC block"),
           why="SAW, MAX2659, SAW"),

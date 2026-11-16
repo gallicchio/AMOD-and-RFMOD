@@ -99,13 +99,18 @@ class RealScope:
     """SDS2104X Plus: 50 ohm or 1 Mohm inputs, forced acquisitions (no trigger is needed to read an amplitude)."""
     def __init__(self, dev, min_scale):
         self.dev, self.min_scale, self.max_scale = dev, min_scale, 10.0
+        self._set = {}                 # what each channel was last set to: a sweep sets the same thing at every point
 
     def setup(self, ch, load, scale, offset=0.0, coupling="DC"):
+        want = (str(load), round(scale, 9), round(offset, 9), coupling)
+        if self._set.get(ch) == want:
+            return
         self.dev.channel(ch, on=True, scale=scale, offset=offset, coupling=coupling, impedance="50" if str(load) == "50" else "1M",
                          probe=1, bwlimit="FULL")
+        self._set[ch] = want
 
     def off(self, ch):
-        self.dev.channel(ch, on=False)
+        self.dev.channel(ch, on=False); self._set.pop(ch, None)
 
     def capture(self, chs, span):
         self.dev.timebase(scale=round125(span / 10.0), delay=0.0)
@@ -131,7 +136,7 @@ class RealPsu:
 
     def say(self, text):
         try:
-            self.dev.display_text(text[:12] if text else None)
+            self.dev.display_text(text[:11] if text else None)      # an E364xA shows 11 characters
         except Exception:
             pass
 
@@ -154,8 +159,12 @@ class RealVna:
         self.dev = dev
 
     def sweep(self, f0, f1, n, power, param="S21"):
+        cur = self.dev.sweep()
+        if abs(cur["start"] - f0) > 1 or abs(cur["stop"] - f1) > 1 or int(cur["points"]) != int(n):
+            raise ValueError("the analyzer sweeps %g to %g Hz in %d points; this plan measures %g to %g Hz in %d points.  Set that, "
+                             "calibrate at the cables' ends (lab-instrument-control/hp/hp.md), and run the visit again: changing the "
+                             "sweep here would switch the calibration off" % (cur["start"], cur["stop"], cur["points"], f0, f1, n))
         self.dev.power(power)
-        self.dev.sweep(start=f0, stop=f1, points=int(n))
         return self.dev.trace(param, fresh=True, require_cal=True)
 
 
@@ -280,8 +289,8 @@ class Bench:
     def who(self):
         """Ask each assigned instrument who it is (*IDN? only).  Unassigned ones are listed as such."""
         out = []
-        for name, getter in (("G1", lambda: self.gen("G1").dev.idn), ("G2", lambda: self.gen("G2").dev.idn), ("scope", lambda: self.scope.dev.link.idn),
-                             ("psu", lambda: self.psu.dev.idn), ("sa", lambda: self.sa.dev.link.idn), ("vna", lambda: self.vna.dev.link.idn),
+        for name, getter in (("G1", lambda: self.gen("G1").dev.idn), ("G2", lambda: self.gen("G2").dev.idn), ("scope", lambda: self.scope.dev.idn),
+                             ("psu", lambda: self.psu.dev.idn), ("sa", lambda: self.sa.dev.idn), ("vna", lambda: self.vna.dev.idn),
                              ("host", lambda: self.host.ident())):
             try:
                 out.append((name, "ok", str(getter())))

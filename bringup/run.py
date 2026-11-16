@@ -105,7 +105,7 @@ def jack_info(stem, tile, jack):
             silk = j.get("silk") or j["label"]
             twice = sum(1 for k in t["jacks"] if (k.get("silk") or k["label"]) == silk) > 1
             return dict(x=ax, y=ay, row=row, col=col, corner=corner, silk=silk, title=t["name"],
-                        name=silk if not twice else "%s (the one in column %d)" % (silk, col))
+                        name=silk if not twice else "%s (the %s one)" % (silk, corner))
     raise KeyError("%s has no jack %r (it has %s)" % (tile, jack, [j["label"] for j in t["jacks"]]))
 
 

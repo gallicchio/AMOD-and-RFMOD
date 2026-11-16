@@ -56,7 +56,7 @@ Ask for these (all have drivers in `lab-instrument-control`).  Each board uses a
 | **PWR** | Agilent **E3646A** (the second unit: both outputs work), **output 1** | RS-232 through an FTDI adapter | a **USB-C power lead**: a USB-C plug on two wires (red to +, black to -).  Check its polarity with a meter before the first board |
 | MOT | the same supply's **output 2** | | banana to clip leads; a 5.5 x 2.1 mm barrel plug, centre +, for AMOD-M and AMOD-B |
 | **HOST** | an **ECP5-2ADC-2DAC** board running `gateware/pmodbench/build/pmodbench.bit` | its USB PROG to the PC | the tile board's Pmod plug straight into the host's **Pmod A** socket (the lower one on its right edge) |
-| **P1, P2** | HP **8720ES** network analyzer, ports 1 and 2 | GPIB 16 through the Prologix adapter | its two test cables, calibrated at their ends (SMA female); labelled P1 and P2 |
+| **P1, P2** | HP **8720ES** network analyzer, ports 1 and 2 | GPIB 16 through the Prologix adapter | its two test cables, labelled P1 and P2, with a **full two-port calibration at their ends for 50 MHz to 6 GHz, 1601 points** (every analyzer visit uses that one sweep; the tool refuses to change it, because that would switch the calibration off) |
 | **SA** | Rigol **DSA875** spectrum analyzer | USB | one SMA cable, labelled SA; a 10 dB pad on its input for the amplifier tiles |
 | (rails) | scope CH1-CH3 again, only in the power stage | | three **BNC-to-clip** leads (x1) and four male-male jumper wires for the rails socket |
 
@@ -126,7 +126,7 @@ AMOD-A (active blocks)
 AMOD-N (network analyzer pieces)
   N.inspect  look it over, unpowered
   N.setup    set the switches and jumpers
-  N.v1       G1->n1 THRU (the one in column 3), S1(50)<-n1 THRU (the one in column 3), G2->n2 IN, S2(50)<-n2 OUT 1, S3(50)<-n2 OUT 2
+  N.v1       G1->n1 THRU (the top-left one), S1(50)<-n1 THRU (the bottom-right one), G2->n2 IN, S2(50)<-n2 OUT 1, S3(50)<-n2 OUT 2
   N.v2       G1->n3 SUM, S1(50)<-n3 PORT 1, S2(50)<-n3 PORT 2, G2->n5 IN, S3(50)<-n5 OUT
   N.v3       G1->n7 RF, S1(50)<-n7 RF+DC, G2->n10 IN, S2(50)<-n10 OUT
   N.v4       G1->n11 IN, S1<-n11 OUT, G2->n6 IN, S2<-n6 OUT
@@ -135,7 +135,7 @@ AMOD-N (network analyzer pieces)
   N.hands2   (no cable) n7.DC path | first: two clip leads from the supply's output 2 to the DC and GND test loops
   N.hands3   (no cable) n10.OUT floats
   N.hands4   G1->n8 IN, S1(50)<-n8 OUT, HOST | first: n8 DIP: way 1 (SPI) OFF, way 8 (16 dB) ON, ways 2-7 OFF
-  N.rf1      P1-n1 THRU (the one in column 3), P2-n1 THRU (the one in column 3)
+  N.rf1      P1-n1 THRU (the top-left one), P2-n1 THRU (the bottom-right one)
   N.rf2      P1-n1 LOAD
   N.rf3      P1-n1 25 OHM
   N.rf4      P1-n1 SHORT
