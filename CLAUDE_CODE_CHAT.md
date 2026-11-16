@@ -1018,3 +1018,13 @@ came in; then it gets the order date and what arrived.  The host visits keep wai
   (`pmod[0]` moved from N1 to F2), with the rev A plugs' upside-down rule.  Whether figure 5's rows are the ones the
   footprint uses rests on the ECP5 session's geometric check; that was not redone here.
 - The main README's row for the adapter says it is redrawn.
+
+## Fifth message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> The adapter's `out/` files are final as of about 15:03, so the copy in `icepi_adapter/` matches the tree; the only
+> later edit there is a README warning about two other adapters (AN108, AD9226), which does not touch this one.  It will
+> say if the files change before Jason commits them, and when ECP5 board A's USB PROG enumerates and a bitstream loads.
+
+### Response
+
+Nothing to change.  The host visits keep waiting for that word.
