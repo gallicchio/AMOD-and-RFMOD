@@ -109,6 +109,13 @@ def readme(stems):
         fh.write(text)
 
 
+# Jason, 2026-11-16: the rev A plugs were drawn to mate with ECP5-2ADC-2DAC rev A's sockets, and both are mirrored
+# against the Pmod specification; rev B follows the specification, the rev A boards are marked non-standard.
+REV_A_PMOD = ("**Rev A: this plug is not a standard Pmod.**  It mates only with ECP5-2ADC-2DAC rev A's sockets (J303, J304), "
+              "which are non-standard the same way; in a standard Pmod host, module or cable its 3.3 V and ground meet I/O lines "
+              "(`bringup/REVB.md` 1.15).  Rev B follows the Pmod specification.")
+
+
 def handbook(stem, meta, mod):
     name, what = BOARDS[stem]
     lines = ["# %s handbook: %s" % (name, what), "",
@@ -124,7 +131,7 @@ def handbook(stem, meta, mod):
     if getattr(mod, "PMOD_NAMES", None):
         pm = pmod_pins(meta)
         names = getattr(mod, "PMOD_NAMES", {})
-        lines += ["### Pmod lines", "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "r10's bottom edge"),
+        lines += ["### Pmod lines", "", REV_A_PMOD, "", "The 2 x 6 plug on %s (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V," % getattr(mod, "PMOD_HOST", "r10's bottom edge"),
                   getattr(mod, "PMOD_VCC_TEXT", "which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):"), ""]
         for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
             k = int(net.replace("/PMOD", ""))
@@ -138,7 +145,7 @@ def handbook(stem, meta, mod):
                   "takes 5 V from its USB-C; its socket along the top edge carries +5, ground, -5, ground, +3.3 V for a breadboard.", ""]
         pm = pmod_pins(meta)
         if pm:
-            lines += ["### Pmod lines", "", "The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V):", ""]
+            lines += ["### Pmod lines", "", REV_A_PMOD, "", "The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V):", ""]
             for net in sorted(pm, key=lambda n: int(n.replace("/PMOD", ""))):
                 k = int(net.replace("/PMOD", ""))
                 pin = k if k <= 4 else k + 2

@@ -528,16 +528,16 @@ DOCS["amod_n"] = {
     "n8": dict(
         does="A digital step attenuator: 0 to 31.75 dB in 0.25 dB steps from 9 kHz to 6 GHz, set by hand on an 8-way switch or by the FPGA over three Pmod lines.",
         chips=["PE43711"], specs="7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB.  By hand: switch way 1 (SPI) off, ways 2-8 the bits 0.25, 0.5, 1, 2, 4, 8 and 16 dB (on = that much more), the chip's direct parallel mode.  By the FPGA: ways 2-8 off, way 1 on; SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first.  3.3 V and 150 uA from the Pmod either way.",
-        limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.",
+        limits="+23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.",
         experiments="The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.",
-        use="Plug AMOD-N into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
+        use="Plug AMOD-N into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is); IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).",
         needs=NOTHING),
     "n9": dict(
         does="An oscillator made of one transistor and a tank, tunable by a voltage and lockable to an outside tone.",
         chips=["MMBT3904", "BB133"], specs="A Clapp (series-tuned Colpitts) on an MMBT3904 at about 1.5 mA; 10 uH and a BB133 varactor; 9.6-11.5 MHz for TUNE from -2 to +2 V (10.5 MHz at 0 V); about -22 dBm into 50 ohm; the Pmod's 3.3 V, switched.",
         limits="Free-running LC: it drifts with temperature; the frequencies are calculated to within about 10 %; the output is small (22 pF from the emitter) so the load does not pull it.",
         experiments="Injection locking: a DAC tone near its frequency on TUNE pulls it in over a range that grows with the tone's amplitude (Adler's equation); FM from a DAC; its phase noise against the MAX2871's and a crystal's; a phase-locked loop closed in the FPGA (phase from an ADC, control on TUNE).",
-        use="Plug the board into the Pmod and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.",
+        use="Plug the board into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.",
         needs=NOTHING),
     "n10": dict(
         does="A 1:1 transformer whose OUT jack floats: a balun for a dipole, and a break in a ground loop.",
@@ -562,7 +562,7 @@ DOCS["amod_c"] = {
         does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
         chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
         limits="-5 V is 40 mA: the five tiles on +-5 V draw about 25 mA together.  The board negotiates nothing: use a plain 5 V supply.",
-        experiments="-", use="Plug in the USB-C and the host's Pmod; then switch on each tile you use (slider up).",
+        experiments="-", use="Plug in the USB-C and the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is); then switch on each tile you use (slider up).",
         needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
     "c2": dict(
         does="A buck converter, an LDO after it and an electronic load: the ripple before and after the LDO, load steps, dropout.",
@@ -652,7 +652,7 @@ DOCS["amod_m"] = {
         does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
         chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
         limits="-5 V is 40 mA: the op amps on +-5 V (m3, m7, m9, m10, m11) draw about 15 mA together.  The board negotiates nothing: use a plain 5 V supply.",
-        experiments="-", use="Plug in the USB-C (and the host's Pmod for m3 and m4); then switch on each tile you use (slider up).",
+        experiments="-", use="Plug in the USB-C (and the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) for m3 and m4); then switch on each tile you use (slider up).",
         needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
     "m2": dict(
         does="The motor supply VMOT: a barrel jack (5-16 V) or USB's 5 V, each through a Schottky; its voltage / 16 on a jack.",
@@ -739,7 +739,7 @@ DOCS["amod_b"] = {
         does="Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).",
         chips=["LM2664", "TPS7A20"], specs="+5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.",
         limits="-5 V is 40 mA: the seven OPA810s, the OPA2171, b3's level shifts and b9's sensor draw about 30 mA together.  The board negotiates nothing: use a plain 5 V supply.",
-        experiments="-", use="Plug in the USB-C (and the host's Pmod for b3, b5 and b6); then switch on each tile you use (slider up).",
+        experiments="-", use="Plug in the USB-C (and the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) for b3, b5 and b6); then switch on each tile you use (slider up).",
         needs="A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply)."),
     "b2": dict(
         does="The motor supply VMOT: a barrel jack (5-12 V) or USB's 5 V, each through a Schottky; its voltage / 16 on a jack.",

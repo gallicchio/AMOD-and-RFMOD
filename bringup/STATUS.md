@@ -1,6 +1,6 @@
 # AMOD and RF-MOD bring-up: where we are
 
-Written 2026-11-16 14:49 by `bringup/run.py`.  The plan: [`../BRINGUP.md`](../BRINGUP.md); every visit's card: [`VISITS.md`](VISITS.md).
+Written 2026-11-16 15:01 by `bringup/run.py`.  The plan: [`../BRINGUP.md`](../BRINGUP.md); every visit's card: [`VISITS.md`](VISITS.md).
 
 **Board on the bench: none yet (`run.py board <name>`)**
 **Cabled now (as last confirmed): nothing**

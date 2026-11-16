@@ -10,12 +10,14 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 Twelve tiles on sixteen 20 mm cells, four layers.  c1 takes 5 V from its USB-C and makes -5 V (40 mA) and 3.3 V, as
 AMOD-A's a1 does; every other tile has a slide switch along its left edge (slider up: on).  Seven tiles take a clock,
 a phase or a control from the FPGA, or hand it a bit, on the Pmod plug in the bottom margin under c9, so plug in both
-the USB-C and the host's Pmod.  A tile's input is its top-left jack and its output its bottom-right jack.  A port's
+the USB-C and the host's Pmod (rev A: ECP5-2ADC-2DAC rev A only, its sockets non-standard as this plug is).  A tile's input is its top-left jack and its output its bottom-right jack.  A port's
 name is in capitals on its tile's frame; an input that is not 50 ohm says its impedance (IN 10K, DAC 20K) and an
 output read through a divider its ratio (OUT /5.7): read those at high impedance.  The back of each tile says what
 to know while cabling it.
 
 ### Pmod lines
+
+**Rev A: this plug is not a standard Pmod.**  It mates only with ECP5-2ADC-2DAC rev A's sockets (J303, J304), which are non-standard the same way; in a standard Pmod host, module or cable its 3.3 V and ground meet I/O lines (`bringup/REVB.md` 1.15).  Rev B follows the Pmod specification.
 
 The 2 x 6 plug on the bottom margin under c9 (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
 which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
@@ -59,7 +61,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <b>Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).</b><br><br>
 <b>Expect:</b> +5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up<br><br>
-<b>How to use it:</b> Plug in the USB-C and the host's Pmod; then switch on each tile you use (slider up).<br><br>
+<b>How to use it:</b> Plug in the USB-C and the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is); then switch on each tile you use (slider up).<br><br>
 <b>You need:</b> A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> +5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.<br><br>
 <b>Limits:</b> -5 V is 40 mA: the five tiles on +-5 V draw about 25 mA together.  The board negotiates nothing: use a plain 5 V supply.<br><br>

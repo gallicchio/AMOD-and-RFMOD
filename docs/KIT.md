@@ -40,6 +40,10 @@ cable attached; the separate cables are for supplies or chargers you already hav
 
 - **The attenuators:** a synthesizer gives up to +5 dBm and a GALI-84+ wants 0 dBm or less at its input, so put
   10 dB between them.  The 20 dB pad goes between a gain block's output and a mixer or the ADC.
+- **Rev A boards' Pmod plugs are not standard** (`bringup/REVB.md` 1.15, Jason 2026-11-16): they mate only with
+  ECP5-2ADC-2DAC rev A's sockets, plugged straight in.  Not into a Digilent module, a standard host or the redrawn Icepi
+  adapter; through a cable, only after the bring-up's ground-to-ground check (`BRINGUP.md`, `X.plug`).  Rev B follows the
+  standard.
 - **The Pmod cable** is only for the Icepi Zero adapter, whose socket stands about 11 mm higher than an AMOD board's
   plug.  It is female at both ends, so the adapter's female socket also needs a 2 x 6 male-male gender changer
   (Digilent's "Pmod Cable Kit: 2x6-pin", 240-021-2, includes them; no US price was found).
@@ -119,7 +123,7 @@ Appendix D, "Long cables".
 Nothing new to buy: its tiles use what is above and below.
 
 - **n8 and n9** run on the host's 3.3 V through AMOD-N's own Pmod plug, n8 even when it is set by hand on its
-  switch.  Plug the board into the host's Pmod; when
+  switch.  Plug the board into the host's Pmod (rev A: ECP5-2ADC-2DAC rev A only); when
   another board holds it, the 2 x 6 cable above with a 2 x 6 male-male changer does the job (the Icepi adapter's
   arrangement).
 - **n7's DC** comes from a bench supply's clip leads on its DC and GND loops: PhMOD's adjustable supply below, with

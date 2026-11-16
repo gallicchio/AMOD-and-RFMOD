@@ -490,7 +490,7 @@ PMOD_NAMES = {"/PMOD2": "SDATA (SI) of n8's PE43711", "/PMOD3": "SCLK of n8", "/
 HANDBOOK_INTRO = [
     "Eleven tiles on sixteen 20 mm cells, four layers, no USB.  Nine of them are passive and need nothing; n8 (the step",
     "attenuator) and n9 (the oscillator) run on the host's 3.3 V through the Pmod plug under n8, so plug the board into the",
-    "host's Pmod (or a Pmod cable) to use them, even to set n8 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,",
+    "host's Pmod (rev A: ECP5-2ADC-2DAC rev A only, its sockets non-standard as this plug is) to use them, even to set n8 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,",
     "every 50 ohm line is coplanar waveguide with a via fence and every jack has RF-MOD's launch (no plane under its centre",
     "pin), except n1's SHORT, whose centre pin is the ground pour.  On the board a tile's label is in mixed case and a port's",
     "name in capitals."]

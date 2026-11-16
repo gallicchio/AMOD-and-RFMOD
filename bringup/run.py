@@ -161,7 +161,8 @@ def conn_line(stem, c, tile, jack, note):
     if c == "MOT":
         return "%-5s supply output 2 (the motor supply; I set it, 0 V between tests) -> %s" % (c, jack)
     if c == "HOST":
-        return "%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC board's **Pmod A** socket; USB PROG to this PC" % c
+        return ("%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; USB PROG to "
+                "this PC.  Rev A plugs are non-standard: never a standard Pmod host or cable" % c)
     j = jack_info(stem, tile, jack)
     load = " -- %s" % note.split(", ")[1] if note.startswith("scope, ") else ""
     return "%-5s %-28s  ->  tile %s \"%s\", jack printed \"%s\": row %d, column %d, the cell's %s%s" % (
@@ -319,6 +320,8 @@ def step_text(book, stem, s):
                 "      SMA jack of %s.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.\n"
                 "      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,\n"
                 "      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.\n"
+                "   The rev A plugs mate only with ECP5-2ADC-2DAC rev A's sockets (both non-standard, REVB 1.15): never a standard Pmod\n"
+                "   host, a Digilent module or a Pmod cable.\n"
                 "Then say: \"%s done\" with the reading." % (sid, b["name"], b.get("pmod"), b["name"], sid))
     prev = None
     if book.state.get("cabled"):

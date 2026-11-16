@@ -19,6 +19,8 @@ tile says what to know while cabling it.
 
 ### Pmod lines
 
+**Rev A: this plug is not a standard Pmod.**  It mates only with ECP5-2ADC-2DAC rev A's sockets (J303, J304), which are non-standard the same way; in a standard Pmod host, module or cable its 3.3 V and ground meet I/O lines (`bringup/REVB.md` 1.15).  Rev B follows the Pmod specification.
+
 The 2 x 6 plug on the bottom margin under m3 (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
 which the board does not use: every chip here runs from its own 3.3 V, so the lines are 3.3 V CMOS both ways):
 
@@ -62,7 +64,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 
 <b>Power: 5 V from USB-C, and -5 V and 3.3 V made from it; a socket carries the rails to a breadboard (AMOD-A's a1).</b><br><br>
 <b>Expect:</b> +5 V from the USB-C (up to 1.5 A), -5 V at 40 mA, +3.3 V at 300 mA; the green LED says 5 V is in, the red one that -5 V is up<br><br>
-<b>How to use it:</b> Plug in the USB-C (and the host's Pmod for m3 and m4); then switch on each tile you use (slider up).<br><br>
+<b>How to use it:</b> Plug in the USB-C (and the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) for m3 and m4); then switch on each tile you use (slider up).<br><br>
 <b>You need:</b> A 5 V USB-C supply, 1.5 A or more (kit: Raspberry Pi 5.1 V 3 A supply). (<a href="KIT.md">KIT.md</a>)<br><br>
 <b>Specs:</b> +5 V up to 1.5 A, -5 V at 40 mA, +3.3 V at 300 mA; green LED 5 V, red LED -5 V.<br><br>
 <b>Limits:</b> -5 V is 40 mA: the op amps on +-5 V (m3, m7, m9, m10, m11) draw about 15 mA together.  The board negotiates nothing: use a plain 5 V supply.<br><br>

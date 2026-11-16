@@ -1055,7 +1055,7 @@ HANDBOOK_INTRO = [
     "Twelve tiles on sixteen 20 mm cells, four layers.  c1 takes 5 V from its USB-C and makes -5 V (40 mA) and 3.3 V, as",
     "AMOD-A's a1 does; every other tile has a slide switch along its left edge (slider up: on).  Seven tiles take a clock,",
     "a phase or a control from the FPGA, or hand it a bit, on the Pmod plug in the bottom margin under c9, so plug in both",
-    "the USB-C and the host's Pmod.  A tile's input is its top-left jack and its output its bottom-right jack.  A port's",
+    "the USB-C and the host's Pmod (rev A: ECP5-2ADC-2DAC rev A only, its sockets non-standard as this plug is).  A tile's input is its top-left jack and its output its bottom-right jack.  A port's",
     "name is in capitals on its tile's frame; an input that is not 50 ohm says its impedance (IN 10K, DAC 20K) and an",
     "output read through a divider its ratio (OUT /5.7): read those at high impedance.  The back of each tile says what",
     "to know while cabling it."]

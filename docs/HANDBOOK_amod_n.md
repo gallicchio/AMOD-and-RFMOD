@@ -9,12 +9,14 @@ the same text the silkscreen quotes.  Rev A, 2026-10-25.
 
 Eleven tiles on sixteen 20 mm cells, four layers, no USB.  Nine of them are passive and need nothing; n8 (the step
 attenuator) and n9 (the oscillator) run on the host's 3.3 V through the Pmod plug under n8, so plug the board into the
-host's Pmod (or a Pmod cable) to use them, even to set n8 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,
+host's Pmod (rev A: ECP5-2ADC-2DAC rev A only, its sockets non-standard as this plug is) to use them, even to set n8 by hand on its switch.  Every tile's input is its top-left jack and its output its bottom-right jack,
 every 50 ohm line is coplanar waveguide with a via fence and every jack has RF-MOD's launch (no plane under its centre
 pin), except n1's SHORT, whose centre pin is the ground pour.  On the board a tile's label is in mixed case and a port's
 name in capitals.
 
 ### Pmod lines
+
+**Rev A: this plug is not a standard Pmod.**  It mates only with ECP5-2ADC-2DAC rev A's sockets (J303, J304), which are non-standard the same way; in a standard Pmod host, module or cable its 3.3 V and ground meet I/O lines (`bringup/REVB.md` 1.15).  Rev B follows the Pmod specification.
 
 The 2 x 6 plug on n8's bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V,
 which powers n8 and n9, the board's only supply; the lines are 3.3 V CMOS):
@@ -209,10 +211,10 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Pmod:</b> IO2 (Pmod pin 2): SDATA (SI) of n8's PE43711; IO3 (Pmod pin 3): SCLK of n8; IO4 (Pmod pin 4): LE of n8<br><br>
 <b>Supply:</b> 3.3 V<br><br>
 <b>Expect:</b> 0 to 31.75 dB in 0.25 dB steps (1.5-2.8 dB of loss at 0 dB, rising with frequency), set by the switches or by an 8-bit word over the Pmod<br><br>
-<b>How to use it:</b> Plug AMOD-N into the host's Pmod; IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).<br><br>
+<b>How to use it:</b> Plug AMOD-N into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is); IN from the source, OUT to the device.  Set the level on the switch with way 1 off, or turn the bits off and way 1 on and write the word from the FPGA (RF-MOD's SPI peripheral with its own LE).<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> 7 bits, 0-31.75 dB in 0.25 dB; 1.5-2.8 dB of loss at 0 dB.  By hand: switch way 1 (SPI) off, ways 2-8 the bits 0.25, 0.5, 1, 2, 4, 8 and 16 dB (on = that much more), the chip's direct parallel mode.  By the FPGA: ways 2-8 off, way 1 on; SDATA on IO2, SCLK on IO3, LE on IO4, 8 bits (bit 7 = 0, then 4 x dB), least significant first.  3.3 V and 150 uA from the Pmod either way.<br><br>
-<b>Limits:</b> +23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.<br><br>
+<b>Limits:</b> +23 dBm above 48 MHz, less below (about +9.5 dBm under 0.5 MHz, +15 dBm at 5 MHz); a few tenths of a dB of step error; dark unless the board is plugged into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) (the chip is an active switch array, even when set by hand); in SPI mode every bit switch must be off.<br><br>
 <b>Experiments:</b> The 1 dB compression point and IP3 of every amplifier and mixer on the boards; noise figure by the Y-factor; bit-error rate against signal-to-noise for the tutorial's modems; the log detector's slope; an automatic gain control loop in gateware.<br><br>
 <b>Chip:</b> <a href="https://www.lcsc.com/product-detail/C470929.html">PE43711</a><br><br>
 <b>The circuit:</b> pSemi PE43711.  By hand: SPI off, the bits on the switch (direct parallel mode: P/S low, LE held high by 100 k when the FPGA's pin floats).  By the FPGA: every bit off, SPI on, then shift 8 bits (bit 7 = 0, then 4 x dB, least significant first) on SDATA (IO2) with SCLK (IO3) while LE (IO4) is low, and raise LE.  Either way it needs the Pmod's 3.3 V. Below 48 MHz it takes less power: about +9.5 dBm under 0.5 MHz and +15 dBm at 5 MHz (+23 dBm above 48 MHz).<br><br>
@@ -232,7 +234,7 @@ Each tile in a table: its picture, then what it does, its jacks, what to expect,
 <b>Jacks:</b> TUNE, top left (+-2 V); OUT, bottom right.<br><br>
 <b>Supply:</b> 3.3 V<br><br>
 <b>Expect:</b> about 10.5 MHz with TUNE at 0 V, 9.6 MHz at -2 V and 11.5 MHz at +2 V; about -22 dBm into 50 ohm; locks to a tone on TUNE within a few kHz of it<br><br>
-<b>How to use it:</b> Plug the board into the Pmod and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.<br><br>
+<b>How to use it:</b> Plug the board into the host's Pmod (rev A boards: ECP5-2ADC-2DAC rev A only, its sockets are non-standard as this plug is) and slide the switch up; OUT to an ADC (the x10 input); TUNE from a DAC.<br><br>
 <b>You need:</b> Nothing beyond SMA cables.<br><br>
 <b>Specs:</b> A Clapp (series-tuned Colpitts) on an MMBT3904 at about 1.5 mA; 10 uH and a BB133 varactor; 9.6-11.5 MHz for TUNE from -2 to +2 V (10.5 MHz at 0 V); about -22 dBm into 50 ohm; the Pmod's 3.3 V, switched.<br><br>
 <b>Limits:</b> Free-running LC: it drifts with temperature; the frequencies are calculated to within about 10 %; the output is small (22 pF from the emitter) so the load does not pull it.<br><br>

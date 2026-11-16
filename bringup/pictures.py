@@ -42,7 +42,7 @@ def card_png(stem, visit, path, geo, jack_info):
         if c == "HOST":
             if pm:
                 ax.add_patch(Rectangle((pm["x0"] + 1.0, 99.0), 16.0, 4.5, fc="#e69f00", ec="#111111", lw=1.2))
-            legend.append("HOST: Pmod plug into the ECP5 board's Pmod A")
+            legend.append("HOST: Pmod plug into the ECP5-2ADC-2DAC rev A's Pmod A (rev A only: non-standard)")
             continue
         j = jack_info(stem, tile, jack)
         kind = "SA" if c == "SA" else c[0]

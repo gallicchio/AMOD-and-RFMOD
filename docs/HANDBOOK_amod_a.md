@@ -16,6 +16,8 @@ takes 5 V from its USB-C; its socket along the top edge carries +5, ground, -5, 
 
 ### Pmod lines
 
+**Rev A: this plug is not a standard Pmod.**  It mates only with ECP5-2ADC-2DAC rev A's sockets (J303, J304), which are non-standard the same way; in a standard Pmod host, module or cable its 3.3 V and ground meet I/O lines (`bringup/REVB.md` 1.15).  Rev B follows the Pmod specification.
+
 The 2 x 6 plug on the bottom edge (pins 1-4 are IO1-4, 7-10 are IO5-8, 5 and 11 ground, 6 and 12 the FPGA's 3.3 V):
 
 - Pmod pin 2 (PMOD2): a12
