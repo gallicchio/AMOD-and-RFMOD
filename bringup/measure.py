@@ -237,8 +237,11 @@ def run_seq(test, visit, bench):
     g, _ = _cables(test, visit)
     expect = dict(test.model["values"]({}))
     vals = Values()
+    mot = bench.cfg["psu"].get("motor_output", 2) if bench.cfg else 2
     try:
         for step in test.p["steps"]:
+            if "mot" in step:                                  # the motor supply: the PSU's output 2, 0.5 A at most here
+                bench.psu.set(step["mot"], 0.5, out=mot)
             if step.get("host"):
                 _host(bench, step["host"], vals)
             for role, s in step.get("gen", {}).items():
@@ -249,6 +252,8 @@ def run_seq(test, visit, bench):
     finally:
         for c in g.values():
             bench.gen(c).off()
+        if any("mot" in st for st in test.p["steps"]):
+            bench.psu.set(0.0, 0.05, out=mot)
         if bench.world is not None:
             bench.world.hint = None
     engine.finish(test, vals)

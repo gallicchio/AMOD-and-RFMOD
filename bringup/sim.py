@@ -145,9 +145,13 @@ class SimScope:
 class SimPsu:
     def __init__(self, world):
         self.w, self.on_, self.v, self.limit = world, False, 0.0, 0.1
-        self.text = None
+        self.text, self.out2 = None, 0.0
 
-    def set(self, volts, amps, out=None): self.v, self.limit = volts, amps
+    def set(self, volts, amps, out=None):
+        if out in (None, 1):
+            self.v, self.limit = volts, amps
+        else:
+            self.out2 = volts
     def on(self): self.on_ = True
     def off(self): self.on_ = False; self.v = 0.0
     def mode(self, out=None): return "CV" if self.on_ else "OFF"

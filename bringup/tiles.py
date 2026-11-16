@@ -178,6 +178,8 @@ def _mix(t, emf, ctx):
 T += [wave("a9", {"rf": "RF", "lo": "LO"}, None, None, None, {"if": ("IF", "1M")}, {"if": Time(_mix)},
            [W("tone", 0.012, 0.09, arg=100e3), W("tone", 0.0, 0.05, arg=1.1e6)], name="product", span=1e-4,
            stim={"rf": ("sine", 1.0e6, 0.2, 0.0), "lo": ("sine", 1.1e6, 0.4, 0.0)},
+           predict="REVB 1.4: R904 returns the MC1496's bias pin to -5 V (its VEE) instead of ground, so the tail current is "
+                   "zero and no 100 kHz product is expected.  If so, the rework is R904's -5 V end lifted and wired to ground",
            why="1.0 MHz x 1.1 MHz: the difference at 100 kHz, and the LO's leak at 1.1 MHz")]
 _A10 = amp(2.0, 35e6)
 T += [bode("a10", "DRIVE", {"s": ("S", "50"), "x": ("X", "50")}, (1e3, 1e7, 13), 0.5, {"s": _A10, "x": _A10},
@@ -263,7 +265,8 @@ for fclk in (1e6, 500e3):
                [G(1.5e3, 1.0), Corner(0.08), Check("gain two corners up", lambda r, f=fclk: r.gain(2 * f / 100), "dB", lo=-50, hi=-22)],
                name="clock %g kHz" % (fclk / 1e3), host=(_USE_C, H("clock", "IO3", fclk)), why="corner = clock / 100")]
 T += [bode("c5", "IN", "OUT", (2e2, 5e3, 11), 0.1, Lin(lambda f, load: -100.0 / (1 + 1j * f / 15.9)), [G(1e3, 1.5), G(3e3, 1.5)],
-           host=(_USE_C, H("two_phase", "IO4", "IO8", 100e3)), why="R = 1 / (100 kHz x 1 nF) = 10 k into 10 nF: 1592 / f")]
+           host=(_USE_C, H("two_phase", "IO4", "IO8", 100e3)), why="R = 1 / (100 kHz x 1 nF) = 10 k into 10 nF: 1592 / f",
+           predict="REVB 1.7: the TMUX4053 runs below its 5 V minimum; expected to work with more on-resistance")]
 T += [seq("c6", "ones density against IN", [dict(host=[_USE_C, H("clock", "IO1", 1e6)])] +
           [dict(gen={"in": ("dc", 0, 0, v)}, wait=0.3, read={"density@%g" % (2 * v): ("host", "density", "IO7")}) for v in (-0.5, 0.0, 0.5)] +
           [dict(host=[H("safe")])],
@@ -273,7 +276,8 @@ T += [seq("c6", "ones density against IN", [dict(host=[_USE_C, H("clock", "IO1",
 T += [wave("c7", "IN", "sine", 1e3, 1.0, "OUT", amp(1.0, 1e6), [W("tone", 0.44, 0.53, arg=1e3)], name="track", host=(_USE_C, H("out", "IO5", 1)),
            why="IO5 high: OUT follows IN"),
       wave("c7", "IN", "sine", 1e3, 1.0, "OUT", const(0.2), [W("vpp", 0, 0.06)], name="hold", host=(_USE_C, H("out", "IO5", 0)),
-           why="IO5 low: OUT stands still (30 mV/s of droop)")]
+           why="IO5 low: OUT stands still (30 mV/s of droop)",
+           predict="REVB 1.8: the LF398 runs below +-5 V; IN here stays within +-0.5 V, inside the -0.8 to +1.2 V it still promises")]
 T += [seq("c8", "the bit against the DAC",
           [dict(host=[_USE_C], gen={"in": ("dc", 0, 0, 0.25), "dac": ("dc", 0, 0, -0.1)}, wait=0.2, read={"bit, DAC below IN": ("host", "inp", "IO2")}),
            dict(gen={"dac": ("dc", 0, 0, 0.6)}, wait=0.2, read={"bit, DAC above IN": ("host", "inp", "IO2")}), dict(host=[H("safe")])],
@@ -364,7 +368,11 @@ T = board("amod_m", letter="m", name="AMOD-M", title="motors", power="m1", socke
                    "The JST connectors (m3 PH 6-way, m4 and m11 XH 4-way) and the barrel jack soldered through.",
                    "m2: the 220 uF electrolytic's stripe (negative) as the silkscreen marks it; D (SMBJ16A) and the two SS34.",
                    "The Pmod plug hangs off the bottom edge under m3."])
+_MJ = "m2's barrel jack \"5-16V\" (5.5 x 2.1 mm plug, centre +)"
 T += [listen("m2", "VM", const(0.29), [W("mean", 0.24, 0.33)], name="VMOT on USB power", why="(5 V less a Schottky) / 16"),
+      seq("m2", "VMOT from the barrel jack", [dict(mot=9.0, wait=0.5, read={"VM": ("scope", "vm", "mean")}), dict(mot=0.0)],
+          lambda ctx: {"VM": (9.0 - 0.4) / 16}, [Num("VM", 0.48, 0.58, "V")], scopes={"vm": ("VM", "1M")}, mot=_MJ,
+          why="9.0 V on the jack: (9.0 V less the SS34) / 16"),
       listen("m4", {"ia": ("IA", "1M"), "ib": ("IB", "1M")}, {"ia": const(0.0), "ib": const(0.0)}, [W("mean", -0.05, 0.05, "ia"), W("mean", -0.05, 0.05, "ib")]),
       listen("m5", "I", const(0.0), [W("mean", -0.06, 0.06)]),
       listen("m6", {"i": ("I", "1M"), "vd": ("VD", "1M")}, {"i": const(0.0), "vd": const(0.0)}, [W("mean", -0.06, 0.06, "i"), W("mean", -0.05, 0.12, "vd")]),
@@ -377,13 +385,14 @@ for duty, name in ((50, "half"), (25, "quarter")):
                [Wm("mean", "vo", frac=0.18)], name="%s duty, no load" % name, offset=0.5, duty=duty, cycles=20,
                why="a synchronous stage with no load: VO = duty x VMOT; the jack is VO / 16")]
 _USE_M = H("use", "amod_m")
-T += [seq("m3", "bridge with no motor", [dict(host=[_USE_M, H("out", "IO7", 1), H("out", "IO1", 0)], wait=0.2, read={"forward": ("scope", "v", "mean")}),
+T += [seq("m3", "bridge with no motor", [dict(mot=9.0, host=[_USE_M, H("out", "IO7", 1), H("out", "IO1", 0)], wait=0.3, read={"forward": ("scope", "v", "mean")}),
                                          dict(host=[H("out", "IO7", 0), H("out", "IO1", 1)], wait=0.2, read={"reverse": ("scope", "v", "mean")}),
                                          dict(host=[H("out", "IO7", 1), H("out", "IO1", 1)], wait=0.2, read={"brake": ("scope", "v", "mean"), "current": ("scope", "i", "mean")}),
-                                         dict(host=[H("safe")])],
-          lambda ctx: {"forward": 4.6 / 13, "reverse": -4.6 / 13, "brake": 0.0, "current": 0.0},
-          [Num("forward", 0.29, 0.41, "V"), Num("reverse", -0.41, -0.29, "V"), Num("brake", -0.04, 0.04, "V"), Num("current", -0.04, 0.04, "V")],
-          scopes={"v": ("V", "1M"), "i": ("I", "1M")}, why="IN1 on IO7, IN2 on IO1: (M1 - M2) / 13 = +-VMOT / 13"),
+                                         dict(host=[H("safe")], mot=0.0)],
+          lambda ctx: {"forward": 8.6 / 13, "reverse": -8.6 / 13, "brake": 0.0, "current": 0.0},
+          [Num("forward", 0.58, 0.72, "V"), Num("reverse", -0.72, -0.58, "V"), Num("brake", -0.04, 0.04, "V"), Num("current", -0.04, 0.04, "V")],
+          scopes={"v": ("V", "1M"), "i": ("I", "1M")}, mot=_MJ,
+          why="IN1 on IO7, IN2 on IO1: (M1 - M2) / 13 = +-VMOT / 13, with 9.0 V on the jack (REVB 1.5: on USB alone the DRV8251A is below its 4.5 V minimum)"),
       manual("m3", "motor and encoder", "A 6 V gear motor with an encoder on the PH connector (M1 G A B 3V3 M2): I run it both ways at three duties and "
              "read its current, its back-EMF in coast and the encoder's count.", kit=("N20 gear motor with encoder, PH 6-way cable", "12 V on the barrel jack")),
       manual("m4", "stepper", "A NEMA 17 on the XH connector: I step it 200 full steps each way and read IA and IB (0.98 V/A, 1 A limit).",
@@ -483,7 +492,8 @@ for tile, word in (("r7", "TX"), ("r8", "RX")):
                why="0 dBm at 6.25 MHz on IF: both sidebands about 8 dB down")]
 T += [spec("r13", "RF OUT", (910e6, 920e6), _synth(915e6, -6.0), [SpecPeak(915e6, 4e6, -20, 3)], name="carrier at 915 MHz", gens={"i": "I IN"},
            stim={"i": ("dc", 0, 0, 0.5)}, host=(_USE_R, H("trf3722_set", 915e6, key="locked")),
-           pre=("an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13)", "r13's slide switch UP"),
+           pre=("an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13)", "r13's slide switch UP",
+                "r10's slide switch UP too: with r10 off, r13's programming and the reference back-power it (REVB 1.13)"),
            why="DC on I alone is a CW carrier; about -3 dBm at full scale")]
 _F3 = _RFF
 T += [s21("r2", "IN", "OUT", _F3, table([(5e7, -45), (2.0e9, -32), (2.3e9, -6), (2.4e9, -1.8), (2.5e9, -1.8), (2.6e9, -6), (3.0e9, -30), (6e9, -30)]),
@@ -545,14 +555,17 @@ T += [bode("h2", "IN", "OUT", (1e5, 3e7, 9), 0.1, amp(1 + 698 / 75.0, 400e6, rou
                                      dict(host=[H("out", "IO8", 1)], wait=0.3, read={"on": ("scope", "out", "rms")}), dict(host=[H("out", "IO8", 0), H("safe")])],
           lambda ctx: {"off": 0.00015, "on": 0.0009}, [Num("on / off", 1.5, 1e4)], scopes={"out": ("OUT", "50")}, derive=lambda v: {"on / off": v["on"] / v["off"]},
           why="the avalanche junction's noise times 9.9, against the amplifier's own"),
-      manual("h4", "coil driver", "A 10 ohm, 5 W resistor on the COIL terminal: IO6 high gives 0.46 A from USB's 4.6 V and 0.69 V on MON; IO7 reverses it.",
-             kit=("10 ohm, 5 W resistor",)),
+      manual("h4", "coil driver", "Supply output 2 at 12.0 V, 1.0 A limit, on h4's VM IN terminal (+ to the pin printed +); a 22 ohm, 10 W resistor "
+             "on the COIL terminal.  IO6 high gives 0.55 A and about 0.8 V on MON; IO7 reverses it.  Not on USB alone: the DRV8876 and its "
+             "MON amplifier are below their minimum supply there (REVB 1.6).",
+             kit=("22 ohm, 10 W resistor", "two clip leads from supply output 2")),
       manual("h8", "coupled tanks", "With DIP way 1 or 2 ON (1 pF, 2.2 pF between the tanks) the single peak splits in two; TUNE / PUMP's DC moves tank 2.")]
 
 # =====================================================================================================
 # IQ-MOD: a coherent I/Q transceiver and microwave physics
 # =====================================================================================================
 T = board("iq_mod", letter="q", name="IQ-MOD", title="quadrature", power="q10", socket=False, pmod="q3", quiescent=(0.004, 0.03), limit=1.6,
+          volts=5.10,                     # REVB 1.11: the ADL537x and ADL5611 want 4.75 V after the PTC and the switch at 0.9 A
           setup=["every tile's slide switch DOWN (off)", "two 50 ohm terminators ready (q5's unused ports, q3's unused output)"],
           walk=[("q1", 120, 240), ("q2", 180, 330), ("q3", 15, 140), ("q4", 50, 85), ("q6", 45, 90), ("q7", 0.02, 6), ("q8", 3, 14)],
           inspect=["q1 (ADL5375), q2 (ADL5380), q6 (AD8318): LFCSP pin-1 dots; q3: the MAX2871's.",

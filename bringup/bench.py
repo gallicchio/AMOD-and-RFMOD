@@ -127,7 +127,12 @@ class RealPsu:
         self.dev, self.out = dev, out
 
     def set(self, volts, amps, out=None):
-        self.dev.set(volts, amps, out or self.out)
+        out = out or self.out
+        if len(getattr(self.dev, "ranges", ())) > 1:          # E3646A: 8 V / 3 A or 20 V / 1.5 A
+            want = self.dev.ranges[1] if volts > 8.0 else self.dev.ranges[0]
+            if self.dev.setting(out).get("range") != want:
+                self.dev.set_range(want, out)
+        self.dev.set(volts, amps, out)
 
     def on(self): self.dev.output(True)
     def off(self): self.dev.off()

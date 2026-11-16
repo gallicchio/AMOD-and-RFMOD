@@ -17,6 +17,10 @@ import engine, measure, sim, tiles, run          # noqa: E402
 from bench import Bench                          # noqa: E402
 
 
+def stem_letter(stem):
+    return tiles.BOARDS[stem]["letter"].upper()
+
+
 def visits(stem):
     return engine.plan(stem, tiles.BOARDS[stem], tiles.TESTS[stem])
 
@@ -43,6 +47,9 @@ def test_every_card_can_be_written(stem):
         text = run.card(stem, v, prev)
         assert v.id in text
         assert sum(1 for c in v.conns if c[0][0] == "G") <= 2 and sum(1 for c in v.conns if c[0][0] == "S" and c[0] != "SA") <= 4
+        if any(c[0] == "HOST" for c in v.conns):          # the plug's orientation is checked before the first host visit
+            ids = [s[0] for s in run.steps(stem)]
+            assert stem_letter(stem) + ".plug" in ids and ids.index(stem_letter(stem) + ".plug") < ids.index(v.id)
         cables = [c[0] for c in v.conns]
         assert len(cables) == len(set(cables)), "a cable is used twice in " + v.id
         prev = v
@@ -122,3 +129,22 @@ def test_command_line_keeps_its_record(tmp_path):
     assert "P.v2" in st and "AMOD-P" in st
     log = open(os.path.join(HERE, "BRINGUP_LOG_sim.md")).read()
     assert "p1.response" in log and "switch on a4" in log
+
+
+def test_motor_supply_is_set_and_returned_to_zero():
+    """AMOD-M's driver tests run from the supply's output 2 (REVB 1.5), which must be back at 0 V afterwards."""
+    w = sim.World(); b = Bench.sim(w); b.psu.set(5, 1); b.psu.on()
+    v = [x for x in visits("amod_m") if any(t.id == "m3.bridge with no motor" for t in x.tests)][0]
+    assert any(c[0] == "MOT" for c in v.conns)
+    t = [x for x in v.tests if x.id == "m3.bridge with no motor"][0]
+    res, _ = measure.run(t, v, b)
+    assert all(c["ok"] for c in engine.judge(t, res)) and b.psu.out2 == 0.0
+
+
+def test_unassigned_instruments_make_a_visit_wait():
+    cfg = dict(run.load_config())
+    cfg["host"] = {"port": None}
+    s = [x for x in run.steps("amod_a") if x[0] == "A.host1"][0]
+    assert any("Pmod host" in w for w in run.waiting_for("amod_a", s, cfg))
+    s = [x for x in run.steps("amod_p") if x[0] == "P.inspect"][0]
+    assert run.waiting_for("amod_p", s, cfg) == []

@@ -118,8 +118,29 @@ def steps(stem):
         out.append((L + ".power", "power", "first power: staircase, rails, the switch walk", None))
     cfg = load_config()
     for v in engine.plan(stem, b, tiles.TESTS[stem], ngen=len(cfg["generators"])):
+        if any(c[0] == "HOST" for c in v.conns) and not any(s[1] == "plug" for s in out):
+            out.append((L + ".plug", "plug", "the Pmod plug's orientation, unpowered", None))
         out.append((v.id, v.stage, engine.STAGE_WORDS[v.stage], v))
     return out
+
+
+def waiting_for(stem, s, cfg=None):
+    """The instruments a step needs that bench.json does not assign (so it waits), as words; empty if it can run."""
+    cfg = cfg or load_config()
+    v = s[3]
+    if s[1] == "power":
+        need = {"psu"} | ({"scope"} if tiles.BOARDS[stem].get("socket") else set())
+        return [w for n, w in (("psu", "the supply"), ("scope", "the scope")) if n in need and not (
+            cfg["psu"].get("serial") if n == "psu" else (cfg["scope"].get("host") or cfg["scope"].get("usb_serial")))]
+    if v is None:
+        return []
+    have = {"generators": all(g.get("host") or g.get("usb_serial") for g in cfg["generators"]),
+            "scope": bool(cfg["scope"].get("host") or cfg["scope"].get("usb_serial")), "psu": bool(cfg["psu"].get("serial")),
+            "vna": cfg["vna"].get("gpib") is not None, "sa": bool(cfg["sa"].get("host") or cfg["sa"].get("usb_serial")),
+            "host": bool(cfg["host"].get("port"))}
+    words = {"generators": "the generator", "scope": "the scope", "psu": "the supply", "vna": "the network analyzer",
+             "sa": "the spectrum analyzer", "host": "the Pmod host (an ECP5 board with working USB PROG)"}
+    return [words[n] for n in sorted(engine.needs(v, tiles.BOARDS[stem])) if not have[n]]
 
 
 def find(step_id):
@@ -137,6 +158,8 @@ def cable_name(c):
 
 
 def conn_line(stem, c, tile, jack, note):
+    if c == "MOT":
+        return "%-5s supply output 2 (the motor supply; I set it, 0 V between tests) -> %s" % (c, jack)
     if c == "HOST":
         return "%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC board's **Pmod A** socket; USB PROG to this PC" % c
     j = jack_info(stem, tile, jack)
@@ -202,6 +225,8 @@ def card(stem, v, prev=None, short=False):
         except Exception:
             model = None
         lines += ["        " + check_text(c, model) for c in t.checks]
+        if t.predict:
+            lines.append("        PREDICTED ON PAPER: " + t.predict)
     lines.append("Then say: \"%s cabled\"%s." % (v.id, " and stay: I run one part at a time and say what to change before the next" if v.hands
                                                   else " (you can leave; I report when it is done)"))
     return "\n".join(lines)
@@ -213,11 +238,26 @@ def card(stem, v, prev=None, short=False):
 MARK = {"pass": "ok", "done": "ok", "fail": "FAIL", "skip": "skip", None: ".."}
 
 
-def next_step(book, stem):
+def next_step(book, stem, runnable=True):
+    """The first step not yet passed, done or skipped; with runnable=True, the first whose instruments are assigned."""
+    cfg = load_config()
     for s in steps(stem):
         if book.state["steps"].get(s[0], {}).get("status") not in ("pass", "done", "skip"):
+            if runnable and waiting_for(stem, s, cfg) and not book.sim:
+                continue
             return s
     return None
+
+
+def waiting(book, stem):
+    """{instrument words: [step ids]} for the steps that cannot run until bench.json assigns an instrument."""
+    cfg, out = load_config(), {}
+    for s in steps(stem):
+        if book.state["steps"].get(s[0], {}).get("status") in ("pass", "done", "skip"):
+            continue
+        for w in waiting_for(stem, s, cfg):
+            out.setdefault(w, []).append(s[0])
+    return out
 
 
 def status_text(book, markdown=False):
@@ -243,9 +283,14 @@ def status_text(book, markdown=False):
         out.append("## Next, for Jason" if markdown else "NEXT, FOR JASON")
         out.append("")
         if nx is None:
-            out.append("%s is finished: every step is recorded.  Choose the next board (`run.py board ...`)." % tiles.BOARDS[act]["name"])
+            out.append("%s: every step that can run now is recorded.  Choose the next board (`run.py board ...`)." % tiles.BOARDS[act]["name"])
         else:
             out.append(("```\n" if markdown else "") + step_text(book, act, nx) + ("\n```" if markdown else ""))
+        wt = waiting(book, act)
+        if wt:
+            out += ["", "## Waiting on this board" if markdown else "WAITING ON THIS BOARD", ""]
+            for w, ids in wt.items():
+                out.append("- for %s: %s" % (w, ", ".join(ids)))
         last = [(k, v) for k, v in st["steps"].items() if k.lower().startswith(tiles.BOARDS[act]["letter"] + ".")]
         if last:
             out += ["", "## Last results on this board" if markdown else "LAST RESULTS ON THIS BOARD", ""]
@@ -266,6 +311,15 @@ def step_text(book, stem, s):
                 "\nThen say: \"%s done\"." % sid)
     if kind == "power":
         return power_text(stem)
+    if kind == "plug":
+        return ("%s: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.\n"
+                "   1. Plug %s's Pmod plug (its bottom edge, under tile %s) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two\n"
+                "      sockets on its right edge), pins straight in, the two boards flat on the bench.\n"
+                "   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any\n"
+                "      SMA jack of %s.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.\n"
+                "      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,\n"
+                "      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.\n"
+                "Then say: \"%s done\" with the reading." % (sid, b["name"], b.get("pmod"), b["name"], sid))
     prev = None
     if book.state.get("cabled"):
         try:
@@ -288,10 +342,11 @@ def power_text(stem):
                   "   S3    scope CH3, the same, in the hole printed \"3V3\"; all three ground clips on a pin in a hole printed \"G\""]
     else:
         lines += ["   (this board has no rails socket: its rails are judged by the LEDs and by the supply current)"]
-    lines += ["What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:",
+    lines += ["What I run: 1.0 V, 3.0 V, then %.2f V with a low current limit, reading the current at each; the rails; then the walk:" % b.get("volts", 5.0),
               "   the supply's display shows a tile's name (\"ON %s\"): slide THAT tile's switch UP; the display moves on by itself." % b["walk"][0][0],
               "   Order: " + ", ".join(w[0] for w in b["walk"]) + ".  Expected steps (mA): " +
               ", ".join("%s %g-%g" % w for w in b["walk"]) + ".",
+              "Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).",
               "Tell me which LEDs are lit on tile %s when the supply first reaches 5 V." % b["power"],
               "Then say: \"%s cabled\" and stay for the walk (about two minutes)." % (L + ".power")]
     return "\n".join(lines)
@@ -349,6 +404,8 @@ def go(args):
             all_ok &= ok
             results[t.id] = "pass" if ok else "fail"
             print("  %-34s %s" % (t.id, "pass" if ok else "FAIL"))
+            if t.predict:
+                print("      (predicted on paper: %s)" % t.predict)
             for c in out:
                 print("      %s %s" % ("  " if c["ok"] else "!!", fmt(c)))
             path = book.data(stem, sid + "_" + t.name, dict(test=t.id, when=now(), checks=out, raw=raw))
@@ -399,7 +456,7 @@ def power(args, stem=None):
         except Exception as e:
             print("  (output 2 not set to 0 V: %r)" % (e,))
         if not getattr(args, "resume", False):
-            for volts, limit, top in ((1.0, 0.10, 0.05), (3.0, 0.20, 0.12), (5.0, 0.30, qhi)):
+            for volts, limit, top in ((1.0, 0.10, 0.05), (3.0, 0.20, 0.12), (b.get("volts", 5.0), 0.30, qhi)):
                 psu.set(volts, limit); psu.on(); measure._wait(bench, 1.5)
                 v, i = psu.read(); mode = psu.mode()
                 ok = mode == "CV" and i <= top and (volts < 5 or i >= qlo * 0.3)
@@ -410,18 +467,23 @@ def power(args, stem=None):
                     psu.off()
                     raise SystemExit("supply switched off: look for a short or a turned part before going on")
         else:
-            psu.set(5.0, b.get("limit", 0.9)); psu.on(); measure._wait(bench, 1.0)
-        if b.get("socket") and not getattr(args, "no_rails", False) and not args.sim:
-            sc = bench.scope
+            psu.set(b.get("volts", 5.0), b.get("limit", 0.9)); psu.on(); measure._wait(bench, 1.0)
+
+        def rails(when, minus5=(-5.25, -4.4)):
+            if not b.get("socket") or getattr(args, "no_rails", False) or args.sim:
+                return True
             chans = {"+5": (1, "1M"), "-5": (2, "1M"), "3V3": (3, "1M")}
-            t, v, _ = measure.capture_ranged(bench, chans, 2e-3, {"+5": (4.0, 5.5), "-5": (-5.5, -4.0), "3V3": (2.8, 3.6)})
-            for name, (lo, hi) in (("+5", (4.55, 5.15)), ("-5", (-5.25, -4.4)), ("3V3", (3.2, 3.4))):
+            t, v, _ = measure.capture_ranged(bench, chans, 2e-3, {"+5": (4.0, 5.5), "-5": (-5.5, -3.0), "3V3": (2.8, 3.6)})
+            good = True
+            for name, (lo, hi) in (("+5", (4.55, 5.15)), ("-5", minus5), ("3V3", (3.2, 3.4))):
                 m, r = float(np.mean(v[name])), float(np.std(v[name]))
-                ok = lo <= m <= hi; ok_all &= ok
-                print("  rail %-4s %.3f V, %.1f mV rms   %s" % (name, m, 1e3 * r, "ok" if ok else "!! want %.2f to %.2f" % (lo, hi)))
-                book.log(b["name"], sid, "rail " + name, "pass" if ok else "**FAIL**", "%.3f V, %.1f mV rms" % (m, 1e3 * r))
+                ok = lo <= m <= hi; good &= ok
+                print("  rail %-4s %s %.3f V, %.1f mV rms   %s" % (name, when, m, 1e3 * r, "ok" if ok else "!! want %.2f to %.2f" % (lo, hi)))
+                book.log(b["name"], sid, "rail %s, %s" % (name, when), "pass" if ok else "**FAIL**", "%.3f V, %.1f mV rms" % (m, 1e3 * r))
+            return good
+        ok_all &= rails("tiles off")
         # the walk: one tile's slide switch at a time, the supply's display saying which
-        psu.set(5.0, b.get("limit", 0.9))
+        psu.set(b.get("volts", 5.0), b.get("limit", 0.9))
         base = float(np.median([psu.read()[1] for _ in range(5)]))
         print("  the walk (follow the supply's display):")
         for tile, lo, hi in b["walk"]:
@@ -449,11 +511,14 @@ def power(args, stem=None):
         v, i = psu.read()
         print("  all on: %.3f V, %.1f mA" % (v, 1e3 * i))
         book.log(b["name"], sid, "all tiles on", "info", "%.3f V, %.1f mA" % (v, 1e3 * i))
+        if not rails("all tiles on", minus5=(-5.25, -4.2)):          # REVB 1.9: the LM2664's 40 mA against every op amp at once
+            notes.append("a rail sags with every tile on (REVB 1.9): switch off the tiles a visit does not use")
     finally:
         bench.quiet()
     book.mark(sid, "pass" if ok_all else "fail", "; ".join(notes))
     book.save()
-    print("%s: %s.  The supply stays ON at 5.0 V, %.1f A limit; `run.py off` switches it off." % (sid, "ALL PASS" if ok_all else "FAILURES: " + "; ".join(notes), b.get("limit", 0.9)))
+    print("%s: %s.  The supply stays ON at %.2f V, %.1f A limit, every tile's switch UP; `run.py off` switches it off." % (
+        sid, "ALL PASS" if ok_all else "FAILURES: " + "; ".join(notes), b.get("volts", 5.0), b.get("limit", 0.9)))
     return 0 if ok_all else 1
 
 
@@ -535,6 +600,7 @@ def listing():
             cs = []
             for c, tile, jack, note in v.conns:
                 if c == "HOST": cs.append("HOST"); continue
+                if c == "MOT": cs.append("MOT->" + jack.split(" (")[0]); continue
                 arrow = "->" if c[0] == "G" else "<-" if c[0] == "S" else "-"
                 load = "(50)" if "50 ohm" in note else ""
                 cs.append("%s%s%s%s %s" % (c, load, arrow, tile, jack_info(stem, tile, jack)["name"]))

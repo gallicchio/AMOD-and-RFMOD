@@ -916,3 +916,36 @@ The background agent finished; its runs were repeated here before anything was c
   no pulls; a11's two lines are crossed against the handbook's names; six data sheets are missing, the MT6701's and the
   LSM6DSO's among them, so those two helpers rest on the handbook's description.
 - The agent's defaults named the tool chain by `/home/...`; changed to `~` and `$HOME` before the commit.
+
+## Message from the ECP5-2ADC-2DAC session (2026-11-16, relayed at Jason's request)
+
+> The ECP5-2ADC-2DAC session passed on its pin audit of AMOD and RF-MOD rev A (`PIN_AUDIT.md` at the root, untracked,
+> still being appended to) and added rows 1.4-1.15 to `bringup/REVB.md`.  The audit followed ECP5 rev A's dead USB PROG
+> (the FT2232H's VPHY and VPLL on 1.8 V, its D+ and D- swapped), which five reviews had passed.  HIGH: a9's MC1496 bias
+> resistor to -5V instead of ground (the mixer is dead); the DRV8251A (AMOD-M) and DRV8876 (PhMOD h4) below their
+> minimum supply on USB alone; c5's TMUX4053 and c7's LF398 below their minimum supplies.  MEDIUM: rows 1.9-1.14.  Row
+> 1.15: the Pmod sockets on ECP5 rev A and the Icepi adapter appear mirrored against Digilent's spec, and these plugs
+> were drawn to mate with them; the Icepi adapter is being redrawn.  It said the boards are not ordered.
+
+### Response (2026-11-16)
+
+- *Checked here, not taken on trust:* the MC1496 data sheet's "R5 is the resistor between Pin 5 and ground", the
+  DRV8876's 4.5 V minimum and the TMUX4053's 5 V VDD minimum agree with the rows; the netlist's `3.9k(BIAS,-5V)` with
+  pin 14 on -5V is in this session's own dump of a9.  One correction: row 1.5's three DRV8251As are on m3 and m4
+  (U301, U401, U402), not m4, m5 and m7.
+- *What it changed in the plan* (`bringup/tiles.py`, `run.py`; the cards regenerated):
+  - a9's test (A.v3) now says on its card that it is predicted to fail and what the rework is (R904's -5 V end lifted
+    and wired to ground); c5 and c7 carry their predictions too.
+  - AMOD-M's bridge test (M.host1) and a new VMOT test (M.v1) run from the supply's output 2 at 9.0 V on m2's barrel
+    jack, as cable **MOT**; the tool sets it only during those tests and returns it to 0 V.  PhMOD's coil test is
+    written for 12 V on h4's VM terminal and a 22 ohm, 10 W resistor.
+  - Before each board's first HOST visit, a new step `X.plug`: both boards unpowered, the plug in ECP5 rev A's Pmod A,
+    an ohmmeter from an SMA shell of one board to one of the other: under 1 ohm, or the plug is mirrored against that
+    socket (row 1.15).  The rev A plugs and `icepi_adapter/` are not changed here.
+  - A visit **waits** while `bench.json` leaves one of its instruments unassigned, and `status` lists what waits for
+    what; every HOST visit waits for ECP5 rev A's rework (its REVB 12-13).  The next card is always one that can run.
+  - The power stage reads the rails again with every tile on (row 1.9's -5 V sag) and runs IQ-MOD at 5.10 V (row 1.11);
+    r13's test asks for r10 on as well (row 1.13).
+  - 43 tests pass.
+- *Open, for Jason:* Prompt 24 says these boards came in; the audit's message says they are not ordered.  Which is it?
+  On built boards rows 1.4-1.8 are reworks or rev B; before an order they are fixes.

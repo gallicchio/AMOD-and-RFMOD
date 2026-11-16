@@ -36,6 +36,9 @@ def card_png(stem, visit, path, geo, jack_info):
         ax.text(pm["x0"] + 9.0, 105.3, "Pmod plug", ha="center", va="top", fontsize=7)
     legend = []
     for c, tile, jack, note in visit.conns:
+        if c == "MOT":
+            legend.append("MOT: supply output 2 on " + jack)
+            continue
         if c == "HOST":
             if pm:
                 ax.add_patch(Rectangle((pm["x0"] + 1.0, 99.0), 16.0, 4.5, fc="#e69f00", ec="#111111", lw=1.2))

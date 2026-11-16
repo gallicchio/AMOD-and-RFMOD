@@ -357,6 +357,8 @@ class Test:
     kit: tuple = ()                # parts from outside the board (a motor, a speaker, an HB100)
     psu: bool = False              # the test reads the supply's current
     why: str = ""                  # one line: what the number comes from
+    predict: str = ""              # a fault already predicted on paper (REVB.md row and what to do), shown on the card
+    mot: str = ""                  # where the supply's output 2 goes for this test (the motor supply), if it is used
 
     @property
     def needs_host(self):
@@ -644,6 +646,9 @@ def pack(letter, tests, stage, ngen=2, nscope=4):
                 for x in t.pre:
                     if (t.tile, x) not in v.pre: v.pre.append((t.tile, x))
         v.hands = stage in ("hands", "kit")
+        for t in v.tests:
+            if t.mot and not any(c[0] == "MOT" for c in v.conns):
+                v.conns.append(("MOT", t.tile, t.mot, "supply output 2"))
         if any(t.needs_host for t in v.tests):
             v.conns.append(("HOST", "", "Pmod plug", "into the ECP5 board's Pmod A socket"))
         if gi > ngen or si > nscope:
@@ -669,6 +674,16 @@ def pack(letter, tests, stage, ngen=2, nscope=4):
         cur.append((tile, ts)); ng += len(g); ns += len(s)
     close()
     return visits
+
+
+def needs(visit, board=None):
+    """The instruments a visit uses: generators, scope, psu, vna, sa, host."""
+    out = set()
+    for c, *_ in visit.conns:
+        out.add({"G": "generators", "S": "scope", "P": "vna", "M": "psu", "H": "host"}.get(c[0], "sa") if c != "SA" else "sa")
+    if (board or {}).get("power") or any(t.psu for t in visit.tests):
+        out.add("psu")
+    return out
 
 
 def plan(stem, board, tests, ngen=2, nscope=4):

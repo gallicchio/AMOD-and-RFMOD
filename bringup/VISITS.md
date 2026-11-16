@@ -268,9 +268,10 @@ Hookup:
    S1    scope CH1, a BNC-to-clip lead (x1) on a jumper pin in the rails socket hole printed "+5" (top edge of tile a1)
    S2    scope CH2, the same, in the hole printed "-5"
    S3    scope CH3, the same, in the hole printed "3V3"; all three ground clips on a pin in a hole printed "G"
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON a2"): slide THAT tile's switch UP; the display moves on by itself.
    Order: a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12.  Expected steps (mA): a2 5-14, a3 5-14, a4 25-50, a5 5-14, a6 2-8, a7 0.2-6, a8 0-1.5, a9 4-14, a10 10-28, a11 5-16, a12 8-28.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile a1 when the supply first reaches 5 V.
 Then say: "A.power cabled" and stay for the walk (about two minutes).
 ```
@@ -346,6 +347,7 @@ What I then run, and what passes:
    - a9.product  (1.0 MHz x 1.1 MHz: the difference at 100 kHz, and the LO's leak at 1.1 MHz)
         tone at 100 kHz: 0.012 to 0.09 V
         tone at 1.1 MHz: 0 to 0.05 V
+        PREDICTED ON PAPER: REVB 1.4: R904 returns the MC1496's bias pin to -5 V (its VEE) instead of ground, so the tail current is zero and no 100 kHz product is expected.  If so, the rework is R904's -5 V end lifted and wired to ground
 Then say: "A.v3 cabled" (you can leave; I report when it is done).
 ```
 
@@ -377,6 +379,19 @@ Then say: "A.v4 cabled" (you can leave; I report when it is done).
 ```
 
 ![A.v4](cards/A.v4.png)
+
+### A.plug
+
+```
+A.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug AMOD-A's Pmod plug (its bottom edge, under tile a11) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of AMOD-A.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "A.plug done" with the reading.
+```
 
 ### A.host1
 
@@ -554,6 +569,19 @@ Then say: "N.v4 cabled" (you can leave; I report when it is done).
 ```
 
 ![N.v4](cards/N.v4.png)
+
+### N.plug
+
+```
+N.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug AMOD-N's Pmod plug (its bottom edge, under tile n8) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of AMOD-N.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "N.plug done" with the reading.
+```
 
 ### N.host1
 
@@ -928,9 +956,10 @@ R.power: first power for RF-MOD.  Every tile's slide switch DOWN (off) to begin 
 Hookup:
    PWR   supply output 1 (+ and -) -> the USB-C power lead -> the board's USB-C jack (right edge, tile r9)
    (this board has no rails socket: its rails are judged by the LEDs and by the supply current)
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON r5"): slide THAT tile's switch UP; the display moves on by itself.
    Order: r5, r7, r8, r10, r12, r13.  Expected steps (mA): r5 50-85, r7 12-35, r8 12-35, r10 15-140, r12 130-220, r13 20-220.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile r9 when the supply first reaches 5 V.
 Then say: "R.power cabled" and stay for the walk (about two minutes).
 ```
@@ -1027,6 +1056,19 @@ Then say: "R.rf4 cabled" (you can leave; I report when it is done).
 ```
 
 ![R.rf4](cards/R.rf4.png)
+
+### R.plug
+
+```
+R.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug RF-MOD's Pmod plug (its bottom edge, under tile r10) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of RF-MOD.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "R.plug done" with the reading.
+```
 
 ### R.sa1
 
@@ -1129,6 +1171,7 @@ Cables to move: G1, SA
 First, on the board:
    * an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13)
    * r13's slide switch UP
+   * r10's slide switch UP too: with r10 off, r13's programming and the reference back-power it (REVB 1.13)
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile r13 "I/Q transmitter", jack printed "I IN": row 4, column 3, the cell's top-left
    SA    spectrum analyzer input       ->  tile r13 "I/Q transmitter", jack printed "RF OUT": row 4, column 4, the cell's bottom-right
@@ -1172,9 +1215,10 @@ Hookup:
    S1    scope CH1, a BNC-to-clip lead (x1) on a jumper pin in the rails socket hole printed "+5" (top edge of tile c1)
    S2    scope CH2, the same, in the hole printed "-5"
    S3    scope CH3, the same, in the hole printed "3V3"; all three ground clips on a pin in a hole printed "G"
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON c2"): slide THAT tile's switch UP; the display moves on by itself.
    Order: c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12.  Expected steps (mA): c2 1-12, c3 0.1-5, c4 1-8, c5 5-14, c6 8-30, c7 3-16, c8 0.02-3, c9 6-18, c10 2-12, c11 0.2-8, c12 2-10.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile c1 when the supply first reaches 5 V.
 Then say: "C.power cabled" and stay for the walk (about two minutes).
 ```
@@ -1248,6 +1292,19 @@ Then say: "C.v3 cabled" (you can leave; I report when it is done).
 
 ![C.v3](cards/C.v3.png)
 
+### C.plug
+
+```
+C.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug AMOD-C's Pmod plug (its bottom edge, under tile c9) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of AMOD-C.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "C.plug done" with the reading.
+```
+
 ### C.host1
 
 ```
@@ -1276,6 +1333,7 @@ What I then run, and what passes:
    - c5.response  (R = 1 / (100 kHz x 1 nF) = 10 k into 10 nF: 1592 / f)
         gain at 1 kHz: 4.027 dB (2.527 to 5.527 dB)
         gain at 3 kHz: -5.515 dB (-7.015 to -4.015 dB)
+        PREDICTED ON PAPER: REVB 1.7: the TMUX4053 runs below its 5 V minimum; expected to work with more on-resistance
 Then say: "C.host1 cabled" (you can leave; I report when it is done).
 ```
 
@@ -1300,6 +1358,7 @@ What I then run, and what passes:
         tone at 1 kHz: 0.44 to 0.53 V
    - c7.hold  (IO5 low: OUT stands still (30 mV/s of droop))
         vpp: 0 to 0.06 V
+        PREDICTED ON PAPER: REVB 1.8: the LF398 runs below +-5 V; IN here stays within +-0.5 V, inside the -0.8 to +1.2 V it still promises
 Then say: "C.host2 cabled" (you can leave; I report when it is done).
 ```
 
@@ -1370,9 +1429,10 @@ H.power: first power for PhMOD.  Every tile's slide switch DOWN (off) to begin w
 Hookup:
    PWR   supply output 1 (+ and -) -> the USB-C power lead -> the board's USB-C jack (right edge, tile h1)
    (this board has no rails socket: its rails are judged by the LEDs and by the supply current)
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON h3"): slide THAT tile's switch UP; the display moves on by itself.
    Order: h3, h4, h5, h6, h7, h8, h9, h10.  Expected steps (mA): h3 14-40, h4 2-16, h5 22-60, h6 3-12, h7 10-28, h8 0.02-3, h9 10-34, h10 4-20.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile h1 when the supply first reaches 5 V.
 Then say: "H.power cabled" and stay for the walk (about two minutes).
 ```
@@ -1478,6 +1538,19 @@ Then say: "H.v4 cabled" (you can leave; I report when it is done).
 
 ![H.v4](cards/H.v4.png)
 
+### H.plug
+
+```
+H.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug PhMOD's Pmod plug (its bottom edge, under tile h5) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of PhMOD.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "H.plug done" with the reading.
+```
+
 ### H.host1
 
 ```
@@ -1534,9 +1607,9 @@ Then say: "H.hands2 cabled" and stay: I run one part at a time and say what to c
 
 ```
 == H.kit1 ==  PhMOD (physics), with parts from the kit; tiles h4
-From the kit: 10 ohm, 5 W resistor
+From the kit: 22 ohm, 10 W resistor; two clip leads from supply output 2
 What I then run, and what passes:
-   - h4.coil driver: A 10 ohm, 5 W resistor on the COIL terminal: IO6 high gives 0.46 A from USB's 4.6 V and 0.69 V on MON; IO7 reverses it.
+   - h4.coil driver: Supply output 2 at 12.0 V, 1.0 A limit, on h4's VM IN terminal (+ to the pin printed +); a 22 ohm, 10 W resistor on the COIL terminal.  IO6 high gives 0.55 A and about 0.8 V on MON; IO7 reverses it.  Not on USB alone: the DRV8876 and its MON amplifier are below their minimum supply there (REVB 1.6).
 Then say: "H.kit1 cabled" and stay: I run one part at a time and say what to change before the next.
 ```
 
@@ -1570,9 +1643,10 @@ Q.power: first power for IQ-MOD.  Every tile's slide switch DOWN (off) to begin 
 Hookup:
    PWR   supply output 1 (+ and -) -> the USB-C power lead -> the board's USB-C jack (right edge, tile q10)
    (this board has no rails socket: its rails are judged by the LEDs and by the supply current)
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.10 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON q1"): slide THAT tile's switch UP; the display moves on by itself.
    Order: q1, q2, q3, q4, q6, q7, q8.  Expected steps (mA): q1 120-240, q2 180-330, q3 15-140, q4 50-85, q6 45-90, q7 0.02-6, q8 3-14.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile q10 when the supply first reaches 5 V.
 Then say: "Q.power cabled" and stay for the walk (about two minutes).
 ```
@@ -1592,6 +1666,19 @@ Then say: "Q.v1 cabled" (you can leave; I report when it is done).
 ```
 
 ![Q.v1](cards/Q.v1.png)
+
+### Q.plug
+
+```
+Q.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug IQ-MOD's Pmod plug (its bottom edge, under tile q3) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of IQ-MOD.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "Q.plug done" with the reading.
+```
 
 ### Q.host1
 
@@ -1844,9 +1931,10 @@ Hookup:
    S1    scope CH1, a BNC-to-clip lead (x1) on a jumper pin in the rails socket hole printed "+5" (top edge of tile m1)
    S2    scope CH2, the same, in the hole printed "-5"
    S3    scope CH3, the same, in the hole printed "3V3"; all three ground clips on a pin in a hole printed "G"
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON m3"): slide THAT tile's switch UP; the display moves on by itself.
    Order: m3, m4, m5, m6, m8, m9, m10.  Expected steps (mA): m3 3-16, m4 0.5-12, m5 1-9, m6 1-9, m8 1-12, m9 6-22, m10 18-36.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile m1 when the supply first reaches 5 V.
 Then say: "M.power cabled" and stay for the walk (about two minutes).
 ```
@@ -1860,9 +1948,12 @@ Hookup (every cable of this visit):
    S2    scope CH2 (SMA to BNC)        ->  tile m4 "stepper", jack printed "IA 10K": row 3, column 1, the cell's top-left -- 1 Mohm input
    S3    scope CH3 (SMA to BNC)        ->  tile m4 "stepper", jack printed "IB 10K": row 3, column 2, the cell's top-left -- 1 Mohm input
    S4    scope CH4 (SMA to BNC)        ->  tile m5 "servo", jack printed "I 1V/A": row 1, column 3, the cell's bottom-right -- 1 Mohm input
+   MOT   supply output 2 (the motor supply; I set it, 0 V between tests) -> m2's barrel jack "5-16V" (5.5 x 2.1 mm plug, centre +)
 What I then run, and what passes:
    - m2.VMOT on USB power  ((5 V less a Schottky) / 16)
         mean: 0.24 to 0.33 V
+   - m2.VMOT from the barrel jack  (9.0 V on the jack: (9.0 V less the SS34) / 16)
+        VM: 0.48 to 0.58 V
    - m4.output at rest
         mean (ia): -0.05 to 0.05 V
         mean (ib): -0.05 to 0.05 V
@@ -1877,7 +1968,7 @@ Then say: "M.v1 cabled" (you can leave; I report when it is done).
 
 ```
 == M.v2 ==  AMOD-M (motors), generator and scope; tiles m6, m7, m9
-Cables to move: S1, S2, S3, S4
+Cables to move: S1, S2, S3, S4; take off: MOT
 Hookup (every cable of this visit):
    S1    scope CH1 (SMA to BNC)        ->  tile m6 "solenoid", jack printed "I 1V/A": row 1, column 2, the cell's bottom-right -- 1 Mohm input
    S2    scope CH2 (SMA to BNC)        ->  tile m6 "solenoid", jack printed "VD /52": row 1, column 2, the cell's top-left -- 1 Mohm input
@@ -1921,6 +2012,19 @@ Then say: "M.v3 cabled" (you can leave; I report when it is done).
 
 ![M.v3](cards/M.v3.png)
 
+### M.plug
+
+```
+M.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug AMOD-M's Pmod plug (its bottom edge, under tile m3) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of AMOD-M.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "M.plug done" with the reading.
+```
+
 ### M.host1
 
 ```
@@ -1928,11 +2032,12 @@ Then say: "M.v3 cabled" (you can leave; I report when it is done).
 Hookup (every cable of this visit):
    S1    scope CH1 (SMA to BNC)        ->  tile m3 "DC motor", jack printed "V /13": row 4, column 1, the cell's top-left -- 1 Mohm input
    S2    scope CH2 (SMA to BNC)        ->  tile m3 "DC motor", jack printed "I 1V/A": row 4, column 2, the cell's top-left -- 1 Mohm input
+   MOT   supply output 2 (the motor supply; I set it, 0 V between tests) -> m2's barrel jack "5-16V" (5.5 x 2.1 mm plug, centre +)
    HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC board's **Pmod A** socket; USB PROG to this PC
 What I then run, and what passes:
-   - m3.bridge with no motor  (IN1 on IO7, IN2 on IO1: (M1 - M2) / 13 = +-VMOT / 13)
-        forward: 0.29 to 0.41 V
-        reverse: -0.41 to -0.29 V
+   - m3.bridge with no motor  (IN1 on IO7, IN2 on IO1: (M1 - M2) / 13 = +-VMOT / 13, with 9.0 V on the jack (REVB 1.5: on USB alone the DRV8251A is below its 4.5 V minimum))
+        forward: 0.58 to 0.72 V
+        reverse: -0.72 to -0.58 V
         brake: -0.04 to 0.04 V
         current: -0.04 to 0.04 V
 Then say: "M.host1 cabled" (you can leave; I report when it is done).
@@ -2051,9 +2156,10 @@ Hookup:
    S1    scope CH1, a BNC-to-clip lead (x1) on a jumper pin in the rails socket hole printed "+5" (top edge of tile b1)
    S2    scope CH2, the same, in the hole printed "-5"
    S3    scope CH3, the same, in the hole printed "3V3"; all three ground clips on a pin in a hole printed "G"
-What I run: 1.0 V, 3.0 V, then 5.0 V with a low current limit, reading the current at each; the rails; then the walk:
+What I run: 1.0 V, 3.0 V, then 5.00 V with a low current limit, reading the current at each; the rails; then the walk:
    the supply's display shows a tile's name ("ON b3"): slide THAT tile's switch UP; the display moves on by itself.
    Order: b3.  Expected steps (mA): b3 3-30.
+Leave every switch UP after the walk: the later visits expect their tiles on (the rails are read again with all of them on).
 Tell me which LEDs are lit on tile b1 when the supply first reaches 5 V.
 Then say: "B.power cabled" and stay for the walk (about two minutes).
 ```
@@ -2120,6 +2226,19 @@ Then say: "B.v3 cabled" (you can leave; I report when it is done).
 ```
 
 ![B.v3](cards/B.v3.png)
+
+### B.plug
+
+```
+B.plug: is the plug the right way round?  Both boards unpowered: no USB on either, no SMA cable, no supply lead.
+   1. Plug AMOD-B's Pmod plug (its bottom edge, under tile b3) into the ECP5-2ADC-2DAC board's Pmod A socket (the lower of its two
+      sockets on its right edge), pins straight in, the two boards flat on the bench.
+   2. Meter on ohms: one lead on the shell of any SMA jack on the ECP5 board's left edge, the other on the shell of any
+      SMA jack of AMOD-B.  It must read under 1 ohm: the two grounds meet only through the plug's pins 5 and 11.
+      If it reads high (or a diode's drop on the diode range), the plug is mirrored against the socket: STOP,
+      unplug, and tell me (REVB 1.15).  Nothing is powered, so nothing is harmed.
+Then say: "B.plug done" with the reading.
+```
 
 ### B.host1
 

@@ -43,7 +43,11 @@ Rules of the bench:
    here.
 2. **Which instruments are mine** (next section): their addresses or serial numbers go into `bringup/bench.json`.
 3. Whether an **ECP5-2ADC-2DAC board that has passed its own stages 1-3** (power, JTAG, a bitstream running) is free
-   to be the Pmod host.  About a third of the tiles need it; the rest do not.
+   to be the Pmod host.  About a third of the tiles need it; the rest do not.  **On 2026-11-16 rev A's USB PROG is
+   dead** (the ECP5 board's `bringup/REVB.md` rows 12 and 13: the FT2232H's VPHY and VPLL on 1.8 V, its D+ and D-
+   swapped), so there is no JTAG and no serial channel from the PC until its rework: one wire, and a USB cable with D+
+   and D- crossed.  Until then every visit marked HOST waits; the tool lists it as waiting and moves on to the next
+   visit it can run (a visit waits whenever `bench.json` leaves one of its instruments unassigned).
 
 ## The instruments, and how each is connected
 
@@ -54,7 +58,7 @@ Ask for these (all have drivers in `lab-instrument-control`).  Each board uses a
 | **G1, G2** | Siglent **SDG1032X** generator, CH1 and CH2 | LAN or USB | two **BNC-to-SMA-male** cables, 0.5 m, labelled G1 and G2 with tape at both ends |
 | **S1-S4** | Siglent **SDS2104X Plus** scope, CH1-CH4 (it has 50 ohm inputs, which the plan uses) | LAN or USB | four **SMA-male-to-BNC** cables, 0.5 m, labelled S1-S4 at both ends.  No x10 probes |
 | **PWR** | Agilent **E3646A** (the second unit: both outputs work), **output 1** | RS-232 through an FTDI adapter | a **USB-C power lead**: a USB-C plug on two wires (red to +, black to -).  Check its polarity with a meter before the first board |
-| MOT | the same supply's **output 2** | | banana to clip leads; a 5.5 x 2.1 mm barrel plug, centre +, for AMOD-M and AMOD-B |
+| **MOT** | the same supply's **output 2** (one output switch serves both: the tool keeps it at 0 V except during a test that uses it) | | a **5.5 x 2.1 mm barrel plug on two leads, centre +**, for AMOD-M's jack (its motor drivers are below their minimum supply on USB alone: `bringup/REVB.md` 1.5); two clip leads for PhMOD h4's VM terminal |
 | **HOST** | an **ECP5-2ADC-2DAC** board running `gateware/pmodbench/build/pmodbench.bit` | its USB PROG to the PC | the tile board's Pmod plug straight into the host's **Pmod A** socket (the lower one on its right edge) |
 | **P1, P2** | HP **8720ES** network analyzer, ports 1 and 2 | GPIB 16 through the Prologix adapter | its two test cables, labelled P1 and P2, with a **full two-port calibration at their ends for 50 MHz to 6 GHz, 1601 points** (every analyzer visit uses that one sweep; the tool refuses to change it, because that would switch the calibration off) |
 | **SA** | Rigol **DSA875** spectrum analyzer | USB | one SMA cable, labelled SA (the most it is given here is a synthesizer's +5 dBm) |
@@ -78,6 +82,7 @@ the result; every later sweep is divided by it.  It also proves the eight cables
 |---|---|---|---|
 | `X.inspect` | unpowered, with a loupe, against the short list on the card (from the board's DOA list); photograph both sides | 5 min | |
 | `X.setup` | DIP switches and jumpers to the bring-up's defaults; every tile's slide switch DOWN | 1 min | |
+| `X.plug` | (boards with a Pmod plug, before their first HOST visit) both boards unpowered, the plug in the host's Pmod A, an ohmmeter from an SMA shell of one board to an SMA shell of the other: under 1 ohm, or the plug is mirrored (`bringup/REVB.md` 1.15) | 1 min | a meter |
 | `X.power` | (boards with a USB-C) 1 V, 3 V, 5 V from the supply with a low current limit; the rails on the scope where the board has a rails socket; then **the walk**: the supply's display shows a tile's name, you slide that tile's switch UP, the tool reads the step in current, the display moves to the next | 5 min, staying | PWR (S1-S3) |
 | `X.v1 ...` | generator and scope: two tiles a visit, more when a tile needs no generator | 1-2 min each, then leave | G, S, PWR |
 | `X.host1 ...` | the same with the Pmod plug in the host: clocks, SPI, bits | 1-2 min each | + HOST |
@@ -119,6 +124,7 @@ AMOD-A (active blocks)
   A.v2       G1->a4 IN 50R, S1<-a4 OUT, S2<-a5 OUT, G2->a7 IN 1K, S3<-a7 VCO OUT, S4<-a8 TEMP OUT
   A.v3       G1->a9 RF IN, G2->a9 LO IN, S1<-a9 IF OUT
   A.v4       G1->a10 DRIVE IN, S1(50)<-a10 S OUT, S2(50)<-a10 X OUT, S3<-a11 RX OUT, S4<-a12 MIC OUT
+  A.plug     the Pmod plug's orientation, unpowered
   A.host1    G1->a6 IN 10K, S1<-a8 TEMP OUT, S2<-a11 RX OUT, HOST | first: a male-male jumper wire from a11's TX socket pin 1 to its RX socket pin 1 (the left pin of each, as printed TX and RX)
   A.hands1   G1->a10 DRIVE IN, S1(50)<-a10 S OUT, S2(50)<-a10 X OUT | first: a 50 ohm SMA terminator on a10's DUT jack
   A.kit1     (no cable) a5.HB100 | HB100 Doppler module, three jumper wires
@@ -130,6 +136,7 @@ AMOD-N (network analyzer pieces)
   N.v2       G1->n3 SUM, S1(50)<-n3 PORT 1, S2(50)<-n3 PORT 2, G2->n5 IN, S3(50)<-n5 OUT
   N.v3       G1->n7 RF, S1(50)<-n7 RF+DC, G2->n10 IN, S2(50)<-n10 OUT
   N.v4       G1->n11 IN, S1<-n11 OUT, G2->n6 IN, S2<-n6 OUT
+  N.plug     the Pmod plug's orientation, unpowered
   N.host1    G1->n8 IN, S1(50)<-n8 OUT, G2->n9 TUNE, S2(50)<-n9 OUT, HOST
   N.hands1   G1->n11 IN, S1<-n11 OUT | first: n11 DIP: way 2 (49.9 ohm) ON as well as way 1
   N.hands2   (no cable) n7.DC path | first: two clip leads from the supply's output 2 to the DC and GND test loops
@@ -159,11 +166,12 @@ RF-MOD (RF blocks)
   R.rf2      P1-r4 IN, P2-r4 OUT
   R.rf3      P1-r5 IN, P2-r5 OUT | first: r5's slide switch UP
   R.rf4      P1-r12 IN, P2-r12 OUT | first: r12's slide switch UP
+  R.plug     the Pmod plug's orientation, unpowered
   R.sa1      SA<-r10 OUT A+, HOST | first: an SMA cable from r9 REF OUT to r10 REF IN; a 50 ohm terminator on r10's other output; r10's slide switch UP
   R.sa2      SA<-r10 OUT A-, HOST | first: an SMA cable from r9 REF OUT to r10 REF IN; a 50 ohm terminator on r10's other output; r10's slide switch UP
   R.sa3      G1->r7 IF, SA<-r7 RF, HOST | first: an SMA cable from r10 OUT A+ to r7 LO; an SMA cable from r9 REF OUT to r10 REF IN; a 50 ohm terminator on r10 OUT A-
   R.sa4      G1->r8 IF, SA<-r8 RF, HOST | first: an SMA cable from r10 OUT A+ to r8 LO; an SMA cable from r9 REF OUT to r10 REF IN; a 50 ohm terminator on r10 OUT A-
-  R.sa5      G1->r13 I IN, SA<-r13 RF OUT, HOST | first: an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13); r13's slide switch UP
+  R.sa5      G1->r13 I IN, SA<-r13 RF OUT, HOST | first: an SMA cable from r9 REF OUT to r10 REF IN (the back trace carries it on to r13); r13's slide switch UP; r10's slide switch UP too: with r10 off, r13's programming and the reference back-power it (REVB 1.13)
 AMOD-C (conversion)
   C.inspect  look it over, unpowered
   C.setup    set the switches and jumpers
@@ -171,6 +179,7 @@ AMOD-C (conversion)
   C.v1       G1->c2 LOAD 50R, S1<-c2 BUCK~, S2<-c2 LDO~, G2->c9 IN+ 50R, S3<-c9 OUT
   C.v2       G1->c10 IN 50R, S1<-c10 OUT, G2->c11 CV 50R, S2<-c11 OUT /4.9
   C.v3       G1->c12 IN 50R, S1<-c12 |IN|
+  C.plug     the Pmod plug's orientation, unpowered
   C.host1    S1<-c3 OUT /5.7, S2<-c3 CAP /5.7, G1->c4 IN 50R, S3<-c4 OUT, G2->c5 IN 50R, S4<-c5 OUT, HOST
   C.host2    G1->c6 IN 10K, G2->c7 IN 50R, S1<-c7 OUT, HOST
   C.host3    G1->c8 IN 20K, G2->c8 DAC 20K, HOST
@@ -183,15 +192,17 @@ PhMOD (physics)
   H.v2       G1->h5 IN A, G2->h5 IN B, S1<-h5 OUT A, S2<-h5 OUT B
   H.v3       G1->h6 LOOP, S1<-h6 OUT, G2->h7 DRIVE, S2(50)<-h7 INC, S3(50)<-h7 REFL
   H.v4       G1->h8 SIG, S1(50)<-h8 OUT 1, G2->h10 SET, S2<-h10 MON | first: a 50 ohm SMA terminator on h10's LD jack (never a laser for this test)
+  H.plug     the Pmod plug's orientation, unpowered
   H.host1    G1->h2 IN, S1(50)<-h2 OUT, S2(50)<-h9 OUT, HOST | first: h2 OUT straight into the scope's 50 ohm input: never open, never a tee
   H.hands1   G1->h7 DRIVE, S1(50)<-h7 INC, S2(50)<-h7 REFL | first: a 50 ohm SMA terminator on h7's DUT jack
   H.hands2   (no cable) h8.coupled tanks
-  H.kit1     (no cable) h4.coil driver | 10 ohm, 5 W resistor
+  H.kit1     (no cable) h4.coil driver | 22 ohm, 10 W resistor; two clip leads from supply output 2
 IQ-MOD (quadrature)
   Q.inspect  look it over, unpowered
   Q.setup    set the switches and jumpers
   Q.power    first power: staircase, rails, the switch walk
   Q.v1       G1->q6 IN, S1<-q6 OUT
+  Q.plug     the Pmod plug's orientation, unpowered
   Q.host1    G1->q3 REF IN, G2->q1 I IN, S1(50)<-q2 I OUT, S2(50)<-q2 Q OUT, HOST | first: SMA cables: q3 OUT A+ to q1 LO IN, q3 OUT A- to q2 LO IN, q1 RF OUT to q2 RF IN; q1's, q2's and q3's slide switches UP
   Q.rf1      P1-q4 IN, P2-q4 OUT | first: q4's slide switch UP
   Q.rf2      P1-q5 IN, P2-q5 OUT | first: 50 ohm terminators on q5 FWD and REFL
@@ -207,10 +218,11 @@ AMOD-M (motors)
   M.inspect  look it over, unpowered
   M.setup    set the switches and jumpers
   M.power    first power: staircase, rails, the switch walk
-  M.v1       S1<-m2 VM /16, S2<-m4 IA 10K, S3<-m4 IB 10K, S4<-m5 I 1V/A
+  M.v1       S1<-m2 VM /16, S2<-m4 IA 10K, S3<-m4 IB 10K, S4<-m5 I 1V/A, MOT->m2's barrel jack "5-16V"
   M.v2       S1<-m6 I 1V/A, S2<-m6 VD /52, S3<-m7 I 1V/A, S4<-m9 OUT
   M.v3       S1<-m10 OUT, S2<-m11 OUT, G1->m8 PWM 50R, S3<-m8 VO /16, S4<-m8 I 1V/A
-  M.host1    S1<-m3 V /13, S2<-m3 I 1V/A, HOST
+  M.plug     the Pmod plug's orientation, unpowered
+  M.host1    S1<-m3 V /13, S2<-m3 I 1V/A, MOT->m2's barrel jack "5-16V", HOST
   M.hands1   (no cable) m9.hall
   M.hands2   (no cable) m10.optical
   M.kit1     (no cable) m3.motor and encoder | N20 gear motor with encoder, PH 6-way cable; 12 V on the barrel jack
@@ -226,6 +238,7 @@ AMOD-B (brushless)
   B.v1       S1<-b2 VM /16, S2<-b3 IA .75V/A, S3<-b3 IB .75V/A, S4<-b8 VIB
   B.v2       S1<-b9 IDX, S2<-b10 HA, S3<-b10 HB, S4<-b11 IPA 1V/A
   B.v3       S1<-b12 I 1V/A, S2<-b7 ANG
+  B.plug     the Pmod plug's orientation, unpowered
   B.host1    G1->b3 COAST 50R, S1<-b4 EA /14, S2<-b4 EB /14, HOST
   B.kit1     (no cable) b5.gimbal motor | GBM2804H-100T gimbal motor; 6 x 2.5 mm diametric magnet; M2 / M2.5 screws; 12 V on the barrel jack; a piezo disc for b8
 ```
