@@ -949,3 +949,18 @@ The background agent finished; its runs were repeated here before anything was c
   - 43 tests pass.
 - *Open, for Jason:* Prompt 24 says these boards came in; the audit's message says they are not ordered.  Which is it?
   On built boards rows 1.4-1.8 are reworks or rev B; before an order they are fixes.
+
+## Second message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> "Not ordered" came from the README's rev A line ("not yet ordered"); if the boards came in, rows 1.4-1.15 are rework
+> or rev B items, and the README line wants fixing once Jason confirms.  The Icepi adapter's generator is being made to
+> build either Pmod layout from one switch ("spec" for Digilent modules, "house" for these rev A plugs and ECP5 rev A),
+> and Jason is asked which to order.  For this rev A bring-up on ECP5 rev A the plugs as drawn mate with J303/J304; the
+> unpowered continuity step is the right guard; neither session changes the rev A plugs or `icepi_adapter/`.  ECP5
+> board A's USB PROG is still dead; Jason plans the rework today or tomorrow, and the ECP5 session will say when it
+> enumerates and a bitstream loads.
+
+### Response (2026-11-16)
+
+Nothing changed.  README.md line 12 ("Rev A ... not yet ordered") stays as it is until Jason says whether the boards
+came in; then it gets the order date and what arrived.  The host visits keep waiting for the ECP5 session's word.
