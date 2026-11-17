@@ -43,11 +43,15 @@ Rules of the bench:
    here.
 2. **Which instruments are mine** (next section): their addresses or serial numbers go into `bringup/bench.json`.
 3. Whether an **ECP5-2ADC-2DAC board that has passed its own stages 1-3** (power, JTAG, a bitstream running) is free
-   to be the Pmod host.  About a third of the tiles need it; the rest do not.  **On 2026-11-16 rev A's USB PROG is
-   dead** (the ECP5 board's `bringup/REVB.md` rows 12 and 13: the FT2232H's VPHY and VPLL on 1.8 V, its D+ and D-
-   swapped), so there is no JTAG and no serial channel from the PC until its rework: one wire, and a USB cable with D+
-   and D- crossed.  Until then every visit marked HOST waits; the tool lists it as waiting and moves on to the next
-   visit it can run (a visit waits whenever `bench.json` leaves one of its instruments unassigned).
+   to be the Pmod host.  About a third of the tiles need it; the rest do not.  **ECP5 board A's USB PROG works since
+   2026-11-16 16:57**, after its FT2232H rework (the ECP5 board's `bringup/REVB.md` rows 12 and 13) and only through
+   a **USB cable with D+ and D- crossed**: it enumerates as 0403:6010 "Dual RS232-HS", JTAG on channel A, pmodbench's
+   serial line on channel B (`/dev/serial/by-id/usb-FTDI_Dual_RS232-HS-if01-port0`).  The ECP5 bring-up is using
+   board A now and will say when it is free; until then `host.port` stays empty in `bench.json`, so every visit marked
+   HOST waits and the tool moves on to the next visit it can run.  **Board A's flash holds the ECP5 bring-up's own
+   design**, so it boots into that: pmodbench is loaded into the FPGA only (`openFPGALoader -c ft2232
+   gateware/pmodbench/build/pmodbench.bit`, never `-f`), at every sitting and after every power cycle of board A.
+   The tool reads the ID register before a HOST visit and prints that command if pmodbench is not running.
 
 ## The instruments, and how each is connected
 
@@ -59,7 +63,7 @@ Ask for these (all have drivers in `lab-instrument-control`).  Each board uses a
 | **S1-S4** | Siglent **SDS2104X Plus** scope, CH1-CH4 (it has 50 ohm inputs, which the plan uses) | LAN or USB | four **SMA-male-to-BNC** cables, 0.5 m, labelled S1-S4 at both ends.  No x10 probes |
 | **PWR** | Agilent **E3646A** (the second unit: both outputs work), **output 1** | RS-232 through an FTDI adapter | a **USB-C power lead**: a USB-C plug on two wires (red to +, black to -).  Check its polarity with a meter before the first board |
 | **MOT** | the same supply's **output 2** (one output switch serves both: the tool keeps it at 0 V except during a test that uses it) | | a **5.5 x 2.1 mm barrel plug on two leads, centre +**, for AMOD-M's jack (its motor drivers are below their minimum supply on USB alone: `bringup/REVB.md` 1.5); two clip leads for PhMOD h4's VM terminal |
-| **HOST** | an **ECP5-2ADC-2DAC rev A** board running `gateware/pmodbench/build/pmodbench.bit` | its USB PROG to the PC | the tile board's Pmod plug straight into the host's **Pmod A** socket (the lower one on its right edge).  **Rev A only**: the rev A plugs and rev A's sockets are both non-standard and mate only with each other (`bringup/REVB.md` 1.15); never a standard Pmod host, module or cable |
+| **HOST** | **ECP5-2ADC-2DAC rev A board A**, `gateware/pmodbench/build/pmodbench.bit` loaded into its FPGA (not its flash) | its USB PROG to the PC through the **D+/D- crossed USB cable** | the tile board's Pmod plug straight into the host's **Pmod A** socket (the lower one on its right edge).  **Rev A only**: the rev A plugs and rev A's sockets are both non-standard and mate only with each other (`bringup/REVB.md` 1.15); never a standard Pmod host, module or cable |
 | **P1, P2** | HP **8720ES** network analyzer, ports 1 and 2 | GPIB 16 through the Prologix adapter | its two test cables, labelled P1 and P2, with a **full two-port calibration at their ends for 50 MHz to 6 GHz, 1601 points** (every analyzer visit uses that one sweep; the tool refuses to change it, because that would switch the calibration off) |
 | **SA** | Rigol **DSA875** spectrum analyzer | USB | one SMA cable, labelled SA (the most it is given here is a synthesizer's +5 dBm) |
 | (rails) | scope CH1-CH3 again, only in the power stage | | three **BNC-to-clip** leads (x1) and four male-male jumper wires for the rails socket |

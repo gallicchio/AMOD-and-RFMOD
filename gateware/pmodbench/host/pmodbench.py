@@ -746,6 +746,10 @@ class PmodBench:
 
     def ident(self):
         i = self.rd('ID')
+        if i == 0xEC5BA2D2:
+            raise IOError('board: it is running its own bring-up design (ID ec5ba2d2, booted from its flash), not pmodbench: '
+                          'load build/pmodbench.bit into the FPGA with `openFPGALoader -c ft2232 build/pmodbench.bit` '
+                          '(no -f: the flash is the ECP5 bring-up\'s)')
         if i != ID:
             raise IOError('board: ID register reads %08x, not %08x (is build/pmodbench.bit loaded?)' % (i, ID))
         self.gate = self.rd('GATE')

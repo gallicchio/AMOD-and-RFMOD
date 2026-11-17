@@ -1050,3 +1050,28 @@ Nothing to change.  The host visits keep waiting for that word.
   can reverse the order along the rows only by swapping the rows too.  So the best such a rework gives is power right
   and IO1-4 on IO5-8, which is the "turned over, with the `.lpf` swap" case.  Only crossed wires (a harness, or a small
   adapter board whose traces cross) undo a mirror.
+
+## Seventh message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> Board A's USB PROG works: after the FT2232H rework and with a D+/D- swapped cable it enumerated at 16:57 as
+> 0403:6010 "Dual RS232-HS" (`/dev/serial/by-id/usb-FTDI_Dual_RS232-HS-if00-port0` is ttyUSB3, if01 is ttyUSB4);
+> `openFPGALoader --cable ft2232 --detect` reads idcode 0x41111043 (LFE5U-25).  No bitstream loaded yet.  Tonight it
+> runs ECP5 visit 1B on board A (JTAG load, its bring-up bitstream into flash, the self-tests), so the board and its
+> FT2232H are busy: don't load pmodbench.bit or claim the port tonight.  Nothing is on the Pmods; Jason said no Pmod
+> hardware is connected.  It will say when visit 1B is done and the port is free.  The flash will hold ECP5's
+> bringup.bit, so the board boots into that, not pmodbench.
+
+### Response (2026-11-16)
+
+- *Hands off:* nothing here opened board A's port or loaded anything (the `/dev/serial/by-id` names were listed,
+  nothing more).  `host.port` stays empty in `bringup/bench.json`, so every HOST visit keeps waiting until the ECP5
+  session says the board is free.
+- *The plan* (`BRINGUP.md`, item 3 and the HOST row): USB PROG works on board A through the D+/D- crossed cable;
+  pmodbench goes into the FPGA only, never `-f`, at every sitting and after every power cycle, because the flash is
+  the ECP5 bring-up's.  The same warning is in `gateware/pmodbench/README.md` and `build.sh`.
+- *The tool:* `run.py go` now reads the host's ID register before any HOST visit and, if pmodbench is not running,
+  stops before touching anything and prints the SRAM-only load command.  The driver names the ECP5 bring-up's design
+  when it finds its ID (0xEC5BA2D2), with a test for that (`bringup/test_bringup.py`, 44 pass; pmodbench's `make test`,
+  84 checks, pass).  The card text for HOST names the crossed cable.
+- The driver's `auto` port finds `usb-FTDI_Dual_RS232-HS-if01-port0`, channel B, the one the ECP5 session listed; the
+  bench's three FT232R adapters do not match it.

@@ -113,6 +113,22 @@ def test_host_calls_exist_in_the_driver():
         inspect.signature(fn).bind(None, *args, **kwargs)
 
 
+def test_host_running_the_ecp5_bringup_design_is_named():
+    """Board A boots the ECP5 bring-up's design from its flash; the driver must say so and give the SRAM-only load."""
+    import struct
+    sys.path.insert(0, os.path.join(HERE, "..", "gateware", "pmodbench", "host"))
+    import pmodbench
+
+    class Booted(pmodbench.Transport):
+        def write(self, data): pass
+        def read(self, n): return struct.pack("<I", 0xEC5BA2D2)[:n]
+        def wait(self, seconds): pass
+
+    with pytest.raises(IOError) as e:
+        pmodbench.PmodBench(transport=Booted())
+    assert "own bring-up design" in str(e.value) and "no -f" in str(e.value)
+
+
 def test_command_line_keeps_its_record(tmp_path):
     env = dict(os.environ)
     for f in ("state_sim.json", "BRINGUP_LOG_sim.md"):

@@ -139,7 +139,7 @@ def waiting_for(stem, s, cfg=None):
             "vna": cfg["vna"].get("gpib") is not None, "sa": bool(cfg["sa"].get("host") or cfg["sa"].get("usb_serial")),
             "host": bool(cfg["host"].get("port"))}
     words = {"generators": "the generator", "scope": "the scope", "psu": "the supply", "vna": "the network analyzer",
-             "sa": "the spectrum analyzer", "host": "the Pmod host (an ECP5 board with working USB PROG)"}
+             "sa": "the spectrum analyzer", "host": "the Pmod host (ECP5 board A, when the ECP5 bring-up lends it)"}
     return [words[n] for n in sorted(engine.needs(v, tiles.BOARDS[stem])) if not have[n]]
 
 
@@ -161,8 +161,9 @@ def conn_line(stem, c, tile, jack, note):
     if c == "MOT":
         return "%-5s supply output 2 (the motor supply; I set it, 0 V between tests) -> %s" % (c, jack)
     if c == "HOST":
-        return ("%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; USB PROG to "
-                "this PC.  Rev A plugs are non-standard: never a standard Pmod host or cable" % c)
+        return ("%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to "
+                "this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are "
+                "non-standard: never a standard Pmod host or cable" % c)
     j = jack_info(stem, tile, jack)
     load = " -- %s" % note.split(", ")[1] if note.startswith("scope, ") else ""
     return "%-5s %-28s  ->  tile %s \"%s\", jack printed \"%s\": row %d, column %d, the cell's %s%s" % (
@@ -391,6 +392,18 @@ def go(args):
             volts, amps = bench.psu.read()
             if volts < 4.5:
                 raise SystemExit("the board's supply reads %.2f V: run `run.py power %s` (or `--resume`) first" % (volts, stem))
+        if "host" in engine.needs(v, b) and not args.sim:
+            try:
+                bench.host                       # opens the port and reads the ID register
+            except NotAssigned as e:
+                raise SystemExit("cannot run %s: %s" % (sid, e))
+            except Exception as e:
+                raise SystemExit("%s: the Pmod host does not answer as pmodbench: %s\n"
+                                 "  The ECP5 board boots its own bring-up design from its flash, so pmodbench must be loaded into\n"
+                                 "  the FPGA at every sitting and after every power cycle of that board:\n"
+                                 "      openFPGALoader -c ft2232 %s\n"
+                                 "  (never -f: that would overwrite the ECP5 bring-up's flash).  Then run this step again."
+                                 % (sid, e, os.path.join(ROOT, "gateware", "pmodbench", "build", "pmodbench.bit")))
         for t in v.tests:
             if args.only and args.only.lower() not in t.id.lower():
                 continue

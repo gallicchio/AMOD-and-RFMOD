@@ -5,6 +5,7 @@
 # Load the result (by hand, at the board) with
 #   openFPGALoader -c ft2232 build/pmodbench.bit          (into the FPGA, until the next power cycle)
 #   openFPGALoader -c ft2232 -f build/pmodbench.bit       (into the flash: it boots by itself from then on)
+#   (never -f on ECP5 board A: its flash holds the ECP5 bring-up's own design)
 set -e
 cd "$(dirname "$0")"
 OSS=${OSS_CAD_SUITE:-$HOME/mudd/133electronics/icepi-zero-dac-adc/tools/oss-cad-suite}
