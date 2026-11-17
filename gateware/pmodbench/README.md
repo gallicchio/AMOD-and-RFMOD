@@ -34,8 +34,8 @@ python3 host/pmodbench.py ident                     # {'id': 0x504D4231, 'versio
 
 **On ECP5 board A, never `-f`**: its flash holds the ECP5 bring-up's own design (`bringup.bit`, ID 0xEC5BA2D2),
 so the board boots into that, and pmodbench goes into the FPGA at every sitting and after every power cycle.  The
-driver names that design when it finds it.  Rev A's USB PROG works only after its FT2232H rework and through a USB
-cable with D+ and D- crossed (the ECP5 board's `bringup/REVB.md` rows 12 and 13).
+driver names that design when it finds it.  Rev A's USB PROG works only after its FT2232H rework and through the labelled
+USB-A-to-C cable with D+ and D- crossed (the ECP5 board's `bringup/REVB.md` rows 12 and 13).
 
 LED0 blinks at 1.5 Hz when the bitstream is alive.  At power-up **every Pmod pin is high-Z** and stays so until
 the driver is told which board is in the socket.  The serial channel is the FT2232H's channel B (found under

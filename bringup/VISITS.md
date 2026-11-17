@@ -405,7 +405,7 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile a6 "1-bit ADC", jack printed "IN 10K": row 2, column 1, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile a8 "heat", jack printed "TEMP OUT": row 2, column 3, the cell's bottom-right -- 1 Mohm input
    S2    scope CH2 (SMA to BNC)        ->  tile a11 "ultrasound", jack printed "RX OUT": row 4, column 2, the cell's bottom-right -- 1 Mohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - a6.ones density against IN  (first-order delta-sigma closed through the FPGA: density = IN / 3.3 V)
         density@0.5: 0.1515 (0.1015 to 0.2015)
@@ -596,7 +596,7 @@ Hookup (every cable of this visit):
    S1    scope CH1 (SMA to BNC)        ->  tile n8 "step attenuator", jack printed "OUT": row 4, column 2, the cell's bottom-right -- 50 ohm input
    G2    generator CH2 (BNC to SMA)    ->  tile n9 "oscillator", jack printed "TUNE": row 1, column 4, the cell's top-left
    S2    scope CH2 (SMA to BNC)        ->  tile n9 "oscillator", jack printed "OUT": row 1, column 4, the cell's bottom-right -- 50 ohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - n8.every bit, by the FPGA  (PE43711 over the Pmod: each of the seven bits alone, then all of them)
         loss at 0 dB: 0.8 to 3.2 dB
@@ -660,7 +660,7 @@ Then say: "N.hands3 cabled" and stay: I run one part at a time and say what to c
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile n8 "step attenuator", jack printed "IN": row 4, column 1, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile n8 "step attenuator", jack printed "OUT": row 4, column 2, the cell's bottom-right -- 50 ohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    * you: n8 DIP: way 1 (SPI) OFF, way 8 (16 dB) ON, ways 2-7 OFF
    - n8.by the switches  (direct parallel mode: 16 dB by hand)
@@ -918,7 +918,7 @@ Cables to move: P1, P2, HOST
 Hookup (every cable of this visit):
    P1    network analyzer port 1       ->  tile n8 "step attenuator", jack printed "IN": row 4, column 1, the cell's top-left
    P2    network analyzer port 2       ->  tile n8 "step attenuator", jack printed "OUT": row 4, column 2, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - n8.S21 at 0 dB
         gain at 1 GHz: -3.2 to -1 dB
@@ -1086,7 +1086,7 @@ First, on the board:
    * r10's slide switch UP
 Hookup (every cable of this visit):
    SA    spectrum analyzer input       ->  tile r10 "synthesizer", jack printed "OUT A+": row 4, column 1, the cell's top-left
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - r10.OUT A+ at 915 MHz  (MAX2871 at its top power step (+5 dBm), locked to the TCXO)
         frequency near 915 MHz: 914.9 MHz to 915.1 MHz
@@ -1116,7 +1116,7 @@ First, on the board:
    * r10's slide switch UP
 Hookup (every cable of this visit):
    SA    spectrum analyzer input       ->  tile r10 "synthesizer", jack printed "OUT A-": row 4, column 2, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - r10.OUT A- at 915 MHz  (the complementary output: the same power within a dB or two)
         level near 915 MHz: -6 to 9 dBm
@@ -1137,7 +1137,7 @@ First, on the board:
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile r7 "TX mixer", jack printed "IF": row 3, column 2, the cell's bottom-right
    SA    spectrum analyzer input       ->  tile r7 "TX mixer", jack printed "RF": row 3, column 1, the cell's top-left
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - r7.up-conversion at 915 MHz  (0 dBm at 6.25 MHz on IF: both sidebands about 8 dB down)
         level near 921.25 MHz: -18 to -3 dBm
@@ -1159,7 +1159,7 @@ First, on the board:
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile r8 "RX mixer", jack printed "IF": row 3, column 4, the cell's bottom-right
    SA    spectrum analyzer input       ->  tile r8 "RX mixer", jack printed "RF": row 3, column 3, the cell's top-left
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - r8.up-conversion at 915 MHz  (0 dBm at 6.25 MHz on IF: both sidebands about 8 dB down)
         level near 921.25 MHz: -18 to -3 dBm
@@ -1181,7 +1181,7 @@ First, on the board:
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile r13 "I/Q transmitter", jack printed "I IN": row 4, column 3, the cell's top-left
    SA    spectrum analyzer input       ->  tile r13 "I/Q transmitter", jack printed "RF OUT": row 4, column 4, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - r13.carrier at 915 MHz  (DC on I alone is a CW carrier; about -3 dBm at full scale)
         level near 915 MHz: -20 to 3 dBm
@@ -1324,7 +1324,7 @@ Hookup (every cable of this visit):
    S3    scope CH3 (SMA to BNC)        ->  tile c4 "SC filter", jack printed "OUT": row 1, column 1, the cell's bottom-right -- 1 Mohm input
    G2    generator CH2 (BNC to SMA)    ->  tile c5 "SC integrator", jack printed "IN 50R": row 1, column 2, the cell's top-left
    S4    scope CH4 (SMA to BNC)        ->  tile c5 "SC integrator", jack printed "OUT": row 1, column 3, the cell's bottom-right -- 1 Mohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - c3.pump against its clock  (Rout = 1 / (f C) + 60 ohm into 1 k: -4.6 V at 100 kHz, -2.4 V at 2 kHz, each / 5.7)
         out 100 kHz: -0.92 to -0.68 V
@@ -1356,7 +1356,7 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile c6 "delta-sigma", jack printed "IN 10K": row 2, column 2, the cell's top-left
    G2    generator CH2 (BNC to SMA)    ->  tile c7 "track and hold", jack printed "IN 50R": row 4, column 4, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile c7 "track and hold", jack printed "OUT": row 4, column 4, the cell's bottom-right -- 1 Mohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - c6.ones density against IN  (second order: density = 0.5 + IN / 3.3 V)
         density@-1: 0.197 (0.147 to 0.247)
@@ -1380,7 +1380,7 @@ Cables to move: G1, G2; take off: S1
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile c8 "comparator", jack printed "IN 20K": row 3, column 1, the cell's top-left
    G2    generator CH2 (BNC to SMA)    ->  tile c8 "comparator", jack printed "DAC 20K": row 3, column 1, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - c8.the bit against the DAC  (IN +0.5 V; DAC at -0.2 V, then +1.2 V)
         bit, DAC below IN: 1 to 1
@@ -1571,7 +1571,7 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile h2 "pulse amplifier", jack printed "IN": row 1, column 3, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile h2 "pulse amplifier", jack printed "OUT": row 1, column 3, the cell's bottom-right -- 50 ohm input
    S2    scope CH2 (SMA to BNC)        ->  tile h9 "noise source", jack printed "OUT": row 1, column 4, the cell's bottom-right -- 50 ohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - h2.enabled  (THS3491 at 1 + 698 / 75 = 10.3; 0.1 V p-p in, 1 V p-p out: small enough to run continuously)
         gain at 1 MHz: 20.23 dB (19.43 to 21.03 dB)
@@ -1704,7 +1704,7 @@ Hookup (every cable of this visit):
    G2    generator CH2 (BNC to SMA)    ->  tile q1 "I/Q modulator", jack printed "I IN": row 3, column 1, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile q2 "I/Q demodulator", jack printed "I OUT": row 3, column 3, the cell's top-left -- 50 ohm input
    S2    scope CH2 (SMA to BNC)        ->  tile q2 "I/Q demodulator", jack printed "Q OUT": row 3, column 4, the cell's bottom-right -- 50 ohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - q2.the loop: q3, q1, q2  (a 1 MHz tone on I goes up to 915 MHz and comes back down on the same LO: one coherent radio)
         root sum square of I and Q: 0.006 to 2 V
@@ -1835,7 +1835,7 @@ First, on the board:
 Hookup (every cable of this visit):
    P1    network analyzer port 1       ->  tile q11 "switch", jack printed "RFC": row 4, column 3, the cell's top-left
    P2    network analyzer port 2       ->  tile q11 "switch", jack printed "RF1": row 4, column 4, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - q11.RFC to RF1, on
         gain at 2.5 GHz: -2.5 to -0.2 dB
@@ -1856,7 +1856,7 @@ First, on the board:
 Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile q3 "synthesizer", jack printed "REF IN": row 4, column 2, the cell's top-left
    SA    spectrum analyzer input       ->  tile q3 "synthesizer", jack printed "OUT A+": row 4, column 1, the cell's top-left
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - q3.OUT A+ at 915 MHz  (the generator's 25 MHz square (0 to 3 V at the unterminated jack) is the reference)
         frequency near 915 MHz: 914.9 MHz to 915.1 MHz
@@ -1882,7 +1882,7 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile q3 "synthesizer", jack printed "REF IN": row 4, column 2, the cell's top-left
    G2    generator CH2 (BNC to SMA)    ->  tile q1 "I/Q modulator", jack printed "I IN": row 3, column 1, the cell's top-left
    SA    spectrum analyzer input       ->  tile q1 "I/Q modulator", jack printed "RF OUT": row 3, column 2, the cell's top-left
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - q1.carrier from DC on I  (0.5 V on I: a carrier a few dB under the 0 dBm full scale)
         level near 915 MHz: -18 to 4 dBm
@@ -1901,7 +1901,7 @@ First, on the board:
    * q4's and q7's slide switches UP
 Hookup (every cable of this visit):
    SA    spectrum analyzer input       ->  tile q4 "LNA", jack printed "OUT": row 1, column 3, the cell's bottom-right
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - q7.noise through the LNA  (15-30 dB of excess noise, lifted 19.5 dB by q4 over the analyzer's floor)
         rise: 5 to 50 dB
@@ -2047,7 +2047,7 @@ Hookup (every cable of this visit):
    S1    scope CH1 (SMA to BNC)        ->  tile m3 "DC motor", jack printed "V /13": row 4, column 1, the cell's top-left -- 1 Mohm input
    S2    scope CH2 (SMA to BNC)        ->  tile m3 "DC motor", jack printed "I 1V/A": row 4, column 2, the cell's top-left -- 1 Mohm input
    MOT   supply output 2 (the motor supply; I set it, 0 V between tests) -> m2's barrel jack "5-16V" (5.5 x 2.1 mm plug, centre +)
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - m3.bridge with no motor  (IN1 on IO7, IN2 on IO1: (M1 - M2) / 13 = +-VMOT / 13, with 9.0 V on the jack (REVB 1.5: on USB alone the DRV8251A is below its 4.5 V minimum))
         forward: 0.58 to 0.72 V
@@ -2264,7 +2264,7 @@ Hookup (every cable of this visit):
    G1    generator CH1 (BNC to SMA)    ->  tile b3 "BLDC driver", jack printed "COAST 50R": row 4, column 2, the cell's top-left
    S1    scope CH1 (SMA to BNC)        ->  tile b4 "back-EMF", jack printed "EA /14": row 4, column 1, the cell's top-left -- 1 Mohm input
    S2    scope CH2 (SMA to BNC)        ->  tile b4 "back-EMF", jack printed "EB /14": row 4, column 1, the cell's bottom-right -- 1 Mohm input
-   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
+   HOST  the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are non-standard: never a standard Pmod host or cable
 What I then run, and what passes:
    - b4.each phase high in turn, no motor  (INHA IO5, INHB IO1, INHC IO2: a phase at VMOT reads (VMOT - VMOT / 3) / 14, the others -(VMOT / 3) / 14)
         EA, A high: 0.219 (0.169 to 0.269)

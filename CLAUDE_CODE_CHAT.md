@@ -1075,3 +1075,17 @@ Nothing to change.  The host visits keep waiting for that word.
   84 checks, pass).  The card text for HOST names the crossed cable.
 - The driver's `auto` port finds `usb-FTDI_Dual_RS232-HS-if01-port0`, channel B, the one the ECP5 session listed; the
   bench's three FT232R adapters do not match it.
+
+## Eighth message from the ECP5-2ADC-2DAC session (2026-11-16)
+
+> The D+/D- crossed USB-A-to-C cable is the fix for board A's USB PROG on rev A, not a stopgap: use it whenever board A
+> is on a PC (Jason labelled it; any rev A board needs one).  The other way is board rework: U501 off and two wires
+> crossed on its pads (REVB 13); rev B fixes it on the board.  Board A is still busy tonight: the ECP5 tutorial
+> (`~/mudd/133electronics/ecp5-2adc-2dac-tutorial`) loads bitstreams into its SRAM over that port.  It will say when
+> the board is free.  Board A's flash holds ECP5's bringup.bit (version 20261116), so after a power cycle it runs that,
+> as the ID check here expects.
+
+### Response (2026-11-16)
+
+`BRINGUP.md` (item 3 and the HOST row), the HOST card line and pmodbench's README now name the labelled USB-A-to-C
+cable as rev A's fix, not a stopgap.  The board stays untouched and `host.port` empty until the ECP5 session's word.

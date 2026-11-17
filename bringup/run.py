@@ -162,7 +162,7 @@ def conn_line(stem, c, tile, jack, note):
         return "%-5s supply output 2 (the motor supply; I set it, 0 V between tests) -> %s" % (c, jack)
     if c == "HOST":
         return ("%-5s the board's Pmod plug (bottom edge) straight into the ECP5-2ADC-2DAC **rev A** board's **Pmod A** socket; its USB PROG to "
-                "this PC through the D+/D- crossed USB cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are "
+                "this PC through the labelled D+/D- crossed USB-A-to-C cable, pmodbench.bit loaded into its FPGA (the tool checks).  Rev A plugs are "
                 "non-standard: never a standard Pmod host or cable" % c)
     j = jack_info(stem, tile, jack)
     load = " -- %s" % note.split(", ")[1] if note.startswith("scope, ") else ""
